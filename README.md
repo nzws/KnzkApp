@@ -1,0 +1,2 @@
+# KnzkApp
+KnzkAppは、BBCodeやカスタム絵文字に対応した神崎丼専用Mastodonクライアントです。
