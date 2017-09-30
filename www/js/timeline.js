@@ -31,7 +31,6 @@ function showAlert(reload, more_load) {
         get = "?max_id="+alert_old_id;
     }
     fetch("https://"+inst+"/api/v1/notifications"+get, {
-        mode: 'cors',
         headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
         method: 'GET'
     }).then(function(response) {
@@ -138,7 +137,6 @@ function showTL(mode, reload, more_load, clear_load, change_TL) {
             tlmode = "public?local=true&since_id="+toot_new_id;
     }
     fetch("https://"+inst+"/api/v1/timelines/"+tlmode, {
-        mode: 'cors',
         headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
         method: 'GET'
     }).then(function(response) {
@@ -198,7 +196,6 @@ function showAccountTL(id, more_load, media) {
 
     if (!media) {
         fetch("https://"+inst+"/api/v1/accounts/"+id+"/statuses?pinned=true", {
-            mode: 'cors',
             headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
             method: 'GET'
         }).then(function(response) {
@@ -221,7 +218,6 @@ function showAccountTL(id, more_load, media) {
         document.getElementById("account_pinned_toot").innerHTML = "";
     }
     fetch("https://"+inst+"/api/v1/accounts/"+id+"/statuses"+get, {
-        mode: 'cors',
         headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
         method: 'GET'
     }).then(function(response) {

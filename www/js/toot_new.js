@@ -168,7 +168,6 @@ function post(id, mode, option) {
         option.in_reply_to_id = "";
     }
     fetch("https://"+inst+"/api/v1/statuses", {
-        mode: 'cors',
         headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
         method: 'POST',
         body: JSON.stringify({
