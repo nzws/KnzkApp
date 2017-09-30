@@ -59,7 +59,7 @@ function t_text(text) {
     text = text.replace(/5,?000\s*兆円/g , "<img src=\"https://knzk.me/emoji/5000tyoen.svg\" style=\"height: 1.8em;\"/>");
     text = text.replace(/ニコる/g , "<img src=\"https://knzk.me/emoji/nicoru.svg\" style=\"height: 1.5em;\"/>");
     text = text.replace(/バジリスク\s*タイム/g , "<img src=\"https://knzk.me/emoji/basilisktime.png\" height=\"40\"/>");
-    //text = text.replace(/熱盛/g , "<img src=\"https://knzk.me/emoji/atumori.png\" height=\"51\"/>");
+    text = text.replace(/熱盛/g , "<img src=\"https://knzk.me/emoji/atumori.png\" height=\"51\"/>");
     text = text.replace(/欲しい！/g , "<img src=\"https://knzk.me/emoji/hosii.png\" height=\"30\"/>");
 
     while (emoji_num_a[i]) {
