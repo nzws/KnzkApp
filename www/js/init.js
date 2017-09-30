@@ -83,7 +83,6 @@ function init() {
     } else {
         show('now_loading');
         fetch("https://"+inst+"/api/v1/instance", {
-            mode: 'cors'
         }).then(function(response) {
             if(response.ok) {
                 return response.json();
@@ -103,7 +102,6 @@ function init() {
         }).catch(function(error) {
             if (stat_sv) {
                 fetch("http://"+stat_sv+"/api/v1/components", {
-                    mode: 'cors'
                 }).then(function(response) {
                     if(response.ok) {
                         return response.json();

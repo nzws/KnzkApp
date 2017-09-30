@@ -10,7 +10,6 @@ function login_callback(params) {
             loginref.close();
             show('now_loading');
             fetch("https://"+inst+"/oauth/token", {
-                mode: 'cors',
                 method: 'POST',
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify({
@@ -31,7 +30,6 @@ function login_callback(params) {
                 localStorage.setItem('knzk_login_token',json.access_token);
 
                 fetch("https://"+inst+"/api/v1/accounts/verify_credentials", {
-                    mode: 'cors',
                     headers: {'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')}
                 }).then(function(response) {
                     if(response.ok) {
