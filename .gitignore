@@ -1,0 +1,6 @@
+www/js/server.js
+.monaca/local_properties.json
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
