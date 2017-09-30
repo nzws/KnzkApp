@@ -51,8 +51,30 @@ function initph() {
 }
 
 function init() {
-    now_TL = "local", last_load_TL = "", tmp_post_text = "", toot_new_id = 0, toot_old_id = 0, alert_new_id = 0, alert_old_id = 0, more_status_id = "", more_acct_id = "", tmp_bbcode_id = "", tmp_bbcode_limit = "", tmp_bbcode_tootbutton = "", emoji_list = Array(), emoji_num_a = Array(), account_page_acct = "", tmp_post_reply = 0, tmp_post_visibility = "";
-    var emoji_num = 0;
+    //変数破棄
+    now_TL = "local";
+    last_load_TL = "";
+    tmp_post_text = "";
+    toot_new_id = 0;
+    toot_old_id = 0;
+    account_toot_old_id = 0;
+    account_page_id = 0;
+    alert_new_id = 0;
+    alert_old_id = 0;
+    more_status_id = "";
+    more_acct_id = "";
+    tmp_bbcode_id = "";
+    tmp_bbcode_limit = "";
+    tmp_bbcode_tootbutton = "";
+    emoji_list = Array();
+    emoji_num_a = Array();
+    emoji_num = 0;
+    account_page_acct = "";
+    tmp_text_pre = "";
+    tmp_post_reply = 0;
+    tmp_post_visibility = "";
+    follow_old_id = 0;
+
     hide('cannot-connect-sv');
     hide('cannot-connect-mastodon');
     hide('cannot-connect-internet');
