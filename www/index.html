@@ -1,0 +1,628 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <script src="components/loader.js"></script>
+    <script src="components/onsenui/js/onsenui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/lib/js/emojione.min.js" integrity="sha256-9cBkVeU53NiJ9/BdcJta3HbERAmf5X9DE2WvL8V+gDs=" crossorigin="anonymous" async></script>
+
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel="stylesheet" href="components/onsenui/css/onsenui.min.css">
+    <link rel="stylesheet" href="components/onsenui/css/onsen-css-components.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dark.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/css/emojione.min.css" />
+
+    <script>
+        var now_TL = "local";
+        var last_load_TL = "";
+        var tmp_post_text = "";
+        var toot_new_id = 0;
+        var toot_old_id = 0;
+        var account_toot_old_id = 0;
+        var account_page_id = 0;
+        var alert_new_id = 0;
+        var alert_old_id = 0;
+        var more_status_id = "";
+        var more_acct_id = "";
+        var tmp_bbcode_id = "";
+        var tmp_bbcode_limit = "";
+        var tmp_bbcode_tootbutton = "";
+        var emoji_list = Array();
+        var emoji_num_a = Array();
+        var emoji_num = 0;
+        var account_page_acct = "";
+        var tmp_text_pre = "";
+        var tmp_post_reply = 0;
+        var tmp_post_visibility = "";
+    </script>
+
+    <script src="js/server.js"></script>
+    <script src="js/init.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/toot_new.js"></script>
+    <script src="js/toot.js"></script>
+    <script src="js/timeline.js"></script>
+    <script src="js/account.js"></script>
+</head>
+<body>
+<ons-navigator id="navigator" page="init.html"></ons-navigator>
+
+<ons-template id="init.html">
+    <ons-page>
+        <ons-tabbar swipeable animation="slide" position="bottom">
+            <ons-tab page="home.html" icon="fa-home" active></ons-tab>
+            <ons-tab page="alert.html" icon="fa-bell"></ons-tab>
+            <ons-tab onclick="loadNav('post.html', 'up')" icon="fa-pencil-square"></ons-tab>
+            <ons-tab onclick="show_account(localStorage.getItem('knzk_userid'))" icon="fa-user"></ons-tab>
+            <ons-tab page="config.html" icon="fa-cog"></ons-tab>
+        </ons-tabbar>
+    </ons-page>
+</ons-template>
+
+<ons-template id="home.html">
+    <ons-page id="home">
+        <ons-toolbar>
+            <div class="left">
+                <ons-toolbar-button onclick="TL_prev()">
+                    <ons-icon icon="md-chevron-left"></ons-icon>
+                </ons-toolbar-button>
+            </div>
+            <div class="center" id="TL_name"></div>
+            <div class="right">
+                <ons-toolbar-button onclick="TL_next()">
+                    <ons-icon icon="md-chevron-right"></ons-icon>
+                </ons-toolbar-button>
+            </div>
+        </ons-toolbar>
+        <ons-pull-hook id="ph-home" class="dark-bg">
+            <ons-icon icon="fa-refresh" class="white"></ons-icon>
+        </ons-pull-hook>
+        <div id="home_main">
+            <div class="loading-now">
+                <ons-progress-circular indeterminate></ons-progress-circular>
+            </div>
+        </div>
+    </ons-page>
+</ons-template>
+
+<ons-template id="alert.html">
+    <ons-page>
+        <ons-toolbar>
+            <div class="center">通知</div>
+            <div class="right">
+                <ons-toolbar-button onclick="show('clear-alert')">
+                    <ons-icon icon="trash"></ons-icon>
+                </ons-toolbar-button>
+            </div>
+        </ons-toolbar>
+        <ons-pull-hook id="ph-alert" class="dark-bg">
+            <ons-icon icon="fa-refresh" class="white"></ons-icon>
+        </ons-pull-hook>
+        <div id="alert_main">
+            <div class="loading-now">
+                <ons-progress-circular indeterminate></ons-progress-circular>
+            </div>
+        </div>
+    </ons-page>
+</ons-template>
+
+<ons-template id="config.html">
+    <ons-page>
+        <ons-toolbar>
+            <div class="center">設定</div>
+        </ons-toolbar>
+        <ons-list>
+            <ons-list-header>アカウント情報</ons-list-header>
+            <ons-list-item onclick="show_account(localStorage.getItem('knzk_userid'))" id="account-conf-id">@</ons-list-item>
+            <ons-list-item onclick="show('logout_dialog')">ログアウト</ons-list-item>
+        </ons-list>
+        <p></p>
+        <ons-list>
+            <ons-list-header>デザイン設定</ons-list-header>
+            <ons-list-item>
+                <div class="center">
+                    大きなお気に入りボタン
+                </div>
+                <div class="right">
+                    <ons-switch onclick="change_conf('knzk_bigfav', 'conf-fav-namu')" input-id="conf-fav-namu"></ons-switch>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    マテリアルデザインを使用
+                </div>
+                <div class="right">
+                    <ons-switch onclick="change_conf('knzk_material_design', 'conf-material')" input-id="conf-material"></ons-switch>
+                </div>
+            </ons-list-item>
+        </ons-list>
+        <div class="container">
+            <p class="note">設定は再起動後に反映されます。</p>
+        </div>
+        <ons-list>
+            <ons-list-item onclick="loadNav('about.html')">このアプリについて</ons-list-item>
+            <ons-list-item onclick="window.open('https://' + inst + '/about/more', '_blank')">インスタンス情報</ons-list-item>
+        </ons-list>
+    </ons-page>
+</ons-template>
+
+<ons-template id="post.html">
+    <ons-page>
+        <ons-toolbar>
+            <div class="left">
+                <ons-toolbar-button onclick="BackTab('down')">
+                    <ons-icon icon="fa-times"></ons-icon>
+                </ons-toolbar-button>
+            </div>
+            <div class="center">トゥート！</div>
+            <div class="right">
+                <ons-toolbar-button onclick="show_bbcodegen('toot_textarea', 'toot-limit', 'toot-button')">
+                    <ons-icon icon="fa-font"></ons-icon>
+                </ons-toolbar-button>
+            </div>
+        </ons-toolbar>
+        <p></p>
+        <div class="container">
+            <div class="reply-box invisible" id="post_reply_box"><ons-icon icon="fa-reply"></ons-icon>　<span id="post_reply_acct"></span> へ返信</div>
+            <ons-input id="cw_input" modifier="underbar" placeholder="警告文を書いてください" class="w-max" style="display: none;" onkeyup="check_limit(value, 'toot-limit', 'toot-button', 'toot_textarea');"></ons-input>
+            <textarea class="textarea dark-box-in" rows="5" placeholder="今なにしてる？" id="toot_textarea" style="width: 100%" onkeyup="check_limit(value, 'toot-limit', 'toot-button', 'cw_input');"></textarea>
+            <div class="dark-box" style="border-radius: 0">
+                <input type="hidden" id="nsfw_input">
+                <input type="hidden" id="post_mode" value="public">
+                <input type="hidden" id="post_reply">
+
+                <input type='file' accept='.jpg,.gif,.png,image/gif,image/jpeg,image/png' id="new_image_up" class="invisible" onchange="up_file()">
+                <!--<ons-button modifier="quiet" onclick="document.getElementById('new_image_up').click()" style="border-radius: 0" id="new_up_bt"><ons-icon icon="fa-picture-o"></ons-icon></ons-button>-->
+                <ons-button modifier="quiet" onclick="post_nsfw()" style="border-radius: 0" class="invisible" id="nsfw_bt"><ons-icon icon="fa-eye"></ons-icon></ons-button>
+                <ons-button modifier="quiet" onclick="post_cw()" style="border-radius: 0" id="cw_bt">CW</ons-button>
+                <!--<ons-button modifier="quiet" onclick="post_vote()" style="border-radius: 0"><ons-icon icon="fa-align-left"></ons-icon></ons-button>-->
+            </div>
+            <div class="dark-box">
+                <ons-button modifier="quiet" onclick="post_mode()" style="border-radius: 0 0 0 4px" id="post_mode_bt">公開</ons-button>
+                <span style="float: right">
+                <b id="toot-limit" class="toot-limit">4096</b>
+                <ons-button onclick="post('toot_textarea', null, {cw:document.getElementById('cw_input').value, visibility:document.getElementById('post_mode').value, sensitive:document.getElementById('nsfw_input').value, in_reply_to_id: document.getElementById('post_reply').value})" id="toot-button" style="border-radius: 4px 0 4px 0">トゥート！</ons-button>
+                </span>
+            </div>
+        </div>
+    </ons-page>
+</ons-template>
+
+<ons-template id="bbcode.html">
+    <ons-page>
+        <ons-toolbar>
+            <div class="left">
+                <ons-toolbar-button onclick="BackTab()">
+                    <ons-icon icon="fa-chevron-left"></ons-icon>
+                    戻る
+                </ons-toolbar-button>
+            </div>
+            <div class="center">BBCode</div>
+            <div class="right">
+                <ons-toolbar-button onclick="bbcodegen()">
+                    <ons-icon icon="fa-plus"></ons-icon>
+                </ons-toolbar-button>
+            </div>
+        </ons-toolbar>
+        <p></p>
+        <input type="hidden" id="bbcode_color">
+        <div class="container">
+            <p>
+                <ons-input id="bbcode_text" modifier="underbar" placeholder="文字列" class="w-max"></ons-input>
+            </p>
+        </div>
+        <ons-list>
+            <ons-list-item>
+                <div class="center">
+                    基本
+                </div>
+                <div class="right">
+                    <ons-select id="bbcode_base" modifier="underbar">
+                        <option value="">なし</option>
+                        <option value="b"><b>太字</b></option>
+                        <option value="i"><i>斜体</i></option>
+                        <option value="u"><u>アンダーライン</u></option>
+                        <option value="s"><s>取り消し</s></option>
+                    </ons-select>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    色指定
+                </div>
+                <div class="right">
+                    <div class="color-box-mini" id="color-box-mini"></div>　
+                    <ons-button onclick="loadNav('color.html')">変更</ons-button>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    大きさ
+                </div>
+                <div class="right">
+                    <ons-select id="bbcode_large" modifier="underbar">
+                        <option value="">1x</option>
+                        <option value="2">2x</option>
+                        <option value="3">3x</option>
+                        <option value="4">4x</option>
+                        <option value="5">5x</option>
+                    </ons-select>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    回転
+                </div>
+                <div class="right">
+                    <ons-input id="bbcode_spin" modifier="underbar" type="number" value=0></ons-input>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    点滅
+                </div>
+                <div class="right">
+                    <ons-input id="bbcode_pulse" modifier="underbar" type="number" value=0></ons-input>
+                </div>
+            </ons-list-item>
+        </ons-list>
+    </ons-page>
+</ons-template>
+
+<ons-template id="color.html">
+    <ons-page>
+        <ons-toolbar>
+            <div class="left">
+                <ons-toolbar-button onclick="BackTab()">
+                    <ons-icon icon="fa-chevron-left"></ons-icon>
+                    戻る
+                </ons-toolbar-button>
+            </div>
+            <div class="center">カラー選択</div>
+        </ons-toolbar>
+        <p></p>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-4 color-box-base" onclick="bbcode_color()">
+                    <div class="color-box"></div>
+                    標準
+                </div>
+                <div class="col-xs-4 color-box-base" onclick="bbcode_color('FF0000')">
+                    <div class="color-box" style="background-color: #FF0000;"></div>
+                    赤
+                </div>
+                <div class="col-xs-4 color-box-base" onclick="bbcode_color('0000FF')">
+                    <div class="color-box" style="background-color: #0000FF;"></div>
+                    青
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 color-box-base" onclick="bbcode_color('FFFF00')">
+                    <div class="color-box" style="background-color: #FFFF00;"></div>
+                    黄
+                </div>
+                <div class="col-xs-4 color-box-base" onclick="bbcode_color('008000')">
+                    <div class="color-box" style="background-color: #008000;"></div>
+                    緑
+                </div>
+                <div class="col-xs-4 color-box-base" onclick="bbcode_color('000000')">
+                    <div class="color-box" style="background-color: #000000;"></div>
+                    黒
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 color-box-base" onclick="bbcode_color('FFFFFF')">
+                    <div class="color-box" style="background-color: #FFFFFF;"></div>
+                    白
+                </div>
+                <div class="col-xs-4 color-box-base" onclick="bbcode_color('87CEEB')">
+                    <div class="color-box" style="background-color: #87CEEB;"></div>
+                    こおりたそ
+                </div>
+                <div class="col-xs-4 color-box-base" onclick="bbcode_color('FF5B92')">
+                    <div class="color-box" style="background-color: #FF5B92;"></div>
+                    みつきちゃん
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 color-box-base" onclick="bbcode_color('A55A4A')">
+                    <div class="color-box" style="background-color: #A55A4A;"></div>
+                    しげる
+                </div>
+            </div>
+        </div>
+    </ons-page>
+</ons-template>
+
+<ons-template id="showtoot.html">
+    <ons-page>
+        <ons-toolbar>
+            <div class="left">
+                <ons-toolbar-button onclick="BackTab()">
+                    <ons-icon icon="fa-chevron-left"></ons-icon>
+                    戻る
+                </ons-toolbar-button>
+            </div>
+        </ons-toolbar>
+
+        <div id="show_toot">
+            <div class="loading-now">
+                <ons-progress-circular indeterminate></ons-progress-circular>
+            </div>
+        </div>
+    </ons-page>
+</ons-template>
+
+<ons-template id="showfollow.html">
+    <ons-page>
+        <ons-toolbar>
+            <div class="left">
+                <ons-toolbar-button onclick="BackTab()">
+                    <ons-icon icon="fa-chevron-left"></ons-icon>
+                    戻る
+                </ons-toolbar-button>
+            </div>
+            <div class="center" id="follow-page-title">読み込み中...</div>
+        </ons-toolbar>
+
+        <div id="show_follow">
+            <div class="loading-now">
+                <ons-progress-circular indeterminate></ons-progress-circular>
+            </div>
+        </div>
+    </ons-page>
+</ons-template>
+
+<ons-template id="account.html">
+    <ons-page>
+        <ons-toolbar>
+            <div class="left">
+                <ons-toolbar-button onclick="BackTab()">
+                    <ons-icon icon="fa-chevron-left"></ons-icon>
+                    戻る
+                </ons-toolbar-button>
+            </div>
+            <div class="center" id="userpage-title">読み込み中...</div>
+        </ons-toolbar>
+
+        <div class="userpage-button-bg container">
+            <ons-icon icon="fa-user-plus" class="userpage-button" id="userpage-follow-button" onclick="follow(account_page_id, this)"></ons-icon>
+            <div class="userpage-follower invisible" id="userpage-follower-badge">フォロワー</div>
+        </div>
+        <div class="userpage-button-bg container userpage-button-right">
+            <ons-icon icon="fa-bars" class="userpage-button" onclick="account_action(account_page_id)"></ons-icon>
+        </div>
+        <div class="user-bg y-center" id="userpage-bg">
+            <img src="img/missing.png" id="userpage-icon" class="user-logo" />
+            <div class="card-bio">
+                <h3 id="userpage-name" class="user-name"></h3>
+                <div class="user-acct" id="userpage-acct"></div>
+                <div class="user-bio" id="userpage-bio"></div>
+                <div class="user-follow">
+                    <span onclick="showFollow(account_page_id, 'follow')"><b id="userpage-follow"></b> フォロー</span> / <span onclick="showFollow(account_page_id, 'follower')"><b id="userpage-follower"></b> フォロワー</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="account_bar">
+            <div class="account_links">
+                <span class="account_tab" onclick="showAccountTL(account_page_id)">トゥート (<b id="userpage-post-count"></b>)</span>
+                <span class="account_tab" onclick="showAccountTL(account_page_id, null, true)">メディア</span>
+            </div>
+        </div>
+        <div id="account_pinned_toot"></div>
+        <div id="account_toot">
+            <div class="loading-now">
+                <ons-progress-circular indeterminate></ons-progress-circular>
+            </div>
+        </div>
+    </ons-page>
+</ons-template>
+
+<ons-template id="about.html">
+    <ons-page>
+        <ons-toolbar>
+            <div class="left">
+                <ons-toolbar-button onclick="BackTab()">
+                    <ons-icon icon="fa-chevron-left"></ons-icon>
+                    戻る
+                </ons-toolbar-button>
+            </div>
+            <div class="center">このアプリについて</div>
+        </ons-toolbar>
+        <p></p>
+        <div class="container">
+            <div class="w-max main-logo y-center">
+                <img src="img/logo.svg" style="width: 80%;"/>
+            </div>
+            <p>
+                <b>神崎丼アプリ 1.0.0a5</b>
+            </p>
+            <span class="fa fa-spin"><b>南無！ｗ</b></span>
+        </div>
+        <ons-list>
+            <ons-list-header>使用システム/ライブラリ</ons-list-header>
+            <ons-list-item onclick="window.open('https://ja.monaca.io/', '_system')">Monaca</ons-list-item>
+            <ons-list-item onclick="window.open('https://cordova.apache.org/', '_system')">Apache Cordova</ons-list-item>
+            <ons-list-item onclick="window.open('https://ja.onsen.io/', '_system')">Onsen UI</ons-list-item>
+            <ons-list-item onclick="window.open('https://www.emojione.com/', '_system')">EmojiOne</ons-list-item>
+            <ons-list-item onclick="window.open('http://fontawesome.io/', '_system')">Font Awesome</ons-list-item>
+            <ons-list-item onclick="window.open('https://getbootstrap.com/', '_system')">Bootstrap</ons-list-item>
+        </ons-list>
+        <p></p>
+        <ons-list>
+            <ons-list-header>クレジット</ons-list-header>
+            <ons-list-item onclick="window.open('https://knzk.me/@y', '_blank')">アプリ開発: ねじりわさび</ons-list-item>
+            <ons-list-item onclick="window.open('https://knzk.me/@twotwo', '_blank')">ロゴ画像: ネイティオ</ons-list-item>
+            <ons-list-item onclick="window.open('https://knzk.me/@knzk', '_blank')">神崎丼運営: 神埼おにいさん</ons-list-item>
+            <ons-list-item onclick="window.open('https://knzk.me/@imncls', '_blank')">神崎丼運営: NCLS</ons-list-item>
+            <ons-list-item onclick="window.open('https://knzk.me/@_5', '_blank')">神崎丼運営: 🍊</ons-list-item>
+        </ons-list>
+    </ons-page>
+</ons-template>
+
+<ons-template id="login.html">
+    <ons-page>
+        <ons-page>
+            <ons-toolbar>
+                <div class="center">
+                    ログイン
+                </div>
+                <div class="right">
+                    <ons-toolbar-button onclick="loadNav('about.html')">
+                        <ons-icon icon="fa-info-circle"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+            </ons-toolbar>
+            <div class="container">
+                <div class="y-center">
+                    <p></p>
+                    <div class="w-max main-logo">
+                        <img src="img/logo.svg" style="width: 80%;"/>
+                    </div>
+                    <p><ons-button modifier="large" onclick="login_open()"><b>knzk.meにログイン</b></ons-button></p>
+                    <p><a href="#" onclick="window.open('https://knzk.me/about/more', '_blank')">利用規約</a> | <a href="#" onclick="window.open('https://knzk.me/terms', '_blank')">プライバシーポリシー</a></p>
+                </div>
+            </div>
+        </ons-page>
+    </ons-page>
+</ons-template>
+
+<div id="alert_list">
+    <ons-modal direction="up" id="now_loading">
+        <div style="text-align: center">
+            <p>
+                <ons-progress-circular indeterminate></ons-progress-circular>
+            </p>
+        </div>
+    </ons-modal>
+
+    <ons-toast id="loggedin_dialog">
+        ログインしました！<button onclick="hide('loggedin_dialog')">閉じる</button>
+    </ons-toast>
+
+    <ons-alert-dialog id="delete-post">
+        <div class="alert-dialog-title">トゥートを削除</div>
+        <div class="alert-dialog-content">
+            本当に削除しますか？
+        </div>
+        <div class="alert-dialog-footer">
+            <button class="alert-dialog-button" onclick="hide('delete-post')">キャンセル</button>
+            <button class="alert-dialog-button" onclick="delete_post()">削除</button>
+        </div>
+    </ons-alert-dialog>
+    <ons-toast id="del-post-ok">
+        トゥートを削除しました。
+    </ons-toast>
+
+    <ons-alert-dialog id="logout_dialog">
+        <div class="alert-dialog-title">ログアウト</div>
+        <div class="alert-dialog-content">
+            ログアウトしてもよろしいですか？
+        </div>
+        <div class="alert-dialog-footer">
+            <button class="alert-dialog-button" onclick="hide('logout_dialog')">戻る</button>
+            <button class="alert-dialog-button" onclick="logout()">ログアウト</button>
+        </div>
+    </ons-alert-dialog>
+    <ons-toast id="loggedout_dialog">
+        ログアウトしました<button onclick="hide('loggedout_dialog')">閉じる</button>
+    </ons-toast>
+
+    <ons-toast id="report-post">
+        レポートのご協力ありがとうございます。
+    </ons-toast>
+    <ons-toast id="ok-clear-alert">
+        通知を消去しました。
+    </ons-toast>
+    <ons-toast id="ok_conf">
+        設定を保存しました。
+    </ons-toast>
+    <!-- エラー -->
+    <ons-toast id="bbcode-limit">
+        エラー: 文字数制限を超えています！<br>
+        回転や点滅、文字列を少なくしてください。
+    </ons-toast>
+    <ons-toast id="cannot-pros">
+        エラー: 実行できませんでした。<br>
+        接続環境が悪いか鯖落ちしている可能性があります。
+    </ons-toast>
+    <ons-toast id="cannot-post">
+        エラー: 投稿できませんでした。<br>
+        接続環境が悪いか鯖落ちしている可能性があります。
+    </ons-toast>
+    <ons-toast id="cannot-load">
+        エラー: 取得できませんでした。<br>
+        接続環境が悪いか鯖落ちしている可能性があります。
+    </ons-toast>
+    <ons-alert-dialog id="cannot-get-code">
+        <div class="alert-dialog-title">エラー</div>
+        <div class="alert-dialog-content">
+            コードが取得できませんでした！<br>
+            認証画面で拒否していませんか？
+        </div>
+        <div class="alert-dialog-footer">
+            <button class="alert-dialog-button" onclick="hide('cannot-get-code')">閉じる</button>
+        </div>
+    </ons-alert-dialog>
+
+    <ons-alert-dialog id="clear-alert">
+        <div class="alert-dialog-title">通知を消去</div>
+        <div class="alert-dialog-content">
+            本当に通知を消去してもよろしいですか？
+        </div>
+        <div class="alert-dialog-footer">
+            <button class="alert-dialog-button" onclick="hide('clear-alert')">キャンセル</button>
+            <button class="alert-dialog-button" onclick="reset_alert()">通知を消去</button>
+        </div>
+    </ons-alert-dialog>
+
+    <ons-alert-dialog id="cannot-use-ls">
+        <div class="alert-dialog-title">エラー</div>
+        <div class="alert-dialog-content">
+            LocalStorageが使用できません。
+        </div>
+    </ons-alert-dialog>
+
+    <ons-alert-dialog id="cannot-connect-sv">
+        <div class="alert-dialog-title">エラー</div>
+        <div class="alert-dialog-content">
+            インスタンスに接続できません！<br>
+            サーバーが落ちているか、通信環境が悪い可能性があります。
+        </div>
+        <div class="alert-dialog-footer">
+            <button class="alert-dialog-button" onclick="init()">再試行</button>
+        </div>
+    </ons-alert-dialog>
+
+    <ons-alert-dialog id="cannot-connect-mastodon">
+        <div class="alert-dialog-title">エラー</div>
+        <div class="alert-dialog-content">
+            インスタンスに接続できません！<br>
+            サーバーが落ちている可能性があります。<br>
+            詳細はシステム状態のページをご覧ください。
+        </div>
+        <div class="alert-dialog-footer">
+            <button class="alert-dialog-button" onclick="window.open('http://'+stat_sv, '_blank')">ステータスページへ</button>
+            <button class="alert-dialog-button" onclick="init()">再試行</button>
+        </div>
+    </ons-alert-dialog>
+
+    <ons-alert-dialog id="cannot-connect-internet">
+        <div class="alert-dialog-title">エラー</div>
+        <div class="alert-dialog-content">
+            インターネットに接続できません！<br>
+            通信環境が悪い可能性があります。
+        </div>
+        <div class="alert-dialog-footer">
+            <button class="alert-dialog-button" onclick="init()">再試行</button>
+        </div>
+    </ons-alert-dialog>
+</div>
+</body>
+</html>

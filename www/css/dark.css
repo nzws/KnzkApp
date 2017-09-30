@@ -1,0 +1,87 @@
+body, html, .dark-bg, .page__background {
+    background: #282c37;
+}
+
+.white {
+    color: #fff;
+}
+
+.container {
+    color: #fff;
+}
+
+.note {
+    color: #d9e1e8;
+}
+
+.toot {
+    border: 1px solid #393f4f !important;
+    background: #282c37;
+    color: #fff;
+}
+
+.list-header {
+    background: #282c37;
+    color: #606984;
+}
+
+.list-item {
+    background: #404657;
+    color: #fff;
+}
+
+.toot-button, .showtoot-button {
+    color: #606984;
+}
+
+.tabbar, .toolbar {
+    color: #fff;
+    background: #313543;
+    border-top: none;
+}
+
+.toolbar__right, .toolbar__left, .toolbar__center {
+    color: #fff;
+}
+
+.button--large--quiet, .button--light {
+    background: #687390;
+    color: #fff;
+}
+
+a, a:link, a:visited, a:hover {
+    color: #d9e1e8;
+    text-decoration: none;
+}
+
+.toolbar-button, .back-button {
+    color: #2b90d9;
+}
+
+.card {
+    background: none;
+    padding: 0;
+}
+
+.page__content {
+    background-color: #444b5d !important;
+}
+
+
+.dark-box {
+    background: #ebebeb;
+    border-radius: 0 0 4px 4px;
+}
+
+.dark-box-in {
+    border-radius: 4px 4px 0 0;
+}
+
+.toot_big_border {
+    border: none;
+    border-top: 1px solid #393f4f !important;
+}
+
+.big_date {
+    color: #606984;
+}
