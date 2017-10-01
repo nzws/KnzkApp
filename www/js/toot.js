@@ -33,7 +33,7 @@ function toot_card(toot, mode, note) {
             if (toot['sensitive']) { //NSFWオン
                 piccard += "<ons-card onclick=\"window.open('"+toot['media_attachments'][p]['url']+"', '_blank')\" class='nsfw'><h3>回覧注意</h3><small>タップで表示</small></ons-card>";
             } else {
-                piccard += "<ons-card onclick=\"window.open('"+toot['media_attachments'][p]['url']+"', '_blank')\"><img src=\""+toot['media_attachments'][p]['preview_url']+"\" style=\"width: 100%\"/></ons-card>";
+                piccard += "<ons-card onclick=\"window.open('"+toot['media_attachments'][p]['url']+"', '_blank')\" style='background-image: url("+toot['media_attachments'][p]['preview_url']+")' class='card-image'></ons-card>";
             }
             p++;
         }

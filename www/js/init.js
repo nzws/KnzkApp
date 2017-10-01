@@ -77,7 +77,7 @@ function init() {
     media_num = 0;
     media_id = Array();
     tmp_media_del_id = 0;
-    tmp_media_del_obj = null;
+    tmp_media_del_obj = "";
 
     hide('cannot-connect-sv');
     hide('cannot-connect-mastodon');
