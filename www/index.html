@@ -39,6 +39,8 @@
         var tmp_post_reply = 0;
         var tmp_post_visibility = "";
         var follow_old_id = 0;
+        var media_num = 0;
+        var media_id = Array();
     </script>
 
     <script src="js/server.js"></script>
@@ -68,16 +70,30 @@
 <ons-template id="home.html">
     <ons-page id="home">
         <ons-toolbar>
-            <div class="left">
-                <ons-toolbar-button onclick="TL_prev()">
-                    <ons-icon icon="md-chevron-left"></ons-icon>
-                </ons-toolbar-button>
-            </div>
-            <div class="center" id="TL_name"></div>
-            <div class="right">
-                <ons-toolbar-button onclick="TL_next()">
-                    <ons-icon icon="md-chevron-right"></ons-icon>
-                </ons-toolbar-button>
+            <div class="tabbar">
+                <label class="tabbar__item" onclick="TL_change('local')">
+                    <input type="radio" name="TL-change" checked="checked">
+                    <button class="tabbar__button">
+                        <i class="tabbar__icon fa fa-users"></i>
+                        <div class="tabbar__label">ローカル</div>
+                    </button>
+                </label>
+
+                <label class="tabbar__item" onclick="TL_change('home')">
+                    <input type="radio" name="TL-change">
+                    <button class="tabbar__button">
+                        <i class="tabbar__icon fa fa-home"></i>
+                        <div class="tabbar__label">ホーム</div>
+                    </button>
+                </label>
+
+                <label class="tabbar__item" onclick="TL_change('public')">
+                    <input type="radio" name="TL-change">
+                    <button class="tabbar__button">
+                        <i class="tabbar__icon fa fa-globe"></i>
+                        <div class="tabbar__label">連合</div>
+                    </button>
+                </label>
             </div>
         </ons-toolbar>
         <ons-pull-hook id="ph-home" class="dark-bg">
@@ -176,12 +192,10 @@
                 <input type="hidden" id="nsfw_input">
                 <input type="hidden" id="post_mode" value="public">
                 <input type="hidden" id="post_reply">
-
-                <input type='file' accept='.jpg,.gif,.png,image/gif,image/jpeg,image/png' id="new_image_up" class="invisible" onchange="up_file()">
-                <!--<ons-button modifier="quiet" onclick="document.getElementById('new_image_up').click()" style="border-radius: 0" id="new_up_bt"><ons-icon icon="fa-picture-o"></ons-icon></ons-button>-->
+                <ons-button modifier="quiet" onclick="up_file()" style="border-radius: 0" id="new_up_bt"><ons-icon icon="fa-picture-o"></ons-icon></ons-button>
                 <ons-button modifier="quiet" onclick="post_nsfw()" style="border-radius: 0" class="invisible" id="nsfw_bt"><ons-icon icon="fa-eye"></ons-icon></ons-button>
                 <ons-button modifier="quiet" onclick="post_cw()" style="border-radius: 0" id="cw_bt">CW</ons-button>
-                <!--<ons-button modifier="quiet" onclick="post_vote()" style="border-radius: 0"><ons-icon icon="fa-align-left"></ons-icon></ons-button>-->
+                <ons-button modifier="quiet" onclick="post_vote()" style="border-radius: 0"><ons-icon icon="fa-align-left"></ons-icon></ons-button>
             </div>
             <div class="dark-box">
                 <ons-button modifier="quiet" onclick="post_mode()" style="border-radius: 0 0 0 4px" id="post_mode_bt">公開</ons-button>
@@ -190,7 +204,9 @@
                 <ons-button onclick="post('toot_textarea', null, {cw:document.getElementById('cw_input').value, visibility:document.getElementById('post_mode').value, sensitive:document.getElementById('nsfw_input').value, in_reply_to_id: document.getElementById('post_reply').value})" id="toot-button" style="border-radius: 4px 0 4px 0">トゥート！</ons-button>
                 </span>
             </div>
+            <div id="image_list"></div>
         </div>
+
     </ons-page>
 </ons-template>
 
@@ -545,6 +561,9 @@
         設定を保存しました。
     </ons-toast>
     <!-- エラー -->
+    <ons-toast id="maximum-media">
+        エラー: これ以上画像をアップする事はできません。
+    </ons-toast>
     <ons-toast id="bbcode-limit">
         エラー: 文字数制限を超えています！<br>
         回転や点滅、文字列を少なくしてください。

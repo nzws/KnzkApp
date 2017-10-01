@@ -38,7 +38,6 @@ function login_callback(params) {
                         throw new Error();
                     }
                 }).then(function(json) {
-                    console.log(json);
                     localStorage.setItem('knzk_username',json.acct);
                     localStorage.setItem('knzk_userid',json.id);
                     hide('now_loading');
