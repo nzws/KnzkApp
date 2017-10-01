@@ -13,12 +13,79 @@ function post_cw() {
 }
 
 function up_file() {
-    var nsfw_bt = document.getElementById("nsfw_bt");
-    if (nsfw_bt.className == "invisible " + quiet) {
-        nsfw_bt.className = quiet;
+    if (media_id[4]) {
+        showtoast("maximum-media");
     } else {
-        nsfw_bt.className = "invisible " + quiet;
+        navigator.camera.getPicture(up_file_suc, file_error,
+            { quality: 100,
+                destinationType: Camera.DestinationType.DATA_URL,
+                sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                encodingType: 1
+            });
     }
+}
+
+function up_file_suc(base64) {
+    if (base64) {
+        show('now_loading');
+
+        var binary = atob(base64);
+        var array = [];
+        for (var i = 0; i < binary.length; i++) {
+            array.push(binary.charCodeAt(i));
+        }
+        var blob = new Blob([new Uint8Array(array)], {type: 'image/png'});
+
+        var formData = new FormData();
+        formData.append('file', blob);
+
+        fetch("https://"+inst+"/api/v1/media", {
+            headers: {'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
+            method: 'POST',
+            body: formData
+        }).then(function(response) {
+            if(response.ok) {
+                return response.json();
+            } else {
+                throw new Error();
+            }
+        }).then(function(json) {
+            if (json["id"] && json["preview_url"] != "https://knzk.me/files/small/missing.png") {
+                media_id[media_num] = json["id"];
+                media_num++;
+                document.getElementById("nsfw_bt").className = quiet;
+                document.getElementById("image_list").innerHTML = "<ons-card onclick=\"file_del(" + media_num + ", this)\"><img src=\"" + json["preview_url"] + "\" style=\"width: 100%\"></ons-card>" + document.getElementById("image_list").innerHTML;
+                hide('now_loading');
+            } else {
+                hide('now_loading');
+                showtoast('cannot-pros');
+            }
+        }).catch(function(error) {
+            showtoast('cannot-pros');
+            console.log(error);
+            hide('now_loading');
+        });
+    }
+}
+
+function file_del(id, obj) {
+    tmp_media_del_obj = obj;
+    tmp_media_del_id = id;
+    show('media-del');
+}
+
+function file_del_suc() {
+    tmp_media_del_obj.innerHTML = "";
+    if (media_id[tmp_media_del_id+1]) {
+        media_id.splice(tmp_media_del_id-1, 1);
+    }
+    tmp_media_del_id = 0;
+    tmp_media_del_obj = null;
+    hide('media-del');
+}
+
+function file_error(msg) {
+    console.log(msg);
 }
 
 function post_nsfw() {
@@ -167,6 +234,9 @@ function post(id, mode, option) {
     if (!option.in_reply_to_id) {
         option.in_reply_to_id = "";
     }
+    if (!media_id[0]) {
+        media_id = "";
+    }
     fetch("https://"+inst+"/api/v1/statuses", {
         headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
         method: 'POST',
@@ -174,7 +244,8 @@ function post(id, mode, option) {
             status: document.getElementById(id).value,
             spoiler_text: option.cw,
             visibility: option.visibility,
-            in_reply_to_id: option.in_reply_to_id
+            in_reply_to_id: option.in_reply_to_id,
+            media_ids: media_id
         })
     }).then(function(response) {
         if(response.ok) {
@@ -187,6 +258,8 @@ function post(id, mode, option) {
         //document.querySelector('#navigator').resetToPage('init.html');
         BackTab('down');
         showTL(null, null, null, true);
+        media_id = Array();
+        media_num = 0;
     }).catch(function(error) {
         showtoast('cannot-post');
         console.log(error);
