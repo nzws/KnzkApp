@@ -122,15 +122,12 @@ function showTL(mode, reload, more_load, clear_load, change_TL) {
             tlmode = "home?max_id="+toot_old_id;
         else
             tlmode = "home?since_id="+toot_new_id;
-        pagetitle = "ホーム";
     }else if (mode === "public") {
         if (more_load)
             tlmode = "public?max_id="+toot_old_id;
         else
             tlmode = "public?since_id="+toot_new_id;
-        pagetitle = "連合TL";
     } else if (mode === "local") {
-        pagetitle = "ローカルTL";
         if (more_load)
             tlmode = "public?local=true&max_id="+toot_old_id;
         else
@@ -172,7 +169,6 @@ function showTL(mode, reload, more_load, clear_load, change_TL) {
         }
         last_load_TL = mode;
         document.getElementById("home_main").innerHTML = reshtml;
-        document.getElementById("TL_name").innerHTML = pagetitle;
         if (reload) reload();
         if (change_TL) hide('now_loading');
         return true;
@@ -252,34 +248,16 @@ function showAccountTL(id, more_load, media) {
     });
 }
 
-function TL_prev() {
-    toot_old_id = 0;
-    toot_new_id = 0;
+function TL_change(mode) {
     show('now_loading');
-    if (now_TL == "local") {
-        hide('now_loading');
-        return false;
-    } else if (now_TL == "home") {
+    if (mode == "local") {
         now_TL = "local";
-        showTL(null,null,null,null,true);
-    } else if (now_TL == "public") {
+        showTL(null,null,null,true,true);
+    } else if (mode == "home") {
         now_TL = "home";
-        showTL(null,null,null,null,true);
-    }
-}
-
-function TL_next() {
-    toot_old_id = 0;
-    toot_new_id = 0;
-    show('now_loading');
-    if (now_TL == "local") {
-        now_TL = "home";
-        showTL(null,null,null,null,true);
-    } else if (now_TL == "home") {
+        showTL(null,null,null,true,true);
+    } else if (mode == "public") {
         now_TL = "public";
-        showTL(null,null,null,null,true);
-    } else if (now_TL == "public") {
-        hide('now_loading');
-        return false;
+        showTL(null,null,null,true,true);
     }
 }
