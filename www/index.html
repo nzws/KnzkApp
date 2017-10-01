@@ -41,6 +41,8 @@
         var follow_old_id = 0;
         var media_num = 0;
         var media_id = Array();
+        var tmp_media_del_id = 0;
+        var tmp_media_del_obj = null;
     </script>
 
     <script src="js/server.js"></script>
@@ -560,6 +562,17 @@
     <ons-toast id="ok_conf">
         設定を保存しました。
     </ons-toast>
+
+    <ons-alert-dialog id="media-del">
+        <div class="alert-dialog-title">画像を削除</div>
+        <div class="alert-dialog-content">
+            削除してもよろしいですか？
+        </div>
+        <div class="alert-dialog-footer">
+            <button class="alert-dialog-button" onclick="hide('media-del')">キャンセル</button>
+            <button class="alert-dialog-button" onclick="file_del_suc()">削除</button>
+        </div>
+    </ons-alert-dialog>
     <!-- エラー -->
     <ons-toast id="maximum-media">
         エラー: これ以上画像をアップする事はできません。

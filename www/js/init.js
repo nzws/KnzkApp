@@ -74,6 +74,10 @@ function init() {
     tmp_post_reply = 0;
     tmp_post_visibility = "";
     follow_old_id = 0;
+    media_num = 0;
+    media_id = Array();
+    tmp_media_del_id = 0;
+    tmp_media_del_obj = null;
 
     hide('cannot-connect-sv');
     hide('cannot-connect-mastodon');
