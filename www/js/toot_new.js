@@ -52,9 +52,9 @@ function up_file_suc(base64) {
         }).then(function(json) {
             if (json["id"] && json["preview_url"] != "https://knzk.me/files/small/missing.png") {
                 media_id[media_num] = json["id"];
-                media_num++;
                 document.getElementById("nsfw_bt").className = quiet;
-                document.getElementById("image_list").innerHTML = "<ons-card onclick=\"file_del(" + media_num + ", this)\"><img src=\"" + json["preview_url"] + "\" style=\"width: 100%\"></ons-card>" + document.getElementById("image_list").innerHTML;
+                document.getElementById("image_list").innerHTML = "<ons-card onclick=\"file_del(" + media_num + ", 'media_"+json["id"]+"')\" style='background-image: url("+json["preview_url"]+")' class='card-image' id='media_"+json["id"]+"'></ons-card>" + document.getElementById("image_list").innerHTML;
+                media_num++;
                 hide('now_loading');
             } else {
                 hide('now_loading');
@@ -68,17 +68,22 @@ function up_file_suc(base64) {
     }
 }
 
-function file_del(id, obj) {
-    tmp_media_del_obj = obj;
+function file_del(id, card) {
+    tmp_media_del_obj = card;
     tmp_media_del_id = id;
     show('media-del');
 }
 
 function file_del_suc() {
-    tmp_media_del_obj.innerHTML = "";
-    if (media_id[tmp_media_del_id+1]) {
+    var card = document.getElementById(tmp_media_del_obj);
+    card.parentNode.removeChild(card);
+
+    if (tmp_media_del_id === 0) {
+        media_id.shift();
+    } else {
         media_id.splice(tmp_media_del_id-1, 1);
     }
+    media_num--;
     tmp_media_del_id = 0;
     tmp_media_del_obj = null;
     hide('media-del');

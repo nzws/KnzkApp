@@ -259,3 +259,11 @@ html, body {
     color: #fff;
     text-align: center;
 }
+
+.card-image {
+    border-radius: 5px;
+    height: 120px;
+    width: 100%;
+    background-size: cover !important;
+    background-position: 50% !important;
+}
