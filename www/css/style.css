@@ -247,3 +247,15 @@ html, body {
     margin-bottom: 5px;
     color: black;
 }
+
+#image_list {
+    margin-top: 10px;
+}
+
+.nsfw {
+    padding: 20px 0 !important;
+    width: 100%;
+    background-color: #000 !important;
+    color: #fff;
+    text-align: center;
+}
