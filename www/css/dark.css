@@ -85,3 +85,7 @@ a, a:link, a:visited, a:hover {
 .big_date {
     color: #606984;
 }
+
+.toot_light {
+    background: rgba(49,53,67,.9) !important;
+}

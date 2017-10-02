@@ -13,6 +13,7 @@ function show_account(id) {
         account_page_id = json.id;
         account_page_acct = json.acct;
         json.note = t_text(json.note);
+        if (!json.display_name) json.display_name = json.username;
         document.getElementById("userpage-name").innerHTML = json.display_name;
         document.getElementById("userpage-title").innerHTML = "@"+json.acct;
         document.getElementById("userpage-acct").innerHTML = "@"+json.acct;
