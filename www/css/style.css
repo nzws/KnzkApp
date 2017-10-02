@@ -58,8 +58,12 @@ html, body {
 }
 
 .toot-button {
-    margin-right: 10px;
+    margin-right: 1em;
     font-size: x-large;
+}
+
+.toot-button.namu-fav {
+    margin-right: 5px !important;
 }
 
 .toot-group {
@@ -82,7 +86,7 @@ html, body {
 }
 
 .namu-toot {
-    margin-right: 35px;
+    margin-right: 30px;
 }
 
 .fav-active {
