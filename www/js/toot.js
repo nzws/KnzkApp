@@ -1,5 +1,9 @@
-function toot_card(toot, mode, note) {
-    var buf = "", piccard = "", fav = "", boost = "", favmode = 0, boostmode = 0, namucard = "", namubt = "", m = 0, date = "", p = 0, alert_text = "", content = "", button = "", e = 0, bt_big = "";
+function toot_card(toot, mode, note, toot_light) {
+    var buf = "", piccard = "", fav = "", boost = "", favmode = 0, boostmode = 0, namucard = "", namubt = "", m = 0, date = "", p = 0, alert_text = "", content = "", button = "", e = 0, bt_big = "", light = "";
+    if (toot['reblog']) {
+        alert_text = "<p class='alert_text'><ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" + toot['account']['id'] + ")'>" + toot['account']['display_name'] + "</b>さんがブーストしました</p>";
+        toot = toot['reblog'];
+    }
     if (!toot['account']['display_name']) toot['account']['display_name'] = toot['account']['username'];
     if (toot['favourited'] == true) {
         fav = " fav-active";
@@ -12,6 +16,9 @@ function toot_card(toot, mode, note) {
     if (localStorage.getItem('knzk_bigfav') == 1 && mode != "big") {
         namucard = " namu-toot";
         namubt = " namu-fav";
+    }
+    if (toot_light || toot['visibility'] === "direct") {
+        light = " toot_light";
     }
     if (toot['emojis']) {
         while (toot['emojis'][e]) {
@@ -40,14 +47,6 @@ function toot_card(toot, mode, note) {
     }
     date = displayTime('new', toot['created_at']);
     toot['content'] = toot['content'].replace(/<a href="https:\/\/(.*?)\/media\/(.*?)" rel="nofollow noopener" target="_blank"><span class="invisible">https:\/\/<\/span><span class="ellipsis">(.*?)\/media\/(.*?)<\/span><span class="invisible">(.*?)<\/span><\/a>/g , "<a href='#' onclick=\"window.open('https://$1/media/$2', '_blank')\"><ons-icon icon='fa-file-image-o'></ons-icon></a>");
-    if (toot['reblog']) {
-        if (!toot['account']['display_name']) toot['account']['display_name'] = toot['account']['username'];
-        alert_text = "<p class='alert_text'><ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" + toot['account']['id'] + ")'>" + toot['account']['display_name'] + "</b>さんがブーストしました</p>";
-        toot['account']['avatar'] = toot['reblog']['account']['avatar'];
-        toot['account']['display_name'] = toot['reblog']['account']['display_name'];
-        toot['account']['acct'] = toot['reblog']['account']['acct'];
-        toot['account']['id'] = toot['reblog']['account']['id'];
-    }
     if (toot['spoiler_text']) {
         content = "<span onclick='show_post("+toot['id']+")'>" + toot['spoiler_text'] + "</span>　<ons-button modifier=\"light\" onclick='open_cw(\"cw_" + toot['id'] + "\", this);' class='cw-button'>もっと見る</ons-button><div class='invisible' id='cw_" + toot['id'] + "'><p><span onclick='show_post("+toot['id']+")'>" + toot['content'] + "</span>" + piccard + "</p></div>";
     } else { //CWなし
@@ -74,7 +73,7 @@ function toot_card(toot, mode, note) {
     }
     if (note) alert_text = "<p class='alert_text'>"+note+"</p>";
     content = t_text(content);
-    buf += "<div class=\"toot\" id='post_"+toot['id']+"'>\n" +
+    buf += "<div class=\"toot"+light+"\" id='post_"+toot['id']+"'>\n" +
         alert_text +
         "                    <div class=\"row\">\n" +
         "                        <div class=\"col-xs-2\">\n" +

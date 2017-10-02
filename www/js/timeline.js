@@ -50,9 +50,9 @@ function showAlert(reload, more_load) {
             }
             while (json[i]) {
                 alert_new_id = json[0]['id'];
-
+                if (!json[i]['account']['display_name']) json[i]['account']['display_name'] = json[i]['account']['username'];
+                
                 if (json[i]['type'] === "follow") {
-                    if (!json[i]['account']['display_name']) json[i]['account']['display_name'] = json[i]['account']['username'];
                     alert_text = "<p class='alert_text'>";
                     alert_text += "<ons-icon icon=\"fa-user-plus\" class='boost-active'></ons-icon> <b onclick='show_account(" + json[i]['account']['id'] + ")'>" + json[i]['account']['display_name'] + "</b>さんにフォローされました";
                     alert_text += "</p>";
@@ -189,8 +189,10 @@ function showAccountTL(id, more_load, media) {
         if (media)
             get = "?only_media=true";
     }
-
-    if (!media) {
+    if (media) { //読み込みマーク入れる & ピンを表示しない
+        document.getElementById("account_toot").innerHTML = "<div class=\"loading-now\"><ons-progress-circular indeterminate></ons-progress-circular></div>";
+        document.getElementById("account_pinned_toot").innerHTML = "";
+    } else {
         fetch("https://"+inst+"/api/v1/accounts/"+id+"/statuses?pinned=true", {
             headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
             method: 'GET'
@@ -199,19 +201,15 @@ function showAccountTL(id, more_load, media) {
                 return response.json();
             } else {
                 showtoast('cannot-load');
-                return false;
             }
-        }).then(function(json) {
-            while (json[i]) {
-                reshtml_pinned += toot_card(json[i], "full", "<ons-icon icon='fa-thumb-tack'></ons-icon>　固定トゥート");
+        }).then(function(json_pinned) {
+            while (json_pinned[i]) {
+                reshtml_pinned += toot_card(json_pinned[i], "full", "<ons-icon icon='fa-thumb-tack'></ons-icon>　固定トゥート", true);
                 i++;
             }
+            i = 0;
             document.getElementById("account_pinned_toot").innerHTML = reshtml_pinned;
-            return true;
         });
-    } else {
-        //メディア時は固定トゥート表示しない
-        document.getElementById("account_pinned_toot").innerHTML = "";
     }
     fetch("https://"+inst+"/api/v1/accounts/"+id+"/statuses"+get, {
         headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
@@ -224,6 +222,7 @@ function showAccountTL(id, more_load, media) {
             return false;
         }
     }).then(function(json) {
+        console.log(json);
         if (!more_load) {
             displayTime('update');
         }
