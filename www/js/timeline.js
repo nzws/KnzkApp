@@ -222,7 +222,6 @@ function showAccountTL(id, more_load, media) {
             return false;
         }
     }).then(function(json) {
-        console.log(json);
         if (!more_load) {
             displayTime('update');
         }
