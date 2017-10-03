@@ -1,5 +1,5 @@
 function toot_card(toot, mode, note, toot_light) {
-    var buf = "", piccard = "", fav = "", boost = "", favmode = 0, boostmode = 0, namucard = "", namubt = "", m = 0, date = "", p = 0, alert_text = "", content = "", button = "", e = 0, bt_big = "", light = "", q = 0, enq_item = "";
+    var buf = "", piccard = "", fav = "", boost = "", namucard = "", namubt = "", m = 0, date = "", p = 0, alert_text = "", content = "", button = "", e = 0, bt_big = "", light = "", q = 0, enq_item = "";
     if (toot['reblog']) {
         alert_text = "<p class='alert_text'><ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" + toot['account']['id'] + ")'>" + toot['account']['display_name'] + "</b>さんがブーストしました</p>";
         toot = toot['reblog'];
@@ -23,11 +23,9 @@ function toot_card(toot, mode, note, toot_light) {
     if (!toot['account']['display_name']) toot['account']['display_name'] = toot['account']['username'];
     if (toot['favourited'] == true) {
         fav = " fav-active";
-        favmode = 1;
     }
     if (toot['reblogged'] == true) {
         boost = " boost-active";
-        boostmode = 1;
     }
     if (localStorage.getItem('knzk_bigfav') == 1 && mode != "big") {
         namucard = " namu-toot";
