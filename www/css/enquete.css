@@ -1,0 +1,25 @@
+.progress-bar.enq {
+    height: 2em;
+    border-radius: 0;
+    border: 1px solid #ddd;
+}
+
+.progress-bar.enq > .progress-bar__primary {
+    border-radius: 0;
+}
+
+.progress-bar.enq > .right {
+    right: 5px;
+}
+
+.progress-bar.enq > .text {
+    top: 3px;
+    position: absolute;
+    margin-left: 5px;
+    color: white;
+    z-index: 101;
+}
+
+.toot.enq {
+    padding-left: 0;
+}
