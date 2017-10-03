@@ -1,8 +1,24 @@
 function toot_card(toot, mode, note, toot_light) {
-    var buf = "", piccard = "", fav = "", boost = "", favmode = 0, boostmode = 0, namucard = "", namubt = "", m = 0, date = "", p = 0, alert_text = "", content = "", button = "", e = 0, bt_big = "", light = "";
+    var buf = "", piccard = "", fav = "", boost = "", favmode = 0, boostmode = 0, namucard = "", namubt = "", m = 0, date = "", p = 0, alert_text = "", content = "", button = "", e = 0, bt_big = "", light = "", q = 0, enq_item = "";
     if (toot['reblog']) {
         alert_text = "<p class='alert_text'><ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" + toot['account']['id'] + ")'>" + toot['account']['display_name'] + "</b>さんがブーストしました</p>";
         toot = toot['reblog'];
+    }
+    if (toot['enquete']) {
+        toot['enquete'] = JSON.parse(toot['enquete']);
+        if (toot['enquete']['ratios_text']) { //締め切り
+            while (toot['enquete']['items'][q]) {
+                enq_item += "<div class='progress-bar enq'>\n" +
+                    "           <div class='progress-bar__primary' style='width: "+toot['enquete']['ratios'][q]+"%'></div>\n" +
+                    "           <div class='text'>"+toot['enquete']['items'][q]+"</div>\n" +
+                    "           <div class='text right'>"+toot['enquete']['ratios_text'][q]+"</div>\n" +
+                    "       </div>";
+                q++;
+            }
+        } else { //受付中
+            enq_item = "アンケート投票準備中...";
+        }
+        toot['content'] = toot['enquete']['question'] + "<div class=\"toot enq\">"+enq_item+"</div>";
     }
     if (!toot['account']['display_name']) toot['account']['display_name'] = toot['account']['username'];
     if (toot['favourited'] == true) {
