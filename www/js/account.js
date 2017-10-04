@@ -168,12 +168,34 @@ function account_action(id) {
                 }
             ]
         }).then(function (index) {
-            if (index == 0) post_pre("@" + account_page_acct + " ");
+            if (index == 0) post_pre("@" + account_page_acct);
         })
     }
 }
 
+function show_account_name(username) {
+    fetch("https://"+inst+"/api/v1/search?q="+username, {
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
+        method: 'GET'
+    }).then(function(response) {
+        if(response.ok) {
+            return response.json();
+        } else {
+            showtoast('cannot-pros');
+            return false;
+        }
+    }).then(function(json) {
+        var user = json['accounts'][0];
+        if (user) {
+            show_account(user['id']);
+        } else {
+            showtoast('cannot-pros');
+            return false;
+        }
+    });
+}
+
 function post_pre(text) {
-    tmp_text_pre = text;
+    tmp_text_pre = text + " ";
     loadNav('post.html', 'up');
 }

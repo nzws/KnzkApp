@@ -7,6 +7,7 @@
     <script src="components/loader.js"></script>
     <script src="components/onsenui/js/onsenui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/lib/js/emojione.min.js" integrity="sha256-9cBkVeU53NiJ9/BdcJta3HbERAmf5X9DE2WvL8V+gDs=" crossorigin="anonymous" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous" async></script>
 
     <link rel="stylesheet" href="components/loader.css">
     <link rel="stylesheet" href="components/onsenui/css/onsenui.min.css">
@@ -44,6 +45,8 @@
         var media_id = Array();
         var tmp_media_del_id = 0;
         var tmp_media_del_obj = "";
+        var tag_old_id = 0;
+        var tag_str = "";
     </script>
 
     <script src="js/server.js"></script>
@@ -371,6 +374,33 @@
         </ons-toolbar>
 
         <div id="show_toot">
+            <div class="loading-now">
+                <ons-progress-circular indeterminate></ons-progress-circular>
+            </div>
+        </div>
+    </ons-page>
+</ons-template>
+
+<ons-template id="showtag.html">
+    <ons-page>
+        <ons-toolbar>
+            <div class="left">
+                <ons-toolbar-button onclick="BackTab()">
+                    <ons-icon icon="fa-chevron-left"></ons-icon>
+                    戻る
+                </ons-toolbar-button>
+            </div>
+            <div class="center" id="showtag_title">
+                読み込み中...
+            </div>
+            <div class="right">
+                <ons-toolbar-button onclick="post_pre('#'+ decodeURI(tag_str))">
+                    <ons-icon icon="fa-pencil"></ons-icon>
+                </ons-toolbar-button>
+            </div>
+        </ons-toolbar>
+
+        <div id="tag_main">
             <div class="loading-now">
                 <ons-progress-circular indeterminate></ons-progress-circular>
             </div>

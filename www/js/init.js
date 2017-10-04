@@ -78,6 +78,8 @@ function init() {
     media_id = Array();
     tmp_media_del_id = 0;
     tmp_media_del_obj = "";
+    tag_old_id = 0;
+    tag_str = "";
 
     hide('cannot-connect-sv');
     hide('cannot-connect-mastodon');
@@ -131,6 +133,31 @@ function init() {
 
 
 function initevent() {
+    $(document).on('click', 'div.toot_content', function(event) {
+        var obj = event.currentTarget, id = 0;
+        if (obj.className == "toot_content") {
+            console.log(obj);
+            id = obj.dataset.id;
+            show_post(id);
+        }
+    });
+    $(document).on('click', 'a', function(event) {
+        event.stopPropagation();
+        event.preventDefault();
+        var obj = event.target;
+        if (!event.target.className) obj = event.currentTarget;
+        var url = obj.getAttribute('href');
+        var word = url.split("/");
+
+        if (obj.className == "u-url mention") {
+            show_account_name(word[word.length-1]);
+        } else if (obj.className == "mention hashtag") {
+            tag_str = word[word.length-1];
+            showTagTL(tag_str);
+        }
+        return false;
+    });
+
     document.addEventListener('postpush', function(event) {
         if (document.getElementById("post_reply") && tmp_post_reply) {
             var bt_obj = document.getElementById("post_mode_bt");

@@ -106,7 +106,7 @@ function showAlert(reload, more_load) {
  * @param change_TL TLを変更する時true
  */
 function showTL(mode, reload, more_load, clear_load, change_TL) {
-    var tlmode = "", i = 0, reshtml = "", pagetitle = "", e = 0;
+    var tlmode = "", i = 0, reshtml = "";
     if (!mode) mode = now_TL;
     if (clear_load) {
         toot_new_id = 0;
@@ -171,6 +171,46 @@ function showTL(mode, reload, more_load, clear_load, change_TL) {
         document.getElementById("home_main").innerHTML = reshtml;
         if (reload) reload();
         if (change_TL) hide('now_loading');
+        return true;
+    });
+}
+
+function showTagTL(tag, more_load) {
+    var i = 0, reshtml = "", get = "";
+    if (!tag) tag = tag_str;
+    if (more_load) {
+        get = "?max_id="+tag_old_id;
+        more_load.value = "読み込み中...";
+        more_load.disabled = true;
+    } else {
+        loadNav('showtag.html');
+    }
+    fetch("https://"+inst+"/api/v1/timelines/tag/"+tag+get, {
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
+        method: 'GET'
+    }).then(function(response) {
+        if(response.ok) {
+            return response.json();
+        } else {
+            showtoast('cannot-load');
+            return false;
+        }
+    }).then(function(json) {
+        if (more_load) {
+            more_load.className = "button button--large--quiet invisible";
+            reshtml = document.getElementById("tag_main").innerHTML;
+        } else {
+            document.getElementById("showtag_title").innerHTML = '#'+ decodeURI(tag);
+        }
+
+        while (json[i]) {
+            reshtml += toot_card(json[i], "full", null);
+            i++;
+        }
+
+        tag_old_id = json[i-1]['id'];
+        reshtml += "<button class='button button--large--quiet' onclick='showTagTL(null,this)'>もっと読み込む...</button>";
+        document.getElementById("tag_main").innerHTML = reshtml;
         return true;
     });
 }
