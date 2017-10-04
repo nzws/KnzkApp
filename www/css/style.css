@@ -272,3 +272,7 @@ html, body {
     background-size: cover !important;
     background-position: 50% !important;
 }
+
+.big_date {
+    margin-top: 5px;
+}

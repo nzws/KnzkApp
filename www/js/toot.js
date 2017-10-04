@@ -43,12 +43,6 @@ function toot_card(toot, mode, note, toot_light) {
         }
         e = 0;
     }
-    if (toot['mentions'][0]) {
-        while (toot['mentions'][m]) {
-            toot['content'] = toot['content'].replace(/<span class="h-card"><a href="https:\/\/(.*?)\/@(.*?)" class="u-url mention">@<span>(.*?)<\/span><\/a><\/span>/ , "<a href='#' onclick='show_account("+toot['mentions'][m]['id']+")'>@$2</a>");
-            m++;
-        }
-    }
     if (toot['media_attachments'][0] && (mode == "full" || mode == "big")) {
         while (toot['media_attachments'][p]) {
             if (toot['sensitive']) { //NSFWオン
@@ -60,11 +54,11 @@ function toot_card(toot, mode, note, toot_light) {
         }
     }
     date = displayTime('new', toot['created_at']);
-    toot['content'] = toot['content'].replace(/<a href="https:\/\/(.*?)\/media\/(.*?)" rel="nofollow noopener" target="_blank"><span class="invisible">https:\/\/<\/span><span class="ellipsis">(.*?)\/media\/(.*?)<\/span><span class="invisible">(.*?)<\/span><\/a>/g , "<a href='#' onclick=\"window.open('https://$1/media/$2', '_blank')\"><ons-icon icon='fa-file-image-o'></ons-icon></a>");
+    toot['content'] = toot['content'].replace(/<a href="((http:|https:)\/\/[\x21-\x26\x28-\x7e]+)\/media\/([\x21-\x26\x28-\x7e]+)" rel="nofollow noopener" target="_blank"><span class="invisible">(http:|https:)\/\/<\/span><span class="ellipsis">([\x21-\x26\x28-\x7e]+)\/media\/([\x21-\x26\x28-\x7e]+)<\/span><span class="invisible">([\x21-\x26\x28-\x7e]+)<\/span><\/a>/g , "<a href='#' onclick=\"window.open('$1/media/$3', '_blank')\" class='image-url'><ons-icon icon='fa-file-image-o'></ons-icon></a>");
     if (toot['spoiler_text']) {
-        content = "<span onclick='show_post("+toot['id']+")'>" + toot['spoiler_text'] + "</span>　<ons-button modifier=\"light\" onclick='open_cw(\"cw_" + toot['id'] + "\", this);' class='cw-button'>もっと見る</ons-button><div class='invisible' id='cw_" + toot['id'] + "'><p><span onclick='show_post("+toot['id']+")'>" + toot['content'] + "</span>" + piccard + "</p></div>";
+        content = toot['spoiler_text'] + "　<ons-button modifier=\"light\" onclick='open_cw(\"cw_" + toot['id'] + "\", this);' class='cw-button'>もっと見る</ons-button><div class='invisible' id='cw_" + toot['id'] + "'><p>" + toot['content'] + piccard + "</p></div>";
     } else { //CWなし
-        content = "<div onclick='show_post("+toot['id']+")'>" + toot['content'] + "</div>" + piccard;
+        content = toot['content'] + piccard;
     }
     if (mode == "full") {
         button =    "                            <div class=\"toot-group\">" +
@@ -76,8 +70,10 @@ function toot_card(toot, mode, note, toot_light) {
     }
     if (mode == "big") {
         var d = new Date(toot['created_at']);
-        var date_text = d.getFullYear()+"年"+(d.getMonth()+1)+"月"+d.getDate()+"日 "+d.getHours()+":"+d.getMinutes();
-        bt_big = "<span class='big_date'>" + date_text + "　</span>" +
+        var min = "0";
+        if (d.getMinutes() < 10) min = "0" + d.getMinutes(); else min = d.getMinutes();
+        var date_text = d.getFullYear()+"年"+(d.getMonth()+1)+"月"+d.getDate()+"日 "+d.getHours()+":"+min;
+        bt_big = "<span class='big_date'>" + date_text + "　<ons-icon icon=\"fa-bell\"></ons-icon> "+toot['favourites_count']+"　<ons-icon icon=\"fa-retweet\"></ons-icon> "+toot['reblogs_count']+"</span>" +
             "<div class=\"row toot_big_border\">\n" +
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-reply\" onclick=\"reply("+toot['id']+", '"+toot["account"]["acct"]+"', '"+toot["visibility"]+"')\" class=\"showtoot-button\"></ons-icon></div>\n" +
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-retweet\" onclick=\"toot_action("+toot['id']+", this, 'big', 'boost')\" class=\"showtoot-button"+boost+"\"></ons-icon></div>\n" +
@@ -97,8 +93,10 @@ function toot_card(toot, mode, note, toot_light) {
         "                           <div class='"+namucard+"'>" +
         "                            <div class=\"toot-group\">\n" +
         "                                <span onclick='show_account("+toot['account']['id']+")'><b>"+toot['account']['display_name']+"</b> <small>@"+toot['account']['acct']+"</small></span> <span class='date' data-time='" + toot['created_at'] + "'>" +date+ "</span>" +
-        "                            </div>\n" +
+        "                            </div>" +
+        "                            <div class='toot_content' data-id='"+toot['id']+"'>" +
         content +
+        "                            </div>" +
         "                            </div> \n" +
         button +
         "                        </div>\n" +

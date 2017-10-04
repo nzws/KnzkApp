@@ -206,7 +206,7 @@ function bbcodegen() {
     }
     buf = pre + text + suf;
     value = tmp_post_text + buf;
-    var limit = 500 - value.length;
+    var limit = 4096 - value.length;
     if (limit < 0) {
         showtoast('bbcode-limit');
     } else {
