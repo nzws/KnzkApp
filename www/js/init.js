@@ -153,7 +153,6 @@ function initevent() {
             obj = event.currentTarget;
             url = obj.getAttribute('href');
         }
-
         if (obj.className === "u-url mention") {
             word = url.split("/");
             show_account_name(word[word.length-1] + "@" + word[word.length-2]);

@@ -133,6 +133,7 @@ html, body {
     font-weight: 500;
     padding: 4px;
     border-radius: 4px;
+    margin-bottom: 5px;
 }
 
 .userpage-button {

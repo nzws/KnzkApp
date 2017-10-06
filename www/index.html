@@ -63,7 +63,7 @@
 
 <ons-template id="init.html">
     <ons-page>
-        <ons-tabbar swipeable animation="slide" position="bottom">
+        <ons-tabbar swipeable position="bottom">
             <ons-tab page="home.html" icon="fa-home" active></ons-tab>
             <ons-tab page="alert.html" icon="fa-bell"></ons-tab>
             <ons-tab onclick="loadNav('post.html', 'up')" icon="fa-pencil-square"></ons-tab>
@@ -439,10 +439,13 @@
             </div>
             <div class="center" id="userpage-title">読み込み中...</div>
         </ons-toolbar>
-
+        <input type="hidden" id="acct_block">
+        <input type="hidden" id="acct_mute">
         <div class="userpage-button-bg container">
-            <ons-icon icon="fa-user-plus" class="userpage-button" id="userpage-follow-button" onclick="follow(account_page_id, this)"></ons-icon>
+            <ons-icon icon="fa-user-plus" class="userpage-button" id="userpage-follow-button" onclick="account_state_action(account_page_id, this, 'follow')"></ons-icon>
             <div class="userpage-follower invisible" id="userpage-follower-badge">フォロワー</div>
+            <div class="userpage-follower invisible" id="userpage-mute-badge">ミュート中</div>
+            <div class="userpage-follower invisible" id="userpage-block-badge">ブロック中</div>
         </div>
         <div class="userpage-button-bg container userpage-button-right">
             <ons-icon icon="fa-bars" class="userpage-button" onclick="account_action(account_page_id)" id="acct_action_bt"></ons-icon>
@@ -536,7 +539,7 @@
                         <img src="img/logo.svg" style="width: 80%;"/>
                     </div>
                     <p><ons-button modifier="large" onclick="login_open()"><b>knzk.meにログイン</b></ons-button></p>
-                    <p><a href="#" onclick="window.open('https://knzk.me/about/more', '_blank')">利用規約</a> | <a href="#" onclick="window.open('https://knzk.me/terms', '_blank')">プライバシーポリシー</a></p>
+                    <p><a href="https://knzk.me/about/more">利用規約</a> | <a href="https://knzk.me/terms">プライバシーポリシー</a></p>
                 </div>
             </div>
         </ons-page>
@@ -592,6 +595,9 @@
     </ons-toast>
     <ons-toast id="ok_conf">
         設定を保存しました。
+    </ons-toast>
+    <ons-toast id="ok_conf_2">
+        設定しました。
     </ons-toast>
     <!-- エラー -->
     <ons-toast id="maximum-media">
