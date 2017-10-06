@@ -70,7 +70,6 @@ function t_text(text) {
         i++;
     }
 
-    text = text.replace(/<a href="((http:|https:)\/\/[\x21-\x26\x28-\x7e]+)" rel="nofollow noopener" target="_blank">/gi, "<a href='#' onclick='window.open\(\"$1\", \"_blank\"\)'>");
     text = emojione.toImage(text);
     return text;
 }

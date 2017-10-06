@@ -16,6 +16,7 @@ function up_file() {
     if (media_id[4]) {
         showtoast("maximum-media");
     } else {
+        show('now_loading');
         navigator.camera.getPicture(up_file_suc, file_error,
             { quality: 100,
                 destinationType: Camera.DestinationType.DATA_URL,
@@ -27,8 +28,6 @@ function up_file() {
 
 function up_file_suc(base64) {
     if (base64) {
-        show('now_loading');
-
         var binary = atob(base64);
         var array = [];
         for (var i = 0; i < binary.length; i++) {
@@ -53,7 +52,7 @@ function up_file_suc(base64) {
             if (json["id"] && json["preview_url"] != "https://knzk.me/files/small/missing.png") {
                 media_id[media_num] = json["id"];
                 document.getElementById("nsfw_bt").className = quiet;
-                document.getElementById("image_list").innerHTML = "<ons-card onclick=\"file_del(" + media_num + ", 'media_"+json["id"]+"')\" style='background-image: url("+json["preview_url"]+")' class='card-image' id='media_"+json["id"]+"'></ons-card>" + document.getElementById("image_list").innerHTML;
+                document.getElementById("image_list").innerHTML = "<ons-card onclick=\"file_del(" + media_num + ", this)\" style='background-image: url("+json["preview_url"]+")' class='card-image'></ons-card>" + document.getElementById("image_list").innerHTML;
                 media_num++;
                 hide('now_loading');
             } else {
@@ -69,24 +68,19 @@ function up_file_suc(base64) {
 }
 
 function file_del(id, card) {
-    tmp_media_del_obj = card;
-    tmp_media_del_id = id;
-    show('media-del');
-}
+    ons.notification.confirm('画像を削除してもよろしいですか？').then(function (e) {
+        if (e === 1) {
+            card.parentNode.removeChild(card);
 
-function file_del_suc() {
-    var card = document.getElementById(tmp_media_del_obj);
-    card.parentNode.removeChild(card);
-
-    if (tmp_media_del_id === 0) {
-        media_id.shift();
-    } else {
-        media_id.splice(tmp_media_del_id-1, 1);
-    }
-    media_num--;
-    tmp_media_del_id = 0;
-    tmp_media_del_obj = null;
-    hide('media-del');
+            if (id === 0) {
+                media_id = null;
+                media_num = null;
+            } else {
+                media_id.splice(tmp_media_del_id - 1, 1);
+                media_num--;
+            }
+        }
+    });
 }
 
 function file_error(msg) {
