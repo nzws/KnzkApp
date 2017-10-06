@@ -12,6 +12,7 @@ function show_account(id) {
     }).then(function(json) {
         account_page_id = json.id;
         account_page_acct = json.acct;
+
         json.note = t_text(json.note);
         if (!json.display_name) json.display_name = json.username;
         document.getElementById("userpage-name").innerHTML = json.display_name;
@@ -39,6 +40,18 @@ function show_account(id) {
             throw new Error();
         }
     }).then(function(json) {
+        document.getElementById("acct_block").value = json[0]["blocking"];
+        document.getElementById("acct_mute").value = json[0]["muting"];
+        if (json[0]["muting"] === true)
+            document.getElementById("userpage-mute-badge").className = "userpage-follower";
+        else
+            document.getElementById("userpage-mute-badge").className = "invisible";
+
+        if (json[0]["blocking"] === true)
+            document.getElementById("userpage-block-badge").className = "userpage-follower";
+        else
+            document.getElementById("userpage-block-badge").className = "invisible";
+
         if (json[0]["id"] == localStorage.getItem('knzk_userid')) {
             document.getElementById("userpage-follow-button").className = "invisible";
             document.getElementById("acct_action_bt").className = "invisible";
@@ -119,13 +132,28 @@ function showFollow(id, mode, more_load) {
     });
 }
 
-function follow(id, obj) {
+function account_state_action(id, obj, mode) {
     var url = "";
-    if (obj.className === "userpage-button follow-active ons-icon fa-user-times fa") { //フォロー
-        url = "/unfollow";
-    } else {
-        url = "/follow";
+    if (mode === "follow") {
+        if (obj.className === "userpage-button follow-active ons-icon fa-user-times fa") { //フォロー
+            url = "/unfollow";
+        } else {
+            url = "/follow";
+        }
+    } else if (mode === "mute") {
+        if (obj === "true") { //オン→オフ
+            url = "/unmute";
+        } else {
+            url = "/mute";
+        }
+    } else if (mode === "block") {
+        if (obj === "true") { //オン→オフ
+            url = "/unblock";
+        } else {
+            url = "/block";
+        }
     }
+
     fetch("https://"+inst+"/api/v1/accounts/"+id+url, {
         headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
         method: 'POST'
@@ -136,10 +164,14 @@ function follow(id, obj) {
             throw new Error();
         }
     }).then(function(json) {
-        if (obj.className === "userpage-button follow-active ons-icon fa-user-times fa") {
-            obj.className = "userpage-button ons-icon fa-user-plus fa"; //フォロー解除する
+        if (mode === "follow") {
+            if (obj.className === "userpage-button follow-active ons-icon fa-user-times fa") {
+                obj.className = "userpage-button ons-icon fa-user-plus fa"; //フォロー解除する
+            } else {
+                obj.className = "userpage-button follow-active ons-icon fa-user-times fa";
+            }
         } else {
-            obj.className = "userpage-button follow-active ons-icon fa-user-times fa";
+            showtoast("ok_conf_2");
         }
     }).catch(function(error) {
         showtoast('cannot-pros');
@@ -160,19 +192,32 @@ function account_action(id) {
         }).then(function (index) {
         })
     } else {
+        var mute = document.getElementById("acct_mute").value;
+        var block = document.getElementById("acct_block").value;
+        var mute_m, block_m, domain;
+
+        domain = account_page_acct.split("@")[1];
+        if (!domain) domain = inst;
+        if (mute === "true") mute_m = "ミュート解除"; else mute_m = "ミュート";
+        if (block === "true") block_m = "ブロック解除"; else block_m = "ブロック";
         ons.openActionSheet({
             cancelable: true,
             buttons: [
                 '返信',
-                'ミュート(実装中)',
-                'ブロック(実装中)',
+                'ブラウザで開く',
+                mute_m,
+                block_m,
                 {
                     label: 'キャンセル',
                     icon: 'md-close'
                 }
             ]
         }).then(function (index) {
-            if (index == 0) post_pre("@" + account_page_acct);
+            if (account_page_acct.split("@")[0])
+            if (index === 0) post_pre("@" + account_page_acct);
+            else if (index === 1) window.open("https://"+domain+"/@"+account_page_acct.split("@")[0], "_system");
+            else if (index === 2) account_state_action(id, mute, "mute");
+            else if (index === 3) account_state_action(id, block, "block");
         })
     }
 }

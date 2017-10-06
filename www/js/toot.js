@@ -61,7 +61,7 @@ function toot_card(toot, mode, note, toot_light) {
         }
     }
     date = displayTime('new', toot['created_at']);
-    toot['content'] = toot['content'].replace(/<a href="((http:|https:)\/\/[\x21-\x26\x28-\x7e]+)\/media\/([\x21-\x26\x28-\x7e]+)" rel="nofollow noopener" target="_blank"><span class="invisible">(http:|https:)\/\/<\/span><span class="ellipsis">([\x21-\x26\x28-\x7e]+)\/media\/([\x21-\x26\x28-\x7e]+)<\/span><span class="invisible">([\x21-\x26\x28-\x7e]+)<\/span><\/a>/g , "<a href='#' onclick=\"window.open('$1/media/$3', '_blank')\" class='image-url'><ons-icon icon='fa-file-image-o'></ons-icon></a>");
+    toot['content'] = toot['content'].replace(/<a href="((http:|https:)\/\/[\x21-\x26\x28-\x7e]+)\/media\/([\x21-\x26\x28-\x7e]+)" rel="nofollow noopener" target="_blank"><span class="invisible">(http:|https:)\/\/<\/span><span class="ellipsis">([\x21-\x26\x28-\x7e]+)\/media\/([\x21-\x26\x28-\x7e]+)<\/span><span class="invisible">([\x21-\x26\x28-\x7e]+)<\/span><\/a>/g , "<a href='$1/media/$3' class='image-url'><ons-icon icon='fa-file-image-o'></ons-icon></a>");
     if (toot['spoiler_text']) {
         var rand = Date.now();
         content = toot['spoiler_text'] + "　<ons-button modifier=\"light\" onclick='open_cw(\"cw_"+rand+"_" + toot['id'] + "\", this);' class='cw-button'>もっと見る</ons-button><div class='invisible' id='cw_"+rand+"_" + toot['id'] + "'><p>" + toot['content'] + piccard + "</p></div>";
