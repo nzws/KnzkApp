@@ -6,6 +6,9 @@ function toot_card(toot, mode, note, toot_light) {
     }
     if (toot['enquete']) {
         toot['enquete'] = JSON.parse(toot['enquete']);
+        var enq_comp_date = new Date(new Date().getTime() - new Date(toot['created_at']).getTime());
+        var enq_sec = enq_comp_date.getSeconds();
+        var enq_sec_comp = toot['enquete']['duration'] - enq_sec;
         if (toot['enquete']['ratios_text']) { //締め切り
             while (toot['enquete']['items'][q]) {
                 enq_item += "<div class='progress-bar enq'>\n" +
@@ -16,7 +19,11 @@ function toot_card(toot, mode, note, toot_light) {
                 q++;
             }
         } else { //受付中
-            enq_item = "アンケート投票準備中...";
+            if (enq_sec_comp >= 0) { //受付中
+
+            } else { //締め切り（投票トゥート）
+
+            }
         }
         toot['content'] = toot['enquete']['question'] + "<div class=\"toot enq\">"+enq_item+"</div>";
     }
@@ -46,9 +53,9 @@ function toot_card(toot, mode, note, toot_light) {
     if (toot['media_attachments'][0] && (mode == "full" || mode == "big")) {
         while (toot['media_attachments'][p]) {
             if (toot['sensitive']) { //NSFWオン
-                piccard += "<ons-card onclick=\"window.open('"+toot['media_attachments'][p]['url']+"', '_blank')\" class='nsfw'><h3>回覧注意</h3><small>タップで表示</small></ons-card>";
+                piccard += "<a href='"+toot['media_attachments'][p]['url']+"'><ons-card class='nsfw'><h3>回覧注意</h3><small>タップで表示</small></ons-card></a>";
             } else {
-                piccard += "<ons-card onclick=\"window.open('"+toot['media_attachments'][p]['url']+"', '_blank')\" style='background-image: url("+toot['media_attachments'][p]['preview_url']+")' class='card-image'></ons-card>";
+                piccard += "<a href='"+toot['media_attachments'][p]['url']+"'><ons-card style='background-image: url("+toot['media_attachments'][p]['preview_url']+")' class='card-image'></ons-card></a>";
             }
             p++;
         }
@@ -56,7 +63,8 @@ function toot_card(toot, mode, note, toot_light) {
     date = displayTime('new', toot['created_at']);
     toot['content'] = toot['content'].replace(/<a href="((http:|https:)\/\/[\x21-\x26\x28-\x7e]+)\/media\/([\x21-\x26\x28-\x7e]+)" rel="nofollow noopener" target="_blank"><span class="invisible">(http:|https:)\/\/<\/span><span class="ellipsis">([\x21-\x26\x28-\x7e]+)\/media\/([\x21-\x26\x28-\x7e]+)<\/span><span class="invisible">([\x21-\x26\x28-\x7e]+)<\/span><\/a>/g , "<a href='#' onclick=\"window.open('$1/media/$3', '_blank')\" class='image-url'><ons-icon icon='fa-file-image-o'></ons-icon></a>");
     if (toot['spoiler_text']) {
-        content = toot['spoiler_text'] + "　<ons-button modifier=\"light\" onclick='open_cw(\"cw_" + toot['id'] + "\", this);' class='cw-button'>もっと見る</ons-button><div class='invisible' id='cw_" + toot['id'] + "'><p>" + toot['content'] + piccard + "</p></div>";
+        var rand = Date.now();
+        content = toot['spoiler_text'] + "　<ons-button modifier=\"light\" onclick='open_cw(\"cw_"+rand+"_" + toot['id'] + "\", this);' class='cw-button'>もっと見る</ons-button><div class='invisible' id='cw_"+rand+"_" + toot['id'] + "'><p>" + toot['content'] + piccard + "</p></div>";
     } else { //CWなし
         content = toot['content'] + piccard;
     }
@@ -94,7 +102,7 @@ function toot_card(toot, mode, note, toot_light) {
         "                            <div class=\"toot-group\">\n" +
         "                                <span onclick='show_account("+toot['account']['id']+")'><b>"+toot['account']['display_name']+"</b> <small>@"+toot['account']['acct']+"</small></span> <span class='date' data-time='" + toot['created_at'] + "'>" +date+ "</span>" +
         "                            </div>" +
-        "                            <div class='toot_content' data-id='"+toot['id']+"'>" +
+        "                            <div class='toot_content' data-id='"+toot['id']+"' data-dispmode='"+mode+"'>" +
         content +
         "                            </div>" +
         "                            </div> \n" +

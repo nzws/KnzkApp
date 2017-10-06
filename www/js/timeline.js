@@ -86,7 +86,7 @@ function showAlert(reload, more_load) {
                 reshtml += document.getElementById("alert_main").innerHTML;
             }
             if (more_load || !reload) { //TL初回
-                alert_old_id = json[i-1]['id'];
+                if (i !== 0) alert_old_id = json[i-1]['id'];
                 reshtml += "<button class='button button--large--quiet' onclick='showAlert(null,this)'>もっと読み込む...</button>";
             }
             document.getElementById("alert_main").innerHTML = reshtml;
@@ -164,7 +164,7 @@ function showTL(mode, reload, more_load, clear_load, change_TL) {
         }
         if (more_load || mode != last_load_TL || clear_load) { //TL初回
             initph();
-            toot_old_id = json[i-1]['id'];
+            if (i !== 0) toot_old_id = json[i-1]['id'];
             reshtml += "<button class='button button--large--quiet' onclick='showTL(null,null,this)'>もっと読み込む...</button>";
         }
         last_load_TL = mode;
@@ -208,7 +208,7 @@ function showTagTL(tag, more_load) {
             i++;
         }
 
-        tag_old_id = json[i-1]['id'];
+        if (i !== 0) tag_old_id = json[i-1]['id'];
         reshtml += "<button class='button button--large--quiet' onclick='showTagTL(null,this)'>もっと読み込む...</button>";
         document.getElementById("tag_main").innerHTML = reshtml;
         return true;
@@ -274,8 +274,7 @@ function showAccountTL(id, more_load, media) {
             reshtml += toot_card(json[i], "full", null);
             i++;
         }
-
-        account_toot_old_id = json[i-1]['id'];
+        if (i !== 0) account_toot_old_id = json[i-1]['id'];
         if (media)
             reshtml += "<button class='button button--large--quiet' onclick='showAccountTL(account_page_id, this, true)'>もっと読み込む...</button>";
         else

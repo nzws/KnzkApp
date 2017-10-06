@@ -49,7 +49,7 @@
         var tag_str = "";
     </script>
 
-    <script src="js/server.js"></script>
+    <script src="js/server/server.js"></script>
     <script src="js/init.js"></script>
     <script src="js/components.js"></script>
     <script src="js/login.js"></script>
@@ -445,7 +445,7 @@
             <div class="userpage-follower invisible" id="userpage-follower-badge">フォロワー</div>
         </div>
         <div class="userpage-button-bg container userpage-button-right">
-            <ons-icon icon="fa-bars" class="userpage-button" onclick="account_action(account_page_id)"></ons-icon>
+            <ons-icon icon="fa-bars" class="userpage-button" onclick="account_action(account_page_id)" id="acct_action_bt"></ons-icon>
         </div>
         <div class="user-bg y-center" id="userpage-bg">
             <img src="img/missing.png" id="userpage-icon" class="user-logo" />
@@ -491,7 +491,7 @@
                 <img src="img/logo.svg" style="width: 80%;"/>
             </div>
             <p>
-                <b>神崎丼アプリ 1.0.0a5</b>
+                <b>神崎丼アプリ 1.0.0a6</b>
             </p>
             <span class="fa fa-spin"><b>南無！ｗ</b></span>
         </div>
@@ -593,17 +593,6 @@
     <ons-toast id="ok_conf">
         設定を保存しました。
     </ons-toast>
-
-    <ons-alert-dialog id="media-del">
-        <div class="alert-dialog-title">画像を削除</div>
-        <div class="alert-dialog-content">
-            削除してもよろしいですか？
-        </div>
-        <div class="alert-dialog-footer">
-            <button class="alert-dialog-button" onclick="hide('media-del')">キャンセル</button>
-            <button class="alert-dialog-button" onclick="file_del_suc()">削除</button>
-        </div>
-    </ons-alert-dialog>
     <!-- エラー -->
     <ons-toast id="maximum-media">
         エラー: これ以上画像をアップする事はできません。

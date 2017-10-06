@@ -135,25 +135,34 @@ function init() {
 function initevent() {
     $(document).on('click', 'div.toot_content', function(event) {
         var obj = event.currentTarget, id = 0;
-        if (obj.className == "toot_content") {
-            console.log(obj);
-            id = obj.dataset.id;
-            show_post(id);
+        var button = event.target.className.indexOf("button");
+        if (obj.className === "toot_content" && button === -1) {
+            if (obj.dataset.dispmode !== "big") {
+                id = obj.dataset.id;
+                show_post(id);
+            }
         }
     });
     $(document).on('click', 'a', function(event) {
+        var word = "";
         event.stopPropagation();
         event.preventDefault();
         var obj = event.target;
-        if (!event.target.className) obj = event.currentTarget;
         var url = obj.getAttribute('href');
-        var word = url.split("/");
+        if (!url) {
+            obj = event.currentTarget;
+            url = obj.getAttribute('href');
+        }
 
-        if (obj.className == "u-url mention") {
-            show_account_name(word[word.length-1]);
-        } else if (obj.className == "mention hashtag") {
+        if (obj.className === "u-url mention") {
+            word = url.split("/");
+            show_account_name(word[word.length-1] + "@" + word[word.length-2]);
+        } else if (obj.className === "mention hashtag") {
+            word = url.split("/");
             tag_str = word[word.length-1];
             showTagTL(tag_str);
+        } else {
+            window.open(url, "_blank");
         }
         return false;
     });
@@ -162,10 +171,10 @@ function initevent() {
         if (document.getElementById("post_reply") && tmp_post_reply) {
             var bt_obj = document.getElementById("post_mode_bt");
 
-            if (tmp_post_visibility == "public") bt_obj.innerHTML = "公開";
-            else if (tmp_post_visibility == "unlisted") bt_obj.innerHTML = "非収載";
-            else if (tmp_post_visibility == "private") bt_obj.innerHTML = "非公開";
-            else if (tmp_post_visibility == "direct") bt_obj.innerHTML = "ダイレクト";
+            if (tmp_post_visibility === "public") bt_obj.innerHTML = "公開";
+            else if (tmp_post_visibility === "unlisted") bt_obj.innerHTML = "非収載";
+            else if (tmp_post_visibility === "private") bt_obj.innerHTML = "非公開";
+            else if (tmp_post_visibility === "direct") bt_obj.innerHTML = "ダイレクト";
 
             document.getElementById("post_reply").value = tmp_post_reply; //投稿ID
             document.getElementById("post_reply_box").className = "reply-box"; //返信のダイアログ表示
@@ -181,13 +190,13 @@ function initevent() {
     });
 
     document.addEventListener('prechange', function(event) {
-        if (event.index == 2 || event.index == 3) {
+        if (event.index === 2 || event.index === 3) {
             event.cancel();
-        } else if (event.index == 0) { //home
+        } else if (event.index === 0) { //home
 
-        } else if (event.index == 1) { //通知
+        } else if (event.index === 1) { //通知
             showAlert();
-        } else if (event.index == 4) { //config
+        } else if (event.index === 4) { //config
             document.getElementById("account-conf-id").innerHTML = "<div class=\"center list-item__center\">@"+localStorage.getItem('knzk_username')+" でログイン中</div>";
             if (localStorage.getItem('knzk_bigfav') == 1) document.getElementById("conf-fav-namu").checked = "true";
             if (localStorage.getItem('knzk_material_design') == 1) document.getElementById("conf-material").checked = "true";
