@@ -47,6 +47,7 @@
         var tmp_media_del_obj = "";
         var tag_old_id = 0;
         var tag_str = "";
+        var list_old_id = 0;
     </script>
 
     <script src="js/server/server.js"></script>
@@ -57,18 +58,19 @@
     <script src="js/toot.js"></script>
     <script src="js/timeline.js"></script>
     <script src="js/account.js"></script>
+    <script src="js/list.js"></script>
 </head>
 <body>
 <ons-navigator id="navigator" page="init.html"></ons-navigator>
 
 <ons-template id="init.html">
     <ons-page>
-        <ons-tabbar swipeable position="bottom">
+        <ons-tabbar swipeable animation="slide" position="bottom">
             <ons-tab page="home.html" icon="fa-home" active></ons-tab>
             <ons-tab page="alert.html" icon="fa-bell"></ons-tab>
             <ons-tab onclick="loadNav('post.html', 'up')" icon="fa-pencil-square"></ons-tab>
             <ons-tab onclick="show_account(localStorage.getItem('knzk_userid'))" icon="fa-user"></ons-tab>
-            <ons-tab page="config.html" icon="fa-cog"></ons-tab>
+            <ons-tab page="menu.html" icon="fa-bars"></ons-tab>
         </ons-tabbar>
     </ons-page>
 </ons-template>
@@ -134,9 +136,47 @@
     </ons-page>
 </ons-template>
 
+<ons-template id="menu.html">
+    <ons-page>
+        <ons-toolbar>
+            <div class="center">メニュー</div>
+        </ons-toolbar>
+        <ons-list>
+            <ons-list-item modifier="chevron" tappable onclick="list('favourites', 'お気に入り一覧', null, 'toot')">
+                <div class="left">
+                    <ons-icon icon="fa-bell" class="list-item__icon"></ons-icon>
+                </div>
+                <div class="center">
+                    お気に入り
+                </div>
+            </ons-list-item>
+            <ons-list-item modifier="chevron" tappable onclick="loadNav('config.html')">
+                <div class="left">
+                    <ons-icon icon="fa-cog" class="list-item__icon"></ons-icon>
+                </div>
+                <div class="center">
+                    設定
+                </div>
+            </ons-list-item>
+        </ons-list>
+        <p></p>
+        <ons-list>
+            <ons-list-header>About</ons-list-header>
+            <ons-list-item onclick="loadNav('about.html')">このアプリについて</ons-list-item>
+            <ons-list-item onclick="window.open('https://' + inst + '/about/more', '_blank')">インスタンス情報</ons-list-item>
+        </ons-list>
+    </ons-page>
+</ons-template>
+
 <ons-template id="config.html">
     <ons-page>
         <ons-toolbar>
+            <div class="left">
+                <ons-toolbar-button onclick="BackTab()">
+                    <ons-icon icon="fa-chevron-left"></ons-icon>
+                    戻る
+                </ons-toolbar-button>
+            </div>
             <div class="center">設定</div>
         </ons-toolbar>
         <ons-list>
@@ -144,7 +184,38 @@
             <ons-list-item onclick="show_account(localStorage.getItem('knzk_userid'))" id="account-conf-id">@</ons-list-item>
             <ons-list-item onclick="show('logout_dialog')">ログアウト</ons-list-item>
         </ons-list>
+        <ons-list>
+            <ons-list-header>アカウント設定</ons-list-header>
+            <ons-list-item onclick="login_open()">トークンを再取得</ons-list-item>
+        </ons-list>
         <p></p>
+        <ons-list>
+            <ons-list-header>タイムライン設定</ons-list-header>
+            <ons-list-item>
+                <div class="center">
+                    リアルタイム更新
+                </div>
+                <div class="right">
+                    <ons-switch onclick="change_conf('knzk_TL_RealTime', 'conf-tl-realtime')" input-id="conf-tl-realtime"></ons-switch>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    CW文章を常に表示する
+                </div>
+                <div class="right">
+                    <ons-switch onclick="change_conf('knzk_cw', 'conf-cw')" input-id="conf-cw"></ons-switch>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    NSFWメディアを常に表示する
+                </div>
+                <div class="right">
+                    <ons-switch onclick="change_conf('knzk_nsfw', 'conf-nsfw')" input-id="conf-nsfw"></ons-switch>
+                </div>
+            </ons-list-item>
+        </ons-list>
         <ons-list>
             <ons-list-header>デザイン設定</ons-list-header>
             <ons-list-item>
@@ -163,14 +234,18 @@
                     <ons-switch onclick="change_conf('knzk_material_design', 'conf-material')" input-id="conf-material"></ons-switch>
                 </div>
             </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    アニメーションを無効化
+                </div>
+                <div class="right">
+                    <ons-switch onclick="change_conf('knzk_lite_mode', 'conf-lite-mode')" input-id="conf-lite-mode"></ons-switch>
+                </div>
+            </ons-list-item>
         </ons-list>
         <div class="container">
             <p class="note">設定は再起動後に反映されます。</p>
         </div>
-        <ons-list>
-            <ons-list-item onclick="loadNav('about.html')">このアプリについて</ons-list-item>
-            <ons-list-item onclick="window.open('https://' + inst + '/about/more', '_blank')">インスタンス情報</ons-list-item>
-        </ons-list>
     </ons-page>
 </ons-template>
 
@@ -421,6 +496,26 @@
         </ons-toolbar>
 
         <div id="show_follow">
+            <div class="loading-now">
+                <ons-progress-circular indeterminate></ons-progress-circular>
+            </div>
+        </div>
+    </ons-page>
+</ons-template>
+
+<ons-template id="olist.html">
+    <ons-page>
+        <ons-toolbar>
+            <div class="left">
+                <ons-toolbar-button onclick="BackTab()">
+                    <ons-icon icon="fa-chevron-left"></ons-icon>
+                    戻る
+                </ons-toolbar-button>
+            </div>
+            <div class="center" id="olist_title">読み込み中...</div>
+        </ons-toolbar>
+
+        <div id="olist_main">
             <div class="loading-now">
                 <ons-progress-circular indeterminate></ons-progress-circular>
             </div>

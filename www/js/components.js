@@ -4,7 +4,7 @@ function load(page) {
 
 function loadNav(page, mode) {
     var option;
-    if (mode == "up") option = {animation:"lift"};
+    if (mode === "up") option = {animation:"lift"};
      else option = {animation:"slide"};
 
     document.querySelector('#navigator').bringPageTop(page, option);
@@ -12,7 +12,7 @@ function loadNav(page, mode) {
 
 function BackTab(mode) {
     var option;
-    if (mode == "down") option = {animation:"lift"};
+    if (mode === "down") option = {animation:"lift"};
     else option = {animation:"slide"};
 
     document.querySelector('#navigator').popPage(option);

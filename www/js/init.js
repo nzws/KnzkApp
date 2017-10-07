@@ -80,6 +80,7 @@ function init() {
     tmp_media_del_obj = "";
     tag_old_id = 0;
     tag_str = "";
+    list_old_id = 0;
 
     hide('cannot-connect-sv');
     hide('cannot-connect-mastodon');
@@ -167,6 +168,12 @@ function initevent() {
     });
 
     document.addEventListener('postpush', function(event) {
+        if (document.getElementById("account-conf-id")) {
+            document.getElementById("account-conf-id").innerHTML = "<div class=\"center list-item__center\">@"+localStorage.getItem('knzk_username')+" でログイン中</div>";
+            if (localStorage.getItem('knzk_bigfav') == 1) document.getElementById("conf-fav-namu").checked = "true";
+            if (localStorage.getItem('knzk_material_design') == 1) document.getElementById("conf-material").checked = "true";
+            if (localStorage.getItem('knzk_lite_mode') == 1) document.getElementById("conf-lite-mode").checked = "true";
+        }
         if (document.getElementById("post_reply") && tmp_post_reply) {
             var bt_obj = document.getElementById("post_mode_bt");
 
@@ -191,14 +198,8 @@ function initevent() {
     document.addEventListener('prechange', function(event) {
         if (event.index === 2 || event.index === 3) {
             event.cancel();
-        } else if (event.index === 0) { //home
-
         } else if (event.index === 1) { //通知
             showAlert();
-        } else if (event.index === 4) { //config
-            document.getElementById("account-conf-id").innerHTML = "<div class=\"center list-item__center\">@"+localStorage.getItem('knzk_username')+" でログイン中</div>";
-            if (localStorage.getItem('knzk_bigfav') == 1) document.getElementById("conf-fav-namu").checked = "true";
-            if (localStorage.getItem('knzk_material_design') == 1) document.getElementById("conf-material").checked = "true";
         }
     });
 }
@@ -208,11 +209,15 @@ if (localStorage.getItem('knzk_material_design') == 1) { //マテリアル
     button = "button button--material";
     quiet = button + " button--material--flat";
     light = quiet;
+    ons.platform.select('android');
 } else {
     button = "button";
     quiet = button + " button--quiet";
     light = button + " button--light";
     ons.disableAutoStyling();
+}
+if (localStorage.getItem('knzk_lite_mode') == 1) {
+    ons.disableAnimations();
 }
 ons.ready(function() {
     init();
