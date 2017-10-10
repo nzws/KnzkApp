@@ -14,6 +14,7 @@ PCから使用（テスト）する場合は [www/js/server/server.debug.sample.
 [EmojiOne](https://www.emojione.com/)  
 [Font Awesome](http://fontawesome.io/)  
 [Bootstrap](https://getbootstrap.com/)
+[jQuery](https://jquery.com/)
 
 ### 神崎丼ロゴ
 [ネイティオ @twotwo](https://knzk.me/@twotwo)
