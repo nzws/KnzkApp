@@ -7,7 +7,7 @@
     <script src="components/loader.js"></script>
     <script src="components/onsenui/js/onsenui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/lib/js/emojione.min.js" integrity="sha256-9cBkVeU53NiJ9/BdcJta3HbERAmf5X9DE2WvL8V+gDs=" crossorigin="anonymous" async></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous" async></script>
+    <script src="lib/jquery-3.2.1.slim.min.js" async></script>
 
     <link rel="stylesheet" href="components/loader.css">
     <link rel="stylesheet" href="components/onsenui/css/onsenui.min.css">
@@ -22,12 +22,12 @@
         var now_TL = "local";
         var last_load_TL = "";
         var tmp_post_text = "";
-        var toot_new_id = 0;
-        var toot_old_id = 0;
-        var account_toot_old_id = 0;
-        var account_page_id = 0;
-        var alert_new_id = 0;
-        var alert_old_id = 0;
+        var toot_new_id = "";
+        var toot_old_id = "";
+        var account_toot_old_id = "";
+        var account_page_id = "";
+        var alert_new_id = "";
+        var alert_old_id = "";
         var more_status_id = "";
         var more_acct_id = "";
         var tmp_bbcode_id = "";
@@ -40,14 +40,15 @@
         var tmp_text_pre = "";
         var tmp_post_reply = 0;
         var tmp_post_visibility = "";
-        var follow_old_id = 0;
+        var follow_old_id = "";
         var media_num = 0;
         var media_id = Array();
         var tmp_media_del_id = 0;
         var tmp_media_del_obj = "";
-        var tag_old_id = 0;
+        var tag_old_id = "";
         var tag_str = "";
-        var list_old_id = 0;
+        var list_old_id = "";
+        var isios;
     </script>
 
     <script src="js/server/server.js"></script>
@@ -144,26 +145,59 @@
         <ons-list>
             <ons-list-item modifier="chevron" tappable onclick="list('favourites', 'お気に入り一覧', null, 'toot')">
                 <div class="left">
-                    <ons-icon icon="fa-bell" class="list-item__icon"></ons-icon>
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-bell fa fa-fw"></i>
                 </div>
                 <div class="center">
                     お気に入り
                 </div>
             </ons-list-item>
+            <ons-list-item modifier="chevron" tappable onclick="list('pin', '固定トゥート一覧', null, 'toot')">
+                <div class="left">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-thumb-tack fa fa-fw"></i>
+                </div>
+                <div class="center">
+                    固定したトゥート
+                </div>
+            </ons-list-item>
+            <ons-list-item modifier="chevron" tappable onclick="list('mutes', 'ミュート一覧', null, 'acct')">
+                <div class="left">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-volume-off fa fa-fw"></i>
+                </div>
+                <div class="center">
+                    ミュートしたユーザー
+                </div>
+            </ons-list-item>
+            <ons-list-item modifier="chevron" tappable onclick="list('blocks', 'ブロック一覧', null, 'acct')">
+                <div class="left">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-ban fa fa-fw"></i>
+                </div>
+                <div class="center">
+                    ブロックしたユーザー
+                </div>
+            </ons-list-item>
             <ons-list-item modifier="chevron" tappable onclick="loadNav('config.html')">
                 <div class="left">
-                    <ons-icon icon="fa-cog" class="list-item__icon"></ons-icon>
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-cog fa fa-fw"></i>
                 </div>
                 <div class="center">
                     設定
+                </div>
+            </ons-list-item>
+            <ons-list-item modifier="chevron" tappable onclick="init()">
+                <div class="left">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-repeat fa fa-fw"></i>
+                </div>
+                <div class="center">
+                    アプリの再起動
                 </div>
             </ons-list-item>
         </ons-list>
         <p></p>
         <ons-list>
             <ons-list-header>About</ons-list-header>
-            <ons-list-item onclick="loadNav('about.html')">このアプリについて</ons-list-item>
             <ons-list-item onclick="window.open('https://' + inst + '/about/more', '_blank')">インスタンス情報</ons-list-item>
+            <ons-list-item onclick="loadNav('about.html')">このアプリについて</ons-list-item>
+            <ons-list-item onclick="window.open('https://github.com/KnzkDev/KnzkApp/wiki/License', '_blank')">ライセンス</ons-list-item>
         </ons-list>
     </ons-page>
 </ons-template>
@@ -180,25 +214,14 @@
             <div class="center">設定</div>
         </ons-toolbar>
         <ons-list>
-            <ons-list-header>アカウント情報</ons-list-header>
-            <ons-list-item onclick="show_account(localStorage.getItem('knzk_userid'))" id="account-conf-id">@</ons-list-item>
-            <ons-list-item onclick="show('logout_dialog')">ログアウト</ons-list-item>
-        </ons-list>
-        <ons-list>
-            <ons-list-header>アカウント設定</ons-list-header>
+            <ons-list-header>アカウント</ons-list-header>
+            <ons-list-item onclick="show_account(localStorage.getItem('knzk_userid'))" id="account-conf-id">@ でログイン中</ons-list-item>
             <ons-list-item onclick="login_open()">トークンを再取得</ons-list-item>
+            <ons-list-item onclick="show('logout_dialog')">ログアウト</ons-list-item>
         </ons-list>
         <p></p>
         <ons-list>
             <ons-list-header>タイムライン設定</ons-list-header>
-            <ons-list-item>
-                <div class="center">
-                    リアルタイム更新
-                </div>
-                <div class="right">
-                    <ons-switch onclick="change_conf('knzk_TL_RealTime', 'conf-tl-realtime')" input-id="conf-tl-realtime"></ons-switch>
-                </div>
-            </ons-list-item>
             <ons-list-item>
                 <div class="center">
                     CW文章を常に表示する
@@ -253,7 +276,7 @@
     <ons-page>
         <ons-toolbar>
             <div class="left">
-                <ons-toolbar-button onclick="BackTab('down')">
+                <ons-toolbar-button onclick="reset_file();BackTab('down')">
                     <ons-icon icon="fa-times"></ons-icon>
                 </ons-toolbar-button>
             </div>
@@ -589,24 +612,15 @@
                 <img src="img/logo.svg" style="width: 80%;"/>
             </div>
             <p>
-                <b>神崎丼アプリ 1.0.0a6</b>
+                <b>神崎丼アプリ 1.0.0</b>
             </p>
             <span class="fa fa-spin"><b>南無！ｗ</b></span>
         </div>
         <ons-list>
-            <ons-list-header>使用システム/ライブラリ</ons-list-header>
-            <ons-list-item onclick="window.open('https://ja.monaca.io/', '_system')">Monaca</ons-list-item>
-            <ons-list-item onclick="window.open('https://cordova.apache.org/', '_system')">Apache Cordova</ons-list-item>
-            <ons-list-item onclick="window.open('https://ja.onsen.io/', '_system')">Onsen UI</ons-list-item>
-            <ons-list-item onclick="window.open('https://www.emojione.com/', '_system')">EmojiOne</ons-list-item>
-            <ons-list-item onclick="window.open('http://fontawesome.io/', '_system')">Font Awesome</ons-list-item>
-            <ons-list-item onclick="window.open('https://getbootstrap.com/', '_system')">Bootstrap</ons-list-item>
-        </ons-list>
-        <p></p>
-        <ons-list>
             <ons-list-header>クレジット</ons-list-header>
             <ons-list-item onclick="window.open('https://knzk.me/@y', '_blank')">アプリ開発: ねじりわさび</ons-list-item>
             <ons-list-item onclick="window.open('https://knzk.me/@twotwo', '_blank')">ロゴ画像: ネイティオ</ons-list-item>
+            <ons-list-item onclick="window.open('https://knzk.me/@annotunzdy', '_blank')">iOS版配布: あんのたん</ons-list-item>
             <ons-list-item onclick="window.open('https://knzk.me/@knzk', '_blank')">神崎丼運営: 神埼おにいさん</ons-list-item>
             <ons-list-item onclick="window.open('https://knzk.me/@imncls', '_blank')">神崎丼運営: NCLS</ons-list-item>
             <ons-list-item onclick="window.open('https://knzk.me/@_5', '_blank')">神崎丼運営: 🍊</ons-list-item>

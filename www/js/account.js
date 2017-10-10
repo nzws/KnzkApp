@@ -42,6 +42,7 @@ function show_account(id) {
     }).then(function(json) {
         document.getElementById("acct_block").value = json[0]["blocking"];
         document.getElementById("acct_mute").value = json[0]["muting"];
+
         if (json[0]["muting"] === true)
             document.getElementById("userpage-mute-badge").className = "userpage-follower";
         else
@@ -52,6 +53,16 @@ function show_account(id) {
         else
             document.getElementById("userpage-block-badge").className = "invisible";
 
+        if (json[0]["followed_by"] === true)
+            document.getElementById("userpage-follower-badge").className = "userpage-follower";
+        else
+            document.getElementById("userpage-follower-badge").className = "invisible";
+
+        if (json[0]["following"] === true)
+            document.getElementById("userpage-follow-button").className = "userpage-button follow-active ons-icon fa-user-times fa";
+        else
+            document.getElementById("userpage-follow-button").className = "userpage-button ons-icon fa-user-times fa";
+
         if (json[0]["id"] == localStorage.getItem('knzk_userid')) {
             document.getElementById("userpage-follow-button").className = "invisible";
             document.getElementById("acct_action_bt").className = "invisible";
@@ -59,8 +70,6 @@ function show_account(id) {
         } else {
             document.getElementById("userpage-follow-button").className = "userpage-button ons-icon fa-user-plus fa";
             document.getElementById("acct_action_bt").className = "userpage-button ons-icon fa-bars fa";
-            if (json[0]["followed_by"] === true) document.getElementById("userpage-follower-badge").className = "userpage-follower";
-            if (json[0]["following"] === true) document.getElementById("userpage-follow-button").className = "userpage-button follow-active ons-icon fa-user-times fa";
         }
     }).catch(function(error) {
         showtoast('cannot-pros');
@@ -123,7 +132,7 @@ function showFollow(id, mode, more_load) {
             }
 
             if (i !== 0) follow_old_id = json[i-1]['id'];
-            reshtml += "<button class='button button--large--quiet' onclick='showFollow(" + id + ", \"" + mode + "\", this)'>もっと読み込む...</button>";
+            reshtml += "<button class='button button--large--quiet' onclick='showFollow(\"" + id + "\", \"" + mode + "\", this)'>もっと読み込む...</button>";
             document.getElementById("show_follow").innerHTML = reshtml;
         }
     }).catch(function(error) {

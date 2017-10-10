@@ -55,12 +55,12 @@ function init() {
     now_TL = "local";
     last_load_TL = "";
     tmp_post_text = "";
-    toot_new_id = 0;
-    toot_old_id = 0;
-    account_toot_old_id = 0;
-    account_page_id = 0;
-    alert_new_id = 0;
-    alert_old_id = 0;
+    toot_new_id = "";
+    toot_old_id = "";
+    account_toot_old_id = "";
+    account_page_id = "";
+    alert_new_id = "";
+    alert_old_id = "";
     more_status_id = "";
     more_acct_id = "";
     tmp_bbcode_id = "";
@@ -73,15 +73,15 @@ function init() {
     tmp_text_pre = "";
     tmp_post_reply = 0;
     tmp_post_visibility = "";
-    follow_old_id = 0;
+    follow_old_id = "";
     media_num = 0;
     media_id = Array();
     tmp_media_del_id = 0;
     tmp_media_del_obj = "";
-    tag_old_id = 0;
+    tag_old_id = "";
     tag_str = "";
-    list_old_id = 0;
-
+    list_old_id = "";
+    init_d();
     hide('cannot-connect-sv');
     hide('cannot-connect-mastodon');
     hide('cannot-connect-internet');
@@ -173,6 +173,9 @@ function initevent() {
             if (localStorage.getItem('knzk_bigfav') == 1) document.getElementById("conf-fav-namu").checked = "true";
             if (localStorage.getItem('knzk_material_design') == 1) document.getElementById("conf-material").checked = "true";
             if (localStorage.getItem('knzk_lite_mode') == 1) document.getElementById("conf-lite-mode").checked = "true";
+            if (localStorage.getItem('knzk_nsfw') == 1) document.getElementById("conf-nsfw").checked = "true";
+            if (localStorage.getItem('knzk_cww') == 1) document.getElementById("conf-cw").checked = "true";
+
         }
         if (document.getElementById("post_reply") && tmp_post_reply) {
             var bt_obj = document.getElementById("post_mode_bt");
@@ -205,20 +208,23 @@ function initevent() {
 }
 
 var button = "", quiet = "", light = "";
-if (localStorage.getItem('knzk_material_design') == 1) { //マテリアル
-    button = "button button--material";
-    quiet = button + " button--material--flat";
-    light = quiet;
-    ons.platform.select('android');
-} else {
-    button = "button";
-    quiet = button + " button--quiet";
-    light = button + " button--light";
-    ons.disableAutoStyling();
+function init_d() {
+    if (localStorage.getItem('knzk_material_design') == 1) { //マテリアル
+        button = "button button--material";
+        quiet = button + " button--material--flat";
+        light = quiet;
+        ons.platform.select('android');
+    } else {
+        button = "button";
+        quiet = button + " button--quiet";
+        light = button + " button--light";
+        ons.disableAutoStyling();
+    }
+    if (localStorage.getItem('knzk_lite_mode') == 1) {
+        ons.disableAnimations();
+    }
 }
-if (localStorage.getItem('knzk_lite_mode') == 1) {
-    ons.disableAnimations();
-}
+init_d();
 ons.ready(function() {
     init();
 });

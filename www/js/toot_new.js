@@ -12,6 +12,11 @@ function post_cw() {
     }
 }
 
+function reset_file() {
+    media_id = null;
+    media_num = null;
+}
+
 function up_file() {
     if (media_id[4]) {
         showtoast("maximum-media");
@@ -73,8 +78,7 @@ function file_del(id, card) {
             card.parentNode.removeChild(card);
 
             if (id === 0) {
-                media_id = null;
-                media_num = null;
+                reset_file();
             } else {
                 media_id.splice(tmp_media_del_id - 1, 1);
                 media_num--;
@@ -223,12 +227,13 @@ function bbcode_color(color) {
 
 function post(id, mode, option) {
     show('now_loading');
-    console.log(option);
     if (!option.cw) {
         option.cw = "";
     }
-    if (option.sensitive && option.media_ids) {
-        option.cw = true;
+    if (option.sensitive && media_id[0]) {
+        option.sensitive = true;
+    } else {
+        option.sensitive = null;
     }
     if (!option.in_reply_to_id) {
         option.in_reply_to_id = "";
@@ -242,6 +247,7 @@ function post(id, mode, option) {
         body: JSON.stringify({
             status: document.getElementById(id).value,
             spoiler_text: option.cw,
+            sensitive: option.sensitive,
             visibility: option.visibility,
             in_reply_to_id: option.in_reply_to_id,
             media_ids: media_id

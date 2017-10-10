@@ -63,7 +63,10 @@ function login_callback(params) {
 
 function logout() {
     hide('logout_dialog');
-    localStorage.clear();
+    localStorage.removeItem('knzk_login_token');
+    localStorage.removeItem('knzk_username');
+    localStorage.removeItem('knzk_userid');
+    //localStorage.clear(); //設定は消さない
     init();
     showtoast('loggedout_dialog');
 }

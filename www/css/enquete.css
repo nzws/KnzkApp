@@ -1,4 +1,5 @@
 .progress-bar.enq {
+    margin-bottom: 3px;
     height: 2em;
     border-radius: 0;
     border: 1px solid #ddd;
