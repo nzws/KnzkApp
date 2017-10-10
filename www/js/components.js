@@ -84,10 +84,18 @@ function hide(id) {
 
 function change_conf(name, id) {
     var mode = document.getElementById(id).checked;
-    if (mode == true) { //iOSは逆？？？
-        localStorage.setItem(name, 1);
+    if (isios) { //iOS
+        if (mode == true) {
+            localStorage.setItem(name, 0);
+        } else {
+            localStorage.setItem(name, 1);
+        }
     } else {
-        localStorage.setItem(name, 0);
+        if (mode == true) {
+            localStorage.setItem(name, 1);
+        } else {
+            localStorage.setItem(name, 0);
+        }
     }
     showtoast('ok_conf');
 }

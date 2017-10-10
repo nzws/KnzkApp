@@ -229,10 +229,10 @@ function showAccountTL(id, more_load, media) {
         if (media)
             get = "?only_media=true";
     }
-    if (media) { //読み込みマーク入れる & ピンを表示しない
+    if (media && !more_load) { //読み込みマーク入れる & ピンを表示しない
         document.getElementById("account_toot").innerHTML = "<div class=\"loading-now\"><ons-progress-circular indeterminate></ons-progress-circular></div>";
         document.getElementById("account_pinned_toot").innerHTML = "";
-    } else {
+    } else if (!media) {
         fetch("https://"+inst+"/api/v1/accounts/"+id+"/statuses?pinned=true", {
             headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
             method: 'GET'
