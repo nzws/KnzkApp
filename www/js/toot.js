@@ -6,9 +6,6 @@ function toot_card(toot, mode, note, toot_light) {
     }
     if (toot['enquete']) {
         toot['enquete'] = JSON.parse(toot['enquete']);
-        var enq_comp_date = new Date(new Date().getTime() - new Date(toot['created_at']).getTime());
-        var enq_sec = enq_comp_date.getSeconds();
-        var enq_sec_comp = toot['enquete']['duration'] - enq_sec;
         if (toot['enquete']['ratios_text']) { //締め切り
             while (toot['enquete']['items'][q]) {
                 enq_item += "<div class='progress-bar enq'>\n" +
@@ -19,10 +16,22 @@ function toot_card(toot, mode, note, toot_light) {
                 q++;
             }
         } else { //受付中
+            var enq_comp_date = new Date(Math.floor(new Date().getTime() / 1000) - Math.floor(new Date(toot['created_at']).getTime() / 1000));
+            var enq_sec_comp = toot['enquete']['duration'] - enq_comp_date;
             if (enq_sec_comp >= 0) { //受付中
-
+                while (toot['enquete']['items'][q]) {
+                    enq_item += "<div class='progress-bar enq open enquete' onclick='vote_item("+q+", this, \""+toot['id']+"\")'>\n" +
+                        "           <div class='text enquete'>"+toot['enquete']['items'][q]+"</div>\n" +
+                        "       </div>";
+                    q++;
+                }
             } else { //締め切り（投票トゥート）
-
+                while (toot['enquete']['items'][q]) {
+                    enq_item += "<div class='progress-bar enq close'>\n" +
+                        "           <div class='text'>"+toot['enquete']['items'][q]+"</div>\n" +
+                        "       </div>";
+                    q++;
+                }
             }
         }
         toot['content'] = toot['enquete']['question'] + "<div class=\"toot enq\">"+enq_item+"</div>";
@@ -115,6 +124,27 @@ function toot_card(toot, mode, note, toot_light) {
         "            </div>";
 
     return buf;
+}
+
+function vote_item(q, obj, id) {
+    fetch("https://"+inst+"/api/v1/votes/"+id, {
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
+        method: 'POST',
+        body: JSON.stringify({
+            item_index: q
+        })
+    }).then(function(response) {
+        if(response.ok) {
+            return response.json();
+        } else {
+            throw new Error();
+        }
+    }).then(function(json) {
+        obj.className = "progress-bar enq post";
+    }).catch(function(error) {
+        showtoast('cannot-pros');
+        console.log(error);
+    });
 }
 
 function toot_action(id, obj, mode, action_mode) {

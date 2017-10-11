@@ -117,7 +117,7 @@ html, body {
 
 
 .userpage-button-bg {
-    margin-top: 10px;
+    margin: 10px 10px 0;
     position: absolute;
 }
 
@@ -126,6 +126,7 @@ html, body {
 }
 
 .userpage-follower {
+    color: white;
     opacity: .7;
     background-color: rgba(0,0,0,.5);
     text-transform: uppercase;
