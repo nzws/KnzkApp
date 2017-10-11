@@ -49,10 +49,10 @@
     <splash src="/res/ios/screen/Default-568h@2x~iphone.png" width="640" height="1136"/>
     <splash src="/res/ios/screen/Default-667h.png" width="750" height="1334"/>
     <splash src="/res/ios/screen/Default-736h.png" width="1242" height="2208"/>
-    <splash src="/res/ios/screen/Default-Landscape-736h.png" width="2208" height="1242"/>
     <splash src="/res/ios/screen/Default-Portrait~ipad.png" width="768" height="1024"/>
-    <splash src="/res/ios/screen/Default-Landscape~ipad.png" width="1024" height="768"/>
     <splash src="/res/ios/screen/Default-Portrait@2x~ipad.png" width="1536" height="2048"/>
+    <splash src="/res/ios/screen/Default-Landscape-736h.png" width="2208" height="1242"/>
+    <splash src="/res/ios/screen/Default-Landscape~ipad.png" width="1024" height="768"/>
     <splash src="/res/ios/screen/Default-Landscape@2x~ipad.png" width="2048" height="1536"/>
     <config-file platform="ios" parent="CFBundleLocalizations" target="*-Info.plist">
       <array>
@@ -69,10 +69,10 @@
     <icon src="/res/android/icon/xxxhdpi.png" density="xxxhdpi"/>
     <splash src="/res/android/screen/splash-port-ldpi.9.png" density="port-ldpi"/>
     <splash src="/res/android/screen/splash-port-mdpi.9.png" density="port-mdpi"/>
+    <splash src="/res/android/screen/splash-port-xxxhdpi.9.png" density="port-xxxhdpi"/>
     <splash src="/res/android/screen/splash-port-hdpi.9.png" density="port-hdpi"/>
     <splash src="/res/android/screen/splash-port-xhdpi.9.png" density="port-xhdpi"/>
     <splash src="/res/android/screen/splash-port-xxhdpi.9.png" density="port-xxhdpi"/>
-    <splash src="/res/android/screen/splash-port-xxxhdpi.9.png" density="port-xxxhdpi"/>
   </platform>
   <platform name="windows">
     <icon src="/res/winrt/icon/package_logo_winrt.png" target="StoreLogo"/>
@@ -86,16 +86,16 @@
   </platform>
   <preference name="WindowsStorePublisherName" value="My Name"/>
   <preference name="WindowsStoreIdentityName" value="ef46890d-8d5c-5fca-cde1-bc1dae48e2c2"/>
-  <preference name="KeepRunning" value="true"/>
-  <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
-  <preference name="Orientation" value="default"/>
-  <preference name="SplashScreenDelay" value="0"/>
-  <preference name="Fullscreen" value="false"/>
   <preference name="ios-XCBuildConfiguration-TARGETED_DEVICE_FAMILY" value="1,2"/>
   <preference name="AutoHideSplashScreen" value="true"/>
   <preference name="FadeSplashScreen" value="true"/>
   <preference name="ShowSplashScreenSpinner" value="false"/>
-  <access origin="*"/>
-  <preference name="DisallowOverscroll" value="true"/>
   <preference name="EnableViewportScale" value="false"/>
+  <access origin="*"/>
+  <preference name="KeepRunning" value="true"/>
+  <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <preference name="Orientation" value="default"/>
+  <preference name="SplashScreenDelay" value="0"/>
+  <preference name="Fullscreen" value="false"/>
 </widget>
