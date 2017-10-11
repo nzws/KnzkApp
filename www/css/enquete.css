@@ -1,8 +1,20 @@
 .progress-bar.enq {
-    margin-bottom: 3px;
-    height: 2em;
+    margin-bottom: 10px;
+    height: 40px;
     border-radius: 0;
     border: 1px solid #ddd;
+}
+
+.progress-bar.enq.open {
+    background-color: #525b73;
+}
+
+.progress-bar.enq.post {
+    background-color: deepskyblue;
+}
+
+.progress-bar.enq.close {
+    background-color: black;
 }
 
 .progress-bar.enq > .progress-bar__primary {
@@ -10,11 +22,11 @@
 }
 
 .progress-bar.enq > .right {
-    right: 5px;
+    right: 10px;
 }
 
 .progress-bar.enq > .text {
-    top: 3px;
+    top: 10px;
     position: absolute;
     margin-left: 5px;
     color: white;

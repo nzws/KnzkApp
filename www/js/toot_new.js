@@ -12,13 +12,27 @@ function post_cw() {
     }
 }
 
-function reset_file() {
-    media_id = null;
-    media_num = null;
+function post_vote() {
+    var cw_input = document.getElementById("vote_new_list");
+    var cwicon = document.getElementById("vote_bt");
+
+    if (cw_input.style.display == "block") { //vote オン→オフ
+        cw_input.style.display = "none";
+        document.getElementById("vote_new_1").value = "";
+        document.getElementById("vote_new_2").value = "";
+        document.getElementById("vote_new_3").value = "";
+        document.getElementById("vote_new_4").value = "";
+        document.getElementById("vote_new_time").value = "30";
+        cwicon.className = quiet;
+    } else { //vote オフ→オン
+        cw_input.style.display = "block";
+        cwicon.className = button;
+    }
 }
 
 function up_file() {
-    if (media_id[4]) {
+    var card = document.getElementsByClassName("media-upload");
+    if (card.length >= 4) {
         showtoast("maximum-media");
     } else {
         show('now_loading');
@@ -55,10 +69,8 @@ function up_file_suc(base64) {
             }
         }).then(function(json) {
             if (json["id"] && json["preview_url"] != "https://knzk.me/files/small/missing.png") {
-                media_id[media_num] = json["id"];
                 document.getElementById("nsfw_bt").className = quiet;
-                document.getElementById("image_list").innerHTML = "<ons-card onclick=\"file_del(" + media_num + ", this)\" style='background-image: url("+json["preview_url"]+")' class='card-image'></ons-card>" + document.getElementById("image_list").innerHTML;
-                media_num++;
+                document.getElementById("image_list").innerHTML = "<ons-card onclick=\"file_del(this)\" style='background-image: url("+json["preview_url"]+")' class='card-image media-upload' data-mediaid='"+json["id"]+"'></ons-card>" + document.getElementById("image_list").innerHTML;
                 hide('now_loading');
             } else {
                 hide('now_loading');
@@ -72,17 +84,10 @@ function up_file_suc(base64) {
     }
 }
 
-function file_del(id, card) {
+function file_del(card) {
     ons.notification.confirm('画像を削除してもよろしいですか？').then(function (e) {
         if (e === 1) {
             card.parentNode.removeChild(card);
-
-            if (id === 0) {
-                reset_file();
-            } else {
-                media_id.splice(tmp_media_del_id - 1, 1);
-                media_num--;
-            }
         }
     });
 }
@@ -225,33 +230,46 @@ function bbcode_color(color) {
     }
 }
 
-function post(id, mode, option) {
+function post(id, option) {
     show('now_loading');
-    if (!option.cw) {
-        option.cw = "";
+    var media_id = Array(), i, optiondata = {
+        status: document.getElementById(id).value,
+        visibility: option.visibility
+    };
+    var media = document.getElementsByClassName("media-upload");
+
+    var vote1 = document.getElementById("vote_new_1").value;
+    var vote2 = document.getElementById("vote_new_2").value;
+    var vote3 = document.getElementById("vote_new_3").value;
+    var vote4 = document.getElementById("vote_new_4").value;
+    var votem = document.getElementById("vote_new_time").value;
+
+    if (vote1 != "" && vote2 != "") {
+        optiondata.isEnquete = true;
+        optiondata.enquete_duration = parseInt(votem);
+        optiondata.enquete_items = [vote1, vote2, vote3, vote4];
     }
-    if (option.sensitive && media_id[0]) {
-        option.sensitive = true;
-    } else {
-        option.sensitive = null;
+    if (option.cw) {
+        optiondata.spoiler_text = option.cw;
     }
-    if (!option.in_reply_to_id) {
-        option.in_reply_to_id = "";
+    if (option.sensitive && media[0]) {
+        optiondata.sensitive = true;
     }
-    if (!media_id[0]) {
-        media_id = "";
+    if (option.in_reply_to_id) {
+        optiondata.in_reply_to_id = option.in_reply_to_id;
+    }
+    if (media[0]) {
+        i = 0;
+        while (media[i]) {
+            media_id[i] = media[i].dataset.mediaid;
+            i++;
+        }
+        optiondata.media_ids = media_id;
     }
     fetch("https://"+inst+"/api/v1/statuses", {
         headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
         method: 'POST',
-        body: JSON.stringify({
-            status: document.getElementById(id).value,
-            spoiler_text: option.cw,
-            sensitive: option.sensitive,
-            visibility: option.visibility,
-            in_reply_to_id: option.in_reply_to_id,
-            media_ids: media_id
-        })
+        body: JSON.stringify(optiondata)
     }).then(function(response) {
         if(response.ok) {
             return response.json();
@@ -260,11 +278,8 @@ function post(id, mode, option) {
         }
     }).then(function(json) {
         hide('now_loading');
-        //document.querySelector('#navigator').resetToPage('init.html');
         BackTab('down');
         showTL(null, null, null, true);
-        media_id = Array();
-        media_num = 0;
     }).catch(function(error) {
         showtoast('cannot-post');
         console.log(error);

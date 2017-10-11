@@ -136,8 +136,8 @@ function init() {
 function initevent() {
     $(document).on('click', 'div.toot_content', function(event) {
         var obj = event.currentTarget, id = 0;
-        var button = event.target.className.indexOf("button");
-        if (obj.className === "toot_content" && button === -1) {
+        var button = event.target.className;
+        if (obj.className === "toot_content" && button.indexOf("button") === -1 && button.indexOf("enquete") === -1) {
             if (obj.dataset.dispmode !== "big") {
                 id = obj.dataset.id;
                 show_post(id);

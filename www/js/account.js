@@ -61,14 +61,13 @@ function show_account(id) {
         if (json[0]["following"] === true)
             document.getElementById("userpage-follow-button").className = "userpage-button follow-active ons-icon fa-user-times fa";
         else
-            document.getElementById("userpage-follow-button").className = "userpage-button ons-icon fa-user-times fa";
+            document.getElementById("userpage-follow-button").className = "userpage-button ons-icon fa-user-plus fa";
 
         if (json[0]["id"] == localStorage.getItem('knzk_userid')) {
             document.getElementById("userpage-follow-button").className = "invisible";
             document.getElementById("acct_action_bt").className = "invisible";
             document.getElementById("userpage-follower-badge").className = "invisible";
         } else {
-            document.getElementById("userpage-follow-button").className = "userpage-button ons-icon fa-user-plus fa";
             document.getElementById("acct_action_bt").className = "userpage-button ons-icon fa-bars fa";
         }
     }).catch(function(error) {

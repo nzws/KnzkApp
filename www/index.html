@@ -41,8 +41,6 @@
         var tmp_post_reply = 0;
         var tmp_post_visibility = "";
         var follow_old_id = "";
-        var media_num = 0;
-        var media_id = Array();
         var tmp_media_del_id = 0;
         var tmp_media_del_obj = "";
         var tag_old_id = "";
@@ -276,7 +274,7 @@
     <ons-page>
         <ons-toolbar>
             <div class="left">
-                <ons-toolbar-button onclick="reset_file();BackTab('down')">
+                <ons-toolbar-button onclick="BackTab('down')">
                     <ons-icon icon="fa-times"></ons-icon>
                 </ons-toolbar-button>
             </div>
@@ -290,6 +288,23 @@
         <p></p>
         <div class="container">
             <div class="reply-box invisible" id="post_reply_box"><ons-icon icon="fa-reply"></ons-icon>　<span id="post_reply_acct"></span> へ返信</div>
+            <div id="vote_new_list" style="display: none;">
+                <p>
+                    <ons-input id="vote_new_1" modifier="underbar" placeholder="項目1" class="w-max"></ons-input>
+                    <ons-input id="vote_new_2" modifier="underbar" placeholder="項目2" class="w-max"></ons-input>
+                    <ons-input id="vote_new_3" modifier="underbar" placeholder="項目3(任意)" class="w-max"></ons-input>
+                    <ons-input id="vote_new_4" modifier="underbar" placeholder="項目4(任意)" class="w-max"></ons-input>
+                    <ons-select id="vote_new_time" class="w-max" modifier="underbar">
+                        <option value="30">30秒</option>
+                        <option value="60">1分</option>
+                        <option value="180">3分</option>
+                        <option value="300">5分</option>
+                        <option value="600">10分</option>
+                        <option value="3600">1時間</option>
+                        <option value="86400">1日</option>
+                    </ons-select>
+                </p>
+            </div>
             <ons-input id="cw_input" modifier="underbar" placeholder="警告文を書いてください" class="w-max" style="display: none;" onkeyup="check_limit(value, 'toot-limit', 'toot-button', 'toot_textarea');"></ons-input>
             <textarea class="textarea dark-box-in" rows="5" placeholder="今なにしてる？" id="toot_textarea" style="width: 100%" onkeyup="check_limit(value, 'toot-limit', 'toot-button', 'cw_input');"></textarea>
             <div class="dark-box" style="border-radius: 0">
@@ -299,13 +314,13 @@
                 <ons-button modifier="quiet" onclick="up_file()" style="border-radius: 0" id="new_up_bt"><ons-icon icon="fa-picture-o"></ons-icon></ons-button>
                 <ons-button modifier="quiet" onclick="post_nsfw()" style="border-radius: 0" class="invisible" id="nsfw_bt"><ons-icon icon="fa-eye"></ons-icon></ons-button>
                 <ons-button modifier="quiet" onclick="post_cw()" style="border-radius: 0" id="cw_bt">CW</ons-button>
-                <ons-button modifier="quiet" onclick="post_vote()" style="border-radius: 0"><ons-icon icon="fa-align-left"></ons-icon></ons-button>
+                <ons-button modifier="quiet" onclick="post_vote()" style="border-radius: 0" id="vote_bt"><ons-icon icon="fa-align-left"></ons-icon></ons-button>
             </div>
             <div class="dark-box">
                 <ons-button modifier="quiet" onclick="post_mode()" style="border-radius: 0 0 0 4px" id="post_mode_bt">公開</ons-button>
                 <span style="float: right">
                 <b id="toot-limit" class="toot-limit">4096</b>
-                <ons-button onclick="post('toot_textarea', null, {cw:document.getElementById('cw_input').value, visibility:document.getElementById('post_mode').value, sensitive:document.getElementById('nsfw_input').value, in_reply_to_id: document.getElementById('post_reply').value})" id="toot-button" style="border-radius: 4px 0 4px 0">トゥート！</ons-button>
+                <ons-button onclick="post('toot_textarea', {cw:document.getElementById('cw_input').value, visibility:document.getElementById('post_mode').value, sensitive:document.getElementById('nsfw_input').value, in_reply_to_id: document.getElementById('post_reply').value})" id="toot-button" style="border-radius: 4px 0 4px 0">トゥート！</ons-button>
                 </span>
             </div>
             <div id="image_list"></div>
@@ -559,13 +574,13 @@
         </ons-toolbar>
         <input type="hidden" id="acct_block">
         <input type="hidden" id="acct_mute">
-        <div class="userpage-button-bg container">
+        <div class="userpage-button-bg">
             <ons-icon icon="fa-user-plus" class="userpage-button" id="userpage-follow-button" onclick="account_state_action(account_page_id, this, 'follow')"></ons-icon>
             <div class="userpage-follower invisible" id="userpage-follower-badge">フォロワー</div>
             <div class="userpage-follower invisible" id="userpage-mute-badge">ミュート中</div>
             <div class="userpage-follower invisible" id="userpage-block-badge">ブロック中</div>
         </div>
-        <div class="userpage-button-bg container userpage-button-right">
+        <div class="userpage-button-bg userpage-button-right">
             <ons-icon icon="fa-bars" class="userpage-button" onclick="account_action(account_page_id)" id="acct_action_bt"></ons-icon>
         </div>
         <div class="user-bg y-center" id="userpage-bg">
@@ -612,9 +627,13 @@
                 <img src="img/logo.svg" style="width: 80%;"/>
             </div>
             <p>
-                <b>神崎丼アプリ 1.0.0</b>
+                <b>神崎丼アプリ 1.0.0b1</b>
             </p>
             <span class="fa fa-spin"><b>南無！ｗ</b></span>
+            <p></p>
+            <p>
+                KnzkAppはオープンソースソフトウェアです。<br><a href="https://github.com/KnzkDev/KnzkApp" target="_blank"><i class="fa fa-github"></i> KnzkDev/KnzkApp</a> から開発に参加したり、問題を報告する事ができます。
+            </p>
         </div>
         <ons-list>
             <ons-list-header>クレジット</ons-list-header>
