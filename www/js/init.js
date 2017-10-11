@@ -51,6 +51,9 @@ function initph() {
 }
 
 function init() {
+    if (debug === true) {
+        ons.notification.alert('テスト用:この状態で公開しないでください!');
+    }
     //変数破棄
     now_TL = "local";
     last_load_TL = "";
@@ -74,8 +77,6 @@ function init() {
     tmp_post_reply = 0;
     tmp_post_visibility = "";
     follow_old_id = "";
-    media_num = 0;
-    media_id = Array();
     tmp_media_del_id = 0;
     tmp_media_del_obj = "";
     tag_old_id = "";
