@@ -17,4 +17,5 @@ PCから使用（テスト）する場合は [www/js/server/server.debug.sample.
 [jQuery](https://jquery.com/)
 
 ### 神崎丼ロゴ
-[ネイティオ @twotwo](https://knzk.me/@twotwo)
+[ネイティオ @twotwo](https://knzk.me/@twotwo)  
+[NCLS @imncls](https://knzk.me/@imncls)
