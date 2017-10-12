@@ -137,13 +137,15 @@ function vote_item(q, obj, id) {
         if(response.ok) {
             return response.json();
         } else {
-            throw new Error();
+            showtoast('cannot-pros');
         }
     }).then(function(json) {
-        obj.className = "progress-bar enq post";
-    }).catch(function(error) {
-        showtoast('cannot-pros');
-        console.log(error);
+        if (json.valid) {
+            showtoast('vote-ok');
+        } else {
+            showtoast('vote-ng');
+        }
+        console.log(json);
     });
 }
 
