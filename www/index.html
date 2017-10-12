@@ -57,10 +57,12 @@
     <script src="js/timeline.js"></script>
     <script src="js/account.js"></script>
     <script src="js/list.js"></script>
+    <script src="js/music.js"></script>
+
+    <audio id="music-control"></audio>
 </head>
 <body>
 <ons-navigator id="navigator" page="init.html"></ons-navigator>
-
 <ons-template id="init.html">
     <ons-page>
         <ons-tabbar swipeable animation="slide" position="bottom">
@@ -188,7 +190,16 @@
                     アプリの再起動
                 </div>
             </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    <b>Music 🎶</b>
+                </div>
+                <div class="right">
+                    <ons-switch id="music-mode" onclick="music_set(this)"></ons-switch>
+                </div>
+            </ons-list-item>
         </ons-list>
+
         <p></p>
         <ons-list>
             <ons-list-header>About</ons-list-header>
@@ -640,7 +651,7 @@
             <ons-list-item onclick="window.open('https://knzk.me/@twotwo', '_blank')">ロゴ画像: ネイティオ</ons-list-item>
             <ons-list-item onclick="window.open('https://knzk.me/@annotunzdy', '_blank')">iOS版配布: あんのたん</ons-list-item>
             <ons-list-item onclick="window.open('https://knzk.me/@knzk', '_blank')">神崎丼運営: 神埼おにいさん</ons-list-item>
-            <ons-list-item onclick="window.open('https://knzk.me/@imncls', '_blank')">神崎丼運営: NCLS</ons-list-item>
+            <ons-list-item onclick="window.open('https://knzk.me/@imncls', '_blank')">神崎丼運営 / ロゴ画像: NCLS</ons-list-item>
             <ons-list-item onclick="window.open('https://knzk.me/@_5', '_blank')">神崎丼運営: 🍊</ons-list-item>
         </ons-list>
     </ons-page>
