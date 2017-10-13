@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/enquete.css">
     <link rel="stylesheet" href="css/dark.css">
+    <link rel="stylesheet" href="css/custom-size.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/css/emojione.min.css" />
 
     <script>
@@ -112,6 +113,18 @@
                 <ons-progress-circular indeterminate></ons-progress-circular>
             </div>
         </div>
+        <ons-bottom-toolbar id="simple_toot_TL_toolbar">
+            <ons-list>
+                <ons-list-item>
+                    <div class="center" style="padding-top: 0">
+                        <ons-input id="simple_toot_TL_input" modifier="underbar" placeholder="トゥート！" class="w-max"></ons-input>
+                    </div>
+                    <div class="right" style="padding-top: 0">
+                        <ons-button modifier="large--quiet" onclick="new_post_simple('simple_toot_TL_input')"><ons-icon icon="fa-paper-plane-o"></ons-icon></ons-button>
+                    </div>
+                </ons-list-item>
+            </ons-list>
+        </ons-bottom-toolbar>
     </ons-page>
 </ons-template>
 
@@ -136,12 +149,69 @@
     </ons-page>
 </ons-template>
 
+<ons-template id="music.html">
+    <ons-page>
+        <ons-toolbar>
+            <div class="left">
+                <ons-toolbar-button onclick="BackTab()">
+                    <ons-icon icon="fa-chevron-left"></ons-icon>
+                    戻る
+                </ons-toolbar-button>
+            </div>
+            <div class="center">Music 🎶</div>
+        </ons-toolbar>
+        <div class="container y-center">
+            <p></p>
+            <ons-button modifier="large" onclick="music_set('music-button')"><ons-icon icon="fa-play" id="music-button"></ons-icon></ons-button>
+            <p></p>
+        </div>
+        <ons-row>
+            <ons-col width="40px" style="text-align: center; line-height: 31px;">
+                <ons-icon icon="fa-volume-down" style="color: white;"></ons-icon>
+            </ons-col>
+            <ons-col>
+                <ons-range style="width: 100%;" value="50" onchange="console.log(this.value)"></ons-range>
+            </ons-col>
+            <ons-col width="40px" style="text-align: center; line-height: 31px;">
+                <ons-icon icon="fa-volume-up" style="color: white;"></ons-icon>
+            </ons-col>
+        </ons-row>
+        <ons-list>
+            <ons-list-header>Channel</ons-list-header>
+            <ons-list-item tappable onclick="music_set('music-button',true)">
+                <label class="left">
+                    <ons-radio name="channel" input-id="ncs" value="ncs" checked></ons-radio>
+                </label>
+                <label for="ncs" class="center">
+                    NCS
+                </label>
+            </ons-list-item>
+            <ons-list-item tappable onclick="music_set('music-button',true)">
+                <label class="left">
+                    <ons-radio name="channel" input-id="listen-moe" value="listen-moe"></ons-radio>
+                </label>
+                <label for="listen-moe" class="center">
+                    Listen.moe
+                </label>
+            </ons-list-item>
+        </ons-list>
+    </ons-page>
+</ons-template>
+
 <ons-template id="menu.html">
     <ons-page>
         <ons-toolbar>
             <div class="center">メニュー</div>
         </ons-toolbar>
         <ons-list>
+            <ons-list-item modifier="chevron" tappable onclick="loadNav('music.html')">
+                <div class="left">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-music fa fa-fw"></i>
+                </div>
+                <div class="center">
+                    Music 🎶
+                </div>
+            </ons-list-item>
             <ons-list-item modifier="chevron" tappable onclick="list('favourites', 'お気に入り一覧', null, 'toot')">
                 <div class="left">
                     <i class="list-item__icon list-item--chevron__icon ons-icon fa-bell fa fa-fw"></i>
@@ -188,14 +258,6 @@
                 </div>
                 <div class="center">
                     アプリの再起動
-                </div>
-            </ons-list-item>
-            <ons-list-item>
-                <div class="center">
-                    <b>Music 🎶</b>
-                </div>
-                <div class="right">
-                    <ons-switch id="music-mode" onclick="music_set(this)"></ons-switch>
                 </div>
             </ons-list-item>
         </ons-list>
@@ -255,6 +317,14 @@
                 </div>
                 <div class="right">
                     <ons-switch onclick="change_conf('knzk_bigfav', 'conf-fav-namu')" input-id="conf-fav-namu"></ons-switch>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    アカウントリストの表示を小さくする
+                </div>
+                <div class="right">
+                    <ons-switch onclick="change_conf('knzk_acct_list_small', 'conf-acct_list_small')" input-id="conf-acct_list_small"></ons-switch>
                 </div>
             </ons-list-item>
             <ons-list-item>
@@ -637,7 +707,7 @@
                 <img src="img/logo.svg" style="width: 80%;"/>
             </div>
             <p>
-                <b>神崎丼アプリ 1.0.0b1</b>
+                <b>神崎丼アプリ 1.0.0b2</b>
             </p>
             <span class="fa fa-spin"><b>南無！ｗ</b></span>
             <p></p>
@@ -650,7 +720,7 @@
             <ons-list-item onclick="window.open('https://knzk.me/@y', '_blank')">アプリ開発: ねじりわさび</ons-list-item>
             <ons-list-item onclick="window.open('https://knzk.me/@twotwo', '_blank')">ロゴ画像: ネイティオ</ons-list-item>
             <ons-list-item onclick="window.open('https://knzk.me/@annotunzdy', '_blank')">iOS版配布: あんのたん</ons-list-item>
-            <ons-list-item onclick="window.open('https://knzk.me/@knzk', '_blank')">神崎丼運営: 神埼おにいさん</ons-list-item>
+            <ons-list-item onclick="window.open('https://knzk.me/@knzk', '_blank')">神崎丼運営: 神崎おにいさん</ons-list-item>
             <ons-list-item onclick="window.open('https://knzk.me/@imncls', '_blank')">神崎丼運営 / ロゴ画像: NCLS</ons-list-item>
             <ons-list-item onclick="window.open('https://knzk.me/@_5', '_blank')">神崎丼運営: 🍊</ons-list-item>
         </ons-list>

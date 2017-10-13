@@ -175,8 +175,8 @@ function initevent() {
             if (localStorage.getItem('knzk_material_design') == 1) document.getElementById("conf-material").checked = "true";
             if (localStorage.getItem('knzk_lite_mode') == 1) document.getElementById("conf-lite-mode").checked = "true";
             if (localStorage.getItem('knzk_nsfw') == 1) document.getElementById("conf-nsfw").checked = "true";
-            if (localStorage.getItem('knzk_cww') == 1) document.getElementById("conf-cw").checked = "true";
-
+            if (localStorage.getItem('knzk_cw') == 1) document.getElementById("conf-cw").checked = "true";
+            if (localStorage.getItem('knzk_acct_list_small') == 1) document.getElementById("conf-acct_list_small").checked = "true";
         }
         if (document.getElementById("post_reply") && tmp_post_reply) {
             var bt_obj = document.getElementById("post_mode_bt");
@@ -204,6 +204,7 @@ function initevent() {
             event.cancel();
         } else if (event.index === 1) { //通知
             showAlert();
+        } else if (event.index === 0) { //TL
         }
     });
 }

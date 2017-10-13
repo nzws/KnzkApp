@@ -1,19 +1,31 @@
-function music_set(obj) {
+function music_set(id,force) {
+    var obj = document.getElementById(id);
     var audio = document.getElementById("music-control");
-    var bt = obj.checked;
-    var mode;
+    var mode, churl;
 
-    if (isios) { //iOS
-        if (bt == true) mode = 0;
-        else mode = 1;
+    if (force === true) {
+        if (obj.className !== "ons-icon fa-play fa") {
+            mode = 1;
+        }
     } else {
-        if (bt == true) mode = 1;
-        else mode = 2;
+        if (obj.className === "ons-icon fa-play fa") {
+            obj.className = "ons-icon fa-stop fa";
+            mode = 1;
+        } else {
+            obj.className = "ons-icon fa-play fa";
+            mode = 0;
+        }
     }
 
+
+    var chmode = document.getElementsByName("channel");
+    console.log(chmode.value);
+    if (chmode.value === "ncs") churl = "http://www.agngaming.com:8000/stream/1/";
+    else churl = "https://listen.moe/stream";
+
     if (mode === 1) {
-        audio.src = "http://www.agngaming.com:8000/stream/1/";
-        audio.play();
+        audio.src = churl;
+        if (!force) audio.play();
     } else {
         audio.pause();
         audio.src = "";

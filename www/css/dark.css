@@ -89,3 +89,9 @@ a, a:link, a:visited, a:hover {
 .toot_light {
     background: rgba(49,53,67,.9) !important;
 }
+
+.radio-button__checkmark:after {
+    border: 2px solid #fff;
+    border-top: none;
+    border-right: none;
+}
