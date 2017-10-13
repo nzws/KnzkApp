@@ -73,6 +73,7 @@
     <splash src="/res/android/screen/splash-port-hdpi.9.png" density="port-hdpi"/>
     <splash src="/res/android/screen/splash-port-xhdpi.9.png" density="port-xhdpi"/>
     <splash src="/res/android/screen/splash-port-xxhdpi.9.png" density="port-xxhdpi"/>
+    <preference name="android-minSdkVersion" value="19"/>
   </platform>
   <platform name="windows">
     <icon src="/res/winrt/icon/package_logo_winrt.png" target="StoreLogo"/>
