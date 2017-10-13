@@ -84,7 +84,7 @@ function toot_card(toot, mode, note, toot_light) {
             "                                <ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["account"]["acct"]+"', '"+toot["visibility"]+"')\" class=\"toot-button\"></ons-icon>" +
             "                                <ons-icon icon=\"fa-retweet\" onclick=\"toot_action('"+toot['id']+"', this, null, 'boost')\" class=\"toot-button"+boost+"\"></ons-icon>\n" +
             "                                <ons-icon icon=\"fa-bell\" onclick=\"toot_action('"+toot['id']+"', this, null, 'fav')\" class=\"toot-button"+namubt+fav+"\"></ons-icon>" +
-            "                                <ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+")\" class=\"toot-button\"></ons-icon>" +
+            "                                <ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+")\" class=\"toot-button\"></ons-icon>" +
             "                            </div>\n";
     }
     if (mode == "big") {
@@ -92,12 +92,12 @@ function toot_card(toot, mode, note, toot_light) {
         var min = "0";
         if (d.getMinutes() < 10) min = "0" + d.getMinutes(); else min = d.getMinutes();
         var date_text = d.getFullYear()+"年"+(d.getMonth()+1)+"月"+d.getDate()+"日 "+d.getHours()+":"+min;
-        bt_big = "<span class='big_date'>" + date_text + "　<ons-icon icon=\"fa-bell\"></ons-icon> "+toot['favourites_count']+"　<ons-icon icon=\"fa-retweet\"></ons-icon> "+toot['reblogs_count']+"</span>" +
+        bt_big = "<span class='big_date'>" + date_text + "　<span onclick='list(\"statuses/"+toot['id']+"/reblogged_by\", \"ブーストしたユーザー\", null, \"acct\")'><ons-icon icon=\"fa-retweet\"></ons-icon> "+toot['reblogs_count']+"</span>　<span onclick='list(\"statuses/"+toot['id']+"/favourited_by\", \"お気に入りしたユーザー\", null, \"acct\")'><ons-icon icon=\"fa-bell\"></ons-icon> "+toot['favourites_count']+"</span></span>" +
             "<div class=\"row toot_big_border\">\n" +
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["account"]["acct"]+"', '"+toot["visibility"]+"')\" class=\"showtoot-button\"></ons-icon></div>\n" +
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-retweet\" onclick=\"toot_action('"+toot['id']+"', this, 'big', 'boost')\" class=\"showtoot-button"+boost+"\"></ons-icon></div>\n" +
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-bell\" onclick=\"toot_action('"+toot['id']+"', this, 'big', 'fav')\" class=\"showtoot-button"+fav+"\"></ons-icon></div>\n" +
-            "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+")\" class=\"showtoot-button\"></ons-icon></div>\n" +
+            "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+")\" class=\"showtoot-button\"></ons-icon></div>\n" +
             "                </div>";
     }
     if (note) alert_text = "<p class='alert_text'>"+note+"</p>";
@@ -266,15 +266,38 @@ function reply(id, acct, visibility) {
     loadNav('post.html', 'up');
 }
 
-function more(id, acctid) {
+function pin_set(id, mode) {
+    var pin_mode;
+    if (mode) pin_mode = "/unpin"; else pin_mode = "/pin";
+    fetch("https://"+inst+"/api/v1/statuses/"+id+pin_mode, {
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
+        method: 'POST'
+    }).then(function(response) {
+        if(response.ok) {
+            return response.json();
+        } else {
+            showtoast('cannot-pros');
+        }
+    }).then(function(json) {
+        showtoast('ok_conf_2');
+    });
+}
+
+function more(id, acctid, pin_mode) {
+    var pin;
     more_status_id = id;
     more_acct_id = acctid;
     if (localStorage.getItem('knzk_userid') == more_acct_id) {
+        if (pin_mode === true) pin = "ピン留め解除"; else pin = "ピン留め";
         ons.openActionSheet({
             cancelable: true,
             buttons: [
                 //'詳細を表示',
                 //'返信',
+                {
+                    label: pin,
+                    modifier: 'fa-thumb-tack'
+                },
                 {
                     label: '削除',
                     modifier: 'destructive'
@@ -285,7 +308,8 @@ function more(id, acctid) {
                 }
             ]
         }).then(function (index) {
-            if (index == 0) show('delete-post');
+            if (index == 0) pin_set(more_status_id, pin_mode);
+            else if (index == 1) show('delete-post');
         })
     } else {
         ons.openActionSheet({

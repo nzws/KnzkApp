@@ -286,3 +286,28 @@ function post(id, option) {
         hide('now_loading');
     });
 }
+
+function new_post_simple(id) {
+    show('now_loading');
+    var  optiondata = {
+        status: document.getElementById(id).value
+    };
+    fetch("https://"+inst+"/api/v1/statuses", {
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
+        method: 'POST',
+        body: JSON.stringify(optiondata)
+    }).then(function(response) {
+        if(response.ok) {
+            return response.json();
+        } else {
+            throw new Error();
+        }
+    }).then(function(json) {
+        document.getElementById(id).value = "";
+        hide('now_loading');
+        showTL(null, null, null, true);
+    }).catch(function(error) {
+        showtoast('cannot-post');
+        hide('now_loading');
+    });
+}
