@@ -21,11 +21,18 @@ html, body {
     width: 100%;
 }
 
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
 .pulse-loading {
-    -webkit-animation: pulse 1s ease-in-out infinite;
-    animation: pulse 1s ease-in-out infinite;
-    -webkit-animation-direction: alternate;
-    animation-direction: alternate;
+  animation: pulse 1s ease-in-out infinite;
+  animation-direction: alternate;
 }
 
 .main-logo {
