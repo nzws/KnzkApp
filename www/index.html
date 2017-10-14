@@ -165,6 +165,7 @@
             <ons-button modifier="large" onclick="music_set('music-button')"><ons-icon icon="fa-play" id="music-button"></ons-icon></ons-button>
             <p></p>
         </div>
+        <!--
         <ons-row>
             <ons-col width="40px" style="text-align: center; line-height: 31px;">
                 <ons-icon icon="fa-volume-down" style="color: white;"></ons-icon>
@@ -176,25 +177,44 @@
                 <ons-icon icon="fa-volume-up" style="color: white;"></ons-icon>
             </ons-col>
         </ons-row>
-        <ons-list>
-            <ons-list-header>Channel</ons-list-header>
-            <ons-list-item tappable onclick="music_set('music-button',true)">
-                <label class="left">
-                    <ons-radio name="channel" input-id="ncs" value="ncs" checked></ons-radio>
-                </label>
-                <label for="ncs" class="center">
-                    NCS
-                </label>
-            </ons-list-item>
-            <ons-list-item tappable onclick="music_set('music-button',true)">
-                <label class="left">
-                    <ons-radio name="channel" input-id="listen-moe" value="listen-moe"></ons-radio>
-                </label>
-                <label for="listen-moe" class="center">
-                    Listen.moe
-                </label>
-            </ons-list-item>
-        </ons-list>
+        -->
+        <form id="music-form">
+            <ons-list>
+                <ons-list-header>Channel</ons-list-header>
+                <ons-list-item tappable onclick="music_set('music-button',true)">
+                    <label class="left"><ons-radio name="channel" input-id="listen-moe" value="listen-moe" checked></ons-radio></label>
+                    <label for="listen-moe" class="center">Listen.moe</label>
+                </ons-list-item>
+                <ons-list-item tappable onclick="music_set('music-button',true)">
+                    <label class="left"><ons-radio name="channel" input-id="ncs" value="ncs"></ons-radio></label>
+                    <label for="ncs" class="center">NCS</label>
+                </ons-list-item>
+                <ons-list-item tappable onclick="music_set('music-button',true)">
+                    <label class="left"><ons-radio name="channel" value="Poolside-fm" input-id="Poolside-fm"></ons-radio></label>
+                    <label for="Poolside-fm" class="center">Poolside.fm</label>
+                </ons-list-item>
+                <ons-list-item tappable onclick="music_set('music-button',true)">
+                    <label class="left"><ons-radio name="channel" value="dubplate-fm" input-id="dubplate-fm"></ons-radio></label>
+                    <label for="dubplate-fm" class="center">Drum 'n Bass (dubplate.fm)</label>
+                </ons-list-item>
+                <ons-list-item tappable onclick="music_set('music-button',true)">
+                    <label class="left"><ons-radio name="channel" value="FUTURE-BASS-MIX" input-id="FUTURE-BASS-MIX"></ons-radio></label>
+                    <label for="FUTURE-BASS-MIX" class="center">FUTURE-BASS-MIX</label>
+                </ons-list-item>
+                <ons-list-item tappable onclick="music_set('music-button',true)">
+                    <label class="left"><ons-radio name="channel" value="TOP-40-RU" input-id="TOP-40-RU"></ons-radio></label>
+                    <label for="TOP-40-RU" class="center">TOP 40 RU (European Hit Radio)</label>
+                </ons-list-item>
+                <ons-list-item tappable onclick="music_set('music-button',true)">
+                    <label class="left"><ons-radio name="channel" value="REMIXES-RU" input-id="REMIXES-RU"></ons-radio></label>
+                    <label for="REMIXES-RU" class="center">REMIXES RU (European Hit Radio)</label>
+                </ons-list-item>
+                <ons-list-item tappable onclick="music_set('music-button',true)">
+                    <label class="left"><ons-radio name="channel" value="danceradiouk" input-id="danceradiouk"></ons-radio></label>
+                    <label for="danceradiouk" class="center">danceradiouk (Box UK Radio)</label>
+                </ons-list-item>
+            </ons-list>
+        </form>
     </ons-page>
 </ons-template>
 
