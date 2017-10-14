@@ -115,11 +115,14 @@
         </div>
         <ons-bottom-toolbar id="simple_toot_TL_toolbar">
             <ons-list>
-                <ons-list-item>
+                <ons-list-item style="padding-left: 0">
+                    <div class="left" style="padding-top: 0;padding-right: 6px">
+                        <ons-button modifier="large--quiet" onclick="show_bbcodegen('simple_toot_TL_input')"><ons-icon icon="fa-font"></ons-icon></ons-button>
+                    </div>
                     <div class="center" style="padding-top: 0">
                         <ons-input id="simple_toot_TL_input" modifier="underbar" placeholder="トゥート！" class="w-max"></ons-input>
                     </div>
-                    <div class="right" style="padding-top: 0">
+                    <div class="right" style="padding-top: 0;padding-right: 0">
                         <ons-button modifier="large--quiet" onclick="new_post_simple('simple_toot_TL_input')"><ons-icon icon="fa-paper-plane-o"></ons-icon></ons-button>
                     </div>
                 </ons-list-item>
