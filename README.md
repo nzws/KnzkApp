@@ -1,6 +1,7 @@
 # KnzkApp
 KnzkAppは、BBCodeやカスタム絵文字に対応した神崎丼専用Mastodonクライアントです。   
-**[ランディングページ](https://knzkdev.net/knzkapp)**
+**[ランディングページ](https://knzkdev.net/knzkapp)**  
+**[Playストア](https://play.google.com/store/apps/details?id=net.knzkdev.app) | [AppStore](https://itunes.apple.com/jp/app/knzkapp/id1296825434?l=ja)**
 
 ## 使用方法
 PCから使用（テスト）する場合は [www/js/server/server.debug.sample.js](www/js/server/server.debug.sample.js)を、   
