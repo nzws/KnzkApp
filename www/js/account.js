@@ -1,5 +1,10 @@
-function show_account(id) {
-    loadNav('account.html');
+function show_account(id, navmode) {
+    if (navmode) {
+        var menu = document.getElementById('splitter-menu');
+        document.querySelector('#navigator').bringPageTop('account.html').then(menu.close.bind(menu));
+    } else {
+        loadNav('account.html');
+    }
     fetch("https://"+inst+"/api/v1/accounts/"+id, {
         headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
         method: 'GET'

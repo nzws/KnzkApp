@@ -5,19 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
     <script src="components/loader.js"></script>
-    <script src="components/onsenui/js/onsenui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/lib/js/emojione.min.js" integrity="sha256-9cBkVeU53NiJ9/BdcJta3HbERAmf5X9DE2WvL8V+gDs=" crossorigin="anonymous" async></script>
-    <script src="lib/jquery-3.2.1.slim.min.js" async></script>
-
     <link rel="stylesheet" href="components/loader.css">
+
+    <script src="components/onsenui/js/onsenui.min.js"></script>
     <link rel="stylesheet" href="components/onsenui/css/onsenui.min.css">
     <link rel="stylesheet" href="components/onsenui/css/onsen-css-components.min.css">
+
+    <script src="lib/jquery-3.2.1.slim.min.js" async></script>
+    <script src="lib/twitter.relative.time.min.js" async></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/css/emojione.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/lib/js/emojione.min.js" integrity="sha256-9cBkVeU53NiJ9/BdcJta3HbERAmf5X9DE2WvL8V+gDs=" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/enquete.css">
     <link rel="stylesheet" href="css/dark.css">
     <link rel="stylesheet" href="css/custom-size.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/css/emojione.min.css" />
 
     <script>
         var now_TL = "local";
@@ -47,6 +50,7 @@
         var tag_old_id = "";
         var tag_str = "";
         var list_old_id = "";
+        var old_TL_ws = "";
     </script>
 
     <script src="js/server/server.js"></script>
@@ -63,70 +67,257 @@
     <audio id="music-control"></audio>
 </head>
 <body>
-<ons-navigator id="navigator" page="init.html"></ons-navigator>
-<ons-template id="init.html">
+<ons-splitter>
+    <ons-splitter-side id="splitter-menu" side="left" width="280px" collapse>
+        <ons-page>
+            <ons-list>
+                <ons-list-item class="splitter-profile-item" id="splitter-profile-bg">
+                    <div class="splitter-profile">
+                        <img src="img/missing.png" id="splitter-icon" class="user-logo" onclick="show_account(localStorage.getItem('knzk_userid'), true)"/>
+                        <p>
+                            <h4 id="splitter-profile-name" class="toot-small"></h4>
+                        </p>
+                    </div>
+                </ons-list-item>
+                <ons-list-item onclick="account_change_panel()" tappable>
+                    <div class="center list-item-small">
+                        @<span id="account_change-username"></span>
+                    </div>
+                    <div class="right list-item-small">
+                        <ons-icon icon="fa-caret-down"></ons-icon>
+                    </div>
+                </ons-list-item>
+            </ons-list>
+            <div id="menu-list-base">
+                <ons-list id="menu-list">
+                    <ons-list-header>
+                        ナビゲーション
+                    </ons-list-header>
+                    <ons-list-item modifier="chevron" tappable onclick="openTL()">
+                        <div class="left">
+                            <i class="list-item__icon list-item--chevron__icon ons-icon fa-home fa fa-fw"></i>
+                        </div>
+                        <div class="center">
+                            タイムライン
+                        </div>
+                    </ons-list-item>
+                    <ons-list-item modifier="chevron" tappable onclick="openTL('alert')">
+                        <div class="left">
+                            <i class="list-item__icon list-item--chevron__icon ons-icon fa-bell fa fa-fw"></i>
+                        </div>
+                        <div class="center">
+                            通知
+                        </div>
+                    </ons-list-item>
+                    <ons-list-item modifier="chevron" tappable onclick="list('favourites', 'お気に入り一覧', null, 'toot')">
+                        <div class="left">
+                            <i class="list-item__icon list-item--chevron__icon ons-icon fa-bell fa fa-fw"></i>
+                        </div>
+                        <div class="center">
+                            お気に入り一覧
+                        </div>
+                    </ons-list-item>
+                    <ons-list-item modifier="chevron" tappable onclick="load('usermenu.html')">
+                        <div class="left">
+                            <i class="list-item__icon list-item--chevron__icon ons-icon fa-ellipsis-h fa fa-fw"></i>
+                        </div>
+                        <div class="center">
+                            その他
+                        </div>
+                    </ons-list-item>
+                    <ons-list-header>
+                        設定
+                    </ons-list-header>
+                    <ons-list-item modifier="chevron" tappable onclick="openAbout()">
+                        <div class="left">
+                            <i class="list-item__icon list-item--chevron__icon ons-icon fa-book fa fa-fw"></i>
+                        </div>
+                        <div class="center">
+                            このアプリについて
+                        </div>
+                    </ons-list-item>
+                    <ons-list-item modifier="chevron" tappable onclick="load('config.html')">
+                        <div class="left">
+                            <i class="list-item__icon list-item--chevron__icon ons-icon fa-cog fa fa-fw"></i>
+                        </div>
+                        <div class="center">
+                            設定
+                        </div>
+                    </ons-list-item>
+                </ons-list>
+
+                <form id="music-form" style="display: none;">
+                    <ons-list>
+                        <ons-list-header>Channel</ons-list-header>
+                        <ons-list-item tappable onclick="music_set('music-button',true)">
+                            <label class="left music-item"><ons-radio name="channel" input-id="listen-moe" value="listen-moe" checked></ons-radio></label>
+                            <label for="listen-moe" class="center music-item">Listen.moe</label>
+                        </ons-list-item>
+                        <ons-list-item tappable onclick="music_set('music-button',true)">
+                            <label class="left music-item"><ons-radio name="channel" input-id="ncs" value="ncs"></ons-radio></label>
+                            <label for="ncs" class="center music-item">NCS</label>
+                        </ons-list-item>
+                        <ons-list-item tappable onclick="music_set('music-button',true)">
+                            <label class="left music-item"><ons-radio name="channel" value="Poolside-fm" input-id="Poolside-fm"></ons-radio></label>
+                            <label for="Poolside-fm" class="center music-item">Poolside.fm</label>
+                        </ons-list-item>
+                        <ons-list-item tappable onclick="music_set('music-button',true)">
+                            <label class="left music-item"><ons-radio name="channel" value="dubplate-fm" input-id="dubplate-fm"></ons-radio></label>
+                            <label for="dubplate-fm" class="center music-item">Drum 'n Bass   <small>(dubplate.fm)</small></label>
+                        </ons-list-item>
+                        <ons-list-item tappable onclick="music_set('music-button',true)">
+                            <label class="left music-item"><ons-radio name="channel" value="FUTURE-BASS-MIX" input-id="FUTURE-BASS-MIX"></ons-radio></label>
+                            <label for="FUTURE-BASS-MIX" class="center music-item">FUTURE-BASS-MIX</label>
+                        </ons-list-item>
+                        <ons-list-item tappable onclick="music_set('music-button',true)">
+                            <label class="left music-item"><ons-radio name="channel" value="TOP-40-RU" input-id="TOP-40-RU"></ons-radio></label>
+                            <label for="TOP-40-RU" class="center music-item">TOP 40 RU   <small>(European Hit Radio)</small></label>
+                        </ons-list-item>
+                        <ons-list-item tappable onclick="music_set('music-button',true)">
+                            <label class="left music-item"><ons-radio name="channel" value="REMIXES-RU" input-id="REMIXES-RU"></ons-radio></label>
+                            <label for="REMIXES-RU" class="center music-item">REMIXES RU   <small>(European Hit Radio)</small></label>
+                        </ons-list-item>
+                        <ons-list-item tappable onclick="music_set('music-button',true)">
+                            <label class="left music-item"><ons-radio name="channel" value="danceradiouk" input-id="danceradiouk"></ons-radio></label>
+                            <label for="danceradiouk" class="center music-item">danceradiouk   <small>(Box UK Radio)</small></label>
+                        </ons-list-item>
+                    </ons-list>
+                </form>
+
+                <ons-list class="splitter-bottom">
+                    <ons-list-item onclick="music_change()" tappable>
+                        <div class="center list-item-small" id="music-title">
+                            Listen.moe
+                        </div>
+                        <div class="right list-item-small">
+                            <ons-icon icon="fa-caret-up"></ons-icon>
+                        </div>
+                    </ons-list-item>
+                    <ons-list-item onclick="music_set('music-button')" tappable>
+                        <div class="center">
+                            <i class="list-item__icon ons-icon fa-play fa fa-fw fa-2x" id="music-button"></i>
+                        </div>
+                        <div class="right">
+                            Music 🎶
+                        </div>
+                    </ons-list-item>
+                </ons-list>
+            </div>
+        </ons-page>
+    </ons-splitter-side>
+    <ons-splitter-content id="splitter-content" page="init.html"></ons-splitter-content>
+</ons-splitter>
+
+<ons-template id="usermenu.html">
     <ons-page>
-        <ons-tabbar swipeable animation="slide" position="bottom">
-            <ons-tab page="home.html" icon="fa-home" active></ons-tab>
-            <ons-tab page="alert.html" icon="fa-bell"></ons-tab>
-            <ons-tab onclick="loadNav('post.html', 'up')" icon="fa-pencil-square"></ons-tab>
-            <ons-tab onclick="show_account(localStorage.getItem('knzk_userid'))" icon="fa-user"></ons-tab>
-            <ons-tab page="menu.html" icon="fa-bars"></ons-tab>
-        </ons-tabbar>
+        <ons-toolbar>
+            <div class="left">
+                <ons-toolbar-button onclick="fn.open()">
+                    <ons-icon icon="fa-bars"></ons-icon>
+                </ons-toolbar-button>
+            </div>
+            <div class="center">ユーザーメニュー</div>
+        </ons-toolbar>
+        <ons-list>
+            <ons-list-item modifier="chevron" tappable onclick="list('pin', '固定トゥート一覧', null, 'toot', true)">
+                <div class="left">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-thumb-tack fa fa-fw"></i>
+                </div>
+                <div class="center">
+                    固定したトゥート
+                </div>
+            </ons-list-item>
+            <ons-list-item modifier="chevron" tappable onclick="list('mutes', 'ミュート一覧', null, 'acct', true)">
+                <div class="left">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-volume-off fa fa-fw"></i>
+                </div>
+                <div class="center">
+                    ミュートしたユーザー
+                </div>
+            </ons-list-item>
+            <ons-list-item modifier="chevron" tappable onclick="list('blocks', 'ブロック一覧', null, 'acct', true)">
+                <div class="left">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-ban fa fa-fw"></i>
+                </div>
+                <div class="center">
+                    ブロックしたユーザー
+                </div>
+            </ons-list-item>
+        </ons-list>
     </ons-page>
 </ons-template>
+
+<template id="init.html">
+    <ons-page>
+        <ons-navigator id="navigator" page="home.html"></ons-navigator>
+    </ons-page>
+</template>
 
 <ons-template id="home.html">
     <ons-page id="home">
         <ons-toolbar>
-            <div class="tabbar">
-                <label class="tabbar__item" onclick="TL_change('local')">
-                    <input type="radio" name="TL-change" checked="checked">
-                    <button class="tabbar__button">
-                        <i class="tabbar__icon fa fa-users"></i>
-                        <div class="tabbar__label">ローカル</div>
-                    </button>
-                </label>
-
-                <label class="tabbar__item" onclick="TL_change('home')">
-                    <input type="radio" name="TL-change">
-                    <button class="tabbar__button">
-                        <i class="tabbar__icon fa fa-home"></i>
-                        <div class="tabbar__label">ホーム</div>
-                    </button>
-                </label>
-
-                <label class="tabbar__item" onclick="TL_change('public')">
-                    <input type="radio" name="TL-change">
-                    <button class="tabbar__button">
-                        <i class="tabbar__icon fa fa-globe"></i>
-                        <div class="tabbar__label">連合</div>
-                    </button>
-                </label>
+            <div class="left">
+                <ons-toolbar-button onclick="fn.open()">
+                    <ons-icon icon="fa-bars"></ons-icon>
+                </ons-toolbar-button>
+                <ons-toolbar-button onclick="TL_prev()">
+                    <ons-icon icon="fa-angle-left"></ons-icon>
+                </ons-toolbar-button>
+            </div>
+            <div id="home_title" class="center">ローカルTL</div>
+            <div class="right">
+                <ons-toolbar-button onclick="TL_next()">
+                    <ons-icon icon="fa-angle-right"></ons-icon>
+                </ons-toolbar-button>
             </div>
         </ons-toolbar>
         <ons-pull-hook id="ph-home" class="dark-bg">
             <ons-icon icon="fa-refresh" class="white"></ons-icon>
         </ons-pull-hook>
-        <div id="home_main">
-            <div class="loading-now">
-                <ons-progress-circular indeterminate></ons-progress-circular>
-            </div>
-        </div>
+        <ons-carousel fullscreen swipeable auto-scroll overscrollable id="carousel">
+            <ons-carousel-item>
+                <div id="local_main">
+                    <div class="loading-now">
+                        <ons-progress-circular indeterminate></ons-progress-circular>
+                    </div>
+                </div>
+            </ons-carousel-item>
+            <ons-carousel-item>
+                <div id="home_main">
+                    <div class="loading-now">
+                        <ons-progress-circular indeterminate></ons-progress-circular>
+                    </div>
+                </div>
+            </ons-carousel-item>
+            <ons-carousel-item>
+                <div id="public_main">
+                    <div class="loading-now">
+                        <ons-progress-circular indeterminate></ons-progress-circular>
+                    </div>
+                </div>
+            </ons-carousel-item>
+        </ons-carousel>
+        <ons-speed-dial position="bottom right" direction="up" onclick="opendial()" id="dial_main" class="invisible">
+            <ons-fab>
+                <ons-icon icon="fa-bell" id="dial-icon"></ons-icon>
+            </ons-fab>
+        </ons-speed-dial>
         <ons-bottom-toolbar id="simple_toot_TL_toolbar">
-            <ons-list>
-                <ons-list-item style="padding-left: 0">
-                    <div class="left" style="padding-top: 0;padding-right: 6px">
-                        <ons-button modifier="large--quiet" onclick="show_bbcodegen('simple_toot_TL_input')"><ons-icon icon="fa-font"></ons-icon></ons-button>
-                    </div>
-                    <div class="center" style="padding-top: 0">
-                        <ons-input id="simple_toot_TL_input" modifier="underbar" placeholder="トゥート！" class="w-max"></ons-input>
-                    </div>
-                    <div class="right" style="padding-top: 0;padding-right: 0">
-                        <ons-button modifier="large--quiet" onclick="new_post_simple('simple_toot_TL_input')"><ons-icon icon="fa-paper-plane-o"></ons-icon></ons-button>
-                    </div>
-                </ons-list-item>
-            </ons-list>
+            <ons-bottom>
+                <ons-list>
+                    <ons-list-item style="padding-left: 0">
+                        <div class="left" style="padding-top: 0;padding-right: 6px">
+                            <ons-button modifier="large--quiet" onclick="show_bbcodegen('simple_toot_TL_input')"><ons-icon icon="fa-font"></ons-icon></ons-button>
+                        </div>
+                        <div class="center" style="padding-top: 0">
+                            <ons-input id="simple_toot_TL_input" modifier="underbar" placeholder="トゥート！" class="w-max"></ons-input>
+                        </div>
+                        <div class="right" style="padding-top: 0;padding-right: 0">
+                            <ons-button modifier="large--quiet" onclick="new_post_simple('simple_toot_TL_input')"><ons-icon icon="fa-paper-plane-o"></ons-icon></ons-button>
+                        </div>
+                    </ons-list-item>
+                </ons-list>
+            </ons-bottom>
         </ons-bottom-toolbar>
     </ons-page>
 </ons-template>
@@ -134,6 +325,11 @@
 <ons-template id="alert.html">
     <ons-page>
         <ons-toolbar>
+            <div class="left" id="alert_button">
+                <ons-toolbar-button onclick="fn.open()">
+                    <ons-icon icon="fa-bars"></ons-icon>
+                </ons-toolbar-button>
+            </div>
             <div class="center">通知</div>
             <div class="right">
                 <ons-toolbar-button onclick="show('clear-alert')">
@@ -152,156 +348,12 @@
     </ons-page>
 </ons-template>
 
-<ons-template id="music.html">
-    <ons-page>
-        <ons-toolbar>
-            <div class="left">
-                <ons-toolbar-button onclick="BackTab()">
-                    <ons-icon icon="fa-chevron-left"></ons-icon>
-                    戻る
-                </ons-toolbar-button>
-            </div>
-            <div class="center">Music 🎶</div>
-        </ons-toolbar>
-        <div class="container y-center">
-            <p></p>
-            <ons-button modifier="large" onclick="music_set('music-button')"><ons-icon icon="fa-play" id="music-button"></ons-icon></ons-button>
-            <p></p>
-        </div>
-        <!--
-        <ons-row>
-            <ons-col width="40px" style="text-align: center; line-height: 31px;">
-                <ons-icon icon="fa-volume-down" style="color: white;"></ons-icon>
-            </ons-col>
-            <ons-col>
-                <ons-range style="width: 100%;" value="50" onchange="console.log(this.value)"></ons-range>
-            </ons-col>
-            <ons-col width="40px" style="text-align: center; line-height: 31px;">
-                <ons-icon icon="fa-volume-up" style="color: white;"></ons-icon>
-            </ons-col>
-        </ons-row>
-        -->
-        <form id="music-form">
-            <ons-list>
-                <ons-list-header>Channel</ons-list-header>
-                <ons-list-item tappable onclick="music_set('music-button',true)">
-                    <label class="left"><ons-radio name="channel" input-id="listen-moe" value="listen-moe" checked></ons-radio></label>
-                    <label for="listen-moe" class="center">Listen.moe</label>
-                </ons-list-item>
-                <ons-list-item tappable onclick="music_set('music-button',true)">
-                    <label class="left"><ons-radio name="channel" input-id="ncs" value="ncs"></ons-radio></label>
-                    <label for="ncs" class="center">NCS</label>
-                </ons-list-item>
-                <ons-list-item tappable onclick="music_set('music-button',true)">
-                    <label class="left"><ons-radio name="channel" value="Poolside-fm" input-id="Poolside-fm"></ons-radio></label>
-                    <label for="Poolside-fm" class="center">Poolside.fm</label>
-                </ons-list-item>
-                <ons-list-item tappable onclick="music_set('music-button',true)">
-                    <label class="left"><ons-radio name="channel" value="dubplate-fm" input-id="dubplate-fm"></ons-radio></label>
-                    <label for="dubplate-fm" class="center">Drum 'n Bass (dubplate.fm)</label>
-                </ons-list-item>
-                <ons-list-item tappable onclick="music_set('music-button',true)">
-                    <label class="left"><ons-radio name="channel" value="FUTURE-BASS-MIX" input-id="FUTURE-BASS-MIX"></ons-radio></label>
-                    <label for="FUTURE-BASS-MIX" class="center">FUTURE-BASS-MIX</label>
-                </ons-list-item>
-                <ons-list-item tappable onclick="music_set('music-button',true)">
-                    <label class="left"><ons-radio name="channel" value="TOP-40-RU" input-id="TOP-40-RU"></ons-radio></label>
-                    <label for="TOP-40-RU" class="center">TOP 40 RU (European Hit Radio)</label>
-                </ons-list-item>
-                <ons-list-item tappable onclick="music_set('music-button',true)">
-                    <label class="left"><ons-radio name="channel" value="REMIXES-RU" input-id="REMIXES-RU"></ons-radio></label>
-                    <label for="REMIXES-RU" class="center">REMIXES RU (European Hit Radio)</label>
-                </ons-list-item>
-                <ons-list-item tappable onclick="music_set('music-button',true)">
-                    <label class="left"><ons-radio name="channel" value="danceradiouk" input-id="danceradiouk"></ons-radio></label>
-                    <label for="danceradiouk" class="center">danceradiouk (Box UK Radio)</label>
-                </ons-list-item>
-            </ons-list>
-        </form>
-    </ons-page>
-</ons-template>
-
-<ons-template id="menu.html">
-    <ons-page>
-        <ons-toolbar>
-            <div class="center">メニュー</div>
-        </ons-toolbar>
-        <ons-list>
-            <ons-list-item modifier="chevron" tappable onclick="loadNav('music.html')">
-                <div class="left">
-                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-music fa fa-fw"></i>
-                </div>
-                <div class="center">
-                    Music 🎶
-                </div>
-            </ons-list-item>
-            <ons-list-item modifier="chevron" tappable onclick="list('favourites', 'お気に入り一覧', null, 'toot')">
-                <div class="left">
-                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-bell fa fa-fw"></i>
-                </div>
-                <div class="center">
-                    お気に入り
-                </div>
-            </ons-list-item>
-            <ons-list-item modifier="chevron" tappable onclick="list('pin', '固定トゥート一覧', null, 'toot')">
-                <div class="left">
-                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-thumb-tack fa fa-fw"></i>
-                </div>
-                <div class="center">
-                    固定したトゥート
-                </div>
-            </ons-list-item>
-            <ons-list-item modifier="chevron" tappable onclick="list('mutes', 'ミュート一覧', null, 'acct')">
-                <div class="left">
-                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-volume-off fa fa-fw"></i>
-                </div>
-                <div class="center">
-                    ミュートしたユーザー
-                </div>
-            </ons-list-item>
-            <ons-list-item modifier="chevron" tappable onclick="list('blocks', 'ブロック一覧', null, 'acct')">
-                <div class="left">
-                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-ban fa fa-fw"></i>
-                </div>
-                <div class="center">
-                    ブロックしたユーザー
-                </div>
-            </ons-list-item>
-            <ons-list-item modifier="chevron" tappable onclick="loadNav('config.html')">
-                <div class="left">
-                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-cog fa fa-fw"></i>
-                </div>
-                <div class="center">
-                    設定
-                </div>
-            </ons-list-item>
-            <ons-list-item modifier="chevron" tappable onclick="init()">
-                <div class="left">
-                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-repeat fa fa-fw"></i>
-                </div>
-                <div class="center">
-                    アプリの再起動
-                </div>
-            </ons-list-item>
-        </ons-list>
-
-        <p></p>
-        <ons-list>
-            <ons-list-header>About</ons-list-header>
-            <ons-list-item onclick="window.open('https://' + inst + '/about/more', '_blank')">インスタンス情報</ons-list-item>
-            <ons-list-item onclick="loadNav('about.html')">このアプリについて</ons-list-item>
-            <ons-list-item onclick="window.open('https://github.com/KnzkDev/KnzkApp/wiki/License', '_blank')">ライセンス</ons-list-item>
-        </ons-list>
-    </ons-page>
-</ons-template>
-
 <ons-template id="config.html">
-    <ons-page>
+    <ons-page id="config-page">
         <ons-toolbar>
             <div class="left">
-                <ons-toolbar-button onclick="BackTab()">
-                    <ons-icon icon="fa-chevron-left"></ons-icon>
-                    戻る
+                <ons-toolbar-button onclick="fn.open()">
+                    <ons-icon icon="fa-bars"></ons-icon>
                 </ons-toolbar-button>
             </div>
             <div class="center">設定</div>
@@ -317,6 +369,14 @@
             <ons-list-header>タイムライン設定</ons-list-header>
             <ons-list-item>
                 <div class="center">
+                    リアルタイム更新
+                </div>
+                <div class="right">
+                    <ons-switch onclick="change_conf('knzk_realtime', 'conf-realtime')" input-id="conf-realtime"></ons-switch>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
                     CW文章を常に表示する
                 </div>
                 <div class="right">
@@ -329,6 +389,19 @@
                 </div>
                 <div class="right">
                     <ons-switch onclick="change_conf('knzk_nsfw', 'conf-nsfw')" input-id="conf-nsfw"></ons-switch>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    スピードダイヤル設定
+                </div>
+                <div class="right">
+                    <ons-select id="conf-dial" onchange="change_conf('knzk_dial', 'conf-dial', true)">
+                        <option value="">なし</option>
+                        <option value="toot" id="dial_toot">トゥート</option>
+                        <option value="alert" id="dial_alert">通知</option>
+                        <option value="reload" id="dial_reload">TL更新</option>
+                    </ons-select>
                 </div>
             </ons-list-item>
         </ons-list>
@@ -348,14 +421,6 @@
                 </div>
                 <div class="right">
                     <ons-switch onclick="change_conf('knzk_acct_list_small', 'conf-acct_list_small')" input-id="conf-acct_list_small"></ons-switch>
-                </div>
-            </ons-list-item>
-            <ons-list-item>
-                <div class="center">
-                    マテリアルデザインを使用
-                </div>
-                <div class="right">
-                    <ons-switch onclick="change_conf('knzk_material_design', 'conf-material')" input-id="conf-material"></ons-switch>
                 </div>
             </ons-list-item>
             <ons-list-item>
@@ -648,15 +713,34 @@
     <ons-page>
         <ons-toolbar>
             <div class="left">
-                <ons-toolbar-button onclick="BackTab()">
-                    <ons-icon icon="fa-chevron-left"></ons-icon>
-                    戻る
+                <ons-toolbar-button onclick="fn.open()">
+                    <ons-icon icon="fa-bars"></ons-icon>
                 </ons-toolbar-button>
             </div>
             <div class="center" id="olist_title">読み込み中...</div>
         </ons-toolbar>
 
         <div id="olist_main">
+            <div class="loading-now">
+                <ons-progress-circular indeterminate></ons-progress-circular>
+            </div>
+        </div>
+    </ons-page>
+</ons-template>
+
+<ons-template id="olist_nav.html">
+    <ons-page>
+        <ons-toolbar>
+            <div class="left">
+                <ons-toolbar-button onclick="BackTab()">
+                    <ons-icon icon="fa-chevron-left"></ons-icon>
+                    戻る
+                </ons-toolbar-button>
+            </div>
+            <div class="center" id="olist_nav_title">読み込み中...</div>
+        </ons-toolbar>
+
+        <div id="olist_nav_main">
             <div class="loading-now">
                 <ons-progress-circular indeterminate></ons-progress-circular>
             </div>
@@ -739,6 +823,14 @@
             </p>
         </div>
         <ons-list>
+            <ons-list-item onclick="window.open('https://' + inst + '/about/more', '_blank')">
+                <div class="left">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-book fa fa-fw"></i>
+                </div>
+                <div class="center">
+                    インスタンス情報
+                </div>
+            </ons-list-item>
             <ons-list-header>クレジット</ons-list-header>
             <ons-list-item onclick="window.open('https://knzk.me/@y', '_blank')">アプリ開発: ねじりわさび</ons-list-item>
             <ons-list-item onclick="window.open('https://knzk.me/@twotwo', '_blank')">ロゴ画像: ネイティオ</ons-list-item>
@@ -918,6 +1010,18 @@
             通信環境が悪い可能性があります。
         </div>
         <div class="alert-dialog-footer">
+            <button class="alert-dialog-button" onclick="init()">再試行</button>
+        </div>
+    </ons-alert-dialog>
+
+    <ons-alert-dialog id="cannot-connect-API">
+        <div class="alert-dialog-title">エラー</div>
+        <div class="alert-dialog-content">
+            APIを認証できませんでした。<br>
+            「認証済みアプリ」からKnzkAppを削除していませんか？
+        </div>
+        <div class="alert-dialog-footer">
+            <button class="alert-dialog-button" onclick="login_open()">ログインする</button>
             <button class="alert-dialog-button" onclick="init()">再試行</button>
         </div>
     </ons-alert-dialog>

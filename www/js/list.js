@@ -1,13 +1,23 @@
-function list(mode, title, more_load, mode_toot) {
-    $.when(
-        document.querySelector('#navigator').bringPageTop("olist.html", {animation:"slide"})
-    ).done(function() {
-        list_n(mode, title, more_load, mode_toot)
-    });
+function list(mode, title, more_load, mode_toot, navmode) {
+        if (navmode === true) {
+            $.when(
+                document.querySelector('#navigator').bringPageTop("olist_nav.html", {animation: "slide"})
+            ).done(function () {
+                list_n(mode, title, more_load, mode_toot, true)
+            });
+        } else {
+            var menu = document.getElementById('splitter-menu');
+            $.when(
+                document.querySelector('#navigator').resetToPage("olist.html", {animation: "none"}).then(menu.close.bind(menu))
+            ).done(function () {
+                list_n(mode, title, more_load, mode_toot)
+            });
+        }
 }
 
-function list_n(mode, title, more_load, mode_toot) {
+function list_n(mode, title, more_load, mode_toot, navmode) {
     var i = 0, reshtml = "", get = "", pin;
+    var id_title, id_main;
     if (more_load) {
         get = "?"+list_old_id;
         more_load.value = "読み込み中...";
@@ -17,6 +27,13 @@ function list_n(mode, title, more_load, mode_toot) {
         pin = true;
         mode = "/accounts/" + localStorage.getItem('knzk_userid') + "/statuses?pinned=true";
     }
+    if (navmode === true) {
+        id_title = "olist_nav_title";
+        id_main = "olist_nav_main";
+    } else {
+        id_title = "olist_title";
+        id_main = "olist_main";
+    }
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
@@ -24,9 +41,9 @@ function list_n(mode, title, more_load, mode_toot) {
                 var json = JSON.parse(xhr.responseText);
                 if (more_load) {
                     more_load.className = "button button--large--quiet invisible";
-                    reshtml = document.getElementById("olist_main").innerHTML;
+                    reshtml = document.getElementById(id_main).innerHTML;
                 } else {
-                    document.getElementById("olist_title").innerHTML = title;
+                    document.getElementById(id_title).innerHTML = title;
                 }
 
                 while (json[i]) {
@@ -67,7 +84,7 @@ function list_n(mode, title, more_load, mode_toot) {
                 if (pin === true) mode = "pin";
                 if (list_old_id !== "")
                     reshtml += "<button class='button button--large--quiet' onclick='list_n(\""+mode+"\", \""+title+"\", this, \""+mode_toot+"\")'>もっと読み込む...</button>";
-                document.getElementById("olist_main").innerHTML = reshtml;
+                document.getElementById(id_main).innerHTML = reshtml;
                 return true;
             } else {
                 showtoast('cannot-load');

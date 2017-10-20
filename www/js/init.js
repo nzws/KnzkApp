@@ -1,53 +1,61 @@
-function initph() {
-    var ph = document.getElementById('ph-home');
+function initph(mode) {
+    if (mode === "TL") {
+        try {
+            var ph = document.getElementById('ph-home');
+            ph.addEventListener('changestate', function (event) {
+                var message = '';
 
-    ph.addEventListener('changestate', function(event) {
-        var message = '';
+                switch (event.state) {
+                    case 'initial':
+                        message = '<ons-icon icon="fa-refresh" class="white"></ons-icon>';
+                        break;
+                    case 'preaction':
+                        message = '<ons-icon icon="fa-refresh" class="white"></ons-icon>';
+                        break;
+                    case 'action':
+                        message = '<span class="fa fa-spin"><span class="fa fa-spin"><ons-icon icon="fa-refresh" class="white"></ons-icon></span></ons-icon></span>';
+                        break;
+                }
 
-        switch (event.state) {
-            case 'initial':
-                message = '<ons-icon icon="fa-refresh" class="white"></ons-icon>';
-                break;
-            case 'preaction':
-                message = '<ons-icon icon="fa-refresh" class="white"></ons-icon>';
-                break;
-            case 'action':
-                message = '<span class="fa fa-spin"><span class="fa fa-spin"><ons-icon icon="fa-refresh" class="white"></ons-icon></span></ons-icon></span>';
-                break;
+                ph.innerHTML = message;
+            });
+
+            ph.onAction = function (done) {
+                console.log("reload");
+                showTL(null, done);
+            };
+        } catch (e) {
+            console.log("ERROR_Pull_hook");
         }
+    } else {
+        try {
+            var ph_alert = document.getElementById('ph-alert');
+            ph_alert.addEventListener('changestate', function(event) {
+                var message = '';
 
-        ph.innerHTML = message;
-    });
+                switch (event.state) {
+                    case 'initial':
+                        message = '<ons-icon icon="fa-refresh" class="white"></ons-icon>';
+                        break;
+                    case 'preaction':
+                        message = '<ons-icon icon="fa-refresh" class="white"></ons-icon>';
+                        break;
+                    case 'action':
+                        message = '<span class="fa fa-spin"><span class="fa fa-spin"><ons-icon icon="fa-refresh" class="white"></ons-icon></span></ons-icon></span>';
+                        break;
+                }
 
-    ph.onAction = function(done) {
-        console.log("reload");
-        showTL(null, done);
-    };
+                ph_alert.innerHTML = message;
+            });
 
-    var ph_alert = document.getElementById('ph-alert');
-
-    ph_alert.addEventListener('changestate', function(event) {
-        var message = '';
-
-        switch (event.state) {
-            case 'initial':
-                message = '<ons-icon icon="fa-refresh" class="white"></ons-icon>';
-                break;
-            case 'preaction':
-                message = '<ons-icon icon="fa-refresh" class="white"></ons-icon>';
-                break;
-            case 'action':
-                message = '<span class="fa fa-spin"><span class="fa fa-spin"><ons-icon icon="fa-refresh" class="white"></ons-icon></span></ons-icon></span>';
-                break;
+            ph_alert.onAction = function(done) {
+                console.log("reload");
+                showAlert(done);
+            };
+        } catch (e) {
+            console.log("ERROR_Pull_hook");
         }
-
-        ph_alert.innerHTML = message;
-    });
-
-    ph_alert.onAction = function(done) {
-        console.log("reload");
-        showAlert(done);
-    };
+    }
 }
 
 function init() {
@@ -82,10 +90,12 @@ function init() {
     tag_old_id = "";
     tag_str = "";
     list_old_id = "";
+    old_TL_ws = "";
     init_d();
     hide('cannot-connect-sv');
     hide('cannot-connect-mastodon');
     hide('cannot-connect-internet');
+    hide('cannot-connect-API');
     if (!localStorage) {
         show("cannot-use-ls");
     } else {
@@ -99,10 +109,34 @@ function init() {
             }
         }).then(function(json) {
             if (localStorage.getItem('knzk_login_token')) {
-                document.querySelector('#navigator').resetToPage('init.html');
-                load('home.html');
-                initevent();
-                showTL();
+                fetch("https://"+inst+"/api/v1/accounts/verify_credentials", {
+                    headers: {'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')}
+                }).then(function(response) {
+                    if(response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error();
+                    }
+                }).then(function(json) {
+                    loadNav('home.html');
+                    initevent();
+                    showTL("local", null, null, true, null);
+                    initph("TL");
+                    document.getElementById("splitter-profile-bg").setAttribute('style', 'background-image: url(\''+json.header+'\');');
+                    document.getElementById("splitter-icon").src = json.avatar;
+                    document.getElementById("splitter-profile-name").innerHTML = json.display_name;
+                    document.getElementById("account_change-username").innerHTML = json.acct + "@" + inst;
+                    var dial = localStorage.getItem('knzk_dial'), icon;
+                    if (dial) {
+                        $("#dial_main").removeClass("invisible");
+                        if (dial === "toot") icon = "fa-pencil"; else if (dial === "alert") icon = "fa-bell"; if (dial === "reload") icon = "fa-refresh";
+                        document.getElementById("dial-icon").className = "ons-icon fa "+icon;
+                    }
+                }).catch(function(error) {
+                    show('cannot-connect-API');
+                    console.log(error);
+                    hide('now_loading');
+                });
             } else {
                 loadNav('login.html');
             }
@@ -163,20 +197,25 @@ function initevent() {
             tag_str = word[word.length-1];
             showTagTL(tag_str);
         } else {
-            window.open(url, "_blank");
+            window.open(url, "_blank", "enableViewportScale=yes");
         }
         return false;
     });
 
     document.addEventListener('postpush', function(event) {
-        if (document.getElementById("account-conf-id")) {
+        if (event.enterPage.id === "config-page") {
             document.getElementById("account-conf-id").innerHTML = "<div class=\"center list-item__center\">@"+localStorage.getItem('knzk_username')+" でログイン中</div>";
-            if (localStorage.getItem('knzk_bigfav') == 1) document.getElementById("conf-fav-namu").checked = "true";
-            if (localStorage.getItem('knzk_material_design') == 1) document.getElementById("conf-material").checked = "true";
-            if (localStorage.getItem('knzk_lite_mode') == 1) document.getElementById("conf-lite-mode").checked = "true";
-            if (localStorage.getItem('knzk_nsfw') == 1) document.getElementById("conf-nsfw").checked = "true";
-            if (localStorage.getItem('knzk_cw') == 1) document.getElementById("conf-cw").checked = "true";
-            if (localStorage.getItem('knzk_acct_list_small') == 1) document.getElementById("conf-acct_list_small").checked = "true";
+            show('now_loading');
+            setTimeout(function() {
+                if (localStorage.getItem('knzk_bigfav') == 1) document.getElementById("conf-fav-namu").checked = "true";
+                if (localStorage.getItem('knzk_lite_mode') == 1) document.getElementById("conf-lite-mode").checked = "true";
+                if (localStorage.getItem('knzk_nsfw') == 1) document.getElementById("conf-nsfw").checked = "true";
+                if (localStorage.getItem('knzk_cw') == 1) document.getElementById("conf-cw").checked = "true";
+                if (localStorage.getItem('knzk_acct_list_small') == 1) document.getElementById("conf-acct_list_small").checked = "true";
+                if (localStorage.getItem('knzk_realtime') == 1) document.getElementById("conf-realtime").checked = "true";
+                if (localStorage.getItem('knzk_dial')) document.getElementById("dial_"+localStorage.getItem('knzk_dial')).selected = true;
+                hide('now_loading');
+            },500);
         }
         if (document.getElementById("post_reply") && tmp_post_reply) {
             var bt_obj = document.getElementById("post_mode_bt");
@@ -199,29 +238,25 @@ function initevent() {
         }
     });
 
-    document.addEventListener('prechange', function(event) {
-        if (event.index === 2 || event.index === 3) {
-            event.cancel();
-        } else if (event.index === 1) { //通知
-            showAlert();
-        } else if (event.index === 0) { //TL
-        }
+    var carousel = document.addEventListener('postchange', function(event) {
+        /*
+        var home_cr = {0:"ローカルTL",1:"+ローカルTL",2:"ホーム",3:"連合"};
+        var TL_name = {0:"local",1:"pluslocal",2:"home",3:"public"};
+        */
+        var home_cr = {0:"ローカルTL",1:"ホーム",2:"連合"};
+        var TL_name = {0:"local",1:"home",2:"public"};
+        document.getElementById('home_title').innerHTML = home_cr[event.activeIndex];
+        now_TL = TL_name[event.activeIndex];
+        showTL(null,null,null,true,true);
     });
 }
 
 var button = "", quiet = "", light = "";
 function init_d() {
-    if (localStorage.getItem('knzk_material_design') == 1) { //マテリアル
-        button = "button button--material";
-        quiet = button + " button--material--flat";
-        light = quiet;
-        ons.platform.select('android');
-    } else {
-        button = "button";
-        quiet = button + " button--quiet";
-        light = button + " button--light";
-        ons.disableAutoStyling();
-    }
+    button = "button";
+    quiet = button + " button--quiet";
+    light = button + " button--light";
+    ons.disableAutoStyling();
     if (localStorage.getItem('knzk_lite_mode') == 1) {
         ons.disableAnimations();
     }
