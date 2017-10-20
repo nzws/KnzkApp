@@ -1,5 +1,6 @@
 function toot_card(toot, mode, note, toot_light) {
     var buf = "", piccard = "", fav = "", boost = "", namucard = "", namubt = "", m = 0, date = "", p = 0, alert_text = "", content = "", button = "", e = 0, bt_big = "", light = "", q = 0, enq_item = "";
+    var smbt, appname;
     if (!toot['account']['display_name']) toot['account']['display_name'] = toot['account']['username'];
     if (toot['reblog']) {
         alert_text = "<p class='alert_text'><ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" + toot['account']['id'] + ")'>" + toot['account']['display_name'] + "</b>さんがブーストしました</p>";
@@ -79,6 +80,9 @@ function toot_card(toot, mode, note, toot_light) {
     } else { //CWなし
         content = toot['content'] + piccard;
     }
+    if (1 === 0) {
+        smbt = "style='display: none'";
+    }
     if (mode == "full") {
         button =    "                            <div class=\"toot-group\">" +
             "                                <ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["account"]["acct"]+"', '"+toot["visibility"]+"')\" class=\"toot-button\"></ons-icon>" +
@@ -87,12 +91,14 @@ function toot_card(toot, mode, note, toot_light) {
             "                                <ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+")\" class=\"toot-button\"></ons-icon>" +
             "                            </div>\n";
     }
+
     if (mode == "big") {
+        if (toot['application']) appname = "(" + toot['application']['name'] + ")<br>"; else appname = "";
         var d = new Date(toot['created_at']);
         var min = "0";
         if (d.getMinutes() < 10) min = "0" + d.getMinutes(); else min = d.getMinutes();
         var date_text = d.getFullYear()+"年"+(d.getMonth()+1)+"月"+d.getDate()+"日 "+d.getHours()+":"+min;
-        bt_big = "<span class='big_date'>" + date_text + "　<span onclick='list(\"statuses/"+toot['id']+"/reblogged_by\", \"ブーストしたユーザー\", null, \"acct\")'><ons-icon icon=\"fa-retweet\"></ons-icon> "+toot['reblogs_count']+"</span>　<span onclick='list(\"statuses/"+toot['id']+"/favourited_by\", \"お気に入りしたユーザー\", null, \"acct\")'><ons-icon icon=\"fa-bell\"></ons-icon> "+toot['favourites_count']+"</span></span>" +
+        bt_big = "<span class='big_date'>"+ appname + date_text + " · <span onclick='list(\"statuses/"+toot['id']+"/reblogged_by\", \"ブーストしたユーザー\", null, \"acct\", true)'><ons-icon icon=\"fa-retweet\"></ons-icon> "+toot['reblogs_count']+"</span> · <span onclick='list(\"statuses/"+toot['id']+"/favourited_by\", \"お気に入りしたユーザー\", null, \"acct\", true)'><ons-icon icon=\"fa-bell\"></ons-icon> "+toot['favourites_count']+"</span></span>" +
             "<div class=\"row toot_big_border\">\n" +
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["account"]["acct"]+"', '"+toot["visibility"]+"')\" class=\"showtoot-button\"></ons-icon></div>\n" +
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-retweet\" onclick=\"toot_action('"+toot['id']+"', this, 'big', 'boost')\" class=\"showtoot-button"+boost+"\"></ons-icon></div>\n" +
@@ -292,7 +298,7 @@ function more(id, acctid, pin_mode) {
         ons.openActionSheet({
             cancelable: true,
             buttons: [
-                //'詳細を表示',
+                '詳細を表示',
                 //'返信',
                 {
                     label: pin,
@@ -308,14 +314,15 @@ function more(id, acctid, pin_mode) {
                 }
             ]
         }).then(function (index) {
-            if (index == 0) pin_set(more_status_id, pin_mode);
-            else if (index == 1) show('delete-post');
+            if (index == 0) show_post(more_status_id);
+            else if (index == 1) pin_set(more_status_id, pin_mode);
+            else if (index == 2) show('delete-post');
         })
     } else {
         ons.openActionSheet({
             cancelable: true,
             buttons: [
-                //'詳細を表示',
+                '詳細を表示',
                 //'返信',
                 {
                     label: '通報',
@@ -327,7 +334,8 @@ function more(id, acctid, pin_mode) {
                 }
             ]
         }).then(function (index) {
-            if (index == 0) report();
+            if (index == 0) show_post(more_status_id);
+            else if (index == 1) report();
         })
     }
 }

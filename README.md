@@ -13,8 +13,9 @@ PCから使用（テスト）する場合は [www/js/server/server.debug.sample.
 [Onsen UI](https://onsen.io/)  
 [EmojiOne](https://www.emojione.com/)  
 [Font Awesome](http://fontawesome.io/)  
-[Bootstrap](https://getbootstrap.com/)
-[jQuery](https://jquery.com/)
+[Bootstrap](https://getbootstrap.com/)  
+[jQuery](https://jquery.com/)  
+[twitter.relative.time.js](https://github.com/dforest/twitter-relative-time-js)  
 
 ### 神崎丼ロゴ
 [ネイティオ @twotwo](https://knzk.me/@twotwo)  

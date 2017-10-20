@@ -51,7 +51,7 @@ function showAlert(reload, more_load) {
             while (json[i]) {
                 alert_new_id = json[0]['id'];
                 if (!json[i]['account']['display_name']) json[i]['account']['display_name'] = json[i]['account']['username'];
-                
+
                 if (json[i]['type'] === "follow") {
                     alert_text = "<p class='alert_text'>";
                     alert_text += "<ons-icon icon=\"fa-user-plus\" class='boost-active'></ons-icon> <b onclick='show_account(" + json[i]['account']['id'] + ")'>" + json[i]['account']['display_name'] + "</b>さんにフォローされました";
@@ -92,9 +92,41 @@ function showAlert(reload, more_load) {
             document.getElementById("alert_main").innerHTML = reshtml;
         }
         if (reload) reload();
-        initph();
         return true;
     });
+}
+
+function openTL(mode) {
+    if (mode === "alert") {
+        load("alert.html");
+        showAlert();
+        setTimeout(function () {
+            initph("alert");
+        }, 200);
+    } else if (mode === "alert_nav") {
+        loadNav("alert.html");
+        showAlert();
+        setTimeout(function () {
+            document.getElementById("alert_button").innerHTML = "<ons-toolbar-button onclick=\"BackTab()\" class=\"toolbar-button\">\n" +
+                "                    <ons-icon icon=\"fa-chevron-left\" class=\"ons-icon fa-chevron-left fa\"></ons-icon>\n" +
+                "                    戻る\n" +
+                "                </ons-toolbar-button>";
+            initph("alert");
+        }, 200);
+    } else {
+        try {old_TL_ws.close();} catch(e) {console.log("ws_close_error");}
+        load("home.html");
+        showTL(null, null, null, true);
+        initph("TL");
+        setTimeout(function () {
+            var dial = localStorage.getItem('knzk_dial'), icon;
+            if (localStorage.getItem('knzk_dial')) {
+                $("#dial_main").removeClass("invisible");
+                if (dial === "toot") icon = "fa-pencil"; else if (dial === "alert") icon = "fa-bell"; if (dial === "reload") icon = "fa-refresh";
+                document.getElementById("dial-icon").className = "ons-icon fa "+icon;
+            }
+        }, 200);
+    }
 }
 
 /**
@@ -103,10 +135,9 @@ function showAlert(reload, more_load) {
  * @param reload 引っ張って更新を終了させる変数を入れる
  * @param more_load もっと読み込むのボタンオブジェクト (thisでぶち込む)
  * @param clear_load 一旦破棄してやり直すときtrue
- * @param change_TL TLを変更する時true
  */
-function showTL(mode, reload, more_load, clear_load, change_TL) {
-    var tlmode = "", i = 0, reshtml = "";
+function showTL(mode, reload, more_load, clear_load) {
+    var tlmode = "", i = 0, reshtml = "", ws, ws_mode, id_main, n;
     if (!mode) mode = now_TL;
     if (clear_load) {
         toot_new_id = 0;
@@ -118,61 +149,111 @@ function showTL(mode, reload, more_load, clear_load, change_TL) {
         more_load.disabled = true;
     }
     if (mode === "home") {
+        id_main = "home_main";
         if (more_load)
             tlmode = "home?max_id="+toot_old_id;
         else
             tlmode = "home?since_id="+toot_new_id;
-    }else if (mode === "public") {
+        n = true;
+    } else if (mode === "public") {
+        id_main = "public_main";
         if (more_load)
             tlmode = "public?max_id="+toot_old_id;
         else
             tlmode = "public?since_id="+toot_new_id;
+        n = true;
     } else if (mode === "local") {
+        id_main = "local_main";
         if (more_load)
             tlmode = "public?local=true&max_id="+toot_old_id;
         else
             tlmode = "public?local=true&since_id="+toot_new_id;
-    }
-    fetch("https://"+inst+"/api/v1/timelines/"+tlmode, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
-        method: 'GET'
-    }).then(function(response) {
-        if(response.ok) {
-            return response.json();
-        } else {
-            showtoast('cannot-load');
-            if (reload) reload();
-            return false;
-        }
-    }).then(function(json) {
-        if (!more_load && mode == last_load_TL && !clear_load) {
+        n = true;
+    } else if (mode === "plus_local") {
+        id_main = "plus_local_main";
+        if (old_TL_ws) old_TL_ws.close();
+
+        ws = new WebSocket("wss://"+inst+"/api/v1/streaming/?access_token=" + localStorage.getItem('knzk_login_token') + "&stream=public:local");
+        old_TL_ws = ws;
+        ws.onmessage = function (message) {
+            var ws_reshtml;
             displayTime('update');
-        }
-        if (more_load) {
-            more_load.className = "button button--large--quiet invisible";
-            reshtml = document.getElementById("home_main").innerHTML;
-        }
+            ws_reshtml = JSON.parse(JSON.parse(message.data).payload);
 
-        while (json[i]) {
-            toot_new_id = json[0]['id'];
-            reshtml += toot_card(json[i], "full", null);
-            i++;
-        }
+            if (toot_new_id !== ws_reshtml['id'])
+                document.getElementById(id_main).innerHTML = toot_card(ws_reshtml, "full", null) + document.getElementById(id_main).innerHTML;
 
-        if (!more_load && mode == last_load_TL && !clear_load) { //追加読み込みでない&前回と同じTL
-            reshtml += document.getElementById("home_main").innerHTML;
-        }
-        if (more_load || mode != last_load_TL || clear_load) { //TL初回
-            initph();
-            if (i !== 0) toot_old_id = json[i-1]['id'];
-            reshtml += "<button class='button button--large--quiet' onclick='showTL(null,null,this)'>もっと読み込む...</button>";
-        }
-        last_load_TL = mode;
-        document.getElementById("home_main").innerHTML = reshtml;
-        if (reload) reload();
-        if (change_TL) hide('now_loading');
+            toot_new_id = ws_reshtml['id'];
+        };
         return true;
-    });
+    }
+    if (n) {
+        fetch("https://"+inst+"/api/v1/timelines/"+tlmode, {
+            headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
+            method: 'GET'
+        }).then(function(response) {
+            if(response.ok) {
+                return response.json();
+            } else {
+                showtoast('cannot-load');
+                if (reload && reload !== "dial") reload();
+                return false;
+            }
+        }).then(function(json) {
+            if (!more_load && mode == last_load_TL && !clear_load) {
+                displayTime('update');
+            }
+            if (more_load) {
+                more_load.className = "button button--large--quiet invisible";
+                reshtml = document.getElementById(id_main).innerHTML;
+            } else {
+                if (localStorage.getItem('knzk_realtime') == 1) {
+                    if (now_TL === "public")
+                        ws_mode = "public";
+                    else if (now_TL === "local")
+                        ws_mode = "public:local";
+                    else
+                        ws_mode = "user";
+
+                    if (!reload && !more_load) {
+                        if (old_TL_ws) old_TL_ws.close();
+
+                        ws = new WebSocket("wss://"+inst+"/api/v1/streaming/?access_token=" + localStorage.getItem('knzk_login_token') + "&stream=" + ws_mode);
+                        old_TL_ws = ws;
+                        ws.onmessage = function (message) {
+                            var ws_reshtml;
+                            displayTime('update');
+                            ws_reshtml = JSON.parse(JSON.parse(message.data).payload);
+
+                            if (toot_new_id !== ws_reshtml['id'])
+                                document.getElementById(id_main).innerHTML = toot_card(ws_reshtml, "full", null) + document.getElementById(id_main).innerHTML;
+
+                            toot_new_id = ws_reshtml['id'];
+                        };
+                    }
+                }
+            }
+
+            while (json[i]) {
+                toot_new_id = json[0]['id'];
+                reshtml += toot_card(json[i], "full", null);
+                i++;
+            }
+
+            if (!more_load && mode == last_load_TL && !clear_load) { //追加読み込みでない&前回と同じTL
+                reshtml += document.getElementById(id_main).innerHTML;
+            }
+            if (more_load || mode != last_load_TL || clear_load) { //TL初回
+                initph("TL");
+                if (i !== 0) toot_old_id = json[i-1]['id'];
+                reshtml += "<button class='button button--large--quiet' onclick='showTL(null,null,this)'>もっと読み込む...</button>";
+            }
+            last_load_TL = mode;
+            document.getElementById(id_main).innerHTML = reshtml;
+            if (reload && reload !== "dial") reload();
+            return true;
+        });
+    }
 }
 
 function showTagTL(tag, more_load) {
@@ -285,16 +366,12 @@ function showAccountTL(id, more_load, media) {
     });
 }
 
-function TL_change(mode) {
-    show('now_loading');
-    if (mode == "local") {
-        now_TL = "local";
-        showTL(null,null,null,true,true);
-    } else if (mode == "home") {
-        now_TL = "home";
-        showTL(null,null,null,true,true);
-    } else if (mode == "public") {
-        now_TL = "public";
-        showTL(null,null,null,true,true);
-    }
-}
+var TL_prev = function() {
+    var carousel = document.getElementById('carousel');
+    carousel.prev();
+};
+
+var TL_next = function() {
+    var carousel = document.getElementById('carousel');
+    carousel.next();
+};

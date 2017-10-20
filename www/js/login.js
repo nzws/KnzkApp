@@ -1,5 +1,5 @@
 function login_open() {
-    loginref = cordova.InAppBrowser.open('https://'+inst+'/oauth/authorize?response_type=code&redirect_uri=urn:ietf:wg:oauth:2.0:oob&scope=read+write+follow&client_id='+knzkcid, '_blank', 'location=no');
+    loginref = cordova.InAppBrowser.open('https://'+inst+'/oauth/authorize?response_type=code&redirect_uri=urn:ietf:wg:oauth:2.0:oob&scope=read+write+follow&client_id='+knzkcid, '_blank', 'location=no,clearsessioncache=yes');
     loginref.addEventListener('loadstop', login_callback);
 }
 

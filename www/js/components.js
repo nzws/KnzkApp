@@ -1,13 +1,30 @@
+window.fn = {};
+
+window.fn.open = function() {
+    var menu = document.getElementById('splitter-menu');
+    menu.open();
+};
+
 function load(page) {
-    document.querySelector('ons-tabbar').setActiveTab(page, {animation:"slide"});
+    loadNav(page, null, true);
 }
 
-function loadNav(page, mode) {
+function openAbout() {
+    var menu = document.getElementById('splitter-menu');
+    document.querySelector('#navigator').bringPageTop("about.html").then(menu.close.bind(menu));
+}
+
+function loadNav(page, mode, splitter) {
     var option;
     if (mode === "up") option = {animation:"lift"};
-     else option = {animation:"slide"};
+    else option = {animation:"slide"};
 
-    document.querySelector('#navigator').bringPageTop(page, option);
+    if (splitter) {
+        var menu = document.getElementById('splitter-menu');
+        document.querySelector('#navigator').resetToPage(page, {animation:"none"}).then(menu.close.bind(menu));
+    } else {
+        document.querySelector('#navigator').bringPageTop(page, option);
+    }
 }
 
 function BackTab(mode) {
@@ -20,23 +37,7 @@ function BackTab(mode) {
 
 function displayTime(mode, time) {
     if (mode == 'new') {
-        var now_date = new Date();
-        var toot_date = new Date(time);
-        var comp_date = new Date(now_date.getTime() - toot_date.getTime());
-        var y = comp_date.getFullYear() - 1970;
-        var m = comp_date.getMonth() - 1;
-        var d = comp_date.getDate() - 1;
-        var h = comp_date.getHours() - 9;
-        var min = comp_date.getMinutes();
-        var s = comp_date.getSeconds();
-
-        if (y > 0) return "" + y + "年前";
-        else if (m > 0) return "" + m + "ヶ月前";
-        else if (d > 0) return "" + d + "日前";
-        else if (h > 0) return "" + h + "時間前";
-        else if (min > 0) return "" + min + "分前";
-        else if (s > 0) return "" + s + "秒前";
-        else return "たった今";
+        return new Date(time).toTwitterRelativeTime('ja');
     } else {
         var i = 0;
         var list = document.getElementsByClassName("date");
@@ -44,6 +45,16 @@ function displayTime(mode, time) {
             list[i].innerHTML = displayTime('new', list[i].dataset.time);
             i++;
         }
+    }
+}
+
+function opendial() {
+    if (localStorage.getItem('knzk_dial') == 'toot') {
+        loadNav('post.html', 'up');
+    } else if (localStorage.getItem('knzk_dial') == 'alert') {
+        openTL('alert_nav');
+    } else if (localStorage.getItem('knzk_dial') == 'reload') {
+        showTL(null, "dial");
     }
 }
 
@@ -82,19 +93,24 @@ function hide(id) {
     document.getElementById(id).hide();
 }
 
-function change_conf(name, id) {
-    var mode = document.getElementById(id).checked;
-    if (isios) { //iOS
-        if (mode == true) {
-            localStorage.setItem(name, 0);
-        } else {
-            localStorage.setItem(name, 1);
-        }
+function change_conf(name, id, sel) {
+    if (sel) {
+        var type = document.getElementById(id).value;
+        localStorage.setItem(name, type);
     } else {
-        if (mode == true) {
-            localStorage.setItem(name, 1);
+        var mode = document.getElementById(id).checked;
+        if (isios) { //iOS
+            if (mode == true) {
+                localStorage.setItem(name, 0);
+            } else {
+                localStorage.setItem(name, 1);
+            }
         } else {
-            localStorage.setItem(name, 0);
+            if (mode == true) {
+                localStorage.setItem(name, 1);
+            } else {
+                localStorage.setItem(name, 0);
+            }
         }
     }
     showtoast('ok_conf');

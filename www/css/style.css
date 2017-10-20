@@ -150,10 +150,10 @@ html, body {
 }
 
 .user-logo {
-    margin: 25px 0;
+    margin: 20px 0 5px;
     border-radius: 400px;
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
 }
 
 .card-bio {
@@ -301,4 +301,134 @@ pre {
     background-color: #393f4f;
     border: 1px solid #2a3040;
     border-radius: 4px;
+}
+
+.toot_content > p {
+    margin: 0 !important;
+}
+
+.splitter-profile {
+    background: rgba(23,25,31,.8);
+    width: 100%;
+    padding-left: 30px;
+}
+
+.splitter-profile-item > .center {
+    padding-right: 0;
+    padding-top: 0;
+}
+
+.splitter-profile-item {
+    padding-left: 0;
+}
+
+.splitter-profile-item > .center {
+    padding-bottom: 0;
+}
+
+.toot-group {
+    margin: 2px 0;
+}
+
+.splitter-bottom {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.tabbar__icon {
+    font-size: 15px;
+}
+
+.tabbar {
+    height: 30px;
+}
+.tabbar__button {
+    height: 30px;
+}
+
+.tabbar--top {
+    border-bottom: 1px solid #242930;
+}
+
+.tabbar--top__content {
+    top: 23px;
+}
+
+.tabbar__label {
+    display: none;
+}
+
+.toolbar, .toolbar__item {
+    height: 35px;
+}
+
+.toolbar:not(.toolbar--cover-content)+.page__background+.page__content, .toolbar:not(.toolbar--transparent)+.page__background {
+    top: 35px;
+}
+
+.toolbar__left {
+    line-height: 40px;
+}
+
+.toolbar__center {
+    line-height: 40px;
+}
+
+.toolbar__right {
+    line-height: 40px;
+}
+
+.list-item-small.left {
+    padding: 5px 14px 5px 0;
+    min-height: 10px;
+}
+
+.list-item-small.center {
+    padding: 5px 6px 5px 0;
+    min-height: 10px;
+}
+
+.list-item-small.right {
+    padding: 5px 12px 5px 0;
+    min-height: 10px;
+}
+
+.music-item.left {
+    padding: 7px 14px 7px 0;
+    min-height: 5px;
+}
+
+.music-item.center {
+    padding: 7px 6px 7px 0;
+    min-height: 5px;
+}
+
+ons-carousel-item {
+    margin-top: 63px;
+    display: block;
+    height: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    -ms-scroll-snap-type: mandatory;
+}
+
+ons-fab, ons-speed-dial {
+    z-index: 1;
+}
+
+/* 簡易トゥートなし
+.page-with-bottom-toolbar>.page__content {
+    bottom: 0;
+}
+*/
+/* 簡易トゥートあり */
+ons-carousel-item {
+    padding-bottom: 63px;
+}
+
+.fab--bottom__right {
+    bottom: 50px;
 }
