@@ -1,3 +1,15 @@
+var showPopover = function(target, id) {
+    document
+        .getElementById(id)
+        .show(target);
+};
+
+var hidePopover = function(id) {
+    document
+        .getElementById(id)
+        .hide();
+};
+
 window.fn = {};
 
 window.fn.open = function() {
@@ -6,6 +18,9 @@ window.fn.open = function() {
 };
 
 function load(page) {
+    if (page != "home.html") {
+        try {old_TL_ws.close();} catch(e) {console.log("ws_close_error");}
+    }
     loadNav(page, null, true);
 }
 
@@ -68,7 +83,7 @@ function showtoast(id) {
 function t_text(text) {
     var i = 0, emoji = "", replacetext = "";
     text = text.replace(/5,?000\s*兆円/g , "<img src=\"https://knzk.me/emoji/5000tyoen.svg\" style=\"height: 1.8em;\"/>");
-    text = text.replace(/ニコる/g , "<img src=\"https://knzk.me/emoji/nicoru.svg\" style=\"height: 1.5em;\"/>");
+    text = text.replace(/:nicoru:/g , "<img src=\"https://knzk.me/emoji/nicoru.svg\" style=\"height: 1.5em;\"/>");
     text = text.replace(/バジリスク\s*タイム/g , "<img src=\"https://knzk.me/emoji/basilisktime.png\" height=\"40\"/>");
     text = text.replace(/熱盛/g , "<img src=\"https://knzk.me/emoji/atumori.png\" height=\"51\"/>");
     text = text.replace(/欲しい！/g , "<img src=\"https://knzk.me/emoji/hosii.png\" height=\"30\"/>");

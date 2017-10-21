@@ -1,7 +1,12 @@
 function toot_card(toot, mode, note, toot_light) {
     var buf = "", piccard = "", fav = "", boost = "", namucard = "", namubt = "", m = 0, date = "", p = 0, alert_text = "", content = "", button = "", e = 0, bt_big = "", light = "", q = 0, enq_item = "";
     var smbt, appname;
-    if (!toot['account']['display_name']) toot['account']['display_name'] = toot['account']['username'];
+    try {
+        if (!toot['account']['display_name']) toot['account']['display_name'] = toot['account']['username'];
+    } catch (e) {
+        console.log("error:display_name");
+        toot['account']['display_name'] = toot['account']['username'];
+    }
     if (toot['reblog']) {
         alert_text = "<p class='alert_text'><ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" + toot['account']['id'] + ")'>" + toot['account']['display_name'] + "</b>さんがブーストしました</p>";
         toot = toot['reblog'];
@@ -60,15 +65,19 @@ function toot_card(toot, mode, note, toot_light) {
         }
         e = 0;
     }
-    if (toot['media_attachments'][0] && (mode == "full" || mode == "big")) {
-        while (toot['media_attachments'][p]) {
-            if (toot['sensitive'] && localStorage.getItem('knzk_nsfw') != 1) { //NSFWオン
-                piccard += "<a href='"+toot['media_attachments'][p]['url']+"'><ons-card class='nsfw'><h3>回覧注意</h3><small>タップで表示</small></ons-card></a>";
-            } else {
-                piccard += "<a href='"+toot['media_attachments'][p]['url']+"'><ons-card style='background-image: url("+toot['media_attachments'][p]['preview_url']+")' class='card-image'></ons-card></a>";
+    try {
+        if (toot['media_attachments'][0] && (mode == "full" || mode == "big")) {
+            while (toot['media_attachments'][p]) {
+                if (toot['sensitive'] && localStorage.getItem('knzk_nsfw') != 1) { //NSFWオン
+                    piccard += "<a href='"+toot['media_attachments'][p]['url']+"'><ons-card class='nsfw'><h3>回覧注意</h3><small>タップで表示</small></ons-card></a>";
+                } else {
+                    piccard += "<a href='"+toot['media_attachments'][p]['url']+"'><ons-card style='background-image: url("+toot['media_attachments'][p]['preview_url']+")' class='card-image'></ons-card></a>";
+                }
+                p++;
             }
-            p++;
         }
+    } catch (e) {
+        console.log("error_image");
     }
     date = displayTime('new', toot['created_at']);
     toot['content'] = toot['content'].replace(/<a href="((http:|https:)\/\/[\x21-\x26\x28-\x7e]+)\/media\/([\x21-\x26\x28-\x7e]+)" rel="nofollow noopener" target="_blank"><span class="invisible">(http:|https:)\/\/<\/span><span class="ellipsis">([\x21-\x26\x28-\x7e]+)\/media\/([\x21-\x26\x28-\x7e]+)<\/span><span class="invisible">([\x21-\x26\x28-\x7e]+)<\/span><\/a>/g , "<a href='$1/media/$3' class='image-url'><ons-icon icon='fa-file-image-o'></ons-icon></a>");
@@ -352,7 +361,8 @@ function delete_post() {
             throw new Error();
         }
     }).then(function(json) {
-        document.getElementById("post_"+more_status_id).innerHTML = "";
+        let card = document.getElementById("post_"+more_status_id);
+        card.parentNode.removeChild(card);
         console.log("OK:del");
         showtoast('del-post-ok');
         more_acct_id = 0;

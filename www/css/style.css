@@ -425,6 +425,34 @@ img.emoji {
     vertical-align: -0.1em;
 }
 
+.simple-toot > div {
+    padding-top: 0;
+    background: #687390;
+    padding-bottom: 0;
+}
+.no-rd {
+    border-radius: 0;
+    color: #fff;
+}
+
+.simple_toot_open {
+    height: 100px;
+}
+
+#emoji_list_popover > ons-button {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.emoji_list_scroll {
+    display: block;
+    height: 300px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    -ms-scroll-snap-type: mandatory;
+}
+
 /* 簡易トゥートなし
 .page-with-bottom-toolbar>.page__content {
     bottom: 0;

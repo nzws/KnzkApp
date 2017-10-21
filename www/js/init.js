@@ -64,6 +64,7 @@ function init() {
     tag_str = "";
     list_old_id = "";
     old_TL_ws = "";
+    image_mode = "";
     init_d();
     hide('cannot-connect-sv');
     hide('cannot-connect-mastodon');
@@ -217,7 +218,7 @@ function initevent() {
         var home_cr = {0:"ローカルTL",1:"+ローカルTL",2:"ホーム",3:"連合"};
         var TL_name = {0:"local",1:"pluslocal",2:"home",3:"public"};
         */
-        var home_cr = {0:"ローカルTL",1:"ホーム",2:"連合"};
+        var home_cr = {0:"ローカル",1:"ホーム",2:"連合"};
         var TL_name = {0:"local",1:"home",2:"public"};
         document.getElementById('home_title').innerHTML = home_cr[event.activeIndex];
         now_TL = TL_name[event.activeIndex];

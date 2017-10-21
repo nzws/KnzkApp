@@ -51,6 +51,7 @@
         var tag_str = "";
         var list_old_id = "";
         var old_TL_ws = "";
+        var image_mode = "";
     </script>
 
     <script src="js/server/server.js"></script>
@@ -75,7 +76,7 @@
                     <div class="splitter-profile">
                         <img src="img/missing.png" id="splitter-icon" class="user-logo" onclick="show_account(localStorage.getItem('knzk_userid'), true)"/>
                         <p>
-                            <h4 id="splitter-profile-name" class="toot-small"></h4>
+                        <h4 id="splitter-profile-name" class="toot-small"></h4>
                         </p>
                     </div>
                 </ons-list-item>
@@ -300,22 +301,97 @@
             </ons-fab>
         </ons-speed-dial>
         <ons-bottom-toolbar id="simple_toot_TL_toolbar">
-            <ons-bottom>
+            <form id="simple_toot_form">
+                <input type="hidden" id="nsfw_input_simple">
+                <input type="hidden" id="post_mode_simple" value="public">
+                <input type="hidden" id="post_reply_simple">
                 <ons-list>
-                    <ons-list-item style="padding-left: 0">
-                        <div class="left" style="padding-top: 0;padding-right: 6px">
+                    <ons-list-item style="padding-left: 0" class="simple-toot">
+                        <div class="left" style="padding-right: 6px">
                             <ons-button modifier="large--quiet" onclick="show_bbcodegen('simple_toot_TL_input')"><ons-icon icon="fa-font"></ons-icon></ons-button>
                         </div>
-                        <div class="center" style="padding-top: 0">
-                            <ons-input id="simple_toot_TL_input" modifier="underbar" placeholder="トゥート！" class="w-max"></ons-input>
+                        <div class="center">
+                            <!--<ons-input id="simple_toot_TL_input" modifier="underbar" placeholder="トゥート！" class="w-max" onFocus="simple_open()" onkeyup="check_limit(value, 'toot_limit_simple', 'toot-button_simple', 'simple_toot_cw');"></ons-input>-->
+                            <textarea class="textarea w-max" rows="1" placeholder="トゥート！" id="simple_toot_TL_input" onFocus="simple_open()" onkeyup="check_limit(value, 'toot_limit_simple', 'toot-button_simple', 'simple_toot_cw');"></textarea>
                         </div>
-                        <div class="right" style="padding-top: 0;padding-right: 0">
-                            <ons-button modifier="large--quiet" onclick="new_post_simple('simple_toot_TL_input')"><ons-icon icon="fa-paper-plane-o"></ons-icon></ons-button>
+                        <div class="right" style="padding-right: 0">
+                            <ons-button modifier="large--quiet" onclick="post('simple_toot_TL_input', {cw:document.getElementById('simple_toot_cw').value, visibility:document.getElementById('post_mode_simple').value, sensitive:document.getElementById('nsfw_input_simple').value, in_reply_to_id: document.getElementById('post_reply_simple').value}, true)" id="toot-button_simple"><ons-icon icon="fa-paper-plane-o"></ons-icon></ons-button>
                         </div>
                     </ons-list-item>
                 </ons-list>
-            </ons-bottom>
+                <ons-list>
+                    <ons-list-item style="padding-left: 0" class="simple-toot invisible" id="simple_more">
+                        <ons-button modifier="quiet" onclick="post_mode(true)" class="no-rd" id="post_mode_bt_simple">公開</ons-button>
+                        <ons-button modifier="quiet" onclick="showPopover(this, 'image_popover')" class="no-rd" id="new_up_bt_simple"><ons-icon icon="fa-picture-o"></ons-icon></ons-button>
+                        <ons-button modifier="quiet" onclick="post_nsfw(true)" class="no-rd invisible" id="nsfw_bt_simple"><ons-icon icon="fa-eye"></ons-icon></ons-button>
+                        <ons-button modifier="quiet" onclick="showPopover(this, 'cw_popover')" class="no-rd">CW</ons-button>
+                        <ons-button modifier="quiet" onclick="showPopover(this, 'vote_popover')" class="no-rd"><ons-icon icon="fa-align-left"></ons-icon></ons-button>
+                        <ons-button modifier="quiet" onclick="showPopover(this, 'emoji_popover')" class="no-rd"><ons-icon icon="fa-smile-o"></ons-icon></ons-button>
+                        <ons-button modifier="quiet" class="no-rd" id="toot_limit_simple">4096</ons-button>
+                        <ons-button modifier="quiet" class="no-rd" onclick="simple_close()"><ons-icon icon="fa-chevron-down"></ons-icon></ons-button>
+                    </ons-list-item>
+                </ons-list>
+            </form>
         </ons-bottom-toolbar>
+
+        <ons-popover direction="up" id="emoji_popover">
+            <div style="padding: 5px; text-align: center;">
+                <p id="emoji_list_popover" class="emoji_list_scroll">load</p>
+                <p>
+                    <ons-button onclick="hidePopover('emoji_popover')" class="w-max">閉じる</ons-button>
+                </p>
+            </div>
+        </ons-popover>
+
+        <ons-popover direction="up" id="cw_popover">
+            <div style="padding: 10px; text-align: center;">
+                <p>
+                    <ons-input id="simple_toot_cw" modifier="underbar" placeholder="警告文を書いてください" class="w-max black_text" onkeyup="check_limit(value, 'toot_limit_simple', 'toot-button_simple', 'simple_toot_TL_input');"></ons-input>
+                </p>
+                <p>
+                    <ons-button onclick="hidePopover('cw_popover')" class="w-max">閉じる</ons-button>
+                </p>
+            </div>
+        </ons-popover>
+
+        <ons-popover direction="up" id="image_popover">
+            <div style="padding: 10px; text-align: center;">
+                <p>
+                <div id="image_list_simple"></div>
+                </p>
+                <p>
+                    <ons-button onclick="up_file(true)" class="w-max">新規投稿</ons-button>
+                </p>
+                <p>
+                    <ons-button onclick="hidePopover('image_popover')" class="w-max">閉じる</ons-button>
+                </p>
+            </div>
+        </ons-popover>
+
+        <ons-popover direction="up" id="vote_popover">
+            <div style="padding: 10px; text-align: center;">
+                <p>
+                <form id="simple_vote">
+                    <ons-input id="vote_new_1_simple" modifier="underbar" placeholder="項目1" class="w-max black_text"></ons-input>
+                    <ons-input id="vote_new_2_simple" modifier="underbar" placeholder="項目2" class="w-max black_text"></ons-input>
+                    <ons-input id="vote_new_3_simple" modifier="underbar" placeholder="項目3(任意)" class="w-max black_text"></ons-input>
+                    <ons-input id="vote_new_4_simple" modifier="underbar" placeholder="項目4(任意)" class="w-max black_text"></ons-input>
+                    <ons-select id="vote_new_time_simple" class="w-max black_text" modifier="underbar">
+                        <option value="30">30秒</option>
+                        <option value="60">1分</option>
+                        <option value="180">3分</option>
+                        <option value="300">5分</option>
+                        <option value="600">10分</option>
+                        <option value="3600">1時間</option>
+                        <option value="86400">1日</option>
+                    </ons-select>
+                </form>
+                </p>
+                <p>
+                    <ons-button onclick="hidePopover('vote_popover')" class="w-max">閉じる</ons-button>
+                </p>
+            </div>
+        </ons-popover>
     </ons-page>
 </ons-template>
 
@@ -927,6 +1003,10 @@
     </ons-toast>
     <ons-toast id="ok_conf_2">
         設定しました。
+    </ons-toast>
+
+    <ons-toast id="post_now">
+        投稿しています... <span class="fa fa-spin"><span class="fa fa-spin"><ons-icon icon="fa-refresh" class="white"></ons-icon></span></ons-icon></span>
     </ons-toast>
 
     <ons-toast id="vote-ok">
