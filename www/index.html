@@ -80,6 +80,7 @@
                         </p>
                     </div>
                 </ons-list-item>
+                <!--
                 <ons-list-item onclick="account_change_panel()" tappable>
                     <div class="center list-item-small">
                         @<span id="account_change-username"></span>
@@ -88,6 +89,7 @@
                         <ons-icon icon="fa-caret-down"></ons-icon>
                     </div>
                 </ons-list-item>
+                -->
             </ons-list>
             <div id="menu-list-base">
                 <ons-list id="menu-list">
@@ -228,6 +230,16 @@
                     固定したトゥート
                 </div>
             </ons-list-item>
+            <!--
+            <ons-list-item modifier="chevron" tappable onclick="list('follow_requests', 'フォローリクエスト', null, 'acct', true)">
+                <div class="left">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-users fa fa-fw"></i>
+                </div>
+                <div class="center">
+                    フォローリクエスト
+                </div>
+            </ons-list-item>
+            -->
             <ons-list-item modifier="chevron" tappable onclick="list('mutes', 'ミュート一覧', null, 'acct', true)">
                 <div class="left">
                     <i class="list-item__icon list-item--chevron__icon ons-icon fa-volume-off fa fa-fw"></i>
@@ -265,7 +277,7 @@
                     <ons-icon icon="fa-angle-left"></ons-icon>
                 </ons-toolbar-button>
             </div>
-            <div id="home_title" class="center">ローカルTL</div>
+            <div id="home_title" class="center">ローカル</div>
             <div class="right">
                 <ons-toolbar-button onclick="TL_next()">
                     <ons-icon icon="fa-angle-right"></ons-icon>
@@ -360,7 +372,7 @@
                 <div id="image_list_simple"></div>
                 </p>
                 <p>
-                    <ons-button onclick="up_file(true)" class="w-max">新規投稿</ons-button>
+                    <ons-button onclick="up_file(true)" class="w-max">画像追加</ons-button>
                 </p>
                 <p>
                     <ons-button onclick="hidePopover('image_popover')" class="w-max">閉じる</ons-button>
@@ -896,7 +908,7 @@
                 <img src="img/logo.svg" style="width: 80%;"/>
             </div>
             <p>
-                <b>神崎丼アプリ 1.0.0b2</b>
+                <b>神崎丼アプリ 1.0.0b3</b>
             </p>
             <span class="fa fa-spin"><b>南無！ｗ</b></span>
             <p></p>

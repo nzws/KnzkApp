@@ -99,7 +99,7 @@ function init() {
                     document.getElementById("splitter-profile-bg").setAttribute('style', 'background-image: url(\''+json.header+'\');');
                     document.getElementById("splitter-icon").src = json.avatar;
                     document.getElementById("splitter-profile-name").innerHTML = json.display_name;
-                    document.getElementById("account_change-username").innerHTML = json.acct + "@" + inst;
+                    //document.getElementById("account_change-username").innerHTML = json.acct + "@" + inst;
                     var dial = localStorage.getItem('knzk_dial'), icon;
                     if (dial) {
                         $("#dial_main").removeClass("invisible");
