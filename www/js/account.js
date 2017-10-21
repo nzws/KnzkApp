@@ -29,6 +29,7 @@ function show_account(id, navmode) {
         document.getElementById("userpage-follow").innerHTML = json.following_count;
         document.getElementById("userpage-follower").innerHTML = json.followers_count;
         document.getElementById("userpage-post-count").innerHTML = json.statuses_count;
+        if (json.locked === true) $("#userpage-lock").removeClass("invisible");
         showAccountTL(json.id);
     }).catch(function(error) {
         showtoast('cannot-pros');

@@ -99,4 +99,5 @@
   <preference name="SplashScreenDelay" value="0"/>
   <preference name="Fullscreen" value="false"/>
   <preference name="webView" value="org.crosswalk.engine.XWalkWebViewEngine"/>
+  <preference name="android-minSdkVersion" value="19"/>
 </widget>
