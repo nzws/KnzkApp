@@ -406,7 +406,6 @@ pre {
 }
 
 ons-carousel-item {
-    margin-top: 63px;
     display: block;
     height: 100%;
     overflow: auto;
@@ -425,9 +424,6 @@ ons-fab, ons-speed-dial {
 }
 */
 /* 簡易トゥートあり */
-ons-carousel-item {
-    padding-bottom: 63px;
-}
 
 .fab--bottom__right {
     bottom: 50px;

@@ -1,32 +1,5 @@
 function initph(mode) {
     if (mode === "TL") {
-        try {
-            var ph = document.getElementById('ph-home');
-            ph.addEventListener('changestate', function (event) {
-                var message = '';
-
-                switch (event.state) {
-                    case 'initial':
-                        message = '<ons-icon icon="fa-refresh" class="white"></ons-icon>';
-                        break;
-                    case 'preaction':
-                        message = '<ons-icon icon="fa-refresh" class="white"></ons-icon>';
-                        break;
-                    case 'action':
-                        message = '<span class="fa fa-spin"><span class="fa fa-spin"><ons-icon icon="fa-refresh" class="white"></ons-icon></span></ons-icon></span>';
-                        break;
-                }
-
-                ph.innerHTML = message;
-            });
-
-            ph.onAction = function (done) {
-                console.log("reload");
-                showTL(null, done);
-            };
-        } catch (e) {
-            console.log("ERROR_Pull_hook");
-        }
     } else {
         try {
             var ph_alert = document.getElementById('ph-alert');
@@ -118,6 +91,7 @@ function init() {
                         throw new Error();
                     }
                 }).then(function(json) {
+                    if (localStorage.getItem('knzk_realtime') == undefined) localStorage.setItem('knzk_realtime', 1);
                     loadNav('home.html');
                     initevent();
                     showTL("local", null, null, true, null);
