@@ -83,6 +83,7 @@ function showtoast(id) {
 function t_text(text) {
     var i = 0, emoji = "", replacetext = "";
     text = text.replace(/5,?000\s*兆円/g , "<img src=\"https://knzk.me/emoji/5000tyoen.svg\" style=\"height: 1.8em;\"/>");
+    text = text.replace(/:nicoru(\d+):/g , "<img src=\"https://knzk.me/emoji/nicoru.svg\" style=\"height: 1.5em; transform: rotate($1deg)\"/>");
     text = text.replace(/:nicoru:/g , "<img src=\"https://knzk.me/emoji/nicoru.svg\" style=\"height: 1.5em;\"/>");
     text = text.replace(/バジリスク\s*タイム/g , "<img src=\"https://knzk.me/emoji/basilisktime.png\" height=\"40\"/>");
     text = text.replace(/熱盛/g , "<img src=\"https://knzk.me/emoji/atumori.png\" height=\"51\"/>");
