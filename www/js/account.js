@@ -78,6 +78,13 @@ function show_account(id, navmode) {
         } else {
             document.getElementById("acct_action_bt").className = "userpage-button ons-icon fa-bars fa";
         }
+
+        if (json[0]["requested"] === true) {
+            document.getElementById("userpage-follow-button").className = "userpage-button follow-active ons-icon fa-hourglass fa";
+            document.getElementById("userpage-followreq-badge").className = "userpage-follower";
+        } else
+            document.getElementById("userpage-followreq-badge").className = "invisible";
+
     }).catch(function(error) {
         showtoast('cannot-pros');
         console.log(error);
@@ -160,7 +167,7 @@ function showFollow(id, mode, more_load) {
 function account_state_action(id, obj, mode) {
     var url = "";
     if (mode === "follow") {
-        if (obj.className === "userpage-button follow-active ons-icon fa-user-times fa") { //フォロー
+        if (obj.className === "userpage-button follow-active ons-icon fa-user-times fa" || obj.className === "userpage-button follow-active ons-icon fa-hourglass fa") { //フォロー
             url = "/unfollow";
         } else {
             url = "/follow";
@@ -190,11 +197,16 @@ function account_state_action(id, obj, mode) {
         }
     }).then(function(json) {
         if (mode === "follow") {
-            if (obj.className === "userpage-button follow-active ons-icon fa-user-times fa") {
-                obj.className = "userpage-button ons-icon fa-user-plus fa"; //フォロー解除する
-            } else {
-                obj.className = "userpage-button follow-active ons-icon fa-user-times fa";
-            }
+            if (json["following"] === true)
+                document.getElementById("userpage-follow-button").className = "userpage-button follow-active ons-icon fa-user-times fa";
+            else
+                document.getElementById("userpage-follow-button").className = "userpage-button ons-icon fa-user-plus fa";
+
+            if (json["requested"] === true) {
+                document.getElementById("userpage-follow-button").className = "userpage-button follow-active ons-icon fa-hourglass fa";
+                document.getElementById("userpage-followreq-badge").className = "userpage-follower";
+            } else
+                document.getElementById("userpage-followreq-badge").className = "invisible";
         } else {
             showtoast("ok_conf_2");
         }

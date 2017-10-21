@@ -271,10 +271,7 @@
                 </ons-toolbar-button>
             </div>
         </ons-toolbar>
-        <ons-pull-hook id="ph-home" class="dark-bg">
-            <ons-icon icon="fa-refresh" class="white"></ons-icon>
-        </ons-pull-hook>
-        <ons-carousel fullscreen swipeable auto-scroll overscrollable id="carousel">
+        <ons-carousel fullscreen swipeable auto-scroll id="carousel" auto-scroll-ratio="0.5">
             <ons-carousel-item>
                 <div id="local_main">
                     <div class="loading-now">
@@ -763,6 +760,7 @@
         <input type="hidden" id="acct_mute">
         <div class="userpage-button-bg">
             <ons-icon icon="fa-user-plus" class="userpage-button" id="userpage-follow-button" onclick="account_state_action(account_page_id, this, 'follow')"></ons-icon>
+            <div class="userpage-follower invisible" id="userpage-followreq-badge">承認待ち</div>
             <div class="userpage-follower invisible" id="userpage-follower-badge">フォロワー</div>
             <div class="userpage-follower invisible" id="userpage-mute-badge">ミュート中</div>
             <div class="userpage-follower invisible" id="userpage-block-badge">ブロック中</div>
