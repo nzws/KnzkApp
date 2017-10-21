@@ -30,8 +30,10 @@ function post_vote() {
     }
 }
 
-function up_file() {
-    var card = document.getElementsByClassName("media-upload");
+function up_file(simple) {
+    var simple_id;
+    if (simple) image_mode = simple_id = "_simple";
+    var card = document.getElementsByClassName("media-upload"+simple_id);
     if (card.length >= 4) {
         showtoast("maximum-media");
     } else {
@@ -69,8 +71,9 @@ function up_file_suc(base64) {
             }
         }).then(function(json) {
             if (json["id"] && json["preview_url"] != "https://knzk.me/files/small/missing.png") {
-                document.getElementById("nsfw_bt").className = quiet;
-                document.getElementById("image_list").innerHTML = "<ons-card onclick=\"file_del(this)\" style='background-image: url("+json["preview_url"]+")' class='card-image media-upload' data-mediaid='"+json["id"]+"'></ons-card>" + document.getElementById("image_list").innerHTML;
+                document.getElementById("nsfw_bt"+image_mode).className = "no-rd "+quiet;
+                document.getElementById("image_list"+image_mode).innerHTML = "<ons-card onclick=\"file_del(this)\" style='background-image: url("+json["preview_url"]+")' class='card-image media-upload"+image_mode+"' data-mediaid='"+json["id"]+"'></ons-card>" + document.getElementById("image_list"+image_mode).innerHTML;
+                image_mode = "";
                 hide('now_loading');
             } else {
                 hide('now_loading');
@@ -96,9 +99,11 @@ function file_error(msg) {
     console.log(msg);
 }
 
-function post_nsfw() {
-    var cw_input = document.getElementById("nsfw_input");
-    var cwicon = document.getElementById("nsfw_bt");
+function post_nsfw(simple) {
+    var simple_id;
+    if (simple) simple_id = "_simple";
+    var cw_input = document.getElementById("nsfw_input"+simple_id);
+    var cwicon = document.getElementById("nsfw_bt"+simple_id);
 
     if (cwicon.className == button) { //選択済み→解除
         cw_input.value = "";
@@ -109,9 +114,11 @@ function post_nsfw() {
     }
 }
 
-function post_mode() {
-    var input_obj = document.getElementById("post_mode");
-    var bt_obj = document.getElementById("post_mode_bt");
+function post_mode(simple) {
+    var simple_id;
+    if (simple) simple_id = "_simple";
+    var input_obj = document.getElementById("post_mode"+simple_id);
+    var bt_obj = document.getElementById("post_mode_bt"+simple_id);
 
     ons.openActionSheet({
         cancelable: true,
@@ -230,19 +237,24 @@ function bbcode_color(color) {
     }
 }
 
-function post(id, option) {
-    show('now_loading');
-    var media_id = Array(), i, optiondata = {
+function post(id, option, simple) {
+    var media_id = Array(), i, simple_id = "", optiondata = {
         status: document.getElementById(id).value,
         visibility: option.visibility
     };
-    var media = document.getElementsByClassName("media-upload");
+    if (simple) {
+        show('post_now');
+        simple_id = "_simple";
+    } else
+        show('now_loading');
 
-    var vote1 = document.getElementById("vote_new_1").value;
-    var vote2 = document.getElementById("vote_new_2").value;
-    var vote3 = document.getElementById("vote_new_3").value;
-    var vote4 = document.getElementById("vote_new_4").value;
-    var votem = document.getElementById("vote_new_time").value;
+    var media = document.getElementsByClassName("media-upload"+simple_id);
+
+    var vote1 = document.getElementById("vote_new_1"+simple_id).value;
+    var vote2 = document.getElementById("vote_new_2"+simple_id).value;
+    var vote3 = document.getElementById("vote_new_3"+simple_id).value;
+    var vote4 = document.getElementById("vote_new_4"+simple_id).value;
+    var votem = document.getElementById("vote_new_time"+simple_id).value;
 
     if (vote1 != "" && vote2 != "") {
         optiondata.isEnquete = true;
@@ -277,37 +289,76 @@ function post(id, option) {
             throw new Error();
         }
     }).then(function(json) {
-        hide('now_loading');
-        BackTab('down');
+        if (json["id"]) {
+            if (simple) {
+                $("#simple_toot_form").find("textarea, input, select").val("").end().find(":checked").prop("checked", false);
+                $("#simple_vote").find("textarea, input, select").val("").end().find(":checked").prop("checked", false);
+                $("#simple_toot_cw").val("");
+                $("#post_mode_simple").val("public");
+                simple_close();
+                check_limit(document.getElementById("simple_toot_TL_input").value, 'toot_limit_simple', 'toot-button_simple', 'simple_toot_cw');
+                document.getElementById("post_mode_bt_simple").innerHTML = "公開";
+                document.getElementById("image_list_simple").innerHTML = "";
+                hide('post_now');
+            } else {
+                hide('now_loading');
+                BackTab('down');
+            }
+        } else {
+            showtoast('cannot-post');
+            if (simple) hide('post_now');
+            else hide('now_loading');
+        }
         showTL(null, null, null, true);
     }).catch(function(error) {
         showtoast('cannot-post');
         console.log(error);
-        hide('now_loading');
+        if (simple) hide('post_now');
+        else hide('now_loading');
     });
 }
 
-function new_post_simple(id) {
-    show('now_loading');
-    var  optiondata = {
-        status: document.getElementById(id).value
-    };
-    fetch("https://"+inst+"/api/v1/statuses", {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
-        method: 'POST',
-        body: JSON.stringify(optiondata)
-    }).then(function(response) {
-        if(response.ok) {
-            return response.json();
-        } else {
-            throw new Error();
-        }
-    }).then(function(json) {
-        document.getElementById(id).value = "";
-        hide('now_loading');
-        showTL(null, null, null, true);
-    }).catch(function(error) {
-        showtoast('cannot-post');
-        hide('now_loading');
-    });
+function simple_open() {
+    document.getElementById("simple_toot_TL_input").rows = 3;
+    $("#simple_toot_TL_toolbar").addClass("simple_toot_open");
+    $("#simple_more").removeClass("invisible");
+    let emoji = document.getElementById("emoji_list_popover"), i = 0, reshtml = "";
+    if (emoji.innerHTML == "load") {
+        fetch("https://"+inst+"/api/v1/custom_emojis", {
+            headers: {'content-type': 'application/json'},
+            method: 'GET',
+        }).then(function(response) {
+            if(response.ok) {
+                return response.json();
+            } else {
+                showtoast('cannot-pros');
+            }
+        }).then(function(json) {
+            while (json[i]) {
+                reshtml += "<ons-button modifier=\"quiet\" onclick='add_emoji_simple(\""+json[i]["shortcode"]+"\")'><img draggable=\"false\" class=\"emojione\" src=\""+json[i]["url"]+"\"></ons-button>\n";
+                i++;
+            }
+            emoji.innerHTML = reshtml;
+        });
+    }
+}
+
+function simple_close() {
+    document.getElementById("simple_toot_TL_input").rows = 1;
+    $("#simple_toot_TL_toolbar").removeClass("simple_toot_open");
+    $("#simple_more").addClass("invisible");
+}
+
+function add_emoji_simple(addtext) {
+    // https://qiita.com/noraworld/items/d6334a4f9b07792200a5
+    let textarea = document.getElementById("simple_toot_TL_input");
+    let sentence = textarea.value;
+    let len      = sentence.length;
+    let pos      = textarea.selectionStart;
+    let before   = sentence.substr(0, pos);
+    let word     = " :" + addtext + ": ";
+    let after    = sentence.substr(pos, len);
+    sentence = before + word + after;
+    textarea.value = sentence;
+    hidePopover('emoji_popover');
 }
