@@ -95,7 +95,6 @@ function init() {
                     loadNav('home.html');
                     initevent();
                     showTL("local", null, null, true, null);
-                    initph("TL");
                     document.getElementById("splitter-profile-bg").setAttribute('style', 'background-image: url(\''+json.header+'\');');
                     document.getElementById("splitter-icon").src = json.avatar;
                     document.getElementById("splitter-profile-name").innerHTML = json.display_name;
@@ -187,6 +186,7 @@ function initevent() {
                 if (localStorage.getItem('knzk_cw') == 1) document.getElementById("conf-cw").checked = "true";
                 if (localStorage.getItem('knzk_acct_list_small') == 1) document.getElementById("conf-acct_list_small").checked = "true";
                 if (localStorage.getItem('knzk_realtime') == 1) document.getElementById("conf-realtime").checked = "true";
+                if (localStorage.getItem('knzk_spin') == 1) document.getElementById("conf-spin").checked = "true";
                 if (localStorage.getItem('knzk_dial')) document.getElementById("dial_"+localStorage.getItem('knzk_dial')).selected = true;
                 hide('now_loading');
             },500);
@@ -233,6 +233,15 @@ function init_d() {
     ons.disableAutoStyling();
     if (localStorage.getItem('knzk_lite_mode') == 1) {
         ons.disableAnimations();
+    }
+
+    if (localStorage.getItem('knzk_spin') == 1) {
+        var css = ".fa-spin {-webkit-animation: none;  animation: none;}";
+        var node = document.createElement("style");
+        node.type = "text/css";
+        node.appendChild(document.createTextNode(css));
+        var heads = document.getElementsByTagName("head");
+        heads[0].appendChild(node);
     }
 }
 init_d();

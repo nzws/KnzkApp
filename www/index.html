@@ -14,7 +14,7 @@
     <script src="lib/jquery-3.2.1.slim.min.js" async></script>
     <script src="lib/twitter.relative.time.min.js" async></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/css/emojione.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/lib/js/emojione.min.js" integrity="sha256-9cBkVeU53NiJ9/BdcJta3HbERAmf5X9DE2WvL8V+gDs=" crossorigin="anonymous"></script>
+    <script src="https://twemoji.maxcdn.com/twemoji.min.js"></script>
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -428,6 +428,14 @@
                     <ons-switch onclick="change_conf('knzk_lite_mode', 'conf-lite-mode')" input-id="conf-lite-mode"></ons-switch>
                 </div>
             </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    回転を無効化
+                </div>
+                <div class="right">
+                    <ons-switch onclick="change_conf('knzk_spin', 'conf-spin')" input-id="conf-spin"></ons-switch>
+                </div>
+            </ons-list-item>
         </ons-list>
         <div class="container">
             <p class="note">設定は再起動後に反映されます。</p>
@@ -772,7 +780,7 @@
             <img src="img/missing.png" id="userpage-icon" class="user-logo" />
             <div class="card-bio">
                 <h3 id="userpage-name" class="user-name"></h3>
-                <div class="user-acct" id="userpage-acct"></div>
+                <div class="user-acct"><span id="userpage-acct"></span> <ons-icon icon="fa-lock" id="userpage-lock" class="invisible"></ons-icon></div>
                 <div class="user-bio" id="userpage-bio"></div>
                 <div class="user-follow">
                     <span onclick="showFollow(account_page_id, 'follow')"><b id="userpage-follow"></b> フォロー</span> / <span onclick="showFollow(account_page_id, 'follower')"><b id="userpage-follower"></b> フォロワー</span>
