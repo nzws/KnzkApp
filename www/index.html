@@ -64,6 +64,7 @@
     <script src="js/account.js"></script>
     <script src="js/list.js"></script>
     <script src="js/music.js"></script>
+    <script src="js/search.js"></script>
 
     <audio id="music-control"></audio>
 </head>
@@ -92,10 +93,9 @@
                 -->
             </ons-list>
             <div id="menu-list-base">
+                <ons-search-input placeholder="検索" class="w-max" onkeydown="SearchKey();" input-id="nav-search"></ons-search-input>
                 <ons-list id="menu-list">
-                    <ons-list-header>
-                        ナビゲーション
-                    </ons-list-header>
+                    <ons-list-header>ナビゲーション</ons-list-header>
                     <ons-list-item modifier="chevron" tappable onclick="openTL()">
                         <div class="left">
                             <i class="list-item__icon list-item--chevron__icon ons-icon fa-home fa fa-fw"></i>
@@ -114,7 +114,7 @@
                     </ons-list-item>
                     <ons-list-item modifier="chevron" tappable onclick="list('favourites', 'お気に入り一覧', null, 'toot')">
                         <div class="left">
-                            <i class="list-item__icon list-item--chevron__icon ons-icon fa-bell fa fa-fw"></i>
+                            <i class="list-item__icon list-item--chevron__icon ons-icon fa-star fa fa-fw"></i>
                         </div>
                         <div class="center">
                             お気に入り一覧
@@ -126,17 +126,6 @@
                         </div>
                         <div class="center">
                             その他
-                        </div>
-                    </ons-list-item>
-                    <ons-list-header>
-                        設定
-                    </ons-list-header>
-                    <ons-list-item modifier="chevron" tappable onclick="openAbout()">
-                        <div class="left">
-                            <i class="list-item__icon list-item--chevron__icon ons-icon fa-book fa fa-fw"></i>
-                        </div>
-                        <div class="center">
-                            このアプリについて
                         </div>
                     </ons-list-item>
                     <ons-list-item modifier="chevron" tappable onclick="load('config.html')">
@@ -321,7 +310,6 @@
                             <ons-button modifier="large--quiet" onclick="show_bbcodegen('simple_toot_TL_input')"><ons-icon icon="fa-font"></ons-icon></ons-button>
                         </div>
                         <div class="center">
-                            <!--<ons-input id="simple_toot_TL_input" modifier="underbar" placeholder="トゥート！" class="w-max" onFocus="simple_open()" onkeyup="check_limit(value, 'toot_limit_simple', 'toot-button_simple', 'simple_toot_cw');"></ons-input>-->
                             <textarea class="textarea w-max" rows="1" placeholder="トゥート！" id="simple_toot_TL_input" onFocus="simple_open()" onkeyup="check_limit(value, 'toot_limit_simple', 'toot-button_simple', 'simple_toot_cw');"></textarea>
                         </div>
                         <div class="right" style="padding-right: 0">
@@ -442,12 +430,27 @@
             <div class="center">設定</div>
         </ons-toolbar>
         <ons-list>
+            <ons-list-item modifier="chevron" onclick="window.open('https://' + inst + '/about/more', '_blank')">
+                <div class="left">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-book fa fa-fw"></i>
+                </div>
+                <div class="center">
+                    インスタンス情報
+                </div>
+            </ons-list-item>
+            <ons-list-item modifier="chevron" tappable onclick="loadNav('about.html', null, true, true)">
+                <div class="left">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-book fa fa-fw"></i>
+                </div>
+                <div class="center">
+                    このアプリについて
+                </div>
+            </ons-list-item>
             <ons-list-header>アカウント</ons-list-header>
             <ons-list-item onclick="show_account(localStorage.getItem('knzk_userid'))" id="account-conf-id">@ でログイン中</ons-list-item>
             <ons-list-item onclick="login_open()">トークンを再取得</ons-list-item>
             <ons-list-item onclick="show('logout_dialog')">ログアウト</ons-list-item>
         </ons-list>
-        <p></p>
         <ons-list>
             <ons-list-header>タイムライン設定</ons-list-header>
             <ons-list-item>
@@ -915,14 +918,6 @@
             </p>
         </div>
         <ons-list>
-            <ons-list-item onclick="window.open('https://' + inst + '/about/more', '_blank')">
-                <div class="left">
-                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-book fa fa-fw"></i>
-                </div>
-                <div class="center">
-                    インスタンス情報
-                </div>
-            </ons-list-item>
             <ons-list-header>クレジット</ons-list-header>
             <ons-list-item onclick="window.open('https://knzk.me/@y', '_blank')">アプリ開発: ねじりわさび</ons-list-item>
             <ons-list-item onclick="window.open('https://knzk.me/@twotwo', '_blank')">ロゴ画像: ネイティオ</ons-list-item>

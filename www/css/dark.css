@@ -103,3 +103,7 @@ a, a:link, a:visited, a:hover {
 #simple_toot_TL_toolbar {
     background: #687390;
 }
+
+#nav-search {
+    color: #fff;
+}
