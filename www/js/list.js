@@ -73,6 +73,12 @@ function list_n(mode, title, more_load, mode_toot, navmode) {
                                 "                    </div>\n" +
                                 "            </div>";
                         }
+                        if (mode === "follow_requests") {
+                            reshtml += "<div class=\"toot y-center\" style='padding-left: 0'>\n" +
+                                "<ons-button style=\"width: 45%\" class='y-center' onclick='followreq("+json[i]['id']+", \"authorize\")'><ons-icon icon='fa-check'></ons-icon></ons-button>\n" +
+                                "<ons-button style=\"width: 45%\" class='y-center' onclick='followreq("+json[i]['id']+", \"reject\")'><ons-icon icon='fa-times'></ons-icon></ons-button>\n" +
+                                "</div>";
+                        }
                     }
                     i++;
                 }
@@ -96,4 +102,24 @@ function list_n(mode, title, more_load, mode_toot, navmode) {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', 'Bearer '+localStorage.getItem('knzk_login_token'));
     xhr.send();
+}
+
+function followreq(id, mode) {
+    fetch("https://"+inst+"/api/v1/follow_requests/"+id+"/"+mode, {
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
+        method: 'POST'
+    }).then(function(response) {
+        if(response.ok) {
+            return response.json();
+        } else {
+            throw new Error();
+        }
+    }).then(function(json) {
+        showtoast("ok_conf_2");
+        list_n('follow_requests', 'フォローリクエスト', null, 'acct', true);
+    }).catch(function(error) {
+        showtoast('cannot-pros');
+        console.log(error);
+        list_n('follow_requests', 'フォローリクエスト', null, 'acct', true);
+    });
 }
