@@ -24,19 +24,18 @@ function load(page) {
     loadNav(page, null, true);
 }
 
-function openAbout() {
-    var menu = document.getElementById('splitter-menu');
-    document.querySelector('#navigator').bringPageTop("about.html").then(menu.close.bind(menu));
-}
-
-function loadNav(page, mode, splitter) {
+function loadNav(page, mode, splitter, splitter_next) {
     var option;
     if (mode === "up") option = {animation:"lift"};
     else option = {animation:"slide"};
 
     if (splitter) {
         var menu = document.getElementById('splitter-menu');
-        document.querySelector('#navigator').resetToPage(page, {animation:"none"}).then(menu.close.bind(menu));
+        if (splitter_next) {
+            document.querySelector('#navigator').bringPageTop(page, option).then(menu.close.bind(menu));
+        } else {
+            document.querySelector('#navigator').resetToPage(page, {animation:"none"}).then(menu.close.bind(menu));
+        }
     } else {
         document.querySelector('#navigator').bringPageTop(page, option);
     }

@@ -463,3 +463,8 @@ img.emoji {
 .fab--bottom__right {
     bottom: 50px;
 }
+
+.hashtag-card {
+    margin: 10px;
+    margin-right: 0;
+}
