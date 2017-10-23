@@ -28,6 +28,7 @@ function reset_nav() {
 }
 
 function load(page) {
+    old_page = now_page;
     now_page = page;
     if (page != "home.html") {
         try {old_TL_ws.close();} catch(e) {console.log("ws_close_error");}
@@ -36,6 +37,7 @@ function load(page) {
 }
 
 function loadNav(page, mode, splitter, splitter_next) {
+    old_page = now_page;
     now_page = page;
     var option;
     if (mode === "up") option = {animation:"lift"};
@@ -54,6 +56,7 @@ function loadNav(page, mode, splitter, splitter_next) {
 }
 
 function BackTab(mode) {
+    now_page = old_page;
     var option;
     if (mode === "down") option = {animation:"lift"};
     else option = {animation:"slide"};
