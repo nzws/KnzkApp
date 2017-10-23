@@ -301,6 +301,23 @@
                 <ons-icon icon="fa-bell" id="dial-icon"></ons-icon>
             </ons-fab>
         </ons-speed-dial>
+        <ons-speed-dial position="bottom right" direction="up" id="dial_TL" class="invisible">
+            <ons-fab>
+                <ons-icon icon="fa-home"></ons-icon>
+            </ons-fab>
+            <ons-speed-dial-item onclick="TL_change(1)">
+                <ons-icon icon="fa-home"></ons-icon>
+            </ons-speed-dial-item>
+            <ons-speed-dial-item onclick="TL_change(0)">
+                <ons-icon icon="fa-users"></ons-icon>
+            </ons-speed-dial-item>
+            <ons-speed-dial-item onclick="TL_change(2)">
+                <ons-icon icon="fa-globe"></ons-icon>
+            </ons-speed-dial-item>
+            <ons-speed-dial-item onclick="openTL('alert_nav')">
+                <ons-icon icon="fa-bell"></ons-icon>
+            </ons-speed-dial-item>
+        </ons-speed-dial>
         <ons-bottom-toolbar id="simple_toot_TL_toolbar">
             <form id="simple_toot_form">
                 <input type="hidden" id="nsfw_input_simple">
@@ -489,6 +506,7 @@
                         <option value="toot" id="dial_toot">トゥート</option>
                         <option value="alert" id="dial_alert">通知</option>
                         <option value="reload" id="dial_reload">TL更新</option>
+                        <option value="change" id="dial_change">TLメニュー</option>
                     </ons-select>
                 </div>
             </ons-list-item>
