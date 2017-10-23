@@ -105,10 +105,12 @@ function init() {
 
                     if (localStorage.getItem('knzk_swipe') == 1) document.getElementById("carousel").setAttribute('swipeable', '1');
                     var dial = localStorage.getItem('knzk_dial'), icon;
-                    if (dial) {
+                    if (dial && dial != "change") {
                         $("#dial_main").removeClass("invisible");
                         if (dial === "toot") icon = "fa-pencil"; else if (dial === "alert") icon = "fa-bell"; if (dial === "reload") icon = "fa-refresh";
                         document.getElementById("dial-icon").className = "ons-icon fa "+icon;
+                    } else if (dial) {
+                        $("#dial_TL").removeClass("invisible");
                     }
                 }).catch(function(error) {
                     show('cannot-connect-API');
