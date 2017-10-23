@@ -230,7 +230,7 @@ function initevent() {
     });
 
     document.addEventListener("DOMFocusOut", function(event) {
-        if (now_page === "home.html" && event.target.id === "simple_toot_TL_input" && event.target.value === "") {
+        if (now_page === "home.html" && event.target.id === "simple_toot_TL_input" && event.target.value == "") {
             simple_close();
         }
     }, false);
