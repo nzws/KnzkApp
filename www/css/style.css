@@ -156,6 +156,13 @@ html, body {
     height: 80px;
 }
 
+.user-logo-profile {
+    margin: 25px 0;
+    border-radius: 400px;
+    width: 100px;
+    height: 100px;
+}
+
 .card-bio {
     padding: 5px 0 15px;
     background: rgba(23,25,31,.8);
