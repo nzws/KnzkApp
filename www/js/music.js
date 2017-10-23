@@ -55,11 +55,14 @@ function music_set(id,force) {
 function music_change() {
     var list = document.getElementById("music-form");
     var menu = document.getElementById("menu-list");
+    var account_list = document.getElementById("account-list");
     if (list.style.display === "none") {
         list.style.display = "block";
         menu.style.display = "none";
+        account_list.style.display = "none";
     } else {
         list.style.display = "none";
+        account_list.style.display = "none";
         menu.style.display = "block";
     }
 }

@@ -99,7 +99,9 @@ function init() {
                     document.getElementById("splitter-profile-bg").setAttribute('style', 'background-image: url(\''+json.header+'\');');
                     document.getElementById("splitter-icon").src = json.avatar;
                     document.getElementById("splitter-profile-name").innerHTML = json.display_name;
-                    //document.getElementById("account_change-username").innerHTML = json.acct + "@" + inst;
+                    document.getElementById("account_change-username").innerHTML = json.acct + "@" + inst;
+
+                    if (localStorage.getItem('knzk_swipe') == 1) document.getElementById("carousel").setAttribute('swipeable', '1');
                     var dial = localStorage.getItem('knzk_dial'), icon;
                     if (dial) {
                         $("#dial_main").removeClass("invisible");
@@ -188,6 +190,7 @@ function initevent() {
                 if (localStorage.getItem('knzk_acct_list_small') == 1) document.getElementById("conf-acct_list_small").checked = "true";
                 if (localStorage.getItem('knzk_realtime') == 1) document.getElementById("conf-realtime").checked = "true";
                 if (localStorage.getItem('knzk_spin') == 1) document.getElementById("conf-spin").checked = "true";
+                if (localStorage.getItem('knzk_swipe') == 1) document.getElementById("conf-swipe").checked = "true";
                 if (localStorage.getItem('knzk_dial')) document.getElementById("dial_"+localStorage.getItem('knzk_dial')).selected = true;
                 hide('now_loading');
             },500);
