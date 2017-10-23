@@ -15,7 +15,17 @@ window.fn = {};
 window.fn.open = function() {
     var menu = document.getElementById('splitter-menu');
     menu.open();
+    reset_nav();
 };
+
+function reset_nav() {
+    let list = document.getElementById("music-form");
+    let menu = document.getElementById("menu-list");
+    let account_list = document.getElementById("account-list");
+    list.style.display = "none";
+    account_list.style.display = "none";
+    menu.style.display = "block";
+}
 
 function load(page) {
     if (page != "home.html") {
