@@ -31,7 +31,7 @@ function post_vote() {
 }
 
 function up_file(simple) {
-    var simple_id;
+    var simple_id = "";
     if (simple) image_mode = simple_id = "_simple";
     var card = document.getElementsByClassName("media-upload"+simple_id);
     if (card.length >= 4) {
@@ -100,7 +100,7 @@ function file_error(msg) {
 }
 
 function post_nsfw(simple) {
-    var simple_id;
+    var simple_id = "";
     if (simple) simple_id = "_simple";
     var cw_input = document.getElementById("nsfw_input"+simple_id);
     var cwicon = document.getElementById("nsfw_bt"+simple_id);
@@ -115,7 +115,7 @@ function post_nsfw(simple) {
 }
 
 function post_mode(simple) {
-    var simple_id;
+    var simple_id = "";
     if (simple) simple_id = "_simple";
     var input_obj = document.getElementById("post_mode"+simple_id);
     var bt_obj = document.getElementById("post_mode_bt"+simple_id);
