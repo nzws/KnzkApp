@@ -97,7 +97,7 @@ function toot_card(toot, mode, note, toot_light) {
             "                                <ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["account"]["acct"]+"', '"+toot["visibility"]+"')\" class=\"toot-button\"></ons-icon>" +
             "                                <ons-icon icon=\"fa-retweet\" onclick=\"toot_action('"+toot['id']+"', this, null, 'boost')\" class=\"toot-button"+boost+"\"></ons-icon>\n" +
             "                                <ons-icon icon=\"fa-bell\" onclick=\"toot_action('"+toot['id']+"', this, null, 'fav')\" class=\"toot-button"+namubt+fav+"\"></ons-icon>" +
-            "                                <ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+")\" class=\"toot-button\"></ons-icon>" +
+            "                                <ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+", '"+toot["url"]+"')\" class=\"toot-button\"></ons-icon>" +
             "                            </div>\n";
     }
 
@@ -112,7 +112,7 @@ function toot_card(toot, mode, note, toot_light) {
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["account"]["acct"]+"', '"+toot["visibility"]+"')\" class=\"showtoot-button\"></ons-icon></div>\n" +
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-retweet\" onclick=\"toot_action('"+toot['id']+"', this, 'big', 'boost')\" class=\"showtoot-button"+boost+"\"></ons-icon></div>\n" +
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-bell\" onclick=\"toot_action('"+toot['id']+"', this, 'big', 'fav')\" class=\"showtoot-button"+fav+"\"></ons-icon></div>\n" +
-            "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+")\" class=\"showtoot-button\"></ons-icon></div>\n" +
+            "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+", '"+toot["url"]+"')\" class=\"showtoot-button\"></ons-icon></div>\n" +
             "                </div>";
     }
     if (note) alert_text = "<p class='alert_text'>"+note+"</p>";
@@ -128,7 +128,7 @@ function toot_card(toot, mode, note, toot_light) {
         "                            <div class=\"toot-group\">\n" +
         "                                <span onclick='show_account("+toot['account']['id']+")'><b>"+toot['account']['display_name']+"</b> <small>@"+toot['account']['acct']+"</small></span> <span class='date' data-time='" + toot['created_at'] + "'>" +date+ "</span>" +
         "                            </div>" +
-        "                            <div class='toot_content' data-id='"+toot['id']+"' data-dispmode='"+mode+"'>" +
+        "                            <div class='toot_content tootcontent_"+toot['id']+"' data-id='"+toot['id']+"' data-dispmode='"+mode+"'>" +
         content +
         "                            </div>" +
         "                            </div> \n" +
@@ -298,7 +298,7 @@ function pin_set(id, mode) {
     });
 }
 
-function more(id, acctid, pin_mode) {
+function more(id, acctid, pin_mode, url) {
     var pin;
     more_status_id = id;
     more_acct_id = acctid;
@@ -308,7 +308,8 @@ function more(id, acctid, pin_mode) {
             cancelable: true,
             buttons: [
                 '詳細を表示',
-                //'返信',
+                'ブラウザで表示',
+                '元のトゥートを表示',
                 {
                     label: pin,
                     modifier: 'fa-thumb-tack'
@@ -324,15 +325,18 @@ function more(id, acctid, pin_mode) {
             ]
         }).then(function (index) {
             if (index == 0) show_post(more_status_id);
-            else if (index == 1) pin_set(more_status_id, pin_mode);
-            else if (index == 2) show('delete-post');
+            else if (index == 1) window.open(url, "_blank", "enableViewportScale=yes");
+            else if (index == 2) disp_before(more_status_id, url);
+            else if (index == 3) pin_set(more_status_id, pin_mode);
+            else if (index == 4) show('delete-post');
         })
     } else {
         ons.openActionSheet({
             cancelable: true,
             buttons: [
                 '詳細を表示',
-                //'返信',
+                'ブラウザで表示',
+                '元のトゥートを表示',
                 {
                     label: '通報',
                     modifier: 'destructive'
@@ -344,7 +348,9 @@ function more(id, acctid, pin_mode) {
             ]
         }).then(function (index) {
             if (index == 0) show_post(more_status_id);
-            else if (index == 1) report();
+            else if (index == 1) window.open(url, "_blank", "enableViewportScale=yes");
+            else if (index == 2) disp_before(more_status_id, url);
+            else if (index == 3) report();
         })
     }
 }
@@ -443,5 +449,31 @@ function report() {
             more_acct_id = 0;
             more_status_id = 0;
         });
+    });
+}
+
+function disp_before(id, url) {
+    fetch(url, {
+        method: 'GET'
+    }).then(function(response) {
+        if(response.ok) {
+            return response.text();
+        } else {
+            throw new Error();
+        }
+    }).then(function(text) {
+        let t = text.match(/content="(.*)" property="og:description"/);
+        let i = 0;
+        let card = document.getElementsByClassName("tootcontent_"+id);
+
+        while (card[i]) {
+            if (card[i].innerHTML.indexOf("<pre class='disp_before'>") == -1) {
+                card[i].innerHTML = card[i].innerHTML + "<pre class='disp_before'>" + t[1] + "</pre>";
+            }
+            i++;
+        }
+    }).catch(function(error) {
+        showtoast('cannot-pros');
+        console.log(error);
     });
 }
