@@ -28,6 +28,7 @@ function reset_nav() {
 }
 
 function load(page) {
+    now_page = page;
     if (page != "home.html") {
         try {old_TL_ws.close();} catch(e) {console.log("ws_close_error");}
     }
@@ -35,6 +36,7 @@ function load(page) {
 }
 
 function loadNav(page, mode, splitter, splitter_next) {
+    now_page = page;
     var option;
     if (mode === "up") option = {animation:"lift"};
     else option = {animation:"slide"};
