@@ -65,6 +65,7 @@ function init() {
     list_old_id = "";
     old_TL_ws = "";
     image_mode = "";
+    now_page = "";
     init_d();
     hide('cannot-connect-sv');
     hide('cannot-connect-mastodon');
@@ -227,6 +228,12 @@ function initevent() {
         now_TL = TL_name[event.activeIndex];
         showTL(null,null,null,true,true);
     });
+
+    document.addEventListener("DOMFocusOut", function(event) {
+        if (now_page === "home.html" && event.target.id === "simple_toot_TL_input" && event.target.value === "") {
+            simple_close();
+        }
+    }, false);
 }
 
 var button = "", quiet = "", light = "";

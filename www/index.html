@@ -52,6 +52,7 @@
         var list_old_id = "";
         var old_TL_ws = "";
         var image_mode = "";
+        var now_page = "";
     </script>
 
     <script src="js/server/server.js"></script>
@@ -260,9 +261,6 @@
     <ons-page id="home">
         <ons-toolbar>
             <div class="left">
-                <ons-toolbar-button onclick="fn.open()">
-                    <ons-icon icon="fa-bars"></ons-icon>
-                </ons-toolbar-button>
                 <ons-toolbar-button onclick="TL_prev()">
                     <ons-icon icon="fa-angle-left"></ons-icon>
                 </ons-toolbar-button>
@@ -310,7 +308,7 @@
                 <ons-list>
                     <ons-list-item style="padding-left: 0" class="simple-toot">
                         <div class="left" style="padding-right: 6px">
-                            <ons-button modifier="large--quiet" onclick="show_bbcodegen('simple_toot_TL_input')"><ons-icon icon="fa-font"></ons-icon></ons-button>
+                            <ons-button modifier="large--quiet" onclick="fn.open()"><ons-icon icon="fa-bars"></ons-icon></ons-button>
                         </div>
                         <div class="center">
                             <textarea class="textarea w-max" rows="1" placeholder="トゥート！" id="simple_toot_TL_input" onFocus="simple_open()" onkeyup="check_limit(value, 'toot_limit_simple', 'toot-button_simple', 'simple_toot_cw');"></textarea>
@@ -327,6 +325,7 @@
                         <ons-button modifier="quiet" onclick="post_nsfw(true)" class="no-rd invisible" id="nsfw_bt_simple"><ons-icon icon="fa-eye"></ons-icon></ons-button>
                         <ons-button modifier="quiet" onclick="showPopover(this, 'cw_popover')" class="no-rd">CW</ons-button>
                         <ons-button modifier="quiet" onclick="showPopover(this, 'vote_popover')" class="no-rd"><ons-icon icon="fa-align-left"></ons-icon></ons-button>
+                        <ons-button modifier="quiet" onclick="show_bbcodegen('simple_toot_TL_input')" class="no-rd"><ons-icon icon="fa-font"></ons-icon></ons-button>
                         <ons-button modifier="quiet" onclick="showPopover(this, 'emoji_popover')" class="no-rd"><ons-icon icon="fa-smile-o"></ons-icon></ons-button>
                         <ons-button modifier="quiet" class="no-rd" id="toot_limit_simple">4096</ons-button>
                         <ons-button modifier="quiet" class="no-rd" onclick="simple_close()"><ons-icon icon="fa-chevron-down"></ons-icon></ons-button>
