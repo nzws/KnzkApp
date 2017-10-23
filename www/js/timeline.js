@@ -119,6 +119,7 @@ function openTL(mode) {
         showTL(null, null, null, true);
         initph("TL");
         setTimeout(function () {
+            if (localStorage.getItem('knzk_swipe') == 1) document.getElementById("carousel").setAttribute('swipeable', '1');
             var dial = localStorage.getItem('knzk_dial'), icon;
             if (localStorage.getItem('knzk_dial')) {
                 $("#dial_main").removeClass("invisible");
