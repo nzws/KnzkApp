@@ -65,6 +65,7 @@
     <script src="js/list.js"></script>
     <script src="js/music.js"></script>
     <script src="js/search.js"></script>
+    <script src="js/account_change.js"></script>
 
     <audio id="music-control"></audio>
 </head>
@@ -81,7 +82,6 @@
                         </p>
                     </div>
                 </ons-list-item>
-                <!--
                 <ons-list-item onclick="account_change_panel()" tappable>
                     <div class="center list-item-small">
                         @<span id="account_change-username"></span>
@@ -90,53 +90,56 @@
                         <ons-icon icon="fa-caret-down"></ons-icon>
                     </div>
                 </ons-list-item>
-                -->
             </ons-list>
+
+            <div id="account-list" style="display: none;"></div>
             <div id="menu-list-base">
-                <ons-search-input placeholder="検索" class="w-max" onkeydown="SearchKey();" input-id="nav-search"></ons-search-input>
-                <ons-list id="menu-list">
-                    <ons-list-header>ナビゲーション</ons-list-header>
-                    <ons-list-item modifier="chevron" tappable onclick="openTL()">
-                        <div class="left">
-                            <i class="list-item__icon list-item--chevron__icon ons-icon fa-home fa fa-fw"></i>
-                        </div>
-                        <div class="center">
-                            タイムライン
-                        </div>
-                    </ons-list-item>
-                    <ons-list-item modifier="chevron" tappable onclick="openTL('alert')">
-                        <div class="left">
-                            <i class="list-item__icon list-item--chevron__icon ons-icon fa-bell fa fa-fw"></i>
-                        </div>
-                        <div class="center">
-                            通知
-                        </div>
-                    </ons-list-item>
-                    <ons-list-item modifier="chevron" tappable onclick="list('favourites', 'お気に入り一覧', null, 'toot')">
-                        <div class="left">
-                            <i class="list-item__icon list-item--chevron__icon ons-icon fa-star fa fa-fw"></i>
-                        </div>
-                        <div class="center">
-                            お気に入り一覧
-                        </div>
-                    </ons-list-item>
-                    <ons-list-item modifier="chevron" tappable onclick="load('usermenu.html')">
-                        <div class="left">
-                            <i class="list-item__icon list-item--chevron__icon ons-icon fa-ellipsis-h fa fa-fw"></i>
-                        </div>
-                        <div class="center">
-                            その他
-                        </div>
-                    </ons-list-item>
-                    <ons-list-item modifier="chevron" tappable onclick="load('config.html')">
-                        <div class="left">
-                            <i class="list-item__icon list-item--chevron__icon ons-icon fa-cog fa fa-fw"></i>
-                        </div>
-                        <div class="center">
-                            設定
-                        </div>
-                    </ons-list-item>
-                </ons-list>
+                <div id="menu-list">
+                    <ons-list>
+                        <ons-search-input placeholder="検索" onkeydown="SearchKey();" input-id="nav-search" class="w-max" style="background-color: #3D4454;"></ons-search-input>
+                        <ons-list-header>ナビゲーション</ons-list-header>
+                        <ons-list-item modifier="chevron" tappable onclick="openTL()">
+                            <div class="left">
+                                <i class="list-item__icon list-item--chevron__icon ons-icon fa-home fa fa-fw"></i>
+                            </div>
+                            <div class="center">
+                                タイムライン
+                            </div>
+                        </ons-list-item>
+                        <ons-list-item modifier="chevron" tappable onclick="openTL('alert')">
+                            <div class="left">
+                                <i class="list-item__icon list-item--chevron__icon ons-icon fa-bell fa fa-fw"></i>
+                            </div>
+                            <div class="center">
+                                通知
+                            </div>
+                        </ons-list-item>
+                        <ons-list-item modifier="chevron" tappable onclick="list('favourites', 'お気に入り一覧', null, 'toot')">
+                            <div class="left">
+                                <i class="list-item__icon list-item--chevron__icon ons-icon fa-star fa fa-fw"></i>
+                            </div>
+                            <div class="center">
+                                お気に入り一覧
+                            </div>
+                        </ons-list-item>
+                        <ons-list-item modifier="chevron" tappable onclick="load('usermenu.html')">
+                            <div class="left">
+                                <i class="list-item__icon list-item--chevron__icon ons-icon fa-ellipsis-h fa fa-fw"></i>
+                            </div>
+                            <div class="center">
+                                その他
+                            </div>
+                        </ons-list-item>
+                        <ons-list-item modifier="chevron" tappable onclick="load('config.html')">
+                            <div class="left">
+                                <i class="list-item__icon list-item--chevron__icon ons-icon fa-cog fa fa-fw"></i>
+                            </div>
+                            <div class="center">
+                                設定
+                            </div>
+                        </ons-list-item>
+                    </ons-list>
+                </div>
 
                 <form id="music-form" style="display: none;">
                     <ons-list>
@@ -271,7 +274,7 @@
                 </ons-toolbar-button>
             </div>
         </ons-toolbar>
-        <ons-carousel fullscreen swipeable auto-scroll id="carousel" auto-scroll-ratio="0.5">
+        <ons-carousel fullscreen auto-scroll id="carousel" auto-scroll-ratio="0.5">
             <ons-carousel-item>
                 <div id="local_main">
                     <div class="loading-now">
@@ -331,15 +334,6 @@
                 </ons-list>
             </form>
         </ons-bottom-toolbar>
-
-        <ons-popover direction="up" id="emoji_popover">
-            <div style="padding: 5px; text-align: center;">
-                <p id="emoji_list_popover" class="emoji_list_scroll">load</p>
-                <p>
-                    <ons-button onclick="hidePopover('emoji_popover')" class="w-max">閉じる</ons-button>
-                </p>
-            </div>
-        </ons-popover>
 
         <ons-popover direction="up" id="cw_popover">
             <div style="padding: 10px; text-align: center;">
@@ -479,6 +473,14 @@
             </ons-list-item>
             <ons-list-item>
                 <div class="center">
+                    TLのスライド切り替え
+                </div>
+                <div class="right">
+                    <ons-switch onclick="change_conf('knzk_swipe', 'conf-swipe')" input-id="conf-swipe"></ons-switch>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
                     スピードダイヤル設定
                 </div>
                 <div class="right">
@@ -580,6 +582,7 @@
             </div>
             <div class="dark-box">
                 <ons-button modifier="quiet" onclick="post_mode()" style="border-radius: 0 0 0 4px" id="post_mode_bt">公開</ons-button>
+                <ons-button modifier="quiet" onclick="showPopover(this, 'emoji_popover')"><ons-icon icon="fa-smile-o"></ons-icon></ons-button>
                 <span style="float: right">
                 <b id="toot-limit" class="toot-limit">4096</b>
                 <ons-button onclick="post('toot_textarea', {cw:document.getElementById('cw_input').value, visibility:document.getElementById('post_mode').value, sensitive:document.getElementById('nsfw_input').value, in_reply_to_id: document.getElementById('post_reply').value})" id="toot-button" style="border-radius: 4px 0 4px 0">トゥート！</ons-button>
@@ -955,6 +958,15 @@
         </ons-page>
     </ons-page>
 </ons-template>
+
+<ons-popover direction="up" id="emoji_popover">
+    <div style="padding: 5px; text-align: center;">
+        <p id="emoji_list_popover" class="emoji_list_scroll">load</p>
+        <p>
+            <ons-button onclick="hidePopover('emoji_popover')" class="w-max">閉じる</ons-button>
+        </p>
+    </div>
+</ons-popover>
 
 <div id="alert_list">
     <ons-modal direction="up" id="now_loading">
