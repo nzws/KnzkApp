@@ -66,6 +66,7 @@ function init() {
     old_TL_ws = "";
     image_mode = "";
     now_page = "";
+    old_page = "";
     init_d();
     hide('cannot-connect-sv');
     hide('cannot-connect-mastodon');
