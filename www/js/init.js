@@ -67,6 +67,7 @@ function init() {
     image_mode = "";
     now_page = "";
     old_page = "";
+    out_force = false;
     init_d();
     hide('cannot-connect-sv');
     hide('cannot-connect-mastodon');
@@ -232,9 +233,14 @@ function initevent() {
         showTL(null,null,null,true,true);
     });
 
+    $(document).on('click', '.no-rd', function(event) {
+        out_force = true;
+    });
     document.addEventListener("DOMFocusOut", function(event) {
-        if (now_page === "home.html" && event.target.id === "simple_toot_TL_input" && event.target.value == "") {
+        console.log(event);
+        if (now_page === "home.html" && event.target.id === "simple_toot_TL_input" && event.target.value == "" & out_force) {
             simple_close();
+            out_force = false;
         }
     }, false);
 }
