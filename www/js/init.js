@@ -237,7 +237,6 @@ function initevent() {
         out_force = true;
     });
     document.addEventListener("DOMFocusOut", function(event) {
-        console.log(event);
         if (now_page === "home.html" && event.target.id === "simple_toot_TL_input" && event.target.value == "" & out_force) {
             simple_close();
             out_force = false;
