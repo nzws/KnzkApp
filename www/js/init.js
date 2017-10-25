@@ -96,7 +96,8 @@ function init() {
                     }
                 }).then(function(json) {
                     if (localStorage.getItem('knzk_realtime') == undefined) localStorage.setItem('knzk_realtime', 1);
-                    loadNav('home.html');
+                    document.querySelector('#navigator').resetToPage('home.html');
+                    now_page = "home.html";
                     initevent();
                     showTL("local", null, null, true, null);
                     document.getElementById("splitter-profile-bg").setAttribute('style', 'background-image: url(\''+json.header+'\');');
@@ -119,7 +120,7 @@ function init() {
                     hide('now_loading');
                 });
             } else {
-                loadNav('login.html');
+                document.querySelector('#navigator').resetToPage('login.html');
             }
             hide('now_loading');
         }).catch(function(error) {
@@ -222,10 +223,6 @@ function initevent() {
     });
 
     var carousel = document.addEventListener('postchange', function(event) {
-        /*
-        var home_cr = {0:"ローカルTL",1:"+ローカルTL",2:"ホーム",3:"連合"};
-        var TL_name = {0:"local",1:"pluslocal",2:"home",3:"public"};
-        */
         var home_cr = {0:"ローカル",1:"ホーム",2:"連合"};
         var TL_name = {0:"local",1:"home",2:"public"};
         document.getElementById('home_title').innerHTML = home_cr[event.activeIndex];

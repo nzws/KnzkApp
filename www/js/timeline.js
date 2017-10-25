@@ -380,6 +380,6 @@ var TL_next = function() {
 };
 
 function TL_change(mode) {
-    let carousel = document.getElementById('carousel');
+    var carousel = document.getElementById('carousel');
     carousel.setActiveIndex(mode);
 }

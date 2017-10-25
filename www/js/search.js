@@ -4,7 +4,7 @@ function SearchKey() {
 
 function SearchLoad() {
     loadNav("olist_nav.html", null, true, true);
-    let q = document.getElementById("nav-search").value;
+    var q = document.getElementById("nav-search").value;
     fetch("https://"+inst+"/api/v1/search?q="+q, {
         headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
         method: 'GET'
@@ -15,7 +15,7 @@ function SearchLoad() {
             throw new Error();
         }
     }).then(function(json) {
-        let reshtml = "", i = 0;
+        var reshtml = "", i = 0;
         document.getElementById("olist_nav_title").innerHTML = q+"の検索結果";
         reshtml += "<ons-list><ons-list-header>アカウント</ons-list-header></ons-list>";
         while (json['accounts'][i]) {
