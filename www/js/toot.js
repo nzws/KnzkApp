@@ -367,7 +367,7 @@ function delete_post() {
             throw new Error();
         }
     }).then(function(json) {
-        let card = document.getElementById("post_"+more_status_id);
+        var card = document.getElementById("post_"+more_status_id);
         card.parentNode.removeChild(card);
         console.log("OK:del");
         showtoast('del-post-ok');
@@ -462,9 +462,9 @@ function disp_before(id, url) {
             throw new Error();
         }
     }).then(function(text) {
-        let t = text.match(/content="(.*)" property="og:description"/);
-        let i = 0;
-        let card = document.getElementsByClassName("tootcontent_"+id);
+        var t = text.match(/content="(.*)" property="og:description"/);
+        var i = 0;
+        var card = document.getElementsByClassName("tootcontent_"+id);
 
         while (card[i]) {
             if (card[i].innerHTML.indexOf("<pre class='disp_before'>") == -1) {

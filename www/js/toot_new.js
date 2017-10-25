@@ -322,7 +322,7 @@ function simple_open() {
     document.getElementById("simple_toot_TL_input").rows = 3;
     $("#simple_toot_TL_toolbar").addClass("simple_toot_open");
     $("#simple_more").removeClass("invisible");
-    let emoji = document.getElementById("emoji_list_popover"), i = 0, reshtml = "";
+    var emoji = document.getElementById("emoji_list_popover"), i = 0, reshtml = "";
     if (emoji.innerHTML == "load") {
         fetch("https://"+inst+"/api/v1/custom_emojis", {
             headers: {'content-type': 'application/json'},
@@ -351,13 +351,13 @@ function simple_close() {
 
 function add_emoji_simple(addtext) {
     // https://qiita.com/noraworld/items/d6334a4f9b07792200a5
-    let textarea = document.getElementById("simple_toot_TL_input");
-    let sentence = textarea.value;
-    let len      = sentence.length;
-    let pos      = textarea.selectionStart;
-    let before   = sentence.substr(0, pos);
-    let word     = " :" + addtext + ": ";
-    let after    = sentence.substr(pos, len);
+    var textarea = document.getElementById("simple_toot_TL_input");
+    var sentence = textarea.value;
+    var len      = sentence.length;
+    var pos      = textarea.selectionStart;
+    var before   = sentence.substr(0, pos);
+    var word     = " :" + addtext + ": ";
+    var after    = sentence.substr(pos, len);
     sentence = before + word + after;
     textarea.value = sentence;
     hidePopover('emoji_popover');

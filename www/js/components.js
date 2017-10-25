@@ -19,9 +19,9 @@ window.fn.open = function() {
 };
 
 function reset_nav() {
-    let list = document.getElementById("music-form");
-    let menu = document.getElementById("menu-list");
-    let account_list = document.getElementById("account-list");
+    var list = document.getElementById("music-form");
+    var menu = document.getElementById("menu-list");
+    var account_list = document.getElementById("account-list");
     list.style.display = "none";
     account_list.style.display = "none";
     menu.style.display = "block";
@@ -56,7 +56,7 @@ function loadNav(page, mode, splitter, splitter_next) {
 }
 
 function BackTab(mode) {
-    now_page = old_page;
+    old_page;
     var option;
     if (mode === "down") option = {animation:"lift"};
     else option = {animation:"slide"};
