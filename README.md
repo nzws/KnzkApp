@@ -12,7 +12,7 @@ PCから使用（テスト）する場合は [www/js/server/server.debug.sample.
 [Monaca](https://ja.monaca.io/)   
 [Apache Cordova](https://cordova.apache.org/)  
 [Onsen UI](https://onsen.io/)  
-[Twitter Emoji (Twemoji)](https://github.com/twitter/twemoji)  
+[EmojiOne](https://www.emojione.com/)  
 [Font Awesome](http://fontawesome.io/)  
 [Bootstrap](https://getbootstrap.com/)  
 [jQuery](https://jquery.com/)  
