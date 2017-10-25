@@ -105,15 +105,17 @@ function init() {
                     document.getElementById("splitter-profile-name").innerHTML = json.display_name;
                     document.getElementById("account_change-username").innerHTML = json.acct + "@" + inst;
 
-                    if (localStorage.getItem('knzk_swipe') == 1) document.getElementById("carousel").setAttribute('swipeable', '1');
-                    var dial = localStorage.getItem('knzk_dial'), icon;
-                    if (dial && dial != "change") {
-                        $("#dial_main").removeClass("invisible");
-                        if (dial === "toot") icon = "fa-pencil"; else if (dial === "alert") icon = "fa-bell"; if (dial === "reload") icon = "fa-refresh";
-                        document.getElementById("dial-icon").className = "ons-icon fa "+icon;
-                    } else if (dial) {
-                        $("#dial_TL").removeClass("invisible");
-                    }
+                    setTimeout(function () {
+                        if (localStorage.getItem('knzk_swipe') == 1) document.getElementById("carousel").setAttribute('swipeable', '1');
+                        var dial = localStorage.getItem('knzk_dial'), icon;
+                        if (dial && dial != "change") {
+                            $("#dial_main").removeClass("invisible");
+                            if (dial === "toot") icon = "fa-pencil"; else if (dial === "alert") icon = "fa-bell"; if (dial === "reload") icon = "fa-refresh";
+                            document.getElementById("dial-icon").className = "ons-icon fa "+icon;
+                        } else if (dial) {
+                            $("#dial_TL").removeClass("invisible");
+                        }
+                    }, 200);
                 }).catch(function(error) {
                     show('cannot-connect-API');
                     console.log(error);
