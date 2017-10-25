@@ -121,11 +121,11 @@ function openTL(mode) {
         setTimeout(function () {
             if (localStorage.getItem('knzk_swipe') == 1) document.getElementById("carousel").setAttribute('swipeable', '1');
             var dial = localStorage.getItem('knzk_dial'), icon;
-            if (localStorage.getItem('knzk_dial') && localStorage.getItem('knzk_dial') != "change") {
+            if (dial && dial != "change") {
                 $("#dial_main").removeClass("invisible");
                 if (dial === "toot") icon = "fa-pencil"; else if (dial === "alert") icon = "fa-bell"; if (dial === "reload") icon = "fa-refresh";
                 document.getElementById("dial-icon").className = "ons-icon fa "+icon;
-            } else if (localStorage.getItem('knzk_dial')) {
+            } else if (dial) {
                 $("#dial_TL").removeClass("invisible");
             }
         }, 200);
