@@ -55,6 +55,7 @@
         var now_page = "";
         var old_page = "";
         var out_force = false;
+        var ws2;
     </script>
 
     <script src="js/server/server.js"></script>
@@ -317,6 +318,16 @@
                     </div>
                 </div>
             </ons-carousel-item>
+            <ons-carousel-item>
+                <div id="plus_local_main">
+                    <div class="note y-center">
+                        <p>
+                            新たなトゥートを待ちましょう...<br>
+                            <a href="">+ローカルTLについて</a>
+                        </p>
+                    </div>
+                </div>
+            </ons-carousel-item>
         </ons-carousel>
         <ons-speed-dial position="bottom right" direction="up" onclick="opendial()" id="dial_main" class="invisible">
             <ons-fab>
@@ -486,6 +497,14 @@
         </ons-list>
         <ons-list>
             <ons-list-header>タイムライン設定</ons-list-header>
+            <ons-list-item>
+                <div class="center">
+                    ジョークモード
+                </div>
+                <div class="right">
+                    <ons-switch onclick="change_conf('knzk_joke', 'conf-joke')" input-id="conf-joke"></ons-switch>
+                </div>
+            </ons-list-item>
             <ons-list-item>
                 <div class="center">
                     リアルタイム更新

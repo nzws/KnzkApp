@@ -56,7 +56,7 @@ function loadNav(page, mode, splitter, splitter_next) {
 }
 
 function BackTab(mode) {
-    old_page;
+    now_page = old_page;
     var option;
     if (mode === "down") option = {animation:"lift"};
     else option = {animation:"slide"};
@@ -96,6 +96,18 @@ function showtoast(id) {
 
 function t_text(text) {
     var i = 0, emoji = "", replacetext = "";
+
+    if (localStorage.getItem('knzk_joke') == 1) {
+        text = text.replace(/。/g , "、それと便座カバー。");
+        text = text.replace(/toot/g , "awoo");
+        text = text.replace(/TOOT/g , "AWOO");
+        text = text.replace(/(神崎|おにいさん)/g , "<span style='color: red'>$1</span>");
+        text = text.replace(/(NCLS|ニコラス|あんのたん)/g , "<span class='fav-active'>$1</span>");
+        text = text.replace(/(ごちうさ|ご注文はうさぎですか？)/g , "あぁ^～心がぴょんぴょんするんじゃぁ^～");
+        text = text.replace(/35億/g , "5000兆円");
+        text = text.replace(/がっこう/g , "【窓割れてね？】");
+    }
+
     text = text.replace(/5,?000\s*兆円/g , "<img src=\"https://knzk.me/emoji/5000tyoen.svg\" style=\"height: 1.8em;\"/>");
     text = text.replace(/:nicoru(\d+):/g , "<img src=\"https://knzk.me/emoji/nicoru.svg\" style=\"height: 1.5em; transform: rotate($1deg)\"/>");
     text = text.replace(/:nicoru:/g , "<img src=\"https://knzk.me/emoji/nicoru.svg\" style=\"height: 1.5em;\"/>");

@@ -200,6 +200,7 @@ function initevent() {
                 if (localStorage.getItem('knzk_realtime') == 1) document.getElementById("conf-realtime").checked = "true";
                 if (localStorage.getItem('knzk_spin') == 1) document.getElementById("conf-spin").checked = "true";
                 if (localStorage.getItem('knzk_swipe') == 1) document.getElementById("conf-swipe").checked = "true";
+                if (localStorage.getItem('knzk_joke') == 1) document.getElementById("conf-joke").checked = "true";
                 if (localStorage.getItem('knzk_dial')) document.getElementById("dial_"+localStorage.getItem('knzk_dial')).selected = true;
                 hide('now_loading');
             },500);
@@ -226,8 +227,8 @@ function initevent() {
     });
 
     var carousel = document.addEventListener('postchange', function(event) {
-        var home_cr = {0:"ローカル",1:"ホーム",2:"連合"};
-        var TL_name = {0:"local",1:"home",2:"public"};
+        var home_cr = {0:"ローカル",1:"ホーム",2:"連合",3:"+ローカル"};
+        var TL_name = {0:"local",1:"home",2:"public",3:"plus_local"};
         document.getElementById('home_title').innerHTML = home_cr[event.activeIndex];
         now_TL = TL_name[event.activeIndex];
         showTL(null,null,null,true,true);
