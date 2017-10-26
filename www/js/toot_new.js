@@ -322,6 +322,9 @@ function simple_open() {
     document.getElementById("simple_toot_TL_input").rows = 3;
     $("#simple_toot_TL_toolbar").addClass("simple_toot_open");
     $("#simple_more").removeClass("invisible");
+
+    $("#dial_main").addClass("fab_simple_toot_open");
+    $("#dial_TL").addClass("fab_simple_toot_open");
     var emoji = document.getElementById("emoji_list_popover"), i = 0, reshtml = "";
     if (emoji.innerHTML == "load") {
         fetch("https://"+inst+"/api/v1/custom_emojis", {
@@ -347,6 +350,9 @@ function simple_close() {
     document.getElementById("simple_toot_TL_input").rows = 1;
     $("#simple_toot_TL_toolbar").removeClass("simple_toot_open");
     $("#simple_more").addClass("invisible");
+
+    $("#dial_main").removeClass("fab_simple_toot_open");
+    $("#dial_TL").removeClass("fab_simple_toot_open");
 }
 
 function add_emoji_simple(addtext) {

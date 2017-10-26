@@ -471,6 +471,10 @@ img.emoji {
     bottom: 50px;
 }
 
+.fab_simple_toot_open {
+    bottom: 110px !important;
+}
+
 .hashtag-card {
     margin: 10px;
     margin-right: 0;
