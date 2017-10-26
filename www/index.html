@@ -104,6 +104,14 @@
                     <ons-list>
                         <ons-search-input placeholder="検索" onkeydown="SearchKey();" input-id="nav-search" class="w-max" style="background-color: #3D4454;"></ons-search-input>
                         <ons-list-header>ナビゲーション</ons-list-header>
+                        <ons-list-item modifier="chevron" tappable onclick="loadNav('post.html', 'up', true, true);">
+                            <label class="left music-item">
+                                <i class="list-item__icon list-item--chevron__icon ons-icon fa-pencil fa fa-fw"></i>
+                            </label>
+                            <div class="center music-item">
+                                新規トゥート
+                            </div>
+                        </ons-list-item>
                         <ons-list-item modifier="chevron" tappable onclick="openTL()">
                             <div class="left">
                                 <i class="list-item__icon list-item--chevron__icon ons-icon fa-home fa fa-fw"></i>
