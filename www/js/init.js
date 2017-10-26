@@ -227,8 +227,8 @@ function initevent() {
     });
 
     var carousel = document.addEventListener('postchange', function(event) {
-        var home_cr = {0:"ローカル",1:"ホーム",2:"連合",3:"+ローカル"};
-        var TL_name = {0:"local",1:"home",2:"public",3:"plus_local"};
+        var home_cr = {0:"ローカル",1:"ホーム",2:"連合"};
+        var TL_name = {0:"local",1:"home",2:"public"};
         document.getElementById('home_title').innerHTML = home_cr[event.activeIndex];
         now_TL = TL_name[event.activeIndex];
         showTL(null,null,null,true,true);

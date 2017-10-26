@@ -172,35 +172,6 @@ function showTL(mode, reload, more_load, clear_load) {
         else
             tlmode = "public?local=true&since_id="+toot_new_id;
         n = true;
-    } else if (mode === "plus_local") {
-        if (old_TL_ws) old_TL_ws.close();
-        if (ws2) ws2.close();
-
-        ws = new WebSocket("wss://"+inst+"/api/v1/streaming/?access_token=" + localStorage.getItem('knzk_login_token') + "&stream=public:local");
-        old_TL_ws = ws;
-        ws.onmessage = function (message) {
-            var ws_reshtml;
-            displayTime('update');
-            ws_reshtml = JSON.parse(JSON.parse(message.data).payload);
-
-            if (toot_new_id !== ws_reshtml['id'])
-                document.getElementById("plus_local_main").innerHTML = toot_card(ws_reshtml, "full", null) + document.getElementById("plus_local_main").innerHTML;
-
-            toot_new_id = ws_reshtml['id'];
-        };
-
-        ws2 = new WebSocket("wss://"+inst+"/api/v1/streaming/?access_token=" + localStorage.getItem('knzk_login_token') + "&stream=home");
-        ws2.onmessage = function (message) {
-            var ws_reshtml;
-            displayTime('update');
-            ws_reshtml = JSON.parse(JSON.parse(message.data).payload);
-
-            if (toot_new_id !== ws_reshtml['id'])
-                document.getElementById("plus_local_main").innerHTML = toot_card(ws_reshtml, "full", null) + document.getElementById("plus_local_main").innerHTML;
-
-            toot_new_id = ws_reshtml['id'];
-        };
-        return true;
     }
     if (n) {
         fetch("https://"+inst+"/api/v1/timelines/"+tlmode, {
