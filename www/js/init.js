@@ -96,6 +96,7 @@ function init() {
                     }
                 }).then(function(json) {
                     if (localStorage.getItem('knzk_realtime') == undefined) localStorage.setItem('knzk_realtime', 1);
+                    if (localStorage.getItem('knzk_dial') == undefined) localStorage.setItem('knzk_dial', 'change');
                     document.querySelector('#navigator').resetToPage('home.html');
                     now_page = "home.html";
                     initevent();
