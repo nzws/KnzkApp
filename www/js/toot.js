@@ -1,6 +1,6 @@
 function toot_card(toot, mode, note, toot_light) {
-    var buf = "", piccard = "", fav = "", boost = "", namucard = "", namubt = "", m = 0, date = "", p = 0, alert_text = "", content = "", button = "", e = 0, bt_big = "", light = "", q = 0, enq_item = "";
-    var smbt, appname;
+    var buf = "", piccard = "", fav = "", boost = "", namucard = "", namubt = "", p = 0, alert_text = "", content = "", button = "", e = 0, bt_big = "", light = "", q = 0, enq_item = "";
+    var appname;
     try {
         if (!toot['account']['display_name']) toot['account']['display_name'] = toot['account']['username'];
     } catch (e) {
@@ -89,9 +89,6 @@ function toot_card(toot, mode, note, toot_light) {
     } else { //CWなし
         content = toot['content'] + piccard;
     }
-    if (1 === 0) {
-        smbt = "style='display: none'";
-    }
     if (mode == "full") {
         button =    "                            <div class=\"toot-group\">" +
             "                                <ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["account"]["acct"]+"', '"+toot["visibility"]+"')\" class=\"toot-button\"></ons-icon>" +
@@ -126,7 +123,7 @@ function toot_card(toot, mode, note, toot_light) {
         "                        <div class=\"col-xs-9 toot-card-right\"> \n" +
         "                           <div class='"+namucard+"'>" +
         "                            <div class=\"toot-group\">\n" +
-        "                                <span onclick='show_account("+toot['account']['id']+")'><b>"+toot['account']['display_name']+"</b> <small>@"+toot['account']['acct']+"</small></span> <span class='date' data-time='" + toot['created_at'] + "'>" +date+ "</span>" +
+        "                                <span onclick='show_account("+toot['account']['id']+")'><b>"+t_text(toot['account']['display_name'])+"</b> <small>@"+toot['account']['acct']+"</small></span> <span class='date' data-time='" + toot['created_at'] + "'>" +date+ "</span>" +
         "                            </div>" +
         "                            <div class='toot_content tootcontent_"+toot['id']+"' data-id='"+toot['id']+"' data-dispmode='"+mode+"'>" +
         content +
@@ -382,7 +379,7 @@ function delete_post() {
 }
 
 function show_post(id) {
-    var reshtml = "", d = 0, e = 0;
+    var reshtml = "", d = 0;
     loadNav('showtoot.html');
     fetch("https://"+inst+"//api/v1/statuses/"+id, {
         headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
