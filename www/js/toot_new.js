@@ -243,6 +243,7 @@ function post(id, option, simple) {
         visibility: option.visibility
     };
     if (simple) {
+        simple_close();
         show('post_now');
         simple_id = "_simple";
     } else
@@ -295,7 +296,6 @@ function post(id, option, simple) {
                 $("#simple_vote").find("textarea, input, select").val("").end().find(":checked").prop("checked", false);
                 $("#simple_toot_cw").val("");
                 $("#post_mode_simple").val("public");
-                simple_close();
                 check_limit(document.getElementById("simple_toot_TL_input").value, 'toot_limit_simple', 'toot-button_simple', 'simple_toot_cw');
                 document.getElementById("post_mode_bt_simple").innerHTML = "公開";
                 document.getElementById("image_list_simple").innerHTML = "";
@@ -334,7 +334,8 @@ function simple_open() {
             if(response.ok) {
                 return response.json();
             } else {
-                showtoast('cannot-pros');
+                //カスタム絵文字非対応インスタンス
+                $("#simple_emoji_bt").addClass("invisible");
             }
         }).then(function(json) {
             while (json[i]) {

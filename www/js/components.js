@@ -105,7 +105,8 @@ function t_text(text) {
         text = text.replace(/(NCLS|ニコラス|あんのたん)/g , "<span class='fav-active'>$1</span>");
         text = text.replace(/(ごちうさ|ご注文はうさぎですか？)/g , "あぁ^～心がぴょんぴょんするんじゃぁ^～");
         text = text.replace(/35億/g , "5000兆円");
-        text = text.replace(/がっこう/g , "【窓割れてね？】");
+        text = text.replace(/がっこうぐらし/g , "【窓割れてね？】");
+        text = text.replace(/(ニート|無職)/g , "【部屋に閉じこもって生きていればそれでいいの？】");
     }
 
     text = text.replace(/5,?000\s*兆円/g , "<img src=\"https://knzk.me/emoji/5000tyoen.svg\" style=\"height: 1.8em;\"/>");
