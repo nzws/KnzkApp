@@ -5,7 +5,14 @@
     "framework_version": "3.5",
     "xcode_version": "8",
     "cordova_version": "6.5",
-    "plugin_settings": [],
+    "plugin_settings": {
+        "cordova-plugin-camera": {
+            "variables": [
+                "CAMERA_USAGE_DESCRIPTION=写真投稿にカメラを使用します",
+                "PHOTOLIBRARY_USAGE_DESCRIPTION=写真投稿にライブラリを使用します"
+            ]
+        }
+    },
     "external_plugins": [
         "cordova-plugin-whitelist@1.3.1",
         "cordova-plugin-splashscreen@4.0.3",
