@@ -65,40 +65,55 @@ function init() {
     list_old_id = "";
     old_TL_ws = "";
     image_mode = "";
-    now_page = "";
-    old_page = "";
-    out_force = false;
     init_d();
     hide('cannot-connect-sv');
     hide('cannot-connect-mastodon');
     hide('cannot-connect-internet');
     hide('cannot-connect-API');
-    if (!localStorage) {
+    if (!localStorage || !fetch) {
         show("cannot-use-ls");
     } else {
         show('now_loading');
-        fetch("https://"+inst+"/api/v1/instance", {
-        }).then(function(response) {
-            if(response.ok) {
-                return response.json();
-            } else {
-                throw new Error();
-            }
-        }).then(function(json) {
-            if (localStorage.getItem('knzk_login_token')) {
+        if (localStorage.getItem('knzk_account_token')) {
+            if (localStorage.getItem('knzk_theme')) document.getElementById("theme_css").href = localStorage.getItem('knzk_theme');
+            try {if (old_TL_ws) old_TL_ws.close();} catch (e) {console.log("no_ws");}
+            inst = localStorage.getItem('knzk_login_domain');
+            fetch("https://"+inst+"/api/v1/instance").then(function(response) {
+                if(response.ok) {
+                    return response.json();
+                } else {
+                    if (inst === "knzk.me") {
+                        fetch("http://status.knzk.me/api/v1/components", {
+                        }).then(function(response) {
+                            if(response.ok) {
+                                return response.json();
+                            } else {
+                                show('cannot-connect-internet');
+                                hide('now_loading');
+                            }
+                        }).then(function(json) { //statusつながる&インスタンスつながらない=鯖落ち
+                            show('cannot-connect-mastodon');
+                            hide('now_loading');
+                        });
+                    } else { //status無いのでわからない
+                        show('cannot-connect-sv');
+                        hide('now_loading');
+                    }
+                }
+            }).then(function(json) {
                 fetch("https://"+inst+"/api/v1/accounts/verify_credentials", {
-                    headers: {'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')}
+                    headers: {'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')}
                 }).then(function(response) {
                     if(response.ok) {
                         return response.json();
                     } else {
-                        throw new Error();
+                        show('cannot-connect-API');
+                        hide('now_loading');
                     }
                 }).then(function(json) {
                     if (localStorage.getItem('knzk_realtime') == undefined) localStorage.setItem('knzk_realtime', 1);
                     if (localStorage.getItem('knzk_dial') == undefined) localStorage.setItem('knzk_dial', 'change');
                     document.querySelector('#navigator').resetToPage('home.html');
-                    now_page = "home.html";
                     initevent();
                     showTL("local", null, null, true, null);
                     document.getElementById("splitter-profile-bg").setAttribute('style', 'background-image: url(\''+json.header+'\');');
@@ -117,38 +132,14 @@ function init() {
                             $("#dial_TL").removeClass("invisible");
                         }
                     }, 200);
-                }).catch(function(error) {
-                    show('cannot-connect-API');
-                    console.log(error);
-                    hide('now_loading');
                 });
-            } else {
+            });
+        } else {
+            setTimeout(function () {
                 document.querySelector('#navigator').resetToPage('login.html');
-            }
-            hide('now_loading');
-        }).catch(function(error) {
-            if (stat_sv) {
-                fetch("http://"+stat_sv+"/api/v1/components", {
-                }).then(function(response) {
-                    if(response.ok) {
-                        return response.json();
-                    } else {
-                        throw new Error();
-                    }
-                }).then(function(json) { //statusつながる&インスタンスつながらない=鯖落ち
-                    show('cannot-connect-mastodon');
-                    hide('now_loading');
-                }).catch(function(error) { //両方とも繋がらない=通信できない
-                    show('cannot-connect-internet');
-                    console.log(error);
-                    hide('now_loading');
-                });
-            } else { //status無いのでわからない
-                show('cannot-connect-sv');
-                console.log(error);
-                hide('now_loading');
-            }
-        });
+            }, 500);
+        }
+        hide('now_loading');
     }
 }
 
@@ -189,7 +180,6 @@ function initevent() {
 
     document.addEventListener('postpush', function(event) {
         if (event.enterPage.id === "config-page") {
-            document.getElementById("account-conf-id").innerHTML = "<div class=\"center list-item__center\">@"+localStorage.getItem('knzk_username')+" でログイン中</div>";
             show('now_loading');
             setTimeout(function() {
                 if (localStorage.getItem('knzk_bigfav') == 1) document.getElementById("conf-fav-namu").checked = "true";
@@ -202,9 +192,44 @@ function initevent() {
                 if (localStorage.getItem('knzk_swipe') == 1) document.getElementById("conf-swipe").checked = "true";
                 if (localStorage.getItem('knzk_joke') == 1) document.getElementById("conf-joke").checked = "true";
                 if (localStorage.getItem('knzk_dial')) document.getElementById("dial_"+localStorage.getItem('knzk_dial')).selected = true;
+                if (localStorage.getItem('knzk_theme')) document.getElementById("theme_"+localStorage.getItem('knzk_theme')).selected = true;
                 hide('now_loading');
             },500);
         }
+        if (event.enterPage.id === "login-page") {
+            if (localStorage.getItem('knzk_account_token')) {
+                setTimeout(function () {
+                    document.getElementById("login_left").innerHTML = "<ons-toolbar-button onclick=\"BackTab()\" class=\"toolbar-button\">\n" +
+                        "                    <ons-icon icon=\"fa-chevron-left\" class=\"ons-icon fa-chevron-left fa\"></ons-icon>\n" +
+                        "                    戻る\n" +
+                        "                </ons-toolbar-button>";
+                    initph("alert");
+                }, 200);
+            }
+        }
+        if (event.enterPage.id === "toot-page") {
+            var emoji = document.getElementById("toot_emoji_list_popover"), i = 0, reshtml = "";
+            if (emoji.innerHTML == "load") {
+                fetch("https://"+inst+"/api/v1/custom_emojis", {
+                    headers: {'content-type': 'application/json'},
+                    method: 'GET',
+                }).then(function(response) {
+                    if(response.ok) {
+                        return response.json();
+                    } else {
+                        //カスタム絵文字非対応インスタンス
+                        $("#toot_emoji_bt").addClass("invisible");
+                    }
+                }).then(function(json) {
+                    while (json[i]) {
+                        reshtml += "<ons-button modifier=\"quiet\" onclick='add_emoji_simple(\""+json[i]["shortcode"]+"\", true)'><img draggable=\"false\" class=\"emojione\" src=\""+json[i]["url"]+"\"></ons-button>\n";
+                        i++;
+                    }
+                    emoji.innerHTML = reshtml;
+                });
+            }
+        }
+
         if (document.getElementById("post_reply") && tmp_post_reply) {
             var bt_obj = document.getElementById("post_mode_bt");
 
@@ -234,15 +259,11 @@ function initevent() {
         showTL(null,null,null,true,true);
     });
 
-    $(document).on('click', '.no-rd', function(event) {
-        out_force = true;
-    });
-    document.addEventListener("DOMFocusOut", function(event) {
-        if (now_page === "home.html" && event.target.id === "simple_toot_TL_input" && event.target.value == "" & out_force) {
+    $(document).on('click', 'ons-carousel', function(event) {
+        if ($("#navigator").attr("page") === "home.html") {
             simple_close();
-            out_force = false;
         }
-    }, false);
+    });
 }
 
 var button = "", quiet = "", light = "";
