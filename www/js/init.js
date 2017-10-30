@@ -32,6 +32,7 @@ function initph(mode) {
 }
 
 function init() {
+    try {if (old_TL_ws) old_TL_ws.close();} catch (e) {console.log("no_ws");}
     if (debug === true) {
         ons.notification.alert('テスト用:この状態で公開しないでください!');
     }
@@ -63,7 +64,7 @@ function init() {
     tag_old_id = "";
     tag_str = "";
     list_old_id = "";
-    old_TL_ws = "";
+    old_TL_ws = null;
     image_mode = "";
     init_d();
     hide('cannot-connect-sv');
@@ -76,7 +77,6 @@ function init() {
         show('now_loading');
         if (localStorage.getItem('knzk_account_token')) {
             if (localStorage.getItem('knzk_theme')) document.getElementById("theme_css").href = localStorage.getItem('knzk_theme');
-            try {if (old_TL_ws) old_TL_ws.close();} catch (e) {console.log("no_ws");}
             inst = localStorage.getItem('knzk_login_domain');
             fetch("https://"+inst+"/api/v1/instance").then(function(response) {
                 if(response.ok) {
