@@ -1,7 +1,7 @@
 function reset_alert() {
     hide('clear-alert');
     fetch("https://"+inst+"/api/v1/notifications/clear", {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
         method: 'POST'
     }).then(function(response) {
         if(response.ok) {
@@ -31,7 +31,7 @@ function showAlert(reload, more_load) {
         get = "?max_id="+alert_old_id;
     }
     fetch("https://"+inst+"/api/v1/notifications"+get, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
         method: 'GET'
     }).then(function(response) {
         if(response.ok) {
@@ -117,7 +117,6 @@ function openTL(mode) {
         try {old_TL_ws.close();} catch(e) {console.log("ws_close_error");}
         load("home.html");
         showTL(null, null, null, true);
-        initph("TL");
         setTimeout(function () {
             if (localStorage.getItem('knzk_swipe') == 1) document.getElementById("carousel").setAttribute('swipeable', '1');
             var dial = localStorage.getItem('knzk_dial'), icon;
@@ -175,7 +174,7 @@ function showTL(mode, reload, more_load, clear_load) {
     }
     if (n) {
         fetch("https://"+inst+"/api/v1/timelines/"+tlmode, {
-            headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
+            headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
             method: 'GET'
         }).then(function(response) {
             if(response.ok) {
@@ -204,7 +203,7 @@ function showTL(mode, reload, more_load, clear_load) {
                     if (!reload && !more_load) {
                         if (old_TL_ws) old_TL_ws.close();
 
-                        ws = new WebSocket("wss://"+inst+"/api/v1/streaming/?access_token=" + localStorage.getItem('knzk_login_token') + "&stream=" + ws_mode);
+                        ws = new WebSocket("wss://"+inst+"/api/v1/streaming/?access_token=" + localStorage.getItem('knzk_account_token') + "&stream=" + ws_mode);
                         old_TL_ws = ws;
                         ws.onmessage = function (message) {
                             var ws_reshtml;
@@ -253,7 +252,7 @@ function showTagTL(tag, more_load) {
         loadNav('showtag.html');
     }
     fetch("https://"+inst+"/api/v1/timelines/tag/"+tag+get, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
         method: 'GET'
     }).then(function(response) {
         if(response.ok) {
@@ -301,7 +300,7 @@ function showAccountTL(id, more_load, media) {
         document.getElementById("account_pinned_toot").innerHTML = "";
     } else if (!media) {
         fetch("https://"+inst+"/api/v1/accounts/"+id+"/statuses?pinned=true", {
-            headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
+            headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
             method: 'GET'
         }).then(function(response) {
             if(response.ok) {
@@ -319,7 +318,7 @@ function showAccountTL(id, more_load, media) {
         });
     }
     fetch("https://"+inst+"/api/v1/accounts/"+id+"/statuses"+get, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
         method: 'GET'
     }).then(function(response) {
         if(response.ok) {

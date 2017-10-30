@@ -32,7 +32,7 @@ function post_vote() {
 
 function up_file(simple) {
     var simple_id = "";
-    if (simple) image_mode = simple_id = "_simple";
+    if (simple) image_mode = simple_id = "_simple"; else image_mode = simple_id = "";
     var card = document.getElementsByClassName("media-upload"+simple_id);
     if (card.length >= 4) {
         showtoast("maximum-media");
@@ -60,7 +60,7 @@ function up_file_suc(base64) {
         formData.append('file', blob);
 
         fetch("https://"+inst+"/api/v1/media", {
-            headers: {'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
+            headers: {'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
             method: 'POST',
             body: formData
         }).then(function(response) {
@@ -280,7 +280,7 @@ function post(id, option, simple) {
         optiondata.media_ids = media_id;
     }
     fetch("https://"+inst+"/api/v1/statuses", {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
         method: 'POST',
         body: JSON.stringify(optiondata)
     }).then(function(response) {
@@ -356,9 +356,11 @@ function simple_close() {
     $("#dial_TL").removeClass("fab_simple_toot_open");
 }
 
-function add_emoji_simple(addtext) {
+function add_emoji_simple(addtext, mode) {
     // https://qiita.com/noraworld/items/d6334a4f9b07792200a5
-    var textarea = document.getElementById("simple_toot_TL_input");
+    var id = "simple_toot_TL_input";
+    if (mode) id = "toot_textarea";
+    var textarea = document.getElementById(id);
     var sentence = textarea.value;
     var len      = sentence.length;
     var pos      = textarea.selectionStart;

@@ -41,6 +41,10 @@ html, body {
     padding: 5px 0;
 }
 
+.login_list {
+    margin-top: 10px;
+}
+
 .icon-img {
     width: 50px;
     height: 50px;
@@ -434,7 +438,6 @@ img.emoji {
 
 .simple-toot > div {
     padding-top: 0;
-    background: #687390;
     padding-bottom: 0;
 }
 .no-rd {

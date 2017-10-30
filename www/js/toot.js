@@ -140,7 +140,7 @@ function toot_card(toot, mode, note, toot_light) {
 
 function vote_item(q, obj, id) {
     fetch("https://"+inst+"/api/v1/votes/"+id, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
         method: 'POST',
         body: JSON.stringify({
             item_index: q
@@ -209,7 +209,7 @@ function toot_action(id, obj, mode, action_mode) {
         }
     }
     fetch("https://"+inst+"/api/v1/statuses/"+id+url, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
         method: 'POST'
     }).then(function(response) {
         if(response.ok) {
@@ -282,7 +282,7 @@ function pin_set(id, mode) {
     var pin_mode;
     if (mode) pin_mode = "/unpin"; else pin_mode = "/pin";
     fetch("https://"+inst+"/api/v1/statuses/"+id+pin_mode, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
         method: 'POST'
     }).then(function(response) {
         if(response.ok) {
@@ -355,7 +355,7 @@ function more(id, acctid, pin_mode, url) {
 function delete_post() {
     hide('delete-post');
     fetch("https://"+inst+"/api/v1/statuses/"+more_status_id, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
         method: 'DELETE'
     }).then(function(response) {
         if(response.ok) {
@@ -382,7 +382,7 @@ function show_post(id) {
     var reshtml = "", d = 0;
     loadNav('showtoot.html');
     fetch("https://"+inst+"//api/v1/statuses/"+id, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
         method: 'GET'
     }).then(function(response) {
         if(response.ok) {
@@ -392,7 +392,7 @@ function show_post(id) {
         }
     }).then(function(json_stat) {
         fetch("https://"+inst+"//api/v1/statuses/"+id+"/context", {
-            headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
+            headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
             method: 'GET'
         }).then(function(response) {
             if(response.ok) {
@@ -422,7 +422,7 @@ function show_post(id) {
 function report() {
     var rep = ons.notification.prompt('通報の理由を記入してください。').then(function (repcom) {
         fetch("https://"+inst+"/api/v1/reports", {
-            headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_login_token')},
+            headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
             method: 'POST',
             body: JSON.stringify({
                 account_id: more_acct_id,
