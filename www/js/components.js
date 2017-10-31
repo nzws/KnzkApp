@@ -23,11 +23,9 @@ function reset_nav() {
     var list = document.getElementById("music-form");
     var menu = document.getElementById("menu-list");
     var account_list = document.getElementById("account-list");
-    var Knzk_Music = document.getElementById("Knzk_Music");
     list.style.display = "none";
     account_list.style.display = "none";
     menu.style.display = "block";
-    Knzk_Music.style.display = "block";
 }
 
 function load(page) {

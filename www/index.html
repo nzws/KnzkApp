@@ -164,18 +164,34 @@
                                 設定
                             </div>
                         </ons-list-item>
+                        <ons-list-item modifier="chevron" tappable onclick="music_change()">
+                            <div class="left">
+                                <i class="list-item__icon list-item--chevron__icon ons-icon fa-music fa fa-fw"></i>
+                            </div>
+                            <div class="center">
+                                <span class="list-item__title">Knzk Music</span><span class="list-item__subtitle" id="music_title">Listen.moe</span>
+                            </div>
+                        </ons-list-item>
                     </ons-list>
                 </div>
 
                 <form id="music-form" style="display: none;">
                     <ons-list>
+                        <ons-list-item>
+                            <div class="left" onclick="music_change()">
+                                <i class="list-item__icon ons-icon fa-chevron-left fa fa-fw"></i> 戻る
+                            </div>
+                            <div class="right" onclick="music_set('music-button')">
+                                <i class="list-item__icon ons-icon fa-play fa fa-fw" id="music-button"></i>
+                            </div>
+                        </ons-list-item>
                         <ons-list-header>Channel</ons-list-header>
                         <ons-list-item tappable onclick="music_set('music-button',true)">
                             <label class="left music-item"><ons-radio name="channel" input-id="listen-moe" value="listen-moe" checked></ons-radio></label>
                             <label for="listen-moe" class="center music-item">Listen.moe</label>
                         </ons-list-item>
                         <ons-list-item tappable onclick="music_set('music-button',true)">
-                            <label class="left music-item"><ons-radio name="channel" input-id="AnimeNfo-Radio" value="AnimeNfo-Radio" checked></ons-radio></label>
+                            <label class="left music-item"><ons-radio name="channel" input-id="AnimeNfo-Radio" value="AnimeNfo-Radio"></ons-radio></label>
                             <label for="AnimeNfo-Radio" class="center music-item">AnimeNfo Radio</label>
                         </ons-list-item>
                         <ons-list-item tappable onclick="music_set('music-button',true)">
@@ -217,25 +233,6 @@
                     </ons-list>
                 </form>
             </div>
-
-            <ons-list class="splitter-bottom" id="Knzk_Music">
-                <ons-list-item onclick="music_change()" tappable>
-                    <div class="center list-item-small" id="music-title">
-                        Listen.moe
-                    </div>
-                    <div class="right list-item-small">
-                        <ons-icon icon="fa-caret-up"></ons-icon>
-                    </div>
-                </ons-list-item>
-                <ons-list-item onclick="music_set('music-button')" tappable>
-                    <div class="center">
-                        <i class="list-item__icon ons-icon fa-play fa fa-fw fa-2x" id="music-button"></i>
-                    </div>
-                    <div class="right">
-                        Music 🎶
-                    </div>
-                </ons-list-item>
-            </ons-list>
         </ons-page>
     </ons-splitter-side>
     <ons-splitter-content id="splitter-content" page="init.html"></ons-splitter-content>
