@@ -122,17 +122,14 @@ function account_change_list() {
     var music = document.getElementById("music-form");
     var menu = document.getElementById("menu-list");
     var account_list = document.getElementById("account-list");
-    var Knzk_Music = document.getElementById("Knzk_Music");
     if (account_list.style.display === "none") {
         account_list.style.display = "block";
         menu.style.display = "none";
         music.style.display = "none";
-        Knzk_Music.style.display = "none";
     } else {
         account_list.style.display = "none";
         music.style.display = "none";
         menu.style.display = "block";
-        Knzk_Music.style.display = "block";
     }
 }
 
