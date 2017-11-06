@@ -14,7 +14,7 @@ function initph(mode) {
                         message = '<ons-icon icon="fa-refresh" class="white"></ons-icon>';
                         break;
                     case 'action':
-                        message = '<span class="fa fa-spin"><span class="fa fa-spin"><ons-icon icon="fa-refresh" class="white"></ons-icon></span></ons-icon></span>';
+                        message = '<span class="fa fa-spin"><span class="fa fa-spin"><ons-icon icon="fa-refresh" class="white"></ons-icon></span></span>';
                         break;
                 }
 
