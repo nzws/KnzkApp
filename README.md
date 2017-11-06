@@ -18,6 +18,8 @@ PCから使用（テスト）する場合は [www/js/server/server.debug.sample.
 [jQuery](https://jquery.com/)  
 [twitter.relative.time.js](https://github.com/dforest/twitter-relative-time-js)  
 
-### 神崎丼ロゴ
-[ネイティオ @twotwo](https://knzk.me/@twotwo)  
-[NCLS @imncls](https://knzk.me/@imncls)
+## Special Thanks ✨
+[iOS版配布等: あんのたん @annotunzdy](https://knzk.me/@annotunzdy)  
+
+[神崎丼ロゴ: ネイティオ @twotwo](https://knzk.me/@twotwo)  
+[神崎丼ロゴ: NCLS @imncls](https://knzk.me/@imncls)
