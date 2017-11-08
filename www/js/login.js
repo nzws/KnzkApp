@@ -30,7 +30,7 @@ function login_open(domain) {
         loginref.addEventListener('loadstop', login_callback);
     }).catch(function(error) {
         console.log(error);
-        show('cannot-connect-sv');
+        show('cannot-connect-sv-login');
         hide('now_loading');
     });
 }
