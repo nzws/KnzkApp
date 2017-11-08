@@ -82,10 +82,10 @@ function login_callback(params) {
                     } else {
                         throw new Error();
                     }
-                }).then(function(json) {
+                }).then(function(json_acct) {
                     if (localStorage.getItem("knzk_account_list") == undefined) localStorage.setItem('knzk_account_list', JSON.stringify([]));
-                    localStorage.setItem('knzk_username',json.acct);
-                    localStorage.setItem('knzk_userid',json.id);
+                    localStorage.setItem('knzk_username',json_acct.acct);
+                    localStorage.setItem('knzk_userid',json_acct.id);
                     hide('now_loading');
                     init();
                     showtoast('loggedin_dialog');
