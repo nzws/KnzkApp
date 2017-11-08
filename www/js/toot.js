@@ -420,32 +420,34 @@ function show_post(id) {
 }
 
 function report() {
-    var rep = ons.notification.prompt('通報の理由を記入してください。').then(function (repcom) {
-        fetch("https://"+inst+"/api/v1/reports", {
-            headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
-            method: 'POST',
-            body: JSON.stringify({
-                account_id: more_acct_id,
-                status_ids: more_status_id,
-                comment: repcom
-            })
-        }).then(function(response) {
-            if(response.ok) {
-                return response.json();
-            } else {
-                throw new Error();
-            }
-        }).then(function(json) {
-            console.log("OK:rep");
-            showtoast('report-post');
-            more_acct_id = 0;
-            more_status_id = 0;
-        }).catch(function(error) {
-            showtoast('cannot-pros');
-            console.log(error);
-            more_acct_id = 0;
-            more_status_id = 0;
-        });
+    var rep = ons.notification.prompt('通報のコメントを記入してください<br>(空欄でキャンセル)', {title: '通報'}).then(function (repcom) {
+        if (repcom) {
+            fetch("https://"+inst+"/api/v1/reports", {
+                headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+                method: 'POST',
+                body: JSON.stringify({
+                    account_id: more_acct_id,
+                    status_ids: more_status_id,
+                    comment: repcom
+                })
+            }).then(function(response) {
+                if(response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error();
+                }
+            }).then(function(json) {
+                console.log("OK:rep");
+                showtoast('report-post');
+                more_acct_id = 0;
+                more_status_id = 0;
+            }).catch(function(error) {
+                showtoast('cannot-pros');
+                console.log(error);
+                more_acct_id = 0;
+                more_status_id = 0;
+            });
+        }
     });
 }
 
