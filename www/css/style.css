@@ -488,3 +488,7 @@ img.emoji {
     height: 20px;
     margin: -5px 0 0;
 }
+
+.alert-dialog-content > .text-input {
+    color: #1f1f21;
+}

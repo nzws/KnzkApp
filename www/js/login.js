@@ -37,7 +37,7 @@ function login_open(domain) {
 
 function login_open_c(domain) {
     if (domain) {
-        ons.notification.confirm('外部インスタンスログインは試験機能のため、一部機能が使用できません。(ノンサポートとなります)<br><br>OKを押して各インスタンスの利用規約に同意したものとします。').then(function (e) {
+        ons.notification.confirm('外部インスタンスログインは試験機能のため、一部機能が使用できません。(ノンサポートとなります)<br><br>OKを押して各インスタンスの利用規約に同意したものとします。', {title: '注意:試験機能です！'}).then(function (e) {
             if (e === 1) {
                 login_open(domain);
             }
@@ -197,7 +197,7 @@ function account_change(id) {
 }
 
 function account_del(id) {
-    ons.notification.confirm('アプリからこのアカウントを削除してもよろしいですか？').then(function (e) {
+    ons.notification.confirm('アプリからこのアカウントを削除してもよろしいですか？', {title: 'アカウントの削除'}).then(function (e) {
         if (e === 1) {
             var list = JSON.parse(localStorage.getItem("knzk_account_list"));
             var nid = parseInt(id);
