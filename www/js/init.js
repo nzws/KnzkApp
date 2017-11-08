@@ -33,9 +33,6 @@ function initph(mode) {
 
 function init() {
     try {if (old_TL_ws) old_TL_ws.close();} catch (e) {console.log("no_ws");}
-    if (debug === true) {
-        ons.notification.alert('テスト用:この状態で公開しないでください!');
-    }
     //変数破棄
     now_TL = "local";
     last_load_TL = "";
@@ -137,12 +134,12 @@ function init() {
         } else {
             setTimeout(function () {
                 document.querySelector('#navigator').resetToPage('login.html');
+                if (!ons.isWebView()) $("#login_debug").removeClass("invisible");
             }, 500);
         }
         hide('now_loading');
     }
 }
-
 
 function initevent() {
     $(document).on('click', 'div.toot_content', function(event) {

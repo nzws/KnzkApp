@@ -60,7 +60,6 @@
         var inst = "";
     </script>
 
-    <script src="js/server/server.js"></script>
     <script src="js/init.js"></script>
     <script src="js/components.js"></script>
     <script src="js/login.js"></script>
@@ -100,7 +99,7 @@
             <div id="menu-list-base">
                 <div id="account-list" style="display: none;">
                     <ons-list>
-                        <ons-list-item modifier="chevron" tappable onclick="loadNav('login.html', null, true, true)">
+                        <ons-list-item modifier="chevron" tappable onclick="open_addaccount()">
                             <label class="left music-item">
                                 <i class="list-item__icon list-item--chevron__icon ons-icon fa-plus fa fa-fw"></i>
                             </label>
@@ -1024,6 +1023,18 @@
         </ons-toolbar>
         <div class="container">
             <div class="y-center">
+                <div class="w-max main-logo login_list invisible" id="login_debug">
+                    <p><b>デバッガーでログイン</b></p>
+
+                    <p class="y-center">
+                        <ons-input id="login_debug_domain" modifier="underbar" placeholder="Domain" value="knzk.me" float style="width: 80%;"></ons-input>
+                        <ons-input id="login_debug_token" modifier="underbar" placeholder="Token" float style="width: 80%;"></ons-input>
+                    </p>
+                    <p class="y-center">
+                        <ons-button onclick="debug_login()" style="width: 80%;"><b>ログイン</b></ons-button>
+                    </p>
+                </div>
+
                 <div class="w-max main-logo login_list">
                     <p><b>Knzk.me</b></p>
                     <img src="img/logo.svg" style="width: 60%;"/>
