@@ -105,7 +105,37 @@ function login_callback(params) {
         }
     }
 }
+function debug_login() {
+    show('now_loading');
+    var inst_domain = document.getElementById("login_debug_domain").value;
+    var token = document.getElementById("login_debug_token").value;
 
+
+    fetch("https://"+inst_domain+"/api/v1/accounts/verify_credentials", {
+        headers: {'Authorization': 'Bearer '+token}
+    }).then(function(response) {
+        if(response.ok) {
+            if (localStorage.getItem('knzk_username')) account_change();
+            return response.json();
+        } else {
+            throw new Error();
+        }
+    }).then(function(json) {
+        if (localStorage.getItem("knzk_account_list") == undefined) localStorage.setItem('knzk_account_list', JSON.stringify([]));
+        localStorage.setItem('knzk_account_token', token);
+        localStorage.setItem('knzk_login_domain', inst_domain);
+        localStorage.setItem('knzk_username', json.acct);
+        localStorage.setItem('knzk_userid', json.id);
+
+        hide('now_loading');
+        init();
+        showtoast('loggedin_dialog');
+    }).catch(function(error) {
+        show('cannot-connect-sv');
+        console.log(error);
+        hide('now_loading');
+    });
+}
 
 function logout() {
     hide('logout_dialog');
@@ -194,4 +224,13 @@ function account_list() {
         i++;
     }
     document.getElementById("account-list-other").innerHTML = reshtml;
+}
+
+function open_addaccount() {
+    var menu = document.getElementById('splitter-menu');
+    $.when(
+        document.querySelector('#navigator').bringPageTop("login.html", {animation: "slide"}).then(menu.close.bind(menu))
+    ).done(function () {
+        if (!ons.isWebView()) $("#login_debug").removeClass("invisible");
+    });
 }
