@@ -234,9 +234,3 @@ function open_addaccount() {
         if (!ons.isWebView()) $("#login_debug").removeClass("invisible");
     });
 }
-
-function relogin() {
-    hide('cannot-connect-API');
-    localStorage.removeItem('knzk_username');
-    login_open(inst);
-}
