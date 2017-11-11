@@ -19,6 +19,7 @@ server.jsは必要なくなりました。
 [Bootstrap](https://getbootstrap.com/)  
 [jQuery](https://jquery.com/)  
 [twitter.relative.time.js](https://github.com/dforest/twitter-relative-time-js)  
+[fetch-ie8](https://github.com/camsong/fetch-ie8)  
 
 ## Special Thanks ✨
 [iOS版配布等: あんのたん @annotunzdy](https://knzk.me/@annotunzdy)  
