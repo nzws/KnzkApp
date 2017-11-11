@@ -79,23 +79,7 @@ function init() {
                 if(response.ok) {
                     return response.json();
                 } else {
-                    if (inst === "knzk.me") {
-                        fetch("http://status.knzk.me/api/v1/components", {
-                        }).then(function(response) {
-                            if(response.ok) {
-                                return response.json();
-                            } else {
-                                show('cannot-connect-internet');
-                                hide('now_loading');
-                            }
-                        }).then(function(json) { //statusつながる&インスタンスつながらない=鯖落ち
-                            show('cannot-connect-mastodon');
-                            hide('now_loading');
-                        });
-                    } else { //status無いのでわからない
-                        show('cannot-connect-sv');
-                        hide('now_loading');
-                    }
+                    throw new Error();
                 }
             }).then(function(json) {
                 fetch("https://"+inst+"/api/v1/accounts/verify_credentials", {
@@ -104,8 +88,7 @@ function init() {
                     if(response.ok) {
                         return response.json();
                     } else {
-                        show('cannot-connect-API');
-                        hide('now_loading');
+                        throw new Error();
                     }
                 }).then(function(json) {
                     if (localStorage.getItem('knzk_realtime') == undefined) localStorage.setItem('knzk_realtime', 1);
@@ -113,12 +96,12 @@ function init() {
                     document.querySelector('#navigator').resetToPage('home.html');
                     initevent();
                     showTL("local", null, null, true, null);
-                    document.getElementById("splitter-profile-bg").setAttribute('style', 'background-image: url(\''+json.header+'\');');
-                    document.getElementById("splitter-icon").src = json.avatar;
-                    document.getElementById("splitter-profile-name").innerHTML = json.display_name;
-                    document.getElementById("account_change-username").innerHTML = json.acct + "@" + inst;
 
                     setTimeout(function () {
+                        document.getElementById("splitter-profile-bg").setAttribute('style', 'background-image: url(\''+json.header+'\');');
+                        document.getElementById("splitter-icon").src = json.avatar;
+                        document.getElementById("splitter-profile-name").innerHTML = json.display_name;
+                        document.getElementById("account_change-username").innerHTML = json.acct + "@" + inst;
                         if (localStorage.getItem('knzk_swipe') == 1) document.getElementById("carousel").setAttribute('swipeable', '1');
                         var dial = localStorage.getItem('knzk_dial'), icon;
                         if (dial && dial != "change") {
@@ -129,8 +112,33 @@ function init() {
                             $("#dial_TL").removeClass("invisible");
                         }
                     }, 200);
+                }).catch(function(error) {
+                    console.log(error);
+                    show('cannot-connect-API');
+                    hide('now_loading');
                 });
-            });
+            }).catch(function (error) {
+                if (inst === "knzk.me") {
+                    fetch("http://status.knzk.me/api/v1/components", {
+                    }).then(function(response) {
+                        if(response.ok) {
+                            return response.json();
+                        } else {
+                            throw new Error();
+                        }
+                    }).then(function(json) { //statusつながる&インスタンスつながらない=鯖落ち
+                        show('cannot-connect-mastodon');
+                        hide('now_loading');
+                    }).catch(function(error) {
+                        console.log(error);
+                        show('cannot-connect-internet');
+                        hide('now_loading');
+                    });
+                } else { //status無いのでわからない
+                    show('cannot-connect-sv');
+                    hide('now_loading');
+                }
+            })
         } else {
             setTimeout(function () {
                 document.querySelector('#navigator').resetToPage('login.html');
