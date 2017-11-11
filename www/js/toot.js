@@ -53,7 +53,10 @@ function toot_card(toot, mode, note, toot_light) {
         namucard = " namu-toot";
         namubt = " namu-fav";
     }
-    if (toot_light || toot['visibility'] === "direct") {
+    if (toot_light === "gold") {
+        light = " toot_gold";
+    }
+    if (toot_light === "light" || toot['visibility'] === "direct") {
         light = " toot_light";
     }
     if (toot['emojis']) {
@@ -306,7 +309,8 @@ function more(id, acctid, pin_mode, url) {
             buttons: [
                 '詳細を表示',
                 'ブラウザで表示',
-                '元のトゥートを表示',
+                '元のトゥートを表示(Beta)',
+                '近くのトゥートを表示',
                 {
                     label: pin,
                     modifier: 'fa-thumb-tack'
@@ -324,8 +328,9 @@ function more(id, acctid, pin_mode, url) {
             if (index == 0) show_post(more_status_id);
             else if (index == 1) window.open(url, "_blank", "enableViewportScale=yes");
             else if (index == 2) disp_before(more_status_id, url);
-            else if (index == 3) pin_set(more_status_id, pin_mode);
-            else if (index == 4) show('delete-post');
+            else if (index == 3) show_post(more_status_id, true);
+            else if (index == 4) pin_set(more_status_id, pin_mode);
+            else if (index == 5) show('delete-post');
         })
     } else {
         ons.openActionSheet({
@@ -333,7 +338,8 @@ function more(id, acctid, pin_mode, url) {
             buttons: [
                 '詳細を表示',
                 'ブラウザで表示',
-                '元のトゥートを表示',
+                '元のトゥートを表示(Beta)',
+                '近くのトゥートを表示',
                 {
                     label: '通報',
                     modifier: 'destructive'
@@ -347,7 +353,8 @@ function more(id, acctid, pin_mode, url) {
             if (index == 0) show_post(more_status_id);
             else if (index == 1) window.open(url, "_blank", "enableViewportScale=yes");
             else if (index == 2) disp_before(more_status_id, url);
-            else if (index == 3) report();
+            else if (index == 3) show_post(more_status_id, true);
+            else if (index == 4) report();
         })
     }
 }
@@ -378,8 +385,8 @@ function delete_post() {
     });
 }
 
-function show_post(id) {
-    var reshtml = "", d = 0;
+function show_post(id, near) {
+    var reshtml = "", d = 0, i = 0;
     loadNav('showtoot.html');
     fetch("https://"+inst+"//api/v1/statuses/"+id, {
         headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
@@ -391,31 +398,69 @@ function show_post(id) {
             showtoast('cannot-pros');
         }
     }).then(function(json_stat) {
-        fetch("https://"+inst+"//api/v1/statuses/"+id+"/context", {
-            headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
-            method: 'GET'
-        }).then(function(response) {
-            if(response.ok) {
-                return response.json();
-            } else {
-                showtoast('cannot-pros');
-            }
-        }).then(function(json) {
-            while (json['ancestors'][d]) {
-                reshtml += toot_card(json['ancestors'][d], null, null);
-                d++;
-            }
-            d = 0;
+        if (near) {
+            fetch("https://"+inst+"/api/v1/timelines/public?local=true&limit=5&since_id="+id, {
+                headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+                method: 'GET'
+            }).then(function(response) {
+                if(response.ok) {
+                    return response.json();
+                } else {
+                    showtoast('cannot-load');
+                    return false;
+                }
+            }).then(function(json_ue) {
+                while (json_ue[i]) {
+                    reshtml += toot_card(json_ue[i], "full", null);
+                    i++;
+                }
+                i = 0;
+                reshtml += toot_card(json_stat, "big", null, "gold");
+                fetch("https://"+inst+"/api/v1/timelines/public?local=true&limit=5&max_id="+id, {
+                    headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+                    method: 'GET'
+                }).then(function(response) {
+                    if(response.ok) {
+                        return response.json();
+                    } else {
+                        showtoast('cannot-load');
+                        return false;
+                    }
+                }).then(function(json_shita) {
+                    while (json_shita[i]) {
+                        reshtml += toot_card(json_shita[i], "full", null);
+                        i++;
+                    }
+                    document.getElementById("show_toot").innerHTML = reshtml;
+                });
+            });
+        } else {
+            fetch("https://"+inst+"//api/v1/statuses/"+id+"/context", {
+                headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+                method: 'GET'
+            }).then(function(response) {
+                if(response.ok) {
+                    return response.json();
+                } else {
+                    showtoast('cannot-pros');
+                }
+            }).then(function(json) {
+                while (json['ancestors'][d]) {
+                    reshtml += toot_card(json['ancestors'][d], null, null);
+                    d++;
+                }
+                d = 0;
 
-            reshtml += toot_card(json_stat, "big", null);
+                reshtml += toot_card(json_stat, "big", null);
 
-            while (json['descendants'][d]) {
-                reshtml += toot_card(json['descendants'][d], null, null);
-                d++;
-            }
+                while (json['descendants'][d]) {
+                    reshtml += toot_card(json['descendants'][d], null, null);
+                    d++;
+                }
 
-            document.getElementById("show_toot").innerHTML = reshtml;
-        });
+                document.getElementById("show_toot").innerHTML = reshtml;
+            });
+        }
     });
 }
 

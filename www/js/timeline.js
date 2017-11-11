@@ -310,7 +310,7 @@ function showAccountTL(id, more_load, media) {
             }
         }).then(function(json_pinned) {
             while (json_pinned[i]) {
-                reshtml_pinned += toot_card(json_pinned[i], "full", "<ons-icon icon='fa-thumb-tack'></ons-icon>　固定トゥート", true);
+                reshtml_pinned += toot_card(json_pinned[i], "full", "<ons-icon icon='fa-thumb-tack'></ons-icon>　固定トゥート", "light");
                 i++;
             }
             i = 0;
