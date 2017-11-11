@@ -100,5 +100,4 @@
   <preference name="Orientation" value="default"/>
   <preference name="SplashScreenDelay" value="0"/>
   <preference name="Fullscreen" value="false"/>
-  <preference name="StatusBarStyle" value="lightcontent" />
 </widget>
