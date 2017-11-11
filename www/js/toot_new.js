@@ -176,7 +176,7 @@ function show_bbcodegen(id, limit, button) {
     loadNav("bbcode.html");
 }
 
-function bbcodegen() {
+function bbcodegen(force) {
     var text = document.getElementById("bbcode_text").value;
     var base = document.getElementById("bbcode_base").value;
     var color = document.getElementById("bbcode_color").value;
@@ -184,45 +184,53 @@ function bbcodegen() {
     var spin = parseInt(document.getElementById("bbcode_spin").value);
     var pulse = parseInt(document.getElementById("bbcode_pulse").value);
     var pre = "", suf = "", buf = "", value = "";
-    if (spin) {
-        for (var i = 0; i < spin; i++) {
-            pre += "[spin]";
-            suf = "[/spin]" + suf;
-        }
-    }
-    if (base) {
-        pre += "["+base+"]";
-        suf = "[/"+base+"]" + suf;
-    }
-    if (color) {
-        pre += "[colorhex="+color+"]";
-        suf = "[/colorhex]" + suf;
-    }
-    if (pulse) {
-        for (var p = 0; p < pulse; p++) {
-            pre += "[pulse]";
-            suf = "[/pulse]" + suf;
-        }
-    }
-
-    if (large) {
-        /* sizeは潰れた
-        large = large * 16;
-        pre += "[size="+large+"]";
-        suf = "[/size]" + suf;
-        */
-        pre += "[large="+large+"x]";
-        suf = "[/large]" + suf;
-    }
-    buf = pre + text + suf;
-    value = tmp_post_text + buf;
-    var limit = 4096 - value.length;
-    if (limit < 0) {
-        showtoast('bbcode-limit');
+    if (spin > 9 && !force) {
+        ons.notification.confirm('回転を多く指定すると、TLが重くなる原因となり、警告を受ける可能性があります。続行しますか？', {title: '注意:TLが重くなります'}).then(function (e) {
+            if (e === 1) {
+                bbcodegen(true);
+            }
+        });
     } else {
-        document.querySelector('#navigator').popPage();
-        document.getElementById(tmp_bbcode_id).value = value;
-        check_limit(value, tmp_bbcode_limit, tmp_bbcode_tootbutton);
+        if (spin) {
+            for (var i = 0; i < spin; i++) {
+                pre += "[spin]";
+                suf = "[/spin]" + suf;
+            }
+        }
+        if (base) {
+            pre += "["+base+"]";
+            suf = "[/"+base+"]" + suf;
+        }
+        if (color) {
+            pre += "[colorhex="+color+"]";
+            suf = "[/colorhex]" + suf;
+        }
+        if (pulse) {
+            for (var p = 0; p < pulse; p++) {
+                pre += "[pulse]";
+                suf = "[/pulse]" + suf;
+            }
+        }
+
+        if (large) {
+            /* sizeは潰れた
+            large = large * 16;
+            pre += "[size="+large+"]";
+            suf = "[/size]" + suf;
+            */
+            pre += "[large="+large+"x]";
+            suf = "[/large]" + suf;
+        }
+        buf = pre + text + suf;
+        value = tmp_post_text + buf;
+        var limit = 4096 - value.length;
+        if (limit < 0) {
+            showtoast('bbcode-limit');
+        } else {
+            document.querySelector('#navigator').popPage();
+            document.getElementById(tmp_bbcode_id).value = value;
+            check_limit(value, tmp_bbcode_limit, tmp_bbcode_tootbutton);
+        }
     }
 }
 
