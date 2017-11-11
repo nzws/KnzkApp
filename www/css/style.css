@@ -492,3 +492,7 @@ img.emoji {
 .alert-dialog-content > .text-input {
     color: #1f1f21;
 }
+
+.toot_gold {
+    border: 1px solid #ca8f04 !important;
+}
