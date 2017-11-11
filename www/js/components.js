@@ -105,12 +105,16 @@ function t_text(text) {
         text = text.replace(/(ニート|無職)/g , "【部屋に閉じこもって生きていればそれでいいの？】");
     }
 
-    text = text.replace(/5,?000\s*兆円/g , "<img src=\"https://knzk.me/emoji/5000tyoen.svg\" style=\"height: 1.8em;\"/>");
-    text = text.replace(/:nicoru(-?\d+):/g , "<img src=\"https://knzk.me/emoji/nicoru.svg\" style=\"height: 1.5em; transform: rotate($1deg)\"/>");
-    text = text.replace(/:nicoru:/g , "<img src=\"https://knzk.me/emoji/nicoru.svg\" style=\"height: 1.5em;\"/>");
-    text = text.replace(/バジリスク\s*タイム/g , "<img src=\"https://knzk.me/emoji/basilisktime.png\" height=\"40\"/>");
-    text = text.replace(/熱盛/g , "<img src=\"https://knzk.me/emoji/atumori.svg\" style=\"height: 2.5em\"/>");
-    text = text.replace(/欲しい！/g , "<img src=\"https://knzk.me/emoji/hosii.png\" height=\"30\"/>");
+    if (inst === "knzk.me") {
+        text = text.replace(/5,?000\s*兆円/g , "<img src=\"https://knzk.me/emoji/5000tyoen.svg\" style=\"height: 1.8em;\"/>");
+        text = text.replace(/:nicoru(-?\d+):/g , "<img src=\"https://knzk.me/emoji/nicoru.svg\" style=\"height: 1.5em; transform: rotate($1deg)\"/>");
+        text = text.replace(/:nicoru:/g , "<img src=\"https://knzk.me/emoji/nicoru.svg\" style=\"height: 1.5em;\"/>");
+        text = text.replace(/バジリスク\s*タイム/g , "<img src=\"https://knzk.me/emoji/basilisktime.png\" height=\"40\"/>");
+        text = text.replace(/熱盛/g , "<img src=\"https://knzk.me/emoji/atumori.svg\" style=\"height: 2.5em\"/>");
+        text = text.replace(/欲しい！/g , "<img src=\"https://knzk.me/emoji/hosii.png\" height=\"30\"/>");
+        text = text.replace(/卍/g , "<img src=\"https://knzk.me/emoji/manzi.svg\" style=\"height: 1em\"/>");
+        text = text.replace(/†/g , "<img src=\"https://knzk.me/emoji/cross.svg\" style=\"height: 1em\"/>");
+    }
 
     while (emoji_num_a[i]) {
         emoji = ":" + emoji_num_a[i] + ":";
