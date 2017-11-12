@@ -294,3 +294,16 @@ init_d();
 ons.ready(function() {
     init();
 });
+
+// https://press.monaca.io/atsushi/248
+function handleOpenURL(url) {
+    setTimeout(function() {
+        var strValue = url;
+        strValue = strValue.replace('knzkapp://','');
+        var mode = strValue.split("/");
+        if (mode[0] === "login") {
+            var token = mode[1].replace('token?code=','');
+            login_callback(token);
+        }
+    }, 100);
+}
