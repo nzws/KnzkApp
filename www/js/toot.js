@@ -310,7 +310,7 @@ function more(id, acctid, pin_mode, url) {
                 '詳細を表示',
                 'ブラウザで表示',
                 '元のトゥートを表示(Beta)',
-                '近くのトゥートを表示',
+                '近くのトゥートを表示(Beta)',
                 {
                     label: pin,
                     modifier: 'fa-thumb-tack'
@@ -399,7 +399,9 @@ function show_post(id, near) {
         }
     }).then(function(json_stat) {
         if (near) {
-            fetch("https://"+inst+"/api/v1/timelines/public?local=true&limit=5&since_id="+id, {
+            i = 0;
+            reshtml += toot_card(json_stat, "big", null, "gold");
+            fetch("https://"+inst+"/api/v1/timelines/public?local=true&limit=5&max_id="+id, {
                 headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
                 method: 'GET'
             }).then(function(response) {
@@ -409,30 +411,12 @@ function show_post(id, near) {
                     showtoast('cannot-load');
                     return false;
                 }
-            }).then(function(json_ue) {
-                while (json_ue[i]) {
-                    reshtml += toot_card(json_ue[i], "full", null);
+            }).then(function(json_shita) {
+                while (json_shita[i]) {
+                    reshtml += toot_card(json_shita[i], "full", null);
                     i++;
                 }
-                i = 0;
-                reshtml += toot_card(json_stat, "big", null, "gold");
-                fetch("https://"+inst+"/api/v1/timelines/public?local=true&limit=5&max_id="+id, {
-                    headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
-                    method: 'GET'
-                }).then(function(response) {
-                    if(response.ok) {
-                        return response.json();
-                    } else {
-                        showtoast('cannot-load');
-                        return false;
-                    }
-                }).then(function(json_shita) {
-                    while (json_shita[i]) {
-                        reshtml += toot_card(json_shita[i], "full", null);
-                        i++;
-                    }
-                    document.getElementById("show_toot").innerHTML = reshtml;
-                });
+                document.getElementById("show_toot").innerHTML = reshtml;
             });
         } else {
             fetch("https://"+inst+"//api/v1/statuses/"+id+"/context", {
