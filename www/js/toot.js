@@ -339,7 +339,7 @@ function more(id, acctid, pin_mode, url) {
                 '詳細を表示',
                 'ブラウザで表示',
                 '元のトゥートを表示(Beta)',
-                '近くのトゥートを表示',
+                '近くのトゥートを表示(Beta)',
                 {
                     label: '通報',
                     modifier: 'destructive'
@@ -401,7 +401,7 @@ function show_post(id, near) {
         if (near) {
             i = 0;
             reshtml += toot_card(json_stat, "big", null, "gold");
-            fetch("https://"+inst+"/api/v1/timelines/public?local=true&limit=5&max_id="+id, {
+            fetch("https://"+inst+"/api/v1/timelines/public?local=true&limit=10&max_id="+id, {
                 headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
                 method: 'GET'
             }).then(function(response) {
