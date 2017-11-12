@@ -303,6 +303,7 @@ function handleOpenURL(url) {
         var mode = strValue.split("/");
         if (mode[0] === "login") {
             var token = mode[1].replace('token?code=','');
+            token = token.replace('&state=','');
             login_callback(token);
         }
     }, 100);
