@@ -13,7 +13,7 @@ function login_open(domain) {
         body: JSON.stringify({
             scopes: 'read write follow',
             client_name: 'KnzkApp '+os_name,
-            redirect_uris: 'urn:ietf:wg:oauth:2.0:oob',
+            redirect_uris: 'knzkapp://login/token',
             website: 'https://knzkdev.net/knzkapp/'
         })
     }).then(function(response) {
@@ -26,8 +26,7 @@ function login_open(domain) {
         inst_domain = domain;
         inst_login_cid = json["client_id"];
         inst_login_scr = json["client_secret"];
-        loginref = cordova.InAppBrowser.open('https://'+domain+'/oauth/authorize?response_type=code&redirect_uri=urn:ietf:wg:oauth:2.0:oob&scope=read+write+follow&client_id='+inst_login_cid, '_blank', 'location=no,clearsessioncache=yes');
-        loginref.addEventListener('loadstop', login_callback);
+        window.open('https://'+domain+'/oauth/authorize?response_type=code&redirect_uri=knzkapp://login/token&scope=read+write+follow&client_id='+inst_login_cid, "_system");
     }).catch(function(error) {
         console.log(error);
         show('cannot-connect-sv-login');
@@ -45,65 +44,55 @@ function login_open_c(domain) {
     }
 }
 
-function login_callback(params) {
-    if (params.url.indexOf("https://"+inst_domain+"/oauth/authorize/") != -1) {
-        var code = params.url.match(/[^/]+$/i);
-        if (code[0]) {
-            loginref.close();
-            show('now_loading');
-            fetch("https://"+inst_domain+"/oauth/token", {
-                method: 'POST',
-                headers: {'content-type': 'application/json'},
-                body: JSON.stringify({
-                    scope: 'read write follow',
-                    client_id: inst_login_cid,
-                    client_secret: inst_login_scr,
-                    grant_type: 'authorization_code',
-                    redirect_uri: 'urn:ietf:wg:oauth:2.0:oob',
-                    code: code[0]
-                })
-            }).then(function(response) {
-                if(response.ok) {
-                    if (localStorage.getItem('knzk_username')) account_change();
-                    return response.json();
-                } else {
-                    throw new Error();
-                }
-            }).then(function(json) {
-                localStorage.setItem('knzk_account_token',json.access_token);
-                localStorage.setItem('knzk_login_domain',inst_domain);
-                inst = inst_domain;
-
-                fetch("https://"+inst_domain+"/api/v1/accounts/verify_credentials", {
-                    headers: {'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')}
-                }).then(function(response) {
-                    if(response.ok) {
-                        return response.json();
-                    } else {
-                        throw new Error();
-                    }
-                }).then(function(json_acct) {
-                    if (localStorage.getItem("knzk_account_list") == undefined) localStorage.setItem('knzk_account_list', JSON.stringify([]));
-                    localStorage.setItem('knzk_username',json_acct.acct);
-                    localStorage.setItem('knzk_userid',json_acct.id);
-                    hide('now_loading');
-                    init();
-                    showtoast('loggedin_dialog');
-                }).catch(function(error) {
-                    show('cannot-connect-sv');
-                    console.log(error);
-                    hide('now_loading');
-                });
-            }).catch(function(error) {
-                show('cannot-connect-sv');
-                console.log(error);
-                hide('now_loading');
-            });
+function login_callback(code) {
+    fetch("https://"+inst_domain+"/oauth/token", {
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify({
+            scope: 'read write follow',
+            client_id: inst_login_cid,
+            client_secret: inst_login_scr,
+            grant_type: 'authorization_code',
+            redirect_uri: 'knzkapp://login/token',
+            code: code
+        })
+    }).then(function(response) {
+        if(response.ok) {
+            if (localStorage.getItem('knzk_username')) account_change();
+            return response.json();
         } else {
-            loginref.close();
-            show('cannot-get-code');
+            throw new Error();
         }
-    }
+    }).then(function(json) {
+        localStorage.setItem('knzk_account_token',json.access_token);
+        localStorage.setItem('knzk_login_domain',inst_domain);
+        inst = inst_domain;
+
+        fetch("https://"+inst_domain+"/api/v1/accounts/verify_credentials", {
+            headers: {'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')}
+        }).then(function(response) {
+            if(response.ok) {
+                return response.json();
+            } else {
+                throw new Error();
+            }
+        }).then(function(json_acct) {
+            if (localStorage.getItem("knzk_account_list") == undefined) localStorage.setItem('knzk_account_list', JSON.stringify([]));
+            localStorage.setItem('knzk_username',json_acct.acct);
+            localStorage.setItem('knzk_userid',json_acct.id);
+            hide('now_loading');
+            init();
+            showtoast('loggedin_dialog');
+        }).catch(function(error) {
+            show('cannot-connect-sv');
+            console.log(error);
+            hide('now_loading');
+        });
+    }).catch(function(error) {
+        show('cannot-connect-sv');
+        console.log(error);
+        hide('now_loading');
+    });
 }
 function debug_login() {
     show('now_loading');

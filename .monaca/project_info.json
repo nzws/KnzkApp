@@ -11,6 +11,11 @@
                 "CAMERA_USAGE_DESCRIPTION=写真投稿にカメラを使用します",
                 "PHOTOLIBRARY_USAGE_DESCRIPTION=写真投稿にライブラリを使用します"
             ]
+        },
+        "cordova-plugin-customurlscheme": {
+            "variables": [
+                "URL_SCHEME=knzkapp"
+            ]
         }
     },
     "external_plugins": [
