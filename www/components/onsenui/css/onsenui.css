@@ -1,4 +1,4 @@
-/*! onsenui - v2.5.3 - 2017-08-21 */
+/*! onsenui - v2.7.2 - 2017-11-13 */
 /*
 Copyright 2013-2015 ASIAL CORPORATION
 
@@ -22,9 +22,10 @@ limitations under the License.
 
 /* custom elements */
 ons-page, ons-navigator,
-ons-split-view, ons-sliding-menu, ons-tabbar,
+ons-tabbar,
 ons-gesture-detector {
   display: block;
+  touch-action: manipulation; /* Remove click delay */
 }
 
 ons-navigator,
@@ -40,6 +41,7 @@ ons-alert-dialog {
   bottom: 0;
   right: 0;
   overflow: hidden;
+  touch-action: manipulation; /* Remove click delay */
 }
 
 ons-toast {
@@ -55,23 +57,12 @@ ons-tab {
           transform: translate3d(0, 0, 0);
 }
 
-ons-page, ons-navigator, ons-tabbar, ons-sliding-menu, ons-split-view, ons-dialog, ons-alert-dialog, ons-action-sheet, ons-toast {
+ons-page, ons-navigator, ons-tabbar, ons-dialog, ons-alert-dialog, ons-action-sheet, ons-toast {
   z-index: 2;
 }
 
 ons-fab, ons-speed-dial {
   z-index: 10001;
-}
-
-* {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
-}
-
-input, textarea {
-  -webkit-user-select: auto;
-  -moz-user-select: text;
 }
 
 ons-toolbar:not([inline]), ons-bottom-toolbar {
@@ -80,14 +71,17 @@ ons-toolbar:not([inline]), ons-bottom-toolbar {
   right: 0;
   z-index: 10000;
 }
+
 ons-toolbar:not([inline]) {
   top: 0;
 }
+
 ons-bottom-toolbar {
   bottom: 0;
 }
 
-.page, .page__content {
+.page, .page__content,
+.page--material, .page--material__content {
   background-color: transparent !important;
   background: transparent !important;
 }
@@ -97,6 +91,10 @@ ons-bottom-toolbar {
   -webkit-overflow-scrolling: touch;
   z-index: 0;
   -ms-touch-action: pan-y;
+}
+
+.page__content--suppress-layer-creation {
+  -webkit-overflow-scrolling: auto;
 }
 
 .page.overflow-visible,
@@ -113,24 +111,6 @@ ons-bottom-toolbar {
   overflow: auto;
 }
 
-.toolbar:not(.toolbar--transparent) + .page__background,
-.toolbar:not(.toolbar--cover-content) + .page__background + .page__content {
-  top: 44px;
-}
-
-.toolbar.toolbar--cover-content + .page__background + .page__content {
-  padding-top: 44px;
-}
-
-.toolbar--material:not(.toolbar--transparent) + .page__background,
-.toolbar--material:not(.toolbar--cover-content) + .page__background + .page__content {
-  top: 56px;
-}
-
-.toolbar--material.toolbar--cover-content + .page__background + .page__content {
-  padding-top: 56px;
-}
-
 .page[status-bar-fill] > .page__content {
   top: 20px;
 }
@@ -140,14 +120,18 @@ ons-bottom-toolbar {
   box-sizing: content-box;
 }
 
-.page[status-bar-fill] > .toolbar + .page__background,
-.page[status-bar-fill] > .toolbar + .page__background + .page__content {
+.page[status-bar-fill] > .toolbar:not(.toolbar--transparent) + .page__background,
+.page[status-bar-fill] > .toolbar:not(.toolbar--cover-content) + .page__background + .page__content {
   top: 64px;
 }
 
-.page[status-bar-fill] > .toolbar--material + .page__background,
-.page[status-bar-fill] > .toolbar--material + .page__background + .page__content {
+.page[status-bar-fill] > .toolbar--material:not(.toolbar-transparent) + .page__background,
+.page[status-bar-fill] > .toolbar--material:not(.toolbar--cover-content) + .page__background + .page__content {
   top: 76px;
+}
+
+.page[status-bar-fill] > .toolbar.toolbar--transparent + .page__background {
+  top: 0;
 }
 
 ons-tabbar[status-bar-fill] > .tabbar--top__content {
@@ -168,10 +152,6 @@ ons-tabbar[position="top"] .page[status-bar-fill] > .page__content {
 
 .toolbar + .page__background + .page__content ons-tabbar[status-bar-fill] > .tabbar--top__content {
   top: 49px;
-}
-
-.page-with-bottom-toolbar > .page__content {
-  bottom: 44px;
 }
 
 .page__content > .list:not(.list--material):first-child {
@@ -267,48 +247,46 @@ ons-select > select {
   width: 100%;
 }
 
-/*
-Copyright 2013-2015 ASIAL CORPORATION
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-   http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
- */
-
-ons-carousel {
-  display: block;
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
-
-ons-carousel-item {
-  display: block;
-  height: 100%;
-  visibility: hidden;
-}
-
-ons-carousel[fullscreen] {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  left: 0px;
-  bottom: 0px;
-  box-sizing: border-box;
-}
-
 ons-carousel[disabled] {
   pointer-events: none;
   opacity: 0.75;
+}
+
+ons-carousel[fullscreen] {
+  height: 100%;
+}
+
+.ons-status-bar-mock {
+  position: absolute;
+  width: 100%;
+  height: 20px;
+  padding: 0 16px 0 6px;
+  box-sizing: border-box;
+  z-index: 30000;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  font-size: 12px;
+  line-height: 20px;
+  font-family: Arial, Helvetica;
+}
+
+.ons-status-bar-mock i {
+  padding: 0 2px;
+}
+
+.ons-status-bar-mock.android {
+  color: white;
+  background-color: #222;
+  font-family: Roboto, Arial, Helvetica;
+}
+
+.ons-status-bar-mock.android ~ * {
+  top: 20px;
+  bottom: 0;
+  position: inherit;
+  width: 100%;
 }
 
 ons-row {
@@ -415,7 +393,11 @@ limitations under the License.
   -moz-osx-font-smoothing: grayscale;
 }
 
-:not(ons-toolbar-button):not(ons-action-sheet-button) > .ons-icon--ion {
+.segment__button .ons-icon {
+  line-height: initial;
+}
+
+:not(ons-toolbar-button):not(ons-action-sheet-button):not(.segment__button) > .ons-icon--ion {
   line-height: 0.75em;
   vertical-align: -25%;
 }
@@ -522,6 +504,7 @@ ons-input:not([float]) .text-input--material__label--active {
 ons-input[disabled],
 ons-radio[disabled],
 ons-checkbox[disabled],
+ons-segment[disabled],
 ons-search-input[disabled] {
   opacity: 0.5;
   pointer-events: none;
@@ -537,6 +520,54 @@ ons-input input.text-input--material::-moz-placeholder {
 
 ons-input input.text-input--material:-ms-input-placeholder {
   color: transparent;
+}
+
+/* Suppress safe area support for pages in splitter sides */
+@media (orientation: landscape) {
+  html[onsflag-iphonex-landscape] ons-splitter-side[side="left"] .page__content {
+    padding-right: 0;
+  }
+  html[onsflag-iphonex-landscape] ons-splitter-side[side="right"] .page__content {
+    padding-left: 0;
+  }
+}
+/* Support the situation that a progress bar is located just below a toolbar */
+@media (orientation: landscape) {
+  html[onsflag-iphonex-landscape] .page__content > ons-progress-bar > .progress-bar {
+    margin-left: -44px;
+    margin-right: -44px;
+    width: calc(100% + 88px);
+  }
+}
+/* Lists in .page__content in splitter-sides */
+@media (orientation: landscape) {
+  /* Suppress left safe area support for pages in right splitter sides */
+  html[onsflag-iphonex-landscape] ons-splitter-side[side="right"] .page__content > .list:not(.list--inset) {
+    margin-left: 0;
+  }
+  html[onsflag-iphonex-landscape] ons-splitter-side[side="right"] .page__content > .list:not(.list--inset) > .list-header {
+    padding-left: 15px;
+  }
+  html[onsflag-iphonex-landscape] ons-splitter-side[side="right"] .page__content > .list:not(.list--inset) > .list-item {
+    padding-left: 14px;
+  }
+
+  /* Suppress right safe area support for pages in left splitter sides */
+  html[onsflag-iphonex-landscape] ons-splitter-side[side="left"] .page__content > .list:not(.list--inset) {
+    margin-right: 0;
+  }
+  html[onsflag-iphonex-landscape] ons-splitter-side[side="left"] .page__content > .list:not(.list--inset) > .list-item--chevron:before {
+    right: 16px;
+  }
+  html[onsflag-iphonex-landscape] ons-splitter-side[side="left"] .page__content > .list:not(.list--inset) > .list-item > .list-item__center:last-child {
+    padding-right: 6px;
+  }
+  html[onsflag-iphonex-landscape] ons-splitter-side[side="left"] .page__content > .list:not(.list--inset) > .list-item > .list-item__right {
+    padding-right: 12px;
+  }
+  html[onsflag-iphonex-landscape] ons-splitter-side[side="left"] .page__content > .list:not(.list--inset) > .list-item > .list-item--chevron__right {
+    padding-right: 30px;
+  }
 }
 
 /*
@@ -720,4 +751,64 @@ ons-split-view {
   right: 0px;
   z-index: 0;
   overflow-x: hidden; 
+}
+
+/*
+Copyright 2013-2015 ASIAL CORPORATION
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+ */
+
+.ons-swiper {
+  overflow: hidden;
+  display: block;
+  box-sizing: border-box;
+}
+
+.ons-swiper-target {
+  display: -webkit-flex;
+  display: flex;
+  height: 100%;
+  z-index: 1;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+}
+
+.ons-swiper-target--vertical {
+  -webkit-flex-direction: column;
+          flex-direction: column;
+}
+
+.ons-swiper-target > * {
+  height: inherit;
+  -webkit-flex-shrink: 0;
+          flex-shrink: 0;
+  box-sizing: border-box;
+  width: 100%;
+  position: relative !important;
+}
+
+.ons-swiper-tabbar .tabbar--material__button:after {
+  display: none;
+}
+
+.ons-swiper-blocker {
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none
 }

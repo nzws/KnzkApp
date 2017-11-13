@@ -3,13 +3,7 @@
   --segment-border-top: 1px solid var(--segment-color);
   --segment-border-bottom: 1px solid var(--segment-color);
   --segment-border: 0 solid var(--segment-color);
-  --segment-active-background-color: color(var(--segment-color) tint(var(--alpha-lighten)));
   --segment-border-radius: 4px;
-
-  --material-segment-background-color: #fafafa;
-  --material-segment-active-background-color: #c8c8c8;
-  --material-segment-text-color: rgba(0, 0, 0, 0.38);
-  --material-segment-active-text-color: #353535;
 }
 
 /*~
@@ -17,18 +11,18 @@
   category: Segment
   markup: |
     <div class="segment" style="width: 280px; margin: 0 auto;">
-      <div class="segment__item">
+      <button class="segment__item">
         <input type="radio" class="segment__input" name="segment-a" checked>
-        <button class="segment__button">One</button>
-      </div>
-      <div class="segment__item">
+        <div class="segment__button">One</div>
+      </button>
+      <button class="segment__item">
         <input type="radio" class="segment__input" name="segment-a">
-        <button class="segment__button">Two</button>
-      </div>
-      <div class="segment__item">
+        <div class="segment__button">Two</div>
+      </button>
+      <button class="segment__item">
         <input type="radio" class="segment__input" name="segment-a">
-        <button class="segment__button">Three</button>
-      </div>
+        <div class="segment__button">Three</div>
+      </button>
     </div>
 */
 
@@ -52,6 +46,9 @@
   @apply(--hide-input-parent);
   overflow: hidden;
   box-sizing: border-box;
+  display: block;
+  background-color: transparent;
+  border: none;
 }
 
 .segment__input {
@@ -78,7 +75,7 @@
   box-sizing: border-box;
 }
 
-.segment__button:disabled {
+.segment__item:disabled {
   @apply(--disabled);
 }
 
@@ -122,18 +119,18 @@
   category: Segment
   markup: |
     <div class="segment segment--material" style="width: 280px; margin: 0 auto;">
-      <div class="segment__item segment--material__item">
+      <button class="segment__item segment--material__item">
         <input type="radio" class="segment__input segment--material__input" name="segment-b" checked>
-        <button class="segment__button segment--material__button">One</button>
-      </div>
-      <div class="segment__item segment--material__item">
+        <div class="segment__button segment--material__button">One</div>
+      </button>
+      <button class="segment__item segment--material__item">
         <input type="radio" class="segment__input segment--material__input" name="segment-b">
-        <button class="segment__button segment--material__button">Two</button>
-      </div>
-      <div class="segment__item segment--material__item">
+        <div class="segment__button segment--material__button">Two</div>
+      </button>
+      <button class="segment__item segment--material__item">
         <input type="radio" class="segment__input segment--material__input" name="segment-b">
-        <button class="segment__button segment--material__button">Three</button>
-      </div>
+        <div class="segment__button segment--material__button">Three</div>
+      </button>
     </div>
 */
 

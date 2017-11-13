@@ -70,15 +70,9 @@ const rewritables = {
  *   [ja][/ja]
  * @codepen yrhtv
  * @tutorial vanilla/Reference/navigator
- * @guide multiple-page-navigation
- *   [en]Guide for page navigation[/en]
- *   [ja]ページナビゲーションの概要[/ja]
- * @guide templates
- *   [en]Defining multiple pages in single html[/en]
- *   [ja]複数のページを1つのHTMLに記述する[/ja]
- * @guide creating-a-page
- *   [en]Setting up a page in its `init` event[/en]
- *   [ja]Setting up a page in its `init` event[/ja]
+ * @guide lifecycle.html#events
+ *   [en]Overview of page events[/en]
+ *   [ja]Overview of page events[/ja]
  * @seealso ons-toolbar
  *   [en]The `<ons-toolbar>` component is used to display a toolbar on the top of a page.[/en]
  *   [ja][/ja]
@@ -297,17 +291,19 @@ export default class NavigatorElement extends BaseElement {
     this.onDeviceBackButton = this._onDeviceBackButton.bind(this);
 
     if (!platform.isAndroid() || this.getAttribute('swipeable') === 'force') {
+      this._swipeAnimator = new IOSSwipeNavigatorTransitionAnimator();
+
       this._swipe = new SwipeReveal({
         element: this,
-        animator: new IOSSwipeNavigatorTransitionAnimator(),
-        swipeMax: animator => this.swipeMax ? this.swipeMax({animator}) : this.popPage({animator}),
+        swipeMax: () => this[this.swipeMax ? 'swipeMax' : 'popPage']({ animator: this._swipeAnimator }),
+        swipeMid: (distance, width) => this._swipeAnimator.translate(distance, width, this.topPage.previousElementSibling, this.topPage),
+        swipeMin: () => this._swipeAnimator.restore(this.topPage.previousElementSibling, this.topPage),
         getThreshold: () => Math.max(0.2, parseFloat(this.getAttribute('swipe-threshold')) || 0),
-        getAnimationElements: () => [this.topPage.previousElementSibling, this.topPage],
         ignoreSwipe: (event, distance) => {
           if (/ons-back-button/i.test(event.target.tagName) || util.findParent(event.target, 'ons-back-button', p => /ons-page/i.test(p.tagName))) {
             return true;
           }
-          const area = Math.max(20, parseInt(this.getAttribute('swipe-target-width')) || 0);
+          const area = parseInt(this.getAttribute('swipe-target-width') || 25, 10);
           return event.gesture.direction !==  'right' || area <= distance || this._isRunning || this.children.length <= 1;
         }
       });
@@ -321,9 +317,15 @@ export default class NavigatorElement extends BaseElement {
 
     this._initialized = true;
 
+    const deferred = util.defer();
+    this.loaded = deferred.promise;
+
     rewritables.ready(this, () => {
+      const show = !util.hasAnyComponentAsParent(this);
+      const options = { animation: 'none', show };
+
       if (this.pages.length === 0 && this._getPageTarget()) {
-        this.pushPage(this._getPageTarget(), {animation: 'none'});
+        this.pushPage(this._getPageTarget(), options).then(() => deferred.resolve());
       } else if (this.pages.length > 0) {
         for (var i = 0; i < this.pages.length; i++) {
           if (this.pages[i].nodeName !== 'ONS-PAGE') {
@@ -334,7 +336,8 @@ export default class NavigatorElement extends BaseElement {
         if (this.topPage) {
           contentReady(this.topPage, () =>
             setTimeout(() => {
-              this.topPage._show();
+              deferred.resolve();
+              show && this.topPage._show();
               this._updateLastPageBackButton();
             }, 0)
           );
@@ -342,7 +345,9 @@ export default class NavigatorElement extends BaseElement {
       } else {
         contentReady(this, () => {
           if (this.pages.length === 0 && this._getPageTarget()) {
-            this.pushPage(this._getPageTarget(), {animation: 'none'});
+            this.pushPage(this._getPageTarget(), options).then(() => deferred.resolve());
+          } else {
+            deferred.resolve();
           }
         });
       }
@@ -363,7 +368,7 @@ export default class NavigatorElement extends BaseElement {
     this._backButtonHandler = null;
 
     this._swipe && this._swipe.dispose();
-    this._swipe = null;
+    this._swipe = this._swipeAnimator = null;
   }
 
   static get observedAttributes() {
@@ -397,9 +402,6 @@ export default class NavigatorElement extends BaseElement {
    * @param {String} [options.animationOptions]
    *   [en]Specify the animation's duration, delay and timing. E.g. `{duration: 0.2, delay: 0.4, timing: 'ease-in'}`.[/en]
    *   [ja]アニメーション時のduration, delay, timingを指定します。e.g. {duration: 0.2, delay: 0.4, timing: 'ease-in'}[/ja]
-   * @param {Boolean} [options.refresh]
-   *   [en]This option has been removed in Onsen UI 2.3.0. The previous page will be refreshed (destroyed and created again) before popPage action.[/en]
-   *   [ja]このオプションは Onsen UI 2.3.0 で削除されました。popPageする前に、前にあるページを生成しなおして更新する場合にtrueを指定します。[/ja]
    * @param {Function} [options.callback]
    *   [en]Function that is called when the transition has ended.[/en]
    *   [ja]このメソッドによる画面遷移が終了した際に呼び出される関数オブジェクトを指定します。[/ja]
@@ -573,7 +575,7 @@ export default class NavigatorElement extends BaseElement {
         throw new Error('Only elements of type <ons-page> can be pushed to the navigator');
       }
 
-      enterPage.updateBackButton(pageLength - 1);
+      enterPage.updateBackButton(pageLength > (options._replacePage ? 2 : 1));
 
       enterPage.pushedOptions = util.extend({}, enterPage.pushedOptions || {}, options || {});
       enterPage.data = util.extend({}, enterPage.data || {}, options.data || {});
@@ -583,7 +585,7 @@ export default class NavigatorElement extends BaseElement {
         const done = () => {
           this._isRunning = false;
 
-          setImmediate(() => enterPage._show());
+          options.show !== false && setImmediate(() => enterPage._show());
           util.triggerElementEvent(this, 'postpush', {leavePage, enterPage, navigator: this});
 
           if (typeof options.callback === 'function') {
@@ -959,14 +961,6 @@ export default class NavigatorElement extends BaseElement {
    *   [ja]このメソッドによる画面遷移が終了した際に呼び出される関数オブジェクトを指定します。[/ja]
    */
 
-  /**
-   * @property options.refresh
-   * @default  false
-   * @type {Boolean}
-   * @description
-   *   [en]This option has been removed in Onsen UI 2.3.0. If this parameter is `true`, the previous page will be refreshed (destroyed and created again) before `popPage()` action.[/en]
-   *   [ja]このオプションは Onsen UI 2.3.0 で削除されました。popPageする前に、前にあるページを生成しなおして更新する場合にtrueを指定します。[/ja]
-   */
   get options() {
     return this._options;
   }
@@ -982,15 +976,11 @@ export default class NavigatorElement extends BaseElement {
   }
 
   _show() {
-    if (this.topPage) {
-      this.topPage._show();
-    }
+    this.loaded.then(() => this.topPage && this.topPage._show())
   }
 
   _hide() {
-    if (this.topPage) {
-      this.topPage._hide();
-    }
+    this.topPage && this.topPage._hide()
   }
 
   _destroy() {

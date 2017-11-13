@@ -44,7 +44,7 @@ const scheme = {
  * @modifier light-gray
  *   [en]Change the color of effects to light gray.[/en]
  *   [ja]エフェクトの色が明るい灰色になります。[/ja]
- * @guide cross-platform-styling
+ * @guide theming.html#cross-platform-styling-autostyling
  *  [en]Cross platform styling[/en]
  *  [ja]Cross platform styling[/ja]
  * @example
@@ -162,8 +162,8 @@ export default class RippleElement extends BaseElement {
         throw Error('Invalid state. If this errors is shown, leport to GitHub issues.');
       }
     } else {
-      x = (e.clientX || e.changedTouches[0].clientX) - b.left;
-      y = (e.clientY || e.changedTouches[0].clientY) - b.top;
+      x = (typeof e.clientX === 'number' ? e.clientX : e.changedTouches[0].clientX) - b.left;
+      y = (typeof e.clientY === 'number' ? e.clientY : e.changedTouches[0].clientY) - b.top;
       h = Math.max(y, b.height - y);
       w = Math.max(x, b.width - x);
 
@@ -284,9 +284,7 @@ export default class RippleElement extends BaseElement {
     switch (name) {
 
       case 'class':
-        if (!this.classList.contains(defaultClassName)) {
-          this.className = defaultClassName + ' ' + current;
-        }
+        util.restoreClass(this, defaultClassName, scheme);
         break;
 
       case 'modifier':

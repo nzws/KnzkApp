@@ -30,6 +30,13 @@
  * limitations under the License.
  *
  */
+:root {
+  /* variables for iOS components */
+
+  /* variables for Material Design components */
+
+  /* others */
+}
 html {
   height: 100%;
   width: 100%;
@@ -44,6 +51,7 @@ body {
   padding: 0;
   margin: 0;
   -webkit-text-size-adjust: 100%;
+  touch-action: manipulation;
 }
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -61,13 +69,18 @@ time, mark, audio, video {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
 }
 input, textarea, select {
   -webkit-user-select: auto;
       -ms-user-select: auto;
           user-select: auto;
   -moz-user-select: text;
+  -webkit-touch-callout: none;
+}
+a, button, input, textarea, select {
+  touch-action: manipulation;
 }
 input:active, input:focus, textarea:active, textarea:focus, select:active, select:focus {
   outline: none;
@@ -101,6 +114,7 @@ h4, h5, h6 {
   overflow-y: hidden;
   color: #1f1f21;
   -ms-overflow-style: none;
+  -webkit-font-smoothing: antialiased;
 }
 .page::-webkit-scrollbar {
   display: none;
@@ -127,6 +141,7 @@ h4, h5, h6 {
   font-family: 'Roboto', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
   font-weight: 400;
+  background-color: #ffffff;
 }
 .page--material__content {
   font-family: 'Roboto', 'Noto', sans-serif;
@@ -243,7 +258,7 @@ h4, h5, h6 {
 }
 /* switch toggle background */
 .switch__toggle {
-  background-color: #fff;
+  background-color: white;
   position: absolute;
   top: 0;
   left: 0;
@@ -403,7 +418,7 @@ h4, h5, h6 {
   box-shadow: 0 0 0 14px rgba(0, 0, 0, .12);
 }
 :checked + .switch--material__toggle > .switch--active__handle:before {
-  box-shadow: 0 0 0 14px alpha(#009688, 0.2);
+  box-shadow: 0 0 0 14px rgba(0, 150, 136, 0.2);
 }
 .switch--material__touch {
   position: absolute;
@@ -748,6 +763,7 @@ h4, h5, h6 {
   background-color: #e91e63;
   font-size: 16px;
   font-weight: 500;
+  color: white;
 }
 /*~
   name: Toolbar
@@ -782,13 +798,13 @@ h4, h5, h6 {
           user-select: none;
   z-index: 2;
   display: -webkit-box;
-  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   -webkit-box-align: stretch;
-      -ms-flex-align: stretch;
+  -webkit-align-items: stretch;
           align-items: stretch;
-  -ms-flex-wrap: nowrap;
-      flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+          flex-wrap: nowrap;
   height: 44px;
   padding-left: 0;
   padding-right: 0;
@@ -995,6 +1011,14 @@ h4, h5, h6 {
   padding-bottom: 0;
   padding-top: 0;
 }
+.bottom-bar--aligned {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+  line-height: 44px;
+}
 .bottom-bar--transparent {
   background-color: transparent;
   background-image: none;
@@ -1034,12 +1058,12 @@ h4, h5, h6 {
 */
 .toolbar--material {
   display: -webkit-box;
-  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
-  -ms-flex-wrap: nowrap;
-      flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+          flex-wrap: nowrap;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
           justify-content: space-between;
   height: 56px;
   border-bottom: 0;
@@ -1094,7 +1118,7 @@ h4, h5, h6 {
   height: 56px;
   width: auto;
   -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
+  -webkit-flex-grow: 1;
           flex-grow: 1;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1260,13 +1284,13 @@ h4, h5, h6 {
 */
 .button--light {
   background-color: transparent;
-  color: rgba(0, 0, 0, .4);
-  border: 1px solid rgba(0, 0, 0, .2);
+  color: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 .button--light:active {
-  background-color: rgba(0, 0, 0, .05);
-  color: rgba(0, 0, 0, .4);
-  border: 1px solid rgba(0, 0, 0, .2);
+  background-color: rgba(0, 0, 0, 0.05);
+  color: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   opacity: 1;
 }
 /*~
@@ -1688,8 +1712,8 @@ h4, h5, h6 {
   -webkit-transition: none;
   transition: none;
   box-shadow: none;
-  background-color: rgba(79, 79, 79, .26);
-  color: rgba(0, 0, 0, .26);
+  background-color: rgba(79, 79, 79, 0.26);
+  color: rgba(0, 0, 0, 0.26);
   opacity: 1;
 }
 /*~
@@ -1779,7 +1803,7 @@ h4, h5, h6 {
   outline: 0;
   opacity: 1;
   border: none;
-  background-color: rgba(153, 153, 153, .2);
+  background-color: rgba(153, 153, 153, 0.2);
   color: #009688;
   -webkit-transition: all 0.25s linear;
   transition: all 0.25s linear;
@@ -1790,7 +1814,7 @@ h4, h5, h6 {
   opacity: 1;
   box-shadow: none;
   background-color: transparent;
-  color: rgba(0, 0, 0, .26);
+  color: rgba(0, 0, 0, 0.26);
 }
 /*~
   name: Button Bar
@@ -1814,15 +1838,15 @@ h4, h5, h6 {
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
   display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
   display: inline-flex;
   -webkit-box-align: stretch;
-      -ms-flex-align: stretch;
+  -webkit-align-items: stretch;
           align-items: stretch;
-  -ms-flex-line-pack: stretch;
-      align-content: stretch;
-  -ms-flex-wrap: nowrap;
-      flex-wrap: nowrap;
+  -webkit-align-content: stretch;
+          align-content: stretch;
+  -webkit-flex-wrap: nowrap;
+          flex-wrap: nowrap;
   margin: 0;
   padding: 0;
   border: none;
@@ -1906,18 +1930,18 @@ h4, h5, h6 {
   category: Segment
   markup: |
     <div class="segment" style="width: 280px; margin: 0 auto;">
-      <div class="segment__item">
+      <button class="segment__item">
         <input type="radio" class="segment__input" name="segment-a" checked>
-        <button class="segment__button">One</button>
-      </div>
-      <div class="segment__item">
+        <div class="segment__button">One</div>
+      </button>
+      <button class="segment__item">
         <input type="radio" class="segment__input" name="segment-a">
-        <button class="segment__button">Two</button>
-      </div>
-      <div class="segment__item">
+        <div class="segment__button">Two</div>
+      </button>
+      <button class="segment__item">
         <input type="radio" class="segment__input" name="segment-a">
-        <button class="segment__button">Three</button>
-      </div>
+        <div class="segment__button">Three</div>
+      </button>
     </div>
 */
 .segment {
@@ -1926,15 +1950,15 @@ h4, h5, h6 {
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
   display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
   display: inline-flex;
   -webkit-box-align: stretch;
-      -ms-flex-align: stretch;
+  -webkit-align-items: stretch;
           align-items: stretch;
-  -ms-flex-line-pack: stretch;
-      align-content: stretch;
-  -ms-flex-wrap: nowrap;
-      flex-wrap: nowrap;
+  -webkit-align-content: stretch;
+          align-content: stretch;
+  -webkit-flex-wrap: nowrap;
+          flex-wrap: nowrap;
   margin: 0;
   padding: 0;
   border: none;
@@ -1951,6 +1975,9 @@ h4, h5, h6 {
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
+  display: block;
+  background-color: transparent;
+  border: none;
 }
 .segment__input {
   position: absolute;
@@ -1994,7 +2021,7 @@ h4, h5, h6 {
   transition: background-color 0.2s linear, color 0.2s linear;
   box-sizing: border-box;
 }
-.segment__button:disabled {
+.segment__item:disabled {
   opacity: 0.3;
   cursor: default;
   pointer-events: none;
@@ -2036,18 +2063,18 @@ h4, h5, h6 {
   category: Segment
   markup: |
     <div class="segment segment--material" style="width: 280px; margin: 0 auto;">
-      <div class="segment__item segment--material__item">
+      <button class="segment__item segment--material__item">
         <input type="radio" class="segment__input segment--material__input" name="segment-b" checked>
-        <button class="segment__button segment--material__button">One</button>
-      </div>
-      <div class="segment__item segment--material__item">
+        <div class="segment__button segment--material__button">One</div>
+      </button>
+      <button class="segment__item segment--material__item">
         <input type="radio" class="segment__input segment--material__input" name="segment-b">
-        <button class="segment__button segment--material__button">Two</button>
-      </div>
-      <div class="segment__item segment--material__item">
+        <div class="segment__button segment--material__button">Two</div>
+      </button>
+      <button class="segment__item segment--material__item">
         <input type="radio" class="segment__input segment--material__input" name="segment-b">
-        <button class="segment__button segment--material__button">Three</button>
-      </div>
+        <div class="segment__button segment--material__button">Three</div>
+      </button>
     </div>
 */
 .segment--material {
@@ -2063,7 +2090,7 @@ h4, h5, h6 {
   height: 32px;
   line-height: 32px;
   border-width: 0;
-  color: rgba(0, 0, 0, .38);
+  color: rgba(0, 0, 0, 0.38);
   border-radius: 0;
   background-color: #fafafa;
 }
@@ -2074,7 +2101,7 @@ h4, h5, h6 {
   font-size: 14px;
   -webkit-transition: none;
   transition: none;
-  color: rgba(0, 0, 0, .38);
+  color: rgba(0, 0, 0, 0.38);
 }
 :checked + .segment--material__button {
   background-color: #c8c8c8;
@@ -2154,8 +2181,9 @@ h4, h5, h6 {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
-  display: table;
-  table-layout: fixed;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -2184,7 +2212,11 @@ h4, h5, h6 {
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
   position: relative;
-  display: table-cell;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+          flex-grow: 1;
+  -webkit-flex-basis: 0;
+          flex-basis: 0;
   width: auto;
   border-radius: 0;
 }
@@ -2307,6 +2339,10 @@ h4, h5, h6 {
   right: 0;
   bottom: 49px;
   z-index: 0;
+}
+.tabbar--autogrow .tabbar__item {
+  -webkit-flex-basis: auto;
+          flex-basis: auto;
 }
 /*~
   name: Icon Only Tabbar
@@ -2464,6 +2500,14 @@ h4, h5, h6 {
   background-color: transparent;
   border-bottom: 4px solid rgba(24, 103, 194, .81);
 }
+.tabbar__border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 4px;
+  background-color: rgba(24, 103, 194, .81);
+}
 .tabbar--material {
   background: none;
   background-color: #009688;
@@ -2505,6 +2549,10 @@ h4, h5, h6 {
 .tabbar--material__item:not([ripple]):active {
   background-color: #26a69a;
 }
+.tabbar--material__border {
+  height: 2px;
+  background-color: #ffffff;
+}
 /*~
   name: Material Tabbar (Icon only)
   category: Tabbar
@@ -2512,21 +2560,21 @@ h4, h5, h6 {
   markup: |
     <div class="tabbar tabbar--top tabbar--material">
       <label class="tabbar__item tabbar--material__item">
-        <input type="radio" name="tabbar-material-a" checked="checked">
+        <input type="radio" name="tabbar-material-b" checked="checked">
         <button class="tabbar__button tabbar--material__button">
           <i class="tabbar__icon tabbar--material__icon zmdi zmdi-phone"></i>
         </button>
       </label>
 
       <label class="tabbar__item tabbar--material__item">
-        <input type="radio" name="tabbar-material-a">
+        <input type="radio" name="tabbar-material-b">
         <button class="tabbar__button tabbar--material__button">
           <i class="tabbar__icon tabbar--material__icon zmdi zmdi-favorite"></i>
         </button>
       </label>
 
       <label class="tabbar__item tabbar--material__item">
-        <input type="radio" name="tabbar-material-a">
+        <input type="radio" name="tabbar-material-b">
         <button class="tabbar__button tabbar--material__button">
           <i class="tabbar__icon tabbar--material__icon zmdi zmdi-pin-account"></i>
         </button>
@@ -2544,7 +2592,7 @@ h4, h5, h6 {
   markup: |
     <div class="tabbar tabbar--top tabbar--material">
       <label class="tabbar__item tabbar--material__item">
-        <input type="radio" name="tabbar-material-a" checked="checked">
+        <input type="radio" name="tabbar-material-c" checked="checked">
         <button class="tabbar__button tabbar--material__button">
           <i class="tabbar__icon tabbar--material__icon zmdi zmdi-phone"></i>
           <div class="tabbar__label tabbar--material__label">Call</div>
@@ -2552,7 +2600,7 @@ h4, h5, h6 {
       </label>
 
       <label class="tabbar__item tabbar--material__item">
-        <input type="radio" name="tabbar-material-a">
+        <input type="radio" name="tabbar-material-c">
         <button class="tabbar__button tabbar--material__button">
           <i class="tabbar__icon tabbar--material__icon zmdi zmdi-favorite"></i>
           <div class="tabbar__label tabbar--material__label">Favorites</div>
@@ -2560,7 +2608,7 @@ h4, h5, h6 {
       </label>
 
       <label class="tabbar__item tabbar--material__item">
-        <input type="radio" name="tabbar-material-a">
+        <input type="radio" name="tabbar-material-c">
         <button class="tabbar__button tabbar--material__button">
           <i class="tabbar__icon tabbar--material__icon zmdi zmdi-delete"></i>
           <div class="tabbar__label tabbar--material__label">Delete</div>
@@ -2591,7 +2639,11 @@ h4, h5, h6 {
   markup: |
     <!-- Prerequisite=This example use font-awesome(http://fortawesome.github.io/Font-Awesome/) to display icons. -->
     <button class="toolbar-button">
-      <i class="fa fa-bell" style="font-size:17px"></i> Label
+      <i class="fa fa-bell" style="font-size:17px"></i>
+    </button>
+
+    <button class="toolbar-button">
+      Label
     </button>
 
     <button class="toolbar-button toolbar-button--outline">
@@ -2641,6 +2693,22 @@ h4, h5, h6 {
   padding-left: 6px;
   padding-right: 6px;
 }
+/*~
+  name: Material Toolbar Button
+  category: Toolbar Button
+  elements: ons-toolbar-button
+  markup: |
+    <!-- Prerequisite=This example use Material Design Iconic Font(http://zavoloklom.github.io/material-design-iconic-font/) to display icons. -->
+    <span class="toolbar-button toolbar-button--material">
+      <i class="zmdi zmdi-menu"></i>
+    </span>
+    <span class="toolbar-button toolbar-button--material">
+      Label
+    </span>
+    <span class="toolbar-button toolbar-button--material">
+      <i class="zmdi zmdi-favorite"></i>
+    </span>
+*/
 .toolbar-button--material {
   font-size: 22px;
   color: #ffffff;
@@ -2688,11 +2756,11 @@ h4, h5, h6 {
 .back-button__icon {
   margin-right: 6px;
   display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
   display: inline-flex;
   fill: rgba(38, 100, 171, .81);
   -webkit-box-align: center;
-      -ms-flex-align: center;
+  -webkit-align-items: center;
           align-items: center;
   height: 100%;
 }
@@ -2715,11 +2783,11 @@ h4, h5, h6 {
 }
 .back-button--material__icon {
   display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
   display: inline-flex;
   fill: #ffffff;
   -webkit-box-align: center;
-      -ms-flex-align: center;
+  -webkit-align-items: center;
           align-items: center;
   height: 100%;
 }
@@ -3400,17 +3468,17 @@ h4, h5, h6 {
   list-style: none;
   box-sizing: border-box;
   display: -webkit-box;
-  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
+  -webkit-flex-direction: row;
           flex-direction: row;
   -webkit-box-pack: start;
-      -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
           justify-content: flex-start;
   -webkit-box-align: center;
-      -ms-flex-align: center;
+  -webkit-align-items: center;
           align-items: center;
   padding: 0 0 0 14px;
   margin: 0 0 -1px 0;
@@ -3421,17 +3489,17 @@ h4, h5, h6 {
 .list-item__left {
   box-sizing: border-box;
   display: -webkit-box;
-  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   padding: 12px 14px 12px 0;
   -webkit-box-ordinal-group: 1;
-      -ms-flex-order: 0;
+  -webkit-order: 0;
           order: 0;
   -webkit-box-align: center;
-      -ms-flex-align: center;
+  -webkit-align-items: center;
           align-items: center;
-  -ms-flex-item-align: stretch;
-      align-self: stretch;
+  -webkit-align-self: stretch;
+          align-self: stretch;
   line-height: 1.2em;
   min-height: 44px;
 }
@@ -3444,26 +3512,26 @@ h4, h5, h6 {
 .list-item__center {
   box-sizing: border-box;
   display: -webkit-box;
-  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
+  -webkit-flex-grow: 1;
           flex-grow: 1;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
+  -webkit-flex-direction: row;
           flex-direction: row;
   -webkit-box-ordinal-group: 2;
-      -ms-flex-order: 1;
+  -webkit-order: 1;
           order: 1;
   margin-right: auto;
   -webkit-box-align: center;
-      -ms-flex-align: center;
+  -webkit-align-items: center;
           align-items: center;
-  -ms-flex-item-align: stretch;
-      align-self: stretch;
+  -webkit-align-self: stretch;
+          align-self: stretch;
   margin-left: 0;
   border-bottom: none;
   background-size: 100% 1px;
@@ -3484,18 +3552,18 @@ h4, h5, h6 {
 .list-item__right {
   box-sizing: border-box;
   display: -webkit-box;
-  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   margin-left: auto;
   padding: 12px 12px 12px 0;
   -webkit-box-ordinal-group: 3;
-      -ms-flex-order: 2;
+  -webkit-order: 2;
           order: 2;
   -webkit-box-align: center;
-      -ms-flex-align: center;
+  -webkit-align-items: center;
           align-items: center;
-  -ms-flex-item-align: stretch;
-      align-self: stretch;
+  -webkit-align-self: stretch;
+          align-self: stretch;
   border-bottom: none;
   background-size: 100% 1px;
   background-repeat: no-repeat;
@@ -3544,10 +3612,10 @@ h4, h5, h6 {
   elements: ons-list ons-list-item
   markup: |
     <ul class="list list--noborder">
-      <li class="list-item list-item--noborder">
+      <li class="list-item">
         <div class="list-item__center">Item</div>
       </li>
-      <li class="list-item list-item--noborder">
+      <li class="list-item">
         <div class="list-item__center">Item</div>
       </li>
     </ul>
@@ -3644,6 +3712,9 @@ h4, h5, h6 {
       </li>
       <li class="list-item list-item--chevron">
         <div class="list-item__center">Item B</div>
+        <div class="list-item__right list-item--chevron__right">
+          <div class="list-item__label">Label</div>
+        </div>
       </li>
     </ul>
  */
@@ -3661,6 +3732,26 @@ h4, h5, h6 {
   top: 50%;
   z-index: 5;
 }
+.list-item--chevron__right {
+  padding-right: 30px;
+}
+/*~
+  name: Nodivider List Item with Chevron
+  category: List
+  elements: ons-list ons-list-item
+  markup: |
+    <ul class="list">
+      <li class="list-item list-item--nodivider list-item--chevron">
+        <div class="list-item__center list-item--nodivider__center">Item A</div>
+      </li>
+      <li class="list-item list-item--nodivider list-item--chevron">
+        <div class="list-item__center list-item--nodivider__center">Item B</div>
+        <div class="list-item__right list-item--nodivider__right list-item--chevron__right">
+          <div class="list-item__label">Label</div>
+        </div>
+      </li>
+    </ul>
+ */
 /*~
   name: Inset List
   category: List
@@ -3842,24 +3933,24 @@ h4, h5, h6 {
     </ul>
 */
 .list-item__title {
-  -ms-flex-preferred-size: 100%;
-      flex-basis: 100%;
-  -ms-flex-item-align: end;
-      align-self: flex-end;
+  -webkit-flex-basis: 100%;
+          flex-basis: 100%;
+  -webkit-align-self: flex-end;
+          align-self: flex-end;
   -webkit-box-ordinal-group: 1;
-      -ms-flex-order: 0;
+  -webkit-order: 0;
           order: 0;
 }
 .list-item__subtitle {
   opacity: 0.75;
   font-size: 14px;
   -webkit-box-ordinal-group: 2;
-      -ms-flex-order: 1;
+  -webkit-order: 1;
           order: 1;
-  -ms-flex-preferred-size: 100%;
-      flex-basis: 100%;
-  -ms-flex-item-align: start;
-      align-self: flex-start;
+  -webkit-flex-basis: 100%;
+          flex-basis: 100%;
+  -webkit-align-self: flex-start;
+          align-self: flex-start;
 }
 /*~
   name: List Item with Thumbnail
@@ -3963,6 +4054,7 @@ h4, h5, h6 {
   -webkit-font-smoothing: antialiased;
   font-weight: 400;
   background-image: none;
+  background-color: #fff;
 }
 .list-item--material {
   border: 0;
@@ -4161,7 +4253,7 @@ h4, h5, h6 {
         </div>
 
         <div class="list-item__right list-item--material__right">
-          <i style="color:#4db6ac" class="list-item__icon list-item--material__icon zmdi zmdi-comment"></i>
+          <i style="color:#ccc" class="list-item__icon list-item--material__icon zmdi zmdi-comment"></i>
         </div>
       </li>
 
@@ -4176,7 +4268,7 @@ h4, h5, h6 {
         </div>
 
         <div class="list-item__right list-item--material__right">
-          <i style="color:#4db6ac" class="list-item__icon list-item--material__icon zmdi zmdi-comment"></i>
+          <i style="color:#ccc" class="list-item__icon list-item--material__icon zmdi zmdi-comment"></i>
         </div>
       </li>
     </ul>
@@ -4199,8 +4291,7 @@ h4, h5, h6 {
     </ul>
  */
 .list-item--nodivider__center,
-.list-item--nodivider__right,
-.list-item--nodivider:before {
+.list-item--nodivider__right {
   border: none;
   background-image: none;
 }
@@ -4248,7 +4339,7 @@ h4, h5, h6 {
   name: List title
   category: List
   markup: |
-    <div class="list-title">LIST TITLE</div>
+    <div class="list-title">List Title</div>
     <ul class="list">
       <li class="list-item">
         <div class="list-item__center">Item</div>
@@ -4284,6 +4375,8 @@ h4, h5, h6 {
   font-size: 13px;
   font-weight: 500;
   line-height: 24px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 /*~
   name: Material List Title
@@ -4404,12 +4497,12 @@ h4, h5, h6 {
   border-radius: 2px;
   height: 48px;
   background-color: #fafafa;
-  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMThweCIgaGVpZ2h0PSIxOHB4IiB2aWV3Qm94PSIwIDAgMTggMTgiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDQyICgzNjc4MSkgLSBodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2ggLS0+CiAgICA8dGl0bGU+YW5kcm9pZC1zZWFyY2gtaW5wdXQtaWNvbjwvdGl0bGU+CiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KICAgIDxkZWZzPjwvZGVmcz4KICAgIDxnIGlkPSJjb21wb25lbnRzIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiBvcGFjaXR5PSIwLjU0Ij4KICAgICAgICA8ZyBpZD0ibWF0ZXJpYWwtc2VhcmNoIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNTIuMDAwMDAwLCAtNDEuMDAwMDAwKSIgZmlsbD0iIzAwMDAwMCI+CiAgICAgICAgICAgIDxnIGlkPSJzZWFyY2giIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMzLjAwMDAwMCwgMjYuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICA8ZyBpZD0iTWF0ZXJpYWwvSWNvbnMtYmxhY2svc2VhcmNoIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNi4wMDAwMDAsIDEyLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0xNS41MDIsOS40OTEgTDE0LjcwOCw5LjQ5MSBMMTQuNDMyLDkuNzY1IEMxNS40MDcsMTAuOTAyIDE2LDEyLjM3NiAxNiwxMy45OTEgQzE2LDE3LjU4MSAxMy4wOSwyMC40OTEgOS41LDIwLjQ5MSBDNS45MSwyMC40OTEgMywxNy41ODEgMywxMy45OTEgQzMsMTAuNDAxIDUuOTEsNy40OTEgOS41LDcuNDkxIEMxMS4xMTUsNy40OTEgMTIuNTg4LDguMDgzIDEzLjcyNSw5LjA1NyBMMTQuMDAxLDguNzgzIEwxNC4wMDEsNy45OTEgTDE4Ljk5OSwzIEwyMC40OSw0LjQ5MSBMMTUuNTAyLDkuNDkxIEwxNS41MDIsOS40OTEgWiBNOS41LDkuNDkxIEM3LjAxNCw5LjQ5MSA1LDExLjUwNSA1LDEzLjk5MSBDNSwxNi40NzYgNy4wMTQsMTguNDkxIDkuNSwxOC40OTEgQzExLjk4NSwxOC40OTEgMTQsMTYuNDc2IDE0LDEzLjk5MSBDMTQsMTEuNTA1IDExLjk4NSw5LjQ5MSA5LjUsOS40OTEgTDkuNSw5LjQ5MSBaIiBpZD0iU2hhcGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDExLjc0NTAwMCwgMTEuNzQ1NTAwKSBzY2FsZSgxLCAtMSkgdHJhbnNsYXRlKC0xMS43NDUwMDAsIC0xMS43NDU1MDApICI+PC9wYXRoPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4=');
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMThweCIgaGVpZ2h0PSIxOHB4IiB2aWV3Qm94PSIwIDAgMTggMTgiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDQzLjIgKDM5MDY5KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5TaGFwZTwvdGl0bGU+CiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KICAgIDxkZWZzPjwvZGVmcz4KICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSJhbmRyb2lkLXNlYXJjaC1pbnB1dC1pY29uIiBmaWxsLXJ1bGU9Im5vbnplcm8iIGZpbGw9IiM4OTg5ODkiPgogICAgICAgICAgICA8ZyBpZD0iY29tcG9uZW50cyI+CiAgICAgICAgICAgICAgICA8ZyBpZD0ibWF0ZXJpYWwtc2VhcmNoIj4KICAgICAgICAgICAgICAgICAgICA8ZyBpZD0ic2VhcmNoIj4KICAgICAgICAgICAgICAgICAgICAgICAgPGcgaWQ9Ik1hdGVyaWFsL0ljb25zLWJsYWNrL3NlYXJjaCI+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMTIuNTAyLDYuNDkxIEwxMS43MDgsNi40OTEgTDExLjQzMiw2Ljc2NSBDMTIuNDA3LDcuOTAyIDEzLDkuMzc2IDEzLDEwLjk5MSBDMTMsMTQuNTgxIDEwLjA5LDE3LjQ5MSA2LjUsMTcuNDkxIEMyLjkxLDE3LjQ5MSAwLDE0LjU4MSAwLDEwLjk5MSBDMCw3LjQwMSAyLjkxLDQuNDkxIDYuNSw0LjQ5MSBDOC4xMTUsNC40OTEgOS41ODgsNS4wODMgMTAuNzI1LDYuMDU3IEwxMS4wMDEsNS43ODMgTDExLjAwMSw0Ljk5MSBMMTUuOTk5LDAgTDE3LjQ5LDEuNDkxIEwxMi41MDIsNi40OTEgTDEyLjUwMiw2LjQ5MSBaIE02LjUsNi40OTEgQzQuMDE0LDYuNDkxIDIsOC41MDUgMiwxMC45OTEgQzIsMTMuNDc2IDQuMDE0LDE1LjQ5MSA2LjUsMTUuNDkxIEM4Ljk4NSwxNS40OTEgMTEsMTMuNDc2IDExLDEwLjk5MSBDMTEsOC41MDUgOC45ODUsNi40OTEgNi41LDYuNDkxIEw2LjUsNi40OTEgWiIgaWQ9IlNoYXBlIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg4Ljc0NTAwMCwgOC43NDU1MDApIHNjYWxlKC0xLCAxKSByb3RhdGUoLTE4MC4wMDAwMDApIHRyYW5zbGF0ZSgtOC43NDUwMDAsIC04Ljc0NTUwMCkgIj48L3BhdGg+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==');
   background-size: 18px;
   background-position: 18px center;
   font-size: 14px;
   padding: 0 24px 0 64px;
-  box-shadow: 0 0 2px 0 rgba(0, 0, 0, .12), 0 2px 2px 0 rgba(0, 0, 0, .24), 0 1px 0 0 rgba(255, 255, 255, .6) inset;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, .12), 0 2px 2px 0 rgba(0, 0, 0, .24), 0 1px 0 0 rgba(255, 255, 255, .06) inset;
 }
 /*~
   name: Text Input
@@ -4807,9 +4900,7 @@ h4, h5, h6 {
     <div class="dialog-mask"></div>
     <div class="dialog">
       <div class="dialog-container">
-        <div class="page">
-          <p style="text-align:center;margin-top:40px;opacity:0.4;">Content</p>
-        </div>
+        <p style="text-align:center;margin-top:40px;opacity:0.4;">Content</p>
       </div>
     </div>
 */
@@ -4850,6 +4941,7 @@ h4, h5, h6 {
   border-radius: 4px;
   background-color: #f4f4f4;
   -webkit-mask-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC');
+  color: #1f1f21;
 }
 .dialog-mask {
   padding: 0;
@@ -4895,6 +4987,7 @@ h4, h5, h6 {
 .dialog-container--material {
   border-radius: 2px;
   background-color: #ffffff;
+  color: #1f1f21;
 }
 .dialog-mask--material {
   background-color: rgba(0, 0, 0, .3);
@@ -5037,14 +5130,14 @@ h4, h5, h6 {
 .alert-dialog-footer--rowfooter {
   white-space: nowrap;
   display: -webkit-box;
-  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
 }
 .alert-dialog-button--rowfooter {
   -webkit-box-flex: 1;
-      -ms-flex: 1;
+  -webkit-flex: 1;
           flex: 1;
   display: block;
   width: 100%;
@@ -5820,8 +5913,8 @@ h4, h5, h6 {
   border-radius: 50%;
   overflow: hidden;
   box-shadow: 0 3px 6px rgba(0, 0, 0, .12);
-  -webkit-transition: all 0.05s linear;
-  transition: all 0.05s linear;
+  -webkit-transition: all 0.1s linear;
+  transition: all 0.1s linear;
 }
 .fab:active {
   box-shadow: 0 3px 6 rgba(0, 0, 0, .12);
@@ -5846,7 +5939,7 @@ h4, h5, h6 {
 }
 .fab:disabled,
 .fab[disabled] {
-  background-color: alpha(black, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   box-shadow: none;
   opacity: 0.3;
   cursor: default;
@@ -5895,8 +5988,8 @@ h4, h5, h6 {
   border-radius: 50%;
   overflow: hidden;
   box-shadow: 0 3px 6px rgba(0, 0, 0, .12);
-  -webkit-transition: all 0.05s linear;
-  transition: all 0.05s linear;
+  -webkit-transition: all 0.1s linear;
+  transition: all 0.1s linear;
   font-family: 'Roboto', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
   font-weight: 400;
@@ -5937,7 +6030,7 @@ h4, h5, h6 {
 }
 .fab--material:disabled,
 .fab--material[disabled] {
-  background-color: alpha(black, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   box-shadow: none;
   opacity: 0.3;
   cursor: default;
@@ -6124,7 +6217,7 @@ h4, h5, h6 {
   height: 32px;
   line-height: 32px;
   border-color: #ccc;
-  color: #000;
+  color: #1f1f21;
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -6210,10 +6303,10 @@ h4, h5, h6 {
   font-family: 'Roboto', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
   font-weight: 400;
-  color: rgba(0, 0, 0, 1);
+  color: #1f1f21;
   font-size: 15px;
-  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTBweCIgaGVpZ2h0PSI1cHgiIHZpZXdCb3g9IjAgMCAxMCA1IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPCEtLSBHZW5lcmF0b3I6IFNrZXRjaCA0My4yICgzOTA2OSkgLSBodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2ggLS0+CiAgICA8dGl0bGU+c2VsZWN0LWFsbG93PC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGRlZnM+PC9kZWZzPgogICAgPGcgaWQ9InNlbGVjdCIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9Imlvcy1zZWxlY3QiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xOTguMDAwMDAwLCAtMTE0LjAwMDAwMCkiIGZpbGw9IiM3NTc1NzUiPgogICAgICAgICAgICA8ZyBpZD0ibWVudS1iYXItKy1vcGVuLW1lbnUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyMy4wMDAwMDAsIDEwMC4wMDAwMDApIj4KICAgICAgICAgICAgICAgIDxnIGlkPSJtZW51LWJhciI+CiAgICAgICAgICAgICAgICAgICAgPHBvbHlnb24gaWQ9InNlbGVjdC1hbGxvdyIgcG9pbnRzPSI3NSAxNCA4MCAxOSA4NSAxNCI+PC9wb2x5Z29uPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4='), -webkit-linear-gradient(bottom, rgba(0, 0, 0, .12) 50%, rgba(0, 0, 0, .12) 50%);
-  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTBweCIgaGVpZ2h0PSI1cHgiIHZpZXdCb3g9IjAgMCAxMCA1IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPCEtLSBHZW5lcmF0b3I6IFNrZXRjaCA0My4yICgzOTA2OSkgLSBodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2ggLS0+CiAgICA8dGl0bGU+c2VsZWN0LWFsbG93PC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGRlZnM+PC9kZWZzPgogICAgPGcgaWQ9InNlbGVjdCIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9Imlvcy1zZWxlY3QiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xOTguMDAwMDAwLCAtMTE0LjAwMDAwMCkiIGZpbGw9IiM3NTc1NzUiPgogICAgICAgICAgICA8ZyBpZD0ibWVudS1iYXItKy1vcGVuLW1lbnUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyMy4wMDAwMDAsIDEwMC4wMDAwMDApIj4KICAgICAgICAgICAgICAgIDxnIGlkPSJtZW51LWJhciI+CiAgICAgICAgICAgICAgICAgICAgPHBvbHlnb24gaWQ9InNlbGVjdC1hbGxvdyIgcG9pbnRzPSI3NSAxNCA4MCAxOSA4NSAxNCI+PC9wb2x5Z29uPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4='), linear-gradient(to top, rgba(0, 0, 0, .12) 50%, rgba(0, 0, 0, .12) 50%);
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTBweCIgaGVpZ2h0PSI1cHgiIHZpZXdCb3g9IjAgMCAxMCA1IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPCEtLSBHZW5lcmF0b3I6IFNrZXRjaCA0My4yICgzOTA2OSkgLSBodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2ggLS0+CiAgICA8dGl0bGU+c2VsZWN0LWFsbG93PC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGRlZnM+PC9kZWZzPgogICAgPGcgaWQ9InNlbGVjdCIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9Imlvcy1zZWxlY3QiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xOTguMDAwMDAwLCAtMTE0LjAwMDAwMCkiIGZpbGw9IiM3NTc1NzUiPgogICAgICAgICAgICA8ZyBpZD0ibWVudS1iYXItKy1vcGVuLW1lbnUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyMy4wMDAwMDAsIDEwMC4wMDAwMDApIj4KICAgICAgICAgICAgICAgIDxnIGlkPSJtZW51LWJhciI+CiAgICAgICAgICAgICAgICAgICAgPHBvbHlnb24gaWQ9InNlbGVjdC1hbGxvdyIgcG9pbnRzPSI3NSAxNCA4MCAxOSA4NSAxNCI+PC9wb2x5Z29uPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4='), -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.12) 50%, rgba(0, 0, 0, 0.12) 50%);
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTBweCIgaGVpZ2h0PSI1cHgiIHZpZXdCb3g9IjAgMCAxMCA1IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPCEtLSBHZW5lcmF0b3I6IFNrZXRjaCA0My4yICgzOTA2OSkgLSBodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2ggLS0+CiAgICA8dGl0bGU+c2VsZWN0LWFsbG93PC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGRlZnM+PC9kZWZzPgogICAgPGcgaWQ9InNlbGVjdCIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9Imlvcy1zZWxlY3QiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xOTguMDAwMDAwLCAtMTE0LjAwMDAwMCkiIGZpbGw9IiM3NTc1NzUiPgogICAgICAgICAgICA8ZyBpZD0ibWVudS1iYXItKy1vcGVuLW1lbnUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyMy4wMDAwMDAsIDEwMC4wMDAwMDApIj4KICAgICAgICAgICAgICAgIDxnIGlkPSJtZW51LWJhciI+CiAgICAgICAgICAgICAgICAgICAgPHBvbHlnb24gaWQ9InNlbGVjdC1hbGxvdyIgcG9pbnRzPSI3NSAxNCA4MCAxOSA4NSAxNCI+PC9wb2x5Z29uPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4='), linear-gradient(to top, rgba(0, 0, 0, 0.12) 50%, rgba(0, 0, 0, 0.12) 50%);
   background-size: auto, 100% 1px;
   background-repeat: no-repeat;
   background-position: right center, left bottom;
@@ -6375,9 +6468,9 @@ h4, h5, h6 {
   font-weight: 400;
   cursor: default;
   position: absolute;
-  left: 9px;
-  right: 9px;
-  bottom: 7px;
+  left: 10px; /* iOS 9, 10, 11 */
+  right: 10px; /* iOS 9, 10, 11 */
+  bottom: 10px; /* iOS 9, 10, 11 */
   z-index: 2;
 }
 .action-sheet-button {
@@ -6428,7 +6521,7 @@ h4, h5, h6 {
 }
 .action-sheet-button:last-of-type {
   border-radius: 12px;
-  margin: 7px 0 0 0;
+  margin: 8px 0 0 0; /* iOS 9, 10, 11 */
   background-color: #fff;
   background-image: none;
   font-weight: 600;
@@ -6570,7 +6663,7 @@ h4, h5, h6 {
   name: Card
   category: Card
   markup: |
-    <div style="background-color: #eee; height: 200px; padding: 1px 0 0 0;">
+    <div style="height: 200px; padding: 1px 0 0 0;">
       <div class="card">
         <div class="card__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
       </div>
@@ -6589,6 +6682,7 @@ h4, h5, h6 {
   margin: 8px;
   padding: 16px;
   text-align: left;
+  word-wrap: break-word;
 }
 .card__content {
   margin: 0;
@@ -6600,7 +6694,7 @@ h4, h5, h6 {
   name: Card with Title
   category: Card
   markup: |
-    <div style="background-color: #eee; height: 200px; padding: 1px 0 0 0;">
+    <div style="height: 200px; padding: 1px 0 0 0;">
       <div class="card">
         <h2 class="card__title">Card Title</h2>
         <div class="card__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
@@ -6623,7 +6717,7 @@ h4, h5, h6 {
   name: Material Card
   category: Card
   markup: |
-    <div style="background-color: #eee; height: 200px; padding: 1px 0 0 0;">
+    <div style="height: 200px; padding: 1px 0 0 0;">
       <div class="card card--material">
         <div class="card__content card--material__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
       </div>
@@ -6648,7 +6742,7 @@ h4, h5, h6 {
   name: Material Card with Title
   category: Card
   markup: |
-    <div style="background-color: #eee; height: 200px; padding: 1px 0 0 0;">
+    <div style="height: 200px; padding: 1px 0 0 0;">
       <div class="card card--material">
         <div class="card__title card--material__title">Card Title</div>
         <div class="card__content card--material__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
@@ -6685,7 +6779,7 @@ h4, h5, h6 {
   border-radius: 8px;
   background-color: rgba(0, 0, 0, .8);
   display: -webkit-box;
-  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   min-height: 48px;
   line-height: 48px;
@@ -6696,7 +6790,7 @@ h4, h5, h6 {
   font-size: 14px;
   color: white;
   -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
+  -webkit-flex-grow: 1;
           flex-grow: 1;
   text-align: left;
   margin: 0 16px 0 0;
@@ -6708,7 +6802,7 @@ h4, h5, h6 {
   font-size: 14px;
   color: white;
   -webkit-box-flex: 0;
-      -ms-flex-positive: 0;
+  -webkit-flex-grow: 0;
           flex-grow: 0;
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -6752,5 +6846,525 @@ h4, h5, h6 {
   font-family: 'Roboto', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
   font-weight: 400;
-  color: #80cbc4;
+  color: #bbdefb;
 }
+/* ------- */
+/* Default */
+/* ------- */
+/* All toolbar */
+.toolbar {
+  top: 0;
+  box-sizing: border-box;
+  padding-top: 0;
+}
+.bottom-bar {
+  bottom: 0;
+  box-sizing: border-box;
+  padding-bottom: 0;
+}
+/* All page__background with a ordinal toolbar */
+.toolbar+.page__background {
+  top: 44px;
+}
+/* All page__background with a transparent toolbar */
+.toolbar.toolbar--transparent+.page__background {
+  top: 0;
+}
+/* All page__content without toolbars */
+.page__content {
+  top: 0;
+  padding-top: 0;
+
+  bottom: 0;
+}
+/* All page__content with a toolbar */
+.toolbar+.page__background+.page__content {
+  top: 44px;
+  padding-top: 0;
+}
+/* All page__content with a bottom-bar */
+.page-with-bottom-toolbar > .page__content {
+  bottom: 44px;
+}
+/* All page__content with a transparent cover-content toolbar and its direct descendant page_content */
+.toolbar.toolbar--transparent.toolbar--cover-content+.page__background+.page__content,
+.toolbar.toolbar--transparent.toolbar--cover-content+.page__background+.page__content .page_content {
+  top: 0;
+  padding-top: 44px;
+}
+/* All top tabbar */
+.tabbar--top {
+  padding-top: 0;
+}
+/* All bottom tabbar */
+.tabbar:not(.tabbar--top) {
+  padding-bottom: 0;
+}
+/* -------- */
+/* Material */
+/* -------- */
+/* All page__background with a material toolbar */
+.toolbar.toolbar--material+.page__background {
+  top: 56px;
+}
+/* All page__content with a material toolbar */
+.toolbar.toolbar--material+.page__background+.page__content {
+  top: 56px;
+  padding-top: 0;
+}
+/* All page__content with a material transparent cover-content toolbar and its direct descendant page_content */
+.toolbar.toolbar--material.toolbar--transparent.toolbar--cover-content+.page__background+.page__content,
+.toolbar.toolbar--material.toolbar--transparent.toolbar--cover-content+.page__background+.page__content .page_content {
+  top: 0;
+  padding-top: 56px;
+}
+/* non BEM */
+/* @import './util.css'; */
+@media (orientation: landscape) {
+  html[onsflag-iphonex-landscape] .page__content {
+    padding-left: 44px;
+    padding-right: 44px;
+  }
+  /* Ignore if the page is in dialogs or modals */
+  html[onsflag-iphonex-landscape] .dialog .page__content,
+  html[onsflag-iphonex-landscape] .modal .page__content {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+/* @import './switch.css'; */
+/* @import './range.css'; */
+/* @import './notification.css'; */
+@media (orientation: landscape) {
+  html[onsflag-iphonex-landscape] .toolbar__left {
+    padding-left: 44px;
+  }
+
+  html[onsflag-iphonex-landscape] .toolbar__right {
+    padding-right: 44px;
+  }
+
+  html[onsflag-iphonex-landscape] .bottom-bar {
+    padding-right: 44px;
+    padding-left: 44px;
+  }
+}
+/* @import './button.css'; */
+/* @import './button-bar.css'; */
+/* @import './segment.css'; */
+@media (orientation: landscape) {
+  html[onsflag-iphonex-landscape] .tabbar {
+    padding-left: 44px;
+    padding-right: 44px;
+    width: calc(100% - 44px - 44px);
+  }
+}
+/* @import './toolbar-button.css'; */
+/* @import './checkbox.css'; */
+/* @import './radio-button.css'; */
+/* @import './list.css'; */
+/* @import './search-input.css'; */
+/* @import './text-input.css'; */
+/* @import './textarea.css'; */
+/* @import './dialog.css'; */
+/* @import './alert-dialog.css'; */
+/* @import './popover.css'; */
+/* @import './progress-bar.css'; */
+/* @import './progress-circular.css'; */
+@media (orientation: portrait) {
+  /* For top safe area */
+  html[onsflag-iphonex-portrait] .fab--top__left,
+  html[onsflag-iphonex-portrait] .fab--top__center,
+  html[onsflag-iphonex-portrait] .fab--top__right {
+    top: 64px;
+  }
+
+  /* For bottom safe area */
+  html[onsflag-iphonex-portrait] .fab--bottom__left,
+  html[onsflag-iphonex-portrait] .fab--bottom__center,
+  html[onsflag-iphonex-portrait] .fab--bottom__right {
+    bottom: 34px; /* Omit 20px space */
+  }
+}
+@media (orientation: landscape) {
+  /* For bottom safe area */
+  html[onsflag-iphonex-landscape] .fab--bottom__left,
+  html[onsflag-iphonex-landscape] .fab--bottom__center,
+  html[onsflag-iphonex-landscape] .fab--bottom__right {
+    bottom: 21px; /* Omit 20px space */
+  }
+  
+  /* For left safe area */
+  html[onsflag-iphonex-landscape] .fab--top__left,
+  html[onsflag-iphonex-landscape] .fab--bottom__left {
+    left: 44px; /* Omit 20px space */
+  }
+
+  /* For right safe area */
+  html[onsflag-iphonex-landscape] .fab--top__right,
+  html[onsflag-iphonex-landscape] .fab--bottom__right {
+    right: 44px; /* Omit 20px space */
+  }
+}
+/* @import './modal.css'; */
+/* @import './select.css'; */
+@media (orientation: portrait) {
+  html[onsflag-iphonex-portrait] .action-sheet {
+    bottom: 48px; /* bottom safe area + 14 pt (extra bottom margin) */
+  }
+}
+@media (orientation: landscape) {
+  html[onsflag-iphonex-landscape] .action-sheet {
+    /* The width in landscape mode is the same as the width in portrait mode */
+    left: calc((100vw - (100vh + 20px)) / 2);
+    right: calc((100vw - (100vh + 20px)) / 2);
+    bottom: 33px; /* bottom safe area + 12 pt (extra bottom margin) */
+  }
+}
+/* @import './card.css'; */
+@media (orientation: portrait) {
+  html[onsflag-iphonex-portrait] .toast {
+    bottom: 34px;
+  }
+}
+@media (orientation: landscape) {
+  html[onsflag-iphonex-landscape] .toast {
+    left: 52px;
+    right: 52px;
+    bottom: 21px;
+  }
+}
+/*
+  Note:
+
+  :not(X) does not work if X is a complex selector like `.foo .bar` due to the spec of :not(X).
+  Instead we have to use the following form for representing A:not(X A):not(Y A):not(Z A),
+  which means `A which does not have any X, Y and Z as its ancestors`.
+
+  // Equivalent to A:not(X A):not(Y A):not(Z A) { foo: bar; }
+  A {
+    // Apply styles for A
+    foo: bar;
+  }
+  X A,
+  Y A,
+  Z A {
+    // Subtract `X A`, `Y A` and `Z A`
+    // (Restore original styles of A)
+  }
+*/
+/*
+  Note:
+
+  @apply has been deprecated as of Oct, 2017.
+  Please do not use @apply to restore original styles.
+*/
+/* Bars and page contents */
+@media (orientation: portrait) {
+  /* Outermost toolbar */
+  html[onsflag-iphonex-portrait] .toolbar {
+    top: 0;
+    box-sizing: content-box;
+    padding-top: 44px;
+  }
+  /* Non-outermost */
+  html[onsflag-iphonex-portrait] .dialog .toolbar, /* if wrapped with dialogs */
+  html[onsflag-iphonex-portrait] .modal .toolbar, /* if wrapped with modals */
+  html[onsflag-iphonex-portrait] .toolbar:not(.toolbar--cover-content)+.page__background+.page__content .toolbar, /* if wrapped with a page with a toolbar */
+  html[onsflag-iphonex-portrait] .tabbar--top__content .toolbar { /* if wrapped with a top tabbar */
+    /* Restore original styles */
+    top: 0;
+    box-sizing: border-box;
+    padding-top: 0;
+  }
+
+  /* Outermost bottom-bar */
+  html[onsflag-iphonex-portrait] .bottom-bar {
+    bottom: 0;
+    box-sizing: content-box;
+    padding-bottom: 34px;
+  }
+  /* Non-outermost */
+  html[onsflag-iphonex-portrait] .dialog .bottom-bar, /* if wrapped with dialogs */
+  html[onsflag-iphonex-portrait] .modal .bottom-bar, /* if wrapped with modals */
+  html[onsflag-iphonex-portrait] .page-with-bottom-toolbar > .page__content .bottom-bar, /* if wrapped with a page with a bottom-bar */
+  html[onsflag-iphonex-portrait] .tabbar__content:not(.tabbar--top__content) .bottom-bar { /* if wrapped with a bottom tabbar */
+    /* Restore original styles */
+    bottom: 0;
+    box-sizing: border-box;
+    padding-bottom: 0;
+  }
+
+  /* Outermost page__content without toolbars or bottom-bars */
+  html[onsflag-iphonex-portrait] .page__content {
+    top: 0;
+    padding-top: 44px;
+    bottom: 0;
+    padding-bottom: 34px;
+  }
+  /* Non-outermost */
+  html[onsflag-iphonex-portrait] .dialog .page__content, /* if wrapped with dialogs */
+  html[onsflag-iphonex-portrait] .modal .page__content, /* if wrapped with modals */
+  html[onsflag-iphonex-portrait] .toolbar:not(.toolbar--cover-content)+.page__background+.page__content .page__content, /* if wrapped with a page with a toolbar */
+  html[onsflag-iphonex-portrait] .tabbar--top__content .page__content, /* if wrapped with a top tabbar */
+  html[onsflag-iphonex-portrait] .toolbar:not(.toolbar--cover-content)+.page__background+.page__content { /* if the page has a toolbar */
+    /* Restore original styles */
+    top: 0;
+    padding-top: 0;
+  }
+  html[onsflag-iphonex-portrait] .dialog .page__content, /* if wrapped with dialogs */
+  html[onsflag-iphonex-portrait] .modal .page__content, /* if wrapped with modals */
+  html[onsflag-iphonex-portrait] .page-with-bottom-toolbar > .page__content .page__content, /* if wrapped with a page with a bottom-bar */
+  html[onsflag-iphonex-portrait] .tabbar__content:not(.tabbar--top__content) .page__content, /* if wrapped with a bottom tabbar */
+  html[onsflag-iphonex-portrait] .page-with-bottom-toolbar > .page__content { /* if the page has a bottom-bar */
+    /* Restore original styles */
+    bottom: 0;
+    padding-bottom: 0;
+  }
+
+  /* Outermost page__content with a toolbar */
+  html[onsflag-iphonex-portrait] .toolbar:not(.toolbar--cover-content)+.page__background+.page__content {
+    top: 88px;
+    padding-top: 0;
+  }
+  /* Non-outermost */
+  html[onsflag-iphonex-portrait] .dialog .toolbar:not(.toolbar--cover-content)+.page__background+.page__content, /* if wrapped with dialogs */
+  html[onsflag-iphonex-portrait] .modal .toolbar:not(.toolbar--cover-content)+.page__background+.page__content, /* if wrapped with modals */
+  html[onsflag-iphonex-portrait] .toolbar:not(.toolbar--cover-content)+.page__background+.page__content .toolbar:not(.toolbar--cover-content)+.page__background+.page__content, /* if wrapped with a page with a toolbar */
+  html[onsflag-iphonex-portrait] .tabbar--top__content .toolbar:not(.toolbar--cover-content)+.page__background+.page__content { /* if wrapped with a top tabbar */
+    /* Restore original styles */
+    top: 44px;
+    padding-top: 0;
+  }
+
+  /* Outermost page__content with a bottom-bar */
+  html[onsflag-iphonex-portrait] .page-with-bottom-toolbar > .page__content {
+    bottom: 78px;
+    padding-bottom: 0;
+  }
+  /* Non-outermost */
+  html[onsflag-iphonex-portrait] .dialog .page-with-bottom-toolbar > .page__content, /* if wrapped with dialogs */
+  html[onsflag-iphonex-portrait] .modal .page-with-bottom-toolbar > .page__content, /* if wrapped with modals */
+  html[onsflag-iphonex-portrait] .page-with-bottom-toolbar > .page__content .page-with-bottom-toolbar > .page__content, /* if wrapped with a page with a bottom-bar */
+  html[onsflag-iphonex-portrait] .tabbar__content:not(.tabbar--top__content) .page-with-bottom-toolbar > .page__content { /* if wrapped with a bottom tabbar */
+    /* Restore original styles */
+    bottom: 44px;
+    padding-bottom: 0;
+  }
+
+  /* Outermost page__content with a transparent cover-content toolbar and its direct descendant page_content */
+  html[onsflag-iphonex-portrait] .toolbar.toolbar--transparent.toolbar--cover-content+.page__background+.page__content,
+  html[onsflag-iphonex-portrait] .toolbar.toolbar--transparent.toolbar--cover-content+.page__background+.page__content .page_content {
+    top: 0;
+    padding-top: 88px;
+  }
+  /* Non-outermost */
+  html[onsflag-iphonex-portrait] .dialog .toolbar.toolbar--transparent.toolbar--cover-content+.page__background+.page__content, /* if wrapped with dialogs */
+  html[onsflag-iphonex-portrait] .dialog .toolbar.toolbar--transparent.toolbar--cover-content+.page__background+.page__content .page_content,
+  html[onsflag-iphonex-portrait] .modal .toolbar.toolbar--transparent.toolbar--cover-content+.page__background+.page__content, /* if wrapped with modals */
+  html[onsflag-iphonex-portrait] .modal .toolbar.toolbar--transparent.toolbar--cover-content+.page__background+.page__content .page_content,
+  html[onsflag-iphonex-portrait] .toolbar:not(.toolbar--cover-content)+.page__background+.page__content .toolbar.toolbar--transparent.toolbar--cover-content+.page__background+.page__content, /* if wrapped with a page with a toolbar */
+  html[onsflag-iphonex-portrait] .toolbar:not(.toolbar--cover-content)+.page__background+.page__content .toolbar.toolbar--transparent.toolbar--cover-content+.page__background+.page__content .page__content,
+  html[onsflag-iphonex-portrait] .tabbar--top__content .toolbar.toolbar--transparent.toolbar--cover-content+.page__background+.page__content,
+  html[onsflag-iphonex-portrait] .tabbar--top__content .toolbar.toolbar--transparent.toolbar--cover-content+.page__background+.page__content .page_content {  /* if wrapped with a top tabbar */
+    /* Restore original styles */
+    top: 0;
+    padding-top: 44px;
+  }
+
+  /* Outermost top tabbar */
+  html[onsflag-iphonex-portrait] .tabbar--top {
+    padding-top: 44px;
+  }
+  /* Non-outermost */
+  html[onsflag-iphonex-portrait] .dialog .tabbar--top, /* if wrapped with dialogs */
+  html[onsflag-iphonex-portrait] .modal .tabbar--top, /* if wrapped with modals */
+  html[onsflag-iphonex-portrait] .toolbar:not(.toolbar--cover-content)+.page__background+.page__content .tabbar--top, /* if wrapped with a page with a toolbar */
+  html[onsflag-iphonex-portrait] .tabbar--top__content .tabbar--top { /* if wrapped with a top tabbar */
+    /* Restore original styles */
+    padding-top: 0;
+  }
+
+  /* Outermost tabbar--top__content */
+  html[onsflag-iphonex-portrait] .tabbar--top__content {
+    top: 93px;
+  }
+  /* Non-outermost */
+  html[onsflag-iphonex-portrait] .dialog .tabbar--top__content, /* if wrapped with dialogs */
+  html[onsflag-iphonex-portrait] .modal .tabbar--top__content, /* if wrapped with modals */
+  html[onsflag-iphonex-portrait] .toolbar:not(.toolbar--cover-content)+.page__background+.page__content .tabbar--top__content, /* if wrapped with a page with a toolbar */
+  html[onsflag-iphonex-portrait] .tabbar--top__content .tabbar--top__content { /* if wrapped with a top tabbar */
+    /* Restore original styles */
+    top: 49px;
+  }
+
+  /* Outermost bottom tabbar */
+  html[onsflag-iphonex-portrait] .tabbar:not(.tabbar--top):not(.tabbar--top) {
+    padding-bottom: 34px;
+  }
+  /* Non-outermost */
+  html[onsflag-iphonex-portrait] .dialog .tabbar:not(.tabbar--top):not(.tabbar--top), /* if wrapped with dialogs */
+  html[onsflag-iphonex-portrait] .modal .tabbar:not(.tabbar--top):not(.tabbar--top), /* if wrapped with modals */
+  html[onsflag-iphonex-portrait] .page-with-bottom-toolbar > .page__content .tabbar:not(.tabbar--top), /* if wrapped with a page with a bottom-bar */
+  html[onsflag-iphonex-portrait] .tabbar__content:not(.tabbar--top__content) .tabbar:not(.tabbar--top) { /* if wrapped with a bottom tabbar */
+    /* Restore original styles */
+    padding-bottom: 0;
+  }
+
+  /* Outermost.tabbar__content:not(.tabbar--top__content) */
+  html[onsflag-iphonex-portrait] .tabbar__content:not(.tabbar--top__content) {
+    bottom: 83px;
+  }
+  /* Non-outermost */
+  html[onsflag-iphonex-portrait] .dialog .tabbar__content:not(.tabbar--top__content), /* if wrapped with dialogs */
+  html[onsflag-iphonex-portrait] .modal .tabbar__content:not(.tabbar--top__content), /* if wrapped with modals */
+  html[onsflag-iphonex-portrait] .page-with-bottom-toolbar > .page__content .tabbar__content:not(.tabbar--top__content), /* if wrapped with a page with a bottom-bar */
+  html[onsflag-iphonex-portrait] .tabbar__content:not(.tabbar--top__content) .tabbar__content:not(.tabbar--top__content) { /* if wrapped with a bottom tabbar */
+    /* Restore original styles */
+    bottom: 49px;
+  }
+}
+@media (orientation: landscape) {
+  /* Outermost bottom-bar */
+  html[onsflag-iphonex-landscape] .bottom-bar {
+    bottom: 0;
+    box-sizing: content-box;
+    padding-bottom: 21px;
+  }
+  /* Non-outermost */
+  html[onsflag-iphonex-landscape] .dialog .bottom-bar, /* if wrapped with dialogs */
+  html[onsflag-iphonex-landscape] .modal .bottom-bar, /* if wrapped with modals */
+  html[onsflag-iphonex-landscape] .page-with-bottom-toolbar > .page__content .bottom-bar, /* if wrapped with a page with a bottom-bar */
+  html[onsflag-iphonex-landscape] .tabbar__content:not(.tabbar--top__content) .bottom-bar { /* if wrapped with a bottom tabbar */
+    /* Restore original styles */
+    bottom: 0;
+    box-sizing: border-box;
+    padding-bottom: 0;
+  }
+
+  /* Outermost page__content without bottom-bars */
+  html[onsflag-iphonex-landscape] .page__content {
+    bottom: 0;
+    padding-bottom: 21px;
+  }
+  /* Non-outermost */
+  html[onsflag-iphonex-landscape] .dialog .page__content, /* if wrapped with dialogs */
+  html[onsflag-iphonex-landscape] .modal .page__content, /* if wrapped with modals */
+  html[onsflag-iphonex-landscape] .page-with-bottom-toolbar > .page__content .page__content, /* if wrapped with a page with a bottom-bar */
+  html[onsflag-iphonex-landscape] .tabbar__content:not(.tabbar--top__content) .page__content, /* if wrapped with a bottom tabbar */
+  html[onsflag-iphonex-landscape] .page-with-bottom-toolbar > .page__content { /* if the page has a bottom-bar */
+    /* Restore original styles */
+    bottom: 0;
+    padding-bottom: 0;
+  }
+
+  /* Outermost page__content with a bottom-bar */
+  html[onsflag-iphonex-landscape] .page-with-bottom-toolbar > .page__content {
+    bottom: 65px;
+    padding-bottom: 0;
+  }
+  /* Non-outermost */
+  html[onsflag-iphonex-landscape] .dialog .page-with-bottom-toolbar > .page__content, /* if wrapped with dialogs */
+  html[onsflag-iphonex-landscape] .modal .page-with-bottom-toolbar > .page__content, /* if wrapped with modals */
+  html[onsflag-iphonex-landscape] .page-with-bottom-toolbar > .page__content .page-with-bottom-toolbar > .page__content, /* if wrapped with a page with a bottom-bar */
+  html[onsflag-iphonex-landscape] .tabbar__content:not(.tabbar--top__content) .page-with-bottom-toolbar > .page__content { /* if wrapped with a bottom tabbar */
+    /* Restore original styles */
+    bottom: 44px;
+    padding-bottom: 0;
+  }
+
+  /* Outermost bottom tabbar */
+  html[onsflag-iphonex-landscape] .tabbar:not(.tabbar--top) {
+    padding-bottom: 21px;
+  }
+  /* Non-outermost */
+  html[onsflag-iphonex-landscape] .dialog .tabbar:not(.tabbar--top), /* if wrapped with dialogs */
+  html[onsflag-iphonex-landscape] .modal .tabbar:not(.tabbar--top), /* if wrapped with modals */
+  html[onsflag-iphonex-landscape] .page-with-bottom-toolbar > .page__content .tabbar:not(.tabbar--top), /* if wrapped with a page with a bottom-bar */
+  html[onsflag-iphonex-landscape] .tabbar__content:not(.tabbar--top__content) .tabbar:not(.tabbar--top) { /* if wrapped with a bottom tabbar */
+    /* Restore original styles */
+    padding-bottom: 0;
+  }
+
+  /* Outermost.tabbar__content:not(.tabbar--top__content) */
+  html[onsflag-iphonex-landscape] .tabbar__content:not(.tabbar--top__content) {
+    bottom: 70px;
+  }
+  /* Non-outermost */
+  html[onsflag-iphonex-landscape] .dialog .tabbar__content:not(.tabbar--top__content), /* if wrapped with dialogs */
+  html[onsflag-iphonex-landscape] .modal .tabbar__content:not(.tabbar--top__content), /* if wrapped with modals */
+  html[onsflag-iphonex-landscape] .page-with-bottom-toolbar > .page__content .tabbar__content:not(.tabbar--top__content), /* if wrapped with a page with a bottom-bar */
+  html[onsflag-iphonex-landscape] .tabbar__content:not(.tabbar--top__content) .tabbar__content:not(.tabbar--top__content) { /* if wrapped with a bottom tabbar */
+    /* Restore original styles */
+    bottom: 49px;
+  }
+}
+/* Lists in .page__content */
+@media (orientation: landscape) {
+  /* Only patching lists just under .page__content */
+  html[onsflag-iphonex-landscape] .page__content > .list:not(.list--inset) {
+    margin-left: -44px;
+    margin-right: -44px;
+  }
+
+  /* For left safe area */
+  html[onsflag-iphonex-landscape] .page__content > .list:not(.list--inset) > .list-header {
+    padding-left: 59px;
+  }
+  html[onsflag-iphonex-landscape] .page__content > .list:not(.list--inset) > .list-item {
+    /* margin-left is not suitable for iPhone X patch. Using padding-left here. */
+    padding-left: 58px;
+  }
+
+  /* For right safe area */
+  html[onsflag-iphonex-landscape] .page__content > .list:not(.list--inset) > .list-item--chevron:before {
+    right: 60px;
+  }
+  html[onsflag-iphonex-landscape] .page__content > .list:not(.list--inset) > .list-item > .list-item__center:last-child {
+    padding-right: 50px;
+  }
+  html[onsflag-iphonex-landscape] .page__content > .list:not(.list--inset) > .list-item > .list-item__right {
+    padding-right: 56px;
+  }
+  html[onsflag-iphonex-landscape] .page__content > .list:not(.list--inset) > .list-item > .list-item--chevron__right {
+    padding-right: 74px;
+  }
+}
+/* Lists in .page__content in dialogs and modals */
+@media (orientation: landscape) {
+  /* Only patching lists just under .page__content */
+  html[onsflag-iphonex-landscape] .dialog .page__content > .list:not(.list--inset),
+  html[onsflag-iphonex-landscape] .modal .page__content > .list:not(.list--inset) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  /* For left safe area */
+  html[onsflag-iphonex-landscape] .dialog .page__content > .list:not(.list--inset) > .list-header,
+  html[onsflag-iphonex-landscape] .modal .page__content > .list:not(.list--inset) > .list-header {
+    padding-left: 15px;
+  }
+  html[onsflag-iphonex-landscape] .dialog .page__content > .list:not(.list--inset) > .list-item,
+  html[onsflag-iphonex-landscape] .modal .page__content > .list:not(.list--inset) > .list-item {
+    padding-left: 14px;
+  }
+
+  /* For right safe area */
+  html[onsflag-iphonex-landscape] .dialog .page__content > .list:not(.list--inset) > .list-item--chevron:before,
+  html[onsflag-iphonex-landscape] .modal .page__content > .list:not(.list--inset) > .list-item--chevron:before {
+    right: 16px;
+  }
+  html[onsflag-iphonex-landscape] .dialog .page__content > .list:not(.list--inset) > .list-item > .list-item__center:last-child,
+  html[onsflag-iphonex-landscape] .modal .page__content > .list:not(.list--inset) > .list-item > .list-item__center:last-child {
+    padding-right: 6px;
+  }
+  html[onsflag-iphonex-landscape] .dialog .page__content > .list:not(.list--inset) > .list-item > .list-item__right,
+  html[onsflag-iphonex-landscape] .modal .page__content > .list:not(.list--inset) > .list-item > .list-item__right {
+    padding-right: 12px;
+  }
+  html[onsflag-iphonex-landscape] .dialog .page__content > .list:not(.list--inset) > .list-item > .list-item--chevron__right,
+  html[onsflag-iphonex-landscape] .modal .page__content > .list:not(.list--inset) > .list-item > .list-item--chevron__right {
+    padding-right: 30px;
+  }
+}
+/* non BEM */

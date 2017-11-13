@@ -44,9 +44,9 @@ const _animatorDict = {
  *  [ja][/ja]
  * @codepen rOQOML
  * @tutorial vanilla/Reference/splitter
- * @guide multiple-page-navigation
+ * @guide fundamentals.html#managing-pages
  *  [en]Managing multiple pages.[/en]
- *  [ja]Managing multiple pages[/ja]
+ *  [ja]複数のページを管理する[/ja]
  * @seealso ons-splitter-content
  *  [en]The `<ons-splitter-content>` component contains the main content of the page.[/en]
  *  [ja]ons-splitter-contentコンポーネント[/ja]
@@ -170,7 +170,7 @@ export default class SplitterElement extends BaseElement {
   _layout() {
     this._sides.forEach(side => {
       if (this.content) {
-        this.content.style[side.side] = side.mode === 'split' ? side._width : 0;
+        this.content.style[side.side] = side.mode === 'split' ? side.style.width : 0;
       }
     });
   }
@@ -178,29 +178,23 @@ export default class SplitterElement extends BaseElement {
   constructor() {
     super();
 
-    this._boundOnModeChange = this._onModeChange.bind(this);
+    this._onModeChange = this._onModeChange.bind(this);
 
     contentReady(this, () => {
-      this._compile();
+      !this.mask && this.appendChild(document.createElement('ons-splitter-mask'));
       this._layout();
     });
   }
 
-  _compile() {
-    if (!this.mask) {
-      this.appendChild(document.createElement('ons-splitter-mask'));
-    }
-  }
-
   connectedCallback() {
     this.onDeviceBackButton = this._onDeviceBackButton.bind(this);
-    this.addEventListener('modechange', this._boundOnModeChange, false);
+    this.addEventListener('modechange', this._onModeChange, false);
   }
 
   disconnectedCallback() {
     this._backButtonHandler.destroy();
     this._backButtonHandler = null;
-    this.removeEventListener('modechange', this._boundOnModeChange, false);
+    this.removeEventListener('modechange', this._onModeChange, false);
   }
 
   attributeChangedCallback(name, last, current) {}
