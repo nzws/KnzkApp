@@ -15,6 +15,7 @@ limitations under the License.
 
 */
 
+import styler from '../ons/styler';
 import BaseElement from './base/base-element';
 
 /**
@@ -27,7 +28,7 @@ import BaseElement from './base/base-element';
  *   [en]For Android 4.3 and earlier, and iOS6 and earlier, when using mixed alignment with ons-row and ons-column, they may not be displayed correctly. You can use only one alignment.[/en]
  *   [ja]Android 4.3以前、もしくはiOS 6以前のOSの場合、ons-rowとons-columnを組み合わせた場合に描画が崩れる場合があります。[/ja]
  * @codepen GgujC {wide}
- * @guide layouting [en]Layouting guide[/en][ja]レイアウト機能[/ja]
+ * @guide theming.html [en]Layouting guide[/en][ja]レイアウト機能[/ja]
  * @seealso ons-row
  *   [en]The `<ons-row>` component is the parent of `<ons-col>`.[/en]
  *   [ja]ons-rowコンポーネント[/ja]
@@ -75,17 +76,15 @@ export default class ColElement extends BaseElement {
 
   _updateWidth() {
     let width = this.getAttribute('width');
-    if (typeof width  === 'string') {
-      width = ('' + width).trim();
-      width = width.match(/^\d+$/) ? width + '%' : width;
+    if (!width) {
+      styler.clear(this, 'flex maxWidth');
+    } else {
+      width = width.trim().match(/^\d+$/) ? width + '%' : width;
 
-      this.style.webkitBoxFlex = '0';
-      this.style.webkitFlex = '0 0 ' + width;
-      this.style.mozBoxFlex = '0';
-      this.style.mozFlex = '0 0 ' + width;
-      this.style.msFlex = '0 0 ' + width;
-      this.style.flex = '0 0 ' + width;
-      this.style.maxWidth = width;
+      styler(this, {
+        flex: '0 0 ' + width,
+        maxWidth: width
+      });
     }
   }
 }

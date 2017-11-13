@@ -28,7 +28,7 @@ const scheme = {'': 'alert-dialog-button--*'};
  * @element ons-alert-dialog-button
  * @modifier material
  *   [en]Material Design alert-dialog button.[/en]
- *   [ja][/ja]
+ *   [ja]マテリアルデザインのボタンを表示します。[/ja]
  * @description
  *   [en][/en]
  *   [ja][/ja]
@@ -102,9 +102,7 @@ export default class AlertDialogButtonElement extends BaseElement {
   attributeChangedCallback(name, last, current) {
     switch (name) {
       case 'class':
-        if (!this.classList.contains(defaultClassName)) {
-          this.className = defaultClassName + ' ' + current;
-        }
+        util.restoreClass(this, defaultClassName, scheme);
         break;
       case 'modifier':
         ModifierUtil.onModifierChanged(last, current, this, scheme);

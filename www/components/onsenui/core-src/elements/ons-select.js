@@ -58,8 +58,8 @@ const INPUT_ATTRIBUTES = [
  *   [ja]セレクトボックスを表示するコンポーネントです。`select` 要素に使用できる属性の多くが `ons-select` 要素でも利用できます。[/ja]
  * @codepen hLayx
  * @tutorial vanilla/Reference/select
- * @guide using-modifier [en]More details about the `modifier` attribute[/en][ja]modifier属性の使い方[/ja]
- * @guide cross-platform-styling [en]Information about cross platform styling[/en][ja]Information about cross platform styling[/ja]
+ * @guide theming.html#modifiers [en]More details about the `modifier` attribute[/en][ja]modifier属性の使い方[/ja]
+ * @guide theming.html#cross-platform-styling-autostyling [en]Information about cross platform styling[/en][ja]Information about cross platform styling[/ja]
  * @example
  * <ons-select>
  *   <option value="1">1</option>
@@ -153,9 +153,7 @@ export default class SelectElement extends BaseElement {
   attributeChangedCallback(name, last, current) {
     switch (name) {
       case 'class':
-        if (!this.classList.contains(defaultClassName)) {
-          this.className = defaultClassName + ' ' + current;
-        }
+        util.restoreClass(this, defaultClassName, scheme);
         break;
       case 'modifier':
         ModifierUtil.onModifierChanged(last, current, this, scheme);

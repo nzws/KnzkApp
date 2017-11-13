@@ -99,7 +99,7 @@ ons.isWebView = ons.platform.isWebView;
  * @signature ready(callback)
  * @description
  *   [ja]アプリの初期化に利用するメソッドです。渡された関数は、Onsen UIの初期化が終了している時点で必ず呼ばれます。[/ja]
- *   [en]Method used to wait for app initialization. The callback will not be executed until Onsen UI has been completely initialized.[/en]
+ *   [en]Method used to wait for app initialization. Waits for `DOMContentLoaded` and `deviceready`, when necessary, before executing the callback.[/en]
  * @param {Function} callback
  *   [en]Function that executes after Onsen UI has been initialized.[/en]
  *   [ja]Onsen UIが初期化が完了した後に呼び出される関数オブジェクトを指定します。[/ja]
@@ -116,13 +116,16 @@ ons.ready = callback => {
  * @method setDefaultDeviceBackButtonListener
  * @signature setDefaultDeviceBackButtonListener(listener)
  * @param {Function} listener
- *   [en]Function that executes when device back button is pressed.[/en]
+ *   [en]Function that executes when device back button is pressed. Must be called on `ons.ready`.[/en]
  *   [ja]デバイスのバックボタンが押された時に実行される関数オブジェクトを指定します。[/ja]
  * @description
  *   [en]Set default handler for device back button.[/en]
  *   [ja]デバイスのバックボタンのためのデフォルトのハンドラを設定します。[/ja]
  */
 ons.setDefaultDeviceBackButtonListener = function(listener) {
+  if (!ons.isReady()) {
+    throw new Error('This method must be called after ons.isReady() is true.');
+  }
   ons._defaultDeviceBackButtonHandler.setListener(listener);
 };
 
@@ -130,10 +133,13 @@ ons.setDefaultDeviceBackButtonListener = function(listener) {
  * @method disableDeviceBackButtonHandler
  * @signature disableDeviceBackButtonHandler()
  * @description
- * [en]Disable device back button event handler.[/en]
+ * [en]Disable device back button event handler. Must be called on `ons.ready`.[/en]
  * [ja]デバイスのバックボタンのイベントを受け付けないようにします。[/ja]
  */
 ons.disableDeviceBackButtonHandler = function() {
+  if (!ons.isReady()) {
+    throw new Error('This method must be called after ons.isReady() is true.');
+  }
   ons._deviceBackButtonDispatcher.disable();
 };
 
@@ -141,10 +147,13 @@ ons.disableDeviceBackButtonHandler = function() {
  * @method enableDeviceBackButtonHandler
  * @signature enableDeviceBackButtonHandler()
  * @description
- * [en]Enable device back button event handler.[/en]
+ * [en]Enable device back button event handler. Must be called on `ons.ready`.[/en]
  * [ja]デバイスのバックボタンのイベントを受け付けるようにします。[/ja]
  */
 ons.enableDeviceBackButtonHandler = function() {
+  if (!ons.isReady()) {
+    throw new Error('This method must be called after ons.isReady() is true.');
+  }
   ons._deviceBackButtonDispatcher.enable();
 };
 
@@ -153,28 +162,60 @@ ons.enableDeviceBackButtonHandler = function() {
  * @method enableAutoStatusBarFill
  * @signature enableAutoStatusBarFill()
  * @description
- *   [en]Enable status bar fill feature on iOS7 and above.[/en]
- *   [ja]iOS7以上で、ステータスバー部分の高さを自動的に埋める処理を有効にします。[/ja]
+ *   [en]Enable status bar fill feature on iOS7 and above (except for iPhone X). Must be called before `ons.ready`.[/en]
+ *   [ja]iOS7以上（iPhone Xは除く）で、ステータスバー部分の高さを自動的に埋める処理を有効にします。[/ja]
  */
 ons.enableAutoStatusBarFill = () => {
   if (ons.isReady()) {
     throw new Error('This method must be called before ons.isReady() is true.');
   }
-  ons._internal.config.autoStatusBarFill = true;
+  internal.config.autoStatusBarFill = true;
 };
 
 /**
  * @method disableAutoStatusBarFill
  * @signature disableAutoStatusBarFill()
  * @description
- *   [en]Disable status bar fill feature on iOS7 and above.[/en]
- *   [ja]iOS7以上で、ステータスバー部分の高さを自動的に埋める処理を無効にします。[/ja]
+ *   [en]Disable status bar fill feature on iOS7 and above (except for iPhone X). Must be called before `ons.ready`.[/en]
+ *   [ja]iOS7以上（iPhone Xは除く）で、ステータスバー部分の高さを自動的に埋める処理を無効にします。[/ja]
  */
 ons.disableAutoStatusBarFill = () => {
   if (ons.isReady()) {
     throw new Error('This method must be called before ons.isReady() is true.');
   }
-  ons._internal.config.autoStatusBarFill = false;
+  internal.config.autoStatusBarFill = false;
+};
+
+/**
+ * @method mockStatusBar
+ * @signature mockStatusBar()
+ * @description
+ *   [en]Creates a static element similar to iOS status bar. Only useful for browser testing. Must be called before `ons.ready`.[/en]
+ *   [ja][/ja]
+ */
+ons.mockStatusBar = () => {
+  if (ons.isReady()) {
+    throw new Error('This method must be called before ons.isReady() is true.');
+  }
+
+  const mock = () => {
+    if (!document.body.children[0] || !document.body.children[0].classList.contains('ons-status-bar-mock')) {
+      const android = platform.isAndroid(), i = i => `<i class="${i.split('-')[0]} ${i}"></i>`;
+      const left = android ? `${i('zmdi-twitter')} ${i('zmdi-google-play')}` : `No SIM ${i('fa-wifi')}`,
+        center = android ? '' : '12:28 PM',
+        right = android ? `${i('zmdi-network')} ${i('zmdi-wifi')} ${i('zmdi-battery')} 12:28 PM` : `80% ${i('fa-battery-three-quarters')}`;
+
+      document.body.insertBefore(util.createElement(
+        `<div class="ons-status-bar-mock ${android ? 'android' : 'ios'}">` +
+          `<div>${left}</div><div>${center}</div><div>${right}</div>` +
+        `</div>`
+      ), document.body.firstChild);
+    }
+  };
+
+  document.body
+    ? mock()
+    : internal.waitDOMContentLoaded(mock);
 };
 
 /**
@@ -185,7 +226,7 @@ ons.disableAutoStatusBarFill = () => {
  *   [ja]アニメーションを全て無効にします。テストの際に便利です。[/ja]
  */
 ons.disableAnimations = () => {
-  ons._internal.config.animationsDisabled = true;
+  internal.config.animationsDisabled = true;
 };
 
 /**
@@ -196,15 +237,15 @@ ons.disableAnimations = () => {
  *   [ja]アニメーションを有効にします。[/ja]
  */
 ons.enableAnimations = () => {
-  ons._internal.config.animationsDisabled = false;
+  internal.config.animationsDisabled = false;
 };
 
 ons._disableWarnings = () => {
-  ons._internal.config.warningsDisabled = true;
+  internal.config.warningsDisabled = true;
 };
 
 ons._enableWarnings = () => {
-  ons._internal.config.warningsDisabled = false;
+  internal.config.warningsDisabled = false;
 };
 
 /**
@@ -229,7 +270,7 @@ ons.enableAutoStyling = ons._autoStyle.enable;
  * @method forcePlatformStyling
  * @signature forcePlatformStyling(platform)
  * @description
- *   [en]Refresh styling for the given platform. Only useful for demos. Use `ons.platform.select(...)` for development and production.[/en]
+ *   [en]Refresh styling for the given platform. Only useful for demos. Use `ons.platform.select(...)` instead for development and production.[/en]
  *   [ja][/ja]
  * @param {string} platform New platform to style the elements.
  */
@@ -304,10 +345,7 @@ ons.createElement = (template, options = {}) => {
     if (options.append) {
       const target = options.append instanceof HTMLElement ? options.append : document.body;
       target.insertBefore(element, options.insertBefore || null);
-
-      if (options.link instanceof Function) {
-        options.link(element);
-      }
+      options.link instanceof Function && options.link(element);
     }
 
     return element;
@@ -412,7 +450,7 @@ ons.openActionSheet = actionSheet;
  * @method resolveLoadingPlaceholder
  * @signature resolveLoadingPlaceholder(page)
  * @param {String} page
- *   [en]Page name. Can be either an HTML file or an <ons-template> element.[/en]
+ *   [en]Page name. Can be either an HTML file or a `<template>` id.[/en]
  *   [ja]pageのURLか、もしくはons-templateで宣言したテンプレートのid属性の値を指定できます。[/ja]
  * @description
  *   [en]If no page is defined for the `ons-loading-placeholder` attribute it will wait for this method being called before loading the page.[/en]
@@ -446,26 +484,19 @@ ons._setupLoadingPlaceHolders = function() {
   });
 };
 
-ons._resolveLoadingPlaceholder = function(element, page, link) {
-  link = link || function(element, done) { done(); };
-  ons._internal.getPageHTMLAsync(page).then(html => {
-
-    while (element.firstChild) {
-      element.removeChild(element.firstChild);
-    }
-
-    const contentElement = ons._util.createElement('<div>' + html + '</div>');
-    contentElement.style.display = 'none';
-
-    element.appendChild(contentElement);
-
-    link(contentElement, function() {
-      contentElement.style.display = '';
-    });
-
-  }).catch(error => {
-    throw new Error('Unabled to resolve placeholder: ' + error);
-  });
+ons._resolveLoadingPlaceholder = function(parent, page, link = ((el, done) => done())) {
+  page && ons.createElement(page)
+    .then(element => {
+      element.style.display = 'none';
+      parent.appendChild(element);
+      link(element, () => {
+        while (parent.firstChild && parent.firstChild !== element) {
+          parent.removeChild(parent.firstChild);
+        }
+        element.style.display = '';
+      });
+    })
+    .catch(error => Promise.reject('Unabled to resolve placeholder: ' + error));
 };
 
 function waitDeviceReady() {

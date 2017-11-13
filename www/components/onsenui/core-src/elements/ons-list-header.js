@@ -35,7 +35,6 @@ const scheme = {'': 'list-header--*'};
  * @seealso ons-list-item
  *   [en]The `<ons-list-item>` component[/en]
  *   [ja]ons-list-itemコンポーネント[/ja]
- * @guide lists [en]Using lists[/en][ja]リストを使う[/ja]
  * @codepen yxcCt
  * @tutorial vanilla/Reference/list
  * @modifier material
@@ -77,9 +76,7 @@ export default class ListHeaderElement extends BaseElement {
   attributeChangedCallback(name, last, current) {
     switch (name) {
       case 'class':
-        if (!this.classList.contains(defaultClassName)) {
-          this.className = defaultClassName + ' ' + current;
-        }
+        util.restoreClass(this, defaultClassName, scheme);
         break;
       case 'modifier':
         ModifierUtil.onModifierChanged(last, current, this, scheme);

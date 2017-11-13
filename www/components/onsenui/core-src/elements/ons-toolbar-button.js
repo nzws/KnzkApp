@@ -38,7 +38,7 @@ const scheme = {'': 'toolbar-button--*'};
  *   [ja]ons-toolbarあるいはons-bottom-toolbarに設置できるボタン用コンポーネントです。[/ja]
  * @codepen aHmGL
  * @tutorial vanilla/Reference/page
- * @guide adding-a-toolbar
+ * @guide compilation.html#toolbar-compilation
  *   [en]Adding a toolbar[/en]
  *   [ja]ツールバーの追加[/ja]
  * @seealso ons-toolbar
@@ -119,9 +119,7 @@ export default class ToolbarButtonElement extends BaseElement {
   attributeChangedCallback(name, last, current) {
     switch (name) {
       case 'class':
-        if (!this.classList.contains(defaultClassName)) {
-          this.className = defaultClassName + ' ' + current;
-        }
+        util.restoreClass(this, defaultClassName, scheme);
         break;
       case 'modifier':
         ModifierUtil.onModifierChanged(last, current, this, scheme);

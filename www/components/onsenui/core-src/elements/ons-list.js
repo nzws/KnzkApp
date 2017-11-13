@@ -15,6 +15,7 @@ limitations under the License.
 
 */
 
+import util from '../ons/util';
 import autoStyle from '../ons/autostyle';
 import ModifierUtil from '../ons/internal/modifier-util';
 import BaseElement from './base/base-element';
@@ -43,12 +44,6 @@ const scheme = {'': 'list--*'};
  * @seealso ons-lazy-repeat
  *   [en]ons-lazy-repeat component[/en]
  *   [ja]ons-lazy-repeatコンポーネント[/ja]
- * @guide lists
- *   [en]Using lists[/en]
- *   [ja]リストを使う[/ja]
- * @guide infinite-scroll
- *   [en]Loading more items on infinite scroll[/en]
- *   [ja]Loading more items on infinite scroll[/ja]
  * @codepen yxcCt
  * @tutorial vanilla/Reference/list
  * @example
@@ -87,9 +82,7 @@ export default class ListElement extends BaseElement {
   attributeChangedCallback(name, last, current) {
     switch (name) {
       case 'class':
-        if (!this.classList.contains(defaultClassName)) {
-          this.className = defaultClassName + ' ' + current;
-        }
+        util.restoreClass(this, defaultClassName, scheme);
         break;
       case 'modifier':
         ModifierUtil.onModifierChanged(last, current, this, scheme);

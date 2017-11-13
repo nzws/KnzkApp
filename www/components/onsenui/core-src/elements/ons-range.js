@@ -36,7 +36,7 @@ const activeClassToken = 'range__input--active';
  *   [ja][/ja]
  * @codepen xZQomM
  * @tutorial vanilla/Reference/range
- * @guide using-modifier [en]More details about the `modifier` attribute[/en][ja]modifier属性の使い方[/ja]
+ * @guide theming.html#modifiers [en]More details about the `modifier` attribute[/en][ja]modifier属性の使い方[/ja]
  * @seealso ons-input
  *   [en]The `<ons-input>` component is used to display text inputs, radio buttons and checkboxes.[/en]
  *   [ja][/ja]
@@ -89,12 +89,12 @@ export default class RangeElement extends BaseInputElement {
 
   get _template() {
     return `
-      <input type="${this.type}" class="${this._defaultElementClass}__input">
+      <input type="${this.type}" class="${this._defaultClassName}__input">
       <input type="range" class="range__focus-ring" tabIndex="-1">
     `;
   }
 
-  get _defaultElementClass() {
+  get _defaultClassName() {
     return 'range';
   }
 
