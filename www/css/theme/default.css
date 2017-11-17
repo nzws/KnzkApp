@@ -55,7 +55,6 @@ body, html, .dark-bg, .page__background {
 
 a, a:link, a:visited, a:hover {
     color: #d9e1e8 !important;
-    text-decoration: underline;
 }
 
 .toolbar-button, .back-button {

@@ -496,3 +496,7 @@ img.emoji {
 .toot_gold {
     border: 1px solid #ca8f04 !important;
 }
+
+.user-bio > p > a, .user-bio > p > a:link, .user-bio > p > a:visited, .user-bio > p > a:hover {
+    text-decoration: underline;
+}
