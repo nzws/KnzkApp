@@ -243,8 +243,14 @@ function account_action(id) {
             buttons: [
                 '返信',
                 'ブラウザで開く',
-                mute_m,
-                block_m,
+                {
+                    label: mute_m,
+                    modifier: 'destructive'
+                },
+                {
+                    label: block_m,
+                    modifier: 'destructive'
+                },
                 {
                     label: 'キャンセル',
                     icon: 'md-close'
