@@ -309,8 +309,8 @@ function more(id, acctid, pin_mode, url) {
             buttons: [
                 '詳細を表示',
                 'ブラウザで表示',
-                '元のトゥートを表示(Beta)',
-                '近くのトゥートを表示(Beta)',
+                '元のトゥートを表示',
+                '近くのトゥートを表示',
                 {
                     label: pin,
                     modifier: 'fa-thumb-tack'
