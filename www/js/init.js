@@ -74,6 +74,14 @@ function init() {
         show('now_loading');
         if (localStorage.getItem('knzk_account_token')) {
             if (localStorage.getItem('knzk_theme')) document.getElementById("theme_css").href = localStorage.getItem('knzk_theme');
+
+            if (ons.platform.isIPhoneX()) { // for iPhone X
+                document.documentElement.addAttribute('onsflag-iphonex-portrait', '1');
+                document.documentElement.addAttribute('onsflag-iphonex-landscape', '1');
+            }
+
+            if (ons.platform.isAndroid()) document.getElementById("css_toolbar_android").href = "css/toolbar-height.css";
+
             inst = localStorage.getItem('knzk_login_domain');
             fetch("https://"+inst+"/api/v1/instance").then(function(response) {
                 if(response.ok) {
