@@ -91,6 +91,7 @@
   <preference name="EnableViewportScale" value="false"/>
   <preference name="android-minSdkVersion" value="19"/>
   <preference name="StatusBarStyle" value="lightcontent"/>
+  <preference name="StatusBarOverlaysWebView" value="false" />
   <preference name="WindowsStorePublisherName" value="My Name"/>
   <preference name="WindowsStoreIdentityName" value="ef46890d-8d5c-5fca-cde1-bc1dae48e2c2"/>
   <access origin="*"/>
