@@ -480,3 +480,24 @@ img.emoji {
 .user-bio > p > a, .user-bio > p > a:link, .user-bio > p > a:visited, .user-bio > p > a:hover {
     text-decoration: underline;
 }
+
+/* 絵文字の拡大表示 */
+.fa-2x > .emojione {
+    width: 36px !important;
+    height: 36px !important;
+}
+
+.fa-3x > .emojione {
+    width: 54px !important;
+    height: 54px !important;
+}
+
+.fa-4x > .emojione {
+    width: 72px !important;
+    height: 72px !important;
+}
+
+.fa-5x > .emojione {
+    width: 90px !important;
+    height: 90px !important;
+}
