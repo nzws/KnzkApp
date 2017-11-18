@@ -10,16 +10,8 @@ KnzkAppは、BBCodeやカスタム絵文字に対応した神崎丼専用Mastodo
 
 server.jsは必要なくなりました。
 
-## 使用ライブラリ / システム
-[Monaca](https://ja.monaca.io/)   
-[Apache Cordova](https://cordova.apache.org/)  
-[Onsen UI](https://onsen.io/)  
-[EmojiOne](https://www.emojione.com/)  
-[Font Awesome](http://fontawesome.io/)  
-[Bootstrap](https://getbootstrap.com/)  
-[jQuery](https://jquery.com/)  
-[twitter.relative.time.js](https://github.com/dforest/twitter-relative-time-js)  
-[fetch-ie8](https://github.com/camsong/fetch-ie8)  
+## License
+https://github.com/KnzkDev/KnzkApp/wiki/License
 
 ## Special Thanks ✨
 [iOS版配布等: あんのたん @annotunzdy](https://knzk.me/@annotunzdy)  
