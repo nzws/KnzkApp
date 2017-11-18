@@ -489,6 +489,11 @@
                 <ons-progress-circular indeterminate></ons-progress-circular>
             </div>
         </div>
+        <ons-speed-dial position="bottom right" direction="up" id="alert-speed_dial" class="invisible">
+            <ons-fab onclick="BackTab()">
+                <ons-icon icon="fa-chevron-left"></ons-icon>
+            </ons-fab>
+        </ons-speed-dial>
     </ons-page>
 </ons-template>
 
@@ -617,6 +622,14 @@
                 </div>
                 <div class="right">
                     <ons-switch onclick="change_conf('knzk_menu-fav', 'conf-menu-fav')" input-id="conf-menu-fav"></ons-switch>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    通知ページに戻るスピダイを表示
+                </div>
+                <div class="right">
+                    <ons-switch onclick="change_conf('knzk_alert-back', 'conf-alert-back')" input-id="conf-alert-back"></ons-switch>
                 </div>
             </ons-list-item>
             <ons-list-item>

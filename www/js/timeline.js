@@ -112,6 +112,9 @@ function openTL(mode) {
                 "                    戻る\n" +
                 "                </ons-toolbar-button>";
             initph("alert");
+            if (localStorage.getItem('knzk_alert-back') == '1') {
+                $("#alert-speed_dial").removeClass("invisible");
+            }
         }, 200);
     } else {
         try {old_TL_ws.close();} catch(e) {console.log("ws_close_error");}
