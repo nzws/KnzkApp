@@ -126,7 +126,7 @@ function toot_card(toot, mode, note, toot_light) {
         "                        <div class=\"col-xs-9 toot-card-right\"> \n" +
         "                           <div class='"+namucard+"'>" +
         "                            <div class=\"toot-group\">\n" +
-        "                                <span onclick='show_account("+toot['account']['id']+")'><b>"+t_text(toot['account']['display_name'])+"</b> <small>@"+toot['account']['acct']+"</small></span> <span class='date' data-time='" + toot['created_at'] + "'>" +date+ "</span>" +
+        "                                <span onclick='show_account("+toot['account']['id']+")'><b class='toot_name'>"+t_text(toot['account']['display_name'])+"</b> <small>@"+toot['account']['acct']+"</small></span> <span class='date' data-time='" + toot['created_at'] + "'>" +date+ "</span>" +
         "                            </div>" +
         "                            <div class='toot_content tootcontent_"+toot['id']+"' data-id='"+toot['id']+"' data-dispmode='"+mode+"'>" +
         content +

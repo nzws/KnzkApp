@@ -124,8 +124,8 @@ function t_text(text) {
         i++;
     }
 
-    text = emojione.toImage(text);
-    //twemoji.parse(text);
+    //text = emojione.toImage(text);
+    text = twemoji.parse(text);
     return text;
 }
 

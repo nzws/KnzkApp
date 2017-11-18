@@ -463,11 +463,6 @@ img.emoji {
     margin-right: 0;
 }
 
-.emojione {
-    width: 20px;
-    height: 20px;
-    margin: -5px 0 0;
-}
 
 .alert-dialog-content > .text-input {
     color: #1f1f21;
@@ -481,23 +476,34 @@ img.emoji {
     text-decoration: underline;
 }
 
-/* 絵文字の拡大表示 */
-.fa-2x > .emojione {
+/* 絵文字 */
+.emoji {
+    width: 20px !important;
+    height: 20px !important;
+    margin: -5px .05em -3px .1em !important
+}
+
+.toot_name > .emoji {
+    height: 1.2em !important;
+    width: 1.2em !important;
+}
+
+.fa-2x > .emoji {
     width: 36px !important;
     height: 36px !important;
 }
 
-.fa-3x > .emojione {
+.fa-3x > .emoji {
     width: 54px !important;
     height: 54px !important;
 }
 
-.fa-4x > .emojione {
+.fa-4x > .emoji {
     width: 72px !important;
     height: 72px !important;
 }
 
-.fa-5x > .emojione {
+.fa-5x > .emoji {
     width: 90px !important;
     height: 90px !important;
 }
