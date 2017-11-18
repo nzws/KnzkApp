@@ -212,6 +212,7 @@ function initevent() {
                 if (localStorage.getItem('knzk_swipe') == 1) document.getElementById("conf-swipe").checked = "true";
                 if (localStorage.getItem('knzk_joke') == 1) document.getElementById("conf-joke").checked = "true";
                 if (localStorage.getItem('knzk_menu-fav') == 1) document.getElementById("conf-menu-fav").checked = "true";
+                if (localStorage.getItem('knzk_alert-back') == 1) document.getElementById("conf-alert-back").checked = "true";
                 if (localStorage.getItem('knzk_dial')) document.getElementById("dial_"+localStorage.getItem('knzk_dial')).selected = true;
                 if (localStorage.getItem('knzk_theme')) document.getElementById("theme_"+localStorage.getItem('knzk_theme')).selected = true;
                 hide('now_loading');
