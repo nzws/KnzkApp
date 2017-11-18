@@ -140,12 +140,20 @@
                                 通知
                             </div>
                         </ons-list-item>
-                        <ons-list-item modifier="chevron" tappable onclick="list('favourites', 'お気に入り一覧', null, 'toot')">
+                        <ons-list-item modifier="chevron" tappable onclick="list('favourites', 'お気に入り一覧', null, 'toot')" id="menu-fav-page" class="invisible">
                             <div class="left">
                                 <i class="list-item__icon list-item--chevron__icon ons-icon fa-star fa fa-fw"></i>
                             </div>
                             <div class="center">
                                 お気に入り一覧
+                            </div>
+                        </ons-list-item>
+                        <ons-list-item modifier="chevron" tappable onclick="list('follow_requests', 'フォローリクエスト', null, 'acct')" id="menu-followreq" class="invisible">
+                            <div class="left">
+                                <i class="list-item__icon list-item--chevron__icon ons-icon fa-users fa fa-fw"></i>
+                            </div>
+                            <div class="center">
+                                フォローリクエスト
                             </div>
                         </ons-list-item>
                         <ons-list-item modifier="chevron" tappable onclick="load('usermenu.html')">
@@ -249,6 +257,14 @@
             <div class="center">ユーザーメニュー</div>
         </ons-toolbar>
         <ons-list>
+            <ons-list-item modifier="chevron" tappable onclick="list('favourites', 'お気に入り一覧', null, 'toot', true)">
+                <div class="left">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-star fa fa-fw"></i>
+                </div>
+                <div class="center">
+                    お気に入り一覧
+                </div>
+            </ons-list-item>
             <ons-list-item modifier="chevron" tappable onclick="list('pin', '固定トゥート一覧', null, 'toot', true)">
                 <div class="left">
                     <i class="list-item__icon list-item--chevron__icon ons-icon fa-thumb-tack fa fa-fw"></i>
@@ -562,7 +578,7 @@
             </ons-list-item>
         </ons-list>
         <ons-list>
-            <ons-list-header>デザイン設定</ons-list-header>
+            <ons-list-header>表示設定</ons-list-header>
             <ons-list-item>
                 <div class="center">
                     大きなお気に入りボタン
@@ -597,6 +613,14 @@
             </ons-list-item>
             <ons-list-item>
                 <div class="center">
+                    メニューにお気に入り一覧を表示
+                </div>
+                <div class="right">
+                    <ons-switch onclick="change_conf('knzk_menu-fav', 'conf-menu-fav')" input-id="conf-menu-fav"></ons-switch>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
                     テーマ
                 </div>
                 <div class="right">
@@ -608,7 +632,7 @@
             </ons-list-item>
         </ons-list>
         <div class="container">
-            <p class="note">設定は再起動後に反映されます。</p>
+            <p class="note">一部の設定は再起動後に反映されます。</p>
         </div>
     </ons-page>
 </ons-template>

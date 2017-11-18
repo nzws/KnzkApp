@@ -477,33 +477,33 @@ img.emoji {
 }
 
 /* 絵文字 */
-.emoji {
+.emoji, .emojione {
     width: 20px !important;
     height: 20px !important;
     margin: -5px .05em -3px .1em !important
 }
 
-.toot_name > .emoji {
+.toot_name > .emoji,.toot_name > .emojione {
     height: 1.2em !important;
     width: 1.2em !important;
 }
 
-.fa-2x > .emoji {
+.fa-2x > .emoji, .fa-2x > .emojione {
     width: 36px !important;
     height: 36px !important;
 }
 
-.fa-3x > .emoji {
+.fa-3x > .emoji, .fa-3x > .emojione {
     width: 54px !important;
     height: 54px !important;
 }
 
-.fa-4x > .emoji {
+.fa-4x > .emoji, .fa-4x > .emojione {
     width: 72px !important;
     height: 72px !important;
 }
 
-.fa-5x > .emoji {
+.fa-5x > .emoji, .fa-5x > .emojione {
     width: 90px !important;
     height: 90px !important;
 }

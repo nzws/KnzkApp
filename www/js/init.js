@@ -110,6 +110,13 @@ function init() {
                         document.getElementById("splitter-icon").src = json.avatar;
                         document.getElementById("splitter-profile-name").innerHTML = json.display_name;
                         document.getElementById("account_change-username").innerHTML = json.acct + "@" + inst;
+                        if (json.locked === true)
+                            $("#menu-followreq").removeClass("invisible");
+                        else
+                            $("#menu-followreq").addClass("invisible");
+
+                        if (localStorage.getItem('knzk_menu-fav') == 1) $("#menu-fav-page").removeClass("invisible");
+
                         if (localStorage.getItem('knzk_swipe') == 1) document.getElementById("carousel").setAttribute('swipeable', '1');
                         var dial = localStorage.getItem('knzk_dial'), icon;
                         if (dial && dial != "change") {
@@ -204,6 +211,7 @@ function initevent() {
                 if (localStorage.getItem('knzk_spin') == 1) document.getElementById("conf-spin").checked = "true";
                 if (localStorage.getItem('knzk_swipe') == 1) document.getElementById("conf-swipe").checked = "true";
                 if (localStorage.getItem('knzk_joke') == 1) document.getElementById("conf-joke").checked = "true";
+                if (localStorage.getItem('knzk_menu-fav') == 1) document.getElementById("conf-menu-fav").checked = "true";
                 if (localStorage.getItem('knzk_dial')) document.getElementById("dial_"+localStorage.getItem('knzk_dial')).selected = true;
                 if (localStorage.getItem('knzk_theme')) document.getElementById("theme_"+localStorage.getItem('knzk_theme')).selected = true;
                 hide('now_loading');

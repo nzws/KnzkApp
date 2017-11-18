@@ -1,6 +1,6 @@
 function toot_card(toot, mode, note, toot_light) {
     var buf = "", piccard = "", fav = "", boost = "", namucard = "", namubt = "", p = 0, alert_text = "", content = "", button = "", e = 0, bt_big = "", light = "", q = 0, enq_item = "";
-    var appname;
+    var appname, boost_full, boost_big;
     try {
         if (!toot['account']['display_name']) toot['account']['display_name'] = toot['account']['username'];
     } catch (e) {
@@ -56,9 +56,21 @@ function toot_card(toot, mode, note, toot_light) {
     if (toot_light === "gold") {
         light = " toot_gold";
     }
-    if (toot_light === "light" || toot['visibility'] === "direct") {
+    if (toot_light === "light") {
         light = " toot_light";
     }
+    if (toot['visibility'] === "direct") {
+        light = " toot_dm";
+        boost_full = "<ons-icon icon=\"fa-envelope\" class=\"toot-button toot-button-disabled\"></ons-icon>";
+        boost_big = "<ons-icon icon=\"fa-envelope\"  class=\"showtoot-button toot-button-disabled\"></ons-icon>";
+    } else if (toot['visibility'] === "private") {
+        boost_full = "<ons-icon icon=\"fa-lock\" class=\"toot-button toot-button-disabled\"></ons-icon>";
+        boost_big = "<ons-icon icon=\"fa-lock\"  class=\"showtoot-button toot-button-disabled\"></ons-icon>";
+    } else {
+        boost_full = "<ons-icon icon=\"fa-retweet\" onclick=\"toot_action('"+toot['id']+"', this, null, 'boost')\" class=\"toot-button"+boost+"\"></ons-icon>";
+        boost_big = "<ons-icon icon=\"fa-retweet\" onclick=\"toot_action('"+toot['id']+"', this, 'big', 'boost')\" class=\"showtoot-button"+boost+"\"></ons-icon>";
+    }
+
     if (toot['emojis']) {
         while (toot['emojis'][e]) {
             emoji_num_a[emoji_num] = toot['emojis'][e]['shortcode'];
@@ -95,7 +107,7 @@ function toot_card(toot, mode, note, toot_light) {
     if (mode == "full") {
         button =    "                            <div class=\"toot-group\">" +
             "                                <ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["account"]["acct"]+"', '"+toot["visibility"]+"')\" class=\"toot-button\"></ons-icon>" +
-            "                                <ons-icon icon=\"fa-retweet\" onclick=\"toot_action('"+toot['id']+"', this, null, 'boost')\" class=\"toot-button"+boost+"\"></ons-icon>\n" +
+            boost_full +
             "                                <ons-icon icon=\"fa-bell\" onclick=\"toot_action('"+toot['id']+"', this, null, 'fav')\" class=\"toot-button"+namubt+fav+"\"></ons-icon>" +
             "                                <ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+", '"+toot["url"]+"')\" class=\"toot-button\"></ons-icon>" +
             "                            </div>\n";
@@ -110,7 +122,7 @@ function toot_card(toot, mode, note, toot_light) {
         bt_big = "<span class='big_date'>"+ appname + date_text + " · <span onclick='list(\"statuses/"+toot['id']+"/reblogged_by\", \"ブーストしたユーザー\", null, \"acct\", true)'><ons-icon icon=\"fa-retweet\"></ons-icon> "+toot['reblogs_count']+"</span> · <span onclick='list(\"statuses/"+toot['id']+"/favourited_by\", \"お気に入りしたユーザー\", null, \"acct\", true)'><ons-icon icon=\"fa-bell\"></ons-icon> "+toot['favourites_count']+"</span></span>" +
             "<div class=\"row toot_big_border\">\n" +
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["account"]["acct"]+"', '"+toot["visibility"]+"')\" class=\"showtoot-button\"></ons-icon></div>\n" +
-            "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-retweet\" onclick=\"toot_action('"+toot['id']+"', this, 'big', 'boost')\" class=\"showtoot-button"+boost+"\"></ons-icon></div>\n" +
+            "                    <div class=\"col-xs-3 showtoot-button\">" + boost_big + "</div>\n" +
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-bell\" onclick=\"toot_action('"+toot['id']+"', this, 'big', 'fav')\" class=\"showtoot-button"+fav+"\"></ons-icon></div>\n" +
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+", '"+toot["url"]+"')\" class=\"showtoot-button\"></ons-icon></div>\n" +
             "                </div>";
