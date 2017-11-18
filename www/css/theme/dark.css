@@ -78,6 +78,10 @@ a, a:link, a:visited, a:hover {
     background: rgba(43,43,43,.9) !important;
 }
 
+.toot_dm {
+    background: #353535 !important;
+}
+
 .radio-button__checkmark:after {
     border: 2px solid #fff;
     border-top: none;
@@ -90,4 +94,8 @@ a, a:link, a:visited, a:hover {
 
 .simple-toot > div, #simple_toot_TL_toolbar {
     background: #424242;
+}
+
+.toot-button-disabled {
+    color: #4a4a4a;
 }
