@@ -58,7 +58,7 @@ function login_open(domain) {
 
 function login_open_c(domain) {
     if (domain) {
-        ons.notification.confirm('外部インスタンスログインは試験機能のため、一部機能が使用できません。(ノンサポートとなります)<br><br>OKを押して各インスタンスの利用規約に同意したものとします。', {title: '注意:試験機能です！'}).then(function (e) {
+        ons.notification.confirm('外部インスタンスログインは、一部機能が使用できません。(ノンサポートとなります）<br><br>OKを押して各インスタンスの利用規約に同意したものとします。', {title: '注意！'}).then(function (e) {
             if (e === 1) {
                 login_open(domain);
             }
