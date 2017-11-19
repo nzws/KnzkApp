@@ -75,8 +75,8 @@
     <splash src="/res/android/screen/splash-port-xxhdpi.9.png" density="port-xxhdpi"/>
   </platform>
   <platform name="windows">
-    <icon src="/res/winrt/icon/package_logo_winrt.png" target="StoreLogo"/>
     <icon src="/res/winrt/icon/app_logo_winrt.png" target="Square150x150Logo"/>
+    <icon src="/res/winrt/icon/package_logo_winrt.png" target="StoreLogo"/>
     <icon src="/res/winrt/icon/app_small_logo_winrt.png" target="Square30x30Logo"/>
     <icon src="/res/winrt/icon/app_tile_wide_logo_winrt.png" target="Wide315x150Logo"/>
     <splash src="/res/winrt/screen/app_splash_screen_winrt.png" width="620" height="300"/>
@@ -91,8 +91,6 @@
   <preference name="EnableViewportScale" value="false"/>
   <preference name="android-minSdkVersion" value="19"/>
   <preference name="StatusBarStyle" value="lightcontent"/>
-  <preference name="WindowsStorePublisherName" value="My Name"/>
-  <preference name="WindowsStoreIdentityName" value="ef46890d-8d5c-5fca-cde1-bc1dae48e2c2"/>
   <access origin="*"/>
   <preference name="KeepRunning" value="true"/>
   <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
@@ -100,4 +98,7 @@
   <preference name="Orientation" value="default"/>
   <preference name="SplashScreenDelay" value="0"/>
   <preference name="Fullscreen" value="false"/>
+  <preference name="WindowsStorePublisherName" value="Knzk.me"/>
+  <preference name="WindowsStoreIdentityName" value="ef46890d-8d5c-5fca-cde1-bc1dae48e2c2"/>
+  <preference name="windows-target-version" value="10.0" />
 </widget>
