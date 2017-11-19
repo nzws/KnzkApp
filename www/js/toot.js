@@ -338,7 +338,7 @@ function more(id, acctid, pin_mode, url) {
             ]
         }).then(function (index) {
             if (index == 0) show_post(more_status_id);
-            else if (index == 1) window.open(url, "_blank", "enableViewportScale=yes");
+            else if (index == 1) openURL(url);
             //else if (index == 2) disp_before(more_status_id, url);
             else if (index == 2) show_post(more_status_id, true);
             else if (index == 3) pin_set(more_status_id, pin_mode);
@@ -363,7 +363,7 @@ function more(id, acctid, pin_mode, url) {
             ]
         }).then(function (index) {
             if (index == 0) show_post(more_status_id);
-            else if (index == 1) window.open(url, "_blank", "enableViewportScale=yes");
+            else if (index == 1) openURL(url);
             //else if (index == 2) disp_before(more_status_id, url);
             else if (index == 2) show_post(more_status_id, true);
             else if (index == 3) report();
