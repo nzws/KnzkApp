@@ -193,7 +193,7 @@ function initevent() {
             tag_str = word[word.length-1];
             showTagTL(tag_str);
         } else {
-            window.open(url, "_blank", "enableViewportScale=yes");
+            openURL(url);
         }
         return false;
     });

@@ -508,7 +508,7 @@
             <div class="center">設定</div>
         </ons-toolbar>
         <ons-list>
-            <ons-list-item modifier="chevron" onclick="window.open('https://' + inst + '/about/more', '_blank')">
+            <ons-list-item modifier="chevron" onclick="openURL('https://' + inst + '/about/more')">
                 <div class="left">
                     <i class="list-item__icon list-item--chevron__icon ons-icon fa-book fa fa-fw"></i>
                 </div>
@@ -1038,10 +1038,10 @@
         </div>
         <ons-list>
             <ons-list-header>クレジット</ons-list-header>
-            <ons-list-item onclick="window.open('https://knzk.me/@y', '_blank')">アプリ開発: ねじりわさび</ons-list-item>
-            <ons-list-item onclick="window.open('https://knzk.me/@annotunzdy', '_blank')">iOS版配布: あんのたん</ons-list-item>
-            <ons-list-item onclick="window.open('https://knzk.me/@twotwo', '_blank')">前ロゴ画像: ネイティオ</ons-list-item>
-            <ons-list-item onclick="window.open('https://knzk.me/@imncls', '_blank')">ロゴ画像: NCLS</ons-list-item>
+            <ons-list-item onclick="openURL('https://knzk.me/@y')">アプリ開発: ねじりわさび</ons-list-item>
+            <ons-list-item onclick="openURL('https://knzk.me/@annotunzdy')">iOS版配布: あんのたん</ons-list-item>
+            <ons-list-item onclick="openURL('https://knzk.me/@twotwo')">前ロゴ画像: ネイティオ</ons-list-item>
+            <ons-list-item onclick="openURL('https://knzk.me/@imncls')">ロゴ画像: NCLS</ons-list-item>
         </ons-list>
     </ons-page>
 </ons-template>
@@ -1261,7 +1261,7 @@
             詳細はシステム状態のページをご覧ください。
         </div>
         <div class="alert-dialog-footer">
-            <button class="alert-dialog-button" onclick="window.open('http://'+stat_sv, '_blank')">ステータスページへ</button>
+            <button class="alert-dialog-button" onclick="openURL('http://'+stat_sv)">ステータスページへ</button>
             <button class="alert-dialog-button" onclick="init()">再試行</button>
         </div>
     </ons-alert-dialog>

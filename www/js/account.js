@@ -259,7 +259,7 @@ function account_action(id) {
         }).then(function (index) {
             if (account_page_acct.split("@")[0])
             if (index === 0) post_pre("@" + account_page_acct);
-            else if (index === 1) window.open("https://"+domain+"/@"+account_page_acct.split("@")[0], "_system");
+            else if (index === 1) openURL("https://"+domain+"/@"+account_page_acct.split("@")[0]);
             else if (index === 2) account_state_action(id, mute, "mute");
             else if (index === 3) account_state_action(id, block, "block");
         })
