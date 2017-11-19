@@ -26,7 +26,29 @@ function login_open(domain) {
         inst_domain = domain;
         inst_login_cid = json["client_id"];
         inst_login_scr = json["client_secret"];
-        window.open('https://'+domain+'/oauth/authorize?response_type=code&redirect_uri=knzkapp://login/token&scope=read+write+follow&client_id='+inst_login_cid, "_system");
+        var url = 'https://'+domain+'/oauth/authorize?response_type=code&redirect_uri=knzkapp://login/token&scope=read+write+follow&client_id='+inst_login_cid;
+        SafariViewController.isAvailable(function (available) {
+            if (available) {
+                SafariViewController.show({
+                        url: url
+                    },
+                    // this success handler will be invoked for the lifecycle events 'opened', 'loaded' and 'closed'
+                    function(result) {
+                        if (result.event === 'opened') {
+                            console.log('opened');
+                        } else if (result.event === 'loaded') {
+                            console.log('loaded');
+                        } else if (result.event === 'closed') {
+                            console.log('closed');
+                        }
+                    },
+                    function(msg) {
+                        console.log("KO: " + msg);
+                    });
+            } else {
+                window.open(url, "_system");
+            }
+	    });
     }).catch(function(error) {
         console.log(error);
         show('cannot-connect-sv-login');
@@ -45,6 +67,15 @@ function login_open_c(domain) {
 }
 
 function login_callback(code) {
+    SafariViewController.isAvailable(function (available) {
+        if (available) {
+            SafariViewController.hide(function() {
+                console.log('hide SVC success');
+            }, function() {
+                console.log('hide SVC failed');
+            });
+        }
+    });
     fetch("https://"+inst_domain+"/oauth/token", {
         method: 'POST',
         headers: {'content-type': 'application/json'},

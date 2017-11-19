@@ -24,6 +24,7 @@
         "cordova-custom-config@2.0.3",
         "cordova-plugin-inappbrowser@1.7.1",
         "cordova-plugin-camera@2.4.1",
-        "cordova-plugin-statusbar@2.2.3"
+        "cordova-plugin-statusbar@2.2.3",
+        "cordova-plugin-safariviewcontroller"
     ]
 }
