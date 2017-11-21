@@ -145,9 +145,12 @@ function showTL(mode, reload, more_load, clear_load) {
     var tlmode = "", i = 0, reshtml = "", ws, ws_mode, id_main, n;
     if (!mode) mode = now_TL;
     if (clear_load) {
+        home_auto_tmp = "";
+        home_auto_num = 0;
         toot_new_id = 0;
         toot_old_id = 0;
         more_load = false;
+        setTLheadcolor(0);
     }
     if (more_load) {
         more_load.value = "読み込み中...";
@@ -213,10 +216,16 @@ function showTL(mode, reload, more_load, clear_load) {
                             displayTime('update');
                             ws_reshtml = JSON.parse(JSON.parse(message.data).payload);
 
-                            if (toot_new_id !== ws_reshtml['id'])
-                                document.getElementById(id_main).innerHTML = toot_card(ws_reshtml, "full", null) + document.getElementById(id_main).innerHTML;
-
-                            toot_new_id = ws_reshtml['id'];
+                            if (ws_reshtml['id']) {
+                                if (toot_new_id !== ws_reshtml['id']) {
+                                    home_auto_tmp = toot_card(ws_reshtml, "full", null) + home_auto_tmp;
+                                    if (!home_auto_mode) {
+                                        home_auto_num++;
+                                        setTLheadcolor(1);
+                                    }
+                                }
+                                toot_new_id = ws_reshtml['id'];
+                            }
                         };
                     }
                 }
@@ -234,7 +243,7 @@ function showTL(mode, reload, more_load, clear_load) {
             if (more_load || mode != last_load_TL || clear_load) { //TL初回
                 initph("TL");
                 if (i !== 0) toot_old_id = json[i-1]['id'];
-                reshtml += "<button class='button button--large--quiet' onclick='showTL(null,null,this)'>もっと読み込む...</button>";
+                reshtml += "<button class='button button--large--quiet more_load_bt_"+now_TL+"' onclick='showTL(null,null,this)'>もっと読み込む...</button>";
             }
             last_load_TL = mode;
             document.getElementById(id_main).innerHTML = reshtml;

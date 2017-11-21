@@ -63,6 +63,10 @@ function init() {
     list_old_id = "";
     old_TL_ws = null;
     image_mode = "";
+    home_auto_event = false;
+    home_auto_tmp = "";
+    home_auto_mode = true;
+    home_auto_num = 0;
     init_d();
     hide('cannot-connect-sv');
     hide('cannot-connect-mastodon');
@@ -199,6 +203,13 @@ function initevent() {
     });
 
     document.addEventListener('postpush', function(event) {
+        if (event.enterPage.id === "home" && !home_auto_event) {
+            home_auto_event = true;
+            home_autoevent();
+        } else {
+            home_auto_event = false;
+        }
+
         if (event.enterPage.id === "config-page") {
             show('now_loading');
             setTimeout(function() {
@@ -286,6 +297,45 @@ function initevent() {
             simple_close();
         }
     });
+}
+
+function setTLheadcolor(mode) {
+    var head = document.getElementById("home_title");
+    var unread = document.getElementById("home_title_unread");
+    if (mode) { //blue
+        head.className = "TL_reload";
+        unread.innerHTML = home_auto_num;
+        unread.className = "notification";
+    } else {
+        head.className = "";
+        unread.className = "notification invisible";
+    }
+}
+
+function home_autoevent() {
+    setTimeout(function () {
+        if (home_auto_event) {
+            var h = $("#"+now_TL+"_item").scrollTop();
+            home_auto_mode = h <= 20;
+            if (home_auto_tmp !== "" && home_auto_mode) {
+                console.log("OK");
+                document.getElementById(now_TL+"_main").innerHTML = home_auto_tmp + document.getElementById(now_TL+"_main").innerHTML;
+                home_auto_tmp = "";
+                home_auto_num = 0;
+                setTLheadcolor(0);
+            }
+
+            try {
+                var mr = $(".more_load_bt_"+now_TL).offset().top;
+                if (mr < 700) {
+                    showTL(null,null,document.getElementsByClassName("more_load_bt_"+now_TL)[0]);
+                }
+            } catch (e) {
+                console.log(e);
+            }
+            home_autoevent();
+        }
+    }, 1000);
 }
 
 var button = "", quiet = "", light = "";

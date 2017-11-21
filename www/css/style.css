@@ -476,6 +476,10 @@ img.emoji {
     text-decoration: underline;
 }
 
+.TL_reload {
+    color: #2b90d9 !important;
+}
+
 /* 絵文字 */
 .emoji, .emojione {
     width: 20px !important;

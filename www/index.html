@@ -59,6 +59,10 @@
         var inst_login_cid = "";
         var inst_login_scr = "";
         var inst = "";
+        var home_auto_event = false;
+        var home_auto_tmp = "";
+        var home_auto_mode = true;
+        var home_auto_num = 0;
     </script>
 
     <script src="js/init.js"></script>
@@ -325,7 +329,7 @@
                     <ons-icon icon="fa-angle-left"></ons-icon>
                 </ons-toolbar-button>
             </div>
-            <div id="home_title" class="center">ローカル</div>
+            <div class="center"><span id="home_title">ローカル</span> <span class="notification invisible" id="home_title_unread">1</span></div>
             <div class="right">
                 <ons-toolbar-button onclick="showTL(null, null, null, true)">
                     <ons-icon icon="fa-refresh"></ons-icon>
@@ -336,21 +340,21 @@
             </div>
         </ons-toolbar>
         <ons-carousel fullscreen auto-scroll id="carousel" auto-scroll-ratio="0.5">
-            <ons-carousel-item>
+            <ons-carousel-item id="local_item">
                 <div id="local_main">
                     <div class="loading-now">
                         <ons-progress-circular indeterminate></ons-progress-circular>
                     </div>
                 </div>
             </ons-carousel-item>
-            <ons-carousel-item>
+            <ons-carousel-item id="home_item">
                 <div id="home_main">
                     <div class="loading-now">
                         <ons-progress-circular indeterminate></ons-progress-circular>
                     </div>
                 </div>
             </ons-carousel-item>
-            <ons-carousel-item>
+            <ons-carousel-item id="public_item">
                 <div id="public_main">
                     <div class="loading-now">
                         <ons-progress-circular indeterminate></ons-progress-circular>
