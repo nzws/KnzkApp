@@ -14,7 +14,7 @@ server.jsは必要なくなりました。
 https://github.com/KnzkDev/KnzkApp/wiki/License
 
 ## Special Thanks ✨
-[iOS版配布等: あんのたん @annotunzdy](https://knzk.me/@annotunzdy)  
+[あんのたん @annotunzdy](https://knzk.me/@annotunzdy)  
 
 [神崎丼ロゴ: ネイティオ @twotwo](https://knzk.me/@twotwo)  
 [神崎丼ロゴ: NCLS @imncls](https://knzk.me/@imncls)
