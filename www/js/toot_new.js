@@ -287,6 +287,8 @@ function post(id, option, simple) {
         }
         optiondata.media_ids = media_id;
     }
+    home_auto_tmp = "";
+    home_auto_num = 0;
     fetch("https://"+inst+"/api/v1/statuses", {
         headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
         method: 'POST',

@@ -472,6 +472,10 @@ img.emoji {
     border: 1px solid #ca8f04 !important;
 }
 
+.toot_red {
+    border: 1px solid orangered !important;
+}
+
 .user-bio > p > a, .user-bio > p > a:link, .user-bio > p > a:visited, .user-bio > p > a:hover {
     text-decoration: underline;
 }

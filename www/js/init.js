@@ -318,7 +318,6 @@ function home_autoevent() {
             var h = $("#"+now_TL+"_item").scrollTop();
             home_auto_mode = h <= 20;
             if (home_auto_tmp !== "" && home_auto_mode) {
-                console.log("OK");
                 document.getElementById(now_TL+"_main").innerHTML = home_auto_tmp + document.getElementById(now_TL+"_main").innerHTML;
                 home_auto_tmp = "";
                 home_auto_num = 0;
