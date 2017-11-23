@@ -907,26 +907,6 @@
     </ons-page>
 </ons-template>
 
-<ons-template id="showfollow.html">
-    <ons-page>
-        <ons-toolbar>
-            <div class="left">
-                <ons-toolbar-button onclick="BackTab()">
-                    <ons-icon icon="fa-chevron-left"></ons-icon>
-                    戻る
-                </ons-toolbar-button>
-            </div>
-            <div class="center" id="follow-page-title">読み込み中...</div>
-        </ons-toolbar>
-
-        <div id="show_follow">
-            <div class="loading-now">
-                <ons-progress-circular indeterminate></ons-progress-circular>
-            </div>
-        </div>
-    </ons-page>
-</ons-template>
-
 <ons-template id="olist.html">
     <ons-page>
         <ons-toolbar>
@@ -996,7 +976,7 @@
                 <div class="user-acct"><span id="userpage-acct"></span> <ons-icon icon="fa-lock" id="userpage-lock" class="invisible"></ons-icon></div>
                 <div class="user-bio" id="userpage-bio"></div>
                 <div class="user-follow">
-                    <span onclick="showFollow(account_page_id, 'follow')"><b id="userpage-follow"></b> フォロー</span> / <span onclick="showFollow(account_page_id, 'follower')"><b id="userpage-follower"></b> フォロワー</span>
+                    <span onclick="list('accounts/'+account_page_id+'/following', 'フォロー一覧', null, 'acct', true)"><b id="userpage-follow"></b> フォロー</span> / <span onclick="list('accounts/'+account_page_id+'/followers', 'フォロワー一覧', null, 'acct', true)"><b id="userpage-follower"></b> フォロワー</span>
                 </div>
             </div>
         </div>
