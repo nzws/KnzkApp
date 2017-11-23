@@ -63,6 +63,7 @@
         var home_auto_tmp = "";
         var home_auto_mode = true;
         var home_auto_num = 0;
+        var toot_limit = 500;
     </script>
 
     <script src="js/init.js"></script>
@@ -329,7 +330,7 @@
                     <ons-icon icon="fa-angle-left"></ons-icon>
                 </ons-toolbar-button>
             </div>
-            <div class="center"><span id="home_title">ローカル</span> <span class="notification invisible" id="home_title_unread">1</span></div>
+            <div class="center" onclick="scrollTL()"><span id="home_title">ローカル</span> <span class="notification invisible" id="home_title_unread">1</span></div>
             <div class="right">
                 <ons-toolbar-button onclick="showTL(null, null, null, true)">
                     <ons-icon icon="fa-refresh"></ons-icon>
