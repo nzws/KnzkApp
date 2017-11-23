@@ -31,6 +31,15 @@ function show_account(id, navmode) {
         document.getElementById("userpage-post-count").innerHTML = json.statuses_count;
         if (json.locked === true) $("#userpage-lock").removeClass("invisible");
         showAccountTL(json.id);
+
+        if (json.username === json.acct) {
+            //登録日
+            var d = new Date(json['created_at']);
+            var min = "0";
+            if (d.getMinutes() < 10) min = "0" + d.getMinutes(); else min = d.getMinutes();
+            document.getElementById("userpage-hint").innerHTML = "登録日: <b>" + d.getFullYear()+"年"+(d.getMonth()+1)+"月"+d.getDate()+"日 "+d.getHours()+":"+min + "</b>";
+        }
+
     }).catch(function(error) {
         showtoast('cannot-pros');
         console.log(error);
