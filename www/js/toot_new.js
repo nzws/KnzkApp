@@ -154,9 +154,9 @@ function check_limit(value, id, tb_id, cw_id) {
     var limit = 0;
     if (cw_id) {
         var cw = document.getElementById(cw_id).value;
-        limit = 4096 - value.length - cw.length;
+        limit = toot_limit - value.length - cw.length;
     } else {
-        limit = 4096 - value.length;
+        limit = toot_limit - value.length;
     }
     document.getElementById(id).innerHTML = limit;
     if (limit < 0) {
@@ -223,7 +223,7 @@ function bbcodegen(force) {
         }
         buf = pre + text + suf;
         value = tmp_post_text + buf;
-        var limit = 4096 - value.length;
+        var limit = toot_limit - value.length;
         if (limit < 0) {
             showtoast('bbcode-limit');
         } else {

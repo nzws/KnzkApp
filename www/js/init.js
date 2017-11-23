@@ -103,6 +103,14 @@ function init() {
                         throw new Error();
                     }
                 }).then(function(json) {
+                    document.getElementById("toot_emoji_list_popover").innerHTML = "load";
+                    document.getElementById("emoji_list_popover").innerHTML = "load";
+                    if (inst === "knzk.me" || inst === "now.kibousoft.co.jp") {
+                        toot_limit = 4096;
+                    } else {
+                        toot_limit = 500;
+                    }
+
                     if (localStorage.getItem('knzk_realtime') == undefined) localStorage.setItem('knzk_realtime', 1);
                     if (localStorage.getItem('knzk_dial') == undefined) localStorage.setItem('knzk_dial', 'change');
                     document.querySelector('#navigator').resetToPage('home.html');
@@ -110,6 +118,7 @@ function init() {
                     showTL("local", null, null, true, null);
 
                     setTimeout(function () {
+                        document.getElementById("toot_limit_simple").innerHTML = toot_limit;
                         document.getElementById("splitter-profile-bg").setAttribute('style', 'background-image: url(\''+json.header+'\');');
                         document.getElementById("splitter-icon").src = json.avatar;
                         document.getElementById("splitter-profile-name").innerHTML = json.display_name;
@@ -206,6 +215,7 @@ function initevent() {
         if (event.enterPage.id === "home" && !home_auto_event) {
             home_auto_event = true;
             home_autoevent();
+            document.getElementById("toot_limit_simple").innerHTML = toot_limit;
         } else {
             home_auto_event = false;
         }
@@ -243,6 +253,7 @@ function initevent() {
         if (event.enterPage.id === "toot-page") {
             var emoji = document.getElementById("toot_emoji_list_popover"), i = 0, reshtml = "";
             if (emoji.innerHTML == "load") {
+                document.getElementById("toot-limit").innerHTML = toot_limit;
                 fetch("https://"+inst+"/api/v1/custom_emojis", {
                     headers: {'content-type': 'application/json'},
                     method: 'GET',
@@ -300,15 +311,19 @@ function initevent() {
 }
 
 function setTLheadcolor(mode) {
-    var head = document.getElementById("home_title");
-    var unread = document.getElementById("home_title_unread");
-    if (mode) { //blue
-        head.className = "TL_reload";
-        unread.innerHTML = home_auto_num;
-        unread.className = "notification";
-    } else {
-        head.className = "";
-        unread.className = "notification invisible";
+    try {
+        var head = document.getElementById("home_title");
+        var unread = document.getElementById("home_title_unread");
+        if (mode) { //blue
+            head.className = "TL_reload";
+            unread.innerHTML = home_auto_num;
+            unread.className = "notification";
+        } else {
+            head.className = "";
+            unread.className = "notification invisible";
+        }
+    } catch (e) {
+        console.log(e);
     }
 }
 
@@ -316,7 +331,7 @@ function home_autoevent() {
     setTimeout(function () {
         if (home_auto_event) {
             var h = $("#"+now_TL+"_item").scrollTop();
-            home_auto_mode = h <= 20;
+            home_auto_mode = h <= 100;
             if (home_auto_tmp !== "" && home_auto_mode) {
                 document.getElementById(now_TL+"_main").innerHTML = home_auto_tmp + document.getElementById(now_TL+"_main").innerHTML;
                 home_auto_tmp = "";

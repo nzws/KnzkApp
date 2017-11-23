@@ -429,7 +429,7 @@ img.emoji {
     height: 100px;
 }
 
-#emoji_list_popover > ons-button {
+.emoji_list_scroll > ons-button {
     padding-left: 5px;
     padding-right: 5px;
 }

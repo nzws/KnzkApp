@@ -383,3 +383,7 @@ function TL_change(mode) {
     var carousel = document.getElementById('carousel');
     carousel.setActiveIndex(mode);
 }
+
+function scrollTL() {
+    $("#"+now_TL+"_item").scrollTop(0);
+}
