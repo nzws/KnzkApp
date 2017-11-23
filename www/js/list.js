@@ -19,7 +19,7 @@ function list_n(mode, title, more_load, mode_toot, navmode) {
     var i = 0, reshtml = "", get = "", pin;
     var id_title, id_main;
     if (more_load) {
-        get = "?"+list_old_id;
+        get = "?"+list_old_id[0];
         more_load.value = "読み込み中...";
         more_load.disabled = true;
     }
@@ -89,7 +89,7 @@ function list_n(mode, title, more_load, mode_toot, navmode) {
 
                 if (pin === true) mode = "pin";
                 if (list_old_id !== "")
-                    reshtml += "<button class='button button--large--quiet' onclick='list_n(\""+mode+"\", \""+title+"\", this, \""+mode_toot+"\")'>もっと読み込む...</button>";
+                    reshtml += "<button class='button button--large--quiet' onclick='list_n(\""+mode+"\", \""+title+"\", this, \""+mode_toot+"\", "+navmode+")'>もっと読み込む...</button>";
                 document.getElementById(id_main).innerHTML = reshtml;
                 return true;
             } else {
