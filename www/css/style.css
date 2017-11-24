@@ -220,10 +220,10 @@ html, body {
 }
 
 .color-box {
-    text-align: center;
     box-shadow:0 0 2px 2px #3a3e4f;
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
+    margin: 0 auto;
     border-radius: 100%;
 }
 
