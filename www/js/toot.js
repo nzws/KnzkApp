@@ -86,7 +86,11 @@ function toot_card(toot, mode, note, toot_light) {
                 if (toot['sensitive'] && localStorage.getItem('knzk_nsfw') != 1) { //NSFWオン
                     piccard += "<a href='"+toot['media_attachments'][p]['url']+"'><ons-card class='nsfw'><h3>回覧注意</h3><small>タップで表示</small></ons-card></a>";
                 } else {
-                    piccard += "<a href='"+toot['media_attachments'][p]['url']+"'><ons-card style='background-image: url("+toot['media_attachments'][p]['preview_url']+")' class='card-image'></ons-card></a>";
+                    if (localStorage.getItem('knzk_image_full') == '1') {
+                        piccard += "<a href='"+toot['media_attachments'][p]['url']+"'><img src='"+toot['media_attachments'][p]['preview_url']+"' class='image_fullsize'/></a>";
+                    } else {
+                        piccard += "<a href='"+toot['media_attachments'][p]['url']+"'><ons-card style='background-image: url("+toot['media_attachments'][p]['preview_url']+")' class='card-image'></ons-card></a>";
+                    }
                 }
                 p++;
             }
