@@ -515,3 +515,7 @@ img.emoji {
     width: 90px !important;
     height: 90px !important;
 }
+
+.faicon_FTL {
+    display: none;
+}
