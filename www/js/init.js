@@ -105,7 +105,9 @@ function init() {
                 }).then(function(json) {
                     document.getElementById("toot_emoji_list_popover").innerHTML = "load";
                     document.getElementById("emoji_list_popover").innerHTML = "load";
-                    if (inst === "knzk.me" || inst === "now.kibousoft.co.jp") {
+                    if (inst === "knzk.me") {
+                        toot_limit = 5000;
+                    } else if (inst === "now.kibousoft.co.jp") {
                         toot_limit = 4096;
                     } else {
                         toot_limit = 500;
@@ -234,6 +236,7 @@ function initevent() {
                 if (localStorage.getItem('knzk_joke') == 1) document.getElementById("conf-joke").checked = "true";
                 if (localStorage.getItem('knzk_menu-fav') == 1) document.getElementById("conf-menu-fav").checked = "true";
                 if (localStorage.getItem('knzk_alert-back') == 1) document.getElementById("conf-alert-back").checked = "true";
+                if (localStorage.getItem('knzk_image_full') == 1) document.getElementById("conf-image_full").checked = "true";
                 if (localStorage.getItem('knzk_dial')) document.getElementById("dial_"+localStorage.getItem('knzk_dial')).selected = true;
                 if (localStorage.getItem('knzk_theme')) document.getElementById("theme_"+localStorage.getItem('knzk_theme')).selected = true;
                 hide('now_loading');

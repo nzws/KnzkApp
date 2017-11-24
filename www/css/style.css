@@ -523,3 +523,11 @@ img.emoji {
 #userpage-follow-button {
     margin-left: 20px;
 }
+
+.image_fullsize {
+    margin: 5px 0;
+    border-radius: 5px;
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
