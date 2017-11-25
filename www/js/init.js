@@ -298,6 +298,16 @@ function initevent() {
         }
     });
 
+    document.addEventListener('postpop', function(event) {
+        if (event.enterPage.id === "home") {
+            home_auto_event = true;
+            home_autoevent();
+            document.getElementById("toot_limit_simple").innerHTML = toot_limit;
+        } else {
+            home_auto_event = false;
+        }
+    });
+
     var carousel = document.addEventListener('postchange', function(event) {
         var home_cr = {0:"ローカル",1:"ホーム",2:"連合"};
         var TL_name = {0:"local",1:"home",2:"public"};
