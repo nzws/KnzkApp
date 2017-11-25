@@ -214,7 +214,7 @@ function initevent() {
     });
 
     document.addEventListener('postpush', function(event) {
-        if (event.enterPage.id === "home" && !home_auto_event) {
+        if (event.enterPage.id === "home") {
             home_auto_event = true;
             home_autoevent();
             document.getElementById("toot_limit_simple").innerHTML = toot_limit;
