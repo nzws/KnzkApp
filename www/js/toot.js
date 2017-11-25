@@ -112,7 +112,7 @@ function toot_card(toot, mode, note, toot_light) {
         button =    "                            <div class=\"toot-group\">" +
             "                                <ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["account"]["acct"]+"', '"+toot["visibility"]+"')\" class=\"toot-button\"></ons-icon>" +
             boost_full +
-            "                                <ons-icon icon=\"fa-bell\" onclick=\"toot_action('"+toot['id']+"', this, null, 'fav')\" class=\"toot-button"+namubt+fav+"\"></ons-icon>" +
+            "                                <ons-icon icon=\"fa-star\" onclick=\"toot_action('"+toot['id']+"', this, null, 'fav')\" class=\"toot-button"+namubt+fav+"\"></ons-icon>" +
             "                                <ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+", '"+toot["url"]+"')\" class=\"toot-button\"></ons-icon>" +
             "                            </div>\n";
     }
@@ -123,11 +123,11 @@ function toot_card(toot, mode, note, toot_light) {
         var min = "0";
         if (d.getMinutes() < 10) min = "0" + d.getMinutes(); else min = d.getMinutes();
         var date_text = d.getFullYear()+"年"+(d.getMonth()+1)+"月"+d.getDate()+"日 "+d.getHours()+":"+min;
-        bt_big = "<span class='big_date'>"+ appname + date_text + " · <span onclick='list(\"statuses/"+toot['id']+"/reblogged_by\", \"ブーストしたユーザー\", null, \"acct\", true)'><ons-icon icon=\"fa-retweet\"></ons-icon> "+toot['reblogs_count']+"</span> · <span onclick='list(\"statuses/"+toot['id']+"/favourited_by\", \"お気に入りしたユーザー\", null, \"acct\", true)'><ons-icon icon=\"fa-bell\"></ons-icon> "+toot['favourites_count']+"</span></span>" +
+        bt_big = "<span class='big_date'>"+ appname + date_text + " · <span onclick='list(\"statuses/"+toot['id']+"/reblogged_by\", \"ブーストしたユーザー\", null, \"acct\", true)'><ons-icon icon=\"fa-retweet\"></ons-icon> "+toot['reblogs_count']+"</span> · <span onclick='list(\"statuses/"+toot['id']+"/favourited_by\", \"お気に入りしたユーザー\", null, \"acct\", true)'><ons-icon icon=\"fa-star\"></ons-icon> "+toot['favourites_count']+"</span></span>" +
             "<div class=\"row toot_big_border\">\n" +
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["account"]["acct"]+"', '"+toot["visibility"]+"')\" class=\"showtoot-button\"></ons-icon></div>\n" +
             "                    <div class=\"col-xs-3 showtoot-button\">" + boost_big + "</div>\n" +
-            "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-bell\" onclick=\"toot_action('"+toot['id']+"', this, 'big', 'fav')\" class=\"showtoot-button"+fav+"\"></ons-icon></div>\n" +
+            "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-star\" onclick=\"toot_action('"+toot['id']+"', this, 'big', 'fav')\" class=\"showtoot-button"+fav+"\"></ons-icon></div>\n" +
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+", '"+toot["url"]+"')\" class=\"showtoot-button\"></ons-icon></div>\n" +
             "                </div>";
     }
@@ -184,28 +184,28 @@ function toot_action(id, obj, mode, action_mode) {
     var url = "";
     if (action_mode === "fav") {
         if (localStorage.getItem('knzk_bigfav') == 1 && mode != "big") {
-            if (obj.className == "toot-button namu-fav ons-icon fa-bell fa") {
+            if (obj.className == "toot-button namu-fav ons-icon fa-star fa") {
                 url = "/favourite";
-                obj.className = "toot-button namu-fav fav-active ons-icon fa-bell fa";
+                obj.className = "toot-button namu-fav fav-active ons-icon fa-star fa";
             } else {
                 url = "/unfavourite";
-                obj.className = "toot-button namu-fav ons-icon fa-bell fa";
+                obj.className = "toot-button namu-fav ons-icon fa-star fa";
             }
         } else if (mode == "big") {
-            if (obj.className == "showtoot-button ons-icon fa-bell fa") {
+            if (obj.className == "showtoot-button ons-icon fa-star fa") {
                 url = "/favourite";
-                obj.className = "showtoot-button fav-active ons-icon fa-bell fa";
+                obj.className = "showtoot-button fav-active ons-icon fa-star fa";
             } else {
                 url = "/unfavourite";
-                obj.className = "showtoot-button ons-icon fa-bell fa";
+                obj.className = "showtoot-button ons-icon fa-star fa";
             }
         } else {
-            if (obj.className == "toot-button ons-icon fa-bell fa") {
+            if (obj.className == "toot-button ons-icon fa-star fa") {
                 url = "/favourite";
-                obj.className = "toot-button fav-active ons-icon fa-bell fa";
+                obj.className = "toot-button fav-active ons-icon fa-star fa";
             } else {
                 url = "/unfavourite";
-                obj.className = "toot-button ons-icon fa-bell fa";
+                obj.className = "toot-button ons-icon fa-star fa";
             }
         }
     } else {
@@ -243,22 +243,22 @@ function toot_action(id, obj, mode, action_mode) {
         console.log(error);
         if (action_mode === "fav") {
             if (localStorage.getItem('knzk_bigfav') == 1 && mode != "big") {
-                if (obj.className == "toot-button namu-fav ons-icon fa-bell fa") {
-                    obj.className = "toot-button namu-fav fav-active ons-icon fa-bell fa";
+                if (obj.className == "toot-button namu-fav ons-icon fa-star fa") {
+                    obj.className = "toot-button namu-fav fav-active ons-icon fa-star fa";
                 } else {
-                    obj.className = "toot-button namu-fav ons-icon fa-bell fa";
+                    obj.className = "toot-button namu-fav ons-icon fa-star fa";
                 }
             } else if (mode == "big") {
-                if (obj.className == "showtoot-button ons-icon fa-bell fa") {
-                    obj.className = "showtoot-button fav-active ons-icon fa-bell fa";
+                if (obj.className == "showtoot-button ons-icon fa-star fa") {
+                    obj.className = "showtoot-button fav-active ons-icon fa-star fa";
                 } else {
-                    obj.className = "showtoot-button ons-icon fa-bell fa";
+                    obj.className = "showtoot-button ons-icon fa-star fa";
                 }
             } else {
-                if (obj.className == "toot-button ons-icon fa-bell fa") {
-                    obj.className = "toot-button fav-active ons-icon fa-bell fa";
+                if (obj.className == "toot-button ons-icon fa-star fa") {
+                    obj.className = "toot-button fav-active ons-icon fa-star fa";
                 } else {
-                    obj.className = "toot-button ons-icon fa-bell fa";
+                    obj.className = "toot-button ons-icon fa-star fa";
                 }
             }
         } else {
