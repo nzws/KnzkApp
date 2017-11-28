@@ -236,12 +236,26 @@ function bbcodegen(force) {
 
 function bbcode_color(color) {
     BackTab();
-    if (color) {
-        document.getElementById("bbcode_color").value = color;
-        document.getElementById("color-box-mini").style.backgroundColor = "#" + color;
+    var color_s = "#" + color;
+    if (color_mode) {
+        var d_box = document.getElementById("doodle-color-box-mini");
+        if (color) {
+            sketcher.color = color_s;
+            d_box.style.backgroundColor = color_s;
+        } else {
+            sketcher.color = color_s;
+            d_box.style.backgroundColor = "#000000";
+        }
     } else {
-        document.getElementById("bbcode_color").value = "";
-        document.getElementById("color-box-mini").style.backgroundColor = "";
+        var b_color = document.getElementById("bbcode_color");
+        var b_box = document.getElementById("color-box-mini");
+        if (color) {
+            b_color.value = color;
+            b_box.style.backgroundColor = color_s;
+        } else {
+            b_color.value = "";
+            b_box.style.backgroundColor = "";
+        }
     }
 }
 
@@ -319,7 +333,6 @@ function post(id, option, simple) {
             if (simple) hide('post_now');
             else hide('now_loading');
         }
-        showTL(null, null, null, true);
     }).catch(function(error) {
         showtoast('cannot-post');
         console.log(error);
