@@ -669,6 +669,21 @@
                 </div>
             </ons-list-item>
         </ons-list>
+        <ons-list>
+            <ons-list-header>システム設定</ons-list-header>
+            <ons-list-item>
+                <div class="center">
+                    URLの開き方
+                </div>
+                <div class="right">
+                    <ons-select id="conf-url_open" onchange="change_conf('knzk_url_open', 'conf-url_open', true)">
+                        <option value="">アプリ内ブラウザ</option>
+                        <option value="Inapp" id="url_Inapp">アプリ内ブラウザ(旧)</option>
+                        <option value="OS" id="url_OS">OSブラウザ</option>
+                    </ons-select>
+                </div>
+            </ons-list-item>
+        </ons-list>
         <div class="container">
             <p class="note">一部の設定は再起動後に反映されます。</p>
         </div>
