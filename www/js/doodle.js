@@ -1,4 +1,5 @@
-function openDoodle() {
+function openDoodle(simple) {
+    if (simple) image_mode = "_simple"; else image_mode = "";
     document.getElementById("navigator").removeAttribute("swipeable");
     $.when(
         document.querySelector('#navigator').bringPageTop("doodle.html", {animation: "lift"})
@@ -39,7 +40,6 @@ function Doodle_upload() {
         if (e === 1) {
             document.getElementById("navigator").setAttribute("swipeable", "");
             BackTab('down');
-            image_mode = "_simple";
             var dataUrl = sketcher.toImage();
             up_file_suc(null, dataURLtoFile(dataUrl));
         }
