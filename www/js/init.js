@@ -244,6 +244,7 @@ function initevent() {
                 if (localStorage.getItem('knzk_image_full') == 1) document.getElementById("conf-image_full").checked = "true";
                 if (localStorage.getItem('knzk_dial')) document.getElementById("dial_"+localStorage.getItem('knzk_dial')).selected = true;
                 if (localStorage.getItem('knzk_theme')) document.getElementById("theme_"+localStorage.getItem('knzk_theme')).selected = true;
+                if (localStorage.getItem('knzk_url_open')) document.getElementById("url_"+localStorage.getItem('knzk_url_open')).selected = true;
                 hide('now_loading');
             },500);
         }
