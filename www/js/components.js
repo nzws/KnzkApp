@@ -150,7 +150,8 @@ function change_conf(name, id, sel) {
 }
 
 function openURL(url) {
-    if (ons.isWebView()) {
+    var mode = localStorage.getItem('knzk_url_open');
+    if (ons.isWebView() && !mode) {
         SafariViewController.isAvailable(function (available) {
             if (available) {
                 SafariViewController.show({
@@ -174,6 +175,10 @@ function openURL(url) {
             }
         });
     } else {
-        window.open(url, "_system");
+        if (mode == "Inapp") {
+            window.open(url, "_blank");
+        } else {
+            window.open(url, "_system");
+        }
     }
 }
