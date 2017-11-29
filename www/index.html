@@ -739,7 +739,7 @@
             <div class="dark-box">
                 <ons-button modifier="quiet" onclick="post_mode()" style="border-radius: 0 0 0 4px" id="post_mode_bt">公開</ons-button>
                 <ons-button modifier="quiet" onclick="showPopover(this, 'toot_emoji_popover')" id="toot_emoji_bt"><ons-icon icon="fa-smile-o"></ons-icon></ons-button>
-                <ons-button modifier="quiet" onclick="openDoodle('simple')"><ons-icon icon="fa-paint-brush"></ons-icon></ons-button>
+                <ons-button modifier="quiet" onclick="openDoodle()"><ons-icon icon="fa-paint-brush"></ons-icon></ons-button>
                 <span style="float: right">
                 <b id="toot-limit" class="toot-limit">4096</b>
                 <ons-button onclick="post('toot_textarea', {cw:document.getElementById('cw_input').value, visibility:document.getElementById('post_mode').value, sensitive:document.getElementById('nsfw_input').value, in_reply_to_id: document.getElementById('post_reply').value})" id="toot-button" style="border-radius: 4px 0 4px 0;padding-bottom: 5px;">トゥート！</ons-button>
