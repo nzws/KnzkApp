@@ -531,3 +531,15 @@ img.emoji {
     height: auto;
     max-width: 100%;
 }
+
+#doodle_popover > .popover > .popover__arrow {
+    display: none;
+}
+
+.doodle_base {
+    position: relative;
+}
+
+.doodle_nadenade {
+    position: absolute;
+}

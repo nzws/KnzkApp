@@ -37,7 +37,6 @@ function up_file(simple) {
     if (card.length >= 4) {
         showtoast("maximum-media");
     } else {
-        show('now_loading');
         navigator.camera.getPicture(up_file_suc, file_error,
             { quality: 100,
                 destinationType: Camera.DestinationType.DATA_URL,
@@ -47,14 +46,20 @@ function up_file(simple) {
     }
 }
 
-function up_file_suc(base64) {
-    if (base64) {
-        var binary = atob(base64);
-        var array = [];
-        for (var i = 0; i < binary.length; i++) {
-            array.push(binary.charCodeAt(i));
+function up_file_suc(base64, mode_blob) {
+    var blob;
+    if (base64 || mode_blob) {
+        show('now_loading');
+        if (base64) {
+            var binary = atob(base64);
+            var array = [];
+            for (var i = 0; i < binary.length; i++) {
+                array.push(binary.charCodeAt(i));
+            }
+            blob = new Blob([new Uint8Array(array)], {type: 'image/png'});
+        } else if (mode_blob) {
+            blob = mode_blob;
         }
-        var blob = new Blob([new Uint8Array(array)], {type: 'image/png'});
 
         var formData = new FormData();
         formData.append('file', blob);
@@ -71,7 +76,6 @@ function up_file_suc(base64) {
             }
         }).then(function(json) {
             if (json["id"] && json["preview_url"] != "https://knzk.me/files/small/missing.png") {
-                document.getElementById("nsfw_bt"+image_mode).className = "no-rd "+quiet;
                 document.getElementById("image_list"+image_mode).innerHTML = "<ons-card onclick=\"file_del(this)\" style='background-image: url("+json["preview_url"]+")' class='card-image media-upload"+image_mode+"' data-mediaid='"+json["id"]+"'></ons-card>" + document.getElementById("image_list"+image_mode).innerHTML;
                 image_mode = "";
                 hide('now_loading');
@@ -105,12 +109,12 @@ function post_nsfw(simple) {
     var cw_input = document.getElementById("nsfw_input"+simple_id);
     var cwicon = document.getElementById("nsfw_bt"+simple_id);
 
-    if (cwicon.className == button) { //選択済み→解除
+    if (cwicon.className == button + " w-max") { //選択済み→解除
         cw_input.value = "";
         cwicon.className = quiet;
     } else {
         cw_input.value = "1";
-        cwicon.className = button;
+        cwicon.className = button + " w-max";
     }
 }
 
