@@ -122,6 +122,9 @@ function init() {
                     showTL("local", null, null, true, null);
 
                     setTimeout(function () {
+                        if (inst !== "knzk.me" && inst !== "now.kibousoft.co.jp") {
+                            $("#vote_new_time_simple").addClass("invisible");
+                        }
                         document.getElementById("toot_limit_simple").innerHTML = toot_limit;
                         document.getElementById("splitter-profile-bg").setAttribute('style', 'background-image: url(\''+json.header+'\');');
                         document.getElementById("splitter-icon").src = json.avatar;

@@ -97,7 +97,6 @@ function Doodle_changeMode() {
         sketcher.mode = "draw";
         doodle_mode = "draw";
     }
-    console.log(doodle_mode);
 }
 
 function Doodle_changeType(id, mode) {
