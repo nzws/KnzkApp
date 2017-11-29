@@ -65,6 +65,8 @@
         var home_auto_mode = true;
         var home_auto_num = 0;
         var toot_limit = 500;
+        var doodle_old_color = null;
+        var doodle_mode = null;
     </script>
 
     <script src="js/init.js"></script>
@@ -924,7 +926,7 @@
                         	<ons-button class="no-rd" modifier="quiet" onclick="Doodle_upload()"><ons-icon icon="fa-cloud-upload"></ons-icon></ons-button>
                         </div>
                         <div class="right">
-                            <ons-button class="no-rd" modifier="quiet" onclick="ons.notification.confirm('お絵かきが破棄されますがよろしいですか？', {title: 'リセット'}).then(function (e) {if (e === 1) {sketcher.clear();hidePopover('doodle_popover')}})"><ons-icon icon="fa-eraser"></ons-icon></ons-button>
+                            <ons-button class="no-rd" modifier="quiet" onclick="Doodle_reset()"><ons-icon icon="fa-eraser"></ons-icon></ons-button>
                         </div>
                     </ons-list-item>
                     <ons-list-item>

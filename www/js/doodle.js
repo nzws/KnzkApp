@@ -7,11 +7,26 @@ function openDoodle(simple) {
         sketcher = atrament('#mySketcher', window.innerWidth, window.innerHeight-50);
         sketcher.smoothing = false;
         sketcher.adaptiveStroke = false;
-
+        doodle_mode = "draw";
+        doodle_old_color = "#000000";
         var canvas = document.getElementById('mySketcher');
         var ctx = canvas.getContext('2d');
         ctx.fillStyle = 'rgb(255,255,255)';
-        ctx.fillRect(0, 0, window.innerWidth, window.innerHeight-50);
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    });
+}
+
+function Doodle_reset() {
+    ons.notification.confirm('お絵かきが破棄されますがよろしいですか？', {title: 'リセット'}).then(function (e) {
+        if (e === 1) {
+            sketcher.clear();
+            hidePopover('doodle_popover');
+
+            var canvas = document.getElementById('mySketcher');
+            var ctx = canvas.getContext('2d');
+            ctx.fillStyle = 'rgb(255,255,255)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
     });
 }
 
@@ -64,18 +79,25 @@ function Doodle_config(id) {
 }
 
 function Doodle_changeMode() {
-    var now = sketcher.mode;
+    var now = doodle_mode;
     var button = document.getElementById("doodle_pen_bt");
     if (now === "draw") {
+        sketcher.color = doodle_old_color;
         button.className = "ons-icon fa-bath fa";
         sketcher.mode = "fill";
+        doodle_mode = "fill";
     } else if (now === "fill") {
         button.className = "ons-icon fa-eraser fa";
-        sketcher.mode = "erase";
+        sketcher.color = '#ffffff';
+        sketcher.mode = "draw";
+        doodle_mode = "erase";
     } else {
+        sketcher.color = doodle_old_color;
         button.className = "ons-icon fa-pencil fa";
         sketcher.mode = "draw";
+        doodle_mode = "draw";
     }
+    console.log(doodle_mode);
 }
 
 function Doodle_changeType(id, mode) {
