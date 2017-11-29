@@ -67,6 +67,8 @@ function init() {
     home_auto_tmp = "";
     home_auto_mode = true;
     home_auto_num = 0;
+    doodle_old_color = null;
+    doodle_mode = null;
     init_d();
     hide('cannot-connect-sv');
     hide('cannot-connect-mastodon');

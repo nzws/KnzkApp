@@ -244,6 +244,7 @@ function bbcode_color(color) {
     if (color_mode) {
         var d_box = document.getElementById("doodle-color-box-mini");
         if (color) {
+            doodle_old_color = color_s;
             sketcher.color = color_s;
             d_box.style.backgroundColor = color_s;
         } else {
