@@ -14,6 +14,7 @@
     <script src="lib/jquery-3.2.1.slim.min.js" async></script>
     <script src="lib/twitter.relative.time.min.js" async></script>
     <script src="lib/fetch.js" async></script>
+    <script src="lib/atrament.min.js" async></script>
     <script src="https://twemoji.maxcdn.com/2/twemoji.min.js?2.3.1" async></script>
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -76,6 +77,7 @@
     <script src="js/list.js"></script>
     <script src="js/music.js"></script>
     <script src="js/search.js"></script>
+    <script src="js/doodle.js"></script>
 
     <audio id="music-control"></audio>
 </head>
@@ -182,7 +184,7 @@
                                 <i class="list-item__icon list-item--chevron__icon ons-icon fa-music fa fa-fw"></i>
                             </div>
                             <div class="center">
-                                <span class="list-item__title">Knzk Music</span><span class="list-item__subtitle" id="music_title">Listen.moe</span>
+                                <span class="list-item__title">Radio</span><span class="list-item__subtitle" id="music_title">Listen.moe</span>
                             </div>
                         </ons-list-item>
                     </ons-list>
@@ -310,16 +312,6 @@
                     ブロックしたユーザー
                 </div>
             </ons-list-item>
-            <!--
-            <ons-list-item modifier="chevron" tappable onclick="show_mute_client()">
-                <div class="left">
-                    <ons-icon icon="fa-times-circle-o" class="list-item__icon"></ons-icon>
-                </div>
-                <div class="center">
-                    ミュートしたクライアント
-                </div>
-            </ons-list-item>
-            -->
         </ons-list>
     </ons-page>
 </ons-template>
@@ -415,10 +407,8 @@
                     <ons-list-item style="padding-left: 0" class="simple-toot invisible" id="simple_more">
                         <ons-button modifier="quiet" onclick="post_mode(true)" class="no-rd" id="post_mode_bt_simple">公開</ons-button>
                         <ons-button modifier="quiet" onclick="showPopover(this, 'image_popover')" class="no-rd" id="new_up_bt_simple"><ons-icon icon="fa-picture-o"></ons-icon></ons-button>
-                        <ons-button modifier="quiet" onclick="post_nsfw(true)" class="no-rd invisible" id="nsfw_bt_simple"><ons-icon icon="fa-eye"></ons-icon></ons-button>
                         <ons-button modifier="quiet" onclick="showPopover(this, 'cw_popover')" class="no-rd">CW</ons-button>
-                        <ons-button modifier="quiet" onclick="showPopover(this, 'vote_popover')" class="no-rd"><ons-icon icon="fa-align-left"></ons-icon></ons-button>
-                        <ons-button modifier="quiet" onclick="show_bbcodegen('simple_toot_TL_input')" class="no-rd"><ons-icon icon="fa-font"></ons-icon></ons-button>
+                        <ons-button modifier="quiet" onclick="showPopover(this, 'tools_popover')" class="no-rd" id="tools_bt_simple"><ons-icon icon="fa-magic"></ons-icon></ons-button>
                         <ons-button modifier="quiet" onclick="showPopover(this, 'emoji_popover')" class="no-rd" id="simple_emoji_bt"><ons-icon icon="fa-smile-o"></ons-icon></ons-button>
                         <ons-button modifier="quiet" class="no-rd" id="toot_limit_simple">4096</ons-button>
                         <ons-button modifier="quiet" class="no-rd" onclick="simple_close()"><ons-icon icon="fa-chevron-down"></ons-icon></ons-button>
@@ -426,6 +416,19 @@
                 </ons-list>
             </form>
         </ons-bottom-toolbar>
+
+        <ons-popover direction="up" id="tools_popover">
+            <div style="padding: 10px; text-align: center;">
+                <p>
+                    <ons-button onclick="hidePopover('tools_popover');showPopover(document.getElementById('tools_bt_simple'), 'vote_popover')" class="w-max"><ons-icon icon="fa-align-left"></ons-icon> Enquete</ons-button>
+                    <ons-button onclick="hidePopover('tools_popover');show_bbcodegen('simple_toot_TL_input')" class="w-max" style="margin-top: 5px"><ons-icon icon="fa-font"></ons-icon> BBCode</ons-button>
+                    <ons-button onclick="hidePopover('tools_popover');openDoodle()" class="w-max" style="margin-top: 5px"><ons-icon icon="fa-paint-brush"></ons-icon> Doodle</ons-button>
+                </p>
+                <p>
+                    <ons-button onclick="hidePopover('tools_popover')" class="w-max">閉じる</ons-button>
+                </p>
+            </div>
+        </ons-popover>
 
         <ons-popover direction="up" id="cw_popover">
             <div style="padding: 10px; text-align: center;">
@@ -447,6 +450,7 @@
                     <ons-button onclick="up_file(true)" class="w-max">画像追加</ons-button>
                 </p>
                 <p>
+                    <ons-button onclick="post_nsfw(true)" style="margin-bottom: 5px" id="nsfw_bt_simple" modifier="quiet"><ons-icon icon="fa-eye"></ons-icon> NSFW</ons-button>
                     <ons-button onclick="hidePopover('image_popover')" class="w-max">閉じる</ons-button>
                 </p>
             </div>
@@ -775,7 +779,7 @@
                 </div>
                 <div class="right">
                     <div class="color-box-mini" id="color-box-mini"></div>　
-                    <ons-button onclick="loadNav('color.html')">変更</ons-button>
+                    <ons-button onclick="color_mode=null;loadNav('color.html')">変更</ons-button>
                 </div>
             </ons-list-item>
             <ons-list-item>
@@ -874,6 +878,81 @@
                 </div>
             </div>
         </div>
+    </ons-page>
+</ons-template>
+
+<ons-template id="doodle.html">
+    <ons-page id="doodle-page">
+        <ons-toolbar>
+            <div class="left">
+                <ons-toolbar-button onclick="closeDoodle()">
+                    <ons-icon icon="fa-times"></ons-icon>
+                </ons-toolbar-button>
+            </div>
+            <div class="center">
+                <ons-toolbar-button onclick="showPopover(this, 'doodle_popover')">
+                    <ons-icon icon="fa-ellipsis-h"></ons-icon>
+                </ons-toolbar-button>
+            </div>
+            <div class="right">
+                <ons-toolbar-button onclick="Doodle_changeMode()">
+                    <ons-icon icon="fa-pencil" id="doodle_pen_bt"></ons-icon>
+                </ons-toolbar-button>
+            </div>
+        </ons-toolbar>
+        <ons-popover direction="down" id="doodle_popover">
+            <div>
+                <ons-list>
+                    <ons-list-item>
+                        <div class="left">
+                        	<ons-button class="no-rd" modifier="quiet" onclick="Doodle_upload()"><ons-icon icon="fa-cloud-upload"></ons-icon></ons-button>
+                        </div>
+                        <div class="right">
+                            <ons-button class="no-rd" modifier="quiet" onclick="ons.notification.confirm('お絵かきが破棄されますがよろしいですか？', {title: 'リセット'}).then(function (e) {if (e === 1) {sketcher.clear();hidePopover('doodle_popover')}})"><ons-icon icon="fa-eraser"></ons-icon></ons-button>
+                        </div>
+                    </ons-list-item>
+                    <ons-list-item>
+                        <div class="center">
+                            Smooth
+                        </div>
+                        <div class="right">
+                            <ons-switch onclick="Doodle_config('smooth')" input-id="doodle_smooth"></ons-switch>
+                        </div>
+                    </ons-list-item>
+                    <ons-list-item>
+                        <div class="center">
+                            Adaptive
+                        </div>
+                        <div class="right">
+                            <ons-switch onclick="Doodle_config('adaptive')" input-id="doodle_adaptive"></ons-switch>
+                        </div>
+                    </ons-list-item>
+                    <ons-list-item>
+                        <div class="center">
+                            色
+                        </div>
+                        <div class="right">
+                            <div class="color-box-mini" id="doodle-color-box-mini" style="background-color: rgb(0, 0, 0);"></div>　
+                            <ons-button onclick="color_mode='doodle';loadNav('color.html')">変更</ons-button>
+                        </div>
+                    </ons-list-item>
+                    <ons-list-item>
+                        <div class="center">
+                            太さ
+                        </div>
+                        <div class="right">
+                            <ons-input modifier="underbar" type="number" value=2 id="doodle_weight" onchange="sketcher.weight=parseInt(document.getElementById('doodle_weight').value)"></ons-input>
+                        </div>
+                    </ons-list-item>
+                    <ons-list-item style="padding-left: 6px;">
+                        <div class="center">
+                            <ons-button onclick="hidePopover('doodle_popover')" class="w-max y-center">閉じる</ons-button>
+                        </div>
+                    </ons-list-item>
+                </ons-list>
+            </div>
+        </ons-popover>
+        <canvas id="mySketcher"></canvas>
     </ons-page>
 </ons-template>
 
