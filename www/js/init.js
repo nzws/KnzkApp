@@ -226,6 +226,7 @@ function initevent() {
             document.getElementById("toot_limit_simple").innerHTML = toot_limit;
         } else {
             home_auto_event = false;
+            last_load_TL = "";
         }
 
         if (event.enterPage.id === "config-page") {

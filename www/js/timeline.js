@@ -151,7 +151,11 @@ function showTL(mode, reload, more_load, clear_load) {
         toot_old_id = 0;
         more_load = false;
         setTLheadcolor(0);
-        if (last_load_TL) document.getElementById(last_load_TL+"_main").innerHTML = ""
+        try {
+            if (last_load_TL) document.getElementById(last_load_TL+"_main").innerHTML = "";
+        } catch (e) {
+            console.error(e);
+        }
     }
     if (more_load) {
         more_load.value = "読み込み中...";
