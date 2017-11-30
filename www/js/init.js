@@ -138,6 +138,8 @@ function init() {
                         if (localStorage.getItem('knzk_menu-fav') == 1) $("#menu-fav-page").removeClass("invisible");
 
                         if (localStorage.getItem('knzk_swipe') == 1) document.getElementById("carousel").setAttribute('swipeable', '1');
+                        else document.getElementById("splitter-menu").setAttribute('swipeable', '1');
+
                         var dial = localStorage.getItem('knzk_dial'), icon;
                         if (dial && dial != "change") {
                             $("#dial_main").removeClass("invisible");
