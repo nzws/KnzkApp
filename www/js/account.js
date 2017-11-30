@@ -55,8 +55,6 @@ function show_account(id, navmode) {
             throw new Error();
         }
     }).then(function(json) {
-        document.getElementById("acct_block").value = json[0]["blocking"];
-        document.getElementById("acct_mute").value = json[0]["muting"];
 
 
         if (json[0]["followed_by"] === true)
@@ -69,15 +67,17 @@ function show_account(id, navmode) {
         else
             document.getElementById("userpage-follow-button").className = "userpage-button ons-icon fa-user-plus fa";
 
-        if (json[0]["muting"] === true) {
+        if (json[0]["muting"]) {
             document.getElementById("userpage-follow-button").className = "invisible";
             document.getElementById("userpage-mute-badge").className = "userpage-follower";
+            document.getElementById("acct_mute").value = true;
         } else
             document.getElementById("userpage-mute-badge").className = "invisible";
 
         if (json[0]["blocking"] === true) {
             document.getElementById("userpage-follow-button").className = "invisible";
             document.getElementById("userpage-block-badge").className = "userpage-follower";
+            document.getElementById("acct_block").value = true;
         } else
             document.getElementById("userpage-block-badge").className = "invisible";
 
