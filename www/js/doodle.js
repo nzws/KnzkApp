@@ -1,6 +1,7 @@
 function openDoodle(simple) {
     if (simple) image_mode = "_simple"; else image_mode = "";
     document.getElementById("navigator").removeAttribute("swipeable");
+    document.getElementById("splitter-menu").removeAttribute("swipeable");
     $.when(
         document.querySelector('#navigator').bringPageTop("doodle.html", {animation: "lift"})
     ).done(function () {
@@ -33,11 +34,13 @@ function Doodle_reset() {
 function closeDoodle(force) {
     if (force) {
         document.getElementById("navigator").setAttribute("swipeable", "");
+        document.getElementById("splitter-menu").setAttribute('swipeable', '1');
         BackTab('down');
     } else {
         ons.notification.confirm('お絵かきが破棄されますがよろしいですか？', {title: 'お絵かきを閉じる'}).then(function (e) {
             if (e === 1) {
                 document.getElementById("navigator").setAttribute("swipeable", "");
+                document.getElementById("splitter-menu").setAttribute('swipeable', '1');
                 BackTab('down');
             }
         });
@@ -53,8 +56,7 @@ function dataURLtoFile(dataURI) {
 function Doodle_upload() {
     ons.notification.confirm('よろしいですか？', {title: 'アップロード'}).then(function (e) {
         if (e === 1) {
-            document.getElementById("navigator").setAttribute("swipeable", "");
-            BackTab('down');
+            closeDoodle(true);
             var dataUrl = sketcher.toImage();
             up_file_suc(null, dataURLtoFile(dataUrl));
         }
