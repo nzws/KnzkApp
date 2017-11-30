@@ -1334,10 +1334,11 @@
     </ons-alert-dialog>
 
     <ons-alert-dialog id="cannot-connect-sv">
-        <div class="alert-dialog-title">エラー</div>
+        <div class="alert-dialog-title">エラーが発生しました。</div>
         <div class="alert-dialog-content">
-            インスタンスに接続できません！<br>
-            サーバーが落ちているか、通信環境が悪い可能性があります。
+            インスタンスが落ちている、通信環境が悪い、内部エラーが発生しているなどの可能性があります。<br>
+            エラーログ:
+            <pre id="error-log-sv" class="error_log"></pre>
         </div>
         <div class="alert-dialog-footer">
             <button class="alert-dialog-button" onclick="init()">再試行</button>
@@ -1363,7 +1364,7 @@
             詳細はシステム状態のページをご覧ください。
         </div>
         <div class="alert-dialog-footer">
-            <button class="alert-dialog-button" onclick="openURL('http://'+stat_sv)">ステータスページへ</button>
+            <button class="alert-dialog-button" onclick="openURL('http://knzk.me')">ステータスページへ</button>
             <button class="alert-dialog-button" onclick="init()">再試行</button>
         </div>
     </ons-alert-dialog>

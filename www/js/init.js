@@ -171,6 +171,7 @@ function init() {
                     });
                 } else { //status無いのでわからない
                     show('cannot-connect-sv');
+                    Seterrorlog('error-log-sv', 'Connection Error: インスタンスが落ちているか通信環境が悪い可能性があります。');
                     hide('now_loading');
                 }
             })

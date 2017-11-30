@@ -101,11 +101,13 @@ function login_callback(code) {
             showtoast('loggedin_dialog');
         }).catch(function(error) {
             show('cannot-connect-sv');
+            Seterrorlog('error-log-sv', error);
             console.log(error);
             hide('now_loading');
         });
     }).catch(function(error) {
         show('cannot-connect-sv');
+        Seterrorlog('error-log-sv', error);
         console.log(error);
         hide('now_loading');
     });
@@ -137,6 +139,7 @@ function debug_login() {
         showtoast('loggedin_dialog');
     }).catch(function(error) {
         show('cannot-connect-sv');
+        Seterrorlog('error-log-sv', error);
         console.log(error);
         hide('now_loading');
     });
