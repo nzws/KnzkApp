@@ -546,7 +546,7 @@ img.emoji {
 
 .error_log {
     text-align: left;
-    max-height: 200px;
+    max-height: 50%;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none;
