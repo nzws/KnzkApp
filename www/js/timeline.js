@@ -151,6 +151,7 @@ function showTL(mode, reload, more_load, clear_load) {
         toot_old_id = 0;
         more_load = false;
         setTLheadcolor(0);
+        if (last_load_TL) document.getElementById(last_load_TL+"_main").innerHTML = ""
     }
     if (more_load) {
         more_load.value = "読み込み中...";
@@ -177,6 +178,20 @@ function showTL(mode, reload, more_load, clear_load) {
         else
             tlmode = "public?local=true&since_id="+toot_new_id;
         n = true;
+    } else if (mode === "local_media") {
+        id_main = "local_media_main";
+        if (more_load)
+            tlmode = "public?local=true&max_id="+toot_old_id;
+        else
+            tlmode = "public?limit=40&local=true&since_id="+toot_new_id;
+        n = true;
+    } else if (mode === "public_media") {
+        id_main = "public_media_main";
+        if (more_load)
+            tlmode = "public?max_id="+toot_old_id;
+        else
+            tlmode = "public?limit=40&since_id="+toot_new_id;
+        n = true;
     }
     if (n) {
         fetch("https://"+inst+"/api/v1/timelines/"+tlmode, {
@@ -199,9 +214,9 @@ function showTL(mode, reload, more_load, clear_load) {
                 reshtml = document.getElementById(id_main).innerHTML;
             } else {
                 if (localStorage.getItem('knzk_realtime') == 1) {
-                    if (now_TL === "public")
+                    if (now_TL === "public" || now_TL === "public_media")
                         ws_mode = "public";
-                    else if (now_TL === "local")
+                    else if (now_TL === "local" || now_TL === "local_media")
                         ws_mode = "public:local";
                     else
                         ws_mode = "user";
@@ -218,8 +233,10 @@ function showTL(mode, reload, more_load, clear_load) {
 
                             if (ws_reshtml['id']) {
                                 if (toot_new_id !== ws_reshtml['id']) {
-                                    home_auto_tmp = toot_card(ws_reshtml, "full", null) + home_auto_tmp;
-                                    if (!home_auto_mode) {
+                                    var TLmode;
+                                    if (now_TL === "local_media" || now_TL === "public_media") TLmode = "media"; else TLmode = "";
+                                    home_auto_tmp = toot_card(ws_reshtml, "full", null, TLmode) + home_auto_tmp;
+                                    if (!home_auto_mode && (ws_reshtml['media_attachments'][0] && TLmode === "media")) {
                                         home_auto_num++;
                                         setTLheadcolor(1);
                                     }
@@ -238,8 +255,10 @@ function showTL(mode, reload, more_load, clear_load) {
             }
 
             while (json[i]) {
+                var TLmode;
+                if (mode === "local_media" || mode === "public_media") TLmode = "media"; else TLmode = "";
                 toot_new_id = json[0]['id'];
-                reshtml += toot_card(json[i], "full", null);
+                reshtml += toot_card(json[i], "full", null, TLmode);
                 i++;
             }
 
@@ -249,7 +268,8 @@ function showTL(mode, reload, more_load, clear_load) {
             if (more_load || mode != last_load_TL || clear_load) { //TL初回
                 initph("TL");
                 if (i !== 0) toot_old_id = json[i-1]['id'];
-                reshtml += "<button class='button button--large--quiet more_load_bt_"+now_TL+"' onclick='showTL(null,null,this)'>もっと読み込む...</button>";
+                var mediaTL_noti; if (TLmode === "media") mediaTL_noti = "(何回か押してね)"; else mediaTL_noti = "";
+                reshtml += "<button class='button button--large--quiet more_load_bt_"+now_TL+"' onclick='showTL(null,null,this)'>もっと読み込む... "+mediaTL_noti+"</button>";
             }
             last_load_TL = mode;
             document.getElementById(id_main).innerHTML = reshtml;
@@ -372,16 +392,31 @@ function showAccountTL(id, more_load, media) {
 var TL_prev = function() {
     var carousel = document.getElementById('carousel');
     carousel.prev();
+    SpeedDial_icon_change(carousel.getActiveIndex());
 };
 
 var TL_next = function() {
     var carousel = document.getElementById('carousel');
     carousel.next();
+    SpeedDial_icon_change(carousel.getActiveIndex());
 };
 
 function TL_change(mode) {
+    SpeedDial_icon_change(mode);
     var carousel = document.getElementById('carousel');
     carousel.setActiveIndex(mode);
+}
+
+function SpeedDial_icon_change(mode) {
+    var iconclass;
+    if (mode !== 3) {
+        var fa;
+        if (mode === 0) fa = "fa-users"; else if (mode === 1) fa = "fa-home"; else if (mode === 2) fa = "fa-picture-o"; else if (mode === 4) fa = "fa-globe";
+        iconclass = "ons-icon "+fa+" fa";
+    } else {
+        iconclass = "ons-icon zmdi zmdi-collection-image-o";
+    }
+    document.getElementById("speeddial_icon").className = iconclass;
 }
 
 function scrollTL() {

@@ -94,6 +94,8 @@ function toot_card(toot, mode, note, toot_light) {
                 }
                 p++;
             }
+        } else if (!toot['media_attachments'][0] && toot_light === "media") {
+            return "";
         }
     } catch (e) {
         console.log("error_image");
