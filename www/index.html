@@ -357,6 +357,20 @@
                     </div>
                 </div>
             </ons-carousel-item>
+            <ons-carousel-item id="local_media_item">
+                <div id="local_media_main">
+                    <div class="loading-now">
+                        <ons-progress-circular indeterminate></ons-progress-circular>
+                    </div>
+                </div>
+            </ons-carousel-item>
+            <ons-carousel-item id="public_media_item">
+                <div id="public_media_main">
+                    <div class="loading-now">
+                        <ons-progress-circular indeterminate></ons-progress-circular>
+                    </div>
+                </div>
+            </ons-carousel-item>
             <ons-carousel-item id="public_item">
                 <div id="public_main">
                     <div class="loading-now">
@@ -372,19 +386,25 @@
         </ons-speed-dial>
         <ons-speed-dial position="bottom right" direction="up" id="dial_TL" class="invisible">
             <ons-fab>
-                <ons-icon icon="fa-home"></ons-icon>
+                <ons-icon icon="fa-users" id="speeddial_icon"></ons-icon>
             </ons-fab>
+            <ons-speed-dial-item onclick="openTL('alert_nav')">
+                <ons-icon icon="fa-bell"></ons-icon>
+            </ons-speed-dial-item>
             <ons-speed-dial-item onclick="TL_change(1)">
                 <ons-icon icon="fa-home"></ons-icon>
             </ons-speed-dial-item>
             <ons-speed-dial-item onclick="TL_change(0)">
                 <ons-icon icon="fa-users"></ons-icon>
             </ons-speed-dial-item>
-            <ons-speed-dial-item onclick="TL_change(2)">
+            <ons-speed-dial-item onclick="TL_change(4)">
                 <ons-icon icon="fa-globe"></ons-icon>
             </ons-speed-dial-item>
-            <ons-speed-dial-item onclick="openTL('alert_nav')">
-                <ons-icon icon="fa-bell"></ons-icon>
+            <ons-speed-dial-item onclick="TL_change(2)">
+                <ons-icon icon="fa-picture-o"></ons-icon>
+            </ons-speed-dial-item>
+            <ons-speed-dial-item onclick="TL_change(3)">
+                <ons-icon icon="md-collection-image-o"></ons-icon>
             </ons-speed-dial-item>
         </ons-speed-dial>
         <ons-bottom-toolbar id="simple_toot_TL_toolbar">

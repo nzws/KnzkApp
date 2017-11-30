@@ -316,8 +316,8 @@ function initevent() {
     });
 
     var carousel = document.addEventListener('postchange', function(event) {
-        var home_cr = {0:"ローカル",1:"ホーム",2:"連合"};
-        var TL_name = {0:"local",1:"home",2:"public"};
+        var home_cr = {0:"ローカル",1:"ホーム",2:"メディア(ローカル)",3:"メディア(連合)",4:"連合"};
+        var TL_name = {0:"local",1:"home",2:"local_media",3:"public_media",4:"public"};
         document.getElementById('home_title').innerHTML = home_cr[event.activeIndex];
         now_TL = TL_name[event.activeIndex];
         showTL(null,null,null,true,true);
@@ -360,8 +360,8 @@ function home_autoevent() {
             }
 
             try {
-                var mr = $(".more_load_bt_"+now_TL).offset().top;
-                if (mr < 700) {
+                var mr = $(".more_load_bt_"+now_TL).offset().top - window.innerHeight;
+                if (mr < -10) {
                     showTL(null,null,document.getElementsByClassName("more_load_bt_"+now_TL)[0]);
                 }
             } catch (e) {
