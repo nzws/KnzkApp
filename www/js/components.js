@@ -182,3 +182,7 @@ function openURL(url) {
         }
     }
 }
+
+function Seterrorlog(id, text) {
+    document.getElementById(id).innerHTML = text;
+}
