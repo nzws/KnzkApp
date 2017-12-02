@@ -183,6 +183,10 @@ function openURL(url) {
     }
 }
 
-function Seterrorlog(id, text) {
-    document.getElementById(id).innerHTML = text;
+function Seterrorlog(id, text, data) {
+    if (data) {
+        document.getElementById(id).innerHTML = JSON.stringify(text);
+    } else {
+        document.getElementById(id).innerHTML = text;
+    }
 }
