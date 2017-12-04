@@ -1,11 +1,13 @@
 function toot_card(toot, mode, note, toot_light) {
     var buf = "", piccard = "", fav = "", boost = "", namucard = "", namubt = "", p = 0, alert_text = "", content = "", button = "", e = 0, bt_big = "", light = "", q = 0, enq_item = "";
     var appname, boost_full, boost_big;
+    if (!toot) {
+        return "";
+    }
     try {
         if (!toot['account']['display_name']) toot['account']['display_name'] = toot['account']['username'];
     } catch (e) {
-        console.log("error:display_name");
-        toot['account']['display_name'] = toot['account']['username'];
+        console.log("error:create_html");
     }
     if (toot['reblog']) {
         alert_text = "<p class='alert_text'><ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" + toot['account']['id'] + ")'>" + toot['account']['display_name'] + "</b>さんがブーストしました</p>";

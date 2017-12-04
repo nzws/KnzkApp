@@ -1,3 +1,16 @@
+function AccountCard(acct) {
+    var reshtml;
+
+    reshtml = "<div onclick='show_account(" +acct['id'] + ")' class=\"toot toot-small\">\n" +
+        "    <img src=\"" + acct['avatar'] + "\" class=\"icon-img-small\" align=\"middle\">\n" +
+        "    <span class=\"toot-group toot-card-right\">\n" +
+        "      <b>" + acct['display_name'] + "</b> <small>@" + acct['acct'] + "</small>\n" +
+        "    </span>\n" +
+        "</div>";
+
+    return reshtml;
+}
+
 function show_account(id, navmode) {
     if (navmode) {
         var menu = document.getElementById('splitter-menu');
@@ -38,6 +51,8 @@ function show_account(id, navmode) {
             var min = "0";
             if (d.getMinutes() < 10) min = "0" + d.getMinutes(); else min = d.getMinutes();
             document.getElementById("userpage-hint").innerHTML = "登録日: <b>" + d.getFullYear()+"年"+(d.getMonth()+1)+"月"+d.getDate()+"日 "+d.getHours()+":"+min + "</b>";
+        } else {
+            document.getElementById("userpage-hint").innerHTML = "<span class='note'>リモートアカウントの為、情報が不正確な可能性があります。</span>";
         }
 
     }).catch(function(error) {
@@ -62,7 +77,7 @@ function show_account(id, navmode) {
         else
             document.getElementById("userpage-follower-badge").className = "invisible";
 
-        if (json[0]["following"] === true)
+        if (json[0]["following"])
             document.getElementById("userpage-follow-button").className = "userpage-button follow-active ons-icon fa-user-times fa";
         else
             document.getElementById("userpage-follow-button").className = "userpage-button ons-icon fa-user-plus fa";
@@ -134,7 +149,7 @@ function account_state_action(id, obj, mode) {
         }
     }).then(function(json) {
         if (mode === "follow") {
-            if (json["following"] === true)
+            if (json["following"])
                 document.getElementById("userpage-follow-button").className = "userpage-button follow-active ons-icon fa-user-times fa";
             else
                 document.getElementById("userpage-follow-button").className = "userpage-button ons-icon fa-user-plus fa";

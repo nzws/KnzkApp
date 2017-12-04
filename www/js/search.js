@@ -20,28 +20,7 @@ function SearchLoad() {
         reshtml += "<ons-list><ons-list-header>アカウント</ons-list-header></ons-list>";
         while (json['accounts'][i]) {
             if (!json['accounts'][i]['display_name']) json['accounts'][i]['display_name'] = json['accounts'][i]['username'];
-
-            if (localStorage.getItem('knzk_acct_list_small') == 1) {
-                reshtml += "<div onclick='show_account(" + json['accounts'][i]['id'] + ")' class=\"toot toot-small\">\n" +
-                    "    <img src=\"" + json['accounts'][i]['avatar'] + "\" class=\"icon-img-small\" align=\"middle\">\n" +
-                    "    <span class=\"toot-group toot-card-right\">\n" +
-                    "      <b>" + json['accounts'][i]['display_name'] + "</b> <small>@" + json['accounts'][i]['acct'] + "</small>\n" +
-                    "    </span>\n" +
-                    "</div>";
-            } else {
-                reshtml += "<div class=\"toot\" onclick='show_account(" + json['accounts'][i]['id'] + ")'>\n" +
-                    "                    <div class=\"row\">\n" +
-                    "                        <div class=\"col-xs-2\">\n" +
-                    "                            <p><img src=\"" + json['accounts'][i]['avatar'] + "\" class=\"icon-img\"></p>\n" +
-                    "                        </div>\n" +
-                    "                        <div class=\"col-xs-9 toot-card-right\">\n" +
-                    "                            <div class=\"toot-group\">\n" +
-                    "                                <h3><b>" + json['accounts'][i]['display_name'] + "</b></h3><small>@" + json['accounts'][i]['acct'] + "</small>\n" +
-                    "                            </div>\n" +
-                    "                        </div>\n" +
-                    "                    </div>\n" +
-                    "            </div>";
-            }
+            reshtml += AccountCard(json['accounts'][i]);
             i++;
         }
 

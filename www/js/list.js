@@ -52,27 +52,8 @@ function list_n(mode, title, more_load, mode_toot, navmode) {
                     } else if (mode_toot === "acct") {
                         if (!json[i]['display_name']) json[i]['display_name'] = json[i]['username'];
 
-                        if (localStorage.getItem('knzk_acct_list_small') == 1) {
-                            reshtml += "<div onclick='show_account(" + json[i]['id'] + ")' class=\"toot toot-small\">\n" +
-                                "    <img src=\"" + json[i]['avatar'] + "\" class=\"icon-img-small\" align=\"middle\">\n" +
-                                "    <span class=\"toot-group toot-card-right\">\n" +
-                                "      <b>" + json[i]['display_name'] + "</b> <small>@" + json[i]['acct'] + "</small>\n" +
-                                "    </span>\n" +
-                                "</div>";
-                        } else {
-                            reshtml += "<div class=\"toot\" onclick='show_account(" + json[i]['id'] + ")'>\n" +
-                                "                    <div class=\"row\">\n" +
-                                "                        <div class=\"col-xs-2\">\n" +
-                                "                            <p><img src=\"" + json[i]['avatar'] + "\" class=\"icon-img\"></p>\n" +
-                                "                        </div>\n" +
-                                "                        <div class=\"col-xs-9 toot-card-right\">\n" +
-                                "                            <div class=\"toot-group\">\n" +
-                                "                                <h3><b>" + json[i]['display_name'] + "</b></h3><small>@" + json[i]['acct'] + "</small>\n" +
-                                "                            </div>\n" +
-                                "                        </div>\n" +
-                                "                    </div>\n" +
-                                "            </div>";
-                        }
+                        reshtml += AccountCard(json[i]);
+
                         if (mode === "follow_requests") {
                             reshtml += "<div class=\"toot y-center\" style='padding-left: 0'>\n" +
                                 "<ons-button style=\"width: 45%\" class='y-center' onclick='followreq("+json[i]['id']+", \"authorize\")'><ons-icon icon='fa-check'></ons-icon></ons-button>\n" +
