@@ -324,7 +324,7 @@ function showTagTL(tag, more_load) {
 }
 
 function showAccountTL(id, more_load, media) {
-    var i = 0, reshtml = "", get = "", reshtml_pinned = "";
+    var i = 0, ip = 0, reshtml = "", get = "", reshtml_pinned = "";
     if (more_load) {
         more_load.value = "読み込み中...";
         more_load.disabled = true;
@@ -340,24 +340,6 @@ function showAccountTL(id, more_load, media) {
     if (media && !more_load) { //読み込みマーク入れる & ピンを表示しない
         document.getElementById("account_toot").innerHTML = "<div class=\"loading-now\"><ons-progress-circular indeterminate></ons-progress-circular></div>";
         document.getElementById("account_pinned_toot").innerHTML = "";
-    } else if (!media) {
-        fetch("https://"+inst+"/api/v1/accounts/"+id+"/statuses?pinned=true", {
-            headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
-            method: 'GET'
-        }).then(function(response) {
-            if(response.ok) {
-                return response.json();
-            } else {
-                showtoast('cannot-load');
-            }
-        }).then(function(json_pinned) {
-            while (json_pinned[i]) {
-                reshtml_pinned += toot_card(json_pinned[i], "full", "<ons-icon icon='fa-thumb-tack'></ons-icon>　固定トゥート", "light");
-                i++;
-            }
-            i = 0;
-            document.getElementById("account_pinned_toot").innerHTML = reshtml_pinned;
-        });
     }
     fetch("https://"+inst+"/api/v1/accounts/"+id+"/statuses"+get, {
         headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
@@ -370,12 +352,30 @@ function showAccountTL(id, more_load, media) {
             return false;
         }
     }).then(function(json) {
-        if (!more_load) {
-            displayTime('update');
+        if (!media && !more_load) {
+            fetch("https://"+inst+"/api/v1/accounts/"+id+"/statuses?pinned=true", {
+                headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+                method: 'GET'
+            }).then(function(response) {
+                if(response.ok) {
+                    return response.json();
+                } else {
+                    showtoast('cannot-load');
+                }
+            }).then(function(json_pinned) {
+                while (json_pinned[ip]) {
+                    reshtml_pinned += toot_card(json_pinned[ip], "full", "<ons-icon icon='fa-thumb-tack'></ons-icon>　固定トゥート", "light");
+                    ip++;
+                }
+                if (json != json_pinned) {
+                    document.getElementById("account_pinned_toot").innerHTML = reshtml_pinned;
+                }
+            });
         }
         if (more_load) {
             more_load.className = "button button--large--quiet invisible";
             reshtml = document.getElementById("account_toot").innerHTML;
+            displayTime('update');
         }
         i = 0;
         while (json[i]) {
