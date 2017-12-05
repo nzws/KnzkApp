@@ -608,6 +608,22 @@
             </ons-list-item>
             <ons-list-item>
                 <div class="center">
+                    トゥートの折りたたみ
+                </div>
+                <div class="right">
+                    <ons-button onclick="loadNav('config_collapse.html')">設定</ons-button>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    ヘッダを押した時にTLをリセット
+                </div>
+                <div class="right">
+                    <ons-switch onclick="change_conf('knzk_head_reset', 'conf-head_reset')" input-id="conf-head_reset"></ons-switch>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
                     スピードダイヤル設定
                 </div>
                 <div class="right">
@@ -629,22 +645,6 @@
                 </div>
                 <div class="right">
                     <ons-switch onclick="change_conf('knzk_bigfav', 'conf-fav-namu')" input-id="conf-fav-namu"></ons-switch>
-                </div>
-            </ons-list-item>
-            <ons-list-item>
-                <div class="center">
-                    アカウントリストの表示を小さくする
-                </div>
-                <div class="right">
-                    <ons-switch onclick="change_conf('knzk_acct_list_small', 'conf-acct_list_small')" input-id="conf-acct_list_small"></ons-switch>
-                </div>
-            </ons-list-item>
-            <ons-list-item>
-                <div class="center">
-                    アニメーションを無効化
-                </div>
-                <div class="right">
-                    <ons-switch onclick="change_conf('knzk_lite_mode', 'conf-lite-mode')" input-id="conf-lite-mode"></ons-switch>
                 </div>
             </ons-list-item>
             <ons-list-item>
