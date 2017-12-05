@@ -425,4 +425,5 @@ function SpeedDial_icon_change(mode) {
 
 function scrollTL() {
     $("#"+now_TL+"_item").scrollTop(0);
+    if (localStorage.getItem('knzk_head_reset') == 1) showTL(null, null, null, true);
 }

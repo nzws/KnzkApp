@@ -116,6 +116,7 @@ function init() {
                     }
 
                     if (localStorage.getItem('knzk_realtime') == undefined) localStorage.setItem('knzk_realtime', 1);
+                    if (localStorage.getItem('knzk_head_reset') == undefined) localStorage.setItem('knzk_head_reset', 1);
                     if (localStorage.getItem('knzk_dial') == undefined) localStorage.setItem('knzk_dial', 'change');
                     document.querySelector('#navigator').resetToPage('home.html');
                     initevent();
@@ -235,10 +236,8 @@ function initevent() {
             show('now_loading');
             setTimeout(function() {
                 if (localStorage.getItem('knzk_bigfav') == 1) document.getElementById("conf-fav-namu").checked = "true";
-                if (localStorage.getItem('knzk_lite_mode') == 1) document.getElementById("conf-lite-mode").checked = "true";
                 if (localStorage.getItem('knzk_nsfw') == 1) document.getElementById("conf-nsfw").checked = "true";
                 if (localStorage.getItem('knzk_cw') == 1) document.getElementById("conf-cw").checked = "true";
-                if (localStorage.getItem('knzk_acct_list_small') == 1) document.getElementById("conf-acct_list_small").checked = "true";
                 if (localStorage.getItem('knzk_realtime') == 1) document.getElementById("conf-realtime").checked = "true";
                 if (localStorage.getItem('knzk_spin') == 1) document.getElementById("conf-spin").checked = "true";
                 if (localStorage.getItem('knzk_swipe') == 1) document.getElementById("conf-swipe").checked = "true";
@@ -247,6 +246,7 @@ function initevent() {
                 if (localStorage.getItem('knzk_alert-back') == 1) document.getElementById("conf-alert-back").checked = "true";
                 if (localStorage.getItem('knzk_image_full') == 1) document.getElementById("conf-image_full").checked = "true";
                 if (localStorage.getItem('knzk_swipe_menu') == 1) document.getElementById("conf-swipe_menu").checked = "true";
+                if (localStorage.getItem('knzk_head_reset') == 1) document.getElementById("conf-head_reset").checked = "true";
                 if (localStorage.getItem('knzk_dial')) document.getElementById("dial_"+localStorage.getItem('knzk_dial')).selected = true;
                 if (localStorage.getItem('knzk_theme')) document.getElementById("theme_"+localStorage.getItem('knzk_theme')).selected = true;
                 if (localStorage.getItem('knzk_url_open')) document.getElementById("url_"+localStorage.getItem('knzk_url_open')).selected = true;
@@ -382,9 +382,6 @@ function init_d() {
     quiet = button + " button--quiet";
     light = button + " button--light";
     ons.disableAutoStyling();
-    if (localStorage.getItem('knzk_lite_mode') == 1) {
-        ons.disableAnimations();
-    }
 
     if (localStorage.getItem('knzk_spin') == 1) {
         var css = ".fa-spin {-webkit-animation: none;  animation: none;}";
