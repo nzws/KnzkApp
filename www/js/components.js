@@ -190,3 +190,7 @@ function Seterrorlog(id, text, data) {
         document.getElementById(id).innerHTML = text;
     }
 }
+
+function getConf(id) {
+    return localStorage.getItem(id) == 1;
+}

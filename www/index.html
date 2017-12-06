@@ -92,7 +92,7 @@
                     <div class="splitter-profile">
                         <img src="img/missing.png" id="splitter-icon" class="user-logo" onclick="show_account(localStorage.getItem('knzk_userid'), true)"/>
                         <p>
-                        <h4 id="splitter-profile-name" class="toot-small"></h4>
+                        <h4 id="splitter-profile-name" class="toot-small" style="padding-left: 0;"></h4>
                         </p>
                     </div>
                 </ons-list-item>
@@ -717,6 +717,68 @@
         <div class="container">
             <p class="note">一部の設定は再起動後に反映されます。</p>
         </div>
+    </ons-page>
+</ons-template>
+
+<ons-template id="config_collapse.html">
+    <ons-page id="config_collapse-page">
+        <ons-toolbar>
+            <div class="left">
+                <ons-toolbar-button onclick="BackTab()">
+                    <ons-icon icon="fa-chevron-left"></ons-icon>
+                    設定
+                </ons-toolbar-button>
+            </div>
+            <div class="center">トゥート折りたたみ</div>
+        </ons-toolbar>
+        <ons-list>
+            <ons-list-item>
+                <div class="center">
+                    折りたたみを有効化
+                </div>
+                <div class="right">
+                    <ons-switch onclick="change_conf('conf-col-collapse', 'conf-col-collapse')" input-id="conf-col-collapse"></ons-switch>
+                </div>
+            </ons-list-item>
+        </ons-list>
+        <ons-list>
+            <ons-list-header>自動折りたたみ</ons-list-header>
+            <ons-list-item tappable onclick="change_conf('conf-col-all', 'conf-col-all')">
+                <label class="left"><ons-checkbox input-id="conf-col-all"></ons-checkbox></label>
+                <label for="conf-col-all" class="center">すべて</label>
+            </ons-list-item>
+            <ons-list-item tappable onclick="change_conf('conf-col-alert', 'conf-col-alert')">
+                <label class="left"><ons-checkbox input-id="conf-col-alert"></ons-checkbox></label>
+                <label for="conf-col-alert" class="center">通知</label>
+            </ons-list-item>
+            <ons-list-item tappable onclick="change_conf('conf-col-leng', 'conf-col-leng')">
+                <label class="left"><ons-checkbox input-id="conf-col-leng"></ons-checkbox></label>
+                <label for="conf-col-leng" class="center">長いトゥート</label>
+            </ons-list-item>
+            <ons-list-item tappable onclick="change_conf('conf-col-bs', 'conf-col-bs')">
+                <label class="left"><ons-checkbox input-id="conf-col-bs"></ons-checkbox></label>
+                <label for="conf-col-bs" class="center">ブースト</label>
+            </ons-list-item>
+            <ons-list-item tappable onclick="change_conf('conf-col-re', 'conf-col-re')">
+                <label class="left"><ons-checkbox input-id="conf-col-re"></ons-checkbox></label>
+                <label for="conf-col-re" class="center">返信</label>
+            </ons-list-item>
+            <ons-list-item tappable onclick="change_conf('conf-col-media', 'conf-col-media')">
+                <label class="left"><ons-checkbox input-id="conf-col-media"></ons-checkbox></label>
+                <label for="conf-col-media" class="center">メディアトゥート</label>
+            </ons-list-item>
+        </ons-list>
+        <ons-list>
+            <ons-list-header>背景</ons-list-header>
+            <ons-list-item tappable onclick="change_conf('conf-col-bg', 'conf-col-bg')">
+                <label class="left"><ons-checkbox input-id="conf-col-bg"></ons-checkbox></label>
+                <label for="conf-col-bg" class="center">折りたたみ時の背景を変更</label>
+            </ons-list-item>
+            <ons-list-item tappable onclick="change_conf('conf-col-preview', 'conf-col-preview')">
+                <label class="left"><ons-checkbox input-id="conf-col-preview"></ons-checkbox></label>
+                <label for="conf-col-preview" class="center">メディアプレビュー</label>
+            </ons-list-item>
+        </ons-list>
     </ons-page>
 </ons-template>
 
