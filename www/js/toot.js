@@ -1,6 +1,6 @@
-function toot_card(toot, mode, note, toot_light) {
+function toot_card(toot, mode, note, toot_light, page) {
     var buf = "", piccard = "", fav = "", boost = "", namucard = "", namubt = "", p = 0, alert_text = "", content = "", button = "", e = 0, bt_big = "", light = "", q = 0, enq_item = "";
-    var appname, boost_full, boost_big;
+    var appname, boost_full, boost_big, visibility_icon, can_col, is_col = "", col_bt = "", col_pic = "", col_bg_st = "", col_bg_cl = "";
     if (!toot) {
         return "";
     }
@@ -61,16 +61,50 @@ function toot_card(toot, mode, note, toot_light) {
     if (toot_light === "light") {
         light = " toot_light";
     }
+    if (getConf('conf-col-collapse') && mode != "big") {
+        if (getConf('conf-col-preview') && toot['media_attachments'][0] && !toot['sensitive']) {
+            col_pic = toot['media_attachments'][0]['preview_url'];
+        } else if (getConf('conf-col-bg')) {
+            col_pic = toot['account']['header_static'];
+        }
+        if (getConf('conf-col-all') ||
+            (getConf('conf-col-alert') && page === "alert" && note) ||
+            (getConf('conf-col-leng') && toot['content'].length > 100) ||
+            (getConf('conf-col-bs') && toot['reblog']) ||
+            (getConf('conf-col-re') && toot['mentions'][0]) ||
+            (getConf('conf-col-media') && toot['media_attachments'][0])) {
+            can_col = true;
+            is_col = "toot-small ";
+            if (col_pic) {
+                col_bg_st = 'background-image: url("'+col_pic+'");';
+                col_bg_cl = "col_bg ";
+            }
+        } else {
+            can_col = true;
+        }
+    }
+    if (can_col && is_col) {
+        col_bt = "<i class='fa fa-fw fa-angle-double-down toot-right-icon blue' onclick='toot_col(\""+toot['id']+"\", this)'></i>";
+    } else if (can_col) {
+        col_bt = "<i class='fa fa-fw fa-angle-double-up toot-right-icon' onclick='toot_col(\""+toot['id']+"\", this)'></i>";
+    }
     if (toot['visibility'] === "direct") {
+        visibility_icon = "envelope";
         light = " toot_dm";
         boost_full = "<ons-icon icon=\"fa-envelope\" class=\"toot-button toot-button-disabled\"></ons-icon>";
         boost_big = "<ons-icon icon=\"fa-envelope\"  class=\"showtoot-button toot-button-disabled\"></ons-icon>";
     } else if (toot['visibility'] === "private") {
+        visibility_icon = "lock";
         boost_full = "<ons-icon icon=\"fa-lock\" class=\"toot-button toot-button-disabled\"></ons-icon>";
         boost_big = "<ons-icon icon=\"fa-lock\"  class=\"showtoot-button toot-button-disabled\"></ons-icon>";
     } else {
-        boost_full = "<ons-icon icon=\"fa-retweet\" onclick=\"toot_action('"+toot['id']+"', this, null, 'boost')\" class=\"toot-button"+boost+"\"></ons-icon>";
-        boost_big = "<ons-icon icon=\"fa-retweet\" onclick=\"toot_action('"+toot['id']+"', this, 'big', 'boost')\" class=\"showtoot-button"+boost+"\"></ons-icon>";
+        if (toot['visibility'] === "unlisted") {
+            visibility_icon = "unlock-alt";
+        } else if (toot['visibility'] === "public") {
+            visibility_icon = "globe";
+        }
+        boost_full = "<ons-icon icon=\"fa-retweet\" onclick=\"toot_action('"+toot['id']+"', null, 'boost')\" class=\"tootbs_"+toot['id']+" toot-button"+boost+"\"></ons-icon>";
+        boost_big = "<ons-icon icon=\"fa-retweet\" onclick=\"toot_action('"+toot['id']+"', 'big', 'boost')\" class=\"tootbs_"+toot['id']+" showtoot-button"+boost+"\"></ons-icon>";
     }
 
     if (toot['emojis']) {
@@ -106,7 +140,7 @@ function toot_card(toot, mode, note, toot_light) {
     toot['content'] = toot['content'].replace(/<a href="((http:|https:)\/\/[\x21-\x26\x28-\x7e]+)\/media\/([\x21-\x26\x28-\x7e]+)" rel="nofollow noopener" target="_blank"><span class="invisible">(http:|https:)\/\/<\/span><span class="ellipsis">([\x21-\x26\x28-\x7e]+)\/media\/([\x21-\x26\x28-\x7e]+)<\/span><span class="invisible">([\x21-\x26\x28-\x7e]+)<\/span><\/a>/g , "<a href='$1/media/$3' class='image-url'><ons-icon icon='fa-file-image-o'></ons-icon></a>");
     if (toot['spoiler_text'] && localStorage.getItem('knzk_cw') != 1) {
         var rand = Date.now();
-        content = toot['spoiler_text'] + "　<ons-button modifier=\"light\" onclick='open_cw(\"cw_"+rand+"_" + toot['id'] + "\", this);' class='cw-button'>もっと見る</ons-button><div class='invisible' id='cw_"+rand+"_" + toot['id'] + "'><p>" + toot['content'] + piccard + "</p></div>";
+        content = toot['spoiler_text'] + "　<ons-button modifier=\"large--quiet\" onclick='open_cw(\"cw_"+rand+"_" + toot['id'] + "\", this);' class='cw-button'>もっと見る</ons-button><div class='invisible' id='cw_"+rand+"_" + toot['id'] + "'><p>" + toot['content'] + piccard + "</p></div>";
     } else if (toot['spoiler_text']) { //CW / 常に表示
         content = toot['spoiler_text'] + "<p>" + toot['content'] + piccard + "</p>";
     } else { //CWなし
@@ -116,8 +150,9 @@ function toot_card(toot, mode, note, toot_light) {
         button =    "                            <div class=\"toot-group\">" +
             "                                <ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["account"]["acct"]+"', '"+toot["visibility"]+"')\" class=\"toot-button\"></ons-icon>" +
             boost_full +
-            "                                <ons-icon icon=\"fa-star\" onclick=\"toot_action('"+toot['id']+"', this, null, 'fav')\" class=\"toot-button"+namubt+fav+"\"></ons-icon>" +
+            "                                <ons-icon icon=\"fa-star\" onclick=\"toot_action('"+toot['id']+"', null, 'fav')\" class=\"tootfav_"+toot['id']+" toot-button"+namubt+fav+"\"></ons-icon>" +
             "                                <ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+", '"+toot["url"]+"')\" class=\"toot-button\"></ons-icon>" +
+            "                                 <span class='toot-right date' data-time='" + toot['created_at'] + "'>" +date+ "</span>" +
             "                            </div>\n";
     }
 
@@ -131,13 +166,13 @@ function toot_card(toot, mode, note, toot_light) {
             "<div class=\"row toot_big_border\">\n" +
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["account"]["acct"]+"', '"+toot["visibility"]+"')\" class=\"showtoot-button\"></ons-icon></div>\n" +
             "                    <div class=\"col-xs-3 showtoot-button\">" + boost_big + "</div>\n" +
-            "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-star\" onclick=\"toot_action('"+toot['id']+"', this, 'big', 'fav')\" class=\"showtoot-button"+fav+"\"></ons-icon></div>\n" +
+            "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-star\" onclick=\"toot_action('"+toot['id']+"', 'big', 'fav')\" class=\"tootfav_"+toot['id']+" showtoot-button"+fav+"\"></ons-icon></div>\n" +
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+", '"+toot["url"]+"')\" class=\"showtoot-button\"></ons-icon></div>\n" +
             "                </div>";
     }
     if (note) alert_text = "<p class='alert_text'>"+note+"</p>";
     content = t_text(content);
-    buf += "<div class=\"toot"+light+"\" id='post_"+toot['id']+"'>\n" +
+    buf += "<div class=\""+col_bg_cl+"toot"+light+"\" id='post_"+toot['id']+"' data-bgpic='"+col_pic+"' style='"+col_bg_st+"'>\n" +
         alert_text +
         "                    <div class=\"row\">\n" +
         "                        <div class=\"col-xs-2\">\n" +
@@ -146,9 +181,9 @@ function toot_card(toot, mode, note, toot_light) {
         "                        <div class=\"col-xs-9 toot-card-right\"> \n" +
         "                           <div class='"+namucard+"'>" +
         "                            <div class=\"toot-group\">\n" +
-        "                                <span onclick='show_account("+toot['account']['id']+")'><b class='toot_name'>"+t_text(toot['account']['display_name'])+"</b> <small>@"+toot['account']['acct']+"</small></span> <span class='date' data-time='" + toot['created_at'] + "'>" +date+ "</span>" +
+        "                                <span onclick='show_account("+toot['account']['id']+")'><b class='toot_name'>"+t_text(toot['account']['display_name'])+"</b> <small>@"+toot['account']['acct']+"</small></span><span class='toot-right'><ons-icon icon='fa-"+visibility_icon+"' class='toot-right-icon' style='margin-right: 10px'></ons-icon>"+ col_bt +"</span>" +
         "                            </div>" +
-        "                            <div class='toot_content tootcontent_"+toot['id']+"' data-id='"+toot['id']+"' data-dispmode='"+mode+"'>" +
+        "                            <div class='"+is_col+"toot_content tootcontent_"+toot['id']+"' data-id='"+toot['id']+"' data-dispmode='"+mode+"'>" +
         content +
         "                            </div>" +
         "                            </div> \n" +
@@ -159,6 +194,25 @@ function toot_card(toot, mode, note, toot_light) {
         "            </div>";
 
     return buf;
+}
+
+function toot_col(id, obj) {
+    var toot = $(".tootcontent_"+id), i = 0, mode, toot_b = document.getElementById("post_"+id);
+    mode = toot[0].className.indexOf("toot-small") != -1;
+    while (toot[i]) {
+        if (mode) {
+            $(toot[i]).removeClass("toot-small");
+            obj.className = "fa fa-fw fa-angle-double-up toot-right-icon";
+            toot_b.removeAttribute('style');
+            $(toot_b).removeClass("col_bg");
+        } else {
+            $(toot[i]).addClass("toot-small");
+            obj.className = "fa fa-fw fa-angle-double-down toot-right-icon blue";
+            toot_b.setAttribute('style', 'background-image: url(\''+toot_b.dataset.bgpic+'\');');
+            $(toot_b).addClass("col_bg");
+        }
+        i++;
+    }
 }
 
 function vote_item(q, obj, id) {
@@ -184,51 +238,33 @@ function vote_item(q, obj, id) {
     });
 }
 
-function toot_action(id, obj, mode, action_mode) {
-    var url = "";
+function toot_action(id, mode, action_mode) {
+    var toot, i = 0, url = "", a_mode;
     if (action_mode === "fav") {
-        if (localStorage.getItem('knzk_bigfav') == 1 && mode != "big") {
-            if (obj.className == "toot-button namu-fav ons-icon fa-star fa") {
+        toot = $(".tootfav_"+id);
+        a_mode = toot[0].className.indexOf("fav-active") == -1;
+        while (toot[i]) {
+            if (a_mode) {
                 url = "/favourite";
-                obj.className = "toot-button namu-fav fav-active ons-icon fa-star fa";
+                $(toot[i]).addClass("fav-active");
             } else {
                 url = "/unfavourite";
-                obj.className = "toot-button namu-fav ons-icon fa-star fa";
+                $(toot[i]).removeClass("fav-active");
             }
-        } else if (mode == "big") {
-            if (obj.className == "showtoot-button ons-icon fa-star fa") {
-                url = "/favourite";
-                obj.className = "showtoot-button fav-active ons-icon fa-star fa";
-            } else {
-                url = "/unfavourite";
-                obj.className = "showtoot-button ons-icon fa-star fa";
-            }
-        } else {
-            if (obj.className == "toot-button ons-icon fa-star fa") {
-                url = "/favourite";
-                obj.className = "toot-button fav-active ons-icon fa-star fa";
-            } else {
-                url = "/unfavourite";
-                obj.className = "toot-button ons-icon fa-star fa";
-            }
+            i++;
         }
     } else {
-        if (mode == "big") {
-            if (obj.className == "showtoot-button ons-icon fa-retweet fa") {
+        toot = $(".tootbs_"+id);
+        a_mode = toot[0].className.indexOf("boost-active") == -1;
+        while (toot[i]) {
+            if (a_mode) {
                 url = "/reblog";
-                obj.className = "showtoot-button boost-active ons-icon fa-retweet fa";
+                $(toot[i]).addClass("boost-active");
             } else {
                 url = "/unreblog";
-                obj.className = "showtoot-button ons-icon fa-retweet fa";
+                $(toot[i]).removeClass("boost-active");
             }
-        } else {
-            if (obj.className == "toot-button ons-icon fa-retweet fa") {
-                url = "/reblog";
-                obj.className = "toot-button boost-active ons-icon fa-retweet fa";
-            } else {
-                url = "/unreblog";
-                obj.className = "toot-button ons-icon fa-retweet fa";
-            }
+            i++;
         }
     }
     fetch("https://"+inst+"/api/v1/statuses/"+id+url, {
@@ -245,39 +281,24 @@ function toot_action(id, obj, mode, action_mode) {
     }).catch(function(error) {
         showtoast('cannot-pros');
         console.log(error);
+        i = 0;
         if (action_mode === "fav") {
-            if (localStorage.getItem('knzk_bigfav') == 1 && mode != "big") {
-                if (obj.className == "toot-button namu-fav ons-icon fa-star fa") {
-                    obj.className = "toot-button namu-fav fav-active ons-icon fa-star fa";
+            while (toot[i]) {
+                if (a_mode) {
+                    $(toot[i]).removeClass("fav-active");
                 } else {
-                    obj.className = "toot-button namu-fav ons-icon fa-star fa";
+                    $(toot[i]).addClass("fav-active");
                 }
-            } else if (mode == "big") {
-                if (obj.className == "showtoot-button ons-icon fa-star fa") {
-                    obj.className = "showtoot-button fav-active ons-icon fa-star fa";
-                } else {
-                    obj.className = "showtoot-button ons-icon fa-star fa";
-                }
-            } else {
-                if (obj.className == "toot-button ons-icon fa-star fa") {
-                    obj.className = "toot-button fav-active ons-icon fa-star fa";
-                } else {
-                    obj.className = "toot-button ons-icon fa-star fa";
-                }
+                i++;
             }
         } else {
-            if (mode == "big") {
-                if (obj.className == "showtoot-button ons-icon fa-retweet fa") {
-                    obj.className = "showtoot-button boost-active ons-icon fa-retweet fa";
+            while (toot[i]) {
+                if (a_mode) {
+                    $(toot[i]).removeClass("boost-active");
                 } else {
-                    obj.className = "showtoot-button ons-icon fa-retweet fa";
+                    $(toot[i]).addClass("boost-active");
                 }
-            } else {
-                if (obj.className == "toot-button ons-icon fa-retweet fa") {
-                    obj.className = "toot-button boost-active ons-icon fa-retweet fa";
-                } else {
-                    obj.className = "toot-button ons-icon fa-retweet fa";
-                }
+                i++;
             }
         }
     });
@@ -287,10 +308,10 @@ function open_cw(id, btobj) {
     var cw = document.getElementById(id).className;
     if (cw == "invisible") {
         document.getElementById(id).className = "";
-        btobj.className = "cw-button " + button;
+        btobj.className = "cw-button button--large " + button;
     } else {
         document.getElementById(id).className = "invisible";
-        btobj.className = "cw-button " + light;
+        btobj.className = "cw-button button--large " + light;
     }
 }
 

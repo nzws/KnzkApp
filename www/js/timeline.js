@@ -77,7 +77,7 @@ function showAlert(reload, more_load) {
                         alert_text = "<ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" + json[i]['account']['id'] + ")'>" + json[i]['account']['display_name'] + "</b>さんがブーストしました";
                     }
 
-                    reshtml += toot_card(json[i]['status'], "full", alert_text);
+                    reshtml += toot_card(json[i]['status'], "full", alert_text, null, "alert");
                 }
                 alert_text = "";
                 i++;

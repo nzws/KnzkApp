@@ -51,10 +51,18 @@ html, body {
     border-radius: 5px;
 }
 
-.date {
+.toot-right {
     color: #606984;
     float: right;
     font-size: 14px;
+}
+
+.toot-right-icon {
+    font-size: 16px;
+}
+
+.date {
+    margin-top: 8px;
 }
 
 .toot {

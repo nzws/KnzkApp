@@ -253,6 +253,17 @@ function initevent() {
                 hide('now_loading');
             },500);
         }
+        if (event.enterPage.id === "config_collapse-page") {
+            show('now_loading');
+            setTimeout(function() {
+                var conf = $("[id^='conf-col-']"), i = 0;
+                while (conf[i]) {
+                    if (localStorage.getItem(''+conf[i].id) == 1) conf[i].checked = "true";
+                    i++;
+                }
+                hide('now_loading');
+            },500);
+        }
         if (event.enterPage.id === "login-page") {
             if (localStorage.getItem('knzk_account_token')) {
                 setTimeout(function () {
