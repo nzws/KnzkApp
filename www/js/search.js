@@ -27,7 +27,7 @@ function SearchLoad() {
         i = 0;
         reshtml += "<ons-list><ons-list-header>タグ</ons-list-header></ons-list>";
         while (json['hashtags'][i]) {
-            reshtml += "<div onclick='showTagTL(\"" + json['hashtags'][i] + "\")' class=\"toot toot-small\">\n" +
+            reshtml += "<div onclick='showTagTL(\"" + json['hashtags'][i] + "\")' class=\"toot acct-small\">\n" +
                 "    <div class=\"hashtag-card\">\n" +
                 "    <span class=\"toot-group\">\n" +
                 "      <b>#" + json['hashtags'][i] + "</b>\n" +

@@ -1,7 +1,7 @@
 function AccountCard(acct) {
     var reshtml;
 
-    reshtml = "<div onclick='show_account(" +acct['id'] + ")' class=\"toot toot-small\">\n" +
+    reshtml = "<div onclick='show_account(" +acct['id'] + ")' class=\"toot acct-small\">\n" +
         "    <img src=\"" + acct['avatar'] + "\" class=\"icon-img-small\" align=\"middle\">\n" +
         "    <span class=\"toot-group toot-card-right\">\n" +
         "      <b>" + acct['display_name'] + "</b> <small>@" + acct['acct'] + "</small>\n" +
@@ -44,6 +44,13 @@ function show_account(id, navmode) {
         document.getElementById("userpage-post-count").innerHTML = json.statuses_count;
         if (json.locked === true) $("#userpage-lock").removeClass("invisible");
         showAccountTL(json.id);
+
+        if (json.moved) {
+            document.getElementById("acct-moved-base").className = "toot acct-small";
+            document.getElementById("acct-moved").innerHTML = AccountCard(json.moved);
+        } else {
+            document.getElementById("acct-moved-base").className = "invisible";
+        }
 
         if (json.username === json.acct) {
             //登録日
