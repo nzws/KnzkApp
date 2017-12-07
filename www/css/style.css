@@ -567,11 +567,19 @@ img.emoji {
 
 /* https://qiita.com/chii/items/5c4eeb250a26300fc955 */
 .col_bg::before {
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.3);
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     content: ' ';
+}
+
+.moved-text {
+    margin: 10px 10px;
+}
+
+#acct-moved > .toot {
+    border-top: none;
 }

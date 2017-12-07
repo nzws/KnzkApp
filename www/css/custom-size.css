@@ -3,9 +3,16 @@
     height: 50px;
 }
 
-.toot-small {
+.toot-small, .acct-small {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.toot-small {
     height: 20px;
+}
+
+.acct-small {
+    padding-left: 0;
 }

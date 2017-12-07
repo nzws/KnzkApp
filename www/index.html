@@ -92,7 +92,7 @@
                     <div class="splitter-profile">
                         <img src="img/missing.png" id="splitter-icon" class="user-logo" onclick="show_account(localStorage.getItem('knzk_userid'), true)"/>
                         <p>
-                        <h4 id="splitter-profile-name" class="toot-small" style="padding-left: 0;"></h4>
+                        <h4 id="splitter-profile-name" class="acct-small" style="height: 20px;"></h4>
                         </p>
                     </div>
                 </ons-list-item>
@@ -1168,6 +1168,10 @@
             </div>
             <div class="center" id="userpage-title">読み込み中...</div>
         </ons-toolbar>
+        <div id="acct-moved-base" class="invisible">
+            <p class="moved-text"><ons-icon icon="fa-suitcase"></ons-icon> 引っ越しました:</p>
+            <div id="acct-moved"></div>
+        </div>
         <input type="hidden" id="acct_block">
         <input type="hidden" id="acct_mute">
         <div class="userpage-button-bg">
