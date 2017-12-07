@@ -560,3 +560,18 @@ img.emoji {
     -ms-overflow-style: none;
     -ms-scroll-snap-type: mandatory;
 }
+
+.col_bg {
+    position: relative;
+}
+
+/* https://qiita.com/chii/items/5c4eeb250a26300fc955 */
+.col_bg::before {
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: ' ';
+}

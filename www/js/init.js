@@ -117,6 +117,7 @@ function init() {
 
                     if (localStorage.getItem('knzk_realtime') == undefined) localStorage.setItem('knzk_realtime', 1);
                     if (localStorage.getItem('knzk_head_reset') == undefined) localStorage.setItem('knzk_head_reset', 1);
+                    if (localStorage.getItem('knzk_st_stop') == undefined) localStorage.setItem('knzk_st_stop', 1);
                     if (localStorage.getItem('knzk_dial') == undefined) localStorage.setItem('knzk_dial', 'change');
                     document.querySelector('#navigator').resetToPage('home.html');
                     initevent();
@@ -149,7 +150,7 @@ function init() {
                         } else if (dial) {
                             $("#dial_TL").removeClass("invisible");
                         }
-                    }, 200);
+                    }, 500);
                 }).catch(function(error) {
                     console.log(error);
                     show('cannot-connect-API');
@@ -247,6 +248,7 @@ function initevent() {
                 if (localStorage.getItem('knzk_image_full') == 1) document.getElementById("conf-image_full").checked = "true";
                 if (localStorage.getItem('knzk_swipe_menu') == 1) document.getElementById("conf-swipe_menu").checked = "true";
                 if (localStorage.getItem('knzk_head_reset') == 1) document.getElementById("conf-head_reset").checked = "true";
+                if (localStorage.getItem('knzk_st_stop') == 1) document.getElementById("conf-st_stop").checked = "true";
                 if (localStorage.getItem('knzk_dial')) document.getElementById("dial_"+localStorage.getItem('knzk_dial')).selected = true;
                 if (localStorage.getItem('knzk_theme')) document.getElementById("theme_"+localStorage.getItem('knzk_theme')).selected = true;
                 if (localStorage.getItem('knzk_url_open')) document.getElementById("url_"+localStorage.getItem('knzk_url_open')).selected = true;

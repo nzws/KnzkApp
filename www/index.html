@@ -600,7 +600,7 @@
             </ons-list-item>
             <ons-list-item>
                 <div class="center">
-                    TLをスライドして切り替え(非推奨)
+                    <span class="list-item__title">TLをスライドして切り替え(非推奨)</span><span class="list-item__subtitle">スクロールと被って使いづらいです</span>
                 </div>
                 <div class="right">
                     <ons-switch onclick="change_conf('knzk_swipe', 'conf-swipe')" input-id="conf-swipe"></ons-switch>
@@ -616,10 +616,18 @@
             </ons-list-item>
             <ons-list-item>
                 <div class="center">
-                    ヘッダを押した時にTLをリセット
+                    <span class="list-item__title">ヘッダを押した時にTLをリセット</span><span class="list-item__subtitle">リセットさせる事で軽くなります</span>
                 </div>
                 <div class="right">
                     <ons-switch onclick="change_conf('knzk_head_reset', 'conf-head_reset')" input-id="conf-head_reset"></ons-switch>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    <span class="list-item__title">トゥート中に更新を止める</span><span class="list-item__subtitle">(コピペできないため)</span>
+                </div>
+                <div class="right">
+                    <ons-switch onclick="change_conf('knzk_st_stop', 'conf-st_stop')" input-id="conf-st_stop"></ons-switch>
                 </div>
             </ons-list-item>
             <ons-list-item>
@@ -641,7 +649,7 @@
             <ons-list-header>表示設定</ons-list-header>
             <ons-list-item>
                 <div class="center">
-                    大きなお気に入りボタン
+                    <span class="list-item__title">大きなお気に入りボタン</span><span class="list-item__subtitle">for おにいさん</span>
                 </div>
                 <div class="right">
                     <ons-switch onclick="change_conf('knzk_bigfav', 'conf-fav-namu')" input-id="conf-fav-namu"></ons-switch>
@@ -665,7 +673,7 @@
             </ons-list-item>
             <ons-list-item>
                 <div class="center">
-                    通知ページに戻るスピダイを表示
+                    <span class="list-item__title">通知ページに戻るスピダイを表示</span><span class="list-item__subtitle">TLスピダイからの移動のみ有効です</span>
                 </div>
                 <div class="right">
                     <ons-switch onclick="change_conf('knzk_alert-back', 'conf-alert-back')" input-id="conf-alert-back"></ons-switch>
@@ -707,7 +715,7 @@
             </ons-list-item>
             <ons-list-item>
                 <div class="center">
-                    スワイプしてメニューを開く
+                    <span class="list-item__title">スワイプしてメニューを開く</span><span class="list-item__subtitle">端末によっては使いづらいです</span>
                 </div>
                 <div class="right">
                     <ons-switch onclick="change_conf('knzk_swipe_menu', 'conf-swipe_menu')" input-id="conf-swipe_menu"></ons-switch>
