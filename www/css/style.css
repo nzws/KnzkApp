@@ -248,18 +248,25 @@ html, body {
     margin-bottom: 10px;
 }
 
-.account_tab {
+.account_tab_l, .account_tab_r {
     color: white;
     overflow: hidden;
     width: 50%;
     text-align: center;
-    border-left: 1px solid #393f4f;
     padding: 10px 5px;
+}
+
+.account_tab_l {
+    border-left: 1px solid #393f4f;
+    border-right: 1px solid #393f4f;
+}
+
+.account_tab_r {
+    border-right: 1px solid #393f4f;
 }
 
 .account_bar {
     border-top: 1px solid #393f4f;
-    border-bottom: 1px solid #393f4f;
     line-height: 36px;
     overflow: hidden;
     flex: 0 0 auto;
