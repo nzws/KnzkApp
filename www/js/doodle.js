@@ -109,3 +109,12 @@ function Doodle_changeType(id, mode) {
     }
 }
 
+
+function show_colorpicker() {
+    var nav = document.querySelector('#navigator');
+    $.when(
+        nav.bringPageTop("color.html")
+    ).done(function () {
+        $("#color-default").addClass("invisible")
+    });
+}

@@ -343,35 +343,35 @@
             </div>
         </ons-toolbar>
         <ons-carousel fullscreen auto-scroll id="carousel" auto-scroll-ratio="0.5">
-            <ons-carousel-item id="local_item">
+            <ons-carousel-item id="local_item" class="home_carousel">
                 <div id="local_main">
                     <div class="loading-now">
                         <ons-progress-circular indeterminate></ons-progress-circular>
                     </div>
                 </div>
             </ons-carousel-item>
-            <ons-carousel-item id="home_item">
+            <ons-carousel-item id="home_item" class="home_carousel">
                 <div id="home_main">
                     <div class="loading-now">
                         <ons-progress-circular indeterminate></ons-progress-circular>
                     </div>
                 </div>
             </ons-carousel-item>
-            <ons-carousel-item id="local_media_item">
+            <ons-carousel-item id="local_media_item" class="home_carousel">
                 <div id="local_media_main">
                     <div class="loading-now">
                         <ons-progress-circular indeterminate></ons-progress-circular>
                     </div>
                 </div>
             </ons-carousel-item>
-            <ons-carousel-item id="public_media_item">
+            <ons-carousel-item id="public_media_item" class="home_carousel">
                 <div id="public_media_main">
                     <div class="loading-now">
                         <ons-progress-circular indeterminate></ons-progress-circular>
                     </div>
                 </div>
             </ons-carousel-item>
-            <ons-carousel-item id="public_item">
+            <ons-carousel-item id="public_item" class="home_carousel">
                 <div id="public_main">
                     <div class="loading-now">
                         <ons-progress-circular indeterminate></ons-progress-circular>
@@ -946,7 +946,7 @@
         <p></p>
         <div class="container">
             <div class="row">
-                <div class="col-xs-4 color-box-base" onclick="bbcode_color()">
+                <div class="col-xs-4 color-box-base" onclick="bbcode_color()" id="color-default">
                     <div class="color-box"></div>
                     標準
                 </div>
@@ -958,8 +958,6 @@
                     <div class="color-box" style="background-color: #0000FF;"></div>
                     青
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-xs-4 color-box-base" onclick="bbcode_color('FFFF00')">
                     <div class="color-box" style="background-color: #FFFF00;"></div>
                     黄
@@ -972,8 +970,6 @@
                     <div class="color-box" style="background-color: #000000;"></div>
                     黒
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-xs-4 color-box-base" onclick="bbcode_color('FFFFFF')">
                     <div class="color-box" style="background-color: #FFFFFF;"></div>
                     白
@@ -986,8 +982,6 @@
                     <div class="color-box" style="background-color: #FF5B92;"></div>
                     みつきちゃん
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-xs-4 color-box-base" onclick="bbcode_color('A55A4A')">
                     <div class="color-box" style="background-color: #A55A4A;"></div>
                     しげる
@@ -1049,7 +1043,7 @@
                         </div>
                         <div class="right">
                             <div class="color-box-mini" id="doodle-color-box-mini" style="background-color: rgb(0, 0, 0);"></div>　
-                            <ons-button onclick="color_mode='doodle';loadNav('color.html')">変更</ons-button>
+                            <ons-button onclick="color_mode='doodle';show_colorpicker()">変更</ons-button>
                         </div>
                     </ons-list-item>
                     <ons-list-item>

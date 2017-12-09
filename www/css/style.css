@@ -59,6 +59,7 @@ html, body {
 
 .toot-right-icon {
     font-size: 16px;
+    color: #606984;
 }
 
 .date {
@@ -79,6 +80,10 @@ html, body {
 .toot-button {
     margin-right: 1em;
     font-size: x-large;
+}
+
+.toot-button-last {
+    margin-right: 0;
 }
 
 .toot-button.namu-fav {
@@ -411,7 +416,7 @@ pre {
     min-height: 5px;
 }
 
-ons-carousel-item {
+.home_carousel {
     display: block;
     height: 100%;
     overflow: auto;
@@ -589,4 +594,9 @@ img.emoji {
 
 #acct-moved > .toot {
     border-top: none;
+}
+
+.p0 {
+    padding: 0;
+    line-height: 20px;
 }
