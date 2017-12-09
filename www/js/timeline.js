@@ -35,6 +35,7 @@ function showAlert(reload, more_load) {
         method: 'GET'
     }).then(function(response) {
         if(response.ok) {
+            if (more_load) more_load.className = "invisible";
             return response.json();
         } else {
             showtoast('cannot-load');
@@ -45,7 +46,6 @@ function showAlert(reload, more_load) {
         if (json[i]) {
             displayTime('update');
             if (more_load) {
-                more_load.className = "button button--large--quiet invisible";
                 reshtml = document.getElementById("alert_main").innerHTML;
             }
             while (json[i]) {
@@ -157,10 +157,6 @@ function showTL(mode, reload, more_load, clear_load) {
             console.error(e);
         }
     }
-    if (more_load) {
-        more_load.value = "読み込み中...";
-        more_load.disabled = true;
-    }
     if (mode === "home") {
         id_main = "home_main";
         if (more_load)
@@ -197,6 +193,7 @@ function showTL(mode, reload, more_load, clear_load) {
             tlmode = "public?limit=40&since_id="+toot_new_id;
         n = true;
     }
+    if (more_load) more_load.className = "invisible";
     if (n) {
         fetch("https://"+inst+"/api/v1/timelines/"+tlmode, {
             headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
@@ -214,7 +211,6 @@ function showTL(mode, reload, more_load, clear_load) {
                 displayTime('update');
             }
             if (more_load) {
-                more_load.className = "button button--large--quiet invisible";
                 reshtml = document.getElementById(id_main).innerHTML;
             } else {
                 if (localStorage.getItem('knzk_realtime') == 1) {
@@ -272,8 +268,7 @@ function showTL(mode, reload, more_load, clear_load) {
             if (more_load || mode != last_load_TL || clear_load) { //TL初回
                 initph("TL");
                 if (i !== 0) toot_old_id = json[i-1]['id'];
-                var mediaTL_noti; if (TLmode === "media") mediaTL_noti = "(何回か押してね)"; else mediaTL_noti = "";
-                reshtml += "<button class='button button--large--quiet more_load_bt_"+now_TL+"' onclick='showTL(null,null,this)'>もっと読み込む... "+mediaTL_noti+"</button>";
+                reshtml += "<div class='loading-now'><ons-progress-circular indeterminate class='more_load_bt_"+now_TL+"'></ons-progress-circular></div>";
             }
             last_load_TL = mode;
             document.getElementById(id_main).innerHTML = reshtml;
@@ -298,6 +293,7 @@ function showTagTL(tag, more_load) {
         method: 'GET'
     }).then(function(response) {
         if(response.ok) {
+            if (more_load) more_load.className = "invisible";
             return response.json();
         } else {
             showtoast('cannot-load');
@@ -305,7 +301,6 @@ function showTagTL(tag, more_load) {
         }
     }).then(function(json) {
         if (more_load) {
-            more_load.className = "button button--large--quiet invisible";
             reshtml = document.getElementById("tag_main").innerHTML;
         } else {
             document.getElementById("showtag_title").innerHTML = '#'+ decodeURI(tag);
@@ -346,6 +341,7 @@ function showAccountTL(id, more_load, media) {
         method: 'GET'
     }).then(function(response) {
         if(response.ok) {
+            if (more_load) more_load.className = "invisible";
             return response.json();
         } else {
             showtoast('cannot-load');
@@ -373,7 +369,6 @@ function showAccountTL(id, more_load, media) {
             });
         }
         if (more_load) {
-            more_load.className = "button button--large--quiet invisible";
             reshtml = document.getElementById("account_toot").innerHTML;
             displayTime('update');
         }

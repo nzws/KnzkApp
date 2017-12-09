@@ -84,9 +84,9 @@ function toot_card(toot, mode, note, toot_light, page) {
         }
     }
     if (can_col && is_col) {
-        col_bt = "<i class='fa fa-fw fa-angle-double-down toot-right-icon blue' onclick='toot_col(\""+toot['id']+"\", this)'></i>";
+        col_bt = "<ons-button modifier='quiet' class='no-rd p0' onclick='toot_col(\""+toot['id']+"\", this)'><i class='fa fa-fw fa-angle-double-down toot-right-icon blue'></i></ons-button>";
     } else if (can_col) {
-        col_bt = "<i class='fa fa-fw fa-angle-double-up toot-right-icon' onclick='toot_col(\""+toot['id']+"\", this)'></i>";
+        col_bt = "<ons-button modifier='quiet' class='no-rd p0' onclick='toot_col(\""+toot['id']+"\", this)'><i class='fa fa-fw fa-angle-double-up toot-right-icon'></i>";
     }
     if (toot['visibility'] === "direct") {
         visibility_icon = "envelope";
@@ -151,7 +151,7 @@ function toot_card(toot, mode, note, toot_light, page) {
             "                                <ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["account"]["acct"]+"', '"+toot["visibility"]+"')\" class=\"toot-button\"></ons-icon>" +
             boost_full +
             "                                <ons-icon icon=\"fa-star\" onclick=\"toot_action('"+toot['id']+"', null, 'fav')\" class=\"tootfav_"+toot['id']+" toot-button"+namubt+fav+"\"></ons-icon>" +
-            "                                <ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+", '"+toot["url"]+"')\" class=\"toot-button\"></ons-icon>" +
+            "                                <ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+", '"+toot["url"]+"')\" class=\"toot-button toot-button-last\"></ons-icon>" +
             "                                 <span class='toot-right date' data-time='" + toot['created_at'] + "'>" +date+ "</span>" +
             "                            </div>\n";
     }
@@ -181,7 +181,7 @@ function toot_card(toot, mode, note, toot_light, page) {
         "                        <div class=\"col-xs-9 toot-card-right\"> \n" +
         "                           <div class='"+namucard+"'>" +
         "                            <div class=\"toot-group\">\n" +
-        "                                <span onclick='show_account("+toot['account']['id']+")'><b class='toot_name'>"+t_text(toot['account']['display_name'])+"</b> <small>@"+toot['account']['acct']+"</small></span><span class='toot-right'><ons-icon icon='fa-"+visibility_icon+"' class='toot-right-icon' style='margin-right: 10px'></ons-icon>"+ col_bt +"</span>" +
+        "                                <span onclick='show_account("+toot['account']['id']+")'><b class='toot_name'>"+t_text(toot['account']['display_name'])+"</b> <small>@"+toot['account']['acct']+"</small></span><span class='toot-right'><ons-button modifier='quiet' class='no-rd p0'><ons-icon icon='fa-"+visibility_icon+"' class='toot-right-icon' style='margin-right: 10px'></ons-icon></ons-button>"+ col_bt +"</span>" +
         "                            </div>" +
         "                            <div class='"+is_col+"toot_content tootcontent_"+toot['id']+"' data-id='"+toot['id']+"' data-dispmode='"+mode+"'>" +
         content +
@@ -197,6 +197,7 @@ function toot_card(toot, mode, note, toot_light, page) {
 }
 
 function toot_col(id, obj) {
+    obj = $(obj).children("i")[0];
     var toot = $(".tootcontent_"+id), i = 0, mode, toot_b = document.getElementById("post_"+id);
     mode = toot[0].className.indexOf("toot-small") != -1;
     while (toot[i]) {
