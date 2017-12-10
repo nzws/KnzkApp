@@ -237,6 +237,7 @@ html, body {
     width: 90px;
     height: 90px;
     margin: 0 auto;
+    padding-top: 35px;
     border-radius: 100%;
 }
 
