@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" id="net.knzkdev.app" version="1.0.4">
+<widget xmlns="http://www.w3.org/ns/widgets" id="net.knzkdev.app" version="1.0.5">
   <name>knzk.me</name>
   <description>Made with Monaca (http://monaca.mobi)</description>
   <author/>
