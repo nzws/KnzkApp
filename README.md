@@ -9,11 +9,7 @@ KnzkAppは、BBCodeやカスタム絵文字に対応した神崎丼向けMastodo
 **ビルドにはMonaca Pro以上のアカウントが必要です**
 
 ## License
-基本的に MPLv2.0 が適用されますが、バイナリの配布に関しては制限があります。
-- KnzkDev Teamがビルドしたもの、他のユーザーがビルドしたものに関わらず、 ねじりわさび、Kibousoft LLC 以外がアプリストアで配布することを禁止します。
-
-これは、似たようなアプリがあるという理由で配信が停止されるのを防ぐためです。ご了承下さい。  
-なお、個人的にWeb上で配布すること(いわゆる野良アプリ)は MPLv2.0 の元であれば構いません。
+[KnzkApp License ( Restricted BSD License )](https://github.com/KnzkDev/KnzkApp/blob/master/LICENSE)
 
 その他: https://github.com/KnzkDev/KnzkApp/wiki/License
 
