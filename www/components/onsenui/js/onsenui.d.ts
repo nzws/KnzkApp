@@ -67,8 +67,18 @@ declare namespace ons {
    * @description Enable animations (default).
    */
   function enableAnimations(): void;
+  /**
+   * @description Disable automatic styling.
+   */
   function disableAutoStyling(): void;
+  /**
+   * @description Enable automatic styling based on OS (default).
+   */
   function enableAutoStyling(): void;
+  /**
+   * @description Disable adding `fa-` prefix automatically to `ons-icon` classes. Useful when including custom icon packs.
+   */
+  function disableIconAutoPrefix(): void;
   /**
    * @description Refresh styling for the given platform. Only useful for demos. Use `ons.platform.select(...)` for development and production.
    */
@@ -260,7 +270,7 @@ declare namespace ons {
      * @return {Boolean}
      */
     function isIPhoneX(): boolean;
-    
+
     /**
      * @description Returns whether the device is iPad
      * @return {Boolean}
@@ -732,7 +742,12 @@ declare namespace ons {
      * @description Default options object. Attributes have priority over this property.
      */
     options: NavigatorOptions;
-
+    /**
+     * @param {Number} index Decimal ratio of the current swipe.
+     * @param {Object} animationOptions Object containing duration and timing.
+     * @description Hook called whenever the user slides the navigator.
+     **/
+    onSwipe?: Function;
   }
 
   /**
@@ -849,6 +864,12 @@ declare namespace ons {
      * @return Resolves to the new page element
      */
     load(page: any, options?: SplitterSideOptions): Promise<HTMLElement>;
+    /**
+     * @param {Number} index Decimal ratio of the current swipe.
+     * @param {Object} animationOptions Object containing duration and timing.
+     * @description Hook called whenever the user slides the splitter.
+     **/
+    onSwipe?: Function;
   }
 
   interface OnsLazyRepeatElement extends HTMLElement {

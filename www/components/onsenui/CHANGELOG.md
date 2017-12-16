@@ -2,6 +2,87 @@
 CHANGELOG
 ====
 
+2.8.3
+----
+
+ ### New Features
+
+ * ons-list-item: Skip tappable effect on children with `prevent-tap` attribute or `ons-*` elements.
+ * ons-navigator: `resetToPage` can now perform 'pop' animation if `options.pop` is `true`.
+
+ ### Bug Fixes
+
+ * ons-carousel: Fixed [#2260](https://github.com/OnsenUI/OnsenUI/issues/2260).
+ * ons-progress-circular: Fixed [#1860](https://github.com/OnsenUI/OnsenUI/issues/1860).
+ * css/polyfills: Fixed [#2266](https://github.com/OnsenUI/OnsenUI/issues/2266).
+ * ons-ripple: The effect does not propagate to other `ons-ripple` parents anymore.
+ * ons-carousel: Prevent error state when hidden during the first rendering.
+ * angular1: `ons-scope` directive works when placed on the same element as `var` attribute.
+
+ ### Misc
+
+ * Show warning when Onsen UI is loaded more than once (UMD - ESM).
+ * ons-pull-hook: `threshold-height` is not disabled anymore when its value is lower than the height.
+ * angular1: Revised the exposed DOM properties for carousel, modal, navigator, popover, pullHook, splitter, splitterSide, switch and tabbar.
+
+2.8.2
+----
+
+### New Features
+
+ * ons-navigator: Added `onSwipe` property function that gets the swiped distance on drag.
+ * ons-splitter-side: Added `onSwipe` property function that gets the swiped distance on drag.
+
+### Bug Fixes
+
+ * ons-splitter: Fixed small glitch in 'reveal' animation.
+ * ons-select: Fixed custom modifier class from `select-*` to `select--*`.
+ * ons-tabbar: Fixed [#2253](https://github.com/OnsenUI/OnsenUI/issues/2253).
+ * ons-tabbar: Position 'auto' and border visibility now cares about autostyling instead of the actual platform.
+ * ons-toolbar: Fix 'transparent' modifier when combined with 'material' (regression).
+ * angular1: Remove `element.scope()` call that depends on AngularJS Debug Data.
+
+2.8.1
+----
+
+### Bug Fixes
+
+ * css-components: Use new radial-gradient syntax to avoid prefixes.
+ * ons-tabbar: Improve scrolling on devices.
+ * ons-modal: Possible issue when toggling modal visibility very quickly.
+ * ons-action-sheet: Small glitch when hiding on iPhone X.
+
+2.8.0
+----
+
+### New Features
+
+ * core: The core CSS is now available without importing default icon fonts in `onsenui-core.css` file. This can be included instead of `onsenui.css` in order to reduce app size.
+ * ons: Added `disableIconAutoPrefix` method to avoid adding `fa-` prefix to non-prefixed icons. This allows using custom icon packs.
+ * esm: A new `esm` folder is available for ES Modules environments. It allows importing specific components instead of the whole bundle. See `Reducing App Size` section in the guide for more details.
+ * angular1: `ons-modal` now exposes event handlers (`ons-preshow`, `ons-postshow`, `ons-prehide`, `ons-posthide`) and `toggle` method.
+
+### Bug Fixes
+
+ * iPhoneX support: Fixed a glitch during push/pop animations.
+ * ons-tab: Fixed [#2247](https://github.com/OnsenUI/OnsenUI/issues/2247).
+ * ons-tabbar: Fixed [#2223](https://github.com/OnsenUI/OnsenUI/issues/2223).
+ * ons-segment: Prevent possible error when linking an `ons-tabbar` placed at the same level.
+ * ons-segment: Adjust style for plain `div` children (instead of `button`).
+ * ons-list-item: Material chevron with right content. Fixed [#2226](https://github.com/OnsenUI/OnsenUI/issues/2226).
+ * ons-lazy-repeat: Lists can be empty. Fixed [#2232](https://github.com/OnsenUI/OnsenUI/issues/2232).
+ * modifier: Fixed [#2237](https://github.com/OnsenUI/OnsenUI/issues/2237).
+
+### Misc
+
+ * :tada: Reduced bundle size by more than 50%!
+
+### BREAKING CHANGES
+
+ * Internal elements location has been changed. E.g. `ons.NavigatorElement` is now `ons.elements.Navigator`. This should only affect if you were registering custom animations.
+ * `NavigatorTransitionAnimator` has been renamed to `NavigatorAnimator` like all the other animators. This should only affect if you were registering custom animations.
+ * `core-src` directory has been removed. `esm` can be used instead. This should only affect if you were manually importing specific components instead of the whole bundle.
+
 2.7.2
 ----
 
@@ -34,7 +115,7 @@ CHANGELOG
 
 ### New Features
 
- * css-components: Supported iPhone X with `html[onsflag-iphonex-portrait]` and `html[onsflag-iphonex-landscape]` flags.
+ * :tada: css-components: Supported iPhone X with `html[onsflag-iphonex-portrait]` and `html[onsflag-iphonex-landscape]` flags.
  * css-components: Added iOS & Material dark color scheme available as `dark-onsen-css-components.css`.
  * css-components: Refined the css-components previewer located in `css-components-src`.
  * core: Supported iOS 11.
@@ -87,7 +168,7 @@ CHANGELOG
  * ons: Added `mockStatusBar` utility to create a fake iOS status bar for browser testing.
  * ons-pull-hook: Added `onPull` property function that gets the pulled distance on drag.
  * ons-carousel: Added `onSwipe` property function that gets the swiped distance on drag.
- * ons-tabbar: Tabbar can now be swiped to change pages. `swipeable` attribute enables this feature.
+ * :tada: ons-tabbar: Tabbar can now be swiped to change pages. `swipeable` attribute enables this feature.
 
 ### Bug Fixes
 
@@ -162,7 +243,7 @@ v2.5.0
 ### New Features
 
  * core: Added `ons.modifier` object with a new set of methods to alter `modifier` attributes.
- * ons-navigator: iOS Swipe-to-pop feature.
+ * :tada: ons-navigator: iOS Swipe-to-pop feature.
  * ons-modal: Added `lift` animation ([#2078](https://github.com/OnsenUI/OnsenUI/pull/2078)).
  * ons-toolbar: New `cover-content` modifier. Should be combined with `transparent` modifier.
 
@@ -215,7 +296,7 @@ v2.4.0
 
  * core: Separated files are now cached after the first request. This improves performance when pushing pages.
  * core: Added `ons.preload` method to manually cache templates. This improves performance when pushing pages.
- * core: Support for `HTMLTemplateElement` (`<template>`). The former `<ons-template>` is still supported for backward compatibility.
+ * :tada: core: Support for `HTMLTemplateElement` (`<template>`). The former `<ons-template>` is still supported for backward compatibility.
  * core: Added page life-cycle hooks (similar to life-cycle events). `<template>` elements allow `<script>` tags in their content, which is useful for initialising pages. Therefore, hooks like `pageElement.onInit`, `pageElement.onShow`, etc. have been added.
  * ons-progress-bar, ons-progress-circular: Added new appearances for iOS.
 

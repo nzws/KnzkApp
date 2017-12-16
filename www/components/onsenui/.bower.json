@@ -23,15 +23,15 @@
   ],
   "dependencies": {},
   "license": "Apache License, Version 2.0",
-  "version": "2.7.2",
-  "_release": "2.7.2",
+  "version": "2.8.3",
+  "_release": "2.8.3",
   "_resolution": {
     "type": "version",
-    "tag": "2.7.2",
-    "commit": "349eabea0fb3f6da2dadeda99f3393c24186cedc"
+    "tag": "2.8.3",
+    "commit": "fc976f729c69cdbe9a8d010b37d9cb02ce6ec477"
   },
   "_source": "https://github.com/OnsenUI/OnsenUI-dist.git",
-  "_target": "2.7.2",
+  "_target": "2.8.3",
   "_originalSource": "onsenui",
   "_direct": true
 }
