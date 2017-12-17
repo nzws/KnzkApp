@@ -118,6 +118,24 @@ function post_nsfw(simple) {
     }
 }
 
+function post_localonly(simple) {
+    var simple_id = "";
+    if (simple) simple_id = "_simple";
+    var cw_input = document.getElementById("localonly_input"+simple_id);
+    var cwicon = document.getElementById("localonly_bt"+simple_id);
+
+    if (cwicon.className == button) { //選択済み→解除
+        cw_input.value = "";
+        if (simple)
+            cwicon.className = quiet + " no-rd";
+        else
+            cwicon.className = quiet;
+    } else {
+        cw_input.value = "1";
+        cwicon.className = button;
+    }
+}
+
 function post_mode(simple) {
     var simple_id = "";
     if (simple) simple_id = "_simple";
@@ -291,6 +309,9 @@ function post(id, option, simple) {
     }
     if (option.cw) {
         optiondata.spoiler_text = option.cw;
+    }
+    if (option.local_only) {
+        optiondata.status += " 👁️";
     }
     if (option.sensitive && media[0]) {
         optiondata.sensitive = true;

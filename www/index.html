@@ -415,6 +415,7 @@
         <ons-bottom-toolbar id="simple_toot_TL_toolbar">
             <form id="simple_toot_form">
                 <input type="hidden" id="nsfw_input_simple">
+                <input type="hidden" id="localonly_input_simple">
                 <input type="hidden" id="post_mode_simple" value="public">
                 <input type="hidden" id="post_reply_simple">
                 <ons-list>
@@ -426,7 +427,7 @@
                             <textarea class="textarea w-max" rows="1" placeholder="トゥート！" id="simple_toot_TL_input" onFocus="simple_open()" onkeyup="check_limit(value, 'toot_limit_simple', 'toot-button_simple', 'simple_toot_cw');"></textarea>
                         </div>
                         <div class="right" style="padding-right: 0">
-                            <ons-button modifier="quiet" class="no-rd" onclick="post('simple_toot_TL_input', {cw:document.getElementById('simple_toot_cw').value, visibility:document.getElementById('post_mode_simple').value, sensitive:document.getElementById('nsfw_input_simple').value, in_reply_to_id: document.getElementById('post_reply_simple').value}, true)" id="toot-button_simple"><ons-icon icon="fa-paper-plane-o"></ons-icon></ons-button>
+                            <ons-button modifier="quiet" class="no-rd" onclick="post('simple_toot_TL_input', {cw:document.getElementById('simple_toot_cw').value, visibility:document.getElementById('post_mode_simple').value, sensitive:document.getElementById('nsfw_input_simple').value, in_reply_to_id: document.getElementById('post_reply_simple').value, local_only: document.getElementById('localonly_input_simple').value}, true)" id="toot-button_simple"><ons-icon icon="fa-paper-plane-o"></ons-icon></ons-button>
                         </div>
                     </ons-list-item>
                 </ons-list>
@@ -435,6 +436,7 @@
                         <ons-button modifier="quiet" onclick="post_mode(true)" class="no-rd" id="post_mode_bt_simple">公開</ons-button>
                         <ons-button modifier="quiet" onclick="showPopover(this, 'image_popover')" class="no-rd" id="new_up_bt_simple"><ons-icon icon="fa-picture-o"></ons-icon></ons-button>
                         <ons-button modifier="quiet" onclick="showPopover(this, 'cw_popover')" class="no-rd">CW</ons-button>
+                        <ons-button onclick="post_localonly(true)" id="localonly_bt_simple" modifier="quiet" class="no-rd"><ons-icon icon="fa-home"></ons-icon></ons-button>
                         <ons-button modifier="quiet" onclick="showPopover(this, 'tools_popover')" class="no-rd" id="tools_bt_simple"><ons-icon icon="fa-magic"></ons-icon></ons-button>
                         <ons-button modifier="quiet" onclick="showPopover(this, 'emoji_popover')" class="no-rd" id="simple_emoji_bt"><ons-icon icon="fa-smile-o"></ons-icon></ons-button>
                         <ons-button modifier="quiet" class="no-rd" id="toot_limit_simple">4096</ons-button>
@@ -834,20 +836,22 @@
             <textarea class="textarea dark-box-in" rows="5" placeholder="今なにしてる？" id="toot_textarea" style="width: 100%" onkeyup="check_limit(value, 'toot-limit', 'toot-button', 'cw_input');"></textarea>
             <div class="dark-box" style="border-radius: 0">
                 <input type="hidden" id="nsfw_input">
+                <input type="hidden" id="localonly_input">
                 <input type="hidden" id="post_mode" value="public">
                 <input type="hidden" id="post_reply">
                 <ons-button modifier="quiet" onclick="up_file()" style="border-radius: 0" id="new_up_bt"><ons-icon icon="fa-picture-o"></ons-icon></ons-button>
                 <ons-button modifier="quiet" onclick="post_nsfw()" style="border-radius: 0" class="invisible" id="nsfw_bt"><ons-icon icon="fa-eye"></ons-icon></ons-button>
                 <ons-button modifier="quiet" onclick="post_cw()" style="border-radius: 0" id="cw_bt">CW</ons-button>
                 <ons-button modifier="quiet" onclick="post_vote()" style="border-radius: 0" id="vote_bt"><ons-icon icon="fa-align-left"></ons-icon></ons-button>
+                <ons-button modifier="quiet" onclick="openDoodle()"><ons-icon icon="fa-paint-brush"></ons-icon></ons-button>
+                <ons-button modifier="quiet" onclick="showPopover(this, 'toot_emoji_popover')" id="toot_emoji_bt"><ons-icon icon="fa-smile-o"></ons-icon></ons-button>
             </div>
             <div class="dark-box">
                 <ons-button modifier="quiet" onclick="post_mode()" style="border-radius: 0 0 0 4px" id="post_mode_bt">公開</ons-button>
-                <ons-button modifier="quiet" onclick="showPopover(this, 'toot_emoji_popover')" id="toot_emoji_bt"><ons-icon icon="fa-smile-o"></ons-icon></ons-button>
-                <ons-button modifier="quiet" onclick="openDoodle()"><ons-icon icon="fa-paint-brush"></ons-icon></ons-button>
+                <ons-button modifier="quiet" onclick="post_localonly()" style="border-radius: 0" id="localonly_bt"><ons-icon icon="fa-home"></ons-icon></ons-button>
                 <span style="float: right">
                 <b id="toot-limit" class="toot-limit">4096</b>
-                <ons-button onclick="post('toot_textarea', {cw:document.getElementById('cw_input').value, visibility:document.getElementById('post_mode').value, sensitive:document.getElementById('nsfw_input').value, in_reply_to_id: document.getElementById('post_reply').value})" id="toot-button" style="border-radius: 4px 0 4px 0;padding-bottom: 5px;">トゥート！</ons-button>
+                <ons-button onclick="post('toot_textarea', {cw:document.getElementById('cw_input').value, visibility:document.getElementById('post_mode').value, sensitive:document.getElementById('nsfw_input').value, in_reply_to_id: document.getElementById('post_reply').value, local_only: document.getElementById('localonly_input').value})" id="toot-button" style="border-radius: 4px 0 4px 0;padding-bottom: 5px;">トゥート！</ons-button>
                 </span>
             </div>
             <div id="image_list"></div>
