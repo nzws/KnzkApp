@@ -119,6 +119,7 @@ function openTL(mode) {
     } else {
         try {old_TL_ws.close();} catch(e) {console.log("ws_close_error");}
         load("home.html");
+        now_TL = "local";
         showTL(null, null, null, true);
         setTimeout(function () {
             if (localStorage.getItem('knzk_swipe') == 1) document.getElementById("carousel").setAttribute('swipeable', '1');
