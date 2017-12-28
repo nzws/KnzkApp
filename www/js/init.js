@@ -117,7 +117,6 @@ function init() {
 
                     if (localStorage.getItem('knzk_realtime') == undefined) localStorage.setItem('knzk_realtime', 1);
                     if (localStorage.getItem('knzk_head_reset') == undefined) localStorage.setItem('knzk_head_reset', 1);
-                    if (localStorage.getItem('knzk_st_stop') == undefined) localStorage.setItem('knzk_st_stop', 1);
                     if (localStorage.getItem('knzk_dial') == undefined) localStorage.setItem('knzk_dial', 'change');
                     document.querySelector('#navigator').resetToPage('home.html');
                     initevent();
@@ -194,9 +193,13 @@ function initevent() {
         var obj = event.currentTarget, id = 0;
         var button = event.target.className;
         if (obj.className.indexOf("toot_content") !== -1 && button.indexOf("button") === -1 && button.indexOf("enquete") === -1) {
-            if (obj.dataset.dispmode !== "big") {
-                id = obj.dataset.id;
-                show_post(id);
+            id = obj.dataset.id;
+            if (obj.className.indexOf("toot-small") === -1) {
+                if (obj.dataset.dispmode !== "big") {
+                    show_post(id);
+                }
+            } else {
+                toot_col(id, $(".tootbs_"+id)[0]);
             }
         }
     });
@@ -225,8 +228,6 @@ function initevent() {
 
     document.addEventListener('postpush', function(event) {
         if (event.enterPage.id === "home") {
-            home_auto_event = true;
-            home_autoevent();
             document.getElementById("toot_limit_simple").innerHTML = toot_limit;
         } else {
             home_auto_event = false;

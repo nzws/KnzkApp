@@ -84,9 +84,9 @@ function toot_card(toot, mode, note, toot_light, page) {
         }
     }
     if (can_col && is_col) {
-        col_bt = "<ons-button modifier='quiet' class='no-rd p0' onclick='toot_col(\""+toot['id']+"\", this)'><i class='fa fa-fw fa-angle-double-down toot-right-icon blue'></i></ons-button>";
+        col_bt = "<ons-button modifier='quiet' class='no-rd p0 tootbs_"+toot['id']+"' onclick='toot_col(\""+toot['id']+"\", this)'><i class='fa fa-fw fa-angle-double-down toot-right-icon blue'></i></ons-button>";
     } else if (can_col) {
-        col_bt = "<ons-button modifier='quiet' class='no-rd p0' onclick='toot_col(\""+toot['id']+"\", this)'><i class='fa fa-fw fa-angle-double-up toot-right-icon'></i>";
+        col_bt = "<ons-button modifier='quiet' class='no-rd p0 tootbs_"+toot['id']+"' onclick='toot_col(\""+toot['id']+"\", this)'><i class='fa fa-fw fa-angle-double-up toot-right-icon'></i>";
     }
     if (toot['visibility'] === "direct") {
         visibility_icon = "envelope";

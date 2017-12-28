@@ -146,6 +146,7 @@ function showTL(mode, reload, more_load, clear_load) {
     var tlmode = "", i = 0, reshtml = "", ws, ws_mode, id_main, n;
     if (!mode) mode = now_TL;
     if (clear_load) {
+        if (old_TL_ws) old_TL_ws.close();
         home_auto_tmp = "";
         home_auto_num = 0;
         toot_new_id = 0;
@@ -223,8 +224,6 @@ function showTL(mode, reload, more_load, clear_load) {
                         ws_mode = "user";
 
                     if (!reload && !more_load) {
-                        if (old_TL_ws) old_TL_ws.close();
-
                         ws = new WebSocket("wss://"+inst+"/api/v1/streaming/?access_token=" + localStorage.getItem('knzk_account_token') + "&stream=" + ws_mode);
                         old_TL_ws = ws;
                         ws.onmessage = function (message) {
@@ -236,7 +235,25 @@ function showTL(mode, reload, more_load, clear_load) {
                                 if (toot_new_id !== ws_reshtml['id']) {
                                     var TLmode;
                                     if (now_TL === "local_media" || now_TL === "public_media") TLmode = "media"; else TLmode = "";
-                                    home_auto_tmp = toot_card(ws_reshtml, "full", null, TLmode) + home_auto_tmp;
+
+                                    var h = $("#"+now_TL+"_item").scrollTop();
+                                    home_auto_mode = h <= 100;
+
+                                    if (home_auto_mode) { //OK
+                                        home_auto_event = false;
+                                        document.getElementById(now_TL+"_main").innerHTML = toot_card(ws_reshtml, "full", null, TLmode) + home_auto_tmp + document.getElementById(now_TL+"_main").innerHTML;
+                                        home_auto_tmp = "";
+                                        home_auto_num = 0;
+                                        setTLheadcolor(0);
+                                    } else {
+                                        home_auto_tmp = toot_card(ws_reshtml, "full", null, TLmode) + home_auto_tmp;
+                                        if (!home_auto_event) {
+                                            home_auto_event = true;
+                                            home_autoevent();
+                                        }
+                                    }
+
+
                                     if (!home_auto_mode && (ws_reshtml['media_attachments'][0] && TLmode === "media")) {
                                         home_auto_num++;
                                         setTLheadcolor(1);
@@ -269,7 +286,7 @@ function showTL(mode, reload, more_load, clear_load) {
             if (more_load || mode != last_load_TL || clear_load) { //TL初回
                 initph("TL");
                 if (i !== 0) toot_old_id = json[i-1]['id'];
-                reshtml += "<div class='loading-now'><ons-progress-circular indeterminate class='more_load_bt_"+now_TL+"'></ons-progress-circular></div>";
+                reshtml += "<button class='button button--large--quiet more_load_bt_"+now_TL+"' onclick='showTL(null,null,this)'>もっと読み込む...</button>";
             }
             last_load_TL = mode;
             document.getElementById(id_main).innerHTML = reshtml;
