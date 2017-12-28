@@ -337,7 +337,7 @@ function initevent() {
         var TL_name = {0:"local",1:"home",2:"local_media",3:"public_media",4:"public"};
         document.getElementById('home_title').innerHTML = home_cr[event.activeIndex];
         now_TL = TL_name[event.activeIndex];
-        showTL(null,null,null,true,true);
+        showTL(null,null,null,true);
     });
 
     $(document).on('click', 'ons-carousel', function(event) {
