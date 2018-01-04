@@ -342,7 +342,7 @@ function pin_set(id, mode) {
 
 function more(id, acctid, pin_mode, url) {
     var pin;
-    more_status_id = id;
+    more_status_id = ""+id;
     more_acct_id = acctid;
     if (localStorage.getItem('knzk_userid') == more_acct_id) {
         if (pin_mode === true) pin = "ピン留め解除"; else pin = "ピン留め";
@@ -498,7 +498,7 @@ function report() {
                 method: 'POST',
                 body: JSON.stringify({
                     account_id: more_acct_id,
-                    status_ids: more_status_id,
+                    status_ids: [more_status_id],
                     comment: repcom
                 })
             }).then(function(response) {
