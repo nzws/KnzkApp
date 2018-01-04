@@ -14,7 +14,7 @@ function login_open(domain) {
             scopes: 'read write follow',
             client_name: 'KnzkApp '+os_name,
             redirect_uris: 'knzkapp://login/token',
-            website: 'https://knzkdev.net/knzkapp/'
+            website: 'https://github.com/knzkdev/knzkapp'
         })
     }).then(function(response) {
         if(response.ok) {
