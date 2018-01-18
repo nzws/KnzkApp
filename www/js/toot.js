@@ -139,7 +139,7 @@ function toot_card(toot, mode, note, toot_light, page) {
     date = displayTime('new', toot['created_at']);
     toot['content'] = toot['content'].replace(/<a href="((http:|https:)\/\/[\x21-\x26\x28-\x7e]+)\/media\/([\x21-\x26\x28-\x7e]+)" rel="nofollow noopener" target="_blank"><span class="invisible">(http:|https:)\/\/<\/span><span class="ellipsis">([\x21-\x26\x28-\x7e]+)\/media\/([\x21-\x26\x28-\x7e]+)<\/span><span class="invisible">([\x21-\x26\x28-\x7e]+)<\/span><\/a>/g , "<a href='$1/media/$3' class='image-url'><ons-icon icon='fa-file-image-o'></ons-icon></a>");
     if (toot['spoiler_text'] && localStorage.getItem('knzk_cw') != 1) {
-        var rand = Date.now();
+        var rand = Math.random().toString(36).slice(-8);
         content = toot['spoiler_text'] + "　<ons-button modifier=\"large--quiet\" onclick='open_cw(\"cw_"+rand+"_" + toot['id'] + "\", this);' class='cw-button'>もっと見る</ons-button><div class='invisible' id='cw_"+rand+"_" + toot['id'] + "'><p>" + toot['content'] + piccard + "</p></div>";
     } else if (toot['spoiler_text']) { //CW / 常に表示
         content = toot['spoiler_text'] + "<p>" + toot['content'] + piccard + "</p>";
@@ -159,9 +159,7 @@ function toot_card(toot, mode, note, toot_light, page) {
     if (mode == "big") {
         if (toot['application']) appname = "(" + toot['application']['name'] + ")<br>"; else appname = "";
         var d = new Date(toot['created_at']);
-        var min = "0";
-        if (d.getMinutes() < 10) min = "0" + d.getMinutes(); else min = d.getMinutes();
-        var date_text = d.getFullYear()+"年"+(d.getMonth()+1)+"月"+d.getDate()+"日 "+d.getHours()+":"+min;
+        var date_text = d.toLocaleDateString("ja-JP", {weekday: "short", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"});
         bt_big = "<span class='big_date'>"+ appname + date_text + " · <span onclick='list(\"statuses/"+toot['id']+"/reblogged_by\", \"ブーストしたユーザー\", null, \"acct\", true)'><ons-icon icon=\"fa-retweet\"></ons-icon> "+toot['reblogs_count']+"</span> · <span onclick='list(\"statuses/"+toot['id']+"/favourited_by\", \"お気に入りしたユーザー\", null, \"acct\", true)'><ons-icon icon=\"fa-star\"></ons-icon> "+toot['favourites_count']+"</span></span>" +
             "<div class=\"row toot_big_border\">\n" +
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["account"]["acct"]+"', '"+toot["visibility"]+"')\" class=\"showtoot-button\"></ons-icon></div>\n" +
