@@ -1,9 +1,11 @@
 <p align="center">
   <a href="https://knzkapp.yuzu.tk/">
-    <img src="res/android/icon/xxxhdpi.png" alt="Knzk.me Logo">
+    <img src="res/android/icon/xxxhdpi.png" alt="Knzk.me Logo" width=100>
   </a>
 
-  <h2 align="center">KnzkApp<br><small>A mastodon mobile-app for Knzk.me</small></h2>
+  <h1 align="center">KnzkApp</h1>
+  
+  <p align="center">A mastodon mobile-app for Knzk.me</p>
 
   <p align="center">
     <b>Get it on:</b>
