@@ -1,10 +1,16 @@
 <p align="center">
+  <a href="https://knzkapp.yuzu.tk/">
+    <img src="res/android/icon/xxxhdpi.png" alt="Knzk.me Logo">
+  </a>
 
-# [KnzkApp](https://knzkapp.yuzu.tk/)
-A mastodon mobile-app for Knzk.me
+  <h2 align="center">KnzkApp<br><small>A mastodon mobile-app for Knzk.me</small></h2>
 
-**[PlayStore](https://play.google.com/store/apps/details?id=net.knzkdev.app) | [AppStore](https://itunes.apple.com/jp/app/knzkapp/id1296825434)**
-
+  <p align="center">
+    <b>Get it on:</b>
+    <a href="https://play.google.com/store/apps/details?id=net.knzkdev.app"><b>PlayStore</b></a>
+     | 
+    <a href="https://itunes.apple.com/jp/app/knzkapp/id1296825434"><b>AppStore</b></a>
+  </p>
 </p>
 
 ## 使用方法
