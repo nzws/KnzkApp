@@ -1,9 +1,11 @@
-# KnzkApp
-KnzkAppは、BBCodeやカスタム絵文字に対応した神崎丼向けMastodonクライアントです。
-> マルチログインに対応したので**向け**です
+<p align="center">
 
-**[ランディングページ](https://knzkapp.yuzu.tk/)**  
-**[Playストア](https://play.google.com/store/apps/details?id=net.knzkdev.app) | [AppStore](https://itunes.apple.com/jp/app/knzkapp/id1296825434?l=ja)**
+# [KnzkApp](https://knzkapp.yuzu.tk/)
+A mastodon mobile-app for Knzk.me
+
+**[PlayStore](https://play.google.com/store/apps/details?id=net.knzkdev.app) | [AppStore](https://itunes.apple.com/jp/app/knzkapp/id1296825434)**
+
+</p>
 
 ## 使用方法
 **masterは結構バグ多かったりするので非推奨です**
