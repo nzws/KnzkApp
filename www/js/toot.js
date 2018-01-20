@@ -84,9 +84,9 @@ function toot_card(toot, mode, note, toot_light, page) {
         }
     }
     if (can_col && is_col) {
-        col_bt = "<ons-button modifier='quiet' class='no-rd p0 tootbs_"+toot['id']+"' onclick='toot_col(\""+toot['id']+"\", this)'><i class='fa fa-fw fa-angle-double-down toot-right-icon blue'></i></ons-button>";
+        col_bt = "<ons-button modifier='quiet' class='no-rd p0' onclick='toot_col(\""+toot['id']+"\")'><i class='fa fa-fw fa-angle-double-down toot-right-icon blue toot_col_"+toot['id']+"'></i></ons-button>";
     } else if (can_col) {
-        col_bt = "<ons-button modifier='quiet' class='no-rd p0 tootbs_"+toot['id']+"' onclick='toot_col(\""+toot['id']+"\", this)'><i class='fa fa-fw fa-angle-double-up toot-right-icon'></i>";
+        col_bt = "<ons-button modifier='quiet' class='no-rd p0' onclick='toot_col(\""+toot['id']+"\")'><i class='fa fa-fw fa-angle-double-up toot-right-icon toot_col_"+toot['id']+"'></i>";
     }
     if (toot['visibility'] === "direct") {
         visibility_icon = "envelope";
@@ -170,7 +170,7 @@ function toot_card(toot, mode, note, toot_light, page) {
     }
     if (note) alert_text = "<p class='alert_text'>"+note+"</p>";
     content = t_text(content);
-    buf += "<div class=\""+col_bg_cl+"toot"+light+"\" id='post_"+toot['id']+"' data-bgpic='"+col_pic+"' style='"+col_bg_st+"'>\n" +
+    buf += "<div class=\""+col_bg_cl+"toot"+light+" post_"+toot['id']+"\" id='post_"+toot['id']+"' data-bgpic='"+col_pic+"' style='"+col_bg_st+"'>\n" +
         alert_text +
         "                    <div class=\"row\">\n" +
         "                        <div class=\"col-xs-2\">\n" +
@@ -194,21 +194,20 @@ function toot_card(toot, mode, note, toot_light, page) {
     return buf;
 }
 
-function toot_col(id, obj) {
-    obj = $(obj).children("i")[0];
-    var toot = $(".tootcontent_"+id), i = 0, mode, toot_b = document.getElementById("post_"+id);
+function toot_col(id) {
+    var toot = $(".tootcontent_"+id), i = 0, mode, toot_b = document.getElementsByClassName("post_"+id), obj = $(".toot_col_"+id);
     mode = toot[0].className.indexOf("toot-small") != -1;
     while (toot[i]) {
         if (mode) {
             $(toot[i]).removeClass("toot-small");
-            obj.className = "fa fa-fw fa-angle-double-up toot-right-icon";
-            toot_b.removeAttribute('style');
-            $(toot_b).removeClass("col_bg");
+            obj[i].className = "fa fa-fw fa-angle-double-up toot-right-icon toot_col_"+id;
+            toot_b[i].removeAttribute('style');
+            $(toot_b[i]).removeClass("col_bg");
         } else {
             $(toot[i]).addClass("toot-small");
-            obj.className = "fa fa-fw fa-angle-double-down toot-right-icon blue";
-            toot_b.setAttribute('style', 'background-image: url(\''+toot_b.dataset.bgpic+'\');');
-            $(toot_b).addClass("col_bg");
+            obj[i].className = "fa fa-fw fa-angle-double-down toot-right-icon blue toot_col_"+id;
+            toot_b[i].setAttribute('style', 'background-image: url(\''+toot_b[i].dataset.bgpic+'\');');
+            $(toot_b[i]).addClass("col_bg");
         }
         i++;
     }
@@ -411,8 +410,11 @@ function delete_post() {
             throw new Error();
         }
     }).then(function(json) {
-        var card = document.getElementById("post_"+more_status_id);
-        card.parentNode.removeChild(card);
+        var card = $(".post_"+more_status_id), i = 0;
+        while (card[i]) {
+            card[i].parentNode.removeChild(card[i]);
+            i++;
+        }
         console.log("OK:del");
         showtoast('del-post-ok');
         more_acct_id = 0;

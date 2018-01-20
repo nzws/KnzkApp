@@ -199,7 +199,7 @@ function initevent() {
                     show_post(id);
                 }
             } else {
-                toot_col(id, $(".tootbs_"+id)[0]);
+                toot_col(id);
             }
         }
     });
@@ -227,6 +227,7 @@ function initevent() {
     });
 
     document.addEventListener('postpush', function(event) {
+        pageid = event.enterPage.id;
         if (event.enterPage.id === "home") {
             document.getElementById("toot_limit_simple").innerHTML = toot_limit;
         } else {
@@ -324,6 +325,7 @@ function initevent() {
     });
 
     document.addEventListener('postpop', function(event) {
+        pageid = event.enterPage.id;
         if (event.enterPage.id === "home") {
             home_auto_event = true;
             home_autoevent();
@@ -332,6 +334,12 @@ function initevent() {
             home_auto_event = false;
         }
     });
+
+    document.addEventListener("resume", function() {
+        if (pageid === "home" && !home_auto_event) {
+            showTL(null,null,null,true);
+        }
+    }, false);
 
     var carousel = document.addEventListener('postchange', function(event) {
         var home_cr = {0:"ローカル",1:"ホーム",2:"メディア(ローカル)",3:"メディア(連合)",4:"連合"};
