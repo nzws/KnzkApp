@@ -1,6 +1,6 @@
 function toot_card(toot, mode, note, toot_light, page) {
     var buf = "", piccard = "", fav = "", boost = "", namucard = "", namubt = "", p = 0, alert_text = "", content = "", button = "", e = 0, bt_big = "", light = "", q = 0, enq_item = "";
-    var appname, boost_full, boost_big, visibility_icon, can_col, is_col = "", col_bt = "", col_pic = "", col_bg_st = "", col_bg_cl = "";
+    var appname, boost_full, boost_big, visibility_icon, can_col, is_col = "", col_bt = "", col_pic = "", col_bg_st = "", col_bg_cl = "", button_col = "";
     if (!toot) {
         return "";
     }
@@ -85,6 +85,7 @@ function toot_card(toot, mode, note, toot_light, page) {
     }
     if (can_col && is_col) {
         col_bt = "<ons-button modifier='quiet' class='no-rd p0' onclick='toot_col(\""+toot['id']+"\")'><i class='fa fa-fw fa-angle-double-down toot-right-icon blue toot_col_"+toot['id']+"'></i></ons-button>";
+        button_col = "disable ";
     } else if (can_col) {
         col_bt = "<ons-button modifier='quiet' class='no-rd p0' onclick='toot_col(\""+toot['id']+"\")'><i class='fa fa-fw fa-angle-double-up toot-right-icon toot_col_"+toot['id']+"'></i>";
     }
@@ -147,7 +148,7 @@ function toot_card(toot, mode, note, toot_light, page) {
         content = toot['content'] + piccard;
     }
     if (mode == "full") {
-        button =    "                            <div class=\"toot-group\">" +
+        button =    "                            <div class=\""+button_col+"toot-group tb_group_"+toot["id"]+"\">" +
             "                                <ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["account"]["acct"]+"', '"+toot["visibility"]+"')\" class=\"toot-button\"></ons-icon>" +
             boost_full +
             "                                <ons-icon icon=\"fa-star\" onclick=\"toot_action('"+toot['id']+"', null, 'fav')\" class=\"tootfav_"+toot['id']+" toot-button"+namubt+fav+"\"></ons-icon>" +
@@ -195,17 +196,19 @@ function toot_card(toot, mode, note, toot_light, page) {
 }
 
 function toot_col(id) {
-    var toot = $(".tootcontent_"+id), i = 0, mode, toot_b = document.getElementsByClassName("post_"+id), obj = $(".toot_col_"+id);
+    var toot = $(".tootcontent_"+id), i = 0, mode, toot_b = document.getElementsByClassName("post_"+id), obj = $(".toot_col_"+id), tb = $(".tb_group_"+id);
     mode = toot[0].className.indexOf("toot-small") != -1;
     while (toot[i]) {
         if (mode) {
             $(toot[i]).removeClass("toot-small");
             obj[i].className = "fa fa-fw fa-angle-double-up toot-right-icon toot_col_"+id;
+            tb[i].className = "toot-group tb_group_"+id;
             toot_b[i].removeAttribute('style');
             $(toot_b[i]).removeClass("col_bg");
         } else {
             $(toot[i]).addClass("toot-small");
             obj[i].className = "fa fa-fw fa-angle-double-down toot-right-icon blue toot_col_"+id;
+            tb[i].className = "disable toot-group tb_group_"+id;
             toot_b[i].setAttribute('style', 'background-image: url(\''+toot_b[i].dataset.bgpic+'\');');
             $(toot_b[i]).addClass("col_bg");
         }
