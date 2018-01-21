@@ -69,6 +69,8 @@ function init() {
     home_auto_num = 0;
     doodle_old_color = null;
     doodle_mode = null;
+    default_post_visibility = "";
+    default_sensitive = false;
     init_d();
     hide('cannot-connect-sv');
     hide('cannot-connect-mastodon');
@@ -105,6 +107,12 @@ function init() {
                         throw new Error();
                     }
                 }).then(function(json) {
+                    if (json.source) {
+                        default_post_visibility = json.source.privacy;
+                        default_sensitive = json.source.sensitive;
+                    } else {
+                        default_post_visibility = "public";
+                    }
                     document.getElementById("toot_emoji_list_popover").innerHTML = "load";
                     document.getElementById("emoji_list_popover").innerHTML = "load";
                     if (inst === "knzk.me") {
@@ -126,7 +134,6 @@ function init() {
                         if (inst !== "knzk.me" && inst !== "now.kibousoft.co.jp") {
                             $("#vote_new_time_simple").addClass("invisible");
                         }
-                        document.getElementById("toot_limit_simple").innerHTML = toot_limit;
                         document.getElementById("splitter-profile-bg").setAttribute('style', 'background-image: url(\''+json.header+'\');');
                         document.getElementById("splitter-icon").src = json.avatar;
                         document.getElementById("splitter-profile-name").innerHTML = json.display_name;
@@ -229,7 +236,11 @@ function initevent() {
     document.addEventListener('postpush', function(event) {
         pageid = event.enterPage.id;
         if (event.enterPage.id === "home") {
-            document.getElementById("toot_limit_simple").innerHTML = toot_limit;
+            setTimeout(function () {
+                document.getElementById("toot_limit_simple").innerHTML = toot_limit;
+                $("#post_mode_simple").val(default_post_visibility);
+                document.getElementById("post_mode_bt_simple").innerHTML = visibility_name(default_post_visibility);
+            }, 500);
         } else {
             home_auto_event = false;
             last_load_TL = "";
@@ -303,20 +314,19 @@ function initevent() {
             }
         }
 
-        if (document.getElementById("post_reply") && tmp_post_reply) {
+        if (document.getElementById("post_reply")) {
             var bt_obj = document.getElementById("post_mode_bt");
-
-            if (tmp_post_visibility === "public") bt_obj.innerHTML = "公開";
-            else if (tmp_post_visibility === "unlisted") bt_obj.innerHTML = "非収載";
-            else if (tmp_post_visibility === "private") bt_obj.innerHTML = "非公開";
-            else if (tmp_post_visibility === "direct") bt_obj.innerHTML = "ダイレクト";
-
-            document.getElementById("post_reply").value = tmp_post_reply; //投稿ID
-            document.getElementById("post_reply_box").className = "reply-box"; //返信のダイアログ表示
-            document.getElementById("post_reply_acct").innerHTML = tmp_text_pre; //返信先
-            document.getElementById("post_mode").value = tmp_post_visibility; //投稿モード
-            tmp_post_reply = null;
+            if (!tmp_post_visibility) tmp_post_visibility = default_post_visibility;
+            bt_obj.innerHTML = visibility_name(tmp_post_visibility);
             tmp_post_visibility = null;
+
+            if (tmp_post_reply) {
+                document.getElementById("post_reply").value = tmp_post_reply; //投稿ID
+                document.getElementById("post_reply_box").className = "reply-box"; //返信のダイアログ表示
+                document.getElementById("post_reply_acct").innerHTML = tmp_text_pre; //返信先
+                document.getElementById("post_mode").value = tmp_post_visibility; //投稿モード
+                tmp_post_reply = null;
+            }
         }
         if (document.getElementById("toot_textarea") && tmp_text_pre) {
             document.getElementById("toot_textarea").value = tmp_text_pre;
