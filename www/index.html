@@ -77,7 +77,7 @@
         var default_sensitive = false;
     </script>
 
-    <script src="js/init.js"></script>
+    <script src="js/config.js"></script>
     <script src="js/components.js"></script>
     <script src="js/login.js"></script>
     <script src="js/toot_new.js"></script>
@@ -88,6 +88,7 @@
     <script src="js/music.js"></script>
     <script src="js/search.js"></script>
     <script src="js/doodle.js"></script>
+    <script src="js/init.js"></script>
 
     <audio id="music-control"></audio>
 </head>
@@ -98,7 +99,7 @@
             <ons-list>
                 <ons-list-item class="splitter-profile-item" id="splitter-profile-bg">
                     <div class="splitter-profile">
-                        <img src="img/missing.png" id="splitter-icon" class="user-logo" onclick="show_account(localStorage.getItem('knzk_userid'), true)"/>
+                        <img src="img/missing.png" id="splitter-icon" class="user-logo" onclick="show_account(localStorage.getItem('knzkapp_now_mastodon_id'), true)"/>
                         <p>
                         <h4 id="splitter-profile-name" class="acct-small" style="height: 20px;"></h4>
                         </p>
@@ -581,7 +582,7 @@
                     ジョークモード
                 </div>
                 <div class="right">
-                    <ons-switch onclick="change_conf('knzk_joke', 'conf-joke')" input-id="conf-joke"></ons-switch>
+                    <ons-switch onclick="change_conf(1, 'joke')" input-id="conf-joke"></ons-switch>
                 </div>
             </ons-list-item>
             <ons-list-item>
@@ -589,7 +590,7 @@
                     リアルタイム更新
                 </div>
                 <div class="right">
-                    <ons-switch onclick="change_conf('knzk_realtime', 'conf-realtime')" input-id="conf-realtime"></ons-switch>
+                    <ons-switch onclick="change_conf(1, 'realtime')" input-id="conf-realtime"></ons-switch>
                 </div>
             </ons-list-item>
             <ons-list-item>
@@ -597,7 +598,7 @@
                     CW文章を常に表示する
                 </div>
                 <div class="right">
-                    <ons-switch onclick="change_conf('knzk_cw', 'conf-cw')" input-id="conf-cw"></ons-switch>
+                    <ons-switch onclick="change_conf(1, 'cw')" input-id="conf-cw"></ons-switch>
                 </div>
             </ons-list-item>
             <ons-list-item>
@@ -605,7 +606,7 @@
                     NSFWメディアを常に表示する
                 </div>
                 <div class="right">
-                    <ons-switch onclick="change_conf('knzk_nsfw', 'conf-nsfw')" input-id="conf-nsfw"></ons-switch>
+                    <ons-switch onclick="change_conf(1, 'nsfw')" input-id="conf-nsfw"></ons-switch>
                 </div>
             </ons-list-item>
             <ons-list-item>
@@ -613,7 +614,7 @@
                     <span class="list-item__title">TLをスライドして切り替え(非推奨)</span><span class="list-item__subtitle">スクロールと被って使いづらいです</span>
                 </div>
                 <div class="right">
-                    <ons-switch onclick="change_conf('knzk_swipe', 'conf-swipe')" input-id="conf-swipe"></ons-switch>
+                    <ons-switch onclick="change_conf(1, 'swipe')" input-id="conf-swipe"></ons-switch>
                 </div>
             </ons-list-item>
             <ons-list-item>
@@ -629,7 +630,7 @@
                     <span class="list-item__title">ヘッダを押した時にTLをリセット</span><span class="list-item__subtitle">リセットさせる事で軽くなります</span>
                 </div>
                 <div class="right">
-                    <ons-switch onclick="change_conf('knzk_head_reset', 'conf-head_reset')" input-id="conf-head_reset"></ons-switch>
+                    <ons-switch onclick="change_conf(1, 'head_reset')" input-id="conf-head_reset"></ons-switch>
                 </div>
             </ons-list-item>
             <ons-list-item>
@@ -637,7 +638,7 @@
                     <span class="list-item__title">トゥート中に更新を止める</span><span class="list-item__subtitle">(コピペできないため)</span>
                 </div>
                 <div class="right">
-                    <ons-switch onclick="change_conf('knzk_st_stop', 'conf-st_stop')" input-id="conf-st_stop"></ons-switch>
+                    <ons-switch onclick="change_conf(1, 'st_stop')" input-id="conf-st_stop"></ons-switch>
                 </div>
             </ons-list-item>
             <ons-list-item>
@@ -645,7 +646,7 @@
                     スピードダイヤル設定
                 </div>
                 <div class="right">
-                    <ons-select id="conf-dial" onchange="change_conf('knzk_dial', 'conf-dial', true)">
+                    <ons-select id="conf-dial" onchange="change_conf(1, 'dial', true)">
                         <option value="">なし</option>
                         <option value="toot" id="dial_toot">トゥート</option>
                         <option value="alert" id="dial_alert">通知</option>
@@ -662,7 +663,7 @@
                     <span class="list-item__title">大きなお気に入りボタン</span><span class="list-item__subtitle">for おにいさん</span>
                 </div>
                 <div class="right">
-                    <ons-switch onclick="change_conf('knzk_bigfav', 'conf-fav-namu')" input-id="conf-fav-namu"></ons-switch>
+                    <ons-switch onclick="change_conf(1, 'bigfav')" input-id="conf-bigfav"></ons-switch>
                 </div>
             </ons-list-item>
             <ons-list-item>
@@ -670,7 +671,7 @@
                     回転を無効化
                 </div>
                 <div class="right">
-                    <ons-switch onclick="change_conf('knzk_spin', 'conf-spin')" input-id="conf-spin"></ons-switch>
+                    <ons-switch onclick="change_conf(1, 'spin')" input-id="conf-spin"></ons-switch>
                 </div>
             </ons-list-item>
             <ons-list-item>
@@ -678,7 +679,7 @@
                     メニューにお気に入り一覧を表示
                 </div>
                 <div class="right">
-                    <ons-switch onclick="change_conf('knzk_menu-fav', 'conf-menu-fav')" input-id="conf-menu-fav"></ons-switch>
+                    <ons-switch onclick="change_conf(1, 'menu-fav')" input-id="conf-menu-fav"></ons-switch>
                 </div>
             </ons-list-item>
             <ons-list-item>
@@ -686,7 +687,7 @@
                     <span class="list-item__title">通知ページに戻るスピダイを表示</span><span class="list-item__subtitle">TLスピダイからの移動のみ有効です</span>
                 </div>
                 <div class="right">
-                    <ons-switch onclick="change_conf('knzk_alert-back', 'conf-alert-back')" input-id="conf-alert-back"></ons-switch>
+                    <ons-switch onclick="change_conf(1, 'alert-back')" input-id="conf-alert-back"></ons-switch>
                 </div>
             </ons-list-item>
             <ons-list-item>
@@ -694,7 +695,7 @@
                     メディアを完全に表示
                 </div>
                 <div class="right">
-                    <ons-switch onclick="change_conf('knzk_image_full', 'conf-image_full')" input-id="conf-image_full"></ons-switch>
+                    <ons-switch onclick="change_conf(1, 'image_full')" input-id="conf-image_full"></ons-switch>
                 </div>
             </ons-list-item>
             <ons-list-item>
@@ -702,7 +703,7 @@
                     テーマ
                 </div>
                 <div class="right">
-                    <ons-select id="conf-theme" onchange="change_conf('knzk_theme', 'conf-theme', true)">
+                    <ons-select id="conf-theme" onchange="change_conf(1, 'theme', true)">
                         <option value="">default</option>
                         <option value="css/theme/dark.css" id="theme_css/theme/dark.css">dark</option>
                     </ons-select>
@@ -716,7 +717,7 @@
                     URLの開き方
                 </div>
                 <div class="right">
-                    <ons-select id="conf-url_open" onchange="change_conf('knzk_url_open', 'conf-url_open', true)">
+                    <ons-select id="conf-url_open" onchange="change_conf(1, 'url_open', true)">
                         <option value="">アプリ内ブラウザ</option>
                         <option value="Inapp" id="url_Inapp">アプリ内ブラウザ(旧)</option>
                         <option value="OS" id="url_OS">OSブラウザ</option>
@@ -728,7 +729,7 @@
                     <span class="list-item__title">スワイプしてメニューを開く</span><span class="list-item__subtitle">端末によっては使いづらいです</span>
                 </div>
                 <div class="right">
-                    <ons-switch onclick="change_conf('knzk_swipe_menu', 'conf-swipe_menu')" input-id="conf-swipe_menu"></ons-switch>
+                    <ons-switch onclick="change_conf(1, 'swipe_menu')" input-id="conf-swipe_menu"></ons-switch>
                 </div>
             </ons-list-item>
         </ons-list>
@@ -755,44 +756,44 @@
                     折りたたみを有効化
                 </div>
                 <div class="right">
-                    <ons-switch onclick="change_conf('conf-col-collapse', 'conf-col-collapse')" input-id="conf-col-collapse"></ons-switch>
+                    <ons-switch onclick="change_conf(2, 'collapse')" input-id="conf-col-collapse"></ons-switch>
                 </div>
             </ons-list-item>
         </ons-list>
         <ons-list>
             <ons-list-header>自動折りたたみ</ons-list-header>
-            <ons-list-item tappable onclick="change_conf('conf-col-all', 'conf-col-all')">
+            <ons-list-item tappable onclick="change_conf(2, 'all')">
                 <label class="left"><ons-checkbox input-id="conf-col-all"></ons-checkbox></label>
                 <label for="conf-col-all" class="center">すべて</label>
             </ons-list-item>
-            <ons-list-item tappable onclick="change_conf('conf-col-alert', 'conf-col-alert')">
+            <ons-list-item tappable onclick="change_conf(2, 'alert')">
                 <label class="left"><ons-checkbox input-id="conf-col-alert"></ons-checkbox></label>
                 <label for="conf-col-alert" class="center">通知</label>
             </ons-list-item>
-            <ons-list-item tappable onclick="change_conf('conf-col-leng', 'conf-col-leng')">
+            <ons-list-item tappable onclick="change_conf(2, 'leng')">
                 <label class="left"><ons-checkbox input-id="conf-col-leng"></ons-checkbox></label>
                 <label for="conf-col-leng" class="center">長いトゥート</label>
             </ons-list-item>
-            <ons-list-item tappable onclick="change_conf('conf-col-bs', 'conf-col-bs')">
+            <ons-list-item tappable onclick="change_conf(2, 'bs')">
                 <label class="left"><ons-checkbox input-id="conf-col-bs"></ons-checkbox></label>
                 <label for="conf-col-bs" class="center">ブースト</label>
             </ons-list-item>
-            <ons-list-item tappable onclick="change_conf('conf-col-re', 'conf-col-re')">
+            <ons-list-item tappable onclick="change_conf(2, 're')">
                 <label class="left"><ons-checkbox input-id="conf-col-re"></ons-checkbox></label>
                 <label for="conf-col-re" class="center">返信</label>
             </ons-list-item>
-            <ons-list-item tappable onclick="change_conf('conf-col-media', 'conf-col-media')">
+            <ons-list-item tappable onclick="change_conf(2, 'media')">
                 <label class="left"><ons-checkbox input-id="conf-col-media"></ons-checkbox></label>
                 <label for="conf-col-media" class="center">メディアトゥート</label>
             </ons-list-item>
         </ons-list>
         <ons-list>
             <ons-list-header>背景</ons-list-header>
-            <ons-list-item tappable onclick="change_conf('conf-col-bg', 'conf-col-bg')">
+            <ons-list-item tappable onclick="change_conf(2, 'bg')">
                 <label class="left"><ons-checkbox input-id="conf-col-bg"></ons-checkbox></label>
                 <label for="conf-col-bg" class="center">折りたたみ時の背景を変更</label>
             </ons-list-item>
-            <ons-list-item tappable onclick="change_conf('conf-col-preview', 'conf-col-preview')">
+            <ons-list-item tappable onclick="change_conf(2, 'preview')">
                 <label class="left"><ons-checkbox input-id="conf-col-preview"></ons-checkbox></label>
                 <label for="conf-col-preview" class="center">メディアプレビュー</label>
             </ons-list-item>
@@ -1251,7 +1252,7 @@
         <ons-toolbar>
             <div class="left" id="login_left"></div>
             <div class="center">
-                Mastodonにログイン
+                KnzkAppにログイン
             </div>
             <div class="right">
                 <ons-toolbar-button onclick="loadNav('about.html')">
@@ -1498,8 +1499,16 @@
             「認証済みアプリ」からKnzkAppを削除していませんか？
         </div>
         <div class="alert-dialog-footer">
-            <button class="alert-dialog-button" onclick="hide('cannot-connect-API');localStorage.removeItem('knzk_username');login_open(inst);">再ログインする</button>
+            <button class="alert-dialog-button" onclick="hide('cannot-connect-API');localStorage.removeItem('knzkapp_now_mastodon_username');login_open(inst);">再ログインする</button>
             <button class="alert-dialog-button" onclick="hide('cannot-connect-API');init()">再試行</button>
+        </div>
+    </ons-alert-dialog>
+
+    <ons-alert-dialog id="DB_migration">
+        <div class="alert-dialog-title">起動しています...</div>
+        <div class="alert-dialog-content">
+            データベースのマイグレーション中です。<br>
+            しばらくお待ち下さい...
         </div>
     </ons-alert-dialog>
 </div>

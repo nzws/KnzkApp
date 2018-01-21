@@ -25,7 +25,7 @@ function list_n(mode, title, more_load, mode_toot, navmode) {
     }
     if (mode === "pin") {
         pin = true;
-        mode = "/accounts/" + localStorage.getItem('knzk_userid') + "/statuses?pinned=true";
+        mode = "/accounts/" + localStorage.getItem('knzkapp_now_mastodon_id') + "/statuses?pinned=true";
     }
     if (navmode === true) {
         id_title = "olist_nav_title";
@@ -81,13 +81,13 @@ function list_n(mode, title, more_load, mode_toot, navmode) {
     };
     xhr.open('GET', "https://"+inst+"/api/v1/"+mode+get, false);
     xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.setRequestHeader('Authorization', 'Bearer '+localStorage.getItem('knzk_account_token'));
+    xhr.setRequestHeader('Authorization', 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token'));
     xhr.send();
 }
 
 function followreq(id, mode) {
     fetch("https://"+inst+"/api/v1/follow_requests/"+id+"/"+mode, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
         method: 'POST'
     }).then(function(response) {
         if(response.ok) {

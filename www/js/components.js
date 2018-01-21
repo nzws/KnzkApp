@@ -74,11 +74,11 @@ function displayTime(mode, time) {
 }
 
 function opendial() {
-    if (localStorage.getItem('knzk_dial') == 'toot') {
+    if (getConfig(1, 'dial') == 'toot') {
         loadNav('post.html', 'up');
-    } else if (localStorage.getItem('knzk_dial') == 'alert') {
+    } else if (getConfig(1, 'dial') == 'alert') {
         openTL('alert_nav');
-    } else if (localStorage.getItem('knzk_dial') == 'reload') {
+    } else if (getConfig(1, 'dial') == 'reload') {
         showTL(null, "dial");
     }
 }
@@ -93,7 +93,7 @@ function showtoast(id) {
 function t_text(text) {
     var i = 0, emoji = "", replacetext = "";
 
-    if (localStorage.getItem('knzk_joke') == 1) {
+    if (getConfig(1, 'joke') == 1) {
         text = text.replace(/。/g , "、それと便座カバー。");
         text = text.replace(/toot/g , "awoo");
         text = text.replace(/TOOT/g , "AWOO");
@@ -126,31 +126,8 @@ function hide(id) {
     document.getElementById(id).hide();
 }
 
-function change_conf(name, id, sel) {
-    if (sel) {
-        var type = document.getElementById(id).value;
-        localStorage.setItem(name, type);
-    } else {
-        var mode = document.getElementById(id).checked;
-        if (ons.platform.isIOS()) {
-            if (mode == true) {
-                localStorage.setItem(name, 0);
-            } else {
-                localStorage.setItem(name, 1);
-            }
-        } else {
-            if (mode == true) {
-                localStorage.setItem(name, 1);
-            } else {
-                localStorage.setItem(name, 0);
-            }
-        }
-    }
-    showtoast('ok_conf');
-}
-
 function openURL(url) {
-    var mode = localStorage.getItem('knzk_url_open');
+    var mode = getConfig(1, 'url_open');
     if (ons.isWebView() && !mode) {
         SafariViewController.isAvailable(function (available) {
             if (available) {
@@ -189,8 +166,4 @@ function Seterrorlog(id, text, data) {
     } else {
         document.getElementById(id).innerHTML = text;
     }
-}
-
-function getConf(id) {
-    return localStorage.getItem(id) == 1;
 }

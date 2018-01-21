@@ -6,7 +6,7 @@ function SearchLoad() {
     loadNav("olist_nav.html", null, true, true);
     var q = document.getElementById("nav-search").value;
     fetch("https://"+inst+"/api/v1/search?q="+q, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
         method: 'GET'
     }).then(function(response) {
         if(response.ok) {
