@@ -319,8 +319,30 @@ function open_cw(id, btobj) {
 function reply(id, acct, visibility) {
     tmp_text_pre = "@" + acct + " ";
     tmp_post_reply = id;
-    tmp_post_visibility = visibility;
+
+    tmp_post_visibility = visibility_rank(visibility) > visibility_rank(default_post_visibility) ? visibility : default_post_visibility;
+
     loadNav('post.html', 'up');
+}
+
+function visibility_rank(mode) {
+    var rank = 0;
+    if (mode === "public") rank = 1;
+    else if (mode === "unlisted") rank = 2;
+    else if (mode === "private") rank = 3;
+    else if (mode === "direct") rank = 4;
+
+    return rank;
+}
+
+function visibility_name(mode) {
+    var name = "";
+    if (mode === "public") name = "公開";
+    else if (mode === "unlisted") name = "非収載";
+    else if (mode === "private") name = "非公開";
+    else if (mode === "direct") name = "ダイレクト";
+
+    return name;
 }
 
 function pin_set(id, mode) {
