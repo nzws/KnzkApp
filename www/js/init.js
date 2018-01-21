@@ -80,8 +80,10 @@ function init() {
         show("cannot-use-ls");
     } else {
         show('now_loading');
-        if (localStorage.getItem('knzk_account_token')) {
-            if (localStorage.getItem('knzk_theme')) document.getElementById("theme_css").href = localStorage.getItem('knzk_theme');
+
+        if (localStorage.getItem('knzkapp_now_mastodon_token')) {
+
+            if (getConfig(1, 'theme')) document.getElementById("theme_css").href = getConfig(1, 'theme');
 
             if (ons.platform.isIPhoneX()) { // for iPhone X
                 document.documentElement.addAttribute('onsflag-iphonex-portrait', '1');
@@ -90,7 +92,7 @@ function init() {
 
             if (ons.platform.isAndroid()) document.getElementById("css_toolbar_android").href = "css/toolbar-height.css";
 
-            inst = localStorage.getItem('knzk_login_domain');
+            inst = localStorage.getItem('knzkapp_now_mastodon_domain');
             fetch("https://"+inst+"/api/v1/instance").then(function(response) {
                 if(response.ok) {
                     return response.json();
@@ -99,7 +101,7 @@ function init() {
                 }
             }).then(function(json) {
                 fetch("https://"+inst+"/api/v1/accounts/verify_credentials", {
-                    headers: {'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')}
+                    headers: {'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')}
                 }).then(function(response) {
                     if(response.ok) {
                         return response.json();
@@ -123,9 +125,6 @@ function init() {
                         toot_limit = 500;
                     }
 
-                    if (localStorage.getItem('knzk_realtime') == undefined) localStorage.setItem('knzk_realtime', 1);
-                    if (localStorage.getItem('knzk_head_reset') == undefined) localStorage.setItem('knzk_head_reset', 1);
-                    if (localStorage.getItem('knzk_dial') == undefined) localStorage.setItem('knzk_dial', 'change');
                     document.querySelector('#navigator').resetToPage('home.html');
                     initevent();
                     showTL("local", null, null, true, null);
@@ -143,12 +142,12 @@ function init() {
                         else
                             $("#menu-followreq").addClass("invisible");
 
-                        if (localStorage.getItem('knzk_menu-fav') == 1) $("#menu-fav-page").removeClass("invisible");
+                        if (getConfig(1, 'menu-fav') == 1) $("#menu-fav-page").removeClass("invisible");
 
-                        if (localStorage.getItem('knzk_swipe') == 1) document.getElementById("carousel").setAttribute('swipeable', '1');
-                        if (localStorage.getItem('knzk_swipe_menu') == 1) document.getElementById("splitter-menu").setAttribute('swipeable', '1');
+                        if (getConfig(1, 'swipe') == 1) document.getElementById("carousel").setAttribute('swipeable', '1');
+                        if (getConfig(1, 'swipe_menu') == 1) document.getElementById("splitter-menu").setAttribute('swipeable', '1');
 
-                        var dial = localStorage.getItem('knzk_dial'), icon;
+                        var dial = getConfig(1, 'dial'), icon;
                         if (dial && dial != "change") {
                             $("#dial_main").removeClass("invisible");
                             if (dial === "toot") icon = "fa-pencil"; else if (dial === "alert") icon = "fa-bell"; if (dial === "reload") icon = "fa-refresh";
@@ -187,8 +186,9 @@ function init() {
             })
         } else {
             setTimeout(function () {
-                document.querySelector('#navigator').resetToPage('login.html');
-                if (!ons.isWebView()) $("#login_debug").removeClass("invisible");
+                document.querySelector('#navigator').resetToPage('login.html').then(function () {
+                    if (!ons.isWebView()) $("#login_debug").removeClass("invisible");
+                });
             }, 500);
         }
         hide('now_loading');
@@ -249,23 +249,15 @@ function initevent() {
         if (event.enterPage.id === "config-page") {
             show('now_loading');
             setTimeout(function() {
-                if (localStorage.getItem('knzk_bigfav') == 1) document.getElementById("conf-fav-namu").checked = "true";
-                if (localStorage.getItem('knzk_nsfw') == 1) document.getElementById("conf-nsfw").checked = "true";
-                if (localStorage.getItem('knzk_cw') == 1) document.getElementById("conf-cw").checked = "true";
-                if (localStorage.getItem('knzk_realtime') == 1) document.getElementById("conf-realtime").checked = "true";
-                if (localStorage.getItem('knzk_spin') == 1) document.getElementById("conf-spin").checked = "true";
-                if (localStorage.getItem('knzk_swipe') == 1) document.getElementById("conf-swipe").checked = "true";
-                if (localStorage.getItem('knzk_joke') == 1) document.getElementById("conf-joke").checked = "true";
-                if (localStorage.getItem('knzk_menu-fav') == 1) document.getElementById("conf-menu-fav").checked = "true";
-                if (localStorage.getItem('knzk_alert-back') == 1) document.getElementById("conf-alert-back").checked = "true";
-                if (localStorage.getItem('knzk_image_full') == 1) document.getElementById("conf-image_full").checked = "true";
-                if (localStorage.getItem('knzk_swipe_menu') == 1) document.getElementById("conf-swipe_menu").checked = "true";
-                if (localStorage.getItem('knzk_head_reset') == 1) document.getElementById("conf-head_reset").checked = "true";
-                if (localStorage.getItem('knzk_st_stop') == 1) document.getElementById("conf-st_stop").checked = "true";
-                if (localStorage.getItem('knzk_dial')) document.getElementById("dial_"+localStorage.getItem('knzk_dial')).selected = true;
-                if (localStorage.getItem('knzk_theme')) document.getElementById("theme_"+localStorage.getItem('knzk_theme')).selected = true;
-                if (localStorage.getItem('knzk_url_open')) document.getElementById("url_"+localStorage.getItem('knzk_url_open')).selected = true;
+                if (getConfig(1, 'dial')) document.getElementById("dial_"+getConfig(1, 'dial')).selected = true;
+                if (getConfig(1, 'theme')) document.getElementById("theme_"+getConfig(1, 'theme')).selected = true;
+                if (getConfig(1, 'url_open')) document.getElementById("url_"+getConfig(1, 'url_open')).selected = true;
                 hide('now_loading');
+                var conf = $("[id^='conf-']"), i = 0;
+                while (conf[i]) {
+                    if (parseInt(getConfig(1, conf[i].id.replace("conf-", "")))) conf[i].checked = true;
+                    i++;
+                }
             },500);
         }
         if (event.enterPage.id === "config_collapse-page") {
@@ -273,14 +265,14 @@ function initevent() {
             setTimeout(function() {
                 var conf = $("[id^='conf-col-']"), i = 0;
                 while (conf[i]) {
-                    if (localStorage.getItem(''+conf[i].id) == 1) conf[i].checked = "true";
+                    if (parseInt(getConfig(2, conf[i].id.replace("conf-col-", "")))) conf[i].checked = true;
                     i++;
                 }
                 hide('now_loading');
             },500);
         }
         if (event.enterPage.id === "login-page") {
-            if (localStorage.getItem('knzk_account_token')) {
+            if (localStorage.getItem('knzkapp_now_mastodon_token')) {
                 setTimeout(function () {
                     document.getElementById("login_left").innerHTML = "<ons-toolbar-button onclick=\"BackTab()\" class=\"toolbar-button\">\n" +
                         "                    <ons-icon icon=\"fa-chevron-left\" class=\"ons-icon fa-chevron-left fa\"></ons-icon>\n" +
@@ -414,18 +406,27 @@ function init_d() {
     quiet = button + " button--quiet";
     light = button + " button--light";
     ons.disableAutoStyling();
+    if (localStorage.getItem('knzkapp_conf_mastodon') != undefined) {
+        if (getConfig(1, 'spin') == 1 || getConfig(1, 'gpu') == 1) {
+            var css = "";
+            if (getConfig(1, 'spin') == 1) {
+                css += ".fa-spin {-webkit-animation: none;  animation: none;}";
+            }
+            if (getConfig(1, 'gpu') == 1) {
+                css += ".toot, ons-carousel, ons-carousel-item {transform: translate3d(0, 0, 0);}";
+            }
 
-    if (localStorage.getItem('knzk_spin') == 1) {
-        var css = ".fa-spin {-webkit-animation: none;  animation: none;}";
-        var node = document.createElement("style");
-        node.type = "text/css";
-        node.appendChild(document.createTextNode(css));
-        var heads = document.getElementsByTagName("head");
-        heads[0].appendChild(node);
+            var node = document.createElement("style");
+            node.type = "text/css";
+            node.appendChild(document.createTextNode(css));
+            var heads = document.getElementsByTagName("head");
+            heads[0].appendChild(node);
+        }
     }
 }
 init_d();
 ons.ready(function() {
+    ConfigSetup();
     init();
 });
 

@@ -19,7 +19,7 @@ function show_account(id, navmode) {
         loadNav('account.html');
     }
     fetch("https://"+inst+"/api/v1/accounts/"+id, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
         method: 'GET'
     }).then(function(response) {
         if(response.ok) {
@@ -68,7 +68,7 @@ function show_account(id, navmode) {
     });
 
     fetch("https://"+inst+"/api/v1/accounts/relationships?id="+id, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
         method: 'GET'
     }).then(function(response) {
         if(response.ok) {
@@ -103,7 +103,7 @@ function show_account(id, navmode) {
         } else
             document.getElementById("userpage-block-badge").className = "invisible";
 
-        if (json[0]["id"] == localStorage.getItem('knzk_userid')) {
+        if (json[0]["id"] == localStorage.getItem('knzkapp_now_mastodon_id')) {
             document.getElementById("userpage-follow-button").className = "invisible";
             document.getElementById("acct_action_bt").className = "invisible";
             document.getElementById("userpage-follower-badge").className = "invisible";
@@ -146,7 +146,7 @@ function account_state_action(id, obj, mode) {
     }
 
     fetch("https://"+inst+"/api/v1/accounts/"+id+url, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
         method: 'POST'
     }).then(function(response) {
         if(response.ok) {
@@ -176,7 +176,7 @@ function account_state_action(id, obj, mode) {
 }
 
 function account_action(id) {
-    if (localStorage.getItem('knzk_userid') == id) {
+    if (localStorage.getItem('knzkapp_now_mastodon_id') == id) {
         ons.openActionSheet({
             cancelable: true,
             buttons: [
@@ -226,7 +226,7 @@ function account_action(id) {
 
 function show_account_name(username) {
     fetch("https://"+inst+"/api/v1/search?q="+username, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
         method: 'GET'
     }).then(function(response) {
         if(response.ok) {

@@ -1,7 +1,7 @@
 function reset_alert() {
     hide('clear-alert');
     fetch("https://"+inst+"/api/v1/notifications/clear", {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
         method: 'POST'
     }).then(function(response) {
         if(response.ok) {
@@ -31,7 +31,7 @@ function showAlert(reload, more_load) {
         get = "?max_id="+alert_old_id;
     }
     fetch("https://"+inst+"/api/v1/notifications"+get, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
         method: 'GET'
     }).then(function(response) {
         if(response.ok) {
@@ -112,7 +112,7 @@ function openTL(mode) {
                 "                    戻る\n" +
                 "                </ons-toolbar-button>";
             initph("alert");
-            if (localStorage.getItem('knzk_alert-back') == '1') {
+            if (getConfig(1, 'alert-back') == '1') {
                 $("#alert-speed_dial").removeClass("invisible");
             }
         }, 200);
@@ -122,8 +122,8 @@ function openTL(mode) {
         now_TL = "local";
         showTL(null, null, null, true);
         setTimeout(function () {
-            if (localStorage.getItem('knzk_swipe') == 1) document.getElementById("carousel").setAttribute('swipeable', '1');
-            var dial = localStorage.getItem('knzk_dial'), icon;
+            if (getConfig(1, 'swipe') == 1) document.getElementById("carousel").setAttribute('swipeable', '1');
+            var dial = getConfig(1, 'dial'), icon;
             if (dial && dial != "change") {
                 $("#dial_main").removeClass("invisible");
                 if (dial === "toot") icon = "fa-pencil"; else if (dial === "alert") icon = "fa-bell"; if (dial === "reload") icon = "fa-refresh";
@@ -198,7 +198,7 @@ function showTL(mode, reload, more_load, clear_load) {
     if (more_load) more_load.className = "invisible";
     if (n) {
         fetch("https://"+inst+"/api/v1/timelines/"+tlmode, {
-            headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+            headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
             method: 'GET'
         }).then(function(response) {
             if(response.ok) {
@@ -215,7 +215,7 @@ function showTL(mode, reload, more_load, clear_load) {
             if (more_load) {
                 reshtml = document.getElementById(id_main).innerHTML;
             } else {
-                if (localStorage.getItem('knzk_realtime') == 1) {
+                if (getConfig(1, 'realtime') == 1) {
                     if (now_TL === "public" || now_TL === "public_media")
                         ws_mode = "public";
                     else if (now_TL === "local" || now_TL === "local_media")
@@ -224,7 +224,7 @@ function showTL(mode, reload, more_load, clear_load) {
                         ws_mode = "user";
 
                     if (!reload && !more_load) {
-                        ws = new WebSocket("wss://"+inst+"/api/v1/streaming/?access_token=" + localStorage.getItem('knzk_account_token') + "&stream=" + ws_mode);
+                        ws = new WebSocket("wss://"+inst+"/api/v1/streaming/?access_token=" + localStorage.getItem('knzkapp_now_mastodon_token') + "&stream=" + ws_mode);
                         old_TL_ws = ws;
                         ws.onmessage = function (message) {
                             var ws_reshtml;
@@ -307,7 +307,7 @@ function showTagTL(tag, more_load) {
         loadNav('showtag.html');
     }
     fetch("https://"+inst+"/api/v1/timelines/tag/"+tag+get, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
         method: 'GET'
     }).then(function(response) {
         if(response.ok) {
@@ -355,7 +355,7 @@ function showAccountTL(id, more_load, media) {
         document.getElementById("account_pinned_toot").innerHTML = "";
     }
     fetch("https://"+inst+"/api/v1/accounts/"+id+"/statuses"+get, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
         method: 'GET'
     }).then(function(response) {
         if(response.ok) {
@@ -368,7 +368,7 @@ function showAccountTL(id, more_load, media) {
     }).then(function(json) {
         if (!media && !more_load) {
             fetch("https://"+inst+"/api/v1/accounts/"+id+"/statuses?pinned=true", {
-                headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+                headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
                 method: 'GET'
             }).then(function(response) {
                 if(response.ok) {
@@ -438,5 +438,5 @@ function SpeedDial_icon_change(mode) {
 
 function scrollTL() {
     $("#"+now_TL+"_item").scrollTop(0);
-    if (localStorage.getItem('knzk_head_reset') == 1) showTL(null, null, null, true);
+    if (getConfig(1, 'head_reset') == 1) showTL(null, null, null, true);
 }

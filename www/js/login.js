@@ -74,18 +74,18 @@ function login_callback(code) {
         })
     }).then(function(response) {
         if(response.ok) {
-            if (localStorage.getItem('knzk_username')) account_change();
+            if (localStorage.getItem('knzkapp_now_mastodon_username')) account_change();
             return response.json();
         } else {
             throw new Error();
         }
     }).then(function(json) {
-        localStorage.setItem('knzk_account_token',json.access_token);
-        localStorage.setItem('knzk_login_domain',inst_domain);
+        localStorage.setItem('knzkapp_now_mastodon_token',json.access_token);
+        localStorage.setItem('knzkapp_now_mastodon_domain',inst_domain);
         inst = inst_domain;
 
         fetch("https://"+inst_domain+"/api/v1/accounts/verify_credentials", {
-            headers: {'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')}
+            headers: {'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')}
         }).then(function(response) {
             if(response.ok) {
                 return response.json();
@@ -93,9 +93,9 @@ function login_callback(code) {
                 throw new Error();
             }
         }).then(function(json_acct) {
-            if (localStorage.getItem("knzk_account_list") == undefined) localStorage.setItem('knzk_account_list', JSON.stringify([]));
-            localStorage.setItem('knzk_username',json_acct.acct);
-            localStorage.setItem('knzk_userid',json_acct.id);
+            if (localStorage.getItem("knzkapp_account_list") == undefined) localStorage.setItem('knzkapp_account_list', JSON.stringify([]));
+            localStorage.setItem('knzkapp_now_mastodon_username',json_acct.acct);
+            localStorage.setItem('knzkapp_now_mastodon_id',json_acct.id);
             hide('now_loading');
             init();
             showtoast('loggedin_dialog');
@@ -122,17 +122,17 @@ function debug_login() {
         headers: {'Authorization': 'Bearer '+token}
     }).then(function(response) {
         if(response.ok) {
-            if (localStorage.getItem('knzk_username')) account_change();
+            if (localStorage.getItem('knzkapp_now_mastodon_username')) account_change();
             return response.json();
         } else {
             throw new Error();
         }
     }).then(function(json) {
-        if (localStorage.getItem("knzk_account_list") == undefined) localStorage.setItem('knzk_account_list', JSON.stringify([]));
-        localStorage.setItem('knzk_account_token', token);
-        localStorage.setItem('knzk_login_domain', inst_domain);
-        localStorage.setItem('knzk_username', json.acct);
-        localStorage.setItem('knzk_userid', json.id);
+        if (localStorage.getItem("knzkapp_account_list") == undefined) localStorage.setItem('knzkapp_account_list', JSON.stringify([]));
+        localStorage.setItem('knzkapp_now_mastodon_token', token);
+        localStorage.setItem('knzkapp_now_mastodon_domain', inst_domain);
+        localStorage.setItem('knzkapp_now_mastodon_username', json.acct);
+        localStorage.setItem('knzkapp_now_mastodon_id', json.id);
 
         hide('now_loading');
         init();
@@ -147,10 +147,10 @@ function debug_login() {
 
 function logout() {
     hide('logout_dialog');
-    localStorage.removeItem('knzk_account_token');
-    localStorage.removeItem('knzk_username');
-    localStorage.removeItem('knzk_userid');
-    localStorage.removeItem('knzk_login_domain');
+    localStorage.removeItem('knzkapp_now_mastodon_token');
+    localStorage.removeItem('knzkapp_now_mastodon_username');
+    localStorage.removeItem('knzkapp_now_mastodon_id');
+    localStorage.removeItem('knzkapp_now_mastodon_domain');
     //localStorage.clear(); //設定は消さない
     init();
     showtoast('loggedout_dialog');
@@ -172,31 +172,31 @@ function account_change_list() {
 }
 
 function account_change(id) {
-    var list = JSON.parse(localStorage.getItem("knzk_account_list"));
+    var list = JSON.parse(localStorage.getItem("knzkapp_account_list"));
 
     var now = {
-        "username": localStorage.getItem('knzk_username'),
-        "userid": localStorage.getItem('knzk_userid'),
-        "login_token": localStorage.getItem('knzk_account_token'),
-        "login_domain": localStorage.getItem('knzk_login_domain')
+        "username": localStorage.getItem('knzkapp_now_mastodon_username'),
+        "userid": localStorage.getItem('knzkapp_now_mastodon_id'),
+        "login_token": localStorage.getItem('knzkapp_now_mastodon_token'),
+        "login_domain": localStorage.getItem('knzkapp_now_mastodon_domain')
     };
-    localStorage.removeItem('knzk_account_token');
-    localStorage.removeItem('knzk_username');
-    localStorage.removeItem('knzk_userid');
-    localStorage.removeItem('knzk_login_domain');
+    localStorage.removeItem('knzkapp_now_mastodon_token');
+    localStorage.removeItem('knzkapp_now_mastodon_username');
+    localStorage.removeItem('knzkapp_now_mastodon_id');
+    localStorage.removeItem('knzkapp_now_mastodon_domain');
 
     if (id) {
         var nid = parseInt(id);
         var next_account = list[nid];
         list.splice(nid, 1);
-        localStorage.setItem('knzk_account_token', next_account["login_token"]);
-        localStorage.setItem('knzk_username', next_account["username"]);
-        localStorage.setItem('knzk_userid', next_account["userid"]);
-        localStorage.setItem('knzk_login_domain', next_account["login_domain"]);
+        localStorage.setItem('knzkapp_now_mastodon_token', next_account["login_token"]);
+        localStorage.setItem('knzkapp_now_mastodon_username', next_account["username"]);
+        localStorage.setItem('knzkapp_now_mastodon_id', next_account["userid"]);
+        localStorage.setItem('knzkapp_now_mastodon_domain', next_account["login_domain"]);
     }
 
     list.unshift(now);
-    localStorage.setItem('knzk_account_list', JSON.stringify(list));
+    localStorage.setItem('knzkapp_account_list', JSON.stringify(list));
 
     if (id) {
         init();
@@ -207,10 +207,10 @@ function account_change(id) {
 function account_del(id) {
     ons.notification.confirm('アプリからこのアカウントを削除してもよろしいですか？', {title: 'アカウントの削除'}).then(function (e) {
         if (e === 1) {
-            var list = JSON.parse(localStorage.getItem("knzk_account_list"));
+            var list = JSON.parse(localStorage.getItem("knzkapp_account_list"));
             var nid = parseInt(id);
             list.splice(nid, 1);
-            localStorage.setItem('knzk_account_list', JSON.stringify(list));
+            localStorage.setItem('knzkapp_account_list', JSON.stringify(list));
             document.getElementById('splitter-menu').close();
             showtoast("del_ok");
         }
@@ -218,7 +218,7 @@ function account_del(id) {
 }
 
 function account_list() {
-    var list = JSON.parse(localStorage.getItem("knzk_account_list"));
+    var list = JSON.parse(localStorage.getItem("knzkapp_account_list"));
     var reshtml = "", i = 0;
     while (list[i]) {
         reshtml += "<ons-list-item>\n" +

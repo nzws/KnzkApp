@@ -51,7 +51,7 @@ function toot_card(toot, mode, note, toot_light, page) {
     if (toot['reblogged'] == true) {
         boost = " boost-active";
     }
-    if (localStorage.getItem('knzk_bigfav') == 1 && mode != "big") {
+    if (getConfig(1, 'bigfav') == 1 && mode != "big") {
         namucard = " namu-toot";
         namubt = " namu-fav";
     }
@@ -61,18 +61,18 @@ function toot_card(toot, mode, note, toot_light, page) {
     if (toot_light === "light") {
         light = " toot_light";
     }
-    if (getConf('conf-col-collapse') && mode != "big") {
-        if (getConf('conf-col-preview') && toot['media_attachments'][0] && !toot['sensitive']) {
+    if (getConfig(2, 'collapse') && mode != "big") {
+        if (getConfig(2, 'preview') && toot['media_attachments'][0] && !toot['sensitive']) {
             col_pic = toot['media_attachments'][0]['preview_url'];
-        } else if (getConf('conf-col-bg')) {
+        } else if (getConfig(2, 'bg')) {
             col_pic = toot['account']['header_static'];
         }
-        if (getConf('conf-col-all') ||
-            (getConf('conf-col-alert') && page === "alert" && note) ||
-            (getConf('conf-col-leng') && toot['content'].length > 100) ||
-            (getConf('conf-col-bs') && toot['reblog']) ||
-            (getConf('conf-col-re') && toot['mentions'][0]) ||
-            (getConf('conf-col-media') && toot['media_attachments'][0])) {
+        if (getConfig(2, 'all') ||
+            (getConfig(2, 'alert') && page === "alert" && note) ||
+            (getConfig(2, 'leng') && toot['content'].length > 100) ||
+            (getConfig(2, 'bs') && toot['reblog']) ||
+            (getConfig(2, 're') && toot['mentions'][0]) ||
+            (getConfig(2, 'media') && toot['media_attachments'][0])) {
             can_col = true;
             is_col = "toot-small ";
             if (col_pic) {
@@ -120,10 +120,10 @@ function toot_card(toot, mode, note, toot_light, page) {
     try {
         if (toot['media_attachments'][0] && (mode == "full" || mode == "big")) {
             while (toot['media_attachments'][p]) {
-                if (toot['sensitive'] && localStorage.getItem('knzk_nsfw') != 1) { //NSFWオン
+                if (toot['sensitive'] && getConfig(1, 'nsfw') != 1) { //NSFWオン
                     piccard += "<a href='"+toot['media_attachments'][p]['url']+"'><ons-card class='nsfw'><h3>回覧注意</h3><small>タップで表示</small></ons-card></a>";
                 } else {
-                    if (localStorage.getItem('knzk_image_full') == '1') {
+                    if (getConfig(1, 'image_full') == '1') {
                         piccard += "<a href='"+toot['media_attachments'][p]['url']+"'><img src='"+toot['media_attachments'][p]['preview_url']+"' class='image_fullsize'/></a>";
                     } else {
                         piccard += "<a href='"+toot['media_attachments'][p]['url']+"'><ons-card style='background-image: url("+toot['media_attachments'][p]['preview_url']+")' class='card-image'></ons-card></a>";
@@ -139,7 +139,7 @@ function toot_card(toot, mode, note, toot_light, page) {
     }
     date = displayTime('new', toot['created_at']);
     toot['content'] = toot['content'].replace(/<a href="((http:|https:)\/\/[\x21-\x26\x28-\x7e]+)\/media\/([\x21-\x26\x28-\x7e]+)" rel="nofollow noopener" target="_blank"><span class="invisible">(http:|https:)\/\/<\/span><span class="ellipsis">([\x21-\x26\x28-\x7e]+)\/media\/([\x21-\x26\x28-\x7e]+)<\/span><span class="invisible">([\x21-\x26\x28-\x7e]+)<\/span><\/a>/g , "<a href='$1/media/$3' class='image-url'><ons-icon icon='fa-file-image-o'></ons-icon></a>");
-    if (toot['spoiler_text'] && localStorage.getItem('knzk_cw') != 1) {
+    if (toot['spoiler_text'] && getConfig(1, 'cw') != 1) {
         var rand = Math.random().toString(36).slice(-8);
         content = toot['spoiler_text'] + "　<ons-button modifier=\"large--quiet\" onclick='open_cw(\"cw_"+rand+"_" + toot['id'] + "\", this);' class='cw-button'>もっと見る</ons-button><div class='invisible' id='cw_"+rand+"_" + toot['id'] + "'><p>" + toot['content'] + piccard + "</p></div>";
     } else if (toot['spoiler_text']) { //CW / 常に表示
@@ -218,7 +218,7 @@ function toot_col(id) {
 
 function vote_item(q, obj, id) {
     fetch("https://"+inst+"/api/v1/votes/"+id, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
         method: 'POST',
         body: JSON.stringify({
             item_index: q
@@ -269,7 +269,7 @@ function toot_action(id, mode, action_mode) {
         }
     }
     fetch("https://"+inst+"/api/v1/statuses/"+id+url, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
         method: 'POST'
     }).then(function(response) {
         if(response.ok) {
@@ -349,7 +349,7 @@ function pin_set(id, mode) {
     var pin_mode;
     if (mode) pin_mode = "/unpin"; else pin_mode = "/pin";
     fetch("https://"+inst+"/api/v1/statuses/"+id+pin_mode, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
         method: 'POST'
     }).then(function(response) {
         if(response.ok) {
@@ -366,7 +366,7 @@ function more(id, acctid, pin_mode, url) {
     var pin;
     more_status_id = ""+id;
     more_acct_id = acctid;
-    if (localStorage.getItem('knzk_userid') == more_acct_id) {
+    if (localStorage.getItem('knzkapp_now_mastodon_id') == more_acct_id) {
         if (pin_mode === true) pin = "ピン留め解除"; else pin = "ピン留め";
         ons.openActionSheet({
             cancelable: true,
@@ -426,7 +426,7 @@ function more(id, acctid, pin_mode, url) {
 function delete_post() {
     hide('delete-post');
     fetch("https://"+inst+"/api/v1/statuses/"+more_status_id, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
         method: 'DELETE'
     }).then(function(response) {
         if(response.ok) {
@@ -456,7 +456,7 @@ function show_post(id, near) {
     var reshtml = "", d = 0, i = 0;
     loadNav('showtoot.html');
     fetch("https://"+inst+"//api/v1/statuses/"+id, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
         method: 'GET'
     }).then(function(response) {
         if(response.ok) {
@@ -469,7 +469,7 @@ function show_post(id, near) {
             i = 0;
             reshtml += toot_card(json_stat, "big", null, "gold");
             fetch("https://"+inst+"/api/v1/timelines/public?local=true&limit=10&max_id="+id, {
-                headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+                headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
                 method: 'GET'
             }).then(function(response) {
                 if(response.ok) {
@@ -487,7 +487,7 @@ function show_post(id, near) {
             });
         } else {
             fetch("https://"+inst+"//api/v1/statuses/"+id+"/context", {
-                headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+                headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
                 method: 'GET'
             }).then(function(response) {
                 if(response.ok) {
@@ -519,7 +519,7 @@ function report() {
     var rep = ons.notification.prompt('通報のコメントを記入してください<br>(空欄でキャンセル)', {title: '通報'}).then(function (repcom) {
         if (repcom) {
             fetch("https://"+inst+"/api/v1/reports", {
-                headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzk_account_token')},
+                headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
                 method: 'POST',
                 body: JSON.stringify({
                     account_id: more_acct_id,
