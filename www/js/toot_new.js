@@ -183,10 +183,8 @@ function check_limit(value, id, tb_id, cw_id) {
     document.getElementById(id).innerHTML = limit;
     if (limit < 0) {
         document.getElementById(id).setAttribute('style', 'color: red');
-        document.getElementById(tb_id).disabled = "true";
     } else {
         document.getElementById(id).setAttribute('style', '');
-        document.getElementById(tb_id).disabled = "";
     }
 }
 
