@@ -407,12 +407,12 @@ function init_d() {
     light = button + " button--light";
     ons.disableAutoStyling();
     if (localStorage.getItem('knzkapp_conf_mastodon') != undefined) {
-        if (getConfig(1, 'spin') == 1 || getConfig(1, 'gpu') == 1) {
+        if (getConfig(1, 'spin') == 1 || getConfig(1, 'gpu') != 1) {
             var css = "";
             if (getConfig(1, 'spin') == 1) {
                 css += ".fa-spin {-webkit-animation: none;  animation: none;}";
             }
-            if (getConfig(1, 'gpu') == 1) {
+            if (getConfig(1, 'gpu') != 1) {
                 css += ".toot, ons-carousel, ons-carousel-item {transform: translate3d(0, 0, 0);}";
             }
 
