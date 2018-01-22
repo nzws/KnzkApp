@@ -1,7 +1,7 @@
 function getConfig(type, name) {
     var data = type === 1 ? localStorage.getItem('knzkapp_conf_mastodon') : localStorage.getItem('knzkapp_conf_mastodoncol');
     data = JSON.parse(data);
-    return data[name];
+    return data[name] ? data[name] : "";
 }
 
 function change_conf(name, id, sel) {
