@@ -26,7 +26,7 @@
 その他: https://github.com/KnzkDev/KnzkApp/wiki/License
 
 ## Special Thanks ✨
-[あんのたん @annotunzdy](https://knzk.me/@annotunzdy)   
+[Kibousoft LLC.](http://kibousoft.co.jp/) / [あんのたん @annotunzdy](https://knzk.me/@annotunzdy)   
 
 [神崎丼ロゴ: ネイティオ @twotwo](https://knzk.me/@twotwo)  
 [神崎丼ロゴ: NCLS @imncls](https://knzk.me/@imncls)
