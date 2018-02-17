@@ -75,7 +75,7 @@ function up_file_suc(base64, mode_blob) {
                 throw new Error();
             }
         }).then(function(json) {
-            if (json["id"] && json["preview_url"] != "https://knzk.me/files/small/missing.png") {
+            if (json["id"] && json["type"] !== "unknown") {
                 document.getElementById("image_list"+image_mode).innerHTML = "<ons-card onclick=\"file_del(this)\" style='background-image: url("+json["preview_url"]+")' class='card-image media-upload"+image_mode+"' data-mediaid='"+json["id"]+"'></ons-card>" + document.getElementById("image_list"+image_mode).innerHTML;
                 image_mode = "";
                 hide('now_loading');
