@@ -86,8 +86,10 @@ function init() {
             if (getConfig(1, 'theme')) document.getElementById("theme_css").href = getConfig(1, 'theme');
 
             if (ons.platform.isIPhoneX()) { // for iPhone X
-                document.documentElement.addAttribute('onsflag-iphonex-portrait', '1');
-                document.documentElement.addAttribute('onsflag-iphonex-landscape', '1');
+                let html_tag = document.documentElement;
+                html_tag.setAttribute('onsflag-iphonex-portrait', '1');
+                html_tag.setAttribute('onsflag-iphonex-landscape', '1');
+                document.getElementById("css_toolbar_android").href = "css/iphonex.css";
             }
 
             if (ons.platform.isAndroid()) document.getElementById("css_toolbar_android").href = "css/toolbar-height.css";
