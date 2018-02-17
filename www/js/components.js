@@ -102,7 +102,7 @@ function t_text(text) {
         text = text.replace(/(ごちうさ|ご注文はうさぎですか？)/g , "あぁ^～心がぴょんぴょんするんじゃぁ^～");
         text = text.replace(/35億/g , "5000兆円");
         text = text.replace(/がっこうぐらし/g , "【窓割れてね？】");
-        text = text.replace(/(ニート|無職)/g , "【部屋に閉じこもって生きていればそれでいいの？】");
+        text = text.replace(/(ニート|無職|ノージョブ|自宅警備員)/g , "【部屋に閉じこもって生きていればそれでいいの？】");
     }
 
     while (emoji_num_a[i]) {
