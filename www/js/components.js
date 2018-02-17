@@ -98,7 +98,7 @@ function t_text(text) {
         text = text.replace(/toot/g , "awoo");
         text = text.replace(/TOOT/g , "AWOO");
         text = text.replace(/(神崎|おにいさん)/g , "<span style='color: red'>$1</span>");
-        text = text.replace(/(NCLS|ニコラス|あんのたん)/g , "<span class='fav-active'>$1</span>");
+        text = text.replace(/あんのたん/g , "<span class='fav-active'>$1</span>");
         text = text.replace(/(ごちうさ|ご注文はうさぎですか？)/g , "あぁ^～心がぴょんぴょんするんじゃぁ^～");
         text = text.replace(/35億/g , "5000兆円");
         text = text.replace(/がっこうぐらし/g , "【窓割れてね？】");
