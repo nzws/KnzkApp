@@ -10,9 +10,13 @@
   <p align="center">
     <b>Get it on:</b>
     <a href="https://play.google.com/store/apps/details?id=net.knzkdev.app"><b>PlayStore</b></a>
-     | 
+     · 
     <a href="https://itunes.apple.com/jp/app/knzkapp/id1296825434"><b>AppStore</b></a>
   </p>
+
+  <p align="center">
+  Sponsored by <a href="http://kibousoft.co.jp/">Kibousoft LLC.</a>
+  </p>
 </p>
 
 ## 使用方法
