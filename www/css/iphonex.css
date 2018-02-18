@@ -5,3 +5,13 @@
 .fab_simple_toot_open {
     bottom: 150px !important;
 }
+
+@media screen and (orientation: landscape) {
+    .fab--bottom__right {
+        bottom: 70px !important;
+    }
+
+    .fab_simple_toot_open {
+        bottom: 130px !important;
+    }
+}
