@@ -351,43 +351,45 @@
                 </ons-toolbar-button>
             </div>
         </ons-toolbar>
-        <ons-carousel fullscreen auto-scroll id="carousel" animation="none" auto-scroll-ratio="0.8">
-            <ons-carousel-item id="local_item" class="home_carousel">
-                <div id="local_main">
-                    <div class="loading-now">
-                        <ons-progress-circular indeterminate></ons-progress-circular>
+        <ons-gesture-detector>
+            <ons-carousel fullscreen id="carousel">
+                <ons-carousel-item id="local_item" class="home_carousel">
+                    <div id="local_main">
+                        <div class="loading-now">
+                            <ons-progress-circular indeterminate></ons-progress-circular>
+                        </div>
                     </div>
-                </div>
-            </ons-carousel-item>
-            <ons-carousel-item id="home_item" class="home_carousel">
-                <div id="home_main">
-                    <div class="loading-now">
-                        <ons-progress-circular indeterminate></ons-progress-circular>
+                </ons-carousel-item>
+                <ons-carousel-item id="home_item" class="home_carousel">
+                    <div id="home_main">
+                        <div class="loading-now">
+                            <ons-progress-circular indeterminate></ons-progress-circular>
+                        </div>
                     </div>
-                </div>
-            </ons-carousel-item>
-            <ons-carousel-item id="local_media_item" class="home_carousel">
-                <div id="local_media_main">
-                    <div class="loading-now">
-                        <ons-progress-circular indeterminate></ons-progress-circular>
+                </ons-carousel-item>
+                <ons-carousel-item id="local_media_item" class="home_carousel">
+                    <div id="local_media_main">
+                        <div class="loading-now">
+                            <ons-progress-circular indeterminate></ons-progress-circular>
+                        </div>
                     </div>
-                </div>
-            </ons-carousel-item>
-            <ons-carousel-item id="public_media_item" class="home_carousel">
-                <div id="public_media_main">
-                    <div class="loading-now">
-                        <ons-progress-circular indeterminate></ons-progress-circular>
+                </ons-carousel-item>
+                <ons-carousel-item id="public_media_item" class="home_carousel">
+                    <div id="public_media_main">
+                        <div class="loading-now">
+                            <ons-progress-circular indeterminate></ons-progress-circular>
+                        </div>
                     </div>
-                </div>
-            </ons-carousel-item>
-            <ons-carousel-item id="public_item" class="home_carousel">
-                <div id="public_main">
-                    <div class="loading-now">
-                        <ons-progress-circular indeterminate></ons-progress-circular>
+                </ons-carousel-item>
+                <ons-carousel-item id="public_item" class="home_carousel">
+                    <div id="public_main">
+                        <div class="loading-now">
+                            <ons-progress-circular indeterminate></ons-progress-circular>
+                        </div>
                     </div>
-                </div>
-            </ons-carousel-item>
-        </ons-carousel>
+                </ons-carousel-item>
+            </ons-carousel>
+        </ons-gesture-detector>
         <ons-speed-dial position="bottom right" direction="up" onclick="opendial()" id="dial_main" class="invisible">
             <ons-fab>
                 <ons-icon icon="fa-bell" id="dial-icon"></ons-icon>
@@ -607,14 +609,6 @@
                 </div>
                 <div class="right">
                     <ons-switch onclick="change_conf(1, 'nsfw')" input-id="conf-nsfw"></ons-switch>
-                </div>
-            </ons-list-item>
-            <ons-list-item>
-                <div class="center">
-                    <span class="list-item__title">TLをスライドして切り替え(非推奨)</span><span class="list-item__subtitle">スクロールと被って使いづらいです</span>
-                </div>
-                <div class="right">
-                    <ons-switch onclick="change_conf(1, 'swipe')" input-id="conf-swipe"></ons-switch>
                 </div>
             </ons-list-item>
             <ons-list-item>

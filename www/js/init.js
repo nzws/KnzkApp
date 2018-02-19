@@ -145,8 +145,6 @@ function init() {
                             $("#menu-followreq").addClass("invisible");
 
                         if (getConfig(1, 'menu-fav') == 1) $("#menu-fav-page").removeClass("invisible");
-
-                        if (getConfig(1, 'swipe') == 1) document.getElementById("carousel").setAttribute('swipeable', '1');
                         if (getConfig(1, 'swipe_menu') == 1) document.getElementById("splitter-menu").setAttribute('swipeable', '1');
 
                         var dial = getConfig(1, 'dial'), icon;
@@ -357,6 +355,14 @@ function initevent() {
         if ($("#navigator").attr("page") === "home.html") {
             simple_close();
         }
+    });
+
+    document.addEventListener('swipeleft', function(event) {
+        TL_next();
+    });
+
+    document.addEventListener('swiperight', function(event) {
+        TL_prev();
     });
 }
 
