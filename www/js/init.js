@@ -360,23 +360,6 @@ function initevent() {
     });
 }
 
-function setTLheadcolor(mode) {
-    try {
-        var head = document.getElementById("home_title");
-        var unread = document.getElementById("home_title_unread");
-        if (mode) { //blue
-            head.className = "TL_reload";
-            unread.innerHTML = home_auto_num;
-            unread.className = "notification";
-        } else {
-            head.className = "";
-            unread.className = "notification invisible";
-        }
-    } catch (e) {
-        console.log(e);
-    }
-}
-
 function home_autoevent() {
     setTimeout(function () {
         if (home_auto_event) {

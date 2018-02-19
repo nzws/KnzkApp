@@ -440,3 +440,20 @@ function scrollTL() {
     $("#"+now_TL+"_item").scrollTop(0);
     if (getConfig(1, 'head_reset') == 1) showTL(null, null, null, true);
 }
+
+function setTLheadcolor(mode) {
+    try {
+        var head = document.getElementById("home_title");
+        var unread = document.getElementById("home_title_unread");
+        if (mode) { //blue
+            head.className = "TL_reload";
+            unread.innerHTML = home_auto_num;
+            unread.className = "notification";
+        } else {
+            head.className = "";
+            unread.className = "notification invisible";
+        }
+    } catch (e) {
+        console.log(e);
+    }
+}
