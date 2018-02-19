@@ -122,7 +122,6 @@ function openTL(mode) {
         now_TL = "local";
         showTL(null, null, null, true);
         setTimeout(function () {
-            if (getConfig(1, 'swipe') == 1) document.getElementById("carousel").setAttribute('swipeable', '1');
             var dial = getConfig(1, 'dial'), icon;
             if (dial && dial != "change") {
                 $("#dial_main").removeClass("invisible");
