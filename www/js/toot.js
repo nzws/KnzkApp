@@ -339,10 +339,10 @@ function visibility_rank(mode) {
 
 function visibility_name(mode) {
     var name = "";
-    if (mode === "public") name = "公開";
-    else if (mode === "unlisted") name = "非収載";
-    else if (mode === "private") name = "非公開";
-    else if (mode === "direct") name = "ダイレクト";
+    if (mode === "public") name = "globe";
+    else if (mode === "unlisted") name = "unlock-alt";
+    else if (mode === "private") name = "lock";
+    else if (mode === "direct") name = "envelope";
 
     return name;
 }

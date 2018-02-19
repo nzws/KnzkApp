@@ -239,7 +239,7 @@ function initevent() {
             setTimeout(function () {
                 document.getElementById("toot_limit_simple").innerHTML = toot_limit;
                 $("#post_mode_simple").val(default_post_visibility);
-                document.getElementById("post_mode_bt_simple").innerHTML = visibility_name(default_post_visibility);
+                document.getElementById("post_mode_icon_simple").className = "ons-icon fa-fw fa fa-"+visibility_name(default_post_visibility);
             }, 500);
         } else {
             home_auto_event = false;
@@ -307,9 +307,8 @@ function initevent() {
         }
 
         if (document.getElementById("post_reply")) {
-            var bt_obj = document.getElementById("post_mode_bt");
             if (!tmp_post_visibility) tmp_post_visibility = default_post_visibility;
-            bt_obj.innerHTML = visibility_name(tmp_post_visibility);
+            document.getElementById("post_mode_icon").className = "ons-icon fa fa-fw fa-"+visibility_name(default_post_visibility);
             tmp_post_visibility = null;
 
             if (tmp_post_reply) {

@@ -140,7 +140,8 @@ function post_mode(simple) {
     var simple_id = "";
     if (simple) simple_id = "_simple";
     var input_obj = document.getElementById("post_mode"+simple_id);
-    var bt_obj = document.getElementById("post_mode_bt"+simple_id);
+    var bt_obj = document.getElementById("post_mode_icon"+simple_id);
+    var icon_base = "ons-icon fa-fw fa fa-";
 
     ons.openActionSheet({
         cancelable: true,
@@ -157,16 +158,16 @@ function post_mode(simple) {
     }).then(function (index) {
         if (index == 0) {
             input_obj.value = "public";
-            bt_obj.innerHTML = "公開";
+            bt_obj.className = icon_base+"globe";
         } else if (index == 1) {
             input_obj.value = "unlisted";
-            bt_obj.innerHTML = "非収載";
+            bt_obj.className = icon_base+"unlock-alt";
         } else if (index == 2) {
             input_obj.value = "private";
-            bt_obj.innerHTML = "非公開";
+            bt_obj.className = icon_base+"lock";
         } else if (index == 3) {
             input_obj.value = "direct";
-            bt_obj.innerHTML = "ダイレクト";
+            bt_obj.className = icon_base+"envelope";
         }
     });
 }
@@ -344,7 +345,7 @@ function post(id, option, simple) {
                 check_limit(document.getElementById("simple_toot_TL_input").value, 'toot_limit_simple', 'toot-button_simple', 'simple_toot_cw');
                 document.getElementById("image_list_simple").innerHTML = "";
                 $("#post_mode_simple").val(default_post_visibility);
-                document.getElementById("post_mode_bt_simple").innerHTML = visibility_name(default_post_visibility);
+                document.getElementById("post_mode_icon_simple").className = "ons-icon fa-fw fa fa-"+visibility_name(default_post_visibility);
                 hide('post_now');
             } else {
                 hide('now_loading');
