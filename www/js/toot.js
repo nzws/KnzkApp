@@ -4,15 +4,14 @@ function toot_card(toot, mode, note, toot_light, page) {
     if (!toot) {
         return "";
     }
-    try {
-        if (!toot['account']['display_name']) toot['account']['display_name'] = toot['account']['username'];
-    } catch (e) {
-        console.log("error:create_html");
-    }
     if (toot['reblog']) {
         alert_text = "<p class='alert_text'><ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" + toot['account']['id'] + ")'>" + toot['account']['display_name'] + "</b>さんがブーストしました</p>";
         toot = toot['reblog'];
     }
+
+    if (!toot['account']['display_name'])
+        toot['account']['display_name'] = toot['account']['username'];
+
     if (toot['enquete']) {
         toot['enquete'] = JSON.parse(toot['enquete']);
         if (toot['enquete']['ratios_text']) { //締め切り
