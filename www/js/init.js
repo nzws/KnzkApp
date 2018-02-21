@@ -162,27 +162,9 @@ function init() {
                     hide('now_loading');
                 });
             }).catch(function (error) {
-                if (inst === "knzk.me") {
-                    fetch("http://status.knzk.me/api/v1/components", {
-                    }).then(function(response) {
-                        if(response.ok) {
-                            return response.json();
-                        } else {
-                            throw new Error();
-                        }
-                    }).then(function(json) { //statusつながる&インスタンスつながらない=鯖落ち
-                        show('cannot-connect-mastodon');
-                        hide('now_loading');
-                    }).catch(function(error) {
-                        console.log(error);
-                        show('cannot-connect-internet');
-                        hide('now_loading');
-                    });
-                } else { //status無いのでわからない
-                    show('cannot-connect-sv');
-                    Seterrorlog('error-log-sv', 'Connection Error: インスタンスが落ちているか通信環境が悪い可能性があります。');
-                    hide('now_loading');
-                }
+                show('cannot-connect-sv');
+                Seterrorlog('error-log-sv', 'Connection Error: インスタンスが落ちているか通信環境が悪い可能性があります。');
+                hide('now_loading');
             })
         } else {
             setTimeout(function () {
