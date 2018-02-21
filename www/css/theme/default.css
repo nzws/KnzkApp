@@ -118,3 +118,7 @@ a, a:link, a:visited, a:hover {
 .toot-button-disabled {
     color: #4a5266;
 }
+
+.alert-dialog-content > a:link, .alert-dialog-content > a {
+    color: #2b90d9 !important;
+}

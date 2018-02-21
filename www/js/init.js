@@ -99,6 +99,7 @@ function init() {
                 if(response.ok) {
                     return response.json();
                 } else {
+                    if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/init_instance", response);
                     throw new Error();
                 }
             }).then(function(json) {
@@ -108,6 +109,7 @@ function init() {
                     if(response.ok) {
                         return response.json();
                     } else {
+                        if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/init_verify_credentials", response);
                         throw new Error();
                     }
                 }).then(function(json) {
@@ -174,6 +176,15 @@ function init() {
             }, 500);
         }
         hide('now_loading');
+        if (getConfig(1, "SendLog") === "") {
+            ons.notification.confirm('KnzkAppでは、エラー時に開発者が原因を特定しやすいようログを送信する機能が備わっています。詳しくは<a href="">こちら</a>をご覧ください。<br>エラー時にログを開発者へ送信してもよろしいですか？<br><a href="">プライバシーポリシー</a>', {title: 'KnzkAppへようこそ', buttonLabels: ["同意しない", "同意する"]}).then(function (e) {
+                if (e === 1) {
+                    setConfig(1, "SendLog", "1");
+                } else {
+                    setConfig(1, "SendLog", "0");
+                }
+            });
+        }
     }
 }
 
@@ -275,6 +286,7 @@ function initevent() {
                     if(response.ok) {
                         return response.json();
                     } else {
+                        if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/event_toot_emoji", response);
                         //カスタム絵文字非対応インスタンス
                         $("#toot_emoji_bt").addClass("invisible");
                     }

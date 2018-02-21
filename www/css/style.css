@@ -601,3 +601,7 @@ img.emoji {
     padding: 0;
     line-height: 20px;
 }
+
+.alert-dialog-content > a:link, .alert-dialog-content > a {
+    color: #2b90d9 !important;
+}

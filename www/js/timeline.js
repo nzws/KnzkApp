@@ -7,6 +7,7 @@ function reset_alert() {
         if(response.ok) {
             return response.json();
         } else {
+            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/noti_clear", response);
             throw new Error();
         }
     }).then(function(json) {
@@ -38,6 +39,7 @@ function showAlert(reload, more_load) {
             if (more_load) more_load.className = "invisible";
             return response.json();
         } else {
+            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/noti", response);
             showtoast('cannot-load');
             if (reload) reload();
             return false;
@@ -203,94 +205,97 @@ function showTL(mode, reload, more_load, clear_load) {
             if(response.ok) {
                 return response.json();
             } else {
+                if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/timeline", response);
                 showtoast('cannot-load');
                 if (reload && reload !== "dial") reload();
                 return false;
             }
         }).then(function(json) {
-            if (!more_load && mode == last_load_TL && !clear_load) {
-                displayTime('update');
-            }
-            if (more_load) {
-                reshtml = document.getElementById(id_main).innerHTML;
-            } else {
-                if (getConfig(1, 'realtime') == 1) {
-                    if (now_TL === "public" || now_TL === "public_media")
-                        ws_mode = "public";
-                    else if (now_TL === "local" || now_TL === "local_media")
-                        ws_mode = "public:local";
-                    else
-                        ws_mode = "user";
+            if (json) {
+                if (!more_load && mode == last_load_TL && !clear_load) {
+                    displayTime('update');
+                }
+                if (more_load) {
+                    reshtml = document.getElementById(id_main).innerHTML;
+                } else {
+                    if (getConfig(1, 'realtime') == 1) {
+                        if (now_TL === "public" || now_TL === "public_media")
+                            ws_mode = "public";
+                        else if (now_TL === "local" || now_TL === "local_media")
+                            ws_mode = "public:local";
+                        else
+                            ws_mode = "user";
 
-                    if (!reload && !more_load) {
-                        ws = new WebSocket("wss://"+inst+"/api/v1/streaming/?access_token=" + localStorage.getItem('knzkapp_now_mastodon_token') + "&stream=" + ws_mode);
-                        old_TL_ws = ws;
-                        ws.onmessage = function (message) {
-                            var ws_reshtml;
-                            displayTime('update');
-                            ws_reshtml = JSON.parse(JSON.parse(message.data).payload);
+                        if (!reload && !more_load) {
+                            ws = new WebSocket("wss://"+inst+"/api/v1/streaming/?access_token=" + localStorage.getItem('knzkapp_now_mastodon_token') + "&stream=" + ws_mode);
+                            old_TL_ws = ws;
+                            ws.onmessage = function (message) {
+                                var ws_reshtml;
+                                displayTime('update');
+                                ws_reshtml = JSON.parse(JSON.parse(message.data).payload);
 
-                            if (ws_reshtml['id']) {
-                                if (toot_new_id !== ws_reshtml['id']) {
-                                    var TLmode;
-                                    if (now_TL === "local_media" || now_TL === "public_media") TLmode = "media"; else TLmode = "";
+                                if (ws_reshtml['id']) {
+                                    if (toot_new_id !== ws_reshtml['id']) {
+                                        var TLmode;
+                                        if (now_TL === "local_media" || now_TL === "public_media") TLmode = "media"; else TLmode = "";
 
-                                    var h = $("#"+now_TL+"_item").scrollTop();
-                                    home_auto_mode = h <= 100;
+                                        var h = $("#"+now_TL+"_item").scrollTop();
+                                        home_auto_mode = h <= 100;
 
-                                    if (home_auto_mode) { //OK
-                                        home_auto_event = false;
-                                        document.getElementById(now_TL+"_main").innerHTML = toot_card(ws_reshtml, "full", null, TLmode) + home_auto_tmp + document.getElementById(now_TL+"_main").innerHTML;
-                                        home_auto_tmp = "";
-                                        home_auto_num = 0;
-                                        setTLheadcolor(0);
-                                    } else {
-                                        home_auto_tmp = toot_card(ws_reshtml, "full", null, TLmode) + home_auto_tmp;
-                                        if (!home_auto_event) {
-                                            home_auto_event = true;
-                                            home_autoevent();
+                                        if (home_auto_mode) { //OK
+                                            home_auto_event = false;
+                                            document.getElementById(now_TL+"_main").innerHTML = toot_card(ws_reshtml, "full", null, TLmode) + home_auto_tmp + document.getElementById(now_TL+"_main").innerHTML;
+                                            home_auto_tmp = "";
+                                            home_auto_num = 0;
+                                            setTLheadcolor(0);
+                                        } else {
+                                            home_auto_tmp = toot_card(ws_reshtml, "full", null, TLmode) + home_auto_tmp;
+                                            if (!home_auto_event) {
+                                                home_auto_event = true;
+                                                home_autoevent();
+                                            }
+                                        }
+
+
+                                        if (!home_auto_mode && (ws_reshtml['media_attachments'][0] && TLmode === "media")) {
+                                            home_auto_num++;
+                                            setTLheadcolor(1);
                                         }
                                     }
-
-
-                                    if (!home_auto_mode && (ws_reshtml['media_attachments'][0] && TLmode === "media")) {
-                                        home_auto_num++;
-                                        setTLheadcolor(1);
+                                    toot_new_id = ws_reshtml['id'];
+                                } else {
+                                    var deltoot = document.getElementById("post_"+JSON.parse(message.data).payload);
+                                    if (deltoot) {
+                                        deltoot.innerHTML = "<p class=\"alert_text\"><ons-icon icon=\"fa-trash\" class=\"ons-icon fa-trash fa\"></ons-icon>　削除されたトゥート</p>" + deltoot.innerHTML;
+                                        deltoot.className = "toot toot_red";
                                     }
                                 }
-                                toot_new_id = ws_reshtml['id'];
-                            } else {
-                                var deltoot = document.getElementById("post_"+JSON.parse(message.data).payload);
-                                if (deltoot) {
-                                    deltoot.innerHTML = "<p class=\"alert_text\"><ons-icon icon=\"fa-trash\" class=\"ons-icon fa-trash fa\"></ons-icon>　削除されたトゥート</p>" + deltoot.innerHTML;
-                                    deltoot.className = "toot toot_red";
-                                }
-                            }
-                        };
+                            };
+                        }
                     }
                 }
-            }
 
-            while (json[i]) {
-                var TLmode;
-                if (mode === "local_media" || mode === "public_media") TLmode = "media"; else TLmode = "";
-                toot_new_id = json[0]['id'];
-                reshtml += toot_card(json[i], "full", null, TLmode);
-                i++;
-            }
+                while (json[i]) {
+                    var TLmode;
+                    if (mode === "local_media" || mode === "public_media") TLmode = "media"; else TLmode = "";
+                    toot_new_id = json[0]['id'];
+                    reshtml += toot_card(json[i], "full", null, TLmode);
+                    i++;
+                }
 
-            if (!more_load && mode == last_load_TL && !clear_load) { //追加読み込みでない&前回と同じTL
-                reshtml += document.getElementById(id_main).innerHTML;
+                if (!more_load && mode == last_load_TL && !clear_load) { //追加読み込みでない&前回と同じTL
+                    reshtml += document.getElementById(id_main).innerHTML;
+                }
+                if (more_load || mode != last_load_TL || clear_load) { //TL初回
+                    initph("TL");
+                    if (i !== 0) toot_old_id = json[i-1]['id'];
+                    reshtml += "<button class='button button--large--quiet more_load_bt_"+now_TL+"' onclick='showTL(null,null,this)'>もっと読み込む...</button>";
+                }
+                last_load_TL = mode;
+                document.getElementById(id_main).innerHTML = reshtml;
+                if (reload && reload !== "dial") reload();
+                return true;
             }
-            if (more_load || mode != last_load_TL || clear_load) { //TL初回
-                initph("TL");
-                if (i !== 0) toot_old_id = json[i-1]['id'];
-                reshtml += "<button class='button button--large--quiet more_load_bt_"+now_TL+"' onclick='showTL(null,null,this)'>もっと読み込む...</button>";
-            }
-            last_load_TL = mode;
-            document.getElementById(id_main).innerHTML = reshtml;
-            if (reload && reload !== "dial") reload();
-            return true;
         });
     }
 }
@@ -313,25 +318,28 @@ function showTagTL(tag, more_load) {
             if (more_load) more_load.className = "invisible";
             return response.json();
         } else {
+            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/tag", response);
             showtoast('cannot-load');
             return false;
         }
     }).then(function(json) {
-        if (more_load) {
-            reshtml = document.getElementById("tag_main").innerHTML;
-        } else {
-            document.getElementById("showtag_title").innerHTML = '#'+ decodeURI(tag);
-        }
+        if (json) {
+            if (more_load) {
+                reshtml = document.getElementById("tag_main").innerHTML;
+            } else {
+                document.getElementById("showtag_title").innerHTML = '#'+ decodeURI(tag);
+            }
 
-        while (json[i]) {
-            reshtml += toot_card(json[i], "full", null);
-            i++;
-        }
+            while (json[i]) {
+                reshtml += toot_card(json[i], "full", null);
+                i++;
+            }
 
-        if (i !== 0) tag_old_id = json[i-1]['id'];
-        reshtml += "<button class='button button--large--quiet' onclick='showTagTL(null,this)'>もっと読み込む...</button>";
-        document.getElementById("tag_main").innerHTML = reshtml;
-        return true;
+            if (i !== 0) tag_old_id = json[i-1]['id'];
+            reshtml += "<button class='button button--large--quiet' onclick='showTagTL(null,this)'>もっと読み込む...</button>";
+            document.getElementById("tag_main").innerHTML = reshtml;
+            return true;
+        }
     });
 }
 
@@ -361,47 +369,51 @@ function showAccountTL(id, more_load, media) {
             if (more_load) more_load.className = "invisible";
             return response.json();
         } else {
+            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/accountTL", response);
             showtoast('cannot-load');
             return false;
         }
     }).then(function(json) {
-        if (!media && !more_load) {
-            fetch("https://"+inst+"/api/v1/accounts/"+id+"/statuses?pinned=true", {
-                headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
-                method: 'GET'
-            }).then(function(response) {
-                if(response.ok) {
-                    return response.json();
-                } else {
-                    showtoast('cannot-load');
-                }
-            }).then(function(json_pinned) {
-                while (json_pinned[ip]) {
-                    reshtml_pinned += toot_card(json_pinned[ip], "full", "<ons-icon icon='fa-thumb-tack'></ons-icon>　固定トゥート", "light");
-                    ip++;
-                }
-                if (json != json_pinned) {
-                    document.getElementById("account_pinned_toot").innerHTML = reshtml_pinned;
-                }
-            });
-        }
-        if (more_load) {
-            reshtml = document.getElementById("account_toot").innerHTML;
-            displayTime('update');
-        }
-        i = 0;
-        while (json[i]) {
-            reshtml += toot_card(json[i], "full", null);
-            i++;
-        }
-        if (i !== 0) account_toot_old_id = json[i-1]['id'];
-        if (media)
-            reshtml += "<button class='button button--large--quiet' onclick='showAccountTL(account_page_id, this, true)'>もっと読み込む...</button>";
-        else
-            reshtml += "<button class='button button--large--quiet' onclick='showAccountTL(account_page_id, this)'>もっと読み込む...</button>";
+        if (json) {
+            if (!media && !more_load) {
+                fetch("https://"+inst+"/api/v1/accounts/"+id+"/statuses?pinned=true", {
+                    headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
+                    method: 'GET'
+                }).then(function(response) {
+                    if(response.ok) {
+                        return response.json();
+                    } else {
+                        if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/account_pin", response);
+                        showtoast('cannot-load');
+                    }
+                }).then(function(json_pinned) {
+                    while (json_pinned[ip]) {
+                        reshtml_pinned += toot_card(json_pinned[ip], "full", "<ons-icon icon='fa-thumb-tack'></ons-icon>　固定トゥート", "light");
+                        ip++;
+                    }
+                    if (json != json_pinned) {
+                        document.getElementById("account_pinned_toot").innerHTML = reshtml_pinned;
+                    }
+                });
+            }
+            if (more_load) {
+                reshtml = document.getElementById("account_toot").innerHTML;
+                displayTime('update');
+            }
+            i = 0;
+            while (json[i]) {
+                reshtml += toot_card(json[i], "full", null);
+                i++;
+            }
+            if (i !== 0) account_toot_old_id = json[i-1]['id'];
+            if (media)
+                reshtml += "<button class='button button--large--quiet' onclick='showAccountTL(account_page_id, this, true)'>もっと読み込む...</button>";
+            else
+                reshtml += "<button class='button button--large--quiet' onclick='showAccountTL(account_page_id, this)'>もっと読み込む...</button>";
 
-        document.getElementById("account_toot").innerHTML = reshtml;
-        return true;
+            document.getElementById("account_toot").innerHTML = reshtml;
+            return true;
+        }
     });
 }
 
