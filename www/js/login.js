@@ -20,6 +20,7 @@ function login_open(domain) {
         if(response.ok) {
             return response.json();
         } else {
+            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/CreateApp", response);
             throw new Error();
         }
     }).then(function(json) {
@@ -77,6 +78,7 @@ function login_callback(code) {
             if (localStorage.getItem('knzkapp_now_mastodon_username')) account_change();
             return response.json();
         } else {
+            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/oauth_token", response);
             throw new Error();
         }
     }).then(function(json) {
@@ -90,6 +92,7 @@ function login_callback(code) {
             if(response.ok) {
                 return response.json();
             } else {
+                if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/loginjs_verify_credentials", response);
                 throw new Error();
             }
         }).then(function(json_acct) {
@@ -125,6 +128,7 @@ function debug_login() {
             if (localStorage.getItem('knzkapp_now_mastodon_username')) account_change();
             return response.json();
         } else {
+            //デバッガなのでいらない
             throw new Error();
         }
     }).then(function(json) {

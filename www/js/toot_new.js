@@ -72,16 +72,19 @@ function up_file_suc(base64, mode_blob) {
             if(response.ok) {
                 return response.json();
             } else {
+                if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/media", response);
                 throw new Error();
             }
         }).then(function(json) {
-            if (json["id"] && json["type"] !== "unknown") {
-                document.getElementById("image_list"+image_mode).innerHTML = "<ons-card onclick=\"file_del(this)\" style='background-image: url("+json["preview_url"]+")' class='card-image media-upload"+image_mode+"' data-mediaid='"+json["id"]+"'></ons-card>" + document.getElementById("image_list"+image_mode).innerHTML;
-                image_mode = "";
-                hide('now_loading');
-            } else {
-                hide('now_loading');
-                showtoast('cannot-pros');
+            if (json) {
+                if (json["id"] && json["type"] !== "unknown") {
+                    document.getElementById("image_list"+image_mode).innerHTML = "<ons-card onclick=\"file_del(this)\" style='background-image: url("+json["preview_url"]+")' class='card-image media-upload"+image_mode+"' data-mediaid='"+json["id"]+"'></ons-card>" + document.getElementById("image_list"+image_mode).innerHTML;
+                    image_mode = "";
+                    hide('now_loading');
+                } else {
+                    hide('now_loading');
+                    showtoast('cannot-pros');
+                }
             }
         }).catch(function(error) {
             showtoast('cannot-pros');
@@ -334,6 +337,7 @@ function post(id, option, simple) {
         if(response.ok) {
             return response.json();
         } else {
+            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/post", response);
             throw new Error();
         }
     }).then(function(json) {
@@ -383,13 +387,16 @@ function simple_open() {
             } else {
                 //カスタム絵文字非対応インスタンス
                 $("#simple_emoji_bt").addClass("invisible");
+                if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/simple_open_emoji", response);
             }
         }).then(function(json) {
-            while (json[i]) {
-                reshtml += "<ons-button modifier=\"quiet\" onclick='add_emoji_simple(\""+json[i]["shortcode"]+"\")'><img draggable=\"false\" class=\"emojione\" src=\""+json[i]["url"]+"\"></ons-button>\n";
-                i++;
+            if (json) {
+                while (json[i]) {
+                    reshtml += "<ons-button modifier=\"quiet\" onclick='add_emoji_simple(\""+json[i]["shortcode"]+"\")'><img draggable=\"false\" class=\"emojione\" src=\""+json[i]["url"]+"\"></ons-button>\n";
+                    i++;
+                }
+                emoji.innerHTML = reshtml;
             }
-            emoji.innerHTML = reshtml;
         });
     }
 }

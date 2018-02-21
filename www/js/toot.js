@@ -229,6 +229,7 @@ function vote_item(q, obj, id) {
         if(response.ok) {
             return response.json();
         } else {
+            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/vote", response);
             showtoast('cannot-pros');
         }
     }).then(function(json) {
@@ -277,6 +278,7 @@ function toot_action(id, mode, action_mode) {
         if(response.ok) {
             return response.json();
         } else {
+            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/toot_action", response);
             throw new Error();
         }
     }).then(function(json) {
@@ -357,6 +359,7 @@ function pin_set(id, mode) {
         if(response.ok) {
             return response.json();
         } else {
+            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/pin_set", response);
             showtoast('cannot-pros');
         }
     }).then(function(json) {
@@ -434,6 +437,7 @@ function delete_post() {
         if(response.ok) {
             return response.json();
         } else {
+            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/delete_post", response);
             throw new Error();
         }
     }).then(function(json) {
@@ -464,55 +468,62 @@ function show_post(id, near) {
         if(response.ok) {
             return response.json();
         } else {
+            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/show_post", response);
             showtoast('cannot-pros');
         }
     }).then(function(json_stat) {
-        if (near) {
-            i = 0;
-            reshtml += toot_card(json_stat, "big", null, "gold");
-            fetch("https://"+inst+"/api/v1/timelines/public?local=true&limit=10&max_id="+id, {
-                headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
-                method: 'GET'
-            }).then(function(response) {
-                if(response.ok) {
-                    return response.json();
-                } else {
-                    showtoast('cannot-load');
-                    return false;
-                }
-            }).then(function(json_shita) {
-                while (json_shita[i]) {
-                    reshtml += toot_card(json_shita[i], "full", null);
-                    i++;
-                }
-                document.getElementById("show_toot").innerHTML = reshtml;
-            });
-        } else {
-            fetch("https://"+inst+"//api/v1/statuses/"+id+"/context", {
-                headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
-                method: 'GET'
-            }).then(function(response) {
-                if(response.ok) {
-                    return response.json();
-                } else {
-                    showtoast('cannot-pros');
-                }
-            }).then(function(json) {
-                while (json['ancestors'][d]) {
-                    reshtml += toot_card(json['ancestors'][d], null, null);
-                    d++;
-                }
-                d = 0;
+        if (json_stat) {
+            if (near) {
+                i = 0;
+                reshtml += toot_card(json_stat, "big", null, "gold");
+                fetch("https://"+inst+"/api/v1/timelines/public?local=true&limit=10&max_id="+id, {
+                    headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
+                    method: 'GET'
+                }).then(function(response) {
+                    if(response.ok) {
+                        return response.json();
+                    } else {
+                        if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/near_show_toot", response);
+                        showtoast('cannot-load');
+                        return false;
+                    }
+                }).then(function(json_shita) {
+                    if (json_shita) {
+                        while (json_shita[i]) {
+                            reshtml += toot_card(json_shita[i], "full", null);
+                            i++;
+                        }
+                        document.getElementById("show_toot").innerHTML = reshtml;
+                    }
+                });
+            } else {
+                fetch("https://"+inst+"//api/v1/statuses/"+id+"/context", {
+                    headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
+                    method: 'GET'
+                }).then(function(response) {
+                    if(response.ok) {
+                        return response.json();
+                    } else {
+                        if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/show_toot_context", response);
+                        showtoast('cannot-pros');
+                    }
+                }).then(function(json) {
+                    while (json['ancestors'][d]) {
+                        reshtml += toot_card(json['ancestors'][d], null, null);
+                        d++;
+                    }
+                    d = 0;
 
-                reshtml += toot_card(json_stat, "big", null);
+                    reshtml += toot_card(json_stat, "big", null);
 
-                while (json['descendants'][d]) {
-                    reshtml += toot_card(json['descendants'][d], null, null);
-                    d++;
-                }
+                    while (json['descendants'][d]) {
+                        reshtml += toot_card(json['descendants'][d], null, null);
+                        d++;
+                    }
 
-                document.getElementById("show_toot").innerHTML = reshtml;
-            });
+                    document.getElementById("show_toot").innerHTML = reshtml;
+                });
+            }
         }
     });
 }
@@ -532,6 +543,7 @@ function report() {
                 if(response.ok) {
                     return response.json();
                 } else {
+                    if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/report", response);
                     throw new Error();
                 }
             }).then(function(json) {

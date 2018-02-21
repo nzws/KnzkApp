@@ -5,8 +5,7 @@ function getConfig(type, name) {
 }
 
 function change_conf(name, id, sel) {
-    var md;
-    md = (name === 1) ? 'knzkapp_conf_mastodon' : 'knzkapp_conf_mastodoncol';
+    var md = (name === 1) ? 'knzkapp_conf_mastodon' : 'knzkapp_conf_mastodoncol';
     var data = JSON.parse(localStorage.getItem(md));
     if (sel) {
         data[id] = document.getElementById("conf-"+id).value;
@@ -16,6 +15,13 @@ function change_conf(name, id, sel) {
         var mode = document.getElementById("conf-"+colmd+id).checked;
         data[id] = ons.platform.isIOS() ? mode == true ? 0 : 1 : mode == true ? 1 : 0;
     }
+    localStorage.setItem(md, JSON.stringify(data));
+}
+
+function setConfig(name, id, value) { //data->1: 基本設定, data->2: col
+    var md = (name === 1) ? 'knzkapp_conf_mastodon' : 'knzkapp_conf_mastodoncol';
+    var data = JSON.parse(localStorage.getItem(md));
+    data[id] = value;
     localStorage.setItem(md, JSON.stringify(data));
 }
 
