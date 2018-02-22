@@ -167,3 +167,16 @@ function Seterrorlog(id, text, data) {
         document.getElementById(id).innerHTML = text;
     }
 }
+
+function getParam(val) {
+    var data_s = {}, i = 0, data = val.substring(1).split('&'), data_ex, value, key;
+    while (i < data.length) {
+        key = null;
+        data_ex = data[i].search(/=/);
+        value = data[i].slice(data[i].indexOf('=', 0) + 1);
+        if(data_ex != -1) key = data[i].slice(0, data_ex);
+        if(!key) data_s[key] = decodeURIComponent(value);
+        i++;
+    }
+    return data_s;
+}
