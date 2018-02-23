@@ -52,7 +52,7 @@ function ConfigSetup() {
              * v2
              * 散らばっていたconfigをまとめました。
              */
-            var list_d = ["bigfav", "nsfw", "cw", "realtime", "spin", "swipe", "joke", "menu-fav", "alert-back", "image_full", "swipe_menu", "head_reset", "st_stop", "dial", "theme", "url_open"];
+            var list_d = ["bigfav", "nsfw", "cw", "realtime", "spin", "swipe", "joke", "menu-fav", "alert-back", "image_full", "swipe_menu", "head_reset", "dial", "theme", "url_open"];
             var list_col = ["alert", "all", "bg", "bs", "collapse", "leng", "media", "preview"];
             var new_conf = {};
             var new_conf_col = {};

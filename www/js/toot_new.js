@@ -369,7 +369,6 @@ function post(id, option, simple) {
 }
 
 function simple_open() {
-    if (getConfig(1, 'st_stop')) home_auto_event = false;
     document.getElementById("simple_toot_TL_input").rows = 3;
     $("#simple_toot_TL_toolbar").addClass("simple_toot_open");
     $("#simple_more").removeClass("invisible");
@@ -408,10 +407,6 @@ function simple_close() {
 
     $("#dial_main").removeClass("fab_simple_toot_open");
     $("#dial_TL").removeClass("fab_simple_toot_open");
-    if (getConfig(1, 'st_stop')) {
-        home_auto_event = true;
-        home_autoevent();
-    }
 }
 
 function add_emoji_simple(addtext, mode) {
