@@ -376,7 +376,7 @@ function simple_open() {
     $("#dial_main").addClass("fab_simple_toot_open");
     $("#dial_TL").addClass("fab_simple_toot_open");
     var emoji = document.getElementById("emoji_list_popover"), i = 0, reshtml = "";
-    if (emoji.innerHTML == "load") {
+    if (emoji.dataset.isload === "no" && !getConfig(1, 'no_custom_emoji')) {
         fetch("https://"+inst+"/api/v1/custom_emojis", {
             headers: {'content-type': 'application/json'},
             method: 'GET',
@@ -386,15 +386,18 @@ function simple_open() {
             } else {
                 //カスタム絵文字非対応インスタンス
                 $("#simple_emoji_bt").addClass("invisible");
-                if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/simple_open_emoji", response);
+                sendLog("Error/simple_open_emoji", response);
             }
         }).then(function(json) {
             if (json) {
+                var emoji_mode = getConfig(1, 'no_gif') ? "static_url" : "url";
+
                 while (json[i]) {
-                    reshtml += "<ons-button modifier=\"quiet\" onclick='add_emoji_simple(\""+json[i]["shortcode"]+"\")'><img draggable=\"false\" class=\"emojione\" src=\""+json[i]["url"]+"\"></ons-button>\n";
+                    reshtml += "<ons-button modifier=\"quiet\" onclick='add_emoji_simple(\""+json[i]["shortcode"]+"\")'><img draggable=\"false\" class=\"emojione\" src=\""+json[i][emoji_mode]+"\"></ons-button>\n";
                     i++;
                 }
                 emoji.innerHTML = reshtml;
+                emoji.dataset.isload = "yes";
             }
         });
     }
