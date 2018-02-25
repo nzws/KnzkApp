@@ -75,7 +75,6 @@ function init() {
     hide('cannot-connect-sv');
     hide('cannot-connect-mastodon');
     hide('cannot-connect-internet');
-    hide('cannot-connect-API');
     if (!localStorage || !fetch) {
         show("cannot-use-ls");
     } else {
@@ -160,7 +159,7 @@ function init() {
                     }, 500);
                 }).catch(function(error) {
                     console.log(error);
-                    show('cannot-connect-API');
+                    showtoast('cannot-connect-API');
                     hide('now_loading');
                 });
             }).catch(function (error) {

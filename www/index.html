@@ -1522,17 +1522,10 @@
         </div>
     </ons-alert-dialog>
 
-    <ons-alert-dialog id="cannot-connect-API">
-        <div class="alert-dialog-title">エラー</div>
-        <div class="alert-dialog-content">
-            APIを認証できませんでした。<br>
-            「認証済みアプリ」からKnzkAppを削除していませんか？
-        </div>
-        <div class="alert-dialog-footer">
-            <button class="alert-dialog-button" onclick="hide('cannot-connect-API');localStorage.removeItem('knzkapp_now_mastodon_username');login_open(inst);">再ログインする</button>
-            <button class="alert-dialog-button" onclick="hide('cannot-connect-API');init()">再試行</button>
-        </div>
-    </ons-alert-dialog>
+    <ons-toast id="cannot-connect-API">
+        エラー: APIを認証できませんでした。<br>
+        アカ一覧から一度削除して、もう一度ログインしてください。
+    </ons-toast>
 
     <ons-alert-dialog id="DB_migration">
         <div class="alert-dialog-title">起動しています...</div>
