@@ -98,7 +98,7 @@ function init() {
                 if(response.ok) {
                     return response.json();
                 } else {
-                    if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/init_instance", response);
+                    sendLog("Error/init_instance", response);
                     throw new Error();
                 }
             }).then(function(json) {
@@ -108,7 +108,7 @@ function init() {
                     if(response.ok) {
                         return response.json();
                     } else {
-                        if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/init_verify_credentials", response);
+                        sendLog("Error/init_verify_credentials", response);
                         throw new Error();
                     }
                 }).then(function(json) {

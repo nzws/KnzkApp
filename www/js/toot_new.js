@@ -72,7 +72,7 @@ function up_file_suc(base64, mode_blob) {
             if(response.ok) {
                 return response.json();
             } else {
-                if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/media", response);
+                sendLog("Error/media", response);
                 throw new Error();
             }
         }).then(function(json) {
@@ -337,7 +337,7 @@ function post(id, option, simple) {
         if(response.ok) {
             return response.json();
         } else {
-            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/post", response);
+            sendLog("Error/post", response);
             throw new Error();
         }
     }).then(function(json) {

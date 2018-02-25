@@ -7,7 +7,7 @@ function reset_alert() {
         if(response.ok) {
             return response.json();
         } else {
-            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/noti_clear", response);
+            sendLog("Error/noti_clear", response);
             throw new Error();
         }
     }).then(function(json) {
@@ -39,7 +39,7 @@ function showAlert(reload, more_load) {
             if (more_load) more_load.className = "invisible";
             return response.json();
         } else {
-            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/noti", response);
+            sendLog("Error/noti", response);
             showtoast('cannot-load');
             if (reload) reload();
             return false;
@@ -205,7 +205,7 @@ function showTL(mode, reload, more_load, clear_load) {
             if(response.ok) {
                 return response.json();
             } else {
-                if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/timeline", response);
+                sendLog("Error/timeline", response);
                 showtoast('cannot-load');
                 if (reload && reload !== "dial") reload();
                 return false;
@@ -318,7 +318,7 @@ function showTagTL(tag, more_load) {
             if (more_load) more_load.className = "invisible";
             return response.json();
         } else {
-            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/tag", response);
+            sendLog("Error/tag", response);
             showtoast('cannot-load');
             return false;
         }
@@ -369,7 +369,7 @@ function showAccountTL(id, more_load, media) {
             if (more_load) more_load.className = "invisible";
             return response.json();
         } else {
-            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/accountTL", response);
+            sendLog("Error/accountTL", response);
             showtoast('cannot-load');
             return false;
         }
@@ -383,7 +383,7 @@ function showAccountTL(id, more_load, media) {
                     if(response.ok) {
                         return response.json();
                     } else {
-                        if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/account_pin", response);
+                        sendLog("Error/account_pin", response);
                         showtoast('cannot-load');
                     }
                 }).then(function(json_pinned) {

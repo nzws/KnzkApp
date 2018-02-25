@@ -93,7 +93,7 @@ function followreq(id, mode) {
         if(response.ok) {
             return response.json();
         } else {
-            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/followreq", response);
+            sendLog("Error/followreq", response);
             throw new Error();
         }
     }).then(function(json) {

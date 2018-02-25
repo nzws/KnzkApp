@@ -20,7 +20,7 @@ function login_open(domain) {
         if(response.ok) {
             return response.json();
         } else {
-            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/CreateApp", response);
+            sendLog("Error/CreateApp", response);
             throw new Error();
         }
     }).then(function(json) {
@@ -78,7 +78,7 @@ function login_callback(code) {
             if (localStorage.getItem('knzkapp_now_mastodon_username')) account_change();
             return response.json();
         } else {
-            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/oauth_token", response);
+            sendLog("Error/oauth_token", response);
             throw new Error();
         }
     }).then(function(json) {
@@ -92,7 +92,7 @@ function login_callback(code) {
             if(response.ok) {
                 return response.json();
             } else {
-                if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/loginjs_verify_credentials", response);
+                sendLog("Error/loginjs_verify_credentials", response);
                 throw new Error();
             }
         }).then(function(json_acct) {
@@ -193,18 +193,33 @@ function account_change(id) {
         var nid = parseInt(id);
         var next_account = list[nid];
         list.splice(nid, 1);
-        localStorage.setItem('knzkapp_now_mastodon_token', next_account["login_token"]);
-        localStorage.setItem('knzkapp_now_mastodon_username', next_account["username"]);
-        localStorage.setItem('knzkapp_now_mastodon_id', next_account["userid"]);
-        localStorage.setItem('knzkapp_now_mastodon_domain', next_account["login_domain"]);
-    }
+        fetch("https://"+next_account["login_domain"]+"/api/v1/accounts/verify_credentials", {
+            headers: {'Authorization': 'Bearer '+next_account["login_token"]}
+        }).then(function(response) {
+            if(response.ok) {
+                return response.json();
+            } else {
+                sendLog("Error/login_verify_credentials", response);
+                throw new Error();
+            }
+        }).then(function(json) {
+            localStorage.setItem('knzkapp_now_mastodon_token', next_account["login_token"]);
+            localStorage.setItem('knzkapp_now_mastodon_username', next_account["username"]);
+            localStorage.setItem('knzkapp_now_mastodon_id', next_account["userid"]);
+            localStorage.setItem('knzkapp_now_mastodon_domain', next_account["login_domain"]);
 
-    list.unshift(now);
-    localStorage.setItem('knzkapp_account_list', JSON.stringify(list));
+            list.unshift(now);
+            localStorage.setItem('knzkapp_account_list', JSON.stringify(list));
 
-    if (id) {
-        init();
-        document.getElementById('splitter-menu').close();
+            init();
+            document.getElementById('splitter-menu').close();
+        }).catch(function(error) {
+            console.log(error);
+            showtoast('cannot-connect-API');
+        });
+    } else {
+        list.unshift(now);
+        localStorage.setItem('knzkapp_account_list', JSON.stringify(list));
     }
 }
 
