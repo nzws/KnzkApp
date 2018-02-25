@@ -335,11 +335,13 @@ function initevent() {
         }
     });
 
-    document.addEventListener("resume", function() {
-        if (pageid === "home" && !home_auto_event) {
-            showTL(null,null,null,true);
-        }
-    }, false);
+    if (getConfig(1, "resume_reload")) {
+        document.addEventListener("resume", function() {
+            if (pageid === "home" && !home_auto_event) {
+                showTL(null,null,null,true);
+            }
+        }, false);
+    }
 
     var carousel = document.addEventListener('postchange', function(event) {
         var home_cr = {0:"ローカル",1:"ホーム",2:"メディア(ローカル)",3:"メディア(連合)",4:"連合"};
