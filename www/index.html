@@ -77,6 +77,7 @@
         var default_sensitive = false;
     </script>
 
+    <script src="js/log.js"></script>
     <script src="js/config.js"></script>
     <script src="js/components.js"></script>
     <script src="js/login.js"></script>
@@ -735,6 +736,33 @@
                 </div>
             </ons-list-item>
         </ons-list>
+        <ons-list>
+            <ons-list-header>節約設定</ons-list-header>
+            <ons-list-item>
+                <div class="center">
+                    <span class="list-item__title">アニメーションGIFを使用しない</span><span class="list-item__subtitle">電池の節約</span>
+                </div>
+                <div class="right">
+                    <ons-switch onclick="change_conf(1, 'no_gif')" input-id="conf-no_gif"></ons-switch>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    <span class="list-item__title">カスタム絵文字を使用しない</span><span class="list-item__subtitle">ネットワーク通信の節約</span>
+                </div>
+                <div class="right">
+                    <ons-switch onclick="change_conf(1, 'no_custom_emoji')" input-id="conf-no_custom_emoji"></ons-switch>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    <span class="list-item__title">アイコンを表示しない</span><span class="list-item__subtitle">ネットワーク通信の節約</span>
+                </div>
+                <div class="right">
+                    <ons-switch onclick="change_conf(1, 'no_icon')" input-id="conf-no_icon"></ons-switch>
+                </div>
+            </ons-list-item>
+        </ons-list>
         <div class="container">
             <p class="note">一部の設定は再起動後に反映されます。</p>
         </div>
@@ -1313,7 +1341,7 @@
 
 <ons-popover direction="up" id="emoji_popover">
     <div style="padding: 5px; text-align: center;">
-        <p id="emoji_list_popover" class="emoji_list_scroll">load</p>
+        <p id="emoji_list_popover" class="emoji_list_scroll" data-isload="no">loading now...</p>
         <p>
             <ons-button onclick="hidePopover('emoji_popover')" class="w-max">閉じる</ons-button>
         </p>
@@ -1322,7 +1350,7 @@
 
 <ons-popover direction="down" id="toot_emoji_popover">
     <div style="padding: 5px; text-align: center;">
-        <p id="toot_emoji_list_popover" class="emoji_list_scroll" style="height: 150px;">load</p>
+        <p id="toot_emoji_list_popover" class="emoji_list_scroll" style="height: 150px;" data-isload="no">loading now...</p>
         <p>
             <ons-button onclick="hidePopover('toot_emoji_popover')" class="w-max">閉じる</ons-button>
         </p>

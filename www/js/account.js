@@ -38,12 +38,12 @@ function show_account(id, navmode) {
         document.getElementById("userpage-title").innerHTML = "@"+json.acct;
         document.getElementById("userpage-acct").innerHTML = "@"+json.acct;
         document.getElementById("userpage-bio").innerHTML = json.note;
-        document.getElementById("userpage-icon").src = json.avatar;
-        document.getElementById("userpage-bg").setAttribute('style', 'background-image: url(\''+json.header+'\');');
+        document.getElementById("userpage-icon").src = json[getConfig(1, 'no_gif') ? "avatar_static" : "avatar"];
+        document.getElementById("userpage-bg").setAttribute('style', 'background-image: url(\''+json[getConfig(1, 'no_gif') ? "header_static" : "header"]+'\');');
         document.getElementById("userpage-follow").innerHTML = json.following_count;
         document.getElementById("userpage-follower").innerHTML = json.followers_count;
         document.getElementById("userpage-post-count").innerHTML = json.statuses_count;
-        if (json.locked === true) $("#userpage-lock").removeClass("invisible");
+        if (json.locked === true) $("#userpage-lock").removeClass("invisible"); else $("#userpage-lock").addClass("invisible");
         showAccountTL(json.id);
 
         if (json.moved) {

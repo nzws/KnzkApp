@@ -137,8 +137,8 @@ function init() {
                         if (inst !== "knzk.me" && inst !== "now.kibousoft.co.jp") {
                             $("#vote_new_time_simple").addClass("invisible");
                         }
-                        document.getElementById("splitter-profile-bg").setAttribute('style', 'background-image: url(\''+json.header+'\');');
-                        document.getElementById("splitter-icon").src = json.avatar;
+                        document.getElementById("splitter-profile-bg").setAttribute('style', 'background-image: url(\''+json[getConfig(1, 'no_gif') ? "header_static" : "header"]+'\');');
+                        if (!getConfig(1, 'no_icon')) document.getElementById("splitter-icon").src = json[getConfig(1, 'no_gif') ? "avatar_static" : "avatar"];
                         document.getElementById("splitter-profile-name").innerHTML = json.display_name;
                         document.getElementById("account_change-username").innerHTML = json.acct + "@" + inst;
                         if (json.locked === true)
@@ -277,7 +277,7 @@ function initevent() {
         }
         if (event.enterPage.id === "toot-page") {
             var emoji = document.getElementById("toot_emoji_list_popover"), i = 0, reshtml = "";
-            if (emoji.innerHTML == "load") {
+            if (emoji.dataset.isload === "no" && !getConfig(1, 'no_custom_emoji')) {
                 document.getElementById("toot-limit").innerHTML = toot_limit;
                 fetch("https://"+inst+"/api/v1/custom_emojis", {
                     headers: {'content-type': 'application/json'},
@@ -286,16 +286,21 @@ function initevent() {
                     if(response.ok) {
                         return response.json();
                     } else {
-                        if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/event_toot_emoji", response);
+                        sendLog("Error/event_toot_emoji", response);
                         //カスタム絵文字非対応インスタンス
                         $("#toot_emoji_bt").addClass("invisible");
                     }
                 }).then(function(json) {
-                    while (json[i]) {
-                        reshtml += "<ons-button modifier=\"quiet\" onclick='add_emoji_simple(\""+json[i]["shortcode"]+"\", true)'><img draggable=\"false\" class=\"emojione\" src=\""+json[i]["url"]+"\"></ons-button>\n";
-                        i++;
+                    if (json) {
+                        var emoji_mode = getConfig(1, 'no_gif') ? "static_url" : "url";
+
+                        while (json[i]) {
+                            reshtml += "<ons-button modifier=\"quiet\" onclick='add_emoji_simple(\""+json[i]["shortcode"]+"\", true)'><img draggable=\"false\" class=\"emojione\" src=\""+json[i][emoji_mode]+"\"></ons-button>\n";
+                            i++;
+                        }
+                        emoji.innerHTML = reshtml;
+                        emoji.dataset.isload = "yes";
                     }
-                    emoji.innerHTML = reshtml;
                 });
             }
         }
