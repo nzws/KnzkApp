@@ -12,7 +12,7 @@ function SearchLoad() {
         if(response.ok) {
             return response.json();
         } else {
-            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/Search", response);
+            sendLog("Error/Search", response);
             throw new Error();
         }
     }).then(function(json) {

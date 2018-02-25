@@ -25,7 +25,7 @@ function show_account(id, navmode) {
         if(response.ok) {
             return response.json();
         } else {
-            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/showaccount", response);
+            sendLog("Error/showaccount", response);
             throw new Error();
         }
     }).then(function(json) {
@@ -75,7 +75,7 @@ function show_account(id, navmode) {
         if(response.ok) {
             return response.json();
         } else {
-            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/relationships", response);
+            sendLog("Error/relationships", response);
             throw new Error();
         }
     }).then(function(json) {
@@ -154,7 +154,7 @@ function account_state_action(id, obj, mode) {
         if(response.ok) {
             return response.json();
         } else {
-            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/state_action", response);
+            sendLog("Error/state_action", response);
             throw new Error();
         }
     }).then(function(json) {
@@ -235,7 +235,7 @@ function show_account_name(username) {
         if(response.ok) {
             return response.json();
         } else {
-            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/show_account_name", response);
+            sendLog("Error/show_account_name", response);
             showtoast('cannot-pros');
             return false;
         }

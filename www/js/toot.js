@@ -237,7 +237,7 @@ function vote_item(q, obj, id) {
         if(response.ok) {
             return response.json();
         } else {
-            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/vote", response);
+            sendLog("Error/vote", response);
             showtoast('cannot-pros');
         }
     }).then(function(json) {
@@ -286,7 +286,7 @@ function toot_action(id, mode, action_mode) {
         if(response.ok) {
             return response.json();
         } else {
-            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/toot_action", response);
+            sendLog("Error/toot_action", response);
             throw new Error();
         }
     }).then(function(json) {
@@ -367,7 +367,7 @@ function pin_set(id, mode) {
         if(response.ok) {
             return response.json();
         } else {
-            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/pin_set", response);
+            sendLog("Error/pin_set", response);
             showtoast('cannot-pros');
         }
     }).then(function(json) {
@@ -445,7 +445,7 @@ function delete_post() {
         if(response.ok) {
             return response.json();
         } else {
-            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/delete_post", response);
+            sendLog("Error/delete_post", response);
             throw new Error();
         }
     }).then(function(json) {
@@ -476,7 +476,7 @@ function show_post(id, near) {
         if(response.ok) {
             return response.json();
         } else {
-            if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/show_post", response);
+            sendLog("Error/show_post", response);
             showtoast('cannot-pros');
         }
     }).then(function(json_stat) {
@@ -491,7 +491,7 @@ function show_post(id, near) {
                     if(response.ok) {
                         return response.json();
                     } else {
-                        if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/near_show_toot", response);
+                        sendLog("Error/near_show_toot", response);
                         showtoast('cannot-load');
                         return false;
                     }
@@ -512,7 +512,7 @@ function show_post(id, near) {
                     if(response.ok) {
                         return response.json();
                     } else {
-                        if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/show_toot_context", response);
+                        sendLog("Error/show_toot_context", response);
                         showtoast('cannot-pros');
                     }
                 }).then(function(json) {
@@ -551,7 +551,7 @@ function report() {
                 if(response.ok) {
                     return response.json();
                 } else {
-                    if (getConfig(1, "SendLog") === "1") window.FirebasePlugin.logEvent("Error/report", response);
+                    sendLog("Error/report", response);
                     throw new Error();
                 }
             }).then(function(json) {
