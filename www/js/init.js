@@ -436,8 +436,8 @@ function handleOpenURL(url) {
         strValue = strValue.replace('knzkapp://','');
         var mode = strValue.split("/");
         if (mode[0] === "login") {
-            var token_get = mode[1].replace('token','');
-            var token = getParam(token_get)["code"];
+            var token = mode[1].replace('token?code=','');
+            token = token.replace('&state=','');
             login_callback(token);
         }
     }, 100);
