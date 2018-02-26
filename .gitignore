@@ -5,3 +5,8 @@
 .DS_Store
 Thumbs.db
 node_modules/
+
+google-services.json
+GoogleService-Info.plist
+
+config/config.js

@@ -19,10 +19,21 @@
   </p>
 </p>
 
-## 使用方法
-**masterは結構バグ多かったりするので非推奨です**
+## 特徴
+Mastodonの基本機能はもちろん、いくつかのインスタンスの改造に対応したアプリです。
 
-**ビルドにはMonaca Pro以上のアカウントが必要です**
+### 対応機能
+- Glitch-soc feature (Local-only, Doodle, DM TimeLine etc...)
+- BBCode (from [now.kibousoft.co.jp](https://now.kibousoft.co.jp/))
+- Enquete (from [friends.nico](https://friends.nico/))
+<!-- - Markdown (from [kirishima.cloud](https://kirishima.cloud/)) -->
+
+*これらのインスタンスより機能を輸入したインスタンスでも使用可能です。
+
+## 注意とか
+- masterは結構バグ多かったりするので非推奨です
+- ビルドにはMonaca Pro以上のアカウントが必要です
+<!-- - Firebaseで生成した`google-services.json` / `GoogleService-Info.plist`を`KnzkApp/`に設置して下さい -->
 
 ## License
 [KnzkApp License ( Restricted BSD License )](https://github.com/KnzkDev/KnzkApp/blob/master/LICENSE)
