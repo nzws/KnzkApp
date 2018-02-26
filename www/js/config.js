@@ -6,7 +6,7 @@ function getConfig(type, name) {
     return data[name] ? data[name] : "";
 }
 
-function change_conf(name, id, sel) {
+function change_conf(name, id, sel, istext) {
     var md = (name === 1) ? 'knzkapp_conf_mastodon' : 'knzkapp_conf_mastodoncol';
     var data = JSON.parse(localStorage.getItem(md));
     if (sel) {
@@ -15,7 +15,10 @@ function change_conf(name, id, sel) {
         var colmd = "";
         if (md === "knzkapp_conf_mastodoncol") colmd = "col-";
         var mode = document.getElementById("conf-"+colmd+id).checked;
-        data[id] = ons.platform.isIOS() ? mode == true ? 0 : 1 : mode == true ? 1 : 0;
+        if (istext)
+            data[id] = ons.platform.isIOS() ? mode == true ? "0" : "1" : mode == true ? "1" : "0";
+        else
+            data[id] = ons.platform.isIOS() ? mode == true ? 0 : 1 : mode == true ? 1 : 0;
     }
     localStorage.setItem(md, JSON.stringify(data));
     config_tmp[name] = null;

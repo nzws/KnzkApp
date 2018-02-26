@@ -740,6 +740,14 @@
                     <ons-switch onclick="change_conf(1, 'gpu')" input-id="conf-gpu"></ons-switch>
                 </div>
             </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    <span class="list-item__title">エラーログを開発者に送信</span><span class="list-item__subtitle">プライバシーポリシー</span>
+                </div>
+                <div class="right">
+                    <ons-switch onclick="change_conf(1, 'SendLog', null, true)" input-id="conf-SendLog"></ons-switch>
+                </div>
+            </ons-list-item>
         </ons-list>
         <ons-list>
             <ons-list-header>節約設定</ons-list-header>
