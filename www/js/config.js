@@ -1,5 +1,7 @@
 function getConfig(type, name) {
-    var data = type === 1 ? localStorage.getItem('knzkapp_conf_mastodon') : localStorage.getItem('knzkapp_conf_mastodoncol');
+    if (!config_tmp[type]) config_tmp[type] = type === 1 ? localStorage.getItem('knzkapp_conf_mastodon') : localStorage.getItem('knzkapp_conf_mastodoncol');
+
+    var data = config_tmp[type];
     data = JSON.parse(data);
     return data[name] ? data[name] : "";
 }
@@ -16,6 +18,7 @@ function change_conf(name, id, sel) {
         data[id] = ons.platform.isIOS() ? mode == true ? 0 : 1 : mode == true ? 1 : 0;
     }
     localStorage.setItem(md, JSON.stringify(data));
+    config_tmp[name] = null;
 }
 
 function setConfig(name, id, value) { //data->1: 基本設定, data->2: col
