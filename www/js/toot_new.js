@@ -37,12 +37,16 @@ function up_file(simple) {
     if (card.length >= 4) {
         showtoast("maximum-media");
     } else {
-        navigator.camera.getPicture(up_file_suc, file_error,
-            { quality: 100,
-                destinationType: Camera.DestinationType.DATA_URL,
-                sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-                encodingType: 1
-            });
+        var file = $('#post_file'+simple_id)[0].files[0];
+        var fileReader = new FileReader();
+        fileReader.onloadend = function (e) {
+            var arrayBuffer = e.target.result;
+            blobUtil.arrayBufferToBlob(arrayBuffer, file.type).then(function (blob) {
+                up_file_suc(null, blob);
+                $('#post_file'+simple_id).val("");
+            }).catch(console.log.bind(console));
+        };
+        fileReader.readAsArrayBuffer(file);
     }
 }
 
@@ -102,22 +106,28 @@ function file_del(card) {
     });
 }
 
-function file_error(msg) {
-    console.log(msg);
-}
-
 function post_nsfw(simple) {
     var simple_id = "";
     if (simple) simple_id = "_simple";
     var cw_input = document.getElementById("nsfw_input"+simple_id);
     var cwicon = document.getElementById("nsfw_bt"+simple_id);
 
-    if (cwicon.className == button + " w-max") { //選択済み→解除
-        cw_input.value = "";
-        cwicon.className = quiet;
+    if (simple) {
+        if (cwicon.className == button + " w-max") { //選択済み→解除
+            cw_input.value = "";
+            cwicon.className = quiet;
+        } else {
+            cw_input.value = "1";
+            cwicon.className = button + " w-max";
+        }
     } else {
-        cw_input.value = "1";
-        cwicon.className = button + " w-max";
+        if (cwicon.className == button) { //CW オン→オフ
+            cw_input.value = "";
+            cwicon.className = quiet;
+        } else { //CW オフ→オン
+            cw_input.value = "1";
+            cwicon.className = button;
+        }
     }
 }
 
