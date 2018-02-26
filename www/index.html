@@ -1420,7 +1420,7 @@
     </ons-toast>
 
     <ons-toast id="post_now">
-        投稿しています... <span class="fa fa-spin"><span class="fa fa-spin"><ons-icon icon="fa-refresh" class="white"></ons-icon></span></ons-icon></span>
+        投稿しています... <span class="fa fa-spin"><span class="fa fa-spin"><ons-icon icon="fa-refresh" class="white"></ons-icon></span></span>
     </ons-toast>
 
     <ons-toast id="vote-ok">
@@ -1450,16 +1450,6 @@
         エラー: 取得できませんでした。<br>
         接続環境が悪いか鯖落ちしている可能性があります。
     </ons-toast>
-    <ons-alert-dialog id="cannot-get-code">
-        <div class="alert-dialog-title">エラー</div>
-        <div class="alert-dialog-content">
-            コードが取得できませんでした！<br>
-            認証画面で拒否していませんか？
-        </div>
-        <div class="alert-dialog-footer">
-            <button class="alert-dialog-button" onclick="hide('cannot-get-code')">閉じる</button>
-        </div>
-    </ons-alert-dialog>
 
     <ons-alert-dialog id="clear-alert">
         <div class="alert-dialog-title">通知を消去</div>
@@ -1480,17 +1470,6 @@
         </div>
     </ons-alert-dialog>
 
-    <ons-alert-dialog id="cannot-connect-sv">
-        <div class="alert-dialog-title">エラーが発生しました。</div>
-        <div class="alert-dialog-content">
-            何度試しても問題が解決しない場合は、下記のエラーログを <b>@y@knzk.me</b> までお願いします。
-            <pre id="error-log-sv" class="error_log"></pre>
-        </div>
-        <div class="alert-dialog-footer">
-            <button class="alert-dialog-button" onclick="init()">再試行</button>
-        </div>
-    </ons-alert-dialog>
-
     <ons-alert-dialog id="cannot-connect-sv-login">
         <div class="alert-dialog-title">エラー</div>
         <div class="alert-dialog-content">
@@ -1502,29 +1481,10 @@
         </div>
     </ons-alert-dialog>
 
-    <ons-alert-dialog id="cannot-connect-mastodon">
-        <div class="alert-dialog-title">エラー</div>
-        <div class="alert-dialog-content">
-            インスタンスに接続できません！<br>
-            サーバーが落ちている可能性があります。<br>
-            詳細はシステム状態のページをご覧ください。
-        </div>
-        <div class="alert-dialog-footer">
-            <button class="alert-dialog-button" onclick="openURL('http://knzk.me')">ステータスページへ</button>
-            <button class="alert-dialog-button" onclick="init()">再試行</button>
-        </div>
-    </ons-alert-dialog>
-
-    <ons-alert-dialog id="cannot-connect-internet">
-        <div class="alert-dialog-title">エラー</div>
-        <div class="alert-dialog-content">
-            インターネットに接続できません！<br>
-            通信環境が悪い可能性があります。
-        </div>
-        <div class="alert-dialog-footer">
-            <button class="alert-dialog-button" onclick="init()">再試行</button>
-        </div>
-    </ons-alert-dialog>
+    <ons-toast id="cannot-connect-sv">
+        エラー: エラーが発生しました。<br>
+        再起動するなどで一度お試しください。
+    </ons-toast>
 
     <ons-toast id="cannot-connect-API">
         エラー: APIを認証できませんでした。<br>

@@ -72,9 +72,6 @@ function init() {
     default_post_visibility = "";
     default_sensitive = false;
     init_d();
-    hide('cannot-connect-sv');
-    hide('cannot-connect-mastodon');
-    hide('cannot-connect-internet');
     if (!localStorage || !fetch) {
         show("cannot-use-ls");
     } else {
@@ -163,8 +160,7 @@ function init() {
                     hide('now_loading');
                 });
             }).catch(function (error) {
-                show('cannot-connect-sv');
-                Seterrorlog('error-log-sv', 'Connection Error: インスタンスが落ちているか通信環境が悪い可能性があります。');
+                showtoast('cannot-connect-sv');
                 hide('now_loading');
             })
         } else {
