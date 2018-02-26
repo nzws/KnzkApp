@@ -71,6 +71,7 @@ function init() {
     doodle_mode = null;
     default_post_visibility = "";
     default_sensitive = false;
+    config_tmp = {};
     init_d();
     if (!localStorage || !fetch) {
         show("cannot-use-ls");
