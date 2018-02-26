@@ -20,7 +20,7 @@
 </p>
 
 ## 特徴
-Mastodonの基本機能はもちろん、いくつかのインスタンスの改造に対応したアプリです。
+Mastodonの基本機能はもちろん、いくつかのインスタンスの追加機能に対応したアプリです。
 
 ### 対応機能
 - Glitch-soc feature (Local-only, Doodle, DM TimeLine etc...)
