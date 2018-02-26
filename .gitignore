@@ -9,4 +9,4 @@ node_modules/
 google-services.json
 GoogleService-Info.plist
 
-config/config.js
+www/config/config.js
