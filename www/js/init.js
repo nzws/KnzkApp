@@ -116,8 +116,13 @@ function init() {
                     } else {
                         default_post_visibility = "public";
                     }
-                    document.getElementById("toot_emoji_list_popover").innerHTML = "load";
-                    document.getElementById("emoji_list_popover").innerHTML = "load";
+                    if (getConfig(1, 'no_custom_emoji')) {
+                        document.getElementById("toot_emoji_list_popover").innerHTML = "カスタム絵文字が無効化されています...";
+                        document.getElementById("emoji_list_popover").innerHTML = "カスタム絵文字が無効化されています...";
+                    } else {
+                        document.getElementById("toot_emoji_list_popover").innerHTML = "loading now...";
+                        document.getElementById("emoji_list_popover").innerHTML = "loading now...";
+                    }
                     if (inst === "knzk.me") {
                         toot_limit = 5000;
                     } else if (inst === "now.kibousoft.co.jp") {
