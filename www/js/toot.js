@@ -178,7 +178,7 @@ function toot_card(toot, mode, note, toot_light, page) {
             "</div>\n";
         layout_num["toot_content"] = 9;
     } else {
-        layout_num["toot_content"] = 11;
+        layout_num["toot_content"] = "11 no-icon-mode";
     }
 
     if (note) alert_text = "<p class='alert_text'>"+note+"</p>";
