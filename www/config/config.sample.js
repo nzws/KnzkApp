@@ -1,0 +1,1 @@
+const sentryID = "https://<key>@sentry.io/<project>";

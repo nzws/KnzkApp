@@ -1,11 +1,17 @@
 function sendLog(name, log) {
     if (getConfig(1, "SendLog") === "1") {
         console.log("ログ送信");
-        let data = JSON.stringify(log);
-        if (localStorage.getItem('knzkapp_now_mastodon_token')) {
-            data = data.replace(new RegExp(localStorage.getItem('knzkapp_now_mastodon_token'),"g"),"[token masked]");
+        if (Raven.isSetup()) {
+            Raven.captureMessage(new Error(name), {
+                extra: {
+                    Response: log
+                },
+                tags: {
+                    version: version,
+                    userAgent: navigator.userAgent
+                }
+            });
         }
-        window.FirebasePlugin.logEvent(name, {data: data});
     }
 }
 
