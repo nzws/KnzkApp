@@ -609,3 +609,7 @@ img.emoji {
 .no-icon-mode {
     padding-bottom: 3px;
 }
+
+.popover__content {
+    width: 100%;
+}
