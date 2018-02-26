@@ -413,6 +413,8 @@ function init_d() {
 }
 init_d();
 ons.ready(function() {
+    ConfigSetup();
+    init();
     if (getConfig(1, "SendLog") === "") {
         ons.notification.confirm('KnzkAppでは、エラー時に開発者が原因を特定しやすいようログを送信する機能が備わっています。<br>エラー時にログを開発者へ送信してもよろしいですか？<br><a href="https://knzkapp.yuzu.tk/privacy.html">プライバシーポリシー</a>', {title: 'KnzkAppへようこそ', buttonLabels: ["同意しない", "同意する"]}).then(function (e) {
             if (e === 1) {
@@ -425,8 +427,6 @@ ons.ready(function() {
     } else if (getConfig(1, "SendLog") === "1") {
         Raven.config(sentryID, {release: version}).install();
     }
-    ConfigSetup();
-    init();
 });
 
 // https://press.monaca.io/atsushi/248
