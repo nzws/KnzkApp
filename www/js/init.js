@@ -314,6 +314,10 @@ function initevent() {
             document.getElementById("toot_textarea").value = tmp_text_pre;
             tmp_text_pre = null;
         }
+
+        if (event.enterPage.id === "about-page") {
+            document.getElementById("app-version").innerText = version;
+        }
     });
 
     document.addEventListener('postpop', function(event) {
