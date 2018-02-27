@@ -439,6 +439,9 @@ function handleOpenURL(url) {
             var token = mode[1].replace('token?code=','');
             token = token.replace('&state=','');
             login_callback(token);
+        } else if (mode[0] === "user") {
+            var user = mode[1].replace('?','');
+            show_account_name(user);
         }
     }, 100);
 }

@@ -243,7 +243,12 @@ function show_account_name(username) {
         if (json) {
             var user = json['accounts'][0];
             if (user) {
-                show_account(user['id']);
+                var userCheck = username.toLowerCase();
+                if ("@"+user['acct'].toLowerCase() === userCheck || "@"+user['acct']+"@"+inst.toLowerCase() === userCheck) {
+                    show_account(user['id']);
+                } else {
+                    showtoast('no-acct');
+                }
             } else {
                 showtoast('cannot-pros');
                 return false;
