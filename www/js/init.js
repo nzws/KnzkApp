@@ -123,10 +123,8 @@ function init() {
                         document.getElementById("toot_emoji_list_popover").innerHTML = "loading now...";
                         document.getElementById("emoji_list_popover").innerHTML = "loading now...";
                     }
-                    if (inst === "knzk.me") {
-                        toot_limit = 5000;
-                    } else if (inst === "now.kibousoft.co.jp") {
-                        toot_limit = 4096;
+                    if (instance_config[inst]) {
+                        toot_limit = instance_config[inst]["limit"];
                     } else {
                         toot_limit = 500;
                     }
