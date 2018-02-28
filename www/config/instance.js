@@ -8,7 +8,7 @@
  * enquete_duration: アンケートの期間設定 (元: knzk.me) 対応か
  */
 
-const instance_config = {
+var instance_config = {
     "knzk.me": {
         limit: 5000,
         glitch_soc: true
