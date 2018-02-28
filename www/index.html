@@ -465,8 +465,8 @@
         <ons-popover direction="up" id="tools_popover">
             <div style="padding: 10px; text-align: center;">
                 <p>
-                    <ons-button onclick="hidePopover('tools_popover');showPopover(document.getElementById('tools_bt_simple'), 'vote_popover')" class="w-max"><ons-icon icon="fa-align-left"></ons-icon> Enquete</ons-button>
-                    <ons-button onclick="hidePopover('tools_popover');show_bbcodegen('simple_toot_TL_input')" class="w-max" style="margin-top: 5px"><ons-icon icon="fa-font"></ons-icon> BBCode</ons-button>
+                    <ons-button onclick="hidePopover('tools_popover');showPopover(document.getElementById('tools_bt_simple'), 'vote_popover')" class="w-max" id="vote_bt_simple"><ons-icon icon="fa-align-left"></ons-icon> Enquete</ons-button>
+                    <ons-button onclick="hidePopover('tools_popover');show_bbcodegen('simple_toot_TL_input')" class="w-max" style="margin-top: 5px" id="bbcode_bt_simple"><ons-icon icon="fa-font"></ons-icon> BBCode</ons-button>
                     <ons-button onclick="hidePopover('tools_popover');openDoodle('simple')" class="w-max" style="margin-top: 5px"><ons-icon icon="fa-paint-brush"></ons-icon> Doodle</ons-button>
                 </p>
                 <p>
@@ -858,7 +858,7 @@
             </div>
             <div class="center">トゥート！</div>
             <div class="right">
-                <ons-toolbar-button onclick="show_bbcodegen('toot_textarea', 'toot-limit', 'toot-button')">
+                <ons-toolbar-button onclick="show_bbcodegen('toot_textarea', 'toot-limit', 'toot-button')" id="bbcode_bt">
                     <ons-icon icon="fa-font"></ons-icon>
                 </ons-toolbar-button>
             </div>

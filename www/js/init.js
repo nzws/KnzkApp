@@ -120,12 +120,17 @@ function init() {
                         document.getElementById("toot_emoji_list_popover").innerHTML = "カスタム絵文字が無効化されています...";
                         document.getElementById("emoji_list_popover").innerHTML = "カスタム絵文字が無効化されています...";
                     } else {
-                        document.getElementById("toot_emoji_list_popover").innerHTML = "loading now...";
-                        document.getElementById("emoji_list_popover").innerHTML = "loading now...";
+                        var elist = [document.getElementById("toot_emoji_list_popover"), document.getElementById("emoji_list_popover")];
+                        elist[0].innerHTML = "loading now...";
+                        elist[0].dataset.isload = "no";
+
+                        elist[1].innerHTML = "loading now...";
+                        elist[1].dataset.isload = "no";
                     }
                     if (instance_config[inst]) {
                         toot_limit = instance_config[inst]["limit"];
                     } else {
+                        instance_config[inst] = {limit: 500};
                         toot_limit = 500;
                     }
 
@@ -266,9 +271,15 @@ function initevent() {
             }
         }
         if (event.enterPage.id === "toot-page") {
+            document.getElementById("toot-limit").innerHTML = toot_limit;
+            if (!instance_config[inst]["enquete"]) $("#vote_bt").addClass("invisible");
+            if (!instance_config[inst]["bbcode"]) $("#bbcode_bt").addClass("invisible");
+            if (!instance_config[inst]["enquete_duration"]) $("#vote_new_time").addClass("invisible");
+            if (!instance_config[inst]["glitch_soc"]) $("#localonly_bt").addClass("invisible");
+
+
             var emoji = document.getElementById("toot_emoji_list_popover"), i = 0, reshtml = "";
             if (emoji.dataset.isload === "no" && !getConfig(1, 'no_custom_emoji')) {
-                document.getElementById("toot-limit").innerHTML = toot_limit;
                 fetch("https://"+inst+"/api/v1/custom_emojis", {
                     headers: {'content-type': 'application/json'},
                     method: 'GET',

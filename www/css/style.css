@@ -612,4 +612,5 @@ img.emoji {
 
 .popover__content {
     width: 100%;
+    min-width: 220px;
 }
