@@ -244,7 +244,7 @@ function show_account_name(username) {
             var user = json['accounts'][0];
             if (user) {
                 var userCheck = username.toLowerCase();
-                if ("@"+user['acct'].toLowerCase() === userCheck || "@"+user['acct']+"@"+inst.toLowerCase() === userCheck) {
+                if ("@"+user['acct'].toLowerCase() === userCheck || ("@"+user['acct']+"@"+inst).toLowerCase() === userCheck) {
                     show_account(user['id']);
                 } else {
                     showtoast('no-acct');
