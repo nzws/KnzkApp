@@ -139,9 +139,6 @@ function init() {
                     showTL("local", null, null, true, null);
 
                     setTimeout(function () {
-                        if (inst !== "knzk.me" && inst !== "now.kibousoft.co.jp") {
-                            $("#vote_new_time_simple").addClass("invisible");
-                        }
                         document.getElementById("splitter-profile-bg").setAttribute('style', 'background-image: url(\''+json[getConfig(1, 'no_gif') ? "header_static" : "header"]+'\');');
                         if (!getConfig(1, 'no_icon')) document.getElementById("splitter-icon").src = json[getConfig(1, 'no_gif') ? "avatar_static" : "avatar"];
                         document.getElementById("splitter-profile-name").innerHTML = json.display_name;
