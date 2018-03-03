@@ -105,3 +105,49 @@ function followreq(id, mode) {
         list_n('follow_requests', 'フォローリクエスト', null, 'acct', true);
     });
 }
+
+function LoadrepStatus() {
+    var i = 0, reshtml = "", repstatus = [];
+    loadNav('olist_nav.html');
+    fetch("https://"+inst+"/api/v1/reports", {
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
+        method: 'GET'
+    }).then(function(response) {
+        if(response.ok) {
+            return response.json();
+        } else {
+            sendLog("Error/LoadrepStatus", response);
+            throw new Error();
+        }
+    }).then(function(json) {
+        json = json.reverse();
+        reshtml += "<div class=\"toot\">\n" +
+            "      あなたの通報が現在処理されているのか簡易的に確認することができます。\n" +
+            "    </div>\n" +
+            "</div>";
+        while (json[i]) {
+            if (json[i]["action_taken"]) {
+                repstatus[0] = "管理者が確認済み";
+                repstatus[1] = "check";
+            } else {
+                repstatus[0] = "処理中";
+                repstatus[1] = "question";
+            }
+
+            reshtml += "<div class=\"toot acct-small\">\n" +
+                "    <div class=\"hashtag-card\">\n" +
+                "    <span class=\"toot-group\">\n" +
+                "      <b><ons-icon icon='fa-"+ repstatus[1] +"'></ons-icon> #" + json[i]['id'] + ": "+ repstatus[0] +"</b>\n" +
+                "    </span>\n" +
+                "    </div>\n" +
+                "</div>";
+            repstatus = [];
+            i++;
+        }
+        document.getElementById("olist_nav_title").innerHTML = "通報ステータス";
+        document.getElementById("olist_nav_main").innerHTML = reshtml;
+    }).catch(function(error) {
+        showtoast('cannot-pros');
+        console.log(error);
+    });
+}
