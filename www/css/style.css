@@ -417,15 +417,6 @@ pre {
     min-height: 5px;
 }
 
-.home_carousel {
-    display: block;
-    height: 100%;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: none;
-    -ms-scroll-snap-type: mandatory;
-}
-
 ons-fab, ons-speed-dial {
     z-index: 1;
 }
@@ -613,4 +604,11 @@ img.emoji {
 .popover__content {
     width: 100%;
     min-width: 220px;
+}
+
+.timeline {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    -ms-scroll-snap-type: mandatory;
 }
