@@ -359,45 +359,15 @@
                 </ons-toolbar-button>
             </div>
         </ons-toolbar>
-        <ons-gesture-detector>
-            <ons-carousel fullscreen id="carousel">
-                <ons-carousel-item id="local_item" class="home_carousel">
-                    <div id="local_main">
-                        <div class="loading-now">
-                            <ons-progress-circular indeterminate></ons-progress-circular>
-                        </div>
-                    </div>
-                </ons-carousel-item>
-                <ons-carousel-item id="home_item" class="home_carousel">
-                    <div id="home_main">
-                        <div class="loading-now">
-                            <ons-progress-circular indeterminate></ons-progress-circular>
-                        </div>
-                    </div>
-                </ons-carousel-item>
-                <ons-carousel-item id="local_media_item" class="home_carousel">
-                    <div id="local_media_main">
-                        <div class="loading-now">
-                            <ons-progress-circular indeterminate></ons-progress-circular>
-                        </div>
-                    </div>
-                </ons-carousel-item>
-                <ons-carousel-item id="public_media_item" class="home_carousel">
-                    <div id="public_media_main">
-                        <div class="loading-now">
-                            <ons-progress-circular indeterminate></ons-progress-circular>
-                        </div>
-                    </div>
-                </ons-carousel-item>
-                <ons-carousel-item id="public_item" class="home_carousel">
-                    <div id="public_main">
-                        <div class="loading-now">
-                            <ons-progress-circular indeterminate></ons-progress-circular>
-                        </div>
-                    </div>
-                </ons-carousel-item>
-            </ons-carousel>
-        </ons-gesture-detector>
+
+        <ons-tabbar swipeable hide-tabs id="tl_tabs">
+            <ons-tab page="tl-local.html" label="ローカル" tl_id="local" active></ons-tab>
+            <ons-tab page="tl-home.html" label="ホーム" tl_id="home"></ons-tab>
+            <ons-tab page="tl-local_media.html" label="メディア(ローカル)" tl_id="local_media"></ons-tab>
+            <ons-tab page="tl-public_media.html" label="メディア(連合)" tl_id="public_media"></ons-tab>
+            <ons-tab page="tl-public.html" label="連合" tl_id="public"></ons-tab>
+        </ons-tabbar>
+
         <ons-speed-dial position="bottom right" direction="up" onclick="opendial()" id="dial_main" class="invisible">
             <ons-fab>
                 <ons-icon icon="fa-bell" id="dial-icon"></ons-icon>
@@ -525,6 +495,46 @@
                 </p>
             </div>
         </ons-popover>
+    </ons-page>
+</ons-template>
+
+<ons-template id="tl-local.html">
+    <ons-page id="local_main" class="timeline">
+        <div class="loading-now">
+            <ons-progress-circular indeterminate></ons-progress-circular>
+        </div>
+    </ons-page>
+</ons-template>
+
+<ons-template id="tl-home.html">
+    <ons-page id="home_main" class="timeline">
+        <div class="loading-now">
+            <ons-progress-circular indeterminate></ons-progress-circular>
+        </div>
+    </ons-page>
+</ons-template>
+
+<ons-template id="tl-local_media.html">
+    <ons-page id="local_media_main" class="timeline">
+        <div class="loading-now">
+            <ons-progress-circular indeterminate></ons-progress-circular>
+        </div>
+    </ons-page>
+</ons-template>
+
+<ons-template id="tl-public_media.html">
+    <ons-page id="public_media_main" class="timeline">
+        <div class="loading-now">
+            <ons-progress-circular indeterminate></ons-progress-circular>
+        </div>
+    </ons-page>
+</ons-template>
+
+<ons-template id="tl-public.html">
+    <ons-page id="public_main" class="timeline">
+        <div class="loading-now">
+            <ons-progress-circular indeterminate></ons-progress-circular>
+        </div>
     </ons-page>
 </ons-template>
 

@@ -345,36 +345,28 @@ function initevent() {
         }, false);
     }
 
-    var carousel = document.addEventListener('postchange', function(event) {
-        var home_cr = {0:"ローカル",1:"ホーム",2:"メディア(ローカル)",3:"メディア(連合)",4:"連合"};
-        var TL_name = {0:"local",1:"home",2:"local_media",3:"public_media",4:"public"};
-        document.getElementById('home_title').innerHTML = home_cr[event.activeIndex];
-        now_TL = TL_name[event.activeIndex];
-        showTL(null,null,null,true);
-    });
-
-    $(document).on('click', 'ons-carousel', function(event) {
+    document.addEventListener('prechange', function(event) {
         if ($("#navigator").attr("page") === "home.html") {
-            simple_close();
+            document.getElementById('home_title').innerHTML = event.tabItem.getAttribute('label');
+            now_TL = event.tabItem.getAttribute('tl_id');
+            showTL(null,null,null,true);
         }
     });
 
-    document.addEventListener('swipeleft', function(event) {
-        TL_next();
-    });
-
-    document.addEventListener('swiperight', function(event) {
-        TL_prev();
+    $(document).on('click', '.timeline', function(event) {
+        if ($("#navigator").attr("page") === "home.html") {
+            simple_close();
+        }
     });
 }
 
 function home_autoevent() {
     setTimeout(function () {
         if (home_auto_event) {
-            var h = $("#"+now_TL+"_item").scrollTop();
+            var h = document.querySelector('#'+now_TL+'_main > .page__content').scrollTop;
             home_auto_mode = h <= 100;
             if (home_auto_tmp !== "" && home_auto_mode) {
-                document.getElementById(now_TL+"_main").innerHTML = home_auto_tmp + document.getElementById(now_TL+"_main").innerHTML;
+                document.querySelector('#'+now_TL+'_main > .page__content').innerHTML = home_auto_tmp + document.querySelector('#'+now_TL+'_main > .page__content').innerHTML;
                 home_auto_tmp = "";
                 home_auto_num = 0;
                 setTLheadcolor(0);
@@ -406,7 +398,7 @@ function init_d() {
                 css += ".fa-spin {-webkit-animation: none;  animation: none;}";
             }
             if (getConfig(1, 'gpu') != 1) {
-                css += ".toot, ons-carousel, ons-carousel-item {transform: translate3d(0, 0, 0);}";
+                css += ".toot, .timeline {transform: translate3d(0, 0, 0);}";
             }
 
             var node = document.createElement("style");
