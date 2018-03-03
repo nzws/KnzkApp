@@ -28,11 +28,14 @@ Mastodonの基本機能はもちろん、いくつかのインスタンスの追
 - Enquete (from [friends.nico](https://friends.nico/))
 <!-- - Markdown (from [kirishima.cloud](https://kirishima.cloud/)) -->
 
-*これらのインスタンスより機能を輸入したインスタンスでも使用可能です。
+*これらのインスタンスより機能を輸入したインスタンスでも使用可能です。あなたのインスタンスで有効化する場合は`www/config/instance.js`にプルリクエストを送信してください。(分からなければ[@y@knzk.me](https://knzk.me/@y)まで)
+
+また、ある程度簡単な内容の独自機能であれば(時間があれば)対応しますので、気軽にご相談下さい。
 
 ## 注意とか
 - masterは結構バグ多かったりするので非推奨です
 - ビルドにはMonaca Pro以上のアカウントが必要です
+- `www/config/config.sample.js`をリネームして`www/config/config.js`を生成し、sentry.ioのトークンを入力してください。
 <!-- - Firebaseで生成した`google-services.json` / `GoogleService-Info.plist`を`KnzkApp/`に設置して下さい -->
 
 ## License
