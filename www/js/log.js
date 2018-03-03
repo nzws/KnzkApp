@@ -1,5 +1,7 @@
 function sendLog(name, log) {
     if (getConfig(1, "SendLog") === "1") {
+        log = JSON.stringify(log);
+        log = log.replace(/Bearer ([a-z0-9].*)/g , "[token masked]");
         console.log("ログ送信");
         if (Raven.isSetup()) {
             Raven.captureMessage(new Error(name), {
