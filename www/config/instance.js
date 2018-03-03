@@ -13,10 +13,6 @@ var instance_config = {
         limit: 5000,
         glitch_soc: true
     },
-    "Knzk.me": {
-        limit: 5000,
-        glitch_soc: true
-    },
     "now.kibousoft.co.jp": {
         limit: 4096,
         bbcode: true
