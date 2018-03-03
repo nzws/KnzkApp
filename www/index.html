@@ -1368,6 +1368,31 @@
     </ons-page>
 </ons-template>
 
+<ons-template id="qrcode.html">
+    <ons-page id="qrcode-page">
+        <ons-toolbar>
+            <div class="left">
+                <ons-toolbar-button onclick="BackTab()">
+                    <ons-icon icon="fa-chevron-left"></ons-icon>
+                    戻る
+                </ons-toolbar-button>
+            </div>
+            <div class="center">QRコード</div>
+        </ons-toolbar>
+        <p></p>
+        <div class="container">
+            <div class="w-max y-center">
+                <p><img style="width: 80%;border-radius: 8%;" id="qrimg"/></p>
+                <p><h3 id="qr-userid"></h3></p>
+                <div class="main-logo" style="padding: 5px">
+                    この画面をスクショするか直接見せてあなたのアカウントを簡単に共有することができます。<br><br>
+                    QRコードは通常のQRコードリーダーアプリ等で読み取ってください。
+                </div>
+            </div>
+        </div>
+    </ons-page>
+</ons-template>
+
 <ons-popover direction="up" id="emoji_popover">
     <div style="padding: 5px; text-align: center;">
         <p id="emoji_list_popover" class="emoji_list_scroll" data-isload="no">loading now...</p>
