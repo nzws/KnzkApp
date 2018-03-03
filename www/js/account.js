@@ -107,10 +107,7 @@ function show_account(id, navmode) {
 
         if (json[0]["id"] == localStorage.getItem('knzkapp_now_mastodon_id')) {
             document.getElementById("userpage-follow-button").className = "invisible";
-            document.getElementById("acct_action_bt").className = "invisible";
             document.getElementById("userpage-follower-badge").className = "invisible";
-        } else {
-            document.getElementById("acct_action_bt").className = "userpage-button ons-icon fa-bars fa";
         }
 
         if (json[0]["requested"] === true) {
@@ -183,12 +180,14 @@ function account_action(id) {
         ons.openActionSheet({
             cancelable: true,
             buttons: [
+                'ブラウザで開く',
                 {
                     label: 'キャンセル',
                     icon: 'md-close'
                 }
             ]
         }).then(function (index) {
+            if (index === 0) openURL("https://"+inst+"/@"+account_page_acct.split("@")[0]);
         })
     } else {
         var mute = document.getElementById("acct_mute").value;
@@ -218,7 +217,6 @@ function account_action(id) {
                 }
             ]
         }).then(function (index) {
-            if (account_page_acct.split("@")[0])
             if (index === 0) post_pre("@" + account_page_acct);
             else if (index === 1) openURL("https://"+domain+"/@"+account_page_acct.split("@")[0]);
             else if (index === 2) account_state_action(id, mute, "mute");
