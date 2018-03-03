@@ -24,7 +24,7 @@ function login_open(domain) {
             throw new Error();
         }
     }).then(function(json) {
-        inst_domain = domain;
+        inst_domain = domain.toLowerCase();
         inst_login_cid = json["client_id"];
         inst_login_scr = json["client_secret"];
         var url = 'https://'+domain+'/oauth/authorize?response_type=code&redirect_uri=knzkapp://login/token&scope=read+write+follow&client_id='+inst_login_cid;
@@ -203,7 +203,7 @@ function account_change(id) {
             localStorage.setItem('knzkapp_now_mastodon_token', next_account["login_token"]);
             localStorage.setItem('knzkapp_now_mastodon_username', next_account["username"]);
             localStorage.setItem('knzkapp_now_mastodon_id', next_account["userid"]);
-            localStorage.setItem('knzkapp_now_mastodon_domain', next_account["login_domain"]);
+            localStorage.setItem('knzkapp_now_mastodon_domain', next_account["login_domain"].toLowerCase());
 
             list.unshift(now);
             localStorage.setItem('knzkapp_account_list', JSON.stringify(list));
