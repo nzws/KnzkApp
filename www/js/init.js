@@ -91,7 +91,7 @@ function init() {
 
             if (ons.platform.isAndroid()) document.getElementById("css_toolbar_android").href = "css/toolbar-height.css";
 
-            inst = localStorage.getItem('knzkapp_now_mastodon_domain');
+            inst = localStorage.getItem('knzkapp_now_mastodon_domain').toLowerCase();
             fetch("https://"+inst+"/api/v1/instance").then(function(response) {
                 if(response.ok) {
                     return response.json();
