@@ -181,6 +181,7 @@ function account_action(id) {
             cancelable: true,
             buttons: [
                 'ブラウザで開く',
+                'QRコードを表示',
                 {
                     label: 'キャンセル',
                     icon: 'md-close'
@@ -188,6 +189,7 @@ function account_action(id) {
             ]
         }).then(function (index) {
             if (index === 0) openURL("https://"+inst+"/@"+account_page_acct.split("@")[0]);
+            else if (index === 1) OpenQR("@"+account_page_acct.split("@")[0]+"@"+inst);
         })
     } else {
         var mute = document.getElementById("acct_mute").value;
@@ -258,4 +260,11 @@ function show_account_name(username) {
 function post_pre(text) {
     tmp_text_pre = text + " ";
     loadNav('post.html', 'up');
+}
+
+function OpenQR(user) {
+    document.querySelector('#navigator').bringPageTop("qrcode.html").then(function () {
+        document.getElementById("qrimg").src = "http://chart.googleapis.com/chart?cht=qr&chs=200x200&choe=UTF-8&chl=https%3A%2F%2Fopen.knzkdev.net%2Fopen.html%3F"+encodeURIComponent(user);
+        document.getElementById("qr-userid").innerText = user;
+    });
 }
