@@ -383,6 +383,7 @@ function simple_open() {
     if (!instance_config[inst]["bbcode"]) $("#bbcode_bt_simple").addClass("invisible");
     if (!instance_config[inst]["enquete_duration"]) $("#vote_new_time_simple").addClass("invisible");
     if (!instance_config[inst]["glitch_soc"]) $("#localonly_bt_simple").addClass("invisible");
+    if (!instance_config[inst]["markdown"]) $("#md_note_simple").addClass("invisible");
 
     document.getElementById("simple_toot_TL_input").rows = 3;
     $("#simple_toot_TL_toolbar").addClass("simple_toot_open");
@@ -408,7 +409,7 @@ function simple_open() {
                 var emoji_mode = getConfig(1, 'no_gif') ? "static_url" : "url";
 
                 while (json[i]) {
-                    reshtml += "<ons-button modifier=\"quiet\" onclick='add_emoji_simple(\""+json[i]["shortcode"]+"\")'><img draggable=\"false\" class=\"emojione\" src=\""+json[i][emoji_mode]+"\"></ons-button>\n";
+                    reshtml += "<ons-button modifier=\"quiet\" onclick='add_emoji_simple(\" :"+json[i]["shortcode"]+": \")'><img draggable=\"false\" class=\"emojione\" src=\""+json[i][emoji_mode]+"\"></ons-button>\n";
                     i++;
                 }
                 emoji.innerHTML = reshtml;
@@ -436,7 +437,7 @@ function add_emoji_simple(addtext, mode) {
     var len      = sentence.length;
     var pos      = textarea.selectionStart;
     var before   = sentence.substr(0, pos);
-    var word     = " :" + addtext + ": ";
+    var word     = addtext;
     var after    = sentence.substr(pos, len);
     sentence = before + word + after;
     textarea.value = sentence;

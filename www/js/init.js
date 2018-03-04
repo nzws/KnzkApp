@@ -79,8 +79,14 @@ function init() {
         show('now_loading');
 
         if (localStorage.getItem('knzkapp_now_mastodon_token')) {
+            inst = localStorage.getItem('knzkapp_now_mastodon_domain').toLowerCase();
 
             if (getConfig(1, 'theme')) document.getElementById("theme_css").href = getConfig(1, 'theme');
+
+            if (instance_config[inst]["markdown"])
+                document.getElementById("css_md").href = "css/kirishima_markdown.css";
+            else
+                document.getElementById("css_md").href = "";
 
             if (ons.platform.isIPhoneX()) { // for iPhone X
                 let html_tag = document.documentElement;
@@ -91,7 +97,6 @@ function init() {
 
             if (ons.platform.isAndroid()) document.getElementById("css_toolbar_android").href = "css/toolbar-height.css";
 
-            inst = localStorage.getItem('knzkapp_now_mastodon_domain').toLowerCase();
             fetch("https://"+inst+"/api/v1/instance").then(function(response) {
                 if(response.ok) {
                     return response.json();
@@ -273,6 +278,7 @@ function initevent() {
             if (!instance_config[inst]["bbcode"]) $("#bbcode_bt").addClass("invisible");
             if (!instance_config[inst]["enquete_duration"]) $("#vote_new_time").addClass("invisible");
             if (!instance_config[inst]["glitch_soc"]) $("#localonly_bt").addClass("invisible");
+            if (!instance_config[inst]["markdown"]) $("#md-box").addClass("invisible");
 
 
             var emoji = document.getElementById("toot_emoji_list_popover"), i = 0, reshtml = "";
@@ -293,7 +299,7 @@ function initevent() {
                         var emoji_mode = getConfig(1, 'no_gif') ? "static_url" : "url";
 
                         while (json[i]) {
-                            reshtml += "<ons-button modifier=\"quiet\" onclick='add_emoji_simple(\""+json[i]["shortcode"]+"\", true)'><img draggable=\"false\" class=\"emojione\" src=\""+json[i][emoji_mode]+"\"></ons-button>\n";
+                            reshtml += "<ons-button modifier=\"quiet\" onclick='add_emoji_simple(\" :"+json[i]["shortcode"]+": \", true)'><img draggable=\"false\" class=\"emojione\" src=\""+json[i][emoji_mode]+"\"></ons-button>\n";
                             i++;
                         }
                         emoji.innerHTML = reshtml;

@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="css/enquete.css">
     <link rel="stylesheet" href="css/theme/default.css">
     <link rel="stylesheet" href="css/custom-size.css">
+    <link rel="stylesheet" id="css_md">
     <link rel="stylesheet" id="theme_css">
     <link rel="stylesheet" id="css_toolbar_android">
 
@@ -446,6 +447,7 @@
                     <ons-button onclick="hidePopover('tools_popover');showPopover(document.getElementById('tools_bt_simple'), 'vote_popover')" class="w-max" id="vote_bt_simple"><ons-icon icon="fa-align-left"></ons-icon> Enquete</ons-button>
                     <ons-button onclick="hidePopover('tools_popover');show_bbcodegen('simple_toot_TL_input')" class="w-max" style="margin-top: 5px" id="bbcode_bt_simple"><ons-icon icon="fa-font"></ons-icon> BBCode</ons-button>
                     <ons-button onclick="hidePopover('tools_popover');openDoodle('simple')" class="w-max" style="margin-top: 5px"><ons-icon icon="fa-paint-brush"></ons-icon> Doodle</ons-button>
+                <p id="md_note_simple">*MarkDownはスワイプメニュー→新規トゥートから使用できます</p>
                 </p>
                 <p>
                     <ons-button onclick="hidePopover('tools_popover')" class="w-max">閉じる</ons-button>
@@ -902,7 +904,7 @@
                 </p>
             </div>
             <ons-input id="cw_input" modifier="underbar" placeholder="警告文を書いてください" class="w-max" style="display: none;" onkeyup="check_limit(value, 'toot-limit', 'toot-button', 'toot_textarea');"></ons-input>
-            <textarea class="textarea dark-box-in" rows="5" placeholder="今なにしてる？" id="toot_textarea" style="width: 100%" onkeyup="check_limit(value, 'toot-limit', 'toot-button', 'cw_input');"></textarea>
+            <textarea class="textarea dark-box-in" rows="6" placeholder="今なにしてる？" id="toot_textarea" style="width: 100%" onkeyup="check_limit(value, 'toot-limit', 'toot-button', 'cw_input');"></textarea>
             <div class="dark-box" style="border-radius: 0">
                 <input type="hidden" id="nsfw_input">
                 <input type="hidden" id="localonly_input">
@@ -925,6 +927,24 @@
                 <ons-button onclick="post('toot_textarea', {cw:document.getElementById('cw_input').value, visibility:document.getElementById('post_mode').value, sensitive:document.getElementById('nsfw_input').value, in_reply_to_id: document.getElementById('post_reply').value, local_only: document.getElementById('localonly_input').value})" id="toot-button" style="border-radius: 4px 0 4px 0;padding-bottom: 5px;">トゥート！</ons-button>
                 </span>
             </div>
+
+            <div id="md-box">
+                <p></p>
+                <div class="dark-box-header">
+                    Markdown
+                </div>
+                <div class="dark-box">
+                    <ons-button modifier="quiet" onclick="add_emoji_simple('\n# 内容', 1)">見出し</ons-button>
+                    <ons-button modifier="quiet" onclick="add_emoji_simple('~~内容~~', 1)">打ち消し</ons-button>
+                    <ons-button modifier="quiet" onclick="add_emoji_simple('\n> 内容', 1)">引用</ons-button>
+                    <ons-button modifier="quiet" onclick="add_emoji_simple('`内容`', 1)">コード</ons-button>
+                    <ons-button modifier="quiet" onclick="add_emoji_simple('\n***', 1)">線</ons-button>
+                    <ons-button modifier="quiet" onclick="add_emoji_simple('*内容*', 1)">上付き</ons-button>
+                    <ons-button modifier="quiet" onclick="add_emoji_simple('**内容**', 1)">下付き</ons-button>
+                    <ons-button modifier="quiet" onclick="add_emoji_simple('[表示する文字](URL)', 1)">リンク</ons-button>
+                </div>
+            </div>
+
             <div id="image_list"></div>
         </div>
 
