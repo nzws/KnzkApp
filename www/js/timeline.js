@@ -264,12 +264,6 @@ function showTL(mode, reload, more_load, clear_load) {
                                         }
                                     }
                                     toot_new_id = ws_reshtml['id'];
-                                } else {
-                                    var deltoot = document.getElementById("post_"+JSON.parse(message.data).payload);
-                                    if (deltoot) {
-                                        deltoot.innerHTML = "<p class=\"alert_text\"><ons-icon icon=\"fa-trash\" class=\"ons-icon fa-trash fa\"></ons-icon>　削除されたトゥート</p>" + deltoot.innerHTML;
-                                        deltoot.className = "toot toot_red";
-                                    }
                                 }
                             };
                         }
