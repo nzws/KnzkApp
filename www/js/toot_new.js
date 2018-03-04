@@ -160,7 +160,7 @@ function post_mode(simple) {
         cancelable: true,
         buttons: [
             {label: '公開', icon: 'fa-globe'},
-            {label: '非収載', icon: 'fa-unlock-alt'},
+            {label: '未収載', icon: 'fa-unlock-alt'},
             {label: '非公開', icon: 'fa-lock'},
             {label: 'ダイレクト', icon: 'fa-envelope'},
             {
