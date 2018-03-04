@@ -239,7 +239,7 @@ function showTL(mode, reload, more_load, clear_load) {
                                         var TLmode;
                                         if (now_TL === "local_media" || now_TL === "public_media") TLmode = "media"; else TLmode = "";
 
-                                        var h = $("#"+now_TL+"_item").scrollTop();
+                                        var h = document.querySelector('#'+now_TL+'_main > .page__content').scrollTop;
                                         home_auto_mode = h <= 100;
 
                                         if (home_auto_mode) { //OK
