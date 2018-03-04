@@ -24,6 +24,8 @@ function toot_card(toot, mode, note, toot_light, page) {
                 q++;
             }
         } else { //受付中
+            if (!toot['enquete']['duration']) toot['enquete']['duration'] = 30;
+
             var enq_comp_date = new Date(Math.floor(new Date().getTime() / 1000) - Math.floor(new Date(toot['created_at']).getTime() / 1000));
             var enq_sec_comp = toot['enquete']['duration'] - enq_comp_date;
             if (enq_sec_comp >= 0) { //受付中
