@@ -32,7 +32,7 @@ function initph(mode) {
 }
 
 function init() {
-    try {if (old_TL_ws) old_TL_ws.close();} catch (e) {console.log("no_ws");}
+    try {if (TL_websocket) TL_websocket.close();} catch (e) {console.log("no_ws");}
     //変数破棄
     now_TL = "local";
     last_load_TL = "";
@@ -61,7 +61,7 @@ function init() {
     tag_old_id = "";
     tag_str = "";
     list_old_id = "";
-    old_TL_ws = null;
+    TL_websocket = null;
     image_mode = "";
     home_auto_event = false;
     home_auto_tmp = "";
