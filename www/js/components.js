@@ -15,8 +15,6 @@ window.fn = {};
 window.fn.open = function() {
     var menu = document.getElementById('splitter-menu');
     menu.open();
-    account_list();
-    reset_nav();
 };
 
 function reset_nav() {

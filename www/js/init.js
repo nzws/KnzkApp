@@ -358,6 +358,11 @@ function initevent() {
             simple_close();
         }
     });
+
+    document.addEventListener('postopen', function(event) {
+        account_list();
+        reset_nav();
+    });
 }
 
 function home_autoevent() {
