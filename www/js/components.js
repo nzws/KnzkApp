@@ -28,7 +28,7 @@ function reset_nav() {
 
 function load(page) {
     if (page != "home.html") {
-        try {old_TL_ws.close();} catch(e) {console.log("ws_close_error");}
+        try {TL_websocket.close();} catch(e) {console.log("ws_close_error");}
     }
     loadNav(page, null, true);
 }

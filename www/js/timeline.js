@@ -119,7 +119,7 @@ function openTL(mode) {
             }
         }, 200);
     } else {
-        try {old_TL_ws.close();} catch(e) {console.log("ws_close_error");}
+        try {TL_websocket.close();} catch(e) {console.log("ws_close_error");}
         load("home.html");
         now_TL = "local";
         showTL(null, null, null, true);
@@ -144,10 +144,13 @@ function openTL(mode) {
  * @param clear_load 一旦破棄してやり直すときtrue
  */
 function showTL(mode, reload, more_load, clear_load) {
-    var tlmode = "", i = 0, reshtml = "", ws, ws_mode, id_main, n;
+    var tlmode = "", i = 0, reshtml = "", ws_mode, id_main, n;
     if (!mode) mode = now_TL;
     if (clear_load) {
-        if (old_TL_ws) old_TL_ws.close();
+        if (TL_websocket) {
+            TL_websocket.close();
+            TL_websocket = null;
+        }
         home_auto_tmp = "";
         home_auto_num = 0;
         toot_new_id = 0;
@@ -219,32 +222,30 @@ function showTL(mode, reload, more_load, clear_load) {
                     reshtml = document.querySelector('#'+id_main+' > .page__content').innerHTML;
                 } else {
                     if (getConfig(1, 'realtime') == 1) {
-                        if (now_TL === "public" || now_TL === "public_media")
+                        if (mode === "public" || mode === "public_media")
                             ws_mode = "public";
-                        else if (now_TL === "local" || now_TL === "local_media")
+                        else if (mode === "local" || mode === "local_media")
                             ws_mode = "public:local";
                         else
                             ws_mode = "user";
 
                         if (!reload && !more_load) {
-                            ws = new WebSocket("wss://"+inst+"/api/v1/streaming/?access_token=" + localStorage.getItem('knzkapp_now_mastodon_token') + "&stream=" + ws_mode);
-                            old_TL_ws = ws;
-                            ws.onmessage = function (message) {
+                            TL_websocket = new WebSocket("wss://"+inst+"/api/v1/streaming/?access_token=" + localStorage.getItem('knzkapp_now_mastodon_token') + "&stream=" + ws_mode);
+                            TL_websocket.onmessage = function (message) {
                                 var ws_reshtml;
                                 displayTime('update');
                                 ws_reshtml = JSON.parse(JSON.parse(message.data).payload);
 
                                 if (ws_reshtml['id']) {
                                     if (toot_new_id !== ws_reshtml['id']) {
-                                        var TLmode;
-                                        if (now_TL === "local_media" || now_TL === "public_media") TLmode = "media"; else TLmode = "";
+                                        var TLmode = mode === "local_media" || mode === "public_media" ? "media" : "";
 
-                                        var h = document.querySelector('#'+now_TL+'_main > .page__content').scrollTop;
+                                        var h = document.querySelector('#'+mode+'_main > .page__content').scrollTop;
                                         home_auto_mode = h <= 100;
 
                                         if (home_auto_mode) { //OK
                                             home_auto_event = false;
-                                            document.querySelector('#'+now_TL+'_main > .page__content').innerHTML = toot_card(ws_reshtml, "full", null, TLmode) + home_auto_tmp + document.querySelector('#'+now_TL+'_main > .page__content').innerHTML;
+                                            document.querySelector('#'+mode+'_main > .page__content').innerHTML = toot_card(ws_reshtml, "full", null, TLmode) + home_auto_tmp + document.querySelector('#'+mode+'_main > .page__content').innerHTML;
                                             home_auto_tmp = "";
                                             home_auto_num = 0;
                                             setTLheadcolor(0);
