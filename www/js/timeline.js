@@ -232,38 +232,43 @@ function showTL(mode, reload, more_load, clear_load) {
                         if (!reload && !more_load) {
                             TL_websocket = new WebSocket("wss://"+inst+"/api/v1/streaming/?access_token=" + localStorage.getItem('knzkapp_now_mastodon_token') + "&stream=" + ws_mode);
                             TL_websocket.onmessage = function (message) {
-                                var ws_reshtml;
                                 displayTime('update');
-                                ws_reshtml = JSON.parse(JSON.parse(message.data).payload);
+                                var ws_resdata = JSON.parse(message.data);
+                                var ws_reshtml = JSON.parse(ws_resdata.payload);
 
-                                if (ws_reshtml['id']) {
-                                    if (toot_new_id !== ws_reshtml['id']) {
-                                        var TLmode = mode === "local_media" || mode === "public_media" ? "media" : "";
+                                if (ws_resdata.event === "update") {
+                                    if (ws_reshtml['id']) {
+                                        if (toot_new_id !== ws_reshtml['id']) {
+                                            var TLmode = mode === "local_media" || mode === "public_media" ? "media" : "";
 
-                                        var h = document.querySelector('#'+mode+'_main > .page__content').scrollTop;
-                                        home_auto_mode = h <= 100;
+                                            var h = document.querySelector('#'+mode+'_main > .page__content').scrollTop;
+                                            home_auto_mode = h <= 100;
 
-                                        if (home_auto_mode) { //OK
-                                            home_auto_event = false;
-                                            document.querySelector('#'+mode+'_main > .page__content').innerHTML = toot_card(ws_reshtml, "full", null, TLmode) + home_auto_tmp + document.querySelector('#'+mode+'_main > .page__content').innerHTML;
-                                            home_auto_tmp = "";
-                                            home_auto_num = 0;
-                                            setTLheadcolor(0);
-                                        } else {
-                                            home_auto_tmp = toot_card(ws_reshtml, "full", null, TLmode) + home_auto_tmp;
-                                            if (!home_auto_event) {
-                                                home_auto_event = true;
-                                                home_autoevent();
+                                            if (home_auto_mode) { //OK
+                                                home_auto_event = false;
+                                                document.querySelector('#'+mode+'_main > .page__content').innerHTML = toot_card(ws_reshtml, "full", null, TLmode) + home_auto_tmp + document.querySelector('#'+mode+'_main > .page__content').innerHTML;
+                                                home_auto_tmp = "";
+                                                home_auto_num = 0;
+                                                setTLheadcolor(0);
+                                            } else {
+                                                home_auto_tmp = toot_card(ws_reshtml, "full", null, TLmode) + home_auto_tmp;
+                                                if (!home_auto_event) {
+                                                    home_auto_event = true;
+                                                    home_autoevent();
+                                                }
+                                            }
+
+
+                                            if (!home_auto_mode && (ws_reshtml['media_attachments'][0] && TLmode === "media")) {
+                                                home_auto_num++;
+                                                setTLheadcolor(1);
                                             }
                                         }
-
-
-                                        if (!home_auto_mode && (ws_reshtml['media_attachments'][0] && TLmode === "media")) {
-                                            home_auto_num++;
-                                            setTLheadcolor(1);
-                                        }
+                                        toot_new_id = ws_reshtml['id'];
                                     }
-                                    toot_new_id = ws_reshtml['id'];
+                                } else if (ws_resdata.event === "delete") {
+                                    var del_toot = document.getElementById("post_"+ws_resdata.payload);
+                                    del_toot.parentNode.removeChild(del_toot);
                                 }
                             };
                         }
