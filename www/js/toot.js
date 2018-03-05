@@ -5,7 +5,7 @@ function toot_card(toot, mode, note, toot_light, page) {
         return "";
     }
     if (toot['reblog']) {
-        alert_text = "<p class='alert_text'><ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" + toot['account']['id'] + ")'>" + toot['account']['display_name'] + "</b>さんがブーストしました</p>";
+        alert_text = "<p class='alert_text'><ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" + toot['account']['id'] + ")'>" + toot['account']['display_name'] + "</b>さんがブーストしました (<span data-time='"+toot['created_at']+"'>" +displayTime('new', toot['created_at'])+ "</span>)</p>";
         toot = toot['reblog'];
     }
 

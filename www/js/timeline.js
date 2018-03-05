@@ -73,10 +73,10 @@ function showAlert(reload, more_load) {
                         "            </div>";
                 } else {
                     if (json[i]["type"] === "favourite") {
-                        alert_text = "<ons-icon icon=\"fa-star\" class='fav-active'></ons-icon> <b onclick='show_account(" + json[i]['account']['id'] + ")'>" + json[i]['account']['display_name'] + "</b>さんがお気に入りに登録しました";
+                        alert_text = "<ons-icon icon=\"fa-star\" class='fav-active'></ons-icon> <b onclick='show_account(" + json[i]['account']['id'] + ")'>" + json[i]['account']['display_name'] + "</b>さんがお気に入りに登録しました (<span data-time='"+json[i]['created_at']+"'>" +displayTime('new', json[i]['created_at'])+ "</span>)";
                     }
                     if (json[i]["type"] === "reblog") {
-                        alert_text = "<ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" + json[i]['account']['id'] + ")'>" + json[i]['account']['display_name'] + "</b>さんがブーストしました";
+                        alert_text = "<ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" + json[i]['account']['id'] + ")'>" + json[i]['account']['display_name'] + "</b>さんがブーストしました (<span data-time='"+json[i]['created_at']+"'>" +displayTime('new', json[i]['created_at'])+ "</span>)";
                     }
 
                     reshtml += toot_card(json[i]['status'], "full", alert_text, null, "alert");
