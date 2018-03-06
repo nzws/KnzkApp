@@ -157,3 +157,16 @@ function openURL(url) {
         }
     }
 }
+
+function getParam(val) {
+    var data_s = {}, data = val.substring(1).split('&'), data_ex, value, key;
+    for(var i = 0; i < data.length; i++) {
+        data_ex = value = key = null;
+        data_ex = data[i].search(/=/);
+        value = data[i].slice(data[i].indexOf('=', 0) + 1);
+        if(data_ex != -1)
+            key = data[i].slice(0, data_ex);
+        if(key) data_s[key] = decodeURIComponent(value);
+    }
+    return data_s;
+}

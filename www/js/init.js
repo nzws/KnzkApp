@@ -79,23 +79,28 @@ function init() {
         show('now_loading');
 
         if (localStorage.getItem('knzkapp_now_mastodon_token')) {
-            inst = localStorage.getItem('knzkapp_now_mastodon_domain').toLowerCase();
+            try {
+                inst = localStorage.getItem('knzkapp_now_mastodon_domain').toLowerCase();
 
-            if (getConfig(1, 'theme')) document.getElementById("theme_css").href = getConfig(1, 'theme');
+                if (getConfig(1, 'theme')) document.getElementById("theme_css").href = getConfig(1, 'theme');
 
-            if (instance_config[inst]["markdown"])
-                document.getElementById("css_md").href = "css/kirishima_markdown.css";
-            else
-                document.getElementById("css_md").href = "";
+                if (instance_config[inst]["markdown"])
+                    document.getElementById("css_md").href = "css/kirishima_markdown.css";
+                else
+                    document.getElementById("css_md").href = "";
 
-            if (ons.platform.isIPhoneX()) { // for iPhone X
-                let html_tag = document.documentElement;
-                html_tag.setAttribute('onsflag-iphonex-portrait', '1');
-                html_tag.setAttribute('onsflag-iphonex-landscape', '1');
-                document.getElementById("css_toolbar_android").href = "css/iphonex.css";
+                if (ons.platform.isIPhoneX()) { // for iPhone X
+                    let html_tag = document.documentElement;
+                    html_tag.setAttribute('onsflag-iphonex-portrait', '1');
+                    html_tag.setAttribute('onsflag-iphonex-landscape', '1');
+                    document.getElementById("css_toolbar_android").href = "css/iphonex.css";
+                }
+
+                if (ons.platform.isAndroid()) document.getElementById("css_toolbar_android").href = "css/toolbar-height.css";
+            } catch (e) {
+                sendLog("Error/init_1", e);
+                showtoast("cannot-connect-sv");
             }
-
-            if (ons.platform.isAndroid()) document.getElementById("css_toolbar_android").href = "css/toolbar-height.css";
 
             fetch("https://"+inst+"/api/v1/instance").then(function(response) {
                 if(response.ok) {
@@ -115,56 +120,61 @@ function init() {
                         throw new Error();
                     }
                 }).then(function(json) {
-                    if (json.source) {
-                        default_post_visibility = json.source.privacy;
-                        default_sensitive = json.source.sensitive;
-                    } else {
-                        default_post_visibility = "public";
-                    }
-                    if (getConfig(1, 'no_custom_emoji')) {
-                        document.getElementById("toot_emoji_list_popover").innerHTML = "カスタム絵文字が無効化されています...";
-                        document.getElementById("emoji_list_popover").innerHTML = "カスタム絵文字が無効化されています...";
-                    } else {
-                        var elist = [document.getElementById("toot_emoji_list_popover"), document.getElementById("emoji_list_popover")];
-                        elist[0].innerHTML = "loading now...";
-                        elist[0].dataset.isload = "no";
-
-                        elist[1].innerHTML = "loading now...";
-                        elist[1].dataset.isload = "no";
-                    }
-                    if (instance_config[inst]) {
-                        toot_limit = instance_config[inst]["limit"];
-                    } else {
-                        instance_config[inst] = {limit: 500};
-                        toot_limit = 500;
-                    }
-
-                    document.querySelector('#navigator').resetToPage('home.html');
-                    initevent();
-                    showTL("local", null, null, true, null);
-
-                    setTimeout(function () {
-                        document.getElementById("splitter-profile-bg").setAttribute('style', 'background-image: url(\''+json[getConfig(1, 'no_gif') ? "header_static" : "header"]+'\');');
-                        if (!getConfig(1, 'no_icon')) document.getElementById("splitter-icon").src = json[getConfig(1, 'no_gif') ? "avatar_static" : "avatar"];
-                        document.getElementById("splitter-profile-name").innerHTML = json.display_name;
-                        document.getElementById("account_change-username").innerHTML = json.acct + "@" + inst;
-                        if (json.locked === true)
-                            $("#menu-followreq").removeClass("invisible");
-                        else
-                            $("#menu-followreq").addClass("invisible");
-
-                        if (getConfig(1, 'menu-fav') == 1) $("#menu-fav-page").removeClass("invisible");
-                        if (getConfig(1, 'swipe_menu') == 1) document.getElementById("splitter-menu").setAttribute('swipeable', '1');
-
-                        var dial = getConfig(1, 'dial'), icon;
-                        if (dial && dial != "change") {
-                            $("#dial_main").removeClass("invisible");
-                            if (dial === "toot") icon = "fa-pencil"; else if (dial === "alert") icon = "fa-bell"; if (dial === "reload") icon = "fa-refresh";
-                            document.getElementById("dial-icon").className = "ons-icon fa "+icon;
-                        } else if (dial) {
-                            $("#dial_TL").removeClass("invisible");
+                    try {
+                        if (json.source) {
+                            default_post_visibility = json.source.privacy;
+                            default_sensitive = json.source.sensitive;
+                        } else {
+                            default_post_visibility = "public";
                         }
-                    }, 500);
+                        if (getConfig(1, 'no_custom_emoji')) {
+                            document.getElementById("toot_emoji_list_popover").innerHTML = "カスタム絵文字が無効化されています...";
+                            document.getElementById("emoji_list_popover").innerHTML = "カスタム絵文字が無効化されています...";
+                        } else {
+                            var elist = [document.getElementById("toot_emoji_list_popover"), document.getElementById("emoji_list_popover")];
+                            elist[0].innerHTML = "loading now...";
+                            elist[0].dataset.isload = "no";
+
+                            elist[1].innerHTML = "loading now...";
+                            elist[1].dataset.isload = "no";
+                        }
+                        if (instance_config[inst]) {
+                            toot_limit = instance_config[inst]["limit"];
+                        } else {
+                            instance_config[inst] = {limit: 500};
+                            toot_limit = 500;
+                        }
+
+                        document.querySelector('#navigator').resetToPage('home.html');
+                        initevent();
+                        showTL("local", null, null, true, null);
+
+                        setTimeout(function () {
+                            document.getElementById("splitter-profile-bg").setAttribute('style', 'background-image: url(\''+json[getConfig(1, 'no_gif') ? "header_static" : "header"]+'\');');
+                            if (!getConfig(1, 'no_icon')) document.getElementById("splitter-icon").src = json[getConfig(1, 'no_gif') ? "avatar_static" : "avatar"];
+                            document.getElementById("splitter-profile-name").innerHTML = json.display_name;
+                            document.getElementById("account_change-username").innerHTML = json.acct + "@" + inst;
+                            if (json.locked === true)
+                                $("#menu-followreq").removeClass("invisible");
+                            else
+                                $("#menu-followreq").addClass("invisible");
+
+                            if (getConfig(1, 'menu-fav') == 1) $("#menu-fav-page").removeClass("invisible");
+                            if (getConfig(1, 'swipe_menu') == 1) document.getElementById("splitter-menu").setAttribute('swipeable', '1');
+
+                            var dial = getConfig(1, 'dial'), icon;
+                            if (dial && dial != "change") {
+                                $("#dial_main").removeClass("invisible");
+                                if (dial === "toot") icon = "fa-pencil"; else if (dial === "alert") icon = "fa-bell"; if (dial === "reload") icon = "fa-refresh";
+                                document.getElementById("dial-icon").className = "ons-icon fa "+icon;
+                            } else if (dial) {
+                                $("#dial_TL").removeClass("invisible");
+                            }
+                        }, 500);
+                    } catch (e) {
+                        sendLog("Error/init_2", e);
+                        showtoast("cannot-connect-sv");
+                    }
                 }).catch(function(error) {
                     console.log(error);
                     showtoast('cannot-connect-API');
@@ -446,7 +456,7 @@ function handleOpenURL(url) {
         var mode = strValue.split("/");
         if (mode[0] === "login") {
             var token = mode[1].replace('token?code=','');
-            token = token.replace('&state=','');
+            token = getParam(token)["code"];
             login_callback(token);
         } else if (mode[0] === "user") {
             var user = mode[1].replace('open?','');
