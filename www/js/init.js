@@ -284,12 +284,11 @@ function initevent() {
         }
         if (event.enterPage.id === "toot-page") {
             document.getElementById("toot-limit").innerHTML = toot_limit;
-            if (!instance_config[inst]["enquete"]) $("#vote_bt").addClass("invisible");
-            if (!instance_config[inst]["bbcode"]) $("#bbcode_bt").addClass("invisible");
-            if (!instance_config[inst]["enquete_duration"]) $("#vote_new_time").addClass("invisible");
-            if (!instance_config[inst]["glitch_soc"]) $("#localonly_bt").addClass("invisible");
-            if (!instance_config[inst]["markdown"]) $("#md-box").addClass("invisible");
-
+            if (instance_config[inst]["enquete"]) $("#vote_bt").removeClass("invisible");
+            if (instance_config[inst]["bbcode"]) $("#bbcode_bt").removeClass("invisible");
+            if (instance_config[inst]["enquete_duration"]) $("#vote_new_time").removeClass("invisible");
+            if (instance_config[inst]["glitch_soc"]) $("#localonly_bt").removeClass("invisible");
+            if (instance_config[inst]["markdown"]) $("#md-box").removeClass("invisible");
 
             var emoji = document.getElementById("toot_emoji_list_popover"), i = 0, reshtml = "";
             if (emoji.dataset.isload === "no" && !getConfig(1, 'no_custom_emoji')) {
