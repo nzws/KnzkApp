@@ -4,7 +4,7 @@ function AccountCard(acct) {
     reshtml = "<div onclick='show_account(" +acct['id'] + ")' class=\"toot acct-small\">\n" +
         "    <img src=\"" + acct['avatar'] + "\" class=\"icon-img-small\" align=\"middle\">\n" +
         "    <span class=\"toot-group toot-card-right\">\n" +
-        "      <b>" + acct['display_name'] + "</b> <small>@" + acct['acct'] + "</small>\n" +
+        "      <b>" + t_text(acct['display_name']) + "</b> <small>@" + acct['acct'] + "</small>\n" +
         "    </span>\n" +
         "</div>";
 
