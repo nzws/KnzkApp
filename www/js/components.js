@@ -103,12 +103,14 @@ function t_text(text) {
         text = text.replace(/(ニート|無職|ノージョブ|自宅警備員)/g , "【部屋に閉じこもって生きていればそれでいいの？】");
     }
 
-    while (emoji_num_a[i]) {
-        emoji = ":" + emoji_num_a[i] + ":";
+    if (!getConfig(1, 'no_custom_emoji')) {
+        while (emoji_num_a[i]) {
+            emoji = ":" + emoji_num_a[i] + ":";
 
-        replacetext = "<img draggable=\"false\" class=\"emojione\" src=\""+emoji_list[emoji_num_a[i]]+"\" />";
-        text = text.replace(new RegExp(emoji,"g"),replacetext);
-        i++;
+            replacetext = "<img draggable=\"false\" class=\"emojione\" src=\""+emoji_list[emoji_num_a[i]]+"\" />";
+            text = text.replace(new RegExp(emoji,"g"),replacetext);
+            i++;
+        }
     }
 
     //text = emojione.toImage(text);
