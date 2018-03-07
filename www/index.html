@@ -447,6 +447,7 @@
                     <ons-button onclick="hidePopover('tools_popover');showPopover(document.getElementById('tools_bt_simple'), 'vote_popover')" class="w-max invisible" id="vote_bt_simple"><ons-icon icon="fa-align-left"></ons-icon> Enquete</ons-button>
                     <ons-button onclick="hidePopover('tools_popover');show_bbcodegen('simple_toot_TL_input')" class="w-max invisible" style="margin-top: 5px" id="bbcode_bt_simple"><ons-icon icon="fa-font"></ons-icon> BBCode</ons-button>
                     <ons-button onclick="hidePopover('tools_popover');openDoodle('simple')" class="w-max" style="margin-top: 5px"><ons-icon icon="fa-paint-brush"></ons-icon> Doodle</ons-button>
+                    <ons-button onclick="hidePopover('tools_popover');add_emoji_simple('｜漢字《》')" class="w-max invisible" style="margin-top: 5px" id="yomigana_bt_simple">読み仮名</ons-button>
                 <p id="md_note_simple" class="invisible">*MarkDownはスワイプメニュー→新規トゥートから使用できます</p>
                 </p>
                 <p>
@@ -922,6 +923,7 @@
             <div class="dark-box">
                 <ons-button modifier="quiet" onclick="post_mode()" style="border-radius: 0 0 0 4px" id="post_mode_bt"><ons-icon icon="fa-globe" id="post_mode_icon"></ons-icon></ons-button>
                 <ons-button modifier="quiet" onclick="post_localonly()" style="border-radius: 0" id="localonly_bt" class="invisible"><ons-icon icon="fa-home"></ons-icon></ons-button>
+                <ons-button modifier="quiet" onclick="add_emoji_simple('｜漢字《》', 1)" style="border-radius: 0" id="yomigana_bt" class="invisible">読み</ons-button>
                 <span style="float: right">
                 <b id="toot-limit" class="toot-limit">4096</b>
                 <ons-button onclick="post('toot_textarea', {cw:document.getElementById('cw_input').value, visibility:document.getElementById('post_mode').value, sensitive:document.getElementById('nsfw_input').value, in_reply_to_id: document.getElementById('post_reply').value, local_only: document.getElementById('localonly_input').value})" id="toot-button" style="border-radius: 4px 0 4px 0;padding-bottom: 5px;">トゥート！</ons-button>
