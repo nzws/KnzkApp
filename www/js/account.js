@@ -34,10 +34,10 @@ function show_account(id, navmode) {
 
         json.note = t_text(json.note);
         if (!json.display_name) json.display_name = json.username;
-        document.getElementById("userpage-name").innerHTML = json.display_name;
+        document.getElementById("userpage-name").innerHTML = t_text(json.display_name);
         document.getElementById("userpage-title").innerHTML = "@"+json.acct;
         document.getElementById("userpage-acct").innerHTML = "@"+json.acct;
-        document.getElementById("userpage-bio").innerHTML = json.note;
+        document.getElementById("userpage-bio").innerHTML = t_text(json.note);
         document.getElementById("userpage-icon").src = json[getConfig(1, 'no_gif') ? "avatar_static" : "avatar"];
         document.getElementById("userpage-bg").setAttribute('style', 'background-image: url(\''+json[getConfig(1, 'no_gif') ? "header_static" : "header"]+'\');');
         document.getElementById("userpage-follow").innerHTML = json.following_count;
