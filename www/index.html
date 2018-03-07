@@ -431,7 +431,7 @@
                         <ons-button modifier="quiet" onclick="post_mode(true)" class="no-rd" id="post_mode_bt_simple"><ons-icon icon="fa-globe" id="post_mode_icon_simple"></ons-icon></ons-button>
                         <ons-button modifier="quiet" onclick="showPopover(this, 'image_popover')" class="no-rd" id="new_up_bt_simple"><ons-icon icon="fa-picture-o"></ons-icon></ons-button>
                         <ons-button modifier="quiet" onclick="showPopover(this, 'cw_popover')" class="no-rd">CW</ons-button>
-                        <ons-button onclick="post_localonly(true)" id="localonly_bt_simple" modifier="quiet" class="no-rd"><ons-icon icon="fa-home"></ons-icon></ons-button>
+                        <ons-button onclick="post_localonly(true)" id="localonly_bt_simple" modifier="quiet" class="no-rd invisible"><ons-icon icon="fa-home"></ons-icon></ons-button>
                         <ons-button modifier="quiet" onclick="showPopover(this, 'tools_popover')" class="no-rd" id="tools_bt_simple"><ons-icon icon="fa-magic"></ons-icon></ons-button>
                         <ons-button modifier="quiet" onclick="showPopover(this, 'emoji_popover')" class="no-rd" id="simple_emoji_bt"><ons-icon icon="fa-smile-o"></ons-icon></ons-button>
                         <ons-button modifier="quiet" class="no-rd" id="toot_limit_simple">4096</ons-button>
@@ -444,10 +444,10 @@
         <ons-popover direction="up" id="tools_popover">
             <div style="padding: 10px; text-align: center;">
                 <p>
-                    <ons-button onclick="hidePopover('tools_popover');showPopover(document.getElementById('tools_bt_simple'), 'vote_popover')" class="w-max" id="vote_bt_simple"><ons-icon icon="fa-align-left"></ons-icon> Enquete</ons-button>
-                    <ons-button onclick="hidePopover('tools_popover');show_bbcodegen('simple_toot_TL_input')" class="w-max" style="margin-top: 5px" id="bbcode_bt_simple"><ons-icon icon="fa-font"></ons-icon> BBCode</ons-button>
+                    <ons-button onclick="hidePopover('tools_popover');showPopover(document.getElementById('tools_bt_simple'), 'vote_popover')" class="w-max invisible" id="vote_bt_simple"><ons-icon icon="fa-align-left"></ons-icon> Enquete</ons-button>
+                    <ons-button onclick="hidePopover('tools_popover');show_bbcodegen('simple_toot_TL_input')" class="w-max invisible" style="margin-top: 5px" id="bbcode_bt_simple"><ons-icon icon="fa-font"></ons-icon> BBCode</ons-button>
                     <ons-button onclick="hidePopover('tools_popover');openDoodle('simple')" class="w-max" style="margin-top: 5px"><ons-icon icon="fa-paint-brush"></ons-icon> Doodle</ons-button>
-                <p id="md_note_simple">*MarkDownはスワイプメニュー→新規トゥートから使用できます</p>
+                <p id="md_note_simple" class="invisible">*MarkDownはスワイプメニュー→新規トゥートから使用できます</p>
                 </p>
                 <p>
                     <ons-button onclick="hidePopover('tools_popover')" class="w-max">閉じる</ons-button>
@@ -489,7 +489,7 @@
                     <ons-input id="vote_new_2_simple" modifier="underbar" placeholder="項目2" class="w-max black_text"></ons-input>
                     <ons-input id="vote_new_3_simple" modifier="underbar" placeholder="項目3(任意)" class="w-max black_text"></ons-input>
                     <ons-input id="vote_new_4_simple" modifier="underbar" placeholder="項目4(任意)" class="w-max black_text"></ons-input>
-                    <ons-select id="vote_new_time_simple" class="w-max black_text" modifier="underbar">
+                    <ons-select id="vote_new_time_simple" class="w-max black_text invisible" modifier="underbar">
                         <option value="30">30秒</option>
                         <option value="60">1分</option>
                         <option value="180">3分</option>
@@ -878,7 +878,7 @@
             </div>
             <div class="center">トゥート！</div>
             <div class="right">
-                <ons-toolbar-button onclick="show_bbcodegen('toot_textarea', 'toot-limit', 'toot-button')" id="bbcode_bt">
+                <ons-toolbar-button onclick="show_bbcodegen('toot_textarea', 'toot-limit', 'toot-button')" id="bbcode_bt" class="invisible">
                     <ons-icon icon="fa-font"></ons-icon>
                 </ons-toolbar-button>
             </div>
@@ -892,7 +892,7 @@
                     <ons-input id="vote_new_2" modifier="underbar" placeholder="項目2" class="w-max"></ons-input>
                     <ons-input id="vote_new_3" modifier="underbar" placeholder="項目3(任意)" class="w-max"></ons-input>
                     <ons-input id="vote_new_4" modifier="underbar" placeholder="項目4(任意)" class="w-max"></ons-input>
-                    <ons-select id="vote_new_time" class="w-max" modifier="underbar">
+                    <ons-select id="vote_new_time" class="w-max invisible" modifier="underbar">
                         <option value="30">30秒</option>
                         <option value="60">1分</option>
                         <option value="180">3分</option>
@@ -915,20 +915,20 @@
                 <ons-button modifier="quiet" onclick="$('#post_file').click()" style="border-radius: 0" id="new_up_bt"><ons-icon icon="fa-picture-o"></ons-icon></ons-button>
                 <ons-button modifier="quiet" onclick="post_nsfw()" style="border-radius: 0" id="nsfw_bt"><ons-icon icon="fa-eye"></ons-icon></ons-button>
                 <ons-button modifier="quiet" onclick="post_cw()" style="border-radius: 0" id="cw_bt">CW</ons-button>
-                <ons-button modifier="quiet" onclick="post_vote()" style="border-radius: 0" id="vote_bt"><ons-icon icon="fa-align-left"></ons-icon></ons-button>
+                <ons-button modifier="quiet" onclick="post_vote()" style="border-radius: 0" id="vote_bt" class="invisible"><ons-icon icon="fa-align-left"></ons-icon></ons-button>
                 <ons-button modifier="quiet" onclick="openDoodle()"><ons-icon icon="fa-paint-brush"></ons-icon></ons-button>
                 <ons-button modifier="quiet" onclick="showPopover(this, 'toot_emoji_popover')" id="toot_emoji_bt"><ons-icon icon="fa-smile-o"></ons-icon></ons-button>
             </div>
             <div class="dark-box">
                 <ons-button modifier="quiet" onclick="post_mode()" style="border-radius: 0 0 0 4px" id="post_mode_bt"><ons-icon icon="fa-globe" id="post_mode_icon"></ons-icon></ons-button>
-                <ons-button modifier="quiet" onclick="post_localonly()" style="border-radius: 0" id="localonly_bt"><ons-icon icon="fa-home"></ons-icon></ons-button>
+                <ons-button modifier="quiet" onclick="post_localonly()" style="border-radius: 0" id="localonly_bt" class="invisible"><ons-icon icon="fa-home"></ons-icon></ons-button>
                 <span style="float: right">
                 <b id="toot-limit" class="toot-limit">4096</b>
                 <ons-button onclick="post('toot_textarea', {cw:document.getElementById('cw_input').value, visibility:document.getElementById('post_mode').value, sensitive:document.getElementById('nsfw_input').value, in_reply_to_id: document.getElementById('post_reply').value, local_only: document.getElementById('localonly_input').value})" id="toot-button" style="border-radius: 4px 0 4px 0;padding-bottom: 5px;">トゥート！</ons-button>
                 </span>
             </div>
 
-            <div id="md-box">
+            <div id="md-box" class="invisible">
                 <p></p>
                 <div class="dark-box-header">
                     Markdown
