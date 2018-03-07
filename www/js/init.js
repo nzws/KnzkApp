@@ -285,6 +285,7 @@ function initevent() {
         if (event.enterPage.id === "toot-page") {
             document.getElementById("toot-limit").innerHTML = toot_limit;
             if (instance_config[inst]["enquete"]) $("#vote_bt").removeClass("invisible");
+            if (instance_config[inst]["yomigana"]) $("#yomigana_bt").removeClass("invisible");
             if (instance_config[inst]["bbcode"]) $("#bbcode_bt").removeClass("invisible");
             if (instance_config[inst]["enquete_duration"]) $("#vote_new_time").removeClass("invisible");
             if (instance_config[inst]["glitch_soc"]) $("#localonly_bt").removeClass("invisible");

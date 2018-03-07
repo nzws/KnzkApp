@@ -380,6 +380,7 @@ function post(id, option, simple) {
 
 function simple_open() {
     if (instance_config[inst]["enquete"]) $("#vote_bt_simple").removeClass("invisible");
+    if (instance_config[inst]["yomigana"]) $("#yomigana_bt_simple").removeClass("invisible");
     if (instance_config[inst]["bbcode"]) $("#bbcode_bt_simple").removeClass("invisible");
     if (instance_config[inst]["enquete_duration"]) $("#vote_new_time_simple").removeClass("invisible");
     if (instance_config[inst]["glitch_soc"]) $("#localonly_bt_simple").removeClass("invisible");
