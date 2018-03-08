@@ -24,10 +24,11 @@ function login_open(domain) {
             throw new Error();
         }
     }).then(function(json) {
-        inst_domain = domain.toLowerCase();
+        var inst_domain_tmp = domain.toLowerCase();
+        localStorage.setItem('knzkapp_tmp_domain', inst_domain_tmp);
         localStorage.setItem('knzkapp_tmp_cid', json["client_id"]);
         localStorage.setItem('knzkapp_tmp_scr', json["client_secret"]);
-        var url = 'https://'+domain+'/oauth/authorize?response_type=code&redirect_uri=knzkapp://login/token&scope=read+write+follow&client_id='+inst_login_cid;
+        var url = 'https://'+inst_domain_tmp+'/oauth/authorize?response_type=code&redirect_uri=knzkapp://login/token&scope=read+write+follow&client_id='+json["client_id"];
         if (ons.platform.isIOS()) {
             openURL(url);
         } else {
@@ -62,7 +63,7 @@ function login_callback(code) {
             }
         });
     }
-    fetch("https://"+inst_domain+"/oauth/token", {
+    fetch("https://"+localStorage.getItem('knzkapp_tmp_domain')+"/oauth/token", {
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: JSON.stringify({
@@ -82,10 +83,10 @@ function login_callback(code) {
         }
     }).then(function(json) {
         localStorage.setItem('knzkapp_now_mastodon_token',json.access_token);
-        localStorage.setItem('knzkapp_now_mastodon_domain',inst_domain);
-        inst = inst_domain;
+        localStorage.setItem('knzkapp_now_mastodon_domain',localStorage.getItem('knzkapp_tmp_domain'));
+        inst = localStorage.getItem('knzkapp_tmp_domain');
 
-        fetch("https://"+inst_domain+"/api/v1/accounts/verify_credentials", {
+        fetch("https://"+inst+"/api/v1/accounts/verify_credentials", {
             headers: {'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')}
         }).then(function(response) {
             if(response.ok) {
