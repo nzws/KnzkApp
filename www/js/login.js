@@ -25,8 +25,8 @@ function login_open(domain) {
         }
     }).then(function(json) {
         inst_domain = domain.toLowerCase();
-        inst_login_cid = json["client_id"];
-        inst_login_scr = json["client_secret"];
+        localStorage.setItem('knzkapp_tmp_cid', json["client_id"]);
+        localStorage.setItem('knzkapp_tmp_scr', json["client_secret"]);
         var url = 'https://'+domain+'/oauth/authorize?response_type=code&redirect_uri=knzkapp://login/token&scope=read+write+follow&client_id='+inst_login_cid;
         if (ons.platform.isIOS()) {
             openURL(url);
@@ -66,9 +66,8 @@ function login_callback(code) {
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: JSON.stringify({
-            scope: 'read write follow',
-            client_id: inst_login_cid,
-            client_secret: inst_login_scr,
+            client_id: localStorage.getItem('knzkapp_tmp_cid'),
+            client_secret: localStorage.getItem('knzkapp_tmp_scr'),
             grant_type: 'authorization_code',
             redirect_uri: 'knzkapp://login/token',
             code: code
