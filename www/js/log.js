@@ -15,6 +15,9 @@ function sendLog(name, log) {
             });
         }
     }
+    if (is_debug) {
+        ons.notification.alert('<pre>'+log+'</pre>', {title: 'log'});
+    }
 }
 
 function Seterrorlog(id, text, data) {
