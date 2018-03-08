@@ -67,6 +67,7 @@ function login_callback(code) {
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: JSON.stringify({
+            scopes: 'read write follow',
             client_id: localStorage.getItem('knzkapp_tmp_cid'),
             client_secret: localStorage.getItem('knzkapp_tmp_scr'),
             grant_type: 'authorization_code',
@@ -76,37 +77,41 @@ function login_callback(code) {
     }).then(function(response) {
         if(response.ok) {
             if (localStorage.getItem('knzkapp_now_mastodon_username')) account_change();
-            return response.json();
         } else {
             sendLog("Error/oauth_token", response);
-            throw new Error();
         }
+        return response.json();
     }).then(function(json) {
-        localStorage.setItem('knzkapp_now_mastodon_token',json.access_token);
-        localStorage.setItem('knzkapp_now_mastodon_domain',localStorage.getItem('knzkapp_tmp_domain'));
-        inst = localStorage.getItem('knzkapp_tmp_domain');
+        if (json.access_token) {
+            localStorage.setItem('knzkapp_now_mastodon_token',json.access_token);
+            localStorage.setItem('knzkapp_now_mastodon_domain',localStorage.getItem('knzkapp_tmp_domain'));
+            inst = localStorage.getItem('knzkapp_tmp_domain');
 
-        fetch("https://"+inst+"/api/v1/accounts/verify_credentials", {
-            headers: {'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')}
-        }).then(function(response) {
-            if(response.ok) {
-                return response.json();
-            } else {
-                sendLog("Error/loginjs_verify_credentials", response);
-                throw new Error();
-            }
-        }).then(function(json_acct) {
-            if (localStorage.getItem("knzkapp_account_list") == undefined) localStorage.setItem('knzkapp_account_list', JSON.stringify([]));
-            localStorage.setItem('knzkapp_now_mastodon_username',json_acct.acct);
-            localStorage.setItem('knzkapp_now_mastodon_id',json_acct.id);
+            fetch("https://"+inst+"/api/v1/accounts/verify_credentials", {
+                headers: {'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')}
+            }).then(function(response) {
+                if(response.ok) {
+                    return response.json();
+                } else {
+                    sendLog("Error/loginjs_verify_credentials", response);
+                    throw new Error();
+                }
+            }).then(function(json_acct) {
+                if (localStorage.getItem("knzkapp_account_list") == undefined) localStorage.setItem('knzkapp_account_list', JSON.stringify([]));
+                localStorage.setItem('knzkapp_now_mastodon_username',json_acct.acct);
+                localStorage.setItem('knzkapp_now_mastodon_id',json_acct.id);
+                hide('now_loading');
+                init();
+                showtoast('loggedin_dialog');
+            }).catch(function(error) {
+                showtoast('cannot-connect-sv');
+                console.log(error);
+                hide('now_loading');
+            });
+        } else {
             hide('now_loading');
-            init();
-            showtoast('loggedin_dialog');
-        }).catch(function(error) {
-            showtoast('cannot-connect-sv');
-            console.log(error);
-            hide('now_loading');
-        });
+            ons.notification.alert(json.error, {title: 'ログイン中にエラーが発生しました。'});
+        }
     }).catch(function(error) {
         showtoast('cannot-connect-sv');
         console.log(error);
