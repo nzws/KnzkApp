@@ -388,7 +388,7 @@ function more(id, acctid, pin_mode, url) {
             buttons: [
                 '詳細を表示',
                 'ブラウザで表示',
-                //'元のトゥートを表示',
+                '元のトゥートを表示',
                 '近くのトゥートを表示',
                 {
                     label: pin,
@@ -406,7 +406,7 @@ function more(id, acctid, pin_mode, url) {
         }).then(function (index) {
             if (index == 0) show_post(more_status_id);
             else if (index == 1) openURL(url);
-            //else if (index == 2) disp_before(more_status_id, url);
+            else if (index == 2) disp_before(more_status_id, url);
             else if (index == 2) show_post(more_status_id, true);
             else if (index == 3) pin_set(more_status_id, pin_mode);
             else if (index == 4) show('delete-post');
@@ -417,7 +417,7 @@ function more(id, acctid, pin_mode, url) {
             buttons: [
                 '詳細を表示',
                 'ブラウザで表示',
-                //'元のトゥートを表示',
+                '元のトゥートを表示',
                 '近くのトゥートを表示',
                 {
                     label: '通報',
@@ -431,9 +431,9 @@ function more(id, acctid, pin_mode, url) {
         }).then(function (index) {
             if (index == 0) show_post(more_status_id);
             else if (index == 1) openURL(url);
-            //else if (index == 2) disp_before(more_status_id, url);
-            else if (index == 2) show_post(more_status_id, true);
-            else if (index == 3) report();
+            else if (index == 2) disp_before(more_status_id, url);
+            else if (index == 3) show_post(more_status_id, true);
+            else if (index == 4) report();
         })
     }
 }
@@ -581,15 +581,11 @@ function disp_before(id, url) {
             throw new Error();
         }
     }).then(function(text) {
-        var t = text.match(/content="(.*)" property="og:description"/);
-        var i = 0;
-        var card = document.getElementsByClassName("tootcontent_"+id);
-
-        while (card[i]) {
-            if (card[i].innerHTML.indexOf("<pre class='disp_before'>") == -1) {
-                card[i].innerHTML = card[i].innerHTML + "<pre class='disp_before'>" + t[1] + "</pre>";
-            }
-            i++;
+        var t = $(text).filter("meta[property='og:description']").attr('content');
+        if (t) {
+            ons.notification.alert('<pre>'+t+'</pre>', {title: '元のトゥート'});
+        } else {
+            showtoast('no-disp_before');
         }
     }).catch(function(error) {
         showtoast('cannot-pros');
