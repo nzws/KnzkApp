@@ -28,7 +28,7 @@ function login_open(domain) {
         localStorage.setItem('knzkapp_tmp_domain', inst_domain_tmp);
         localStorage.setItem('knzkapp_tmp_cid', json["client_id"]);
         localStorage.setItem('knzkapp_tmp_scr', json["client_secret"]);
-        var url = 'https://'+inst_domain_tmp+'/oauth/authorize?response_type=code&redirect_uri=knzkapp://login/token&scope=read+write+follow&client_id='+json["client_id"];
+        var url = 'https://'+inst_domain_tmp+'/oauth/authorize?response_type=code&redirect_uri=knzkapp://login/token&scope=read write follow&client_id='+json["client_id"];
         if (ons.platform.isIOS()) {
             openURL(url);
         } else {
@@ -67,7 +67,6 @@ function login_callback(code) {
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: JSON.stringify({
-            scopes: 'read write follow',
             client_id: localStorage.getItem('knzkapp_tmp_cid'),
             client_secret: localStorage.getItem('knzkapp_tmp_scr'),
             grant_type: 'authorization_code',

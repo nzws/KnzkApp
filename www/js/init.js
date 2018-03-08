@@ -459,9 +459,8 @@ function handleOpenURL(url) {
         strValue = strValue.replace('knzkapp://','');
         var mode = strValue.split("/");
         if (mode[0] === "login") {
-            var token = mode[1].replace('token?code=','');
-            token = getParam(token)["code"];
-            login_callback(token);
+            var token = getParam(mode[1].replace('token',''));
+            login_callback(token["code"]);
         } else if (mode[0] === "user") {
             var user = mode[1].replace('open?','');
             show_account_name(user);
