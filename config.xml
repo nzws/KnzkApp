@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" id="net.knzkdev.app" version="1.0.7">
+<widget xmlns="http://www.w3.org/ns/widgets" id="net.knzkdev.app" version="1.0.8">
   <name>knzk.me</name>
   <description>Made with Monaca (http://monaca.mobi)</description>
   <author/>
@@ -91,6 +91,7 @@
   <preference name="EnableViewportScale" value="false"/>
   <preference name="android-minSdkVersion" value="19"/>
   <preference name="StatusBarStyle" value="lightcontent"/>
+  <preference name="windows-target-version" value="10.0"/>
   <access origin="*"/>
   <preference name="KeepRunning" value="true"/>
   <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
@@ -100,5 +101,4 @@
   <preference name="Fullscreen" value="false"/>
   <preference name="WindowsStorePublisherName" value="Knzk.me"/>
   <preference name="WindowsStoreIdentityName" value="ef46890d-8d5c-5fca-cde1-bc1dae48e2c2"/>
-  <preference name="windows-target-version" value="10.0" />
 </widget>
