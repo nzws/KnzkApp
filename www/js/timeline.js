@@ -56,7 +56,7 @@ function showAlert(reload, more_load) {
 
                 if (json[i]['type'] === "follow") {
                     alert_text = "<p class='alert_text'>";
-                    alert_text += "<ons-icon icon=\"fa-user-plus\" class='boost-active'></ons-icon> <b onclick='show_account(" + json[i]['account']['id'] + ")'>" + json[i]['account']['display_name'] + "</b>さんにフォローされました";
+                    alert_text += "<ons-icon icon=\"fa-user-plus\" class='boost-active'></ons-icon> <b onclick='show_account(" + json[i]['account']['id'] + ")'>" + escapeHTML(json[i]['account']['display_name']) + "</b>さんにフォローされました";
                     alert_text += "</p>";
                     reshtml += "<div class=\"toot\">\n" +
                         alert_text +
@@ -66,17 +66,17 @@ function showAlert(reload, more_load) {
                         "                        </div>\n" +
                         "                        <div class=\"col-xs-9 toot-card-right\">\n" +
                         "                            <div class=\"toot-group\">\n" +
-                        "                                <span onclick='show_account(" + json[i]['account']['id'] + ")'><b>" + json[i]['account']['display_name'] + "</b> <small>@" + json[i]['account']['acct'] + "</small></span>\n" +
+                        "                                <span onclick='show_account(" + json[i]['account']['id'] + ")'><b>" + escapeHTML(json[i]['account']['display_name']) + "</b> <small>@" + json[i]['account']['acct'] + "</small></span>\n" +
                         "                            </div>\n" +
                         "                        </div>\n" +
                         "                    </div>\n" +
                         "            </div>";
                 } else {
                     if (json[i]["type"] === "favourite") {
-                        alert_text = "<ons-icon icon=\"fa-star\" class='fav-active'></ons-icon> <b onclick='show_account(" + json[i]['account']['id'] + ")'>" + json[i]['account']['display_name'] + "</b>さんがお気に入りに登録しました (<span data-time='"+json[i]['created_at']+"' class='date'>" +displayTime('new', json[i]['created_at'])+ "</span>)";
+                        alert_text = "<ons-icon icon=\"fa-star\" class='fav-active'></ons-icon> <b onclick='show_account(" + json[i]['account']['id'] + ")'>" + escapeHTML(json[i]['account']['display_name']) + "</b>さんがお気に入りに登録しました (<span data-time='"+json[i]['created_at']+"' class='date'>" +displayTime('new', json[i]['created_at'])+ "</span>)";
                     }
                     if (json[i]["type"] === "reblog") {
-                        alert_text = "<ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" + json[i]['account']['id'] + ")'>" + json[i]['account']['display_name'] + "</b>さんがブーストしました (<span data-time='"+json[i]['created_at']+"' class='date'>" +displayTime('new', json[i]['created_at'])+ "</span>)";
+                        alert_text = "<ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" + json[i]['account']['id'] + ")'>" + escapeHTML(json[i]['account']['display_name']) + "</b>さんがブーストしました (<span data-time='"+json[i]['created_at']+"' class='date'>" +displayTime('new', json[i]['created_at'])+ "</span>)";
                     }
 
                     reshtml += toot_card(json[i]['status'], "full", alert_text, null, "alert");

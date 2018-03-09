@@ -5,7 +5,7 @@ function toot_card(toot, mode, note, toot_light, page) {
         return "";
     }
     if (toot['reblog']) {
-        alert_text = "<p class='alert_text'><ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" + toot['account']['id'] + ")'>" + toot['account']['display_name'] + "</b>さんがブーストしました (<span data-time='"+toot['created_at']+"' class='date'>" +displayTime('new', toot['created_at'])+ "</span>)</p>";
+        alert_text = "<p class='alert_text'><ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" + toot['account']['id'] + ")'>" + escapeHTML(toot['account']['display_name']) + "</b>さんがブーストしました (<span data-time='"+toot['created_at']+"' class='date'>" +displayTime('new', toot['created_at'])+ "</span>)</p>";
         toot = toot['reblog'];
     }
 
@@ -192,7 +192,7 @@ function toot_card(toot, mode, note, toot_light, page) {
         "                        <div class=\"col-xs-"+layout_num["toot_content"]+" toot-card-right\"> \n" +
         "                           <div class='"+namucard+"'>" +
         "                            <div class=\"toot-group\">\n" +
-        "                                <span onclick='show_account("+toot['account']['id']+")'><b class='toot_name'>"+t_text(toot['account']['display_name'])+"</b> <small>@"+toot['account']['acct']+"</small></span><span class='toot-right'><ons-button modifier='quiet' class='no-rd p0'><ons-icon icon='fa-"+visibility_icon+"' class='toot-right-icon' style='margin-right: 10px'></ons-icon></ons-button>"+ col_bt +"</span>" +
+        "                                <span onclick='show_account("+toot['account']['id']+")'><b class='toot_name'>"+t_text(escapeHTML(toot['account']['display_name']))+"</b> <small>@"+toot['account']['acct']+"</small></span><span class='toot-right'><ons-button modifier='quiet' class='no-rd p0'><ons-icon icon='fa-"+visibility_icon+"' class='toot-right-icon' style='margin-right: 10px'></ons-icon></ons-button>"+ col_bt +"</span>" +
         "                            </div>" +
         "                            <div class='"+is_col+"toot_content tootcontent_"+toot['id']+"' data-id='"+toot['id']+"' data-dispmode='"+mode+"'>" +
         content +

@@ -4,7 +4,7 @@ function AccountCard(acct) {
     reshtml = "<div onclick='show_account(" +acct['id'] + ")' class=\"toot acct-small\">\n" +
         "    <img src=\"" + acct['avatar'] + "\" class=\"icon-img-small\" align=\"middle\">\n" +
         "    <span class=\"toot-group toot-card-right\">\n" +
-        "      <b>" + t_text(acct['display_name']) + "</b> <small>@" + acct['acct'] + "</small>\n" +
+        "      <b>" + t_text(escapeHTML(acct['display_name'])) + "</b> <small>@" + acct['acct'] + "</small>\n" +
         "    </span>\n" +
         "</div>";
 
@@ -33,7 +33,7 @@ function show_account(id, navmode) {
         account_page_acct = json.acct;
 
         if (!json.display_name) json.display_name = json.username;
-        document.getElementById("userpage-name").innerHTML = t_text(json.display_name);
+        document.getElementById("userpage-name").innerHTML = t_text(escapeHTML(json.display_name));
         document.getElementById("userpage-title").innerHTML = "@"+json.acct;
         document.getElementById("userpage-acct").innerHTML = "@"+json.acct;
         document.getElementById("userpage-bio").innerHTML = t_text(json.note);
