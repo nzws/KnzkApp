@@ -5,7 +5,7 @@ function toot_card(toot, mode, note, toot_light, page) {
         return "";
     }
     if (toot['reblog']) {
-        alert_text = "<p class='alert_text'><ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" + toot['account']['id'] + ")'>" + toot['account']['display_name'] + "</b>さんがブーストしました (<span data-time='"+toot['created_at']+"'>" +displayTime('new', toot['created_at'])+ "</span>)</p>";
+        alert_text = "<p class='alert_text'><ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" + toot['account']['id'] + ")'>" + toot['account']['display_name'] + "</b>さんがブーストしました (<span data-time='"+toot['created_at']+"' class='date'>" +displayTime('new', toot['created_at'])+ "</span>)</p>";
         toot = toot['reblog'];
     }
 
@@ -157,7 +157,7 @@ function toot_card(toot, mode, note, toot_light, page) {
             boost_full +
             "                                <ons-icon icon=\"fa-star\" onclick=\"toot_action('"+toot['id']+"', null, 'fav')\" class=\"tootfav_"+toot['id']+" toot-button"+namubt+fav+"\"></ons-icon>" +
             "                                <ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+", '"+toot["url"]+"')\" class=\"toot-button toot-button-last\"></ons-icon>" +
-            "                                 <span class='toot-right date' data-time='" + toot['created_at'] + "'>" +date+ "</span>" +
+            "                                 <span class='toot-right date date-disp' data-time='" + toot['created_at'] + "'>" +date+ "</span>" +
             "                            </div>\n";
     }
 
