@@ -1,19 +1,20 @@
 function login_open(domain) {
-    var os_name;
+    var os_name, uri = "knzkapp://login/token";
     if (ons.platform.isIOS()) {
-        os_name = "for iOS";
+        os_name = "iOS";
     } else if (ons.platform.isAndroid()) {
-        os_name = "for Android";
+        os_name = "Android";
     } else {
-        os_name = "(Test)";
+        os_name = "PC";
+        uri = "urn:ietf:wg:oauth:2.0:oob";
     }
     fetch("https://"+domain+"/api/v1/apps", {
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: JSON.stringify({
             scopes: 'read write follow',
-            client_name: 'KnzkApp '+os_name,
-            redirect_uris: 'knzkapp://login/token',
+            client_name: 'KnzkApp for '+os_name,
+            redirect_uris: uri,
             website: 'https://github.com/knzkdev/knzkapp'
         })
     }).then(function(response) {
@@ -28,11 +29,18 @@ function login_open(domain) {
         localStorage.setItem('knzkapp_tmp_domain', inst_domain_tmp);
         localStorage.setItem('knzkapp_tmp_cid', json["client_id"]);
         localStorage.setItem('knzkapp_tmp_scr', json["client_secret"]);
-        var url = 'https://'+inst_domain_tmp+'/oauth/authorize?response_type=code&redirect_uri=knzkapp://login/token&scope=read write follow&client_id='+json["client_id"];
+        var url = 'https://'+inst_domain_tmp+'/oauth/authorize?response_type=code&redirect_uri='+uri+'&scope=read write follow&client_id='+json["client_id"];
         if (ons.platform.isIOS()) {
             openURL(url);
         } else {
             window.open(url, "_system");
+        }
+        if (os_name === "PC") {
+            ons.notification.prompt('認証コードを入力してください<br>(空欄でキャンセル)', {title: 'ログイン'}).then(function (code) {
+                if (code) {
+                    login_callback(code);
+                }
+            });
         }
     }).catch(function(error) {
         console.log(error);
@@ -52,6 +60,7 @@ function login_open_c(domain) {
 }
 
 function login_callback(code) {
+    var uri = "knzkapp://login/token";
     if (ons.platform.isIOS()) {
         SafariViewController.isAvailable(function (available) {
             if (available) {
@@ -62,6 +71,8 @@ function login_callback(code) {
                 });
             }
         });
+    } else if (!ons.platform.isAndroid()) {
+        uri = "urn:ietf:wg:oauth:2.0:oob";
     }
     fetch("https://"+localStorage.getItem('knzkapp_tmp_domain')+"/oauth/token", {
         method: 'POST',
@@ -70,7 +81,7 @@ function login_callback(code) {
             client_id: localStorage.getItem('knzkapp_tmp_cid'),
             client_secret: localStorage.getItem('knzkapp_tmp_scr'),
             grant_type: 'authorization_code',
-            redirect_uri: 'knzkapp://login/token',
+            redirect_uri: uri,
             code: code
         })
     }).then(function(response) {
