@@ -84,6 +84,13 @@ function init() {
 
                 if (getConfig(1, 'theme')) document.getElementById("theme_css").href = getConfig(1, 'theme');
 
+                if (instance_config[inst]) {
+                    toot_limit = instance_config[inst]["limit"];
+                } else {
+                    instance_config[inst] = {limit: 500};
+                    toot_limit = 500;
+                }
+
                 if (instance_config[inst]["markdown"])
                     document.getElementById("css_md").href = "css/kirishima_markdown.css";
                 else
@@ -99,7 +106,6 @@ function init() {
                 if (ons.platform.isAndroid()) document.getElementById("css_toolbar_android").href = "css/toolbar-height.css";
             } catch (e) {
                 sendLog("Error/init_1", e);
-                showtoast("cannot-connect-sv");
             }
 
             fetch("https://"+inst+"/api/v1/instance").then(function(response) {
@@ -138,12 +144,6 @@ function init() {
                             elist[1].innerHTML = "loading now...";
                             elist[1].dataset.isload = "no";
                         }
-                        if (instance_config[inst]) {
-                            toot_limit = instance_config[inst]["limit"];
-                        } else {
-                            instance_config[inst] = {limit: 500};
-                            toot_limit = 500;
-                        }
 
                         document.querySelector('#navigator').resetToPage('home.html');
                         initevent();
@@ -174,7 +174,6 @@ function init() {
                         }, 500);
                     } catch (e) {
                         sendLog("Error/init_2", e);
-                        showtoast("cannot-connect-sv");
                     }
                 }).catch(function(error) {
                     console.log(error);
