@@ -70,7 +70,7 @@ function toot_card(toot, mode, note, toot_light, page) {
         }
         if (getConfig(2, 'all') ||
             (getConfig(2, 'alert') && page === "alert" && note) ||
-            (getConfig(2, 'leng') && toot['content'].length > 100) ||
+            (getConfig(2, 'leng') && toot['content'].length > 300) ||
             (getConfig(2, 'bs') && toot['reblog']) ||
             (getConfig(2, 're') && toot['mentions'][0]) ||
             (getConfig(2, 'media') && toot['media_attachments'][0])) {
@@ -145,9 +145,9 @@ function toot_card(toot, mode, note, toot_light, page) {
     var rand = Math.random().toString(36).slice(-8);
 
     if (toot['spoiler_text'] && getConfig(1, 'cw') != 1) {
-        content = toot['spoiler_text'] + "　<ons-button modifier=\"large--quiet\" onclick='open_cw(\"cw_"+rand+"_" + toot['id'] + "\", this);' class='cw-button'>もっと見る</ons-button><div class='invisible' id='cw_"+rand+"_" + toot['id'] + "'><p>" + toot['content'] + piccard + "</p></div>";
+        content = escapeHTML(toot['spoiler_text']) + "　<ons-button modifier=\"large--quiet\" onclick='open_cw(\"cw_"+rand+"_" + toot['id'] + "\", this);' class='cw-button'>もっと見る</ons-button><div class='invisible' id='cw_"+rand+"_" + toot['id'] + "'><p>" + toot['content'] + piccard + "</p></div>";
     } else if (toot['spoiler_text']) { //CW / 常に表示
-        content = toot['spoiler_text'] + "<p>" + toot['content'] + piccard + "</p>";
+        content = escapeHTML(toot['spoiler_text']) + "<p>" + toot['content'] + piccard + "</p>";
     } else { //CWなし
         content = toot['content'] + piccard;
     }
@@ -162,7 +162,7 @@ function toot_card(toot, mode, note, toot_light, page) {
     }
 
     if (mode == "big") {
-        if (toot['application']) appname = "(" + toot['application']['name'] + ")<br>"; else appname = "";
+        if (toot['application']) appname = "(" + escapeHTML(toot['application']['name']) + ")<br>"; else appname = "";
         var d = new Date(toot['created_at']);
         var date_text = d.toLocaleDateString("ja-JP", {weekday: "short", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"});
         bt_big = "<span class='big_date'>"+ appname + date_text + " · <span onclick='list(\"statuses/"+toot['id']+"/reblogged_by\", \"ブーストしたユーザー\", null, \"acct\", true)'><ons-icon icon=\"fa-retweet\"></ons-icon> "+toot['reblogs_count']+"</span> · <span onclick='list(\"statuses/"+toot['id']+"/favourited_by\", \"お気に入りしたユーザー\", null, \"acct\", true)'><ons-icon icon=\"fa-star\"></ons-icon> "+toot['favourites_count']+"</span></span>" +
