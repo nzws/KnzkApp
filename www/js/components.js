@@ -191,9 +191,3 @@ function copy(text) {
     cordova.plugins.clipboard.copy(text);
     showtoast('ok-copy');
 }
-
-function paste() {
-    cordova.plugins.clipboard.paste(function(text) {
-        return text;
-    });
-}

@@ -444,3 +444,9 @@ function add_emoji_simple(addtext, mode) {
     textarea.value = sentence;
     hidePopover('emoji_popover');
 }
+
+function paste_simple() {
+    cordova.plugins.clipboard.paste(function(text) {
+        add_emoji_simple(text);
+    });
+}
