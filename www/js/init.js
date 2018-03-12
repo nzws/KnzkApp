@@ -242,6 +242,7 @@ function initevent() {
                 document.getElementById("toot_limit_simple").innerHTML = toot_limit;
                 $("#post_mode_simple").val(default_post_visibility);
                 document.getElementById("post_mode_icon_simple").className = "ons-icon fa-fw fa fa-"+visibility_name(default_post_visibility);
+                if (getConfig(1, 'cp_popover')) $("#simple_cp_bt").removeClass("invisible");
             }, 500);
         } else {
             home_auto_event = false;
