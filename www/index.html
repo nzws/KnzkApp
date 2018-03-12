@@ -434,6 +434,7 @@
                         <ons-button onclick="post_localonly(true)" id="localonly_bt_simple" modifier="quiet" class="no-rd invisible"><ons-icon icon="fa-home"></ons-icon></ons-button>
                         <ons-button modifier="quiet" onclick="showPopover(this, 'tools_popover')" class="no-rd" id="tools_bt_simple"><ons-icon icon="fa-magic"></ons-icon></ons-button>
                         <ons-button modifier="quiet" onclick="showPopover(this, 'emoji_popover')" class="no-rd" id="simple_emoji_bt"><ons-icon icon="fa-smile-o"></ons-icon></ons-button>
+                        <ons-button modifier="quiet" onclick="showPopover(this, 'cp_popover')" class="no-rd invisible" id="simple_cp_bt"><ons-icon icon="fa-clipboard"></ons-icon></ons-button>
                         <ons-button modifier="quiet" class="no-rd" id="toot_limit_simple">4096</ons-button>
                         <ons-button modifier="quiet" class="no-rd" onclick="simple_close()"><ons-icon icon="fa-chevron-down"></ons-icon></ons-button>
                     </ons-list-item>
@@ -452,6 +453,18 @@
                 </p>
                 <p>
                     <ons-button onclick="hidePopover('tools_popover')" class="w-max">閉じる</ons-button>
+                </p>
+            </div>
+        </ons-popover>
+
+        <ons-popover direction="up" id="cp_popover">
+            <div style="padding: 10px; text-align: center;">
+                <p>
+                    <ons-button onclick="hidePopover('cp_popover');copy(document.getElementById('simple_toot_TL_input').value)" class="w-max">全てコピー</ons-button>
+                    <ons-button onclick="hidePopover('cp_popover');add_emoji_simple(paste())" style="margin-top: 5px" class="w-max">ペースト</ons-button>
+                </p>
+                <p>
+                    <ons-button onclick="hidePopover('cp_popover')" class="w-max">閉じる</ons-button>
                 </p>
             </div>
         </ons-popover>
@@ -721,6 +734,14 @@
                 </div>
                 <div class="right">
                     <ons-switch onclick="change_conf(1, 'image_full')" input-id="conf-image_full"></ons-switch>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    <span class="list-item__title">コピペオプションを表示</span><span class="list-item__subtitle">TLトゥート欄のみ · OSのコピペができない人向け</span>
+                </div>
+                <div class="right">
+                    <ons-switch onclick="change_conf(1, 'cp_popover')" input-id="conf-cp_popover"></ons-switch>
                 </div>
             </ons-list-item>
             <ons-list-item>
