@@ -186,3 +186,14 @@ function escapeHTML(text) {
 
     return text;
 }
+
+function copy(text) {
+    cordova.plugins.clipboard.copy(text);
+    show('ok-copy');
+}
+
+function paste() {
+    cordova.plugins.clipboard.paste(function(text) {
+        return text;
+    });
+}

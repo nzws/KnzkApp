@@ -23,7 +23,8 @@
             "cordova-plugin-safariviewcontroller": {},
             "cordova-plugin-customurlscheme": {
                 "URL_SCHEME": "knzkapp"
-            }
+            },
+            "cordova-clipboard": {}
         }
     },
     "dependencies": {
@@ -34,6 +35,7 @@
         "cordova-plugin-inappbrowser": "2.0.1",
         "cordova-plugin-statusbar": "2.4.1",
         "cordova-plugin-safariviewcontroller": "",
-        "cordova-plugin-customurlscheme": ""
+        "cordova-plugin-customurlscheme": "",
+        "cordova-clipboard": ""
     }
 }
