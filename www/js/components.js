@@ -189,7 +189,7 @@ function escapeHTML(text) {
 
 function copy(text) {
     cordova.plugins.clipboard.copy(text);
-    show('ok-copy');
+    showtoast('ok-copy');
 }
 
 function paste() {
