@@ -290,10 +290,15 @@ function initevent() {
             tmp_post_visibility = null;
 
             if (tmp_post_reply) {
-
+                if (tmp_text_pre) {
+                    var post_reply_acct = tmp_text_pre, post_reply_acct_s = post_reply_acct.split(" ");
+                    if (post_reply_acct_s[1]) {
+                        post_reply_acct = post_reply_acct_s[0] + " ...";
+                    }
+                }
                 document.getElementById("post_reply").value = tmp_post_reply; //投稿ID
                 document.getElementById("post_reply_box").className = "reply-box"; //返信のダイアログ表示
-                document.getElementById("post_reply_acct").innerHTML = tmp_text_pre ? tmp_text_pre : "自分";
+                document.getElementById("post_reply_acct").innerHTML = tmp_text_pre ? post_reply_acct : "自分";
                 document.getElementById("post_mode").value = tmp_post_visibility; //投稿モード
                 tmp_post_reply = null;
             }
