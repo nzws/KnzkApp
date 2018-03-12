@@ -287,7 +287,6 @@ function initevent() {
         if (event.enterPage.id === "toot-page") {
             if (!tmp_post_visibility) tmp_post_visibility = default_post_visibility;
             document.getElementById("post_mode_icon").className = "ons-icon fa fa-fw fa-"+visibility_name(tmp_post_visibility);
-            tmp_post_visibility = null;
 
             if (tmp_post_reply) {
                 if (tmp_text_pre) {
@@ -302,6 +301,7 @@ function initevent() {
                 document.getElementById("post_mode").value = tmp_post_visibility; //投稿モード
                 tmp_post_reply = null;
             }
+            tmp_post_visibility = null;
 
             document.getElementById("toot-limit").innerHTML = toot_limit;
             if (instance_config[inst]["enquete"]) $("#vote_bt").removeClass("invisible");
