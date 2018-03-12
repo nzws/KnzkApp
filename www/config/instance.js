@@ -20,8 +20,7 @@ var instance_config = {
     },
     "kirishima.cloud": {
         limit: 6229,
-        bbcode: true,
-        markdown: true
+        bbcode: true
     },
     "friends.nico": {
         limit: 500,
