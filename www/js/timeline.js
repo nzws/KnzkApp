@@ -154,6 +154,7 @@ function showTL(mode, reload, more_load, clear_load) {
             TL_websocket.close();
             TL_websocket = null;
         }
+        tl_postdata = {};
         home_auto_tmp = "";
         home_auto_num = 0;
         toot_new_id = 0;

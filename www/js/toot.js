@@ -8,6 +8,7 @@ function toot_card(toot, mode, note, toot_light, page) {
         alert_text = "<p class='alert_text'><ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" + toot['account']['id'] + ")'>" + escapeHTML(toot['account']['display_name']) + "</b>さんがブーストしました (<span data-time='"+toot['created_at']+"' class='date'>" +displayTime('new', toot['created_at'])+ "</span>)</p>";
         toot = toot['reblog'];
     }
+    tl_postdata[toot["id"]] = toot;
 
     if (!toot['account']['display_name'])
         toot['account']['display_name'] = toot['account']['username'];
@@ -153,7 +154,7 @@ function toot_card(toot, mode, note, toot_light, page) {
     }
     if (mode == "full") {
         button =    "                            <div class=\""+button_col+"toot-group tb_group_"+toot["id"]+"\">" +
-            "                                <ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["account"]["acct"]+"', '"+toot["visibility"]+"')\" class=\"toot-button\"></ons-icon>" +
+            "                                <ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["visibility"]+"')\" class=\"toot-button\"></ons-icon>" +
             boost_full +
             "                                <ons-icon icon=\"fa-star\" onclick=\"toot_action('"+toot['id']+"', null, 'fav')\" class=\"tootfav_"+toot['id']+" toot-button"+namubt+fav+"\"></ons-icon>" +
             "                                <ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+", '"+toot["url"]+"', '"+toot['account']["acct"]+"')\" class=\"toot-button toot-button-last\"></ons-icon>" +
@@ -167,7 +168,7 @@ function toot_card(toot, mode, note, toot_light, page) {
         var date_text = d.toLocaleDateString("ja-JP", {weekday: "short", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"});
         bt_big = "<span class='big_date'>"+ appname + date_text + " · <span onclick='list(\"statuses/"+toot['id']+"/reblogged_by\", \"ブーストしたユーザー\", null, \"acct\", true)'><ons-icon icon=\"fa-retweet\"></ons-icon> "+toot['reblogs_count']+"</span> · <span onclick='list(\"statuses/"+toot['id']+"/favourited_by\", \"お気に入りしたユーザー\", null, \"acct\", true)'><ons-icon icon=\"fa-star\"></ons-icon> "+toot['favourites_count']+"</span></span>" +
             "<div class=\"row toot_big_border\">\n" +
-            "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["account"]["acct"]+"', '"+toot["visibility"]+"')\" class=\"showtoot-button\"></ons-icon></div>\n" +
+            "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["visibility"]+"')\" class=\"showtoot-button\"></ons-icon></div>\n" +
             "                    <div class=\"col-xs-3 showtoot-button\">" + boost_big + "</div>\n" +
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-star\" onclick=\"toot_action('"+toot['id']+"', 'big', 'fav')\" class=\"tootfav_"+toot['id']+" showtoot-button"+fav+"\"></ons-icon></div>\n" +
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+", '"+toot["url"]+"', '"+toot['account']["acct"]+"')\" class=\"showtoot-button\"></ons-icon></div>\n" +
@@ -330,8 +331,19 @@ function open_cw(id, btobj) {
     }
 }
 
-function reply(id, acct, visibility) {
-    tmp_text_pre = "@" + acct + " ";
+function reply(id, visibility) {
+    tmp_text_pre = "";
+    var acct = "", i = 0;
+    if (tl_postdata[id]["mentions"][0]) {
+        while (tl_postdata[id]["mentions"][i]) {
+            acct += "@"+tl_postdata[id]["mentions"][i]["acct"]+" ";
+            i++;
+        }
+        tmp_text_pre = acct;
+    }
+    if (tl_postdata[id]["account"]["acct"] !== localStorage.getItem('knzkapp_now_mastodon_username')) {
+        tmp_text_pre += "@"+tl_postdata[id]["account"]["acct"]+" ";
+    }
     tmp_post_reply = id;
 
     tmp_post_visibility = visibility_rank(visibility) > visibility_rank(default_post_visibility) ? visibility : default_post_visibility;
