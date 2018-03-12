@@ -78,6 +78,8 @@
         var default_post_visibility = "";
         var default_sensitive = false;
         var config_tmp = {};
+        var original_post_text = "";
+        var original_post_userid = "";
     </script>
 
     <script src="config/instance.js"></script>
@@ -1528,6 +1530,22 @@
         </div>
     </ons-alert-dialog>
 
+    <ons-alert-dialog id="dialog-original_post">
+        <div class="alert-dialog-title">元のトゥート</div>
+        <div class="alert-dialog-content">
+            <pre id="original_post_box"></pre>
+        </div>
+        <div class="alert-dialog-footer">
+            <button class="alert-dialog-button" onclick="post_pre(original_post_text+'\n@'+original_post_userid+' さんの投稿\n', 1);hide('dialog-original_post')">引用してトゥート</button>
+            <button class="alert-dialog-button" onclick="copy(original_post_text)">コピー</button>
+            <button class="alert-dialog-button" onclick="hide('dialog-original_post')">閉じる</button>
+        </div>
+    </ons-alert-dialog>
+
+    <ons-toast id="ok-copy">
+        コピーしました。
+    </ons-toast>
+
     <ons-alert-dialog id="cannot-connect-sv-login">
         <div class="alert-dialog-title">エラー</div>
         <div class="alert-dialog-content">
@@ -1554,7 +1572,7 @@
         このインスタンスに登録されていない可能性があります。
     </ons-toast>
 
-    <ons-toast id="no-disp_before">
+    <ons-toast id="no-original_post">
         エラー: 取得できませんでした。
     </ons-toast>
 

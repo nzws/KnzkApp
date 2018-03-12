@@ -72,6 +72,8 @@ function init() {
     default_post_visibility = "";
     default_sensitive = false;
     config_tmp = {};
+    original_post_text = "";
+    original_post_userid = "";
     init_d();
     if (!localStorage || !fetch) {
         show("cannot-use-ls");

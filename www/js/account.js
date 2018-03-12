@@ -255,8 +255,8 @@ function show_account_name(username) {
     });
 }
 
-function post_pre(text) {
-    tmp_text_pre = text + " ";
+function post_pre(text, force) {
+    tmp_text_pre = !force ? text + " " : text;
     loadNav('post.html', 'up');
 }
 

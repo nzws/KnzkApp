@@ -156,7 +156,7 @@ function toot_card(toot, mode, note, toot_light, page) {
             "                                <ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["account"]["acct"]+"', '"+toot["visibility"]+"')\" class=\"toot-button\"></ons-icon>" +
             boost_full +
             "                                <ons-icon icon=\"fa-star\" onclick=\"toot_action('"+toot['id']+"', null, 'fav')\" class=\"tootfav_"+toot['id']+" toot-button"+namubt+fav+"\"></ons-icon>" +
-            "                                <ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+", '"+toot["url"]+"')\" class=\"toot-button toot-button-last\"></ons-icon>" +
+            "                                <ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+", '"+toot["url"]+"', '"+toot['account']["acct"]+"')\" class=\"toot-button toot-button-last\"></ons-icon>" +
             "                                 <span class='toot-right date date-disp' data-time='" + toot['created_at'] + "'>" +date+ "</span>" +
             "                            </div>\n";
     }
@@ -170,7 +170,7 @@ function toot_card(toot, mode, note, toot_light, page) {
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["account"]["acct"]+"', '"+toot["visibility"]+"')\" class=\"showtoot-button\"></ons-icon></div>\n" +
             "                    <div class=\"col-xs-3 showtoot-button\">" + boost_big + "</div>\n" +
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-star\" onclick=\"toot_action('"+toot['id']+"', 'big', 'fav')\" class=\"tootfav_"+toot['id']+" showtoot-button"+fav+"\"></ons-icon></div>\n" +
-            "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+", '"+toot["url"]+"')\" class=\"showtoot-button\"></ons-icon></div>\n" +
+            "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+", '"+toot["url"]+"', '"+toot['account']["acct"]+"')\" class=\"showtoot-button\"></ons-icon></div>\n" +
             "                </div>";
     }
 
@@ -377,7 +377,7 @@ function pin_set(id, mode) {
     });
 }
 
-function more(id, acctid, pin_mode, url) {
+function more(id, acctid, pin_mode, url, acct) {
     var pin;
     more_status_id = ""+id;
     more_acct_id = acctid;
@@ -406,7 +406,7 @@ function more(id, acctid, pin_mode, url) {
         }).then(function (index) {
             if (index == 0) show_post(more_status_id);
             else if (index == 1) openURL(url);
-            else if (index == 2) disp_before(more_status_id, url);
+            else if (index == 2) original_post(more_status_id, url, acct);
             else if (index == 3) show_post(more_status_id, true);
             else if (index == 4) pin_set(more_status_id, pin_mode);
             else if (index == 5) delete_post();
@@ -431,7 +431,7 @@ function more(id, acctid, pin_mode, url) {
         }).then(function (index) {
             if (index == 0) show_post(more_status_id);
             else if (index == 1) openURL(url);
-            else if (index == 2) disp_before(more_status_id, url);
+            else if (index == 2) original_post(more_status_id, url, acct);
             else if (index == 3) show_post(more_status_id, true);
             else if (index == 4) report();
         })
@@ -574,7 +574,8 @@ function report() {
     });
 }
 
-function disp_before(id, url) {
+function original_post(id, url, acct) {
+    show("now_loading");
     fetch(url, {
         method: 'GET'
     }).then(function(response) {
@@ -586,12 +587,17 @@ function disp_before(id, url) {
     }).then(function(text) {
         var t = $(text).filter("meta[property='og:description']").attr('content');
         if (t) {
-            ons.notification.alert('<pre>'+t+'</pre>', {title: '元のトゥート'});
+            document.getElementById("original_post_box").innerText = t;
+            original_post_text = t;
+            original_post_userid = acct;
+            show("dialog-original_post");
         } else {
-            showtoast('no-disp_before');
+            showtoast('no-original_post');
         }
+        hide("now_loading");
     }).catch(function(error) {
         showtoast('cannot-pros');
         console.log(error);
+        hide("now_loading");
     });
 }
