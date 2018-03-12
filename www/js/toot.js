@@ -409,7 +409,7 @@ function more(id, acctid, pin_mode, url) {
             else if (index == 2) disp_before(more_status_id, url);
             else if (index == 3) show_post(more_status_id, true);
             else if (index == 4) pin_set(more_status_id, pin_mode);
-            else if (index == 5) show('delete-post');
+            else if (index == 5) delete_post();
         })
     } else {
         ons.openActionSheet({
@@ -439,32 +439,35 @@ function more(id, acctid, pin_mode, url) {
 }
 
 function delete_post() {
-    hide('delete-post');
-    fetch("https://"+inst+"/api/v1/statuses/"+more_status_id, {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
-        method: 'DELETE'
-    }).then(function(response) {
-        if(response.ok) {
-            return response.json();
-        } else {
-            sendLog("Error/delete_post", response);
-            throw new Error();
+    ons.notification.confirm('本当に削除しますか？', {title: 'トゥートを削除'}).then(function (e) {
+        if (e === 1) {
+            fetch("https://"+inst+"/api/v1/statuses/"+more_status_id, {
+                headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
+                method: 'DELETE'
+            }).then(function(response) {
+                if(response.ok) {
+                    return response.json();
+                } else {
+                    sendLog("Error/delete_post", response);
+                    throw new Error();
+                }
+            }).then(function(json) {
+                var card = $(".post_"+more_status_id), i = 0;
+                while (card[i]) {
+                    card[i].parentNode.removeChild(card[i]);
+                    i++;
+                }
+                console.log("OK:del");
+                showtoast('del-post-ok');
+                more_acct_id = 0;
+                more_status_id = 0;
+            }).catch(function(error) {
+                showtoast('cannot-pros');
+                console.log(error);
+                more_acct_id = 0;
+                more_status_id = 0;
+            });
         }
-    }).then(function(json) {
-        var card = $(".post_"+more_status_id), i = 0;
-        while (card[i]) {
-            card[i].parentNode.removeChild(card[i]);
-            i++;
-        }
-        console.log("OK:del");
-        showtoast('del-post-ok');
-        more_acct_id = 0;
-        more_status_id = 0;
-    }).catch(function(error) {
-        showtoast('cannot-pros');
-        console.log(error);
-        more_acct_id = 0;
-        more_status_id = 0;
     });
 }
 
