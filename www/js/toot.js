@@ -336,7 +336,9 @@ function reply(id, visibility) {
     var acct = "", i = 0;
     if (tl_postdata[id]["mentions"][0]) {
         while (tl_postdata[id]["mentions"][i]) {
-            acct += "@"+tl_postdata[id]["mentions"][i]["acct"]+" ";
+            if (tl_postdata[id]["mentions"][i]["acct"] !== localStorage.getItem('knzkapp_now_mastodon_username')) {
+                acct += "@"+tl_postdata[id]["mentions"][i]["acct"]+" ";
+            }
             i++;
         }
         tmp_text_pre = acct;
