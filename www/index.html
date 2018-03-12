@@ -556,7 +556,7 @@
             </div>
             <div class="center">通知</div>
             <div class="right">
-                <ons-toolbar-button onclick="show('clear-alert')">
+                <ons-toolbar-button onclick="reset_alert()">
                     <ons-icon icon="trash"></ons-icon>
                 </ons-toolbar-button>
             </div>
@@ -1453,16 +1453,6 @@
         ログインしました！<button onclick="hide('loggedin_dialog')">閉じる</button>
     </ons-toast>
 
-    <ons-alert-dialog id="delete-post">
-        <div class="alert-dialog-title">トゥートを削除</div>
-        <div class="alert-dialog-content">
-            本当に削除しますか？
-        </div>
-        <div class="alert-dialog-footer">
-            <button class="alert-dialog-button" onclick="hide('delete-post')">キャンセル</button>
-            <button class="alert-dialog-button" onclick="delete_post()">削除</button>
-        </div>
-    </ons-alert-dialog>
     <ons-toast id="del-post-ok">
         トゥートを削除しました。
     </ons-toast>
@@ -1529,17 +1519,6 @@
         エラー: 取得できませんでした。<br>
         接続環境が悪いか鯖落ちしている可能性があります。
     </ons-toast>
-
-    <ons-alert-dialog id="clear-alert">
-        <div class="alert-dialog-title">通知を消去</div>
-        <div class="alert-dialog-content">
-            本当に通知を消去してもよろしいですか？
-        </div>
-        <div class="alert-dialog-footer">
-            <button class="alert-dialog-button" onclick="hide('clear-alert')">キャンセル</button>
-            <button class="alert-dialog-button" onclick="reset_alert()">通知を消去</button>
-        </div>
-    </ons-alert-dialog>
 
     <ons-alert-dialog id="cannot-use-ls">
         <div class="alert-dialog-title">エラー</div>

@@ -1,23 +1,26 @@
 function reset_alert() {
-    hide('clear-alert');
-    fetch("https://"+inst+"/api/v1/notifications/clear", {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
-        method: 'POST'
-    }).then(function(response) {
-        if(response.ok) {
-            return response.json();
-        } else {
-            sendLog("Error/noti_clear", response);
-            throw new Error();
+    ons.notification.confirm('本当に通知を消去してもよろしいですか？', {title: '通知を消去'}).then(function (e) {
+        if (e === 1) {
+            fetch("https://"+inst+"/api/v1/notifications/clear", {
+                headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
+                method: 'POST'
+            }).then(function(response) {
+                if(response.ok) {
+                    return response.json();
+                } else {
+                    sendLog("Error/noti_clear", response);
+                    throw new Error();
+                }
+            }).then(function(json) {
+                showtoast('ok-clear-alert');
+                showAlert();
+                alert_old_id = 0;
+                alert_new_id = 0;
+            }).catch(function(error) {
+                showtoast('cannot-pros');
+                console.log(error);
+            });
         }
-    }).then(function(json) {
-        showtoast('ok-clear-alert');
-        showAlert();
-        alert_old_id = 0;
-        alert_new_id = 0;
-    }).catch(function(error) {
-        showtoast('cannot-pros');
-        console.log(error);
     });
 }
 
