@@ -392,7 +392,7 @@ function showAccountTL(id, more_load, media) {
                     }
                 }).then(function(json_pinned) {
                     while (json_pinned[ip]) {
-                        reshtml_pinned += toot_card(json_pinned[ip], "full", "<ons-icon icon='fa-thumb-tack'></ons-icon>　固定トゥート", "light");
+                        reshtml_pinned += toot_card(json_pinned[ip], "full", "<ons-icon icon='fa-thumb-tack'></ons-icon>　固定トゥート", "light", "acctpage_pinned");
                         ip++;
                     }
                     if (json != json_pinned) {
