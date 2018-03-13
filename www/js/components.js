@@ -33,7 +33,7 @@ function load(page) {
     loadNav(page, null, true);
 }
 
-function loadNav(page, mode, splitter, splitter_next) {
+function loadNav(page, mode, splitter, splitter_next) { //mode: アニメーション方法, splitter: スライドメニューを使用しているか, splitter_next: その中で、ページリセットをするか
     var option;
     if (mode === "up") option = {animation:"lift"};
     else option = {animation:"slide"};
