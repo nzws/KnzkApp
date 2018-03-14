@@ -306,7 +306,10 @@ function showTL(mode, reload, more_load, clear_load) {
 
 function showTagTL(tag, more_load) {
     var i = 0, reshtml = "", get = "";
-    if (!tag) tag = tag_str;
+    if (!tag)
+        tag = tag_str;
+    else
+        tag_str = tag;
     if (more_load) {
         get = "?max_id="+tag_old_id;
         more_load.value = "読み込み中...";
