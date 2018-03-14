@@ -53,7 +53,10 @@
       </array>
     </config-file>
     <config-file platform="ios" target="*-Info.plist" parent="NSPhotoLibraryUsageDescription">
-      <string>画像投稿に必要です</string>
+      <string>画像投稿にライブラリを使用します。</string>
+    </config-file>
+    <config-file platform="ios" target="*-Info.plist" parent="NSCameraUsageDescription">
+      <string>画像投稿にカメラを使用します。</string>
     </config-file>
   </platform>
   <platform name="android">
