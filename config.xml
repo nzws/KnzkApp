@@ -52,6 +52,9 @@
         <string>ja</string>
       </array>
     </config-file>
+    <config-file platform="ios" target="*-Info.plist" parent="NSPhotoLibraryUsageDescription">
+      <string>画像投稿に必要です</string>
+    </config-file>
   </platform>
   <platform name="android">
     <icon src="/res/android/icon/ldpi.png" density="ldpi"/>
