@@ -411,7 +411,7 @@
                 <input type="hidden" id="localonly_input_simple">
                 <input type="hidden" id="post_mode_simple" value="public">
                 <input type="hidden" id="post_reply_simple">
-                <input type="file" id="post_file_simple" class="invisible" onchange="up_file(true)">
+                <input type="file" id="post_file_simple" class="invisible" onchange="up_file(true)" accept="image/*;capture=camera">
 
                 <ons-list>
                     <ons-list-item style="padding-left: 0" class="simple-toot">
@@ -932,7 +932,7 @@
                 <input type="hidden" id="localonly_input">
                 <input type="hidden" id="post_mode" value="public">
                 <input type="hidden" id="post_reply">
-                <input type="file" id="post_file" class="invisible" onchange="up_file()">
+                <input type="file" id="post_file" class="invisible" onchange="up_file()" accept="image/*;capture=camera">
 
                 <ons-button modifier="quiet" onclick="$('#post_file').click()" style="border-radius: 0" id="new_up_bt"><ons-icon icon="fa-picture-o"></ons-icon></ons-button>
                 <ons-button modifier="quiet" onclick="post_nsfw()" style="border-radius: 0" id="nsfw_bt"><ons-icon icon="fa-eye"></ons-icon></ons-button>
