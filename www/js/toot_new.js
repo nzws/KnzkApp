@@ -76,7 +76,7 @@ function up_file_suc(base64, mode_blob) {
             if(response.ok) {
                 return response.json();
             } else {
-                sendLog("Error/media", response);
+                sendLog("Error/media", response.json);
                 throw new Error();
             }
         }).then(function(json) {
@@ -347,7 +347,7 @@ function post(id, option, simple) {
         if(response.ok) {
             return response.json();
         } else {
-            sendLog("Error/post", response);
+            sendLog("Error/post", response.json);
             throw new Error();
         }
     }).then(function(json) {
@@ -403,7 +403,7 @@ function simple_open() {
             } else {
                 //カスタム絵文字非対応インスタンス
                 $("#simple_emoji_bt").addClass("invisible");
-                sendLog("Error/simple_open_emoji", response);
+                sendLog("Error/simple_open_emoji", response.json);
             }
         }).then(function(json) {
             if (json) {

@@ -12,7 +12,7 @@ function SearchLoad() {
         if(response.ok) {
             return response.json();
         } else {
-            sendLog("Error/Search", response);
+            sendLog("Error/Search", response.json);
             throw new Error();
         }
     }).then(function(json) {

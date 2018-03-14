@@ -114,7 +114,7 @@ function init() {
                 if(response.ok) {
                     return response.json();
                 } else {
-                    sendLog("Error/init_instance", response);
+                    sendLog("Error/init_instance", response.json);
                     throw new Error();
                 }
             }).then(function(json) {
@@ -124,7 +124,7 @@ function init() {
                     if(response.ok) {
                         return response.json();
                     } else {
-                        sendLog("Error/init_verify_credentials", response);
+                        sendLog("Error/init_verify_credentials", response.json);
                         throw new Error();
                     }
                 }).then(function(json) {
@@ -321,7 +321,7 @@ function initevent() {
                     if(response.ok) {
                         return response.json();
                     } else {
-                        sendLog("Error/event_toot_emoji", response);
+                        sendLog("Error/event_toot_emoji", response.json);
                         //カスタム絵文字非対応インスタンス
                         $("#toot_emoji_bt").addClass("invisible");
                     }

@@ -25,7 +25,7 @@ function show_account(id, navmode) {
         if(response.ok) {
             return response.json();
         } else {
-            sendLog("Error/showaccount", response);
+            sendLog("Error/showaccount", response.json);
             throw new Error();
         }
     }).then(function(json) {
@@ -74,7 +74,7 @@ function show_account(id, navmode) {
         if(response.ok) {
             return response.json();
         } else {
-            sendLog("Error/relationships", response);
+            sendLog("Error/relationships", response.json);
             throw new Error();
         }
     }).then(function(json) {
@@ -150,7 +150,7 @@ function account_state_action(id, obj, mode) {
         if(response.ok) {
             return response.json();
         } else {
-            sendLog("Error/state_action", response);
+            sendLog("Error/state_action", response.json);
             throw new Error();
         }
     }).then(function(json) {
@@ -234,7 +234,7 @@ function show_account_name(username) {
         if(response.ok) {
             return response.json();
         } else {
-            sendLog("Error/show_account_name", response);
+            sendLog("Error/show_account_name", response.json);
             showtoast('cannot-pros');
             return false;
         }
