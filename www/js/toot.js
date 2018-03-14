@@ -240,7 +240,7 @@ function vote_item(q, obj, id) {
         if(response.ok) {
             return response.json();
         } else {
-            sendLog("Error/vote", response);
+            sendLog("Error/vote", response.json);
             showtoast('cannot-pros');
         }
     }).then(function(json) {
@@ -289,7 +289,7 @@ function toot_action(id, mode, action_mode) {
         if(response.ok) {
             return response.json();
         } else {
-            sendLog("Error/toot_action", response);
+            sendLog("Error/toot_action", response.json);
             throw new Error();
         }
     }).then(function(json) {
@@ -383,7 +383,7 @@ function pin_set(id, mode) {
         if(response.ok) {
             return response.json();
         } else {
-            sendLog("Error/pin_set", response);
+            sendLog("Error/pin_set", response.json);
             showtoast('cannot-pros');
         }
     }).then(function(json) {
@@ -462,7 +462,7 @@ function delete_post() {
                 if(response.ok) {
                     return response.json();
                 } else {
-                    sendLog("Error/delete_post", response);
+                    sendLog("Error/delete_post", response.json);
                     throw new Error();
                 }
             }).then(function(json) {
@@ -495,7 +495,7 @@ function show_post(id, near) {
         if(response.ok) {
             return response.json();
         } else {
-            sendLog("Error/show_post", response);
+            sendLog("Error/show_post", response.json);
             showtoast('cannot-pros');
         }
     }).then(function(json_stat) {
@@ -510,7 +510,7 @@ function show_post(id, near) {
                     if(response.ok) {
                         return response.json();
                     } else {
-                        sendLog("Error/near_show_toot", response);
+                        sendLog("Error/near_show_toot", response.json);
                         showtoast('cannot-load');
                         return false;
                     }
@@ -531,7 +531,7 @@ function show_post(id, near) {
                     if(response.ok) {
                         return response.json();
                     } else {
-                        sendLog("Error/show_toot_context", response);
+                        sendLog("Error/show_toot_context", response.json);
                         showtoast('cannot-pros');
                     }
                 }).then(function(json) {
@@ -570,7 +570,7 @@ function report() {
                 if(response.ok) {
                     return response.json();
                 } else {
-                    sendLog("Error/report", response);
+                    sendLog("Error/report", response.json);
                     throw new Error();
                 }
             }).then(function(json) {

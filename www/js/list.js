@@ -93,7 +93,7 @@ function followreq(id, mode) {
         if(response.ok) {
             return response.json();
         } else {
-            sendLog("Error/followreq", response);
+            sendLog("Error/followreq", response.json);
             throw new Error();
         }
     }).then(function(json) {
@@ -116,7 +116,7 @@ function LoadrepStatus() {
         if(response.ok) {
             return response.json();
         } else {
-            sendLog("Error/LoadrepStatus", response);
+            sendLog("Error/LoadrepStatus", response.json);
             throw new Error();
         }
     }).then(function(json) {

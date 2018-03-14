@@ -21,7 +21,7 @@ function login_open(domain) {
         if(response.ok) {
             return response.json();
         } else {
-            sendLog("Error/CreateApp", response);
+            sendLog("Error/CreateApp", response.json);
             throw new Error();
         }
     }).then(function(json) {
@@ -88,7 +88,7 @@ function login_callback(code) {
         if(response.ok) {
             if (localStorage.getItem('knzkapp_now_mastodon_username')) account_change();
         } else {
-            sendLog("Error/oauth_token", response);
+            sendLog("Error/oauth_token", response.json);
         }
         return response.json();
     }).then(function(json) {
@@ -103,7 +103,7 @@ function login_callback(code) {
                 if(response.ok) {
                     return response.json();
                 } else {
-                    sendLog("Error/loginjs_verify_credentials", response);
+                    sendLog("Error/loginjs_verify_credentials", response.json);
                     throw new Error();
                 }
             }).then(function(json_acct) {
@@ -211,7 +211,7 @@ function account_change(id) {
             if(response.ok) {
                 return response.json();
             } else {
-                sendLog("Error/login_verify_credentials", response);
+                sendLog("Error/login_verify_credentials", response.json);
                 throw new Error();
             }
         }).then(function(json) {
