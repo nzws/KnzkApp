@@ -74,7 +74,8 @@ function toot_card(toot, mode, note, toot_light, page) {
             (getConfig(2, 'leng') && toot['content'].length > 300) ||
             (getConfig(2, 'bs') && toot['reblog']) ||
             (getConfig(2, 're') && toot['mentions'][0]) ||
-            (getConfig(2, 'media') && toot['media_attachments'][0])) {
+            (getConfig(2, 'media') && toot['media_attachments'][0]) ||
+            (getConfig(2, 'pinned') && page === "acctpage_pinned")) {
             can_col = true;
             is_col = "toot-small ";
             if (col_pic) {
