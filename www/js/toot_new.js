@@ -359,6 +359,7 @@ function post(id, option, simple) {
                 check_limit(document.getElementById("simple_toot_TL_input").value, 'toot_limit_simple', 'toot-button_simple', 'simple_toot_cw');
                 document.getElementById("image_list_simple").innerHTML = "";
                 $("#post_mode_simple").val(default_post_visibility);
+                document.getElementById("localonly_bt_simple").className = "no-rd button button--quiet";
                 document.getElementById("post_mode_icon_simple").className = "ons-icon fa-fw fa fa-"+visibility_name(default_post_visibility);
                 hide('post_now');
             } else {
