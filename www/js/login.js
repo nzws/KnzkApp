@@ -267,9 +267,5 @@ function account_list() {
 
 function open_addaccount() {
     var menu = document.getElementById('splitter-menu');
-    $.when(
-        document.querySelector('#navigator').bringPageTop("login.html", {animation: "slide"}).then(menu.close.bind(menu))
-    ).done(function () {
-        if (!ons.isWebView()) $("#login_debug").removeClass("invisible");
-    });
+    document.querySelector('#navigator').bringPageTop("login.html", {animation: "slide"}).then(menu.close.bind(menu));
 }
