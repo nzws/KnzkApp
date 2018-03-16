@@ -29,6 +29,7 @@ function show_account(id, navmode) {
             throw new Error();
         }
     }).then(function(json) {
+        acctdata["acct"][json["id"]] = json;
         account_page_id = json.id;
         account_page_acct = json.acct;
 
@@ -78,7 +79,7 @@ function show_account(id, navmode) {
             throw new Error();
         }
     }).then(function(json) {
-
+        acctdata["rs"][id] = json;
 
         if (json[0]["followed_by"] === true)
             document.getElementById("userpage-follower-badge").className = "userpage-follower";
@@ -93,14 +94,12 @@ function show_account(id, navmode) {
         if (json[0]["muting"]) {
             document.getElementById("userpage-follow-button").className = "invisible";
             document.getElementById("userpage-mute-badge").className = "userpage-follower";
-            document.getElementById("acct_mute").value = true;
         } else
             document.getElementById("userpage-mute-badge").className = "invisible";
 
         if (json[0]["blocking"] === true) {
             document.getElementById("userpage-follow-button").className = "invisible";
             document.getElementById("userpage-block-badge").className = "userpage-follower";
-            document.getElementById("acct_block").value = true;
         } else
             document.getElementById("userpage-block-badge").className = "invisible";
 
@@ -121,26 +120,15 @@ function show_account(id, navmode) {
     });
 }
 
-function account_state_action(id, obj, mode) {
+function account_state_action(id, mode) {
     var url = "";
     if (mode === "follow") {
-        if (obj.className === "userpage-button follow-active ons-icon fa-user-times fa" || obj.className === "userpage-button follow-active ons-icon fa-hourglass fa") { //フォロー
-            url = "/unfollow";
-        } else {
-            url = "/follow";
-        }
+        url = acctdata["rs"][id][0]["following"] || acctdata["rs"][id][0]["requested"] ? "/unfollow" : "/follow";
+        document.getElementById("userpage-follow-button").className = "userpage-button ons-icon fa-spinner fa fa-spin";
     } else if (mode === "mute") {
-        if (obj === "true") { //オン→オフ
-            url = "/unmute";
-        } else {
-            url = "/mute";
-        }
+        url = acctdata["rs"][id][0]["muting"] ? "/unmute" : "/mute";
     } else if (mode === "block") {
-        if (obj === "true") { //オン→オフ
-            url = "/unblock";
-        } else {
-            url = "/block";
-        }
+        url = acctdata["rs"][id][0]["blocking"] ? "/unblock" : "/block";
     }
 
     fetch("https://"+inst+"/api/v1/accounts/"+id+url, {
@@ -154,20 +142,10 @@ function account_state_action(id, obj, mode) {
             throw new Error();
         }
     }).then(function(json) {
-        if (mode === "follow") {
-            if (json["following"])
-                document.getElementById("userpage-follow-button").className = "userpage-button follow-active ons-icon fa-user-times fa";
-            else
-                document.getElementById("userpage-follow-button").className = "userpage-button ons-icon fa-user-plus fa";
-
-            if (json["requested"] === true) {
-                document.getElementById("userpage-follow-button").className = "userpage-button follow-active ons-icon fa-hourglass fa";
-                document.getElementById("userpage-followreq-badge").className = "userpage-follower";
-            } else
-                document.getElementById("userpage-followreq-badge").className = "invisible";
-        } else {
-            showtoast("ok_conf_2");
-        }
+        if (mode !== "follow") showtoast("ok_conf_2");
+        setTimeout(function () {
+            show_account(id);
+        }, 500);
     }).catch(function(error) {
         showtoast('cannot-pros');
         console.log(error);
@@ -179,7 +157,8 @@ function account_action(id) {
         ons.openActionSheet({
             cancelable: true,
             buttons: [
-                'ブラウザで開く',
+                'ブラウザで表示',
+                'URLをコピー',
                 'QRコードを表示',
                 {
                     label: 'キャンセル',
@@ -187,23 +166,19 @@ function account_action(id) {
                 }
             ]
         }).then(function (index) {
-            if (index === 0) openURL("https://"+inst+"/@"+account_page_acct.split("@")[0]);
-            else if (index === 1) OpenQR("@"+account_page_acct.split("@")[0]+"@"+inst);
+            if (index === 0) openURL(acctdata["acct"][id]["url"]);
+            else if (index === 1) copy(acctdata["acct"][id]["url"]);
+            else if (index === 2) OpenQR("@"+account_page_acct.split("@")[0]+"@"+inst);
         })
     } else {
-        var mute = document.getElementById("acct_mute").value;
-        var block = document.getElementById("acct_block").value;
-        var mute_m, block_m, domain;
-
-        domain = account_page_acct.split("@")[1];
-        if (!domain) domain = inst;
-        if (mute === "true") mute_m = "ミュート解除"; else mute_m = "ミュート";
-        if (block === "true") block_m = "ブロック解除"; else block_m = "ブロック";
+        var mute_m = acctdata["rs"][id][0]["muting"] ? "ミュート解除" : "ミュート";
+        var block_m = acctdata["rs"][id][0]["blocking"] ? "ブロック解除" : "ブロック";
         ons.openActionSheet({
             cancelable: true,
             buttons: [
                 '返信',
-                'ブラウザで開く',
+                'ブラウザで表示',
+                'URLをコピー',
                 {
                     label: mute_m,
                     modifier: 'destructive'
@@ -219,9 +194,10 @@ function account_action(id) {
             ]
         }).then(function (index) {
             if (index === 0) post_pre("@" + account_page_acct);
-            else if (index === 1) openURL("https://"+domain+"/@"+account_page_acct.split("@")[0]);
-            else if (index === 2) account_state_action(id, mute, "mute");
-            else if (index === 3) account_state_action(id, block, "block");
+            else if (index === 1) openURL(acctdata["acct"][id]["url"]);
+            else if (index === 2) copy(acctdata["acct"][id]["url"]);
+            else if (index === 3) account_state_action(id, "mute");
+            else if (index === 4) account_state_action(id, "block");
         })
     }
 }
