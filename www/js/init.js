@@ -152,6 +152,10 @@ function init() {
                         showTL("local", null, null, true, null);
 
                         setTimeout(function () {
+                            if (getConfig(1, 'tutorial') !== 1) {
+                                loadNav("tutorial.html", "up");
+                                setConfig(1, "tutorial", 1);
+                            }
                             document.getElementById("splitter-profile-bg").setAttribute('style', 'background-image: url(\''+json[getConfig(1, 'no_gif') ? "header_static" : "header"]+'\');');
                             if (!getConfig(1, 'no_icon')) document.getElementById("splitter-icon").src = json[getConfig(1, 'no_gif') ? "avatar_static" : "avatar"];
                             if (instance_config[inst]["yomigana"]) document.getElementById("splitter-profile-name").style.height = "30px";
@@ -369,7 +373,16 @@ function initevent() {
     }
 
     document.addEventListener('prechange', function(event) {
-        if ($("#navigator").attr("page") === "home.html") {
+        if (event.carousel) {
+            var label = [document.getElementById("tutorial_next_label"), document.getElementById("tutorial_next_icon")];
+            if (event.activeIndex === 3) {
+                label[0].innerText = "完了";
+                label[1].className = "ons-icon fa-check fa";
+            } else {
+                label[0].innerText = "次へ";
+                label[1].className = "ons-icon fa-chevron-right fa";
+            }
+        } else if ($("#navigator").attr("page") === "home.html") {
             document.getElementById('home_title').innerHTML = event.tabItem.getAttribute('label');
             now_TL = event.tabItem.getAttribute('tl_id');
             showTL(null,null,null,true);
