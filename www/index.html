@@ -81,6 +81,7 @@
         var original_post_text = "";
         var original_post_userid = "";
         var tl_postdata = {};
+        var acctdata = {"acct":{},"rs":{}};
     </script>
 
     <script src="config/instance.js"></script>
@@ -1290,7 +1291,7 @@
             <ons-icon icon="fa-bars" class="userpage-button" onclick="account_action(account_page_id)" id="acct_action_bt"></ons-icon>
         </div>
         <div class="userpage-button-bg userpage-button-right">
-            <ons-icon icon="fa-user-plus" class="userpage-button" id="userpage-follow-button" onclick="account_state_action(account_page_id, this, 'follow')"></ons-icon>
+            <ons-icon icon="fa-user-plus" class="userpage-button" id="userpage-follow-button" onclick="account_state_action(account_page_id, 'follow')"></ons-icon>
             <div class="userpage-follower invisible" id="userpage-followreq-badge">承認待ち</div>
             <div class="userpage-follower invisible" id="userpage-follower-badge">フォロワー</div>
             <div class="userpage-follower invisible" id="userpage-mute-badge">ミュート中</div>

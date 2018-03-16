@@ -158,7 +158,7 @@ function toot_card(toot, mode, note, toot_light, page) {
             "                                <ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["visibility"]+"')\" class=\"toot-button\"></ons-icon>" +
             boost_full +
             "                                <ons-icon icon=\"fa-star\" onclick=\"toot_action('"+toot['id']+"', null, 'fav')\" class=\"tootfav_"+toot['id']+" toot-button"+namubt+fav+"\"></ons-icon>" +
-            "                                <ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+", '"+toot["url"]+"', '"+toot['account']["acct"]+"')\" class=\"toot-button toot-button-last\"></ons-icon>" +
+            "                                <ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"')\" class=\"toot-button toot-button-last\"></ons-icon>" +
             "                                 <span class='toot-right date date-disp' data-time='" + toot['created_at'] + "'>" +date+ "</span>" +
             "                            </div>\n";
     }
@@ -172,7 +172,7 @@ function toot_card(toot, mode, note, toot_light, page) {
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-reply\" onclick=\"reply('"+toot['id']+"', '"+toot["visibility"]+"')\" class=\"showtoot-button\"></ons-icon></div>\n" +
             "                    <div class=\"col-xs-3 showtoot-button\">" + boost_big + "</div>\n" +
             "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-star\" onclick=\"toot_action('"+toot['id']+"', 'big', 'fav')\" class=\"tootfav_"+toot['id']+" showtoot-button"+fav+"\"></ons-icon></div>\n" +
-            "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"', "+toot['account']['id']+", "+toot['pinned']+", '"+toot["url"]+"', '"+toot['account']["acct"]+"')\" class=\"showtoot-button\"></ons-icon></div>\n" +
+            "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"')\" class=\"showtoot-button\"></ons-icon></div>\n" +
             "                </div>";
     }
 
@@ -374,9 +374,8 @@ function visibility_name(mode) {
     return name;
 }
 
-function pin_set(id, mode) {
-    var pin_mode;
-    if (mode) pin_mode = "/unpin"; else pin_mode = "/pin";
+function pin_set(id) {
+    var pin_mode = tl_postdata[id]["pinned"] ? "/unpin" : "/pin";
     fetch("https://"+inst+"/api/v1/statuses/"+id+pin_mode, {
         headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
         method: 'POST'
@@ -388,21 +387,25 @@ function pin_set(id, mode) {
             showtoast('cannot-pros');
         }
     }).then(function(json) {
-        showtoast('ok_conf_2');
+        if (json["id"]) {
+            tl_postdata[json["id"]] = json;
+            showtoast('ok_conf_2');
+        }
     });
 }
 
-function more(id, acctid, pin_mode, url, acct) {
-    var pin;
+function more(id) {
+    var url = tl_postdata[id]["url"], acct = tl_postdata[id]["account"]["acct"];
     more_status_id = ""+id;
-    more_acct_id = acctid;
-    if (localStorage.getItem('knzkapp_now_mastodon_id') == more_acct_id) {
-        if (pin_mode === true) pin = "ピン留め解除"; else pin = "ピン留め";
+    more_acct_id = tl_postdata[id]["account"]["id"];
+    if (localStorage.getItem('knzkapp_now_mastodon_id') === tl_postdata[id]["account"]["id"]) {
+        var pin = tl_postdata[id]["pinned"] === true ? "ピン留め解除" : "ピン留め";
         ons.openActionSheet({
             cancelable: true,
             buttons: [
                 '詳細を表示',
                 'ブラウザで表示',
+                'URLをコピー',
                 '元のトゥートを表示',
                 '近くのトゥートを表示',
                 {
@@ -421,10 +424,11 @@ function more(id, acctid, pin_mode, url, acct) {
         }).then(function (index) {
             if (index == 0) show_post(more_status_id);
             else if (index == 1) openURL(url);
-            else if (index == 2) original_post(more_status_id, url, acct);
-            else if (index == 3) show_post(more_status_id, true);
-            else if (index == 4) pin_set(more_status_id, pin_mode);
-            else if (index == 5) delete_post();
+            else if (index == 2) copy(url);
+            else if (index == 3) original_post(more_status_id, url, acct);
+            else if (index == 4) show_post(more_status_id, true);
+            else if (index == 5) pin_set(more_status_id);
+            else if (index == 6) delete_post();
         })
     } else {
         ons.openActionSheet({
@@ -432,6 +436,7 @@ function more(id, acctid, pin_mode, url, acct) {
             buttons: [
                 '詳細を表示',
                 'ブラウザで表示',
+                'URLをコピー',
                 '元のトゥートを表示',
                 '近くのトゥートを表示',
                 {
@@ -446,9 +451,10 @@ function more(id, acctid, pin_mode, url, acct) {
         }).then(function (index) {
             if (index == 0) show_post(more_status_id);
             else if (index == 1) openURL(url);
-            else if (index == 2) original_post(more_status_id, url, acct);
-            else if (index == 3) show_post(more_status_id, true);
-            else if (index == 4) report();
+            else if (index == 2) copy(url);
+            else if (index == 3) original_post(more_status_id, url, acct);
+            else if (index == 4) show_post(more_status_id, true);
+            else if (index == 5) report();
         })
     }
 }
