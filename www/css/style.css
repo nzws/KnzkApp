@@ -631,3 +631,8 @@ img.emoji {
     border-radius: 5px;
     background-color: #fefaf0;
 }
+
+.toot_content > * {
+    -webkit-user-select: auto;
+    user-select: text;
+}
