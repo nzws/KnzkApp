@@ -85,6 +85,7 @@
 
     <script src="config/instance.js"></script>
     <script src="config/config.js"></script>
+    <script src="js/tutorial.js"></script>
     <script src="js/log.js"></script>
     <script src="js/config.js"></script>
     <script src="js/components.js"></script>
@@ -1416,12 +1417,123 @@
         <ons-toolbar>
             <div class="left">
                 <ons-toolbar-button onclick="BackTab('down')">
-                    <ons-icon icon="fa-times"></ons-icon>
-                    終了
+                    スキップ
                 </ons-toolbar-button>
             </div>
             <div class="center">KnzkAppへようこそ</div>
+            <div class="right">
+                <div class="left">
+                    <ons-toolbar-button onclick="next_tutorial()">
+                        <ons-icon icon="fa-chevron-right" id="tutorial_next_icon"></ons-icon>
+                        <span id="tutorial_next_label">次へ</span>
+                    </ons-toolbar-button>
+                </div>
+            </div>
         </ons-toolbar>
+
+        <ons-carousel fullscreen swipeable auto-scroll id="tutorial_c">
+            <ons-carousel-item class="container tutorial">
+                <h3>KnzkAppへようこそ！</h3>
+                <p>KnzkAppは、元々Knzk.meのBBCode(文字装飾)をアプリでも見られるように開発されたMastodonクライアントです。</p>
+                <p>現在では様々なインスタンスの独自仕様に対応しています。</p>
+            </ons-carousel-item>
+            <ons-carousel-item class="container tutorial">
+                <p>KnzkAppでは、主にタイムラインの下にあるフォームから投稿できます。</p>
+                <p>このフォームは、白い部分(本文を入力する部分)をタップする事で細かなボタンが表示されます。ボタンを押すと、それぞれの説明を表示します。</p>
+                <ons-bottom-toolbar id="tutorial_toot_TL_toolbar">
+                    <form id="tutorial_toot_form">
+                        <ons-list>
+                            <ons-list-item style="padding-left: 0" class="simple-toot">
+                                <div class="left" style="padding-right: 6px">
+                                    <ons-button modifier="quiet" onclick="tutorial_alert('設定等に飛べるメニューを表示します。')" class="no-rd"><ons-icon icon="fa-bars"></ons-icon></ons-button>
+                                </div>
+                                <div class="center">
+                                    <textarea class="textarea w-max" rows="1" placeholder="トゥート！(サンプル)" onFocus="tutorial_open()" id="tutorial_toot_TL_input"></textarea>
+                                </div>
+                                <div class="right" style="padding-right: 0">
+                                    <ons-button modifier="quiet" onclick="tutorial_alert('このボタンで投稿できます。')" class="no-rd"><ons-icon icon="fa-paper-plane-o"></ons-icon></ons-button>
+                                </div>
+                            </ons-list-item>
+                        </ons-list>
+                        <ons-list>
+                            <ons-list-item style="padding-left: 0" class="simple-toot invisible" id="tutorial_more">
+                                <ons-button modifier="quiet" class="no-rd" onclick="tutorial_alert('このボタンで公開範囲を変更できます。')"><ons-icon icon="fa-globe"></ons-icon></ons-button>
+                                <ons-button modifier="quiet" onclick="showPopover(this, 'image_popover_t')" class="no-rd"><ons-icon icon="fa-picture-o"></ons-icon></ons-button>
+                                <ons-button modifier="quiet" onclick="showPopover(this, 'cw_popover_t')" class="no-rd">CW</ons-button>
+                                <ons-button onclick="tutorial_alert('このボタンでローカル限定にする事ができます。 *対応インスタンスのみ')" modifier="quiet" class="no-rd invisible" id="localonly_bt_tutorial"><ons-icon icon="fa-home"></ons-icon></ons-button>
+                                <ons-button modifier="quiet" onclick="showPopover(this, 'tools_popover_t')" class="no-rd" id="tools_bt_tutorial"><ons-icon icon="fa-magic"></ons-icon></ons-button>
+                                <ons-button modifier="quiet" onclick="tutorial_alert('このボタンでカスタム絵文字を追加する事ができます。')" class="no-rd"><ons-icon icon="fa-smile-o"></ons-icon></ons-button>
+                                <ons-button modifier="quiet" class="no-rd" id="toot_limit_tutorial">4096</ons-button>
+                                <ons-button modifier="quiet" class="no-rd" onclick="tutorial_close()"><ons-icon icon="fa-chevron-down"></ons-icon></ons-button>
+                            </ons-list-item>
+                        </ons-list>
+                    </form>
+                </ons-bottom-toolbar>
+
+                <ons-popover direction="up" id="tools_popover_t">
+                    <div style="padding: 10px; text-align: center;">
+                        <div class="tutorial_box">このボックスで様々な追加機能を使用する事ができます。</div>
+                        <p>
+                            <ons-button onclick="showPopover(document.getElementById('tools_bt_tutorial'), 'vote_popover_t')" class="w-max invisible" id="vote_bt_tutorial"><ons-icon icon="fa-align-left"></ons-icon> Enquete</ons-button>
+                            <ons-button onclick="tutorial_alert('このボタンでBBCodeを追加する事ができます。 *対応インスタンスのみ')" class="w-max invisible" style="margin-top: 5px" id="bbcode_bt_tutorial"><ons-icon icon="fa-font"></ons-icon> BBCode</ons-button>
+                            <ons-button onclick="tutorial_alert('このボタンで簡易お絵かきを起動する事ができます。投稿時は画像になる為、どのインスタンスでも使用できます。')" class="w-max" style="margin-top: 5px"><ons-icon icon="fa-paint-brush"></ons-icon> Doodle</ons-button>
+                            <ons-button onclick="tutorial_alert('このボタンで読み仮名を追加する事ができます。 *対応インスタンスのみ')" class="w-max invisible" style="margin-top: 5px" id="yomigana_bt_tutorial">読み仮名</ons-button>
+                        <p id="md_note_tutorial" class="invisible">*MarkDownはスワイプメニュー→新規トゥートから使用できます</p>
+                        </p>
+                        <p>
+                            <ons-button onclick="hidePopover('tools_popover_t')" class="w-max">閉じる</ons-button>
+                        </p>
+                    </div>
+                </ons-popover>
+                <ons-popover direction="up" id="cw_popover_t">
+                    <div style="padding: 10px; text-align: center;">
+                        <div class="tutorial_box">このボックスで警告文(CW)を追加する事ができます。</div>
+                        <p><ons-input modifier="underbar" placeholder="警告文を書いてください" class="w-max black_text"></ons-input></p>
+                        <p><ons-button onclick="hidePopover('cw_popover_t')" class="w-max">閉じる</ons-button></p>
+                    </div>
+                </ons-popover>
+                <ons-popover direction="up" id="image_popover_t">
+                    <div style="padding: 10px; text-align: center;">
+                        <div class="tutorial_box">このボックスで画像を追加する事ができます。</div>
+                        <p><ons-button class="w-max">画像追加</ons-button></p>
+                        <p>
+                            <ons-button style="margin-bottom: 5px" id="nsfw_bt_simple" modifier="quiet"><ons-icon icon="fa-eye"></ons-icon> NSFW</ons-button>
+                            <ons-button onclick="hidePopover('image_popover_t')" class="w-max">閉じる</ons-button>
+                        </p>
+                    </div>
+                </ons-popover>
+                <ons-popover direction="up" id="vote_popover_t">
+                    <div style="padding: 10px; text-align: center;">
+                        <div class="tutorial_box">このボックスで投票を作成する事ができます。 *対応インスタンスのみ</div>
+                        <p>
+                            <ons-input modifier="underbar" placeholder="項目1" class="w-max black_text"></ons-input>
+                            <ons-input modifier="underbar" placeholder="項目2" class="w-max black_text"></ons-input>
+                            <ons-input modifier="underbar" placeholder="項目3(任意)" class="w-max black_text"></ons-input>
+                            <ons-input modifier="underbar" placeholder="項目4(任意)" class="w-max black_text"></ons-input>
+                            <ons-select id="vote_new_time_tutorial" class="w-max black_text invisible" modifier="underbar">
+                                <option value="30">30秒</option>
+                                <option value="60">1分</option>
+                                <option value="180">3分</option>
+                                <option value="300">5分</option>
+                                <option value="600">10分</option>
+                                <option value="3600">1時間</option>
+                                <option value="86400">1日</option>
+                            </ons-select>
+                        </p>
+                        <p><ons-button onclick="hidePopover('vote_popover_t')" class="w-max">閉じる</ons-button></p>
+                    </div>
+                </ons-popover>
+            </ons-carousel-item>
+            <ons-carousel-item class="container tutorial">
+                <p>タイムラインは、左右にスワイプするか、メニューバーの矢印で切り替える事ができます。</p>
+                <p><img src="img/tutorial.png" class="img-responsive"/> </p>
+            </ons-carousel-item>
+            <ons-carousel-item class="container tutorial">
+                <h3>簡単な説明は以上です。</h3>
+                <p>その他、お困りの際や新しいアイデアなど、何でもいいのでまあまあ暇な開発者(<a href="https://knzk.me/@y">@y@knzk.me</a>)に質問してみてください。</p>
+                <p><b>ボナペトゥート！</b></p>
+            </ons-carousel-item>
+        </ons-carousel>
     </ons-page>
 </ons-template>
 

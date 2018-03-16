@@ -613,3 +613,21 @@ img.emoji {
     -ms-overflow-style: none;
     -ms-scroll-snap-type: mandatory;
 }
+
+.tutorial {
+    background: #d9e1e8;
+    color: #282c37 !important;
+    padding-top: 35px;
+}
+
+.tutorial> p > a:link {
+    color: #3c99dc !important;
+}
+
+.tutorial_box {
+    padding: 5px;
+    margin-bottom: 10px;
+    border: #fcecd8 1px solid;
+    border-radius: 5px;
+    background-color: #fefaf0;
+}
