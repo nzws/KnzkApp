@@ -191,11 +191,7 @@ function init() {
                 hide('now_loading');
             })
         } else {
-            setTimeout(function () {
-                document.querySelector('#navigator').resetToPage('login.html').then(function () {
-                    if (!ons.isWebView()) $("#login_debug").removeClass("invisible");
-                });
-            }, 500);
+            document.querySelector('#navigator').resetToPage('login.html');
         }
         hide('now_loading');
     }
