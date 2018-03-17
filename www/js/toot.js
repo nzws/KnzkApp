@@ -111,15 +111,6 @@ function toot_card(toot, mode, note, toot_light, page) {
         boost_big = "<ons-icon icon=\"fa-retweet\" onclick=\"toot_action('"+toot['id']+"', 'big', 'boost')\" class=\"tootbs_"+toot['id']+" showtoot-button"+boost+"\"></ons-icon>";
     }
 
-    if (toot['emojis']) {
-        while (toot['emojis'][e]) {
-            emoji_num_a[emoji_num] = toot['emojis'][e]['shortcode'];
-            emoji_list[emoji_num_a[emoji_num]] = toot['emojis'][e]['url'];
-            emoji_num++;
-            e++;
-        }
-        e = 0;
-    }
     try {
         if (toot['media_attachments'][0] && (mode == "full" || mode == "big")) {
             while (toot['media_attachments'][p]) {
@@ -186,7 +177,7 @@ function toot_card(toot, mode, note, toot_light, page) {
     }
 
     if (note) alert_text = "<p class='alert_text'>"+note+"</p>";
-    content = t_text(content);
+    content = t_text(content, toot['emojis']);
     buf += "<div class=\""+col_bg_cl+"toot"+light+" post_"+toot['id']+"\" id='post_"+toot['id']+"' data-bgpic='"+col_pic+"' style='"+col_bg_st+"'>\n" +
         alert_text +
         "                    <div class=\"row\">\n" +
