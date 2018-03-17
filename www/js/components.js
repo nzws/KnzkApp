@@ -88,7 +88,7 @@ function showtoast(id) {
     }, 2000);
 }
 
-function t_text(text) {
+function t_text(text, emojidata) {
     var i = 0, emoji = "", replacetext = "";
 
     if (getConfig(1, 'joke') == 1) {
@@ -103,11 +103,12 @@ function t_text(text) {
         text = text.replace(/(ニート|無職|ノージョブ|自宅警備員)/g , "【部屋に閉じこもって生きていればそれでいいの？】");
     }
 
-    if (!getConfig(1, 'no_custom_emoji')) {
-        while (emoji_num_a[i]) {
-            emoji = ":" + emoji_num_a[i] + ":";
+    if (!getConfig(1, 'no_custom_emoji') && emojidata) {
+        var emoji_mode = getConfig(1, 'no_gif') ? "static_url" : "url";
+        while (emojidata[i]) {
+            emoji = ":" + emojidata[i]["shortcode"] + ":";
 
-            replacetext = "<img draggable=\"false\" class=\"emojione\" src=\""+emoji_list[emoji_num_a[i]]+"\" />";
+            replacetext = "<img draggable=\"false\" class=\"emojione\" src=\""+emojidata[i][emoji_mode]+"\" />";
             text = text.replace(new RegExp(emoji,"g"),replacetext);
             i++;
         }

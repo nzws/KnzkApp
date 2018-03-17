@@ -49,8 +49,6 @@ function init() {
     tmp_bbcode_limit = "";
     tmp_bbcode_tootbutton = "";
     emoji_list = Array();
-    emoji_num_a = Array();
-    emoji_num = 0;
     account_page_acct = "";
     tmp_text_pre = "";
     tmp_post_reply = 0;
