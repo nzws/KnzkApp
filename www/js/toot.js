@@ -1,6 +1,6 @@
 function toot_card(toot, mode, note, toot_light, page) {
     var buf = "", piccard = "", fav = "", boost = "", namucard = "", namubt = "", p = 0, alert_text = "", content = "", button = "", e = 0, bt_big = "", light = "", q = 0, enq_item = "";
-    var appname, boost_full, boost_big, visibility_icon, can_col, is_col = "", col_bt = "", col_pic = "", col_bg_st = "", col_bg_cl = "", button_col = "", icon_html = "", layout_num = {};
+    var appname, boost_full, boost_big, visibility_icon, can_col, is_col = "", col_bt = "", col_pic = "", col_bg_st = "", col_bg_cl = "", button_col = "", icon_html = "", layout_num = {}, name = "";
     if (!toot) {
         return "";
     }
@@ -79,7 +79,7 @@ function toot_card(toot, mode, note, toot_light, page) {
             can_col = true;
             is_col = "toot-small ";
             if (col_pic) {
-                col_bg_st = 'background-image: url("'+col_pic+'");';
+                col_bg_st = 'background: url("'+col_pic+'");';
                 col_bg_cl = "col_bg ";
             }
         } else {
@@ -167,17 +167,24 @@ function toot_card(toot, mode, note, toot_light, page) {
             "                </div>";
     }
 
-    if (!getConfig(1, 'no_icon')) {
+    if (getConfig(1, 'no_icon') || (page === "alert" && note && getConfig(2, 'alert_m'))) {
+        layout_num["toot_content"] = "11 no-icon-mode";
+    } else {
         icon_html = "<div class=\"col-xs-2\">\n" +
             "<p><img src=\""+toot['account'][getConfig(1, 'no_gif') ? "avatar_static" : "avatar"]+"\" class=\"icon-img\" onclick='show_account("+toot['account']['id']+")'/></p>\n" +
             "</div>\n";
         layout_num["toot_content"] = 9;
+    }
+
+    if (page === "alert" && note && getConfig(2, 'alert_m')) {
+        note += "<span class='toot-right'><ons-button modifier='quiet' class='no-rd p0'><ons-icon icon='fa-"+visibility_icon+"' class='toot-right-icon' style='margin-right: 10px'></ons-icon></ons-button>"+ col_bt +"</span>";
     } else {
-        layout_num["toot_content"] = "11 no-icon-mode";
+        name = "<span onclick='show_account("+toot['account']['id']+")'><b class='toot_name'>"+t_text(escapeHTML(toot['account']['display_name']))+"</b> <small>@"+toot['account']['acct']+"</small></span><span class='toot-right'><ons-button modifier='quiet' class='no-rd p0'><ons-icon icon='fa-"+visibility_icon+"' class='toot-right-icon' style='margin-right: 10px'></ons-icon></ons-button>"+ col_bt +"</span>";
     }
 
     if (note) alert_text = "<p class='alert_text'>"+note+"</p>";
     content = t_text(content, toot['emojis']);
+
     buf += "<div class=\""+col_bg_cl+"toot"+light+" post_"+toot['id']+"\" id='post_"+toot['id']+"' data-bgpic='"+col_pic+"' style='"+col_bg_st+"'>\n" +
         alert_text +
         "                    <div class=\"row\">\n" +
@@ -185,7 +192,7 @@ function toot_card(toot, mode, note, toot_light, page) {
         "                        <div class=\"col-xs-"+layout_num["toot_content"]+" toot-card-right\"> \n" +
         "                           <div class='"+namucard+"'>" +
         "                            <div class=\"toot-group\">\n" +
-        "                                <span onclick='show_account("+toot['account']['id']+")'><b class='toot_name'>"+t_text(escapeHTML(toot['account']['display_name']))+"</b> <small>@"+toot['account']['acct']+"</small></span><span class='toot-right'><ons-button modifier='quiet' class='no-rd p0'><ons-icon icon='fa-"+visibility_icon+"' class='toot-right-icon' style='margin-right: 10px'></ons-icon></ons-button>"+ col_bt +"</span>" +
+        name +
         "                            </div>" +
         "                            <div class='"+is_col+"toot_content tootcontent_"+toot['id']+"' data-id='"+toot['id']+"' data-dispmode='"+mode+"'>" +
         content +
@@ -208,14 +215,18 @@ function toot_col(id) {
             $(toot[i]).removeClass("toot-small");
             obj[i].className = "fa fa-fw fa-angle-double-up toot-right-icon toot_col_"+id;
             tb[i].className = "toot-group tb_group_"+id;
-            toot_b[i].removeAttribute('style');
-            $(toot_b[i]).removeClass("col_bg");
+            if (toot_b[i].dataset.bgpic) {
+                toot_b[i].removeAttribute('style');
+                $(toot_b[i]).removeClass("col_bg");
+            }
         } else {
             $(toot[i]).addClass("toot-small");
             obj[i].className = "fa fa-fw fa-angle-double-down toot-right-icon blue toot_col_"+id;
             tb[i].className = "disable toot-group tb_group_"+id;
-            toot_b[i].setAttribute('style', 'background-image: url(\''+toot_b[i].dataset.bgpic+'\');');
-            $(toot_b[i]).addClass("col_bg");
+            if (toot_b[i].dataset.bgpic) {
+                toot_b[i].setAttribute('style', 'background-image: url(\''+toot_b[i].dataset.bgpic+'\');');
+                $(toot_b[i]).addClass("col_bg");
+            }
         }
         i++;
     }
