@@ -49,8 +49,8 @@ function ConfigSetup() {
         var accountdata = {
             "list": localStorage.getItem('knzk_account_list'),
             "token": localStorage.getItem('knzk_account_token'),
-            "id": localStorage.getItem('knzk_userid'),
-            "name": localStorage.getItem('knzk_username'),
+            "userid": localStorage.getItem('knzk_userid'),
+            "username": localStorage.getItem('knzk_username'),
             "domain": localStorage.getItem('knzk_login_domain')
         };
         if (now_version < 2) { //config migration v1 -> v2

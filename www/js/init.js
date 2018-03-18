@@ -127,6 +127,8 @@ function init() {
                     }
                 }).then(function(json) {
                     try {
+                        if (localStorage.getItem('knzkapp_now_mastodon_id') == undefined) localStorage.setItem('knzkapp_now_mastodon_id', json.id);
+                        if (localStorage.getItem('knzkapp_now_mastodon_username') == undefined) localStorage.setItem('knzkapp_now_mastodon_username', json.username);
                         if (json.source) {
                             default_post_visibility = json.source.privacy;
                             default_sensitive = json.source.sensitive;
