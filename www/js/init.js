@@ -262,6 +262,29 @@ function initevent() {
                 }
             },500);
         }
+
+        if (event.enterPage.id === "userconf-page") {
+            show('now_loading');
+            fetch("https://"+inst+"/api/v1/accounts/verify_credentials", {
+                headers: {'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')}
+            }).then(function(response) {
+                if(response.ok) {
+                    return response.json();
+                } else {
+                    sendLog("Error/event_userconf-page", response);
+                    throw new Error();
+                }
+            }).then(function(json) {
+                document.getElementById("userconf-display_name").value = json["display_name"];
+                document.getElementById("userconf-note").value = json["source"]["note"];
+                document.getElementById("userconf-lock").checked = json["locked"];
+                hide('now_loading');
+            }).catch(function(error) {
+                showtoast('cannot-pros');
+                hide('now_loading');
+            });
+        }
+
         if (event.enterPage.id === "config_collapse-page") {
             show('now_loading');
             setTimeout(function() {
