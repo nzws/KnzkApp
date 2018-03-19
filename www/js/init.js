@@ -348,6 +348,10 @@ function initevent() {
         if (event.enterPage.id === "about-page") {
             document.getElementById("app-version").innerText = version;
         }
+
+        if (event.enterPage.id === "usermenu-page") {
+            if (!instance_config[inst]["glitch_soc"]) document.getElementById("dmtimeline_bt").className = "invisible";
+        }
     });
 
     document.addEventListener('postpop', function(event) {
