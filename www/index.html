@@ -629,6 +629,16 @@
         <div class="container">
             <p class="note">* インスタンスにより文字数、容量制限が異なりますのでリミットは表示していません。</p>
         </div>
+        <ons-list>
+            <ons-list-item modifier="chevron" tappable onclick="openURL('https://' + inst + '/settings/preferences')">
+                <div class="left">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-cogs fa fa-fw"></i>
+                </div>
+                <div class="center">
+                    <span class="list-item__title">詳細な設定</span><span class="list-item__subtitle">Mastodon 設定ページに移動します</span>
+                </div>
+            </ons-list-item>
+        </ons-list>
     </ons-page>
 </ons-template>
 
@@ -661,7 +671,7 @@
             </ons-list-item>
             <ons-list-item modifier="chevron" tappable onclick="loadNav('userconf.html')">
                 <div class="left">
-                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-book fa fa-fw"></i>
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-user-circle fa fa-fw"></i>
                 </div>
                 <div class="center">
                     ユーザー情報編集
