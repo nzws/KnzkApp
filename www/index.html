@@ -86,6 +86,7 @@
     <script src="config/instance.js"></script>
     <script src="config/config.js"></script>
     <script src="js/tutorial.js"></script>
+    <script src="js/bookmark.js"></script>
     <script src="js/emoji.js"></script>
     <script src="js/log.js"></script>
     <script src="js/config.js"></script>
@@ -276,7 +277,7 @@
 </ons-splitter>
 
 <ons-template id="usermenu.html">
-    <ons-page>
+    <ons-page id="usermenu-page">
         <ons-toolbar>
             <div class="left">
                 <ons-toolbar-button onclick="fn.open()">
@@ -340,6 +341,14 @@
                 </div>
                 <div class="center">
                     通報ステータス
+                </div>
+            </ons-list-item>
+            <ons-list-item modifier="chevron" tappable onclick="LoadBookmark()">
+                <div class="left">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-bookmark fa fa-fw"></i>
+                </div>
+                <div class="center">
+                    ブックマーク一覧
                 </div>
             </ons-list-item>
         </ons-list>
@@ -1360,6 +1369,9 @@
                 </ons-toolbar-button>
             </div>
             <div class="center" id="olist_nav_title">読み込み中...</div>
+            <div class="right" id="olist_right">
+
+            </div>
         </ons-toolbar>
 
         <div id="olist_nav_main">

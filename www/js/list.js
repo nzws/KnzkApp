@@ -123,8 +123,7 @@ function LoadrepStatus() {
         json = json.reverse();
         reshtml += "<div class=\"toot\">\n" +
             "      あなたの通報が現在処理されているのか簡易的に確認することができます。\n" +
-            "    </div>\n" +
-            "</div>";
+            "    </div>\n";
         while (json[i]) {
             if (json[i]["action_taken"]) {
                 repstatus[0] = "管理者が確認済み";

@@ -682,3 +682,12 @@ img.emoji {
 .ep_search_box {
     display: inline;
 }
+
+.danger_title {
+    background-color: #a00000 !important;
+    color: #f2f2f2 !important;
+}
+
+.danger_list {
+    border: solid 2px #a00000;
+}
