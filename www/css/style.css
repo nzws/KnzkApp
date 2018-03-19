@@ -639,3 +639,46 @@ img.emoji {
     -webkit-user-select: auto;
     user-select: text;
 }
+
+.ep_category {
+    display: flex;
+    justify-content: space-around;
+}
+.close_button {
+    position:absolute;
+    top: 0;
+    right: 0;
+}
+
+.ep_bt {
+    padding: 4px 10px;
+}
+
+#emoji_popover > .popover > .popover__arrow {
+    display: none;
+}
+
+#emoji_popover > .popover--bottom {
+    bottom: 10px !important;
+    top: initial !important;
+    right: 5px !important;
+    left: 5px !important;
+}
+
+.ep_category {
+    background-color: #ccc;
+    border-radius: 0 0 4px 4px;
+}
+
+.ep_category_r {
+    border-radius: 0;
+}
+
+.ep_reset_button {
+    line-height: 20px;
+    border-radius: 0 0 4px 4px;
+}
+
+.ep_search_box {
+    display: inline;
+}

@@ -393,32 +393,8 @@ function simple_open() {
 
     $("#dial_main").addClass("fab_simple_toot_open");
     $("#dial_TL").addClass("fab_simple_toot_open");
-    var emoji = document.getElementById("emoji_list_popover"), i = 0, reshtml = "";
-    if (emoji.dataset.isload === "no" && !getConfig(1, 'no_custom_emoji')) {
-        fetch("https://"+inst+"/api/v1/custom_emojis", {
-            headers: {'content-type': 'application/json'},
-            method: 'GET',
-        }).then(function(response) {
-            if(response.ok) {
-                return response.json();
-            } else {
-                //カスタム絵文字非対応インスタンス
-                $("#simple_emoji_bt").addClass("invisible");
-                sendLog("Error/simple_open_emoji", response.json);
-            }
-        }).then(function(json) {
-            if (json) {
-                var emoji_mode = getConfig(1, 'no_gif') ? "static_url" : "url";
 
-                while (json[i]) {
-                    reshtml += "<ons-button modifier=\"quiet\" onclick='add_emoji_simple(\" :"+json[i]["shortcode"]+": \")'><img draggable=\"false\" class=\"emojione\" src=\""+json[i][emoji_mode]+"\"></ons-button>\n";
-                    i++;
-                }
-                emoji.innerHTML = reshtml;
-                emoji.dataset.isload = "yes";
-            }
-        });
-    }
+    renderEmoji(document.getElementById("emoji_list_popover"));
 }
 
 function simple_close() {
@@ -433,7 +409,14 @@ function simple_close() {
 function add_emoji_simple(addtext, mode) {
     // https://qiita.com/noraworld/items/d6334a4f9b07792200a5
     var id = "simple_toot_TL_input";
-    if (mode) id = "toot_textarea";
+    if (mode == undefined) {
+        console.log(pageid);
+        if (pageid === "toot-page") {
+            id = "toot_textarea";
+        }
+    } else {
+        if (mode) id = "toot_textarea";
+    }
     var textarea = document.getElementById(id);
     var sentence = textarea.value;
     var len      = sentence.length;
