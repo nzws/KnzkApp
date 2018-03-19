@@ -595,6 +595,43 @@
     </ons-page>
 </ons-template>
 
+<ons-template id="userconf.html">
+    <ons-page id="userconf-page">
+        <ons-toolbar>
+            <div class="left">
+                <ons-toolbar-button onclick="BackTab()">
+                    <ons-icon icon="fa-chevron-left"></ons-icon>
+                    設定
+                </ons-toolbar-button>
+            </div>
+            <div class="center">ユーザー情報編集</div>
+            <div class="right">
+                <ons-toolbar-button onclick="update_userdata()">
+                    <ons-icon icon="fa-check"></ons-icon>
+                </ons-toolbar-button>
+            </div>
+        </ons-toolbar>
+        <p></p>
+        <div class="container">
+            <p><ons-input id="userconf-display_name" modifier="underbar" placeholder="表示名" class="w-max"></ons-input></p>
+            <p><textarea class="textarea w-max" rows="5" placeholder="プロフィール" id="userconf-note"></textarea></p>
+        </div>
+        <ons-list>
+            <ons-list-item tappable>
+                <label class="left">
+                    <ons-checkbox input-id="userconf-lock"></ons-checkbox>
+                </label>
+                <label for="userconf-lock" class="center">
+                    非公開アカウント
+                </label>
+            </ons-list-item>
+        </ons-list>
+        <div class="container">
+            <p class="note">* インスタンスにより文字数、容量制限が異なりますのでリミットは表示していません。</p>
+        </div>
+    </ons-page>
+</ons-template>
+
 <ons-template id="config.html">
     <ons-page id="config-page">
         <ons-toolbar>
@@ -620,6 +657,14 @@
                 </div>
                 <div class="center">
                     このアプリについて
+                </div>
+            </ons-list-item>
+            <ons-list-item modifier="chevron" tappable onclick="loadNav('userconf.html')">
+                <div class="left">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-book fa fa-fw"></i>
+                </div>
+                <div class="center">
+                    ユーザー情報編集
                 </div>
             </ons-list-item>
         </ons-list>

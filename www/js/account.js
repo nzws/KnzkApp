@@ -242,3 +242,28 @@ function OpenQR(user) {
         document.getElementById("qr-userid").innerText = user;
     });
 }
+
+function update_userdata() {
+    fetch("https://"+inst+"/api/v1/accounts/update_credentials", {
+        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
+        method: 'PATCH',
+        body: JSON.stringify({
+            display_name: document.getElementById("userconf-display_name").value,
+            note: document.getElementById("userconf-note").value,
+            locked: document.getElementById("userconf-lock").checked
+        })
+    }).then(function(response) {
+        if(response.ok) {
+            return response.json();
+        } else {
+            sendLog("Error/update_userdata", response);
+            throw new Error();
+        }
+    }).then(function(json) {
+        showtoast("ok_conf");
+        BackTab();
+    }).catch(function(error) {
+        showtoast('cannot-pros');
+        console.log(error);
+    });
+}
