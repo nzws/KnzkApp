@@ -433,6 +433,7 @@ function more(id) {
             else if (index == 6) delete_post();
         })
     } else {
+        var bookmark = checkBookmark(id) === true ? "ブックマークから削除" : "ブックマークする";
         ons.openActionSheet({
             cancelable: true,
             buttons: [
@@ -441,6 +442,7 @@ function more(id) {
                 'URLをコピー',
                 '元のトゥートを表示',
                 '近くのトゥートを表示',
+                bookmark,
                 {
                     label: '通報',
                     modifier: 'destructive'
@@ -456,7 +458,8 @@ function more(id) {
             else if (index == 2) copy(url);
             else if (index == 3) original_post(more_status_id, url, acct);
             else if (index == 4) show_post(more_status_id, true);
-            else if (index == 5) report();
+            else if (index == 5) changeBookmark(more_status_id);
+            else if (index == 6) report();
         })
     }
 }
