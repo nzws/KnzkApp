@@ -167,7 +167,7 @@ function toot_card(toot, mode, note, toot_light, page) {
             "                </div>";
     }
 
-    if (getConfig(1, 'no_icon') || (page === "alert" && note && getConfig(2, 'alert_m'))) {
+    if (page === "alert" && note && getConfig(2, 'alert_m')) {
         layout_num["toot_content"] = "11 no-icon-mode";
     } else {
         icon_html = "<div class=\"col-xs-2\">\n" +

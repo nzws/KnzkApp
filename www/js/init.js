@@ -156,7 +156,7 @@ function init() {
                                 setConfig(1, "tutorial", 1);
                             }
                             document.getElementById("splitter-profile-bg").setAttribute('style', 'background-image: url(\''+json[getConfig(1, 'no_gif') ? "header_static" : "header"]+'\');');
-                            if (!getConfig(1, 'no_icon')) document.getElementById("splitter-icon").src = json[getConfig(1, 'no_gif') ? "avatar_static" : "avatar"];
+                            document.getElementById("splitter-icon").src = json[getConfig(1, 'no_gif') ? "avatar_static" : "avatar"];
                             if (instance_config[inst]["yomigana"]) document.getElementById("splitter-profile-name").style.height = "30px";
                             document.getElementById("splitter-profile-name").innerHTML = t_text(json.display_name);
                             document.getElementById("account_change-username").innerHTML = json.acct + "@" + inst;
@@ -254,6 +254,8 @@ function initevent() {
                 if (getConfig(1, 'dial')) document.getElementById("dial_"+getConfig(1, 'dial')).selected = true;
                 if (getConfig(1, 'theme')) document.getElementById("theme_"+getConfig(1, 'theme')).selected = true;
                 if (getConfig(1, 'url_open')) document.getElementById("url_"+getConfig(1, 'url_open')).selected = true;
+                if (getConfig(1, 'toot_button')) document.getElementById("toot_bt_"+getConfig(1, 'toot_button')).selected = true;
+                if (getConfig(1, 'toot_body')) document.getElementById("toot_body_"+getConfig(1, 'toot_body')).selected = true;
                 hide('now_loading');
                 var conf = $("[id^='conf-']"), i = 0;
                 while (conf[i]) {
@@ -433,6 +435,24 @@ function init_d() {
             }
             if (getConfig(1, 'gpu') != 1) {
                 css += ".toot, .timeline {transform: translate3d(0, 0, 0);}";
+            }
+            if (getConfig(1, 'toot_button')) {
+                if (getConfig(1, 'toot_button') === "large") {
+                    css += ".toot-button { margin-right: 0.5em; font-size: xx-large; }";
+                } else if (getConfig(1, 'toot_button') === "small") {
+                    css += ".toot-button { margin-right: 1.5em; font-size: large; } .date-disp { margin-top: 0 }";
+                }
+            } else {
+                setConfig(1, "toot_button", "normal");
+            }
+            if (getConfig(1, 'toot_body')) {
+                if (getConfig(1, 'toot_body') === "large") {
+                    css += ".toot_content > p { font-size: medium; }";
+                } else if (getConfig(1, 'toot_body') === "small") {
+                    css += ".toot_content > p { font-size: small; }";
+                }
+            } else {
+                setConfig(1, "toot_body", "normal");
             }
 
             var node = document.createElement("style");

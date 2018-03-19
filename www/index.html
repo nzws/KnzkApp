@@ -870,12 +870,50 @@
                     <ons-switch onclick="change_conf(1, 'no_custom_emoji')" input-id="conf-no_custom_emoji"></ons-switch>
                 </div>
             </ons-list-item>
+        </ons-list>
+        <ons-list>
+            <ons-list-header>節約設定</ons-list-header>
             <ons-list-item>
                 <div class="center">
-                    <span class="list-item__title">アイコンを表示しない</span><span class="list-item__subtitle">ネットワーク通信の節約</span>
+                    <span class="list-item__title">アニメーションGIFを使用しない</span><span class="list-item__subtitle">電池の節約</span>
                 </div>
                 <div class="right">
-                    <ons-switch onclick="change_conf(1, 'no_icon')" input-id="conf-no_icon"></ons-switch>
+                    <ons-switch onclick="change_conf(1, 'no_gif')" input-id="conf-no_gif"></ons-switch>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    <span class="list-item__title">カスタム絵文字を使用しない</span><span class="list-item__subtitle">ネットワーク通信の節約</span>
+                </div>
+                <div class="right">
+                    <ons-switch onclick="change_conf(1, 'no_custom_emoji')" input-id="conf-no_custom_emoji"></ons-switch>
+                </div>
+            </ons-list-item>
+        </ons-list>
+        <ons-list>
+            <ons-list-header>フォントサイズ</ons-list-header>
+            <ons-list-item>
+                <div class="center">
+                    トゥートの各ボタン
+                </div>
+                <div class="right">
+                    <ons-select id="conf-toot_button" onchange="change_conf(1, 'toot_button', true)">
+                        <option value="large" id="toot_bt_large">大</option>
+                        <option value="normal" id="toot_bt_normal">中</option>
+                        <option value="small" id="toot_bt_small">小</option>
+                    </ons-select>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    トゥート本文
+                </div>
+                <div class="right">
+                    <ons-select id="conf-toot_body" onchange="change_conf(1, 'toot_body', true)">
+                        <option value="large" id="toot_body_large">大</option>
+                        <option value="normal" id="toot_body_normal">中</option>
+                        <option value="small" id="toot_body_small">小</option>
+                    </ons-select>
                 </div>
             </ons-list-item>
         </ons-list>
