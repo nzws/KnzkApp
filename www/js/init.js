@@ -72,6 +72,7 @@ function init() {
     config_tmp = {};
     original_post_text = "";
     original_post_userid = "";
+    emoji_search = [];
     init_d();
     if (!localStorage || !fetch) {
         show("cannot-use-ls");
@@ -135,16 +136,14 @@ function init() {
                         } else {
                             default_post_visibility = "public";
                         }
-                        if (getConfig(1, 'no_custom_emoji')) {
-                            document.getElementById("toot_emoji_list_popover").innerHTML = "カスタム絵文字が無効化されています...";
-                            document.getElementById("emoji_list_popover").innerHTML = "カスタム絵文字が無効化されています...";
-                        } else {
-                            var elist = [document.getElementById("toot_emoji_list_popover"), document.getElementById("emoji_list_popover")];
-                            elist[0].innerHTML = "loading now...";
-                            elist[0].dataset.isload = "no";
 
-                            elist[1].innerHTML = "loading now...";
-                            elist[1].dataset.isload = "no";
+                        if (getConfig(1, 'no_custom_emoji')) {
+                            $("#ep_bt_custom").addClass("invisible");
+                        } else {
+                            $("#ep_bt_custom").removeClass("invisible");
+                            var elist = document.getElementById("emoji_list_popover");
+                            elist.innerHTML = "loading now...";
+                            elist.dataset.isload = "no";
                         }
 
                         document.querySelector('#navigator').resetToPage('home.html');
@@ -312,32 +311,7 @@ function initevent() {
             if (instance_config[inst]["glitch_soc"]) $("#localonly_bt").removeClass("invisible");
             if (instance_config[inst]["markdown"]) $("#md-box").removeClass("invisible");
 
-            var emoji = document.getElementById("toot_emoji_list_popover"), i = 0, reshtml = "";
-            if (emoji.dataset.isload === "no" && !getConfig(1, 'no_custom_emoji')) {
-                fetch("https://"+inst+"/api/v1/custom_emojis", {
-                    headers: {'content-type': 'application/json'},
-                    method: 'GET',
-                }).then(function(response) {
-                    if(response.ok) {
-                        return response.json();
-                    } else {
-                        sendLog("Error/event_toot_emoji", response.json);
-                        //カスタム絵文字非対応インスタンス
-                        $("#toot_emoji_bt").addClass("invisible");
-                    }
-                }).then(function(json) {
-                    if (json) {
-                        var emoji_mode = getConfig(1, 'no_gif') ? "static_url" : "url";
-
-                        while (json[i]) {
-                            reshtml += "<ons-button modifier=\"quiet\" onclick='add_emoji_simple(\" :"+json[i]["shortcode"]+": \", true)'><img draggable=\"false\" class=\"emojione\" src=\""+json[i][emoji_mode]+"\"></ons-button>\n";
-                            i++;
-                        }
-                        emoji.innerHTML = reshtml;
-                        emoji.dataset.isload = "yes";
-                    }
-                });
-            }
+            renderEmoji(document.getElementById("emoji_list_popover"));
         }
         if (document.getElementById("toot_textarea") && tmp_text_pre) {
             document.getElementById("toot_textarea").value = tmp_text_pre;
