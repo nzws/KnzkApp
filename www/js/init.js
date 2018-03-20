@@ -393,23 +393,28 @@ function initevent() {
 function home_autoevent() {
     setTimeout(function () {
         if (home_auto_event) {
-            var h = document.querySelector('#TL'+timeline_now_tab+'_main > .page__content').scrollTop;
-            home_auto_mode = h <= 100;
+            updateTLtrack();
             var storedata = timeline_store_data[inst][timeline_now_tab];
             if (storedata !== "" && home_auto_mode) {
-                document.querySelector('#TL'+timeline_now_tab+'_main > .page__content').innerHTML = storedata + document.querySelector('#TL'+timeline_now_tab+'_main > .page__content').innerHTML;
+                if (getConfig(1, 'chatmode'))
+                    document.querySelector('#TL'+timeline_now_tab+'_main > .page__content').innerHTML = document.querySelector('#TL'+timeline_now_tab+'_main > .page__content').innerHTML + storedata;
+                else
+                    document.querySelector('#TL'+timeline_now_tab+'_main > .page__content').innerHTML = storedata + document.querySelector('#TL'+timeline_now_tab+'_main > .page__content').innerHTML;
                 timeline_store_data[inst][timeline_now_tab] = "";
                 home_auto_num = 0;
                 setTLheadcolor(0);
+                if (getConfig(1, 'chatmode')) $(".page__content").scrollTop(99999999999999999999999);
             }
 
-            try {
-                var mr = $(".more_load_bt_"+timeline_now_tab).offset().top - window.innerHeight;
-                if (mr < -10) {
-                    showTL(null,null,document.getElementsByClassName("more_load_bt_"+now_TL)[0]);
+            if (!getConfig(1, 'chatmode')) {
+                try {
+                    var mr = $(".more_load_bt_"+timeline_now_tab).offset().top - window.innerHeight;
+                    if (mr < -10) {
+                        showTL(null,null,document.getElementsByClassName("more_load_bt_"+now_TL)[0]);
+                    }
+                } catch (e) {
+                    console.log(e);
                 }
-            } catch (e) {
-                console.log(e);
             }
             home_autoevent();
         }
