@@ -255,6 +255,7 @@ function initevent() {
             setTimeout(function() {
                 if (getConfig(1, 'dial')) document.getElementById("dial_"+getConfig(1, 'dial')).selected = true;
                 if (getConfig(1, 'theme')) document.getElementById("theme_"+getConfig(1, 'theme')).selected = true;
+                if (getConfig(1, 'design_platform')) document.getElementById("dp_"+getConfig(1, 'design_platform')).selected = true;
                 if (getConfig(1, 'url_open')) document.getElementById("url_"+getConfig(1, 'url_open')).selected = true;
                 if (getConfig(1, 'toot_button')) document.getElementById("toot_bt_"+getConfig(1, 'toot_button')).selected = true;
                 if (getConfig(1, 'toot_body')) document.getElementById("toot_body_"+getConfig(1, 'toot_body')).selected = true;
@@ -427,15 +428,32 @@ function home_autoevent() {
     }, 1000);
 }
 
-var button = "", quiet = "", light = "";
+var button = "", quiet = "", light = "", large_quiet = "";
 function init_d() {
-    button = "button";
-    quiet = button + " button--quiet";
-    light = button + " button--light";
-    ons.disableAutoStyling();
+    var platform_mode = "ios", css = "";
+
+    if (getConfig(1, 'design_platform')) {
+        platform_mode = getConfig(1, 'design_platform');
+    } else if (ons.platform.isAndroid()) {
+        platform_mode = "android";
+    }
+
+    if (platform_mode === "ios") {
+        button = "button";
+        quiet = button + " button--quiet";
+        light = button + " button--light";
+        large_quiet = button + " button--large--quiet";
+        ons.platform.select("ios");
+    } else {
+        button = "button button--material";
+        quiet = "button button--material--flat";
+        light = button + " button--light";
+        large_quiet = button + " button--material--flat button--large";
+        ons.platform.select("android");
+        css += "#toot-button { padding-bottom: 0; }";
+    }
     if (localStorage.getItem('knzkapp_conf_mastodon') != undefined) {
         if (getConfig(1, 'spin') == 1 || getConfig(1, 'gpu') != 1) {
-            var css = "";
             if (getConfig(1, 'spin') == 1) {
                 css += ".fa-spin {-webkit-animation: none;  animation: none;}";
             }
@@ -460,14 +478,13 @@ function init_d() {
             } else {
                 setConfig(1, "toot_body", "normal");
             }
-
-            var node = document.createElement("style");
-            node.type = "text/css";
-            node.appendChild(document.createTextNode(css));
-            var heads = document.getElementsByTagName("head");
-            heads[0].appendChild(node);
         }
     }
+    var node = document.createElement("style");
+    node.type = "text/css";
+    node.appendChild(document.createTextNode(css));
+    var heads = document.getElementsByTagName("head");
+    heads[0].appendChild(node);
 }
 init_d();
 ons.ready(function() {
