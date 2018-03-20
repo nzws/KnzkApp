@@ -1,40 +1,7 @@
-function initph(mode) {
-    if (mode === "TL") {
-    } else {
-        try {
-            var ph_alert = document.getElementById('ph-alert');
-            ph_alert.addEventListener('changestate', function(event) {
-                var message = '';
-
-                switch (event.state) {
-                    case 'initial':
-                        message = '<ons-icon icon="fa-refresh" class="white"></ons-icon>';
-                        break;
-                    case 'preaction':
-                        message = '<ons-icon icon="fa-refresh" class="white"></ons-icon>';
-                        break;
-                    case 'action':
-                        message = '<span class="fa fa-spin"><span class="fa fa-spin"><ons-icon icon="fa-refresh" class="white"></ons-icon></span></span>';
-                        break;
-                }
-
-                ph_alert.innerHTML = message;
-            });
-
-            ph_alert.onAction = function(done) {
-                console.log("reload");
-                showAlert(done);
-            };
-        } catch (e) {
-            console.log("ERROR_Pull_hook");
-        }
-    }
-}
-
 function init() {
     try {if (TL_websocket) TL_websocket.close();} catch (e) {console.log("no_ws");}
     //変数破棄
-    now_TL = "local";
+    now_TL = "";
     last_load_TL = "";
     tmp_post_text = "";
     toot_new_id = "";
@@ -62,7 +29,6 @@ function init() {
     TL_websocket = null;
     image_mode = "";
     home_auto_event = false;
-    home_auto_tmp = "";
     home_auto_mode = true;
     home_auto_num = 0;
     doodle_old_color = null;
@@ -73,6 +39,7 @@ function init() {
     original_post_text = "";
     original_post_userid = "";
     emoji_search = [];
+    acct_mode = "";
     init_d();
     if (!localStorage || !fetch) {
         show("cannot-use-ls");
