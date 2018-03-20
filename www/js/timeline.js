@@ -138,6 +138,7 @@ function openTL(mode) {
                 document.getElementById("dial-icon").className = "ons-icon fa "+icon;
             } else if (dial) {
                 $("#dial_TL").removeClass("invisible");
+                setsd();
             }
         }, 200);
     }
@@ -630,4 +631,19 @@ function editTLConfD(i) {
     console.log("OK");
     timeline_default_tab = i;
     localStorage.setItem('knzkapp_conf_mastodon_timeline', JSON.stringify({"config":timeline_config,"default":timeline_default_tab}));
+}
+
+function setsd() {
+    var i = 0, icons = {
+        "home": "ons-icon fa fa-home",
+        "local": "ons-icon fa fa-users",
+        "public": "ons-icon fa fa-globe",
+        "local_media": "ons-icon fa fa-picture-o",
+        "public_media": "ons-icon zmdi zmdi-collection-image-o",
+        "plus_local": "+ローカル"
+    };
+    while (i <= 4) {
+        document.getElementById("sd_icon"+i).className = icons[timeline_config[i]];
+        i++;
+    }
 }
