@@ -638,6 +638,7 @@ img.emoji {
     border: #fcecd8 1px solid;
     border-radius: 5px;
     background-color: #fefaf0;
+    color: #0d0d0d;
 }
 
 .toot_content > * {
