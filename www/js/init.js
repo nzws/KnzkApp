@@ -434,28 +434,28 @@ function init_d() {
             platform = "other";
         }
     }
-
-    if (getConfig(1, 'design_platform')) {
-        platform_mode = getConfig(1, 'design_platform');
-    } else if (platform === "android") {
-        platform_mode = "android";
-    }
-
-    if (platform_mode === "ios") {
-        button = "button";
-        quiet = button + " button--quiet";
-        light = button + " button--light";
-        large_quiet = button + " button--large--quiet";
-        ons.platform.select("ios");
-    } else {
-        button = "button button--material";
-        quiet = "button button--material--flat";
-        light = button + " button--light";
-        large_quiet = button + " button--material--flat button--large";
-        ons.platform.select("android");
-        css += "#toot-button { padding-bottom: 0; }";
-    }
     if (localStorage.getItem('knzkapp_conf_mastodon') != undefined) {
+        if (getConfig(1, 'design_platform')) {
+            platform_mode = getConfig(1, 'design_platform');
+        } else if (platform === "android") {
+            platform_mode = "android";
+        }
+
+        if (platform_mode === "ios") {
+            button = "button";
+            quiet = button + " button--quiet";
+            light = button + " button--light";
+            large_quiet = button + " button--large--quiet";
+            ons.platform.select("ios");
+        } else {
+            button = "button button--material";
+            quiet = "button button--material--flat";
+            light = button + " button--light";
+            large_quiet = button + " button--material--flat button--large";
+            ons.platform.select("android");
+            css += "#toot-button { padding-bottom: 0; }";
+        }
+
         if (getConfig(1, 'spin') == 1 || getConfig(1, 'gpu') != 1) {
             if (getConfig(1, 'spin') == 1) {
                 css += ".fa-spin {-webkit-animation: none;  animation: none;}";
@@ -482,12 +482,12 @@ function init_d() {
                 setConfig(1, "toot_body", "normal");
             }
         }
+        var node = document.createElement("style");
+        node.type = "text/css";
+        node.appendChild(document.createTextNode(css));
+        var heads = document.getElementsByTagName("head");
+        heads[0].appendChild(node);
     }
-    var node = document.createElement("style");
-    node.type = "text/css";
-    node.appendChild(document.createTextNode(css));
-    var heads = document.getElementsByTagName("head");
-    heads[0].appendChild(node);
 }
 init_d();
 ons.ready(function() {
