@@ -411,7 +411,7 @@ function home_autoevent() {
                 try {
                     var mr = $(".more_load_bt_"+timeline_now_tab).offset().top - window.innerHeight;
                     if (mr < -10) {
-                        showTL(null,null,document.getElementsByClassName("more_load_bt_"+now_TL)[0]);
+                        showTL(null,null,document.getElementsByClassName("more_load_bt_"+timeline_now_tab)[0]);
                     }
                 } catch (e) {
                     console.log(e);
