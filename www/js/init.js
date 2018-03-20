@@ -160,7 +160,7 @@ function init() {
                             document.getElementById("splitter-profile-bg").setAttribute('style', 'background-image: url(\''+json[getConfig(1, 'no_gif') ? "header_static" : "header"]+'\');');
                             document.getElementById("splitter-icon").src = json[getConfig(1, 'no_gif') ? "avatar_static" : "avatar"];
                             if (instance_config[inst]["yomigana"]) document.getElementById("splitter-profile-name").style.height = "30px";
-                            document.getElementById("splitter-profile-name").innerHTML = t_text(json.display_name);
+                            document.getElementById("splitter-profile-name").innerHTML = t_text(escapeHTML(json.display_name));
                             document.getElementById("account_change-username").innerHTML = json.acct + "@" + inst;
                             if (json.locked === true)
                                 $("#menu-followreq").removeClass("invisible");
