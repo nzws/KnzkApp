@@ -1441,17 +1441,17 @@
                 <div class="user-acct"><span id="userpage-acct"></span> <ons-icon icon="fa-lock" id="userpage-lock" class="invisible"></ons-icon></div>
                 <div class="user-bio" id="userpage-bio"></div>
                 <div class="user-follow">
-                    <div>
+                    <div class="account_activity">
                         <b id="userpage-post-count"></b><br>
                         投稿
                     </div>
 
-                    <div onclick="list('accounts/'+account_page_id+'/following', 'フォロー一覧', null, 'acct', true)">
+                    <div onclick="list('accounts/'+account_page_id+'/following', 'フォロー一覧', null, 'acct', true)" class="account_activity">
                         <b id="userpage-follow"></b><br>
                         フォロー
                     </div>
 
-                    <div onclick="list('accounts/'+account_page_id+'/followers', 'フォロワー一覧', null, 'acct', true)">
+                    <div onclick="list('accounts/'+account_page_id+'/followers', 'フォロワー一覧', null, 'acct', true)" class="account_activity">
                         <b id="userpage-follower"></b><br>
                         フォロワー
                     </div>

@@ -200,6 +200,11 @@ html, body {
     display: flex;
     color: #d9e1e8;
     justify-content: space-around;
+    width: 100%;
+}
+
+.account_activity {
+    width: 30%;
 }
 
 .alert_text {
