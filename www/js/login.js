@@ -269,3 +269,20 @@ function open_addaccount() {
     var menu = document.getElementById('splitter-menu');
     document.querySelector('#navigator').bringPageTop("login.html", {animation: "slide"}).then(menu.close.bind(menu));
 }
+
+function clearAllAccount() {
+    ons.notification.confirm('本当に全てのアカウントからログアウトしますか？', {title: '全アカウントをログアウト'}).then(function (e) {
+        if (e === 1) {
+            ons.notification.confirm('もう一度聞きます。<br>本当に全てのアカウントからログアウトしますか？', {title: '全アカウントをログアウト'}).then(function (e) {
+                if (e === 1) {
+                    localStorage.setItem('knzkapp_account_list', JSON.stringify([]));
+
+                    localStorage.removeItem('knzkapp_now_mastodon_token');
+                    localStorage.removeItem('knzkapp_now_mastodon_username');
+                    localStorage.removeItem('knzkapp_now_mastodon_id');
+                    localStorage.removeItem('knzkapp_now_mastodon_domain');
+                }
+            });
+        }
+    });
+}

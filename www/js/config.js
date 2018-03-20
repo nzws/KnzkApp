@@ -29,6 +29,7 @@ function setConfig(name, id, value) { //data->1: 基本設定, data->2: col
     var data = JSON.parse(localStorage.getItem(md));
     data[id] = value;
     localStorage.setItem(md, JSON.stringify(data));
+    config_tmp[name] = null;
 }
 
 function ConfigSetup() {
@@ -87,4 +88,18 @@ function ConfigSetup() {
         hide('DB_migration');
         init();
     }
+}
+
+function clearAllConfig() {
+    ons.notification.confirm('本当に全ての設定をリセットしますか？', {title: '設定をリセット'}).then(function (e) {
+        if (e === 1) {
+            ons.notification.confirm('もう一度聞きます。<br>本当に全ての設定をリセットしますか？', {title: '設定をリセット'}).then(function (e) {
+                if (e === 1) {
+                    localStorage.setItem('knzkapp_conf_mastodon', JSON.stringify({}));
+                    localStorage.setItem('knzkapp_conf_mastodoncol', JSON.stringify({}));
+                    ons.notification.toast('設定をリセットしました。再起動してください。');
+                }
+            });
+        }
+    });
 }
