@@ -46,3 +46,11 @@
 .black_text > .select-input, .black_text > .text-input {
     color: #313131;
 }
+
+.toot_light {
+    background: rgba(49,53,67,.9) !important;
+}
+
+.toot_dm {
+    background: #393f4f !important;
+}
