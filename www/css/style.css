@@ -692,3 +692,10 @@ img.emoji {
 #toot-button {
     padding-bottom: 5px;
 }
+
+.toot_name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 80%;
+}
