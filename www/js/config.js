@@ -1,5 +1,13 @@
 function getConfig(type, name) {
-    if (!config_tmp[type]) config_tmp[type] = type === 1 ? localStorage.getItem('knzkapp_conf_mastodon') : localStorage.getItem('knzkapp_conf_mastodoncol');
+    if (!config_tmp[type]) {
+        if (type === 1) {
+            config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodon');
+        } else if (type === 2) {
+            config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodoncol');
+        } else if (type === 3) {
+            config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodon_timeline');
+        }
+    }
 
     var data = config_tmp[type];
     data = JSON.parse(data);
@@ -25,7 +33,11 @@ function change_conf(name, id, sel, istext) {
 }
 
 function setConfig(name, id, value) { //data->1: 基本設定, data->2: col
-    var md = (name === 1) ? 'knzkapp_conf_mastodon' : 'knzkapp_conf_mastodoncol';
+    var md = "";
+    if (name === 1) md = 'knzkapp_conf_mastodon';
+    else if (name === 2) md = 'knzkapp_conf_mastodoncol';
+    else if (name === 2) md = 'knzkapp_conf_mastodon_timeline';
+
     var data = JSON.parse(localStorage.getItem(md));
     data[id] = value;
     localStorage.setItem(md, JSON.stringify(data));
@@ -33,7 +45,7 @@ function setConfig(name, id, value) { //data->1: 基本設定, data->2: col
 }
 
 function ConfigSetup() {
-    var last_version = 2;
+    var last_version = 3;
 
     if (!localStorage.getItem('knzkapp_conf_mastodon')) {
         if (localStorage.getItem('knzk_realtime') == undefined) localStorage.setItem('knzk_realtime', 1);
@@ -47,18 +59,18 @@ function ConfigSetup() {
     if (now_version !== last_version) {
         show('DB_migration');
         var mig_i = 0;
-        var accountdata = {
-            "list": localStorage.getItem('knzk_account_list'),
-            "token": localStorage.getItem('knzk_account_token'),
-            "userid": localStorage.getItem('knzk_userid'),
-            "username": localStorage.getItem('knzk_username'),
-            "domain": localStorage.getItem('knzk_login_domain')
-        };
         if (now_version < 2) { //config migration v1 -> v2
             /**
              * v2
              * 散らばっていたconfigをまとめました。
              */
+            var accountdata = {
+                "list": localStorage.getItem('knzk_account_list'),
+                "token": localStorage.getItem('knzk_account_token'),
+                "userid": localStorage.getItem('knzk_userid'),
+                "username": localStorage.getItem('knzk_username'),
+                "domain": localStorage.getItem('knzk_login_domain')
+            };
             var list_d = ["bigfav", "nsfw", "cw", "realtime", "spin", "swipe", "joke", "menu-fav", "alert-back", "image_full", "swipe_menu", "head_reset", "dial", "theme", "url_open"];
             var list_col = ["alert", "all", "bg", "bs", "collapse", "leng", "media", "preview"];
             var new_conf = {};
@@ -77,13 +89,17 @@ function ConfigSetup() {
 
             localStorage.setItem('knzkapp_conf_mastodon', JSON.stringify(new_conf));
             localStorage.setItem('knzkapp_conf_mastodoncol', JSON.stringify(new_conf_col));
+
+            if (accountdata["list"]) localStorage.setItem('knzkapp_account_list', accountdata["list"]);
+            if (accountdata["token"]) localStorage.setItem('knzkapp_now_mastodon_token', accountdata["token"]);
+            if (accountdata["userid"]) localStorage.setItem('knzkapp_now_mastodon_id', accountdata["userid"]);
+            if (accountdata["username"]) localStorage.setItem('knzkapp_now_mastodon_username', accountdata["username"]);
+            if (accountdata["domain"]) localStorage.setItem('knzkapp_now_mastodon_domain', accountdata["domain"]);
+        }
+        if (now_version < 3) {
+            localStorage.setItem('knzkapp_conf_mastodon_timeline', JSON.stringify({"config":["home","local","public","local_media","public_media"],"default":0}));
         }
 
-        if (accountdata["list"]) localStorage.setItem('knzkapp_account_list', accountdata["list"]);
-        if (accountdata["token"]) localStorage.setItem('knzkapp_now_mastodon_token', accountdata["token"]);
-        if (accountdata["userid"]) localStorage.setItem('knzkapp_now_mastodon_id', accountdata["userid"]);
-        if (accountdata["username"]) localStorage.setItem('knzkapp_now_mastodon_username', accountdata["username"]);
-        if (accountdata["domain"]) localStorage.setItem('knzkapp_now_mastodon_domain', accountdata["domain"]);
         localStorage.setItem('knzkapp_conf_version', last_version);
         hide('DB_migration');
         init();
@@ -97,6 +113,7 @@ function clearAllConfig() {
                 if (e === 1) {
                     localStorage.setItem('knzkapp_conf_mastodon', JSON.stringify({"realtime":1,"head_reset":1,"dial":"change"}));
                     localStorage.setItem('knzkapp_conf_mastodoncol', JSON.stringify({}));
+                    localStorage.setItem('knzkapp_conf_mastodon_timeline', JSON.stringify({"config":["home","local","public","local_media","public_media"],"default":0}));
                     ons.notification.toast('設定をリセットしました。再起動してください。');
                 }
             });

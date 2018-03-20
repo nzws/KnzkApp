@@ -83,7 +83,7 @@
         var platform = "";
         var acct_mode = "";
         var timeline_store_data = {};
-        var timeline_config = {0: "home",1:"local",2: "public"};
+        var timeline_config = {};
         var timeline_now_tab = 0;
         var timeline_default_tab = 0;
     </script>
@@ -374,7 +374,7 @@
                     <ons-icon icon="fa-angle-left"></ons-icon>
                 </ons-toolbar-button>
             </div>
-            <div class="center" onclick="scrollTL()"><span id="home_title">ローカル</span> <span class="notification invisible" id="home_title_unread">1</span></div>
+            <div class="center" onclick="scrollTL()"><span id="home_title">タイムライン</span> <span class="notification invisible" id="home_title_unread">1</span></div>
             <div class="right">
                 <ons-toolbar-button onclick="showTL(null, null, null, true)">
                     <ons-icon icon="fa-refresh"></ons-icon>
@@ -386,11 +386,11 @@
         </ons-toolbar>
 
         <ons-tabbar swipeable hide-tabs id="tl_tabs">
-            <ons-tab page="tl-local.html" label="ローカル" tl_id="local" active></ons-tab>
-            <ons-tab page="tl-home.html" label="ホーム" tl_id="home"></ons-tab>
-            <ons-tab page="tl-local_media.html" label="メディア(ローカル)" tl_id="local_media"></ons-tab>
-            <ons-tab page="tl-public_media.html" label="メディア(連合)" tl_id="public_media"></ons-tab>
-            <ons-tab page="tl-public.html" label="連合" tl_id="public"></ons-tab>
+            <ons-tab page="tl-0.html" active></ons-tab>
+            <ons-tab page="tl-1.html"></ons-tab>
+            <ons-tab page="tl-2.html"></ons-tab>
+            <ons-tab page="tl-3.html"></ons-tab>
+            <ons-tab page="tl-4.html"></ons-tab>
         </ons-tabbar>
 
         <ons-speed-dial position="bottom right" direction="up" onclick="opendial()" id="dial_main" class="invisible">
@@ -538,40 +538,40 @@
     </ons-page>
 </ons-template>
 
-<ons-template id="tl-local.html">
-    <ons-page id="local_main" class="timeline">
+<ons-template id="tl-0.html">
+    <ons-page id="TL0_main" class="timeline">
         <div class="loading-now">
             <ons-progress-circular indeterminate></ons-progress-circular>
         </div>
     </ons-page>
 </ons-template>
 
-<ons-template id="tl-home.html">
-    <ons-page id="home_main" class="timeline">
+<ons-template id="tl-1.html">
+    <ons-page id="TL1_main" class="timeline">
         <div class="loading-now">
             <ons-progress-circular indeterminate></ons-progress-circular>
         </div>
     </ons-page>
 </ons-template>
 
-<ons-template id="tl-local_media.html">
-    <ons-page id="local_media_main" class="timeline">
+<ons-template id="tl-2.html">
+    <ons-page id="TL2_main" class="timeline">
         <div class="loading-now">
             <ons-progress-circular indeterminate></ons-progress-circular>
         </div>
     </ons-page>
 </ons-template>
 
-<ons-template id="tl-public_media.html">
-    <ons-page id="public_media_main" class="timeline">
+<ons-template id="tl-3.html">
+    <ons-page id="TL3_main" class="timeline">
         <div class="loading-now">
             <ons-progress-circular indeterminate></ons-progress-circular>
         </div>
     </ons-page>
 </ons-template>
 
-<ons-template id="tl-public.html">
-    <ons-page id="public_main" class="timeline">
+<ons-template id="tl-4.html">
+    <ons-page id="TL4_main" class="timeline">
         <div class="loading-now">
             <ons-progress-circular indeterminate></ons-progress-circular>
         </div>
@@ -748,6 +748,14 @@
                 </div>
                 <div class="right">
                     <ons-switch onclick="change_conf(1, 'resume_reload')" input-id="conf-resume_reload"></ons-switch>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    タイムライン編集
+                </div>
+                <div class="right">
+                    <ons-button onclick="loadNav('config_TL.html')">設定</ons-button>
                 </div>
             </ons-list-item>
             <ons-list-item>
@@ -1030,6 +1038,33 @@
                 <label class="left"><ons-checkbox input-id="conf-col-alert_m"></ons-checkbox></label>
                 <label for="conf-col-alert_m" class="center">通知で自分の投稿はアイコン/名前を表示しない</label>
             </ons-list-item>
+        </ons-list>
+    </ons-page>
+</ons-template>
+
+<ons-template id="config_TL.html">
+    <ons-page id="config_TL-page">
+        <ons-toolbar>
+            <div class="left">
+                <ons-toolbar-button onclick="BackTab()">
+                    <ons-icon icon="fa-chevron-left"></ons-icon>
+                    設定
+                </ons-toolbar-button>
+            </div>
+            <div class="center">タイムライン編集</div>
+        </ons-toolbar>
+        <ons-list>
+            <ons-list-header>ボタンで編集できます</ons-list-header>
+            <ons-list-item>
+                <label class="left">
+                    最初に表示するTL
+                </label>
+                <label class="right">
+                    順番
+                </label>
+            </ons-list-item>
+        </ons-list>
+        <ons-list id="tlconf-list">
         </ons-list>
     </ons-page>
 </ons-template>

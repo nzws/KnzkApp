@@ -40,6 +40,10 @@ function init() {
     original_post_userid = "";
     emoji_search = [];
     acct_mode = "";
+    timeline_store_data = {};
+    timeline_config = {};
+    timeline_now_tab = 0;
+    timeline_default_tab = 0;
     init_d();
     if (!localStorage || !fetch) {
         show("cannot-use-ls");
@@ -95,6 +99,9 @@ function init() {
                     }
                 }).then(function(json) {
                     try {
+                        timeline_config = getConfig(3, "config");
+                        timeline_default_tab = getConfig(3, "default") === "" ? 0 : getConfig(3, "default");
+
                         if (localStorage.getItem('knzkapp_now_mastodon_id') == undefined) localStorage.setItem('knzkapp_now_mastodon_id', json.id);
                         if (localStorage.getItem('knzkapp_now_mastodon_username') == undefined) localStorage.setItem('knzkapp_now_mastodon_username', json.username);
                         initBookmark();
@@ -117,9 +124,14 @@ function init() {
 
                         document.querySelector('#navigator').resetToPage('home.html');
                         initevent();
-                        showTL("local", null, null, true, null);
 
                         setTimeout(function () {
+                            TL_change(timeline_default_tab);
+                            now_TL = timeline_config[timeline_default_tab];
+                            timeline_now_tab = timeline_default_tab;
+                            document.getElementById('home_title').innerHTML = TLname(timeline_config[timeline_now_tab]);
+                            showTL(null, null, null, true, null);
+
                             if (getConfig(1, 'tutorial') !== 1) {
                                 loadNav("tutorial.html", "up");
                                 setConfig(1, "tutorial", 1);
@@ -323,6 +335,10 @@ function initevent() {
         if (event.enterPage.id === "usermenu-page") {
             if (!instance_config[inst]["glitch_soc"]) document.getElementById("dmtimeline_bt").className = "invisible";
         }
+
+        if (event.enterPage.id === "config_TL-page") {
+            initTLConf();
+        }
     });
 
     document.addEventListener('postpop', function(event) {
@@ -355,8 +371,9 @@ function initevent() {
                 label[1].className = "ons-icon fa-chevron-right fa";
             }
         } else if ($("#navigator").attr("page") === "home.html") {
-            document.getElementById('home_title').innerHTML = event.tabItem.getAttribute('label');
-            now_TL = event.tabItem.getAttribute('tl_id');
+            timeline_now_tab = event.index;
+            document.getElementById('home_title').innerHTML = TLname(timeline_config[event.index]);
+            now_TL = timeline_config[event.index];
             showTL(null,null,null,true);
         }
     });
@@ -376,17 +393,18 @@ function initevent() {
 function home_autoevent() {
     setTimeout(function () {
         if (home_auto_event) {
-            var h = document.querySelector('#'+now_TL+'_main > .page__content').scrollTop;
+            var h = document.querySelector('#TL'+timeline_now_tab+'_main > .page__content').scrollTop;
             home_auto_mode = h <= 100;
-            if (home_auto_tmp !== "" && home_auto_mode) {
-                document.querySelector('#'+now_TL+'_main > .page__content').innerHTML = home_auto_tmp + document.querySelector('#'+now_TL+'_main > .page__content').innerHTML;
-                home_auto_tmp = "";
+            var storedata = timeline_store_data[inst][timeline_now_tab];
+            if (storedata !== "" && home_auto_mode) {
+                document.querySelector('#TL'+timeline_now_tab+'_main > .page__content').innerHTML = storedata + document.querySelector('#TL'+timeline_now_tab+'_main > .page__content').innerHTML;
+                timeline_store_data[inst][timeline_now_tab] = "";
                 home_auto_num = 0;
                 setTLheadcolor(0);
             }
 
             try {
-                var mr = $(".more_load_bt_"+now_TL).offset().top - window.innerHeight;
+                var mr = $(".more_load_bt_"+timeline_now_tab).offset().top - window.innerHeight;
                 if (mr < -10) {
                     showTL(null,null,document.getElementsByClassName("more_load_bt_"+now_TL)[0]);
                 }
@@ -398,7 +416,7 @@ function home_autoevent() {
     }, 1000);
 }
 
-var button = "", quiet = "", light = "", large_quiet = "";
+var button = "", quiet = "", light = "", large_quiet = "", platform = "";
 function init_d() {
     var platform_mode = "ios", css = "";
 
