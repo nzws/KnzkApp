@@ -357,21 +357,27 @@ function showTagTL(tag, more_load) {
     });
 }
 
-function showAccountTL(id, more_load, media) {
+function showAccountTL(id, more_load, mode) {
     var i = 0, ip = 0, reshtml = "", get = "", reshtml_pinned = "";
     if (more_load) {
         more_load.value = "読み込み中...";
         more_load.disabled = true;
-        if (media)
+        if (mode === "media")
             get = "?max_id="+account_toot_old_id+"&only_media=true";
+        else if (mode === "with_re")
+            get = "?max_id="+account_toot_old_id+"&exclude_replies=false";
         else
-            get = "?max_id="+account_toot_old_id;
+            get = "?max_id="+account_toot_old_id+"&exclude_replies=true";
     } else {
         account_toot_old_id = 0;
-        if (media)
+        if (mode === "media")
             get = "?only_media=true";
+        else if (mode === "with_re")
+            get = "?exclude_replies=false";
+        else
+            get = "?exclude_replies=true";
     }
-    if (media && !more_load) { //読み込みマーク入れる & ピンを表示しない
+    if (mode && !more_load) { //読み込みマーク入れる & ピンを表示しない
         document.getElementById("account_toot").innerHTML = "<div class=\"loading-now\"><ons-progress-circular indeterminate></ons-progress-circular></div>";
         document.getElementById("account_pinned_toot").innerHTML = "";
     }
@@ -389,7 +395,7 @@ function showAccountTL(id, more_load, media) {
         }
     }).then(function(json) {
         if (json) {
-            if (!media && !more_load) {
+            if (!mode && !more_load) {
                 fetch("https://"+inst+"/api/v1/accounts/"+id+"/statuses?pinned=true", {
                     headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
                     method: 'GET'
@@ -420,8 +426,8 @@ function showAccountTL(id, more_load, media) {
                 i++;
             }
             if (i !== 0) account_toot_old_id = json[i-1]['id'];
-            if (media)
-                reshtml += "<button class='button button--large--quiet' onclick='showAccountTL(account_page_id, this, true)'>もっと読み込む...</button>";
+            if (mode)
+                reshtml += "<button class='button button--large--quiet' onclick='showAccountTL(account_page_id, this, \""+mode+"\")'>もっと読み込む...</button>";
             else
                 reshtml += "<button class='button button--large--quiet' onclick='showAccountTL(account_page_id, this)'>もっと読み込む...</button>";
 
