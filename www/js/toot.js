@@ -181,7 +181,7 @@ function toot_card(toot, mode, note, toot_light, page) {
     if (page === "alert" && note && getConfig(2, 'alert_m')) {
         note += col_bt;
     } else {
-        name = "<span onclick='show_account("+toot['account']['id']+")'><b class='toot_name'>"+t_text(escapeHTML(toot['account']['display_name']))+"</b> <small>@"+toot['account']['acct']+"</small></span>" + col_bt;
+        name = "<div onclick='show_account("+toot['account']['id']+")' class='toot_name'><b class='toot_name'>"+t_text(escapeHTML(toot['account']['display_name']))+"</b> <small>@"+toot['account']['acct']+"</small></div>" + col_bt;
     }
 
     if (note) alert_text = "<p class='alert_text'>"+note+"</p>";
