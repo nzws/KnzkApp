@@ -437,8 +437,6 @@ function init_d() {
     if (localStorage.getItem('knzkapp_conf_mastodon') != undefined) {
         if (getConfig(1, 'design_platform')) {
             platform_mode = getConfig(1, 'design_platform');
-        } else if (platform === "android") {
-            platform_mode = "android";
         }
 
         if (platform_mode === "ios") {
