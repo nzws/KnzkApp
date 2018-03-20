@@ -192,7 +192,9 @@ function init() {
                 hide('now_loading');
             })
         } else {
-            document.querySelector('#navigator').resetToPage('login.html');
+            setTimeout(function () {
+                document.querySelector('#navigator').resetToPage('login.html');
+            }, 500);
         }
         hide('now_loading');
     }

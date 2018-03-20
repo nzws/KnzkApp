@@ -92,36 +92,38 @@ function login_callback(code) {
         }
         return response.json();
     }).then(function(json) {
-        if (json.access_token) {
-            localStorage.setItem('knzkapp_now_mastodon_token',json.access_token);
-            localStorage.setItem('knzkapp_now_mastodon_domain',localStorage.getItem('knzkapp_tmp_domain'));
-            inst = localStorage.getItem('knzkapp_tmp_domain');
+        setTimeout(function () {
+            if (json.access_token) {
+                localStorage.setItem('knzkapp_now_mastodon_token',json.access_token);
+                localStorage.setItem('knzkapp_now_mastodon_domain',localStorage.getItem('knzkapp_tmp_domain'));
+                inst = localStorage.getItem('knzkapp_tmp_domain');
 
-            fetch("https://"+inst+"/api/v1/accounts/verify_credentials", {
-                headers: {'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')}
-            }).then(function(response) {
-                if(response.ok) {
-                    return response.json();
-                } else {
-                    sendLog("Error/loginjs_verify_credentials", response.json);
-                    throw new Error();
-                }
-            }).then(function(json_acct) {
-                if (localStorage.getItem("knzkapp_account_list") == undefined) localStorage.setItem('knzkapp_account_list', JSON.stringify([]));
-                localStorage.setItem('knzkapp_now_mastodon_username',json_acct.acct);
-                localStorage.setItem('knzkapp_now_mastodon_id',json_acct.id);
+                fetch("https://"+inst+"/api/v1/accounts/verify_credentials", {
+                    headers: {'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')}
+                }).then(function(response) {
+                    if(response.ok) {
+                        return response.json();
+                    } else {
+                        sendLog("Error/loginjs_verify_credentials", response.json);
+                        throw new Error();
+                    }
+                }).then(function(json_acct) {
+                    if (localStorage.getItem("knzkapp_account_list") == undefined) localStorage.setItem('knzkapp_account_list', JSON.stringify([]));
+                    localStorage.setItem('knzkapp_now_mastodon_username',json_acct.acct);
+                    localStorage.setItem('knzkapp_now_mastodon_id',json_acct.id);
+                    hide('now_loading');
+                    init();
+                    showtoast('loggedin_dialog');
+                }).catch(function(error) {
+                    showtoast('cannot-connect-sv');
+                    console.log(error);
+                    hide('now_loading');
+                });
+            } else {
                 hide('now_loading');
-                init();
-                showtoast('loggedin_dialog');
-            }).catch(function(error) {
-                showtoast('cannot-connect-sv');
-                console.log(error);
-                hide('now_loading');
-            });
-        } else {
-            hide('now_loading');
-            ons.notification.alert(json.error, {title: 'ログイン中にエラーが発生しました。'});
-        }
+                ons.notification.alert(json.error, {title: 'ログイン中にエラーが発生しました。'});
+            }
+        }, 500);
     }).catch(function(error) {
         showtoast('cannot-connect-sv');
         console.log(error);
@@ -145,15 +147,17 @@ function debug_login() {
             throw new Error();
         }
     }).then(function(json) {
-        if (localStorage.getItem("knzkapp_account_list") == undefined) localStorage.setItem('knzkapp_account_list', JSON.stringify([]));
-        localStorage.setItem('knzkapp_now_mastodon_token', token);
-        localStorage.setItem('knzkapp_now_mastodon_domain', inst_domain);
-        localStorage.setItem('knzkapp_now_mastodon_username', json.acct);
-        localStorage.setItem('knzkapp_now_mastodon_id', json.id);
+        setTimeout(function () {
+            if (localStorage.getItem("knzkapp_account_list") == undefined) localStorage.setItem('knzkapp_account_list', JSON.stringify([]));
+            localStorage.setItem('knzkapp_now_mastodon_token', token);
+            localStorage.setItem('knzkapp_now_mastodon_domain', inst_domain);
+            localStorage.setItem('knzkapp_now_mastodon_username', json.acct);
+            localStorage.setItem('knzkapp_now_mastodon_id', json.id);
 
-        hide('now_loading');
-        init();
-        showtoast('loggedin_dialog');
+            hide('now_loading');
+            init();
+            showtoast('loggedin_dialog');
+        }, 500);
     }).catch(function(error) {
         showtoast('cannot-connect-sv');
         console.log(error);
@@ -196,10 +200,6 @@ function account_change(id) {
         "login_token": localStorage.getItem('knzkapp_now_mastodon_token'),
         "login_domain": localStorage.getItem('knzkapp_now_mastodon_domain')
     };
-    localStorage.removeItem('knzkapp_now_mastodon_token');
-    localStorage.removeItem('knzkapp_now_mastodon_username');
-    localStorage.removeItem('knzkapp_now_mastodon_id');
-    localStorage.removeItem('knzkapp_now_mastodon_domain');
 
     if (id) {
         var nid = parseInt(id);
