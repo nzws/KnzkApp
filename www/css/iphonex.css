@@ -15,3 +15,7 @@
         bottom: 130px !important;
     }
 }
+
+#emoji_popover > .popover--bottom {
+    bottom: 50px !important;
+}
