@@ -156,6 +156,7 @@ function init() {
                                 document.getElementById("dial-icon").className = "ons-icon fa "+icon;
                             } else if (dial) {
                                 $("#dial_TL").removeClass("invisible");
+                                setsd();
                             }
                         }, 500);
                     } catch (e) {
