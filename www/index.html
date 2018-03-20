@@ -1441,7 +1441,20 @@
                 <div class="user-acct"><span id="userpage-acct"></span> <ons-icon icon="fa-lock" id="userpage-lock" class="invisible"></ons-icon></div>
                 <div class="user-bio" id="userpage-bio"></div>
                 <div class="user-follow">
-                    <span onclick="list('accounts/'+account_page_id+'/following', 'フォロー一覧', null, 'acct', true)"><b id="userpage-follow"></b> フォロー</span> / <span onclick="list('accounts/'+account_page_id+'/followers', 'フォロワー一覧', null, 'acct', true)"><b id="userpage-follower"></b> フォロワー</span>
+                    <div>
+                        <b id="userpage-post-count"></b><br>
+                        投稿
+                    </div>
+
+                    <div onclick="list('accounts/'+account_page_id+'/following', 'フォロー一覧', null, 'acct', true)">
+                        <b id="userpage-follow"></b><br>
+                        フォロー
+                    </div>
+
+                    <div onclick="list('accounts/'+account_page_id+'/followers', 'フォロワー一覧', null, 'acct', true)">
+                        <b id="userpage-follower"></b><br>
+                        フォロワー
+                    </div>
                 </div>
             </div>
         </div>
@@ -1452,8 +1465,9 @@
         </div>
         <div class="account_bar">
             <div class="account_links">
-                <span class="account_tab_l" onclick="showAccountTL(account_page_id)">トゥート (<b id="userpage-post-count"></b>)</span>
-                <span class="account_tab_r" onclick="showAccountTL(account_page_id, null, true)">メディア</span>
+                <span class="account_tab_l" onclick="showAccountTL(account_page_id)">投稿</span>
+                <span class="account_tab_l" onclick="showAccountTL(account_page_id, null, 'with_re')">投稿と返信</span>
+                <span class="account_tab_r" onclick="showAccountTL(account_page_id, null, 'media')">メディア</span>
             </div>
         </div>
         <div id="account_pinned_toot"></div>

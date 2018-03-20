@@ -197,7 +197,9 @@ html, body {
 }
 
 .user-follow {
+    display: flex;
     color: #d9e1e8;
+    justify-content: space-around;
 }
 
 .alert_text {
