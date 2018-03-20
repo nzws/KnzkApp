@@ -124,9 +124,13 @@ function openTL(mode) {
     } else {
         try {TL_websocket.close();} catch(e) {console.log("ws_close_error");}
         load("home.html");
-        now_TL = "local";
-        showTL(null, null, null, true);
         setTimeout(function () {
+            TL_change(timeline_default_tab);
+            now_TL = timeline_config[timeline_default_tab];
+            timeline_now_tab = timeline_default_tab;
+            document.getElementById('home_title').innerHTML = TLname(timeline_config[timeline_now_tab]);
+            showTL(null, null, null, true);
+
             var dial = getConfig(1, 'dial'), icon;
             if (dial && dial != "change") {
                 $("#dial_main").removeClass("invisible");
@@ -155,14 +159,16 @@ function showTL(mode, reload, more_load, clear_load) {
             TL_websocket = null;
         }
         tl_postdata = {};
-        home_auto_tmp = "";
+        timeline_store_data = {};
+        timeline_store_data[inst] = {};
+        timeline_store_data[inst][timeline_now_tab] = "";
         home_auto_num = 0;
         toot_new_id = 0;
         toot_old_id = 0;
         more_load = false;
         setTLheadcolor(0);
         try {
-            if (last_load_TL) document.querySelector('#'+last_load_TL+'_main > .page__content').innerHTML = "";
+            if (last_load_TL) document.querySelector('#TL'+last_load_TL+'_main > .page__content').innerHTML = "";
         } catch (e) {
             console.error(e);
         }
@@ -235,10 +241,10 @@ function showTL(mode, reload, more_load, clear_load) {
 
                         if (!reload && !more_load) {
                             TL_websocket = new WebSocket("wss://"+inst+"/api/v1/streaming/?access_token=" + localStorage.getItem('knzkapp_now_mastodon_token') + "&stream=" + ws_mode);
-                            var instance_ws = inst;
+                            var instance_ws = inst, now_tab = timeline_now_tab;
                             TL_websocket.onmessage = function (message) {
                                 displayTime('update');
-                                if (instance_ws !== inst || now_TL !== mode) {
+                                if (instance_ws !== inst || timeline_now_tab !== now_tab) {
                                     console.warn("エラー:Websocketが切断されていません");
                                     TL_websocket.close();
                                     TL_websocket = null;
@@ -251,23 +257,22 @@ function showTL(mode, reload, more_load, clear_load) {
                                             if (toot_new_id !== ws_reshtml['id']) {
                                                 var TLmode = mode === "local_media" || mode === "public_media" ? "media" : "";
 
-                                                var h = document.querySelector('#'+mode+'_main > .page__content').scrollTop;
+                                                var h = document.querySelector('#TL'+timeline_now_tab+'_main > .page__content').scrollTop;
                                                 home_auto_mode = h <= 100;
 
                                                 if (home_auto_mode) { //OK
                                                     home_auto_event = false;
-                                                    document.querySelector('#'+mode+'_main > .page__content').innerHTML = toot_card(ws_reshtml, "full", null, TLmode) + home_auto_tmp + document.querySelector('#'+mode+'_main > .page__content').innerHTML;
-                                                    home_auto_tmp = "";
+                                                    document.querySelector('#TL'+timeline_now_tab+'_main > .page__content').innerHTML = toot_card(ws_reshtml, "full", null, TLmode) + timeline_store_data[instance_ws][now_tab] + document.querySelector('#TL'+timeline_now_tab+'_main > .page__content').innerHTML;
+                                                    timeline_store_data[instance_ws][now_tab] = "";
                                                     home_auto_num = 0;
                                                     setTLheadcolor(0);
                                                 } else {
-                                                    home_auto_tmp = toot_card(ws_reshtml, "full", null, TLmode) + home_auto_tmp;
+                                                    timeline_store_data[instance_ws][now_tab] = toot_card(ws_reshtml, "full", null, TLmode) + timeline_store_data[instance_ws][now_tab];
                                                     if (!home_auto_event) {
                                                         home_auto_event = true;
                                                         home_autoevent();
                                                     }
                                                 }
-
 
                                                 if (!home_auto_mode) {
                                                     home_auto_num++;
@@ -298,12 +303,11 @@ function showTL(mode, reload, more_load, clear_load) {
                     reshtml += document.querySelector('#'+id_main+' > .page__content').innerHTML;
                 }
                 if (more_load || mode != last_load_TL || clear_load) { //TL初回
-                    initph("TL");
                     if (i !== 0) toot_old_id = json[i-1]['id'];
-                    reshtml += "<button class='button button--large--quiet more_load_bt_"+now_TL+"' onclick='showTL(null,null,this)'>もっと読み込む...</button>";
+                    reshtml += "<button class='button button--large--quiet more_load_bt_"+timeline_now_tab+"' onclick='showTL(null,null,this)'>もっと読み込む...</button>";
                 }
-                last_load_TL = mode;
-                document.querySelector('#'+id_main+' > .page__content').innerHTML = reshtml;
+                last_load_TL = timeline_now_tab;
+                document.querySelector('#TL'+timeline_now_tab+'_main > .page__content').innerHTML = reshtml;
                 if (reload && reload !== "dial") reload();
                 return true;
             }
@@ -551,4 +555,51 @@ function initph(mode) {
             console.log("ERROR_Pull_hook3");
         }
     }
+}
+
+function initTLConf() {
+    var i = 0, reshtml = "", dw = "", up = "", ch = "";
+
+    while (timeline_config[i]) {
+        dw = "<ons-button modifier=\"quiet\" class=\"button button--quiet\" onclick='editTLConf("+i+",1)'><ons-icon icon=\"fa-angle-down\" class=\"ons-icon fa-angle-down fa\"></ons-icon></ons-button>\n";
+        up = "<ons-button modifier=\"quiet\" class=\"button button--quiet\" onclick='editTLConf("+i+",0)'><ons-icon icon=\"fa-angle-up\" class=\"ons-icon fa-angle-up fa\"></ons-icon></ons-button>\n";
+        ch = "";
+
+        if (i === timeline_config.length - 1) {
+            dw = "<ons-button class=\"button button--quiet\" disabled><ons-icon icon=\"fa-angle-down\" class=\"ons-icon fa-angle-down fa\"></ons-icon></ons-button>\n";
+        } else if (i === 0) {
+            up = "<ons-button class=\"button button--quiet\" disabled><ons-icon icon=\"fa-angle-up\" class=\"ons-icon fa-angle-up fa\"></ons-icon></ons-button>\n";
+        }
+        if (timeline_default_tab === i) {
+            ch = "checked";
+        }
+
+        reshtml += "<ons-list-item class=\"list-item\">\n" +
+            "<label class=\"left list-item__left\" onclick='editTLConfD("+i+")'><ons-radio name=\"tl_default\" input-id=\"tl_default-"+i+"\" "+ch+" class=\"radio-button\">\n" +
+            "<input type=\"radio\" class=\"radio-button__input\" id=\"tl_default-"+i+"\" name=\"tl_default\">\n" +
+            "<span class=\"radio-button__checkmark\"></span>\n" +
+            "</ons-radio></label>\n" +
+            "<label for=\"tl_default-"+i+"\" class=\"center list-item__center\">"+TLname(timeline_config[i])+"</label>\n" +
+            "<label class=\"right list-item__right\">\n" +
+            up + dw +
+            "</label></ons-list-item>";
+        i++;
+    }
+    document.getElementById("tlconf-list").innerHTML = reshtml;
+}
+
+function editTLConf(i, mode) {
+    if (mode === 1) { //上げる
+        timeline_config.splice(i, 2, timeline_config[i+1], timeline_config[i]);
+    } else { //下げる
+        timeline_config.splice(i-1, 2, timeline_config[i], timeline_config[i-1]);
+    }
+    localStorage.setItem('knzkapp_conf_mastodon_timeline', JSON.stringify({"config":timeline_config,"default":timeline_default_tab}));
+    initTLConf();
+}
+
+function editTLConfD(i) {
+    console.log("OK");
+    timeline_default_tab = i;
+    localStorage.setItem('knzkapp_conf_mastodon_timeline', JSON.stringify({"config":timeline_config,"default":timeline_default_tab}));
 }
