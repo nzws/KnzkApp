@@ -150,7 +150,7 @@ function toot_card(toot, mode, note, toot_light, page) {
             boost_full +
             "                                <ons-icon icon=\"fa-star\" onclick=\"toot_action('"+toot['id']+"', null, 'fav')\" class=\"tootfav_"+toot['id']+" toot-button"+namubt+fav+"\"></ons-icon>" +
             "                                <ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('"+toot['id']+"')\" class=\"toot-button toot-button-last\"></ons-icon>" +
-            "                                 <span class='toot-right date date-disp' data-time='" + toot['created_at'] + "'>" +date+ "</span>" +
+            "                                 <span class='toot-right date date-disp' data-time='" + toot['created_at'] + "' onclick='show_post(\""+toot['id']+"\")'>" +date+ "</span>" +
             "                            </div>\n";
     }
 
