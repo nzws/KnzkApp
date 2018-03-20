@@ -16,9 +16,9 @@ function change_conf(name, id, sel, istext) {
         if (md === "knzkapp_conf_mastodoncol") colmd = "col-";
         var mode = document.getElementById("conf-"+colmd+id).checked;
         if (istext)
-            data[id] = ons.platform.isIOS() ? mode == true ? "0" : "1" : mode == true ? "1" : "0";
+            data[id] = platform === "ios" ? mode == true ? "0" : "1" : mode == true ? "1" : "0";
         else
-            data[id] = ons.platform.isIOS() ? mode == true ? 0 : 1 : mode == true ? 1 : 0;
+            data[id] = platform === "ios" ? mode == true ? 0 : 1 : mode == true ? 1 : 0;
     }
     localStorage.setItem(md, JSON.stringify(data));
     config_tmp[name] = null;

@@ -104,7 +104,7 @@ function init() {
                     document.getElementById("css_toolbar_android").href = "css/iphonex.css";
                 }
 
-                if (ons.platform.isAndroid()) document.getElementById("css_toolbar_android").href = "css/toolbar-height.css";
+                if (platform === "android") document.getElementById("css_toolbar_android").href = "css/toolbar-height.css";
             } catch (e) {
                 sendLog("Error/init_1", e);
             }
@@ -253,6 +253,7 @@ function initevent() {
         if (event.enterPage.id === "config-page") {
             show('now_loading');
             setTimeout(function() {
+                if (ons.platform.isIPhoneX()) document.getElementById("item-dp").className = "invisible"; //iPhoneXだとぶっ壊れるため
                 if (getConfig(1, 'dial')) document.getElementById("dial_"+getConfig(1, 'dial')).selected = true;
                 if (getConfig(1, 'theme')) document.getElementById("theme_"+getConfig(1, 'theme')).selected = true;
                 if (getConfig(1, 'design_platform')) document.getElementById("dp_"+getConfig(1, 'design_platform')).selected = true;
@@ -432,9 +433,19 @@ var button = "", quiet = "", light = "", large_quiet = "";
 function init_d() {
     var platform_mode = "ios", css = "";
 
+    if (!platform) {
+        if (ons.platform.isIOS()) {
+            platform = "ios";
+        } else if (ons.platform.isAndroid()) {
+            platform = "android";
+        } else {
+            platform = "other";
+        }
+    }
+
     if (getConfig(1, 'design_platform')) {
         platform_mode = getConfig(1, 'design_platform');
-    } else if (ons.platform.isAndroid()) {
+    } else if (platform === "android") {
         platform_mode = "android";
     }
 

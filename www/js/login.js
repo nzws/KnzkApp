@@ -1,8 +1,8 @@
 function login_open(domain) {
     var os_name, uri = "knzkapp://login/token";
-    if (ons.platform.isIOS()) {
+    if (platform === "ios") {
         os_name = "iOS";
-    } else if (ons.platform.isAndroid()) {
+    } else if (platform === "android") {
         os_name = "Android";
     } else {
         os_name = "PC";
@@ -30,7 +30,7 @@ function login_open(domain) {
         localStorage.setItem('knzkapp_tmp_cid', json["client_id"]);
         localStorage.setItem('knzkapp_tmp_scr', json["client_secret"]);
         var url = 'https://'+inst_domain_tmp+'/oauth/authorize?response_type=code&redirect_uri='+uri+'&scope=read write follow&client_id='+json["client_id"];
-        if (ons.platform.isIOS()) {
+        if (platform === "ios") {
             openURL(url);
         } else {
             window.open(url, "_system");
@@ -61,7 +61,7 @@ function login_open_c(domain) {
 
 function login_callback(code) {
     var uri = "knzkapp://login/token";
-    if (ons.platform.isIOS()) {
+    if (platform === "ios") {
         SafariViewController.isAvailable(function (available) {
             if (available) {
                 SafariViewController.hide(function () {
@@ -71,7 +71,7 @@ function login_callback(code) {
                 });
             }
         });
-    } else if (!ons.platform.isAndroid()) {
+    } else if (platform !== "android") {
         uri = "urn:ietf:wg:oauth:2.0:oob";
     }
     fetch("https://"+localStorage.getItem('knzkapp_tmp_domain')+"/oauth/token", {

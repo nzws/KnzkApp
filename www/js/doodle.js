@@ -65,7 +65,7 @@ function Doodle_upload() {
 
 function Doodle_config(id) {
     var mode = document.getElementById("doodle_"+id).checked;
-    if (ons.platform.isIOS()) {
+    if (platform === "ios") {
         if (mode == true) {
             Doodle_changeType(id, false);
         } else {
