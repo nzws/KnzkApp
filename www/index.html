@@ -9,7 +9,7 @@
 
     <script src="components/onsenui/js/onsenui.min.js"></script>
     <link rel="stylesheet" href="components/onsenui/css/onsenui.min.css">
-    <link rel="stylesheet" href="components/onsenui/css/onsen-css-components.min.css">
+    <link rel="stylesheet" href="css/theme-roller/mastodon/onsen-css-components.min.css">
 <!-- for Testing
     <script src="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.8.3/js/onsenui.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.8.3/css/onsenui.css">
@@ -24,10 +24,10 @@
     <script src="lib/atrament.min.js" async></script>
     <script src="lib/twemoji/twemoji.min.js" async></script>
 
+    <link rel="stylesheet" href="css/theme-roller/components.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/enquete.css">
-    <link rel="stylesheet" href="css/theme/default.css">
     <link rel="stylesheet" href="css/custom-size.css">
     <link rel="stylesheet" id="css_md">
     <link rel="stylesheet" id="theme_css">
@@ -816,8 +816,20 @@
                 </div>
                 <div class="right">
                     <ons-select id="conf-theme" onchange="change_conf(1, 'theme', true)">
-                        <option value="">default</option>
-                        <option value="css/theme/dark.css" id="theme_css/theme/dark.css">dark</option>
+                        <option value="">Mastodon</option>
+                        <option value="css/theme/dark.css" id="theme_css/theme/dark.css">Dark</option>
+                    </ons-select>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    プラットフォームデザイン
+                </div>
+                <div class="right">
+                    <ons-select id="conf-design_platform" onchange="change_conf(1, 'design_platform', true)">
+                        <option value="">OSの標準</option>
+                        <option value="ios" id="dp_ios">iOS向け</option>
+                        <option value="android" id="dp_android">Android向け</option>
                     </ons-select>
                 </div>
             </ons-list-item>
@@ -1062,7 +1074,7 @@
                 <ons-button modifier="quiet" onclick="add_emoji_simple('｜漢字《》', 1)" style="border-radius: 0" id="yomigana_bt" class="invisible">読み</ons-button>
                 <span style="float: right">
                 <b id="toot-limit" class="toot-limit">4096</b>
-                <ons-button onclick="post('toot_textarea', {cw:document.getElementById('cw_input').value, visibility:document.getElementById('post_mode').value, sensitive:document.getElementById('nsfw_input').value, in_reply_to_id: document.getElementById('post_reply').value, local_only: document.getElementById('localonly_input').value})" id="toot-button" style="border-radius: 4px 0 4px 0;padding-bottom: 5px;">トゥート！</ons-button>
+                <ons-button onclick="post('toot_textarea', {cw:document.getElementById('cw_input').value, visibility:document.getElementById('post_mode').value, sensitive:document.getElementById('nsfw_input').value, in_reply_to_id: document.getElementById('post_reply').value, local_only: document.getElementById('localonly_input').value})" id="toot-button" style="border-radius: 4px 0 4px 0;">トゥート！</ons-button>
                 </span>
             </div>
 
@@ -1551,7 +1563,7 @@
             </ons-carousel-item>
             <ons-carousel-item class="container tutorial">
                 <p>KnzkAppでは、主にタイムラインの下にあるフォームから投稿できます。</p>
-                <p>このフォームは、白い部分(本文を入力する部分)をタップする事で細かなボタンが表示されます。ボタンを押すと、それぞれの説明を表示します。</p>
+                <p>このフォームは、黒い部分(本文を入力する部分)をタップする事で細かなボタンが表示されます。ボタンを押すと、それぞれの説明を表示します。</p>
                 <ons-bottom-toolbar id="tutorial_toot_TL_toolbar">
                     <form id="tutorial_toot_form">
                         <ons-list>
@@ -1676,18 +1688,18 @@
 
 <ons-popover direction="up" id="emoji_popover">
     <div style="padding: 5px; text-align: center;">
-        <ons-input id="emoji_search" modifier="underbar" placeholder="Emoji Search😋😋😋" float class="black_text w-max" onkeyup="searchEmoji(this.value)"></ons-input>
+        <ons-input id="emoji_search" modifier="transparent" placeholder="Emoji Search😋😋😋" float class="black_text w-max" onkeyup="searchEmoji(this.value)"></ons-input>
         <ons-button modifier="quiet" onclick="hidePopover('emoji_popover')" class="close_button black_text"><i class="fa fa-times fa-fw"></i></ons-button>
         <div class="ep_category">
-            <ons-button modifier="quiet" onclick="jumpEmoji('custom')" id="ep_bt_custom">✱</ons-button>
-            <ons-button modifier="quiet" onclick="jumpEmoji('People')"><img class="emoji" draggable="false" alt="😀" src="https://twemoji.maxcdn.com/2/72x72/1f600.png"></ons-button>
-            <ons-button modifier="quiet" onclick="jumpEmoji('Nature')"><img class="emoji" draggable="false" alt="🐶" src="https://twemoji.maxcdn.com/2/72x72/1f436.png"></ons-button>
-            <ons-button modifier="quiet" onclick="jumpEmoji('Foods')"><img class="emoji" draggable="false" alt="🍏" src="https://twemoji.maxcdn.com/2/72x72/1f34f.png"></ons-button>
-            <ons-button modifier="quiet" onclick="jumpEmoji('Activity')"><img class="emoji" draggable="false" alt="⚽️" src="https://twemoji.maxcdn.com/2/72x72/26bd.png">️</ons-button>
-            <ons-button modifier="quiet" onclick="jumpEmoji('Places')"><img class="emoji" draggable="false" alt="🚗️" src="https://twemoji.maxcdn.com/2/72x72/1f697.png"></ons-button>
-            <ons-button modifier="quiet" onclick="jumpEmoji('Objects')"><img class="emoji" draggable="false" alt="⌚" src="https://twemoji.maxcdn.com/2/72x72/231a.png">️</ons-button>
-            <ons-button modifier="quiet" onclick="jumpEmoji('Symbols')"><img class="emoji" draggable="false" alt="❤" src="https://twemoji.maxcdn.com/2/72x72/2764.png"></ons-button>
-            <ons-button modifier="quiet" onclick="jumpEmoji('Flags')"><img class="emoji" draggable="false" alt="🏳️" src="https://twemoji.maxcdn.com/2/72x72/1f3f3.png"></ons-button>
+            <button class="button button--quiet" onclick="jumpEmoji('custom')" id="ep_bt_custom">✱</button>
+            <button class="button button--quiet" onclick="jumpEmoji('People')"><img class="emoji" draggable="false" alt="😀" src="https://twemoji.maxcdn.com/2/72x72/1f600.png"></button>
+            <button class="button button--quiet" onclick="jumpEmoji('Nature')"><img class="emoji" draggable="false" alt="🐶" src="https://twemoji.maxcdn.com/2/72x72/1f436.png"></button>
+            <button class="button button--quiet" onclick="jumpEmoji('Foods')"><img class="emoji" draggable="false" alt="🍏" src="https://twemoji.maxcdn.com/2/72x72/1f34f.png"></button>
+            <button class="button button--quiet" onclick="jumpEmoji('Activity')"><img class="emoji" draggable="false" alt="⚽️" src="https://twemoji.maxcdn.com/2/72x72/26bd.png">️</button>
+            <button class="button button--quiet" onclick="jumpEmoji('Places')"><img class="emoji" draggable="false" alt="🚗️" src="https://twemoji.maxcdn.com/2/72x72/1f697.png"></button>
+            <button class="button button--quiet" onclick="jumpEmoji('Objects')"><img class="emoji" draggable="false" alt="⌚" src="https://twemoji.maxcdn.com/2/72x72/231a.png">️</button>
+            <button class="button button--quiet" onclick="jumpEmoji('Symbols')"><img class="emoji" draggable="false" alt="❤" src="https://twemoji.maxcdn.com/2/72x72/2764.png"></button>
+            <button class="button button--quiet" onclick="jumpEmoji('Flags')"><img class="emoji" draggable="false" alt="🏳️" src="https://twemoji.maxcdn.com/2/72x72/1f3f3.png"></button>
         </div>
         <ons-button onclick="resetEmoji()" class="w-max invisible ep_reset_button" id="emoji_reset">全てのカテゴリを表示</ons-button>
         <div id="emoji_list_popover" class="emoji_list_scroll" style="height: 250px;" data-isload="no">loading now...</div>

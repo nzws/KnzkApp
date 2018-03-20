@@ -87,10 +87,10 @@ function toot_card(toot, mode, note, toot_light, page) {
         }
     }
     if (can_col && is_col) {
-        col_bt = "<ons-button modifier='quiet' class='no-rd p0' onclick='toot_col(\""+toot['id']+"\")'><i class='fa fa-fw fa-angle-double-down toot-right-icon blue toot_col_"+toot['id']+"'></i></ons-button>";
+        col_bt = "<button class='no-rd p0 button button--quiet' onclick='toot_col(\""+toot['id']+"\")'><i class='fa fa-fw fa-angle-double-down toot-right-icon blue toot_col_"+toot['id']+"'></i></button>";
         button_col = "disable ";
     } else if (can_col) {
-        col_bt = "<ons-button modifier='quiet' class='no-rd p0' onclick='toot_col(\""+toot['id']+"\")'><i class='fa fa-fw fa-angle-double-up toot-right-icon toot_col_"+toot['id']+"'></i>";
+        col_bt = "<button class='no-rd p0 button button--quiet' onclick='toot_col(\""+toot['id']+"\")'><i class='fa fa-fw fa-angle-double-up toot-right-icon toot_col_"+toot['id']+"'></i></button>";
     }
     if (toot['visibility'] === "direct") {
         visibility_icon = "envelope";
@@ -176,10 +176,12 @@ function toot_card(toot, mode, note, toot_light, page) {
         layout_num["toot_content"] = 9;
     }
 
+    col_bt = "<div class='rightup-button'><button class='no-rd p0 button button--quiet' disabled><ons-icon icon='fa-"+visibility_icon+"' class='toot-right-icon' style='margin-right: 10px'></ons-icon></button>"+ col_bt +"</div>";
+
     if (page === "alert" && note && getConfig(2, 'alert_m')) {
-        note += "<span class='toot-right'><ons-button modifier='quiet' class='no-rd p0'><ons-icon icon='fa-"+visibility_icon+"' class='toot-right-icon' style='margin-right: 10px'></ons-icon></ons-button>"+ col_bt +"</span>";
+        note += col_bt;
     } else {
-        name = "<span onclick='show_account("+toot['account']['id']+")'><b class='toot_name'>"+t_text(escapeHTML(toot['account']['display_name']))+"</b> <small>@"+toot['account']['acct']+"</small></span><span class='toot-right'><ons-button modifier='quiet' class='no-rd p0'><ons-icon icon='fa-"+visibility_icon+"' class='toot-right-icon' style='margin-right: 10px'></ons-icon></ons-button>"+ col_bt +"</span>";
+        name = "<span onclick='show_account("+toot['account']['id']+")'><b class='toot_name'>"+t_text(escapeHTML(toot['account']['display_name']))+"</b> <small>@"+toot['account']['acct']+"</small></span>" + col_bt;
     }
 
     if (note) alert_text = "<p class='alert_text'>"+note+"</p>";
@@ -325,12 +327,12 @@ function toot_action(id, mode, action_mode) {
 
 function open_cw(id, btobj) {
     var cw = document.getElementById(id).className;
-    if (cw == "invisible") {
+    if (cw == "invisible") { //開く
         document.getElementById(id).className = "";
         btobj.className = "cw-button button--large " + button;
-    } else {
+    } else { //閉じる
         document.getElementById(id).className = "invisible";
-        btobj.className = "cw-button button--large " + light;
+        btobj.className = "cw-button " + large_quiet;
     }
 }
 

@@ -68,10 +68,8 @@ html, body {
 
 .toot {
     max-width: 100%;
-    border: 1px solid #ddd;
     border-left: none;
     border-right: none;
-    background-color: white;
     overflow-x: hidden;
     overflow-y: hidden;
     padding-left: 10px;
@@ -675,7 +673,6 @@ img.emoji {
 }
 
 .ep_reset_button {
-    line-height: 20px;
     border-radius: 0 0 4px 4px;
 }
 
@@ -690,4 +687,8 @@ img.emoji {
 
 .danger_list {
     border: solid 2px #a00000;
+}
+
+#toot-button {
+    padding-bottom: 5px;
 }

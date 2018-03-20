@@ -56,7 +56,7 @@ function renderEmoji(emojiobj) {
                         }
                     }
                     emoji_search.push(search);
-                    list[json[i]["category"]] += "<ons-button modifier=\"quiet\" onclick='add_emoji_simple(\""+json[i]["emoji"]+"\")' class='ep_bt emoji_button' data-search='"+search+"'>"+twemoji.parse(json[i]["emoji"])+"</ons-button>\n";
+                    list[json[i]["category"]] += "<button onclick='add_emoji_simple(\""+json[i]["emoji"]+"\")' class='ep_bt emoji_button button button--quiet' data-search='"+search+"'>"+twemoji.parse(json[i]["emoji"])+"</button>\n";
                     i++;
                 }
                 for (key in list) {
@@ -81,7 +81,7 @@ function renderEmoji(emojiobj) {
                             i = 0;
                             while (json[i]) {
                                 search_a_custom.push(json[i]["shortcode"]);
-                                customreshtml += "<ons-button modifier=\"quiet\" onclick='add_emoji_simple(\" :"+json[i]["shortcode"]+": \")' class='emoji_button'><img draggable=\"false\" class=\"emojione\" src=\""+json[i][emoji_mode]+"\"></ons-button>\n";
+                                customreshtml += "<button modifier=\"quiet\" onclick='add_emoji_simple(\" :"+json[i]["shortcode"]+": \")' class='emoji_button button button--quiet'><img draggable=\"false\" class=\"emojione\" src=\""+json[i][emoji_mode]+"\"></button>\n";
                                 i++;
                             }
                             emoji_search = search_a_custom.concat(emoji_search);
