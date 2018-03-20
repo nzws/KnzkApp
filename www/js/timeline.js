@@ -357,8 +357,9 @@ function showTagTL(tag, more_load) {
     });
 }
 
-function showAccountTL(id, more_load, mode) {
+function showAccountTL(id, more_load, mode, reload) {
     var i = 0, ip = 0, reshtml = "", get = "", reshtml_pinned = "";
+    acct_mode = mode;
     if (more_load) {
         more_load.value = "読み込み中...";
         more_load.disabled = true;
@@ -432,6 +433,8 @@ function showAccountTL(id, more_load, mode) {
                 reshtml += "<button class='button button--large--quiet' onclick='showAccountTL(account_page_id, this)'>もっと読み込む...</button>";
 
             document.getElementById("account_toot").innerHTML = reshtml;
+            if (reload) reload();
+            else if (!more_load) initph("acct");
             return true;
         }
     });
@@ -477,5 +480,75 @@ function setTLheadcolor(mode) {
         }
     } catch (e) {
         console.log(e);
+    }
+}
+
+function TLname(mode) {
+    var locale = {
+        "home": "ホーム",
+        "local": "ローカル",
+        "public": "連合",
+        "local_media": "ローカルメディア",
+        "public_media": "連合メディア",
+        "plus_local": "+ローカル"
+    };
+    return locale[mode];
+}
+
+function initph(mode) {
+    var id = "";
+    if (mode === "TL") id = 'TL' + timeline_now_tab + '_';
+    else if (mode === "alert") id = 'ph-alert';
+    else if (mode === "acct") id = 'ph-acct';
+
+    try {
+        var ph_alert = document.getElementById(id);
+        ph_alert.addEventListener('changestate', function(event) {
+            var message = '';
+
+            switch (event.state) {
+                case 'initial':
+                    message = '<ons-icon icon="fa-refresh" class="white"></ons-icon>';
+                    break;
+                case 'preaction':
+                    message = '<ons-icon icon="fa-refresh" class="white"></ons-icon>';
+                    break;
+                case 'action':
+                    message = '<span class="fa fa-spin"><span class="fa fa-spin"><ons-icon icon="fa-refresh" class="white"></ons-icon></span></span>';
+                    break;
+            }
+
+            ph_alert.innerHTML = message;
+        });
+    } catch (e) {
+        console.log("ERROR_Pull_hook1");
+    }
+    if (mode === "TL") {
+        try {
+            ph_alert.onAction = function(done) {
+                console.log("reload");
+                showAlert(done);
+            };
+        } catch (e) {
+            console.log("ERROR_Pull_hook2");
+        }
+    } else if (mode === "acct") {
+        try {
+            ph_alert.onAction = function(done) {
+                console.log("reload");
+                showAccountTL(account_page_id, null, acct_mode, done);
+            };
+        } catch (e) {
+            console.log("ERROR_Pull_hook3");
+        }
+    } else {
+        try {
+            ph_alert.onAction = function(done) {
+                console.log("reload");
+                showAlert(done);
+            };
+        } catch (e) {
+            console.log("ERROR_Pull_hook3");
+        }
     }
 }
