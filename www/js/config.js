@@ -95,7 +95,7 @@ function clearAllConfig() {
         if (e === 1) {
             ons.notification.confirm('もう一度聞きます。<br>本当に全ての設定をリセットしますか？', {title: '設定をリセット'}).then(function (e) {
                 if (e === 1) {
-                    localStorage.setItem('knzkapp_conf_mastodon', JSON.stringify({}));
+                    localStorage.setItem('knzkapp_conf_mastodon', JSON.stringify({"realtime":1,"head_reset":1,"dial":"change"}));
                     localStorage.setItem('knzkapp_conf_mastodoncol', JSON.stringify({}));
                     ons.notification.toast('設定をリセットしました。再起動してください。');
                 }
