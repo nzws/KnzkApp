@@ -85,3 +85,17 @@ function clearBookmark() {
         }
     });
 }
+
+function clearAllBookmark() {
+    ons.notification.confirm('本当に「(あなたがログインしている全てのアカウントの)全てのブックマーク」を削除しますか？', {title: 'ブックマーク全削除'}).then(function (e) {
+        if (e === 1) {
+            ons.notification.confirm('もう一度聞きます。<br>本当に「(あなたがログインしている全てのアカウントの)全てのブックマーク」を削除しますか？', {title: 'ブックマーク全削除'}).then(function (e) {
+                if (e === 1) {
+                    var bookmark = {};
+                    bookmark[inst] = [];
+                    saveBookmark(bookmark);
+                }
+            });
+        }
+    });
+}

@@ -942,6 +942,18 @@
         <div class="container">
             <p class="note">一部の設定は再起動後に反映されます。</p>
         </div>
+        <ons-list class="danger_list">
+            <ons-list-header class="danger_title">Danger Zone</ons-list-header>
+            <ons-list-item modifier="chevron" tappable onclick="clearAllBookmark()">
+                全アカウントのブックマークを削除
+            </ons-list-item>
+            <ons-list-item modifier="chevron" tappable onclick="clearAllConfig()">
+                設定をリセット
+            </ons-list-item>
+            <ons-list-item modifier="chevron" tappable onclick="clearAllAccount()">
+                全アカウントからログアウト
+            </ons-list-item>
+        </ons-list>
     </ons-page>
 </ons-template>
 
