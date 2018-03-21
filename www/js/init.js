@@ -1,5 +1,5 @@
 function init() {
-    try {if (TL_websocket) TL_websocket.close();} catch (e) {console.log("no_ws");}
+    closeAllws();
     //変数破棄
     now_TL = "";
     last_load_TL = "";
@@ -26,7 +26,7 @@ function init() {
     tag_old_id = "";
     tag_str = "";
     list_old_id = "";
-    TL_websocket = null;
+    TL_websocket = {};
     image_mode = "";
     home_auto_event = false;
     home_auto_mode = true;
