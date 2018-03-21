@@ -1759,7 +1759,8 @@
             <button class="button button--quiet" onclick="jumpEmoji('Flags')"><img class="emoji" draggable="false" alt="🏳️" src="https://twemoji.maxcdn.com/2/72x72/1f3f3.png"></button>
         </div>
         <ons-button onclick="resetEmoji()" class="w-max invisible ep_reset_button" id="emoji_reset">全てのカテゴリを表示</ons-button>
-        <div id="emoji_list_popover" class="emoji_list_scroll" style="height: 250px;" data-isload="no">loading now...</div>
+        <div id="emoji_loading">絵文字ピッカーを生成しています...<span class="fa fa-spin"><span class="fa fa-spin"><ons-icon icon="fa-refresh" class="white"></ons-icon></span></span></div>
+        <div id="emoji_list_popover" class="emoji_list_scroll" style="height: 250px;" data-isload="no"></div>
     </div>
 </ons-popover>
 
