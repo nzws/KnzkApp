@@ -32,10 +32,11 @@
 }
 
 .toolbar-button, .back-button, .blue {
-    color: #2b90d9;
+    color: #2b90d9 !important;
 }
 
 .rightup-button {
+    z-index: 1;
     position: absolute;
     top: 0;
     right: 10px;

@@ -58,9 +58,9 @@ function showAlert(reload, more_load) {
                 if (!json[i]['account']['display_name']) json[i]['account']['display_name'] = json[i]['account']['username'];
 
                 if (json[i]['type'] === "follow") {
-                    alert_text = "<p class='alert_text'>";
+                    alert_text = "<div class='alert_text'>";
                     alert_text += "<ons-icon icon=\"fa-user-plus\" class='boost-active'></ons-icon> <b onclick='show_account(" + json[i]['account']['id'] + ")'>" + escapeHTML(json[i]['account']['display_name']) + "</b>さんにフォローされました";
-                    alert_text += "</p>";
+                    alert_text += "</div>";
                     reshtml += "<div class=\"toot\">\n" +
                         alert_text +
                         "                    <div class=\"row\">\n" +
@@ -76,7 +76,7 @@ function showAlert(reload, more_load) {
                         "            </div>";
                 } else {
                     if (json[i]["type"] === "favourite") {
-                        alert_text = "<ons-icon icon=\"fa-star\" class='fav-active'></ons-icon> <b onclick='show_account(" + json[i]['account']['id'] + ")'>" + escapeHTML(json[i]['account']['display_name']) + "</b>さんがお気に入りに登録しました (<span data-time='"+json[i]['created_at']+"' class='date'>" +displayTime('new', json[i]['created_at'])+ "</span>)";
+                        alert_text = "<ons-icon icon=\"fa-star\" class='fav-active'></ons-icon> <b onclick='show_account(" + json[i]['account']['id'] + ")'>" + escapeHTML(json[i]['account']['display_name']) + "</b>さんがお気に入りしました (<span data-time='"+json[i]['created_at']+"' class='date'>" +displayTime('new', json[i]['created_at'])+ "</span>)";
                     }
                     if (json[i]["type"] === "reblog") {
                         alert_text = "<ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" + json[i]['account']['id'] + ")'>" + escapeHTML(json[i]['account']['display_name']) + "</b>さんがブーストしました (<span data-time='"+json[i]['created_at']+"' class='date'>" +displayTime('new', json[i]['created_at'])+ "</span>)";

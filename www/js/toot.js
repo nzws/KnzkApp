@@ -184,7 +184,7 @@ function toot_card(toot, mode, note, toot_light, page) {
         name = "<div onclick='show_account("+toot['account']['id']+")' class='toot_name'><b class='toot_name'>"+t_text(escapeHTML(toot['account']['display_name']))+"</b> <small>@"+toot['account']['acct']+"</small></div>" + col_bt;
     }
 
-    if (note) alert_text = "<p class='alert_text'>"+note+"</p>";
+    if (note) alert_text = "<div class='alert_text'>"+note+"</div>";
     content = t_text(content, toot['emojis']);
 
     buf += "<div class=\""+col_bg_cl+"toot"+light+" post_"+toot['id']+"\" id='post_"+toot['id']+"' data-bgpic='"+col_pic+"' style='"+col_bg_st+"'>\n" +

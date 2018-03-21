@@ -43,7 +43,7 @@ a, a:link, a:visited, a:hover {
 }
 
 .toolbar-button, .back-button, .blue {
-    color: #2b90d9;
+    color: #2b90d9 !important;
 }
 
 .card {
