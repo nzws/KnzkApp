@@ -122,7 +122,7 @@ function openTL(mode) {
             }
         }, 200);
     } else {
-        try {TL_websocket.close();} catch(e) {console.log("ws_close_error");}
+        closeAllws();
         load("home.html");
         setTimeout(function () {
             TL_change(timeline_default_tab);
@@ -155,10 +155,7 @@ function showTL(mode, reload, more_load, clear_load) {
     var tlmode = "", i = 0, reshtml = "", ws_mode, n;
     if (!mode) mode = now_TL;
     if (clear_load) {
-        if (TL_websocket) {
-            TL_websocket.close();
-            TL_websocket = null;
-        }
+        closeAllws();
         tl_postdata = {};
         timeline_store_data = {};
         timeline_store_data[inst] = {};
@@ -236,14 +233,14 @@ function showTL(mode, reload, more_load, clear_load) {
                             ws_mode = "user";
 
                         if (!reload && !more_load) {
-                            TL_websocket = new WebSocket("wss://"+inst+"/api/v1/streaming/?access_token=" + localStorage.getItem('knzkapp_now_mastodon_token') + "&stream=" + ws_mode);
                             var instance_ws = inst, now_tab = timeline_now_tab;
-                            TL_websocket.onmessage = function (message) {
+                            TL_websocket[now_tab] = new WebSocket("wss://"+inst+"/api/v1/streaming/?access_token=" + localStorage.getItem('knzkapp_now_mastodon_token') + "&stream=" + ws_mode);
+                            TL_websocket[now_tab].onmessage = function (message) {
                                 displayTime('update');
                                 if (instance_ws !== inst || timeline_now_tab !== now_tab) {
                                     console.warn("エラー:Websocketが切断されていません");
-                                    TL_websocket.close();
-                                    TL_websocket = null;
+                                    TL_websocket[now_tab].close();
+                                    TL_websocket[now_tab] = null;
                                 } else {
                                     var ws_resdata = JSON.parse(message.data);
                                     var ws_reshtml = JSON.parse(ws_resdata.payload);
@@ -645,5 +642,19 @@ function setsd() {
     while (i <= 4) {
         document.getElementById("sd_icon"+i).className = icons[timeline_config[i]];
         i++;
+    }
+}
+
+function closeAllws() {
+    try {
+        for (var i=0;i<=4;i++) {
+            if (TL_websocket[i]) {
+                TL_websocket[i].close();
+                TL_websocket[i] = null;
+            }
+        }
+        TL_websocket = {};
+    } catch (e) {
+        console.warn("TL切断失敗:",e);
     }
 }
