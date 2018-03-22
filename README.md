@@ -23,21 +23,21 @@
 Mastodonの基本機能はもちろん、いくつかのインスタンスの追加機能に対応したアプリです。
 
 ### 対応機能
-- [Glitch-soc](https://github.com/glitch-soc/mastodon/) feature (Local-only, Doodle, DM TimeLine etc...)
+- [Glitch-soc](https://github.com/glitch-soc/mastodon/) features (Local-only, Doodle, DM TimeLine etc...)
 - BBCode (from [now.kibousoft.co.jp](https://now.kibousoft.co.jp/))
 - Enquete (from [friends.nico](https://friends.nico/))
 - Markdown (from [kirishima.cloud](https://kirishima.cloud/))
 - 読み仮名 (from [theboss.tech](https://theboss.tech/))
 
-*これらのインスタンスより機能を輸入したインスタンスでも使用可能です。KnzkAppを使用した際にあなたのインスタンスで有効化する場合は`www/config/instance.js`にプルリクエストを送信してください。(分からなければ[@y@knzk.me](https://knzk.me/@y)まで)
+*これらのインスタンスより機能を輸入したインスタンスでも使用可能です。KnzkAppを使用した際にあなたのインスタンスで有効化する場合は`www/config/instance.js`にプルリクエストを送信してください。(分からなければ[@y@knzk.me](https://knzk.me/@y)まで。)
 
 また、ある程度簡単な内容の独自機能であれば(時間があれば)対応しますので、気軽にご相談下さい。
 
-###### テーマ(着せ替え的なやつ)ももしかしたらできるかもしれないのでアイデア下さい
+###### テーマ(着せ替え的なやつ)ももしかしたらできるかもしれないのでアイデア下さい。
 
 ## 注意とか
-- masterは結構バグ多かったりするので非推奨です
-- ビルドにはMonaca Pro以上のアカウントが必要です
+- masterは結構バグ多かったりするので非推奨です。
+- ビルドにはMonaca Pro以上のアカウントが必要です。
 - `www/config/config.sample.js`をリネームして`www/config/config.js`を生成し、sentry.ioのトークンを入力してください。
 <!-- - Firebaseで生成した`google-services.json` / `GoogleService-Info.plist`を`KnzkApp/`に設置して下さい -->
 
