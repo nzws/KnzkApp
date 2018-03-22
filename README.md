@@ -15,7 +15,7 @@
   </p>
 
   <p align="center">
-  Sponsored by <a href="http://kibousoft.co.jp/">Kibousoft LLC.</a>
+  Sponsored by <a href="http://kibousoft.co.jp/">Kibousoft LLC</a>.
   </p>
 </p>
 
