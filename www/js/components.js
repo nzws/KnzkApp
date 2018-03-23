@@ -28,7 +28,7 @@ function reset_nav() {
 
 function load(page) {
     if (page != "home.html") {
-        closeAllws();
+        try {closeAllws();} catch (e) {}
     }
     loadNav(page, null, true);
 }
