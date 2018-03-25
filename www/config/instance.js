@@ -11,8 +11,7 @@
 
 var instance_config = {
     "knzk.me": {
-        limit: 5000,
-        glitch_soc: true
+        limit: 500
     },
     "now.kibousoft.co.jp": {
         limit: 4096,
