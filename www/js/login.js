@@ -111,9 +111,7 @@ function login_callback(code) {
           if (localStorage.getItem("knzkapp_account_list") == undefined) localStorage.setItem('knzkapp_account_list', JSON.stringify([]));
           localStorage.setItem('knzkapp_now_mastodon_username', json_acct.acct);
           localStorage.setItem('knzkapp_now_mastodon_id', json_acct.id);
-          hide('now_loading');
-          init();
-          showtoast('loggedin_dialog');
+          window.location.reload();
         }).catch(function (error) {
           showtoast('cannot-connect-sv');
           console.log(error);
@@ -155,9 +153,7 @@ function debug_login() {
       localStorage.setItem('knzkapp_now_mastodon_username', json.acct);
       localStorage.setItem('knzkapp_now_mastodon_id', json.id);
 
-      hide('now_loading');
-      init();
-      showtoast('loggedin_dialog');
+      window.location.reload();
     }, 500);
   }).catch(function (error) {
     showtoast('cannot-connect-sv');
@@ -224,8 +220,7 @@ function account_change(id) {
       list.unshift(now);
       localStorage.setItem('knzkapp_account_list', JSON.stringify(list));
 
-      init();
-      document.getElementById('splitter-menu').close();
+      window.location.reload();
     }).catch(function (error) {
       console.log(error);
       showtoast('cannot-connect-API');
