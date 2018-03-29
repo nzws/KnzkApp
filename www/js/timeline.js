@@ -1,22 +1,25 @@
 function reset_alert() {
   ons.notification.confirm('本当に通知を消去してもよろしいですか？', {title: '通知を消去'}).then(function (e) {
     if (e === 1) {
-      fetch("https://"+inst+"/api/v1/notifications/clear", {
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
+      fetch("https://" + inst + "/api/v1/notifications/clear", {
+        headers: {
+          'content-type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+        },
         method: 'POST'
-      }).then(function(response) {
-        if(response.ok) {
+      }).then(function (response) {
+        if (response.ok) {
           return response.json();
         } else {
           sendLog("Error/noti_clear", response.json);
           throw new Error();
         }
-      }).then(function(json) {
+      }).then(function (json) {
         showtoast('ok-clear-alert');
         showAlert();
         alert_old_id = 0;
         alert_new_id = 0;
-      }).catch(function(error) {
+      }).catch(function (error) {
         showtoast('cannot-pros');
         console.log(error);
       });
@@ -27,18 +30,21 @@ function reset_alert() {
 function showAlert(reload, more_load) {
   var get = "", reshtml = "", i = 0, alert_text = "", e = 0;
   if (reload) {
-    get = "?since_id="+alert_new_id;
+    get = "?since_id=" + alert_new_id;
   }
   if (more_load) {
     more_load.value = "読み込み中...";
     more_load.disabled = true;
-    get = "?max_id="+alert_old_id;
+    get = "?max_id=" + alert_old_id;
   }
-  fetch("https://"+inst+"/api/v1/notifications"+get, {
-    headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
+  fetch("https://" + inst + "/api/v1/notifications" + get, {
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+    },
     method: 'GET'
-  }).then(function(response) {
-    if(response.ok) {
+  }).then(function (response) {
+    if (response.ok) {
       if (more_load) more_load.className = "invisible";
       return response.json();
     } else {
@@ -47,7 +53,7 @@ function showAlert(reload, more_load) {
       if (reload) reload();
       return false;
     }
-  }).then(function(json) {
+  }).then(function (json) {
     if (json[i]) {
       displayTime('update');
       if (more_load) {
@@ -76,10 +82,10 @@ function showAlert(reload, more_load) {
             "            </div>";
         } else {
           if (json[i]["type"] === "favourite") {
-            alert_text = "<ons-icon icon=\"fa-star\" class='fav-active'></ons-icon> <b onclick='show_account(" + json[i]['account']['id'] + ")'>" + escapeHTML(json[i]['account']['display_name']) + "</b>さんがお気に入りしました (<span data-time='"+json[i]['created_at']+"' class='date'>" +displayTime('new', json[i]['created_at'])+ "</span>)";
+            alert_text = "<ons-icon icon=\"fa-star\" class='fav-active'></ons-icon> <b onclick='show_account(" + json[i]['account']['id'] + ")'>" + escapeHTML(json[i]['account']['display_name']) + "</b>さんがお気に入りしました (<span data-time='" + json[i]['created_at'] + "' class='date'>" + displayTime('new', json[i]['created_at']) + "</span>)";
           }
           if (json[i]["type"] === "reblog") {
-            alert_text = "<ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" + json[i]['account']['id'] + ")'>" + escapeHTML(json[i]['account']['display_name']) + "</b>さんがブーストしました (<span data-time='"+json[i]['created_at']+"' class='date'>" +displayTime('new', json[i]['created_at'])+ "</span>)";
+            alert_text = "<ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" + json[i]['account']['id'] + ")'>" + escapeHTML(json[i]['account']['display_name']) + "</b>さんがブーストしました (<span data-time='" + json[i]['created_at'] + "' class='date'>" + displayTime('new', json[i]['created_at']) + "</span>)";
           }
 
           reshtml += toot_card(json[i]['status'], "full", alert_text, null, "alert");
@@ -91,7 +97,7 @@ function showAlert(reload, more_load) {
         reshtml += document.getElementById("alert_main").innerHTML;
       }
       if (more_load || !reload) { //TL初回
-        if (i !== 0) alert_old_id = json[i-1]['id'];
+        if (i !== 0) alert_old_id = json[i - 1]['id'];
         reshtml += "<button class='button button--large--quiet' onclick='showAlert(null,this)'>もっと読み込む...</button>";
       }
       document.getElementById("alert_main").innerHTML = reshtml;
@@ -134,8 +140,9 @@ function openTL(mode) {
       var dial = getConfig(1, 'dial'), icon;
       if (dial && dial != "change") {
         $("#dial_main").removeClass("invisible");
-        if (dial === "toot") icon = "fa-pencil"; else if (dial === "alert") icon = "fa-bell"; if (dial === "reload") icon = "fa-refresh";
-        document.getElementById("dial-icon").className = "ons-icon fa "+icon;
+        if (dial === "toot") icon = "fa-pencil"; else if (dial === "alert") icon = "fa-bell";
+        if (dial === "reload") icon = "fa-refresh";
+        document.getElementById("dial-icon").className = "ons-icon fa " + icon;
       } else if (dial) {
         $("#dial_TL").removeClass("invisible");
         setsd();
@@ -166,49 +173,52 @@ function showTL(mode, reload, more_load, clear_load) {
     more_load = false;
     setTLheadcolor(0);
     try {
-      if (last_load_TL) document.querySelector('#TL'+last_load_TL+'_main > .page__content').innerHTML = "";
+      if (last_load_TL) document.querySelector('#TL' + last_load_TL + '_main > .page__content').innerHTML = "";
     } catch (e) {
       console.error(e);
     }
   }
   if (mode === "home") {
     if (more_load)
-      tlmode = "home?max_id="+toot_old_id;
+      tlmode = "home?max_id=" + toot_old_id;
     else
-      tlmode = "home?since_id="+toot_new_id;
+      tlmode = "home?since_id=" + toot_new_id;
     n = true;
   } else if (mode === "public") {
     if (more_load)
-      tlmode = "public?max_id="+toot_old_id;
+      tlmode = "public?max_id=" + toot_old_id;
     else
-      tlmode = "public?since_id="+toot_new_id;
+      tlmode = "public?since_id=" + toot_new_id;
     n = true;
   } else if (mode === "local") {
     if (more_load)
-      tlmode = "public?local=true&max_id="+toot_old_id;
+      tlmode = "public?local=true&max_id=" + toot_old_id;
     else
-      tlmode = "public?local=true&since_id="+toot_new_id;
+      tlmode = "public?local=true&since_id=" + toot_new_id;
     n = true;
   } else if (mode === "local_media") {
     if (more_load)
-      tlmode = "public?local=true&max_id="+toot_old_id;
+      tlmode = "public?local=true&max_id=" + toot_old_id;
     else
-      tlmode = "public?limit=40&local=true&since_id="+toot_new_id;
+      tlmode = "public?limit=40&local=true&since_id=" + toot_new_id;
     n = true;
   } else if (mode === "public_media") {
     if (more_load)
-      tlmode = "public?max_id="+toot_old_id;
+      tlmode = "public?max_id=" + toot_old_id;
     else
-      tlmode = "public?limit=40&since_id="+toot_new_id;
+      tlmode = "public?limit=40&since_id=" + toot_new_id;
     n = true;
   }
   if (more_load) more_load.className = "invisible";
   if (n) {
-    fetch("https://"+inst+"/api/v1/timelines/"+tlmode, {
-      headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
+    fetch("https://" + inst + "/api/v1/timelines/" + tlmode, {
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+      },
       method: 'GET'
-    }).then(function(response) {
-      if(response.ok) {
+    }).then(function (response) {
+      if (response.ok) {
         return response.json();
       } else {
         sendLog("Error/timeline", response.json);
@@ -216,13 +226,13 @@ function showTL(mode, reload, more_load, clear_load) {
         if (reload && reload !== "dial") reload();
         return false;
       }
-    }).then(function(json) {
+    }).then(function (json) {
       if (json) {
         if (!more_load && mode == last_load_TL && !clear_load) {
           displayTime('update');
         }
         if (more_load && !getConfig(1, 'chatmode')) {
-          reshtml = document.querySelector('#TL'+timeline_now_tab+'_main > .page__content').innerHTML;
+          reshtml = document.querySelector('#TL' + timeline_now_tab + '_main > .page__content').innerHTML;
         } else {
           if (getConfig(1, 'realtime') == 1) {
             if (mode === "public" || mode === "public_media")
@@ -234,7 +244,7 @@ function showTL(mode, reload, more_load, clear_load) {
 
             if (!reload && !more_load) {
               var instance_ws = inst, now_tab = timeline_now_tab;
-              TL_websocket[now_tab] = new WebSocket("wss://"+inst+"/api/v1/streaming/?access_token=" + localStorage.getItem('knzkapp_now_mastodon_token') + "&stream=" + ws_mode);
+              TL_websocket[now_tab] = new WebSocket("wss://" + inst + "/api/v1/streaming/?access_token=" + localStorage.getItem('knzkapp_now_mastodon_token') + "&stream=" + ws_mode);
               TL_websocket[now_tab].onmessage = function (message) {
                 displayTime('update');
                 if (instance_ws !== inst || timeline_now_tab !== now_tab) {
@@ -254,9 +264,9 @@ function showTL(mode, reload, more_load, clear_load) {
                         if (home_auto_mode) { //OK
                           home_auto_event = false;
                           if (getConfig(1, 'chatmode'))
-                            document.querySelector('#TL'+now_tab+'_main > .page__content').innerHTML = document.querySelector('#TL'+now_tab+'_main > .page__content').innerHTML + timeline_store_data[instance_ws][now_tab] + toot_card(ws_reshtml, "full", null, TLmode);
+                            document.querySelector('#TL' + now_tab + '_main > .page__content').innerHTML = document.querySelector('#TL' + now_tab + '_main > .page__content').innerHTML + timeline_store_data[instance_ws][now_tab] + toot_card(ws_reshtml, "full", null, TLmode);
                           else
-                            document.querySelector('#TL'+now_tab+'_main > .page__content').innerHTML = toot_card(ws_reshtml, "full", null, TLmode) + timeline_store_data[instance_ws][now_tab] + document.querySelector('#TL'+now_tab+'_main > .page__content').innerHTML;
+                            document.querySelector('#TL' + now_tab + '_main > .page__content').innerHTML = toot_card(ws_reshtml, "full", null, TLmode) + timeline_store_data[instance_ws][now_tab] + document.querySelector('#TL' + now_tab + '_main > .page__content').innerHTML;
 
                           timeline_store_data[instance_ws][now_tab] = "";
                           home_auto_num = 0;
@@ -282,7 +292,7 @@ function showTL(mode, reload, more_load, clear_load) {
                       toot_new_id = ws_reshtml['id'];
                     }
                   } else if (ws_resdata.event === "delete") {
-                    var del_toot = document.getElementById("post_"+ws_resdata.payload);
+                    var del_toot = document.getElementById("post_" + ws_resdata.payload);
                     if (del_toot) del_toot.parentNode.removeChild(del_toot);
                   }
                 }
@@ -293,7 +303,7 @@ function showTL(mode, reload, more_load, clear_load) {
 
         if (getConfig(1, 'chatmode')) {
           if (more_load || mode != last_load_TL || clear_load) { //TL初回
-            reshtml += "<button class='button button--large--quiet more_load_bt_"+timeline_now_tab+"' onclick='showTL(null,null,this)'>もっと読み込む...</button>";
+            reshtml += "<button class='button button--large--quiet more_load_bt_" + timeline_now_tab + "' onclick='showTL(null,null,this)'>もっと読み込む...</button>";
           }
           json = json.reverse();
         }
@@ -308,20 +318,20 @@ function showTL(mode, reload, more_load, clear_load) {
         }
 
         if (more_load && mode == last_load_TL && !clear_load && getConfig(1, 'chatmode')) {
-          reshtml += document.querySelector('#TL'+timeline_now_tab+'_main > .page__content').innerHTML;
+          reshtml += document.querySelector('#TL' + timeline_now_tab + '_main > .page__content').innerHTML;
         }
 
         if (!getConfig(1, 'chatmode')) {
           if (!more_load && mode == last_load_TL && !clear_load) { //追加読み込みでない&前回と同じTL
-            reshtml += document.querySelector('#TL'+timeline_now_tab+'_main > .page__content').innerHTML;
+            reshtml += document.querySelector('#TL' + timeline_now_tab + '_main > .page__content').innerHTML;
           }
           if (more_load || mode != last_load_TL || clear_load) { //TL初回
-            if (i !== 0) toot_old_id = json[i-1]['id'];
-            reshtml += "<button class='button button--large--quiet more_load_bt_"+timeline_now_tab+"' onclick='showTL(null,null,this)'>もっと読み込む...</button>";
+            if (i !== 0) toot_old_id = json[i - 1]['id'];
+            reshtml += "<button class='button button--large--quiet more_load_bt_" + timeline_now_tab + "' onclick='showTL(null,null,this)'>もっと読み込む...</button>";
           }
         }
         last_load_TL = timeline_now_tab;
-        document.querySelector('#TL'+timeline_now_tab+'_main > .page__content').innerHTML = reshtml;
+        document.querySelector('#TL' + timeline_now_tab + '_main > .page__content').innerHTML = reshtml;
         if (reload && reload !== "dial") reload();
         if (getConfig(1, 'chatmode') && !more_load) $(".page__content").scrollTop(99999999999999999999999);
         return true;
@@ -337,17 +347,20 @@ function showTagTL(tag, more_load) {
   else
     tag_str = tag;
   if (more_load) {
-    get = "?max_id="+tag_old_id;
+    get = "?max_id=" + tag_old_id;
     more_load.value = "読み込み中...";
     more_load.disabled = true;
   } else {
     loadNav('showtag.html');
   }
-  fetch("https://"+inst+"/api/v1/timelines/tag/"+tag+get, {
-    headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
+  fetch("https://" + inst + "/api/v1/timelines/tag/" + tag + get, {
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+    },
     method: 'GET'
-  }).then(function(response) {
-    if(response.ok) {
+  }).then(function (response) {
+    if (response.ok) {
       if (more_load) more_load.className = "invisible";
       return response.json();
     } else {
@@ -355,12 +368,12 @@ function showTagTL(tag, more_load) {
       showtoast('cannot-load');
       return false;
     }
-  }).then(function(json) {
+  }).then(function (json) {
     if (json) {
       if (more_load) {
         reshtml = document.getElementById("tag_main").innerHTML;
       } else {
-        document.getElementById("showtag_title").innerHTML = '#'+ decodeURI(tag);
+        document.getElementById("showtag_title").innerHTML = '#' + decodeURI(tag);
       }
 
       while (json[i]) {
@@ -368,7 +381,7 @@ function showTagTL(tag, more_load) {
         i++;
       }
 
-      if (i !== 0) tag_old_id = json[i-1]['id'];
+      if (i !== 0) tag_old_id = json[i - 1]['id'];
       reshtml += "<button class='button button--large--quiet' onclick='showTagTL(null,this)'>もっと読み込む...</button>";
       document.getElementById("tag_main").innerHTML = reshtml;
       return true;
@@ -383,11 +396,11 @@ function showAccountTL(id, more_load, mode, reload) {
     more_load.value = "読み込み中...";
     more_load.disabled = true;
     if (mode === "media")
-      get = "?max_id="+account_toot_old_id+"&only_media=true";
+      get = "?max_id=" + account_toot_old_id + "&only_media=true";
     else if (mode === "with_re")
-      get = "?max_id="+account_toot_old_id+"&exclude_replies=false";
+      get = "?max_id=" + account_toot_old_id + "&exclude_replies=false";
     else
-      get = "?max_id="+account_toot_old_id+"&exclude_replies=true";
+      get = "?max_id=" + account_toot_old_id + "&exclude_replies=true";
   } else {
     account_toot_old_id = 0;
     if (mode === "media")
@@ -401,11 +414,14 @@ function showAccountTL(id, more_load, mode, reload) {
     document.getElementById("account_toot").innerHTML = "<div class=\"loading-now\"><ons-progress-circular indeterminate></ons-progress-circular></div>";
     document.getElementById("account_pinned_toot").innerHTML = "";
   }
-  fetch("https://"+inst+"/api/v1/accounts/"+id+"/statuses"+get, {
-    headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
+  fetch("https://" + inst + "/api/v1/accounts/" + id + "/statuses" + get, {
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+    },
     method: 'GET'
-  }).then(function(response) {
-    if(response.ok) {
+  }).then(function (response) {
+    if (response.ok) {
       if (more_load) more_load.className = "invisible";
       return response.json();
     } else {
@@ -413,20 +429,23 @@ function showAccountTL(id, more_load, mode, reload) {
       showtoast('cannot-load');
       return false;
     }
-  }).then(function(json) {
+  }).then(function (json) {
     if (json) {
       if (!mode && !more_load) {
-        fetch("https://"+inst+"/api/v1/accounts/"+id+"/statuses?pinned=true", {
-          headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
+        fetch("https://" + inst + "/api/v1/accounts/" + id + "/statuses?pinned=true", {
+          headers: {
+            'content-type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+          },
           method: 'GET'
-        }).then(function(response) {
-          if(response.ok) {
+        }).then(function (response) {
+          if (response.ok) {
             return response.json();
           } else {
             sendLog("Error/account_pin", response.json);
             showtoast('cannot-load');
           }
-        }).then(function(json_pinned) {
+        }).then(function (json_pinned) {
           while (json_pinned[ip]) {
             reshtml_pinned += toot_card(json_pinned[ip], "full", "<ons-icon icon='fa-thumb-tack'></ons-icon>　固定トゥート", "light", "acctpage_pinned");
             ip++;
@@ -445,9 +464,9 @@ function showAccountTL(id, more_load, mode, reload) {
         reshtml += toot_card(json[i], "full", null);
         i++;
       }
-      if (i !== 0) account_toot_old_id = json[i-1]['id'];
+      if (i !== 0) account_toot_old_id = json[i - 1]['id'];
       if (mode)
-        reshtml += "<button class='button button--large--quiet' onclick='showAccountTL(account_page_id, this, \""+mode+"\")'>もっと読み込む...</button>";
+        reshtml += "<button class='button button--large--quiet' onclick='showAccountTL(account_page_id, this, \"" + mode + "\")'>もっと読み込む...</button>";
       else
         reshtml += "<button class='button button--large--quiet' onclick='showAccountTL(account_page_id, this)'>もっと読み込む...</button>";
 
@@ -491,7 +510,7 @@ function updateTLtrack() {
     h = $(".toot").filter(":last").offset().top - window.innerHeight;
     home_auto_mode = h < -10;
   } else {
-    h = document.querySelector('#TL'+timeline_now_tab+'_main > .page__content').scrollTop;
+    h = document.querySelector('#TL' + timeline_now_tab + '_main > .page__content').scrollTop;
     home_auto_mode = h <= 100;
   }
 }
@@ -533,7 +552,7 @@ function initph(mode) {
 
   try {
     var ph_alert = document.getElementById(id);
-    ph_alert.addEventListener('changestate', function(event) {
+    ph_alert.addEventListener('changestate', function (event) {
       var message = '';
 
       switch (event.state) {
@@ -555,7 +574,7 @@ function initph(mode) {
   }
   if (mode === "TL") {
     try {
-      ph_alert.onAction = function(done) {
+      ph_alert.onAction = function (done) {
         console.log("reload");
         showAlert(done);
       };
@@ -564,7 +583,7 @@ function initph(mode) {
     }
   } else if (mode === "acct") {
     try {
-      ph_alert.onAction = function(done) {
+      ph_alert.onAction = function (done) {
         console.log("reload");
         showAccountTL(account_page_id, null, acct_mode, done);
       };
@@ -573,7 +592,7 @@ function initph(mode) {
     }
   } else {
     try {
-      ph_alert.onAction = function(done) {
+      ph_alert.onAction = function (done) {
         console.log("reload");
         showAlert(done);
       };
@@ -587,8 +606,8 @@ function initTLConf() {
   var i = 0, reshtml = "", dw = "", up = "", ch = "";
 
   while (timeline_config[i]) {
-    dw = "<ons-button modifier=\"quiet\" class=\"button button--quiet\" onclick='editTLConf("+i+",1)'><ons-icon icon=\"fa-angle-down\" class=\"ons-icon fa-angle-down fa\"></ons-icon></ons-button>\n";
-    up = "<ons-button modifier=\"quiet\" class=\"button button--quiet\" onclick='editTLConf("+i+",0)'><ons-icon icon=\"fa-angle-up\" class=\"ons-icon fa-angle-up fa\"></ons-icon></ons-button>\n";
+    dw = "<ons-button modifier=\"quiet\" class=\"button button--quiet\" onclick='editTLConf(" + i + ",1)'><ons-icon icon=\"fa-angle-down\" class=\"ons-icon fa-angle-down fa\"></ons-icon></ons-button>\n";
+    up = "<ons-button modifier=\"quiet\" class=\"button button--quiet\" onclick='editTLConf(" + i + ",0)'><ons-icon icon=\"fa-angle-up\" class=\"ons-icon fa-angle-up fa\"></ons-icon></ons-button>\n";
     ch = "";
 
     if (i === timeline_config.length - 1) {
@@ -601,11 +620,11 @@ function initTLConf() {
     }
 
     reshtml += "<ons-list-item class=\"list-item\">\n" +
-      "<label class=\"left list-item__left\" onclick='editTLConfD("+i+")'><ons-radio name=\"tl_default\" input-id=\"tl_default-"+i+"\" "+ch+" class=\"radio-button\">\n" +
-      "<input type=\"radio\" class=\"radio-button__input\" id=\"tl_default-"+i+"\" name=\"tl_default\">\n" +
+      "<label class=\"left list-item__left\" onclick='editTLConfD(" + i + ")'><ons-radio name=\"tl_default\" input-id=\"tl_default-" + i + "\" " + ch + " class=\"radio-button\">\n" +
+      "<input type=\"radio\" class=\"radio-button__input\" id=\"tl_default-" + i + "\" name=\"tl_default\">\n" +
       "<span class=\"radio-button__checkmark\"></span>\n" +
       "</ons-radio></label>\n" +
-      "<label for=\"tl_default-"+i+"\" class=\"center list-item__center\">"+TLname(timeline_config[i])+"</label>\n" +
+      "<label for=\"tl_default-" + i + "\" class=\"center list-item__center\">" + TLname(timeline_config[i]) + "</label>\n" +
       "<label class=\"right list-item__right\">\n" +
       up + dw +
       "</label></ons-list-item>";
@@ -616,18 +635,24 @@ function initTLConf() {
 
 function editTLConf(i, mode) {
   if (mode === 1) { //上げる
-    timeline_config.splice(i, 2, timeline_config[i+1], timeline_config[i]);
+    timeline_config.splice(i, 2, timeline_config[i + 1], timeline_config[i]);
   } else { //下げる
-    timeline_config.splice(i-1, 2, timeline_config[i], timeline_config[i-1]);
+    timeline_config.splice(i - 1, 2, timeline_config[i], timeline_config[i - 1]);
   }
-  localStorage.setItem('knzkapp_conf_mastodon_timeline', JSON.stringify({"config":timeline_config,"default":timeline_default_tab}));
+  localStorage.setItem('knzkapp_conf_mastodon_timeline', JSON.stringify({
+    "config": timeline_config,
+    "default": timeline_default_tab
+  }));
   initTLConf();
 }
 
 function editTLConfD(i) {
   console.log("OK");
   timeline_default_tab = i;
-  localStorage.setItem('knzkapp_conf_mastodon_timeline', JSON.stringify({"config":timeline_config,"default":timeline_default_tab}));
+  localStorage.setItem('knzkapp_conf_mastodon_timeline', JSON.stringify({
+    "config": timeline_config,
+    "default": timeline_default_tab
+  }));
 }
 
 function setsd() {
@@ -640,14 +665,14 @@ function setsd() {
     "plus_local": "+ローカル"
   };
   while (i <= 4) {
-    document.getElementById("sd_icon"+i).className = icons[timeline_config[i]];
+    document.getElementById("sd_icon" + i).className = icons[timeline_config[i]];
     i++;
   }
 }
 
 function closeAllws() {
   try {
-    for (var i=0;i<=4;i++) {
+    for (var i = 0; i <= 4; i++) {
       if (TL_websocket[i]) {
         TL_websocket[i].close();
         TL_websocket[i] = null;
@@ -655,6 +680,6 @@ function closeAllws() {
     }
     TL_websocket = {};
   } catch (e) {
-    console.warn("TL切断失敗:",e);
+    console.warn("TL切断失敗:", e);
   }
 }

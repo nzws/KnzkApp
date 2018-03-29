@@ -33,17 +33,17 @@ function post_vote() {
 function up_file(simple) {
   var simple_id = "";
   if (simple) image_mode = simple_id = "_simple"; else image_mode = simple_id = "";
-  var card = document.getElementsByClassName("media-upload"+simple_id);
+  var card = document.getElementsByClassName("media-upload" + simple_id);
   if (card.length >= 4) {
     showtoast("maximum-media");
   } else {
-    var file = $('#post_file'+simple_id)[0].files[0];
+    var file = $('#post_file' + simple_id)[0].files[0];
     var fileReader = new FileReader();
     fileReader.onloadend = function (e) {
       var arrayBuffer = e.target.result;
       blobUtil.arrayBufferToBlob(arrayBuffer, file.type).then(function (blob) {
         up_file_suc(null, blob);
-        $('#post_file'+simple_id).val("");
+        $('#post_file' + simple_id).val("");
       }).catch(console.log.bind(console));
     };
     fileReader.readAsArrayBuffer(file);
@@ -68,21 +68,21 @@ function up_file_suc(base64, mode_blob) {
     var formData = new FormData();
     formData.append('file', blob);
 
-    fetch("https://"+inst+"/api/v1/media", {
-      headers: {'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
+    fetch("https://" + inst + "/api/v1/media", {
+      headers: {'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')},
       method: 'POST',
       body: formData
-    }).then(function(response) {
-      if(response.ok) {
+    }).then(function (response) {
+      if (response.ok) {
         return response.json();
       } else {
         sendLog("Error/media", response.json);
         throw new Error();
       }
-    }).then(function(json) {
+    }).then(function (json) {
       if (json) {
         if (json["id"] && json["type"] !== "unknown") {
-          document.getElementById("image_list"+image_mode).innerHTML = "<ons-card onclick=\"file_del(this)\" style='background-image: url("+json["preview_url"]+")' class='card-image media-upload"+image_mode+"' data-mediaid='"+json["id"]+"'></ons-card>" + document.getElementById("image_list"+image_mode).innerHTML;
+          document.getElementById("image_list" + image_mode).innerHTML = "<ons-card onclick=\"file_del(this)\" style='background-image: url(" + json["preview_url"] + ")' class='card-image media-upload" + image_mode + "' data-mediaid='" + json["id"] + "'></ons-card>" + document.getElementById("image_list" + image_mode).innerHTML;
           image_mode = "";
           hide('now_loading');
         } else {
@@ -90,7 +90,7 @@ function up_file_suc(base64, mode_blob) {
           showtoast('cannot-pros');
         }
       }
-    }).catch(function(error) {
+    }).catch(function (error) {
       showtoast('cannot-pros');
       console.log(error);
       hide('now_loading');
@@ -109,8 +109,8 @@ function file_del(card) {
 function post_nsfw(simple) {
   var simple_id = "";
   if (simple) simple_id = "_simple";
-  var cw_input = document.getElementById("nsfw_input"+simple_id);
-  var cwicon = document.getElementById("nsfw_bt"+simple_id);
+  var cw_input = document.getElementById("nsfw_input" + simple_id);
+  var cwicon = document.getElementById("nsfw_bt" + simple_id);
 
   if (simple) {
     if (cwicon.className == button + " w-max") { //選択済み→解除
@@ -134,8 +134,8 @@ function post_nsfw(simple) {
 function post_localonly(simple) {
   var simple_id = "";
   if (simple) simple_id = "_simple";
-  var cw_input = document.getElementById("localonly_input"+simple_id);
-  var cwicon = document.getElementById("localonly_bt"+simple_id);
+  var cw_input = document.getElementById("localonly_input" + simple_id);
+  var cwicon = document.getElementById("localonly_bt" + simple_id);
 
   if (cwicon.className == button) { //選択済み→解除
     cw_input.value = "";
@@ -152,8 +152,8 @@ function post_localonly(simple) {
 function post_mode(simple) {
   var simple_id = "";
   if (simple) simple_id = "_simple";
-  var input_obj = document.getElementById("post_mode"+simple_id);
-  var bt_obj = document.getElementById("post_mode_icon"+simple_id);
+  var input_obj = document.getElementById("post_mode" + simple_id);
+  var bt_obj = document.getElementById("post_mode_icon" + simple_id);
   var icon_base = "ons-icon fa-fw fa fa-";
 
   ons.openActionSheet({
@@ -171,16 +171,16 @@ function post_mode(simple) {
   }).then(function (index) {
     if (index == 0) {
       input_obj.value = "public";
-      bt_obj.className = icon_base+"globe";
+      bt_obj.className = icon_base + "globe";
     } else if (index == 1) {
       input_obj.value = "unlisted";
-      bt_obj.className = icon_base+"unlock-alt";
+      bt_obj.className = icon_base + "unlock-alt";
     } else if (index == 2) {
       input_obj.value = "private";
-      bt_obj.className = icon_base+"lock";
+      bt_obj.className = icon_base + "lock";
     } else if (index == 3) {
       input_obj.value = "direct";
-      bt_obj.className = icon_base+"envelope";
+      bt_obj.className = icon_base + "envelope";
     }
   });
 }
@@ -232,11 +232,11 @@ function bbcodegen(force) {
       }
     }
     if (base) {
-      pre += "["+base+"]";
-      suf = "[/"+base+"]" + suf;
+      pre += "[" + base + "]";
+      suf = "[/" + base + "]" + suf;
     }
     if (color) {
-      pre += "[colorhex="+color+"]";
+      pre += "[colorhex=" + color + "]";
       suf = "[/colorhex]" + suf;
     }
     if (pulse) {
@@ -252,7 +252,7 @@ function bbcodegen(force) {
       pre += "[size="+large+"]";
       suf = "[/size]" + suf;
       */
-      pre += "[large="+large+"x]";
+      pre += "[large=" + large + "x]";
       suf = "[/large]" + suf;
     }
     buf = pre + text + suf;
@@ -306,13 +306,13 @@ function post(id, option, simple) {
   } else
     show('now_loading');
 
-  var media = document.getElementsByClassName("media-upload"+simple_id);
+  var media = document.getElementsByClassName("media-upload" + simple_id);
 
-  var vote1 = document.getElementById("vote_new_1"+simple_id).value;
-  var vote2 = document.getElementById("vote_new_2"+simple_id).value;
-  var vote3 = document.getElementById("vote_new_3"+simple_id).value;
-  var vote4 = document.getElementById("vote_new_4"+simple_id).value;
-  var votem = document.getElementById("vote_new_time"+simple_id).value;
+  var vote1 = document.getElementById("vote_new_1" + simple_id).value;
+  var vote2 = document.getElementById("vote_new_2" + simple_id).value;
+  var vote3 = document.getElementById("vote_new_3" + simple_id).value;
+  var vote4 = document.getElementById("vote_new_4" + simple_id).value;
+  var votem = document.getElementById("vote_new_time" + simple_id).value;
 
   if (vote1 != "" && vote2 != "") {
     optiondata.isEnquete = true;
@@ -339,18 +339,21 @@ function post(id, option, simple) {
     }
     optiondata.media_ids = media_id;
   }
-  fetch("https://"+inst+"/api/v1/statuses", {
-    headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
+  fetch("https://" + inst + "/api/v1/statuses", {
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+    },
     method: 'POST',
     body: JSON.stringify(optiondata)
-  }).then(function(response) {
-    if(response.ok) {
+  }).then(function (response) {
+    if (response.ok) {
       return response.json();
     } else {
       sendLog("Error/post", response.json);
       throw new Error();
     }
-  }).then(function(json) {
+  }).then(function (json) {
     if (json["id"]) {
       if (simple) {
         $("#simple_toot_form").find("textarea, input, select").val("").end().find(":checked").prop("checked", false);
@@ -360,7 +363,7 @@ function post(id, option, simple) {
         document.getElementById("image_list_simple").innerHTML = "";
         $("#post_mode_simple").val(default_post_visibility);
         document.getElementById("localonly_bt_simple").className = "no-rd button button--quiet";
-        document.getElementById("post_mode_icon_simple").className = "ons-icon fa-fw fa fa-"+visibility_name(default_post_visibility);
+        document.getElementById("post_mode_icon_simple").className = "ons-icon fa-fw fa fa-" + visibility_name(default_post_visibility);
         hide('post_now');
       } else {
         hide('now_loading');
@@ -371,7 +374,7 @@ function post(id, option, simple) {
       if (simple) hide('post_now');
       else hide('now_loading');
     }
-  }).catch(function(error) {
+  }).catch(function (error) {
     showtoast('cannot-post');
     console.log(error);
     if (simple) hide('post_now');
@@ -419,18 +422,18 @@ function add_emoji_simple(addtext, mode) {
   }
   var textarea = document.getElementById(id);
   var sentence = textarea.value;
-  var len      = sentence.length;
-  var pos      = textarea.selectionStart;
-  var before   = sentence.substr(0, pos);
-  var word     = addtext;
-  var after    = sentence.substr(pos, len);
+  var len = sentence.length;
+  var pos = textarea.selectionStart;
+  var before = sentence.substr(0, pos);
+  var word = addtext;
+  var after = sentence.substr(pos, len);
   sentence = before + word + after;
   textarea.value = sentence;
   hidePopover('emoji_popover');
 }
 
 function paste_simple() {
-  cordova.plugins.clipboard.paste(function(text) {
+  cordova.plugins.clipboard.paste(function (text) {
     add_emoji_simple(text);
   });
 }

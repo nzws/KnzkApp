@@ -1,4 +1,4 @@
-function music_set(id,force) {
+function music_set(id, force) {
   var obj = document.getElementById(id);
   var audio = document.getElementById("music-control");
   var chmode = document.getElementById("music-form").channel;

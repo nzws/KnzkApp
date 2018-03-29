@@ -1,105 +1,104 @@
 body, html, .dark-bg, .page__background, .nav-search {
-    background: #212121;
+  background: #212121;
 }
 
 .white, .container, #nav-search, .toolbar__right, .toolbar__left, .toolbar__center, .toot, .list-item, .tabbar, .toolbar, .button--large--quiet, .button--light {
-    color: #fff;
+  color: #fff;
 }
 
 .note {
-    color: #FAFAFA;
+  color: #FAFAFA;
 }
 
 .toot {
-    border: 1px solid #353535;
-    background: #212121;
+  border: 1px solid #353535;
+  background: #212121;
 }
 
 .list-header {
-    background: #212121;
-    color: #636363;
+  background: #212121;
+  color: #636363;
 }
 
 .list-item {
-    background: #353535;
+  background: #353535;
 }
 
 .toot-button, .showtoot-button {
-    color: #636363;
+  color: #636363;
 }
 
 .tabbar, .toolbar {
-    background: #2b2b2b;
-    border-top: none;
+  background: #2b2b2b;
+  border-top: none;
 }
 
 .button--large--quiet, .button--light {
-    background: #2b2b2b;
+  background: #2b2b2b;
 }
 
 a, a:link, a:visited, a:hover {
-    color: #d9e1e8 !important;
-    text-decoration: underline;
+  color: #d9e1e8 !important;
+  text-decoration: underline;
 }
 
 .toolbar-button, .back-button, .blue {
-    color: #2b90d9 !important;
+  color: #2b90d9 !important;
 }
 
 .card {
-    background: none;
-    padding: 0;
+  background: none;
+  padding: 0;
 }
 
 .page__content {
-    background-color: #212121 !important;
+  background-color: #212121 !important;
 }
 
-
 .dark-box {
-    background: #ebebeb;
-    border-radius: 0 0 4px 4px;
+  background: #ebebeb;
+  border-radius: 0 0 4px 4px;
 }
 
 .dark-box-in {
-    border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0;
 }
 
 .toot_big_border {
-    border: none;
-    border-top: 1px solid #353535 !important;
+  border: none;
+  border-top: 1px solid #353535 !important;
 }
 
 .big_date, .date-disp {
-    color: #636363;
+  color: #636363;
 }
 
 .toot_light {
-    background: rgba(43,43,43,.9) !important;
+  background: rgba(43, 43, 43, .9) !important;
 }
 
 .toot_dm {
-    background: #353535 !important;
+  background: #353535 !important;
 }
 
 .radio-button__checkmark:after {
-    border: 2px solid #fff;
-    border-top: none;
-    border-right: none;
+  border: 2px solid #fff;
+  border-top: none;
+  border-right: none;
 }
 
 .black_text > .select-input, .black_text > .text-input {
-    color: #313131;
+  color: #313131;
 }
 
 .simple-toot > div, #simple_toot_TL_toolbar {
-    background: #424242;
+  background: #424242;
 }
 
 .toot-button-disabled {
-    color: #4a4a4a;
+  color: #4a4a4a;
 }
 
 .alert-dialog-content > a:link, .alert-dialog-content > a {
-    color: #2b90d9 !important;
+  color: #2b90d9 !important;
 }

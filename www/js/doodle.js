@@ -5,7 +5,7 @@ function openDoodle(simple) {
   $.when(
     document.querySelector('#navigator').bringPageTop("doodle.html", {animation: "lift"})
   ).done(function () {
-    sketcher = atrament('#mySketcher', window.innerWidth, window.innerHeight-50);
+    sketcher = atrament('#mySketcher', window.innerWidth, window.innerHeight - 50);
     sketcher.smoothing = false;
     sketcher.adaptiveStroke = false;
     doodle_mode = "draw";
@@ -49,7 +49,7 @@ function closeDoodle(force) {
 
 function dataURLtoFile(dataURI) {
   var binary = atob(dataURI.split(',')[1]), array = [];
-  for(var i = 0; i < binary.length; i++) array.push(binary.charCodeAt(i));
+  for (var i = 0; i < binary.length; i++) array.push(binary.charCodeAt(i));
   return new Blob([new Uint8Array(array)], {type: 'image/png'});
 }
 
@@ -64,7 +64,7 @@ function Doodle_upload() {
 }
 
 function Doodle_config(id) {
-  var mode = document.getElementById("doodle_"+id).checked;
+  var mode = document.getElementById("doodle_" + id).checked;
   if (platform === "ios") {
     if (mode == true) {
       Doodle_changeType(id, false);

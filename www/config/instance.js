@@ -10,23 +10,23 @@
  */
 
 var instance_config = {
-    "knzk.me": {
-        limit: 500
-    },
-    "now.kibousoft.co.jp": {
-        limit: 4096,
-        bbcode: true
-    },
-    "kirishima.cloud": {
-        limit: 6229,
-        bbcode: true
-    },
-    "friends.nico": {
-        limit: 500,
-        enquete: true
-    },
-    "theboss.tech": {
-        limit: 500,
-        yomigana: true
-    }
+  "knzk.me": {
+    limit: 500
+  },
+  "now.kibousoft.co.jp": {
+    limit: 4096,
+    bbcode: true
+  },
+  "kirishima.cloud": {
+    limit: 6229,
+    bbcode: true
+  },
+  "friends.nico": {
+    limit: 500,
+    enquete: true
+  },
+  "theboss.tech": {
+    limit: 500,
+    yomigana: true
+  }
 };

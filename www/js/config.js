@@ -18,11 +18,11 @@ function change_conf(name, id, sel, istext) {
   var md = (name === 1) ? 'knzkapp_conf_mastodon' : 'knzkapp_conf_mastodoncol';
   var data = JSON.parse(localStorage.getItem(md));
   if (sel) {
-    data[id] = document.getElementById("conf-"+id).value;
+    data[id] = document.getElementById("conf-" + id).value;
   } else {
     var colmd = "";
     if (md === "knzkapp_conf_mastodoncol") colmd = "col-";
-    var mode = document.getElementById("conf-"+colmd+id).checked;
+    var mode = document.getElementById("conf-" + colmd + id).checked;
     if (istext)
       data[id] = platform === "ios" ? mode == true ? "0" : "1" : mode == true ? "1" : "0";
     else
@@ -97,7 +97,10 @@ function ConfigSetup() {
       if (accountdata["domain"]) localStorage.setItem('knzkapp_now_mastodon_domain', accountdata["domain"]);
     }
     if (now_version < 3) {
-      localStorage.setItem('knzkapp_conf_mastodon_timeline', JSON.stringify({"config":["home","local","public","local_media","public_media"],"default":0}));
+      localStorage.setItem('knzkapp_conf_mastodon_timeline', JSON.stringify({
+        "config": ["home", "local", "public", "local_media", "public_media"],
+        "default": 0
+      }));
     }
 
     localStorage.setItem('knzkapp_conf_version', last_version);
@@ -111,9 +114,16 @@ function clearAllConfig() {
     if (e === 1) {
       ons.notification.confirm('もう一度聞きます。<br>本当に全ての設定をリセットしますか？', {title: '設定をリセット'}).then(function (e) {
         if (e === 1) {
-          localStorage.setItem('knzkapp_conf_mastodon', JSON.stringify({"realtime":1,"head_reset":1,"dial":"change"}));
+          localStorage.setItem('knzkapp_conf_mastodon', JSON.stringify({
+            "realtime": 1,
+            "head_reset": 1,
+            "dial": "change"
+          }));
           localStorage.setItem('knzkapp_conf_mastodoncol', JSON.stringify({}));
-          localStorage.setItem('knzkapp_conf_mastodon_timeline', JSON.stringify({"config":["home","local","public","local_media","public_media"],"default":0}));
+          localStorage.setItem('knzkapp_conf_mastodon_timeline', JSON.stringify({
+            "config": ["home", "local", "public", "local_media", "public_media"],
+            "default": 0
+          }));
           ons.notification.toast('設定をリセットしました。再起動してください。');
         }
       });

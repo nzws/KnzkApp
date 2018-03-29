@@ -80,24 +80,24 @@ function init() {
         sendLog("Error/init_1", e);
       }
 
-      fetch("https://"+inst+"/api/v1/instance").then(function(response) {
-        if(response.ok) {
+      fetch("https://" + inst + "/api/v1/instance").then(function (response) {
+        if (response.ok) {
           return response.json();
         } else {
           sendLog("Error/init_instance", response.json);
           throw new Error();
         }
-      }).then(function(json) {
-        fetch("https://"+inst+"/api/v1/accounts/verify_credentials", {
-          headers: {'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')}
-        }).then(function(response) {
-          if(response.ok) {
+      }).then(function (json) {
+        fetch("https://" + inst + "/api/v1/accounts/verify_credentials", {
+          headers: {'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')}
+        }).then(function (response) {
+          if (response.ok) {
             return response.json();
           } else {
             sendLog("Error/init_verify_credentials", response.json);
             throw new Error();
           }
-        }).then(function(json) {
+        }).then(function (json) {
           try {
             timeline_config = getConfig(3, "config");
             timeline_default_tab = getConfig(3, "default") === "" ? 0 : getConfig(3, "default");
@@ -136,7 +136,7 @@ function init() {
                 loadNav("tutorial.html", "up");
                 setConfig(1, "tutorial", 1);
               }
-              document.getElementById("splitter-profile-bg").setAttribute('style', 'background-image: url(\''+json[getConfig(1, 'no_gif') ? "header_static" : "header"]+'\');');
+              document.getElementById("splitter-profile-bg").setAttribute('style', 'background-image: url(\'' + json[getConfig(1, 'no_gif') ? "header_static" : "header"] + '\');');
               document.getElementById("splitter-icon").src = json[getConfig(1, 'no_gif') ? "avatar_static" : "avatar"];
               if (instance_config[inst]["yomigana"]) document.getElementById("splitter-profile-name").style.height = "30px";
               document.getElementById("splitter-profile-name").innerHTML = t_text(escapeHTML(json.display_name));
@@ -152,8 +152,9 @@ function init() {
               var dial = getConfig(1, 'dial'), icon;
               if (dial && dial != "change") {
                 $("#dial_main").removeClass("invisible");
-                if (dial === "toot") icon = "fa-pencil"; else if (dial === "alert") icon = "fa-bell"; if (dial === "reload") icon = "fa-refresh";
-                document.getElementById("dial-icon").className = "ons-icon fa "+icon;
+                if (dial === "toot") icon = "fa-pencil"; else if (dial === "alert") icon = "fa-bell";
+                if (dial === "reload") icon = "fa-refresh";
+                document.getElementById("dial-icon").className = "ons-icon fa " + icon;
               } else if (dial) {
                 $("#dial_TL").removeClass("invisible");
                 setsd();
@@ -162,7 +163,7 @@ function init() {
           } catch (e) {
             sendLog("Error/init_2", e);
           }
-        }).catch(function(error) {
+        }).catch(function (error) {
           console.log(error);
           showtoast('cannot-connect-API');
           hide('now_loading');
@@ -181,7 +182,7 @@ function init() {
 }
 
 function initevent() {
-  $(document).on('click', 'div.toot_content', function(event) {
+  $(document).on('click', 'div.toot_content', function (event) {
     var obj = event.currentTarget, id = 0;
     var button = event.target.className;
     if (obj.className.indexOf("toot_content") !== -1 && button.indexOf("button") === -1 && button.indexOf("enquete") === -1) {
@@ -195,7 +196,7 @@ function initevent() {
       }
     }
   });
-  $(document).on('click', 'a', function(event) {
+  $(document).on('click', 'a', function (event) {
     var word = "";
     event.stopPropagation();
     event.preventDefault();
@@ -207,10 +208,10 @@ function initevent() {
     }
     if (obj.className === "u-url mention") {
       word = url.split("/");
-      show_account_name(word[word.length-1] + "@" + word[word.length-2]);
+      show_account_name(word[word.length - 1] + "@" + word[word.length - 2]);
     } else if (obj.className === "mention hashtag") {
       word = url.split("/");
-      tag_str = word[word.length-1];
+      tag_str = word[word.length - 1];
       showTagTL(tag_str);
     } else {
       openURL(url);
@@ -218,13 +219,13 @@ function initevent() {
     return false;
   });
 
-  document.addEventListener('postpush', function(event) {
+  document.addEventListener('postpush', function (event) {
     pageid = event.enterPage.id;
     if (event.enterPage.id === "home") {
       setTimeout(function () {
         document.getElementById("toot_limit_simple").innerHTML = toot_limit;
         $("#post_mode_simple").val(default_post_visibility);
-        document.getElementById("post_mode_icon_simple").className = "ons-icon fa-fw fa fa-"+visibility_name(default_post_visibility);
+        document.getElementById("post_mode_icon_simple").className = "ons-icon fa-fw fa fa-" + visibility_name(default_post_visibility);
         if (getConfig(1, 'cp_popover')) $("#simple_cp_bt").removeClass("invisible");
       }, 500);
     } else {
@@ -234,40 +235,40 @@ function initevent() {
 
     if (event.enterPage.id === "config-page") {
       show('now_loading');
-      setTimeout(function() {
+      setTimeout(function () {
         if (ons.platform.isIPhoneX()) document.getElementById("item-dp").className = "invisible"; //iPhoneXだとぶっ壊れるため
-        if (getConfig(1, 'dial')) document.getElementById("dial_"+getConfig(1, 'dial')).selected = true;
-        if (getConfig(1, 'theme')) document.getElementById("theme_"+getConfig(1, 'theme')).selected = true;
-        if (getConfig(1, 'design_platform')) document.getElementById("dp_"+getConfig(1, 'design_platform')).selected = true;
-        if (getConfig(1, 'url_open')) document.getElementById("url_"+getConfig(1, 'url_open')).selected = true;
-        if (getConfig(1, 'toot_button')) document.getElementById("toot_bt_"+getConfig(1, 'toot_button')).selected = true;
-        if (getConfig(1, 'toot_body')) document.getElementById("toot_body_"+getConfig(1, 'toot_body')).selected = true;
+        if (getConfig(1, 'dial')) document.getElementById("dial_" + getConfig(1, 'dial')).selected = true;
+        if (getConfig(1, 'theme')) document.getElementById("theme_" + getConfig(1, 'theme')).selected = true;
+        if (getConfig(1, 'design_platform')) document.getElementById("dp_" + getConfig(1, 'design_platform')).selected = true;
+        if (getConfig(1, 'url_open')) document.getElementById("url_" + getConfig(1, 'url_open')).selected = true;
+        if (getConfig(1, 'toot_button')) document.getElementById("toot_bt_" + getConfig(1, 'toot_button')).selected = true;
+        if (getConfig(1, 'toot_body')) document.getElementById("toot_body_" + getConfig(1, 'toot_body')).selected = true;
         hide('now_loading');
         var conf = $("[id^='conf-']"), i = 0;
         while (conf[i]) {
           if (parseInt(getConfig(1, conf[i].id.replace("conf-", "")))) conf[i].checked = true;
           i++;
         }
-      },500);
+      }, 500);
     }
 
     if (event.enterPage.id === "userconf-page") {
       show('now_loading');
-      fetch("https://"+inst+"/api/v1/accounts/verify_credentials", {
-        headers: {'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')}
-      }).then(function(response) {
-        if(response.ok) {
+      fetch("https://" + inst + "/api/v1/accounts/verify_credentials", {
+        headers: {'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')}
+      }).then(function (response) {
+        if (response.ok) {
           return response.json();
         } else {
           sendLog("Error/event_userconf-page", response);
           throw new Error();
         }
-      }).then(function(json) {
+      }).then(function (json) {
         document.getElementById("userconf-display_name").value = json["display_name"];
         document.getElementById("userconf-note").value = json["source"]["note"];
         document.getElementById("userconf-lock").checked = json["locked"];
         hide('now_loading');
-      }).catch(function(error) {
+      }).catch(function (error) {
         showtoast('cannot-pros');
         hide('now_loading');
       });
@@ -275,14 +276,14 @@ function initevent() {
 
     if (event.enterPage.id === "config_collapse-page") {
       show('now_loading');
-      setTimeout(function() {
+      setTimeout(function () {
         var conf = $("[id^='conf-col-']"), i = 0;
         while (conf[i]) {
           if (parseInt(getConfig(2, conf[i].id.replace("conf-col-", "")))) conf[i].checked = true;
           i++;
         }
         hide('now_loading');
-      },500);
+      }, 500);
     }
     if (event.enterPage.id === "login-page") {
       if (localStorage.getItem('knzkapp_now_mastodon_token')) {
@@ -297,7 +298,7 @@ function initevent() {
     }
     if (event.enterPage.id === "toot-page") {
       if (!tmp_post_visibility) tmp_post_visibility = default_post_visibility;
-      document.getElementById("post_mode_icon").className = "ons-icon fa fa-fw fa-"+visibility_name(tmp_post_visibility);
+      document.getElementById("post_mode_icon").className = "ons-icon fa fa-fw fa-" + visibility_name(tmp_post_visibility);
 
       if (tmp_post_reply) {
         if (tmp_text_pre) {
@@ -342,7 +343,7 @@ function initevent() {
     }
   });
 
-  document.addEventListener('postpop', function(event) {
+  document.addEventListener('postpop', function (event) {
     pageid = event.enterPage.id;
     if (event.enterPage.id === "home") {
       home_auto_event = true;
@@ -354,14 +355,14 @@ function initevent() {
   });
 
   if (getConfig(1, "resume_reload")) {
-    document.addEventListener("resume", function() {
+    document.addEventListener("resume", function () {
       if (pageid === "home" && !home_auto_event) {
-        showTL(null,null,null,true);
+        showTL(null, null, null, true);
       }
     }, false);
   }
 
-  document.addEventListener('prechange', function(event) {
+  document.addEventListener('prechange', function (event) {
     if (event.carousel) {
       var label = [document.getElementById("tutorial_next_label"), document.getElementById("tutorial_next_icon")];
       if (event.activeIndex === 3) {
@@ -375,17 +376,17 @@ function initevent() {
       timeline_now_tab = event.index;
       document.getElementById('home_title').innerHTML = TLname(timeline_config[event.index]);
       now_TL = timeline_config[event.index];
-      showTL(null,null,null,true);
+      showTL(null, null, null, true);
     }
   });
 
-  $(document).on('click', '.timeline', function(event) {
+  $(document).on('click', '.timeline', function (event) {
     if ($("#navigator").attr("page") === "home.html") {
       simple_close();
     }
   });
 
-  document.addEventListener('postopen', function(event) {
+  document.addEventListener('postopen', function (event) {
     account_list();
     reset_nav();
   });
@@ -398,9 +399,9 @@ function home_autoevent() {
       var storedata = timeline_store_data[inst][timeline_now_tab];
       if (storedata !== "" && home_auto_mode) {
         if (getConfig(1, 'chatmode'))
-          document.querySelector('#TL'+timeline_now_tab+'_main > .page__content').innerHTML = document.querySelector('#TL'+timeline_now_tab+'_main > .page__content').innerHTML + storedata;
+          document.querySelector('#TL' + timeline_now_tab + '_main > .page__content').innerHTML = document.querySelector('#TL' + timeline_now_tab + '_main > .page__content').innerHTML + storedata;
         else
-          document.querySelector('#TL'+timeline_now_tab+'_main > .page__content').innerHTML = storedata + document.querySelector('#TL'+timeline_now_tab+'_main > .page__content').innerHTML;
+          document.querySelector('#TL' + timeline_now_tab + '_main > .page__content').innerHTML = storedata + document.querySelector('#TL' + timeline_now_tab + '_main > .page__content').innerHTML;
         timeline_store_data[inst][timeline_now_tab] = "";
         home_auto_num = 0;
         setTLheadcolor(0);
@@ -409,9 +410,9 @@ function home_autoevent() {
 
       if (!getConfig(1, 'chatmode')) {
         try {
-          var mr = $(".more_load_bt_"+timeline_now_tab).offset().top - window.innerHeight;
+          var mr = $(".more_load_bt_" + timeline_now_tab).offset().top - window.innerHeight;
           if (mr < -10) {
-            showTL(null,null,document.getElementsByClassName("more_load_bt_"+timeline_now_tab)[0]);
+            showTL(null, null, document.getElementsByClassName("more_load_bt_" + timeline_now_tab)[0]);
           }
         } catch (e) {
           console.log(e);
@@ -423,6 +424,7 @@ function home_autoevent() {
 }
 
 var button = "", quiet = "", light = "", large_quiet = "", platform = "";
+
 function init_d() {
   var platform_mode = "ios", css = "";
 
@@ -490,8 +492,9 @@ function init_d() {
     heads[0].appendChild(node);
   }
 }
+
 init_d();
-ons.ready(function() {
+ons.ready(function () {
   ConfigSetup();
   init();
   if (is_debug) {
@@ -499,7 +502,10 @@ ons.ready(function() {
     if (getConfig(1, "SendLog") === "") setConfig(1, "SendLog", "0");
   } else {
     if (getConfig(1, "SendLog") === "") {
-      ons.notification.confirm("KnzkAppでは、エラー時に開発者が原因を特定しやすいようログを送信する機能が備わっています。<br>エラー時にログを開発者へ送信してもよろしいですか？<br><a onclick=\"openURL('https://knzkapp.yuzu.tk/privacy.html')\">プライバシーポリシー</a>", {title: 'KnzkAppへようこそ', buttonLabels: ["同意しない", "同意する"]}).then(function (e) {
+      ons.notification.confirm("KnzkAppでは、エラー時に開発者が原因を特定しやすいようログを送信する機能が備わっています。<br>エラー時にログを開発者へ送信してもよろしいですか？<br><a onclick=\"openURL('https://knzkapp.yuzu.tk/privacy.html')\">プライバシーポリシー</a>", {
+        title: 'KnzkAppへようこそ',
+        buttonLabels: ["同意しない", "同意する"]
+      }).then(function (e) {
         if (e === 1) {
           setConfig(1, "SendLog", "1");
           Raven.config(sentryID, {release: version}).install();
@@ -515,15 +521,15 @@ ons.ready(function() {
 
 // https://press.monaca.io/atsushi/248
 function handleOpenURL(url) {
-  setTimeout(function() {
+  setTimeout(function () {
     var strValue = url;
-    strValue = strValue.replace('knzkapp://','');
+    strValue = strValue.replace('knzkapp://', '');
     var mode = strValue.split("/");
     if (mode[0] === "login") {
-      var token = getParam(mode[1].replace('token',''));
+      var token = getParam(mode[1].replace('token', ''));
       login_callback(token["code"]);
     } else if (mode[0] === "user") {
-      var user = mode[1].replace('open?','');
+      var user = mode[1].replace('open?', '');
       show_account_name(user);
     }
   }, 100);
