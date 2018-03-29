@@ -8,28 +8,28 @@ function login_open(domain) {
     os_name = "PC";
     uri = "urn:ietf:wg:oauth:2.0:oob";
   }
-  fetch("https://"+domain+"/api/v1/apps", {
+  fetch("https://" + domain + "/api/v1/apps", {
     method: 'POST',
     headers: {'content-type': 'application/json'},
     body: JSON.stringify({
       scopes: 'read write follow',
-      client_name: 'KnzkApp for '+os_name,
+      client_name: 'KnzkApp for ' + os_name,
       redirect_uris: uri,
       website: 'https://github.com/knzkdev/knzkapp'
     })
-  }).then(function(response) {
-    if(response.ok) {
+  }).then(function (response) {
+    if (response.ok) {
       return response.json();
     } else {
       sendLog("Error/CreateApp", response.json);
       throw new Error();
     }
-  }).then(function(json) {
+  }).then(function (json) {
     var inst_domain_tmp = domain.toLowerCase();
     localStorage.setItem('knzkapp_tmp_domain', inst_domain_tmp);
     localStorage.setItem('knzkapp_tmp_cid', json["client_id"]);
     localStorage.setItem('knzkapp_tmp_scr', json["client_secret"]);
-    var url = 'https://'+inst_domain_tmp+'/oauth/authorize?response_type=code&redirect_uri='+uri+'&scope=read write follow&client_id='+json["client_id"];
+    var url = 'https://' + inst_domain_tmp + '/oauth/authorize?response_type=code&redirect_uri=' + uri + '&scope=read write follow&client_id=' + json["client_id"];
     if (platform === "ios") {
       openURL(url);
     } else {
@@ -42,7 +42,7 @@ function login_open(domain) {
         }
       });
     }
-  }).catch(function(error) {
+  }).catch(function (error) {
     console.log(error);
     show('cannot-connect-sv-login');
     hide('now_loading');
@@ -74,7 +74,7 @@ function login_callback(code) {
   } else if (platform !== "android") {
     uri = "urn:ietf:wg:oauth:2.0:oob";
   }
-  fetch("https://"+localStorage.getItem('knzkapp_tmp_domain')+"/oauth/token", {
+  fetch("https://" + localStorage.getItem('knzkapp_tmp_domain') + "/oauth/token", {
     method: 'POST',
     headers: {'content-type': 'application/json'},
     body: JSON.stringify({
@@ -84,37 +84,37 @@ function login_callback(code) {
       redirect_uri: uri,
       code: code
     })
-  }).then(function(response) {
-    if(response.ok) {
+  }).then(function (response) {
+    if (response.ok) {
       if (localStorage.getItem('knzkapp_now_mastodon_username')) account_change();
     } else {
       sendLog("Error/oauth_token", response.json);
     }
     return response.json();
-  }).then(function(json) {
+  }).then(function (json) {
     setTimeout(function () {
       if (json.access_token) {
-        localStorage.setItem('knzkapp_now_mastodon_token',json.access_token);
-        localStorage.setItem('knzkapp_now_mastodon_domain',localStorage.getItem('knzkapp_tmp_domain'));
+        localStorage.setItem('knzkapp_now_mastodon_token', json.access_token);
+        localStorage.setItem('knzkapp_now_mastodon_domain', localStorage.getItem('knzkapp_tmp_domain'));
         inst = localStorage.getItem('knzkapp_tmp_domain');
 
-        fetch("https://"+inst+"/api/v1/accounts/verify_credentials", {
-          headers: {'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')}
-        }).then(function(response) {
-          if(response.ok) {
+        fetch("https://" + inst + "/api/v1/accounts/verify_credentials", {
+          headers: {'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')}
+        }).then(function (response) {
+          if (response.ok) {
             return response.json();
           } else {
             sendLog("Error/loginjs_verify_credentials", response.json);
             throw new Error();
           }
-        }).then(function(json_acct) {
+        }).then(function (json_acct) {
           if (localStorage.getItem("knzkapp_account_list") == undefined) localStorage.setItem('knzkapp_account_list', JSON.stringify([]));
-          localStorage.setItem('knzkapp_now_mastodon_username',json_acct.acct);
-          localStorage.setItem('knzkapp_now_mastodon_id',json_acct.id);
+          localStorage.setItem('knzkapp_now_mastodon_username', json_acct.acct);
+          localStorage.setItem('knzkapp_now_mastodon_id', json_acct.id);
           hide('now_loading');
           init();
           showtoast('loggedin_dialog');
-        }).catch(function(error) {
+        }).catch(function (error) {
           showtoast('cannot-connect-sv');
           console.log(error);
           hide('now_loading');
@@ -124,29 +124,30 @@ function login_callback(code) {
         ons.notification.alert(json.error, {title: 'ログイン中にエラーが発生しました。'});
       }
     }, 500);
-  }).catch(function(error) {
+  }).catch(function (error) {
     showtoast('cannot-connect-sv');
     console.log(error);
     hide('now_loading');
   });
 }
+
 function debug_login() {
   show('now_loading');
   var inst_domain = document.getElementById("login_debug_domain").value;
   var token = document.getElementById("login_debug_token").value;
 
 
-  fetch("https://"+inst_domain+"/api/v1/accounts/verify_credentials", {
-    headers: {'Authorization': 'Bearer '+token}
-  }).then(function(response) {
-    if(response.ok) {
+  fetch("https://" + inst_domain + "/api/v1/accounts/verify_credentials", {
+    headers: {'Authorization': 'Bearer ' + token}
+  }).then(function (response) {
+    if (response.ok) {
       if (localStorage.getItem('knzkapp_now_mastodon_username')) account_change();
       return response.json();
     } else {
       //デバッガなのでいらない
       throw new Error();
     }
-  }).then(function(json) {
+  }).then(function (json) {
     setTimeout(function () {
       if (localStorage.getItem("knzkapp_account_list") == undefined) localStorage.setItem('knzkapp_account_list', JSON.stringify([]));
       localStorage.setItem('knzkapp_now_mastodon_token', token);
@@ -158,7 +159,7 @@ function debug_login() {
       init();
       showtoast('loggedin_dialog');
     }, 500);
-  }).catch(function(error) {
+  }).catch(function (error) {
     showtoast('cannot-connect-sv');
     console.log(error);
     hide('now_loading');
@@ -205,16 +206,16 @@ function account_change(id) {
     var nid = parseInt(id);
     var next_account = list[nid];
     list.splice(nid, 1);
-    fetch("https://"+next_account["login_domain"]+"/api/v1/accounts/verify_credentials", {
-      headers: {'Authorization': 'Bearer '+next_account["login_token"]}
-    }).then(function(response) {
-      if(response.ok) {
+    fetch("https://" + next_account["login_domain"] + "/api/v1/accounts/verify_credentials", {
+      headers: {'Authorization': 'Bearer ' + next_account["login_token"]}
+    }).then(function (response) {
+      if (response.ok) {
         return response.json();
       } else {
         sendLog("Error/login_verify_credentials", response.json);
         throw new Error();
       }
-    }).then(function(json) {
+    }).then(function (json) {
       localStorage.setItem('knzkapp_now_mastodon_token', next_account["login_token"]);
       localStorage.setItem('knzkapp_now_mastodon_username', next_account["username"]);
       localStorage.setItem('knzkapp_now_mastodon_id', next_account["userid"]);
@@ -225,7 +226,7 @@ function account_change(id) {
 
       init();
       document.getElementById('splitter-menu').close();
-    }).catch(function(error) {
+    }).catch(function (error) {
       console.log(error);
       showtoast('cannot-connect-API');
     });
@@ -253,10 +254,10 @@ function account_list() {
   var reshtml = "", i = 0;
   while (list[i]) {
     reshtml += "<ons-list-item>\n" +
-      "      <div class=\"center\" onclick='account_change(\""+i+"\")'>\n" +
-      "        <span class=\"list-item__title\">@"+list[i]["username"]+"@"+list[i]["login_domain"]+"</span>\n" +
+      "      <div class=\"center\" onclick='account_change(\"" + i + "\")'>\n" +
+      "        <span class=\"list-item__title\">@" + list[i]["username"] + "@" + list[i]["login_domain"] + "</span>\n" +
       "      </div>\n" +
-      "      <div class=\"right\" onclick='account_del(\""+i+"\")'>\n" +
+      "      <div class=\"right\" onclick='account_del(\"" + i + "\")'>\n" +
       "        <span class=\"list-item__title\"><i class=\"list-item__icon list-item--chevron__icon ons-icon fa-trash fa fa-fw\"></i></span>\n" +
       "      </div>\n" +
       "    </ons-list-item>";

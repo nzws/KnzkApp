@@ -1,19 +1,19 @@
 .toolbar, .toolbar__item {
-    height: 35px;
+  height: 35px;
 }
 
-.toolbar:not(.toolbar--cover-content)+.page__background+.page__content, .toolbar:not(.toolbar--transparent)+.page__background {
-    top: 35px;
+.toolbar:not(.toolbar--cover-content) + .page__background + .page__content, .toolbar:not(.toolbar--transparent) + .page__background {
+  top: 35px;
 }
 
 .toolbar__left {
-    line-height: 40px;
+  line-height: 40px;
 }
 
 .toolbar__center {
-    line-height: 40px;
+  line-height: 40px;
 }
 
 .toolbar__right {
-    line-height: 40px;
+  line-height: 40px;
 }

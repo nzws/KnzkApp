@@ -1,10 +1,10 @@
-var showPopover = function(target, id) {
+var showPopover = function (target, id) {
   document
     .getElementById(id)
     .show(target);
 };
 
-var hidePopover = function(id) {
+var hidePopover = function (id) {
   document
     .getElementById(id)
     .hide();
@@ -12,7 +12,7 @@ var hidePopover = function(id) {
 
 window.fn = {};
 
-window.fn.open = function() {
+window.fn.open = function () {
   var menu = document.getElementById('splitter-menu');
   menu.open();
 };
@@ -28,22 +28,25 @@ function reset_nav() {
 
 function load(page) {
   if (page != "home.html") {
-    try {closeAllws();} catch (e) {}
+    try {
+      closeAllws();
+    } catch (e) {
+    }
   }
   loadNav(page, null, true);
 }
 
 function loadNav(page, mode, splitter, splitter_next) { //mode: アニメーション方法, splitter: スライドメニューを使用しているか, splitter_next: その中で、ページリセットをするか
   var option;
-  if (mode === "up") option = {animation:"lift"};
-  else option = {animation:"slide"};
+  if (mode === "up") option = {animation: "lift"};
+  else option = {animation: "slide"};
 
   if (splitter) {
     var menu = document.getElementById('splitter-menu');
     if (splitter_next) {
       document.querySelector('#navigator').bringPageTop(page, option).then(menu.close.bind(menu));
     } else {
-      document.querySelector('#navigator').resetToPage(page, {animation:"none"}).then(menu.close.bind(menu));
+      document.querySelector('#navigator').resetToPage(page, {animation: "none"}).then(menu.close.bind(menu));
     }
   } else {
     document.querySelector('#navigator').bringPageTop(page, option);
@@ -52,8 +55,8 @@ function loadNav(page, mode, splitter, splitter_next) { //mode: アニメーシ�
 
 function BackTab(mode) {
   var option;
-  if (mode === "down") option = {animation:"lift"};
-  else option = {animation:"slide"};
+  if (mode === "down") option = {animation: "lift"};
+  else option = {animation: "slide"};
 
   document.querySelector('#navigator').popPage(option);
 }
@@ -92,15 +95,15 @@ function t_text(text, emojidata) {
   var i = 0, emoji = "", replacetext = "";
 
   if (getConfig(1, 'joke') == 1) {
-    text = text.replace(/。/g , "、それと便座カバー。");
-    text = text.replace(/toot/g , "awoo");
-    text = text.replace(/TOOT/g , "AWOO");
-    text = text.replace(/(神崎|おにいさん)/g , "<span style='color: red'>$1</span>");
-    text = text.replace(/あんのたん/g , "<span class='fav-active'>$1</span>");
-    text = text.replace(/(ごちうさ|ご注文はうさぎですか？)/g , "あぁ^～心がぴょんぴょんするんじゃぁ^～");
-    text = text.replace(/35億/g , "5000兆円");
-    text = text.replace(/がっこうぐらし/g , "【窓割れてね？】");
-    text = text.replace(/(ニート|無職|ノージョブ|自宅警備員)/g , "【部屋に閉じこもって生きていればそれでいいの？】");
+    text = text.replace(/。/g, "、それと便座カバー。");
+    text = text.replace(/toot/g, "awoo");
+    text = text.replace(/TOOT/g, "AWOO");
+    text = text.replace(/(神崎|おにいさん)/g, "<span style='color: red'>$1</span>");
+    text = text.replace(/あんのたん/g, "<span class='fav-active'>$1</span>");
+    text = text.replace(/(ごちうさ|ご注文はうさぎですか？)/g, "あぁ^～心がぴょんぴょんするんじゃぁ^～");
+    text = text.replace(/35億/g, "5000兆円");
+    text = text.replace(/がっこうぐらし/g, "【窓割れてね？】");
+    text = text.replace(/(ニート|無職|ノージョブ|自宅警備員)/g, "【部屋に閉じこもって生きていればそれでいいの？】");
   }
 
   if (!getConfig(1, 'no_custom_emoji') && emojidata) {
@@ -108,8 +111,8 @@ function t_text(text, emojidata) {
     while (emojidata[i]) {
       emoji = ":" + emojidata[i]["shortcode"] + ":";
 
-      replacetext = "<img draggable=\"false\" class=\"emojione\" src=\""+emojidata[i][emoji_mode]+"\" />";
-      text = text.replace(new RegExp(emoji,"g"),replacetext);
+      replacetext = "<img draggable=\"false\" class=\"emojione\" src=\"" + emojidata[i][emoji_mode] + "\" />";
+      text = text.replace(new RegExp(emoji, "g"), replacetext);
       i++;
     }
   }
@@ -140,7 +143,7 @@ function openURL(url) {
             url: url
           },
           // this success handler will be invoked for the lifecycle events 'opened', 'loaded' and 'closed'
-          function(result) {
+          function (result) {
             if (result.event === 'opened') {
               console.log('opened');
             } else if (result.event === 'loaded') {
@@ -149,7 +152,7 @@ function openURL(url) {
               console.log('closed');
             }
           },
-          function(msg) {
+          function (msg) {
             console.log("KO: " + msg);
           });
       } else {
@@ -167,23 +170,23 @@ function openURL(url) {
 
 function getParam(val) {
   var data_s = {}, data = val.substring(1).split('&'), data_ex, value, key;
-  for(var i = 0; i < data.length; i++) {
+  for (var i = 0; i < data.length; i++) {
     data_ex = value = key = null;
     data_ex = data[i].search(/=/);
     value = data[i].slice(data[i].indexOf('=', 0) + 1);
-    if(data_ex != -1)
+    if (data_ex != -1)
       key = data[i].slice(0, data_ex);
-    if(key) data_s[key] = decodeURIComponent(value);
+    if (key) data_s[key] = decodeURIComponent(value);
   }
   return data_s;
 }
 
 function escapeHTML(text) {
-  text = text.replace(/"/g , "&quot;");
-  text = text.replace(/'/g , "&#39;");
-  text = text.replace(/&/g , "&amp;");
-  text = text.replace(/</g , "&lt;");
-  text = text.replace(/>/g , "&gt;");
+  text = text.replace(/"/g, "&quot;");
+  text = text.replace(/'/g, "&#39;");
+  text = text.replace(/&/g, "&amp;");
+  text = text.replace(/</g, "&lt;");
+  text = text.replace(/>/g, "&gt;");
 
   return text;
 }

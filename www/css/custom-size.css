@@ -1,18 +1,18 @@
 .icon-img-small {
-    width: 50px;
-    height: 50px;
+  width: 50px;
+  height: 50px;
 }
 
 .toot-small, .acct-small {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .toot-small {
-    height: 20px;
+  height: 20px;
 }
 
 .acct-small {
-    padding-left: 0;
+  padding-left: 0;
 }

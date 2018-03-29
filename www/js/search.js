@@ -1,23 +1,26 @@
 function SearchKey() {
-  if (window.event.keyCode==13) SearchLoad();
+  if (window.event.keyCode == 13) SearchLoad();
 }
 
 function SearchLoad() {
   loadNav("olist_nav.html", null, true, true);
   var q = escapeHTML(document.getElementById("nav-search").value);
-  fetch("https://"+inst+"/api/v1/search?q="+q, {
-    headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
+  fetch("https://" + inst + "/api/v1/search?q=" + q, {
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+    },
     method: 'GET'
-  }).then(function(response) {
-    if(response.ok) {
+  }).then(function (response) {
+    if (response.ok) {
       return response.json();
     } else {
       sendLog("Error/Search", response.json);
       throw new Error();
     }
-  }).then(function(json) {
+  }).then(function (json) {
     var reshtml = "", i = 0;
-    document.getElementById("olist_nav_title").innerHTML = q+"の検索結果";
+    document.getElementById("olist_nav_title").innerHTML = q + "の検索結果";
     reshtml += "<ons-list><ons-list-header>アカウント</ons-list-header></ons-list>";
     while (json['accounts'][i]) {
       if (!json['accounts'][i]['display_name']) json['accounts'][i]['display_name'] = json['accounts'][i]['username'];
@@ -39,7 +42,7 @@ function SearchLoad() {
     }
 
     document.getElementById("olist_nav_main").innerHTML = reshtml;
-  }).catch(function(error) {
+  }).catch(function (error) {
     showtoast('cannot-pros');
     console.log(error);
   });

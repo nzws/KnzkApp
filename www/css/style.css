@@ -1,24 +1,23 @@
 html, body {
-    max-width: 100%;
-    height: 100%;
+  max-width: 100%;
+  height: 100%;
 }
 
 .disable, .invisible {
-    display: none;
+  display: none;
 }
 
-
 .y-center {
-    text-align: center;
+  text-align: center;
 }
 
 .loading-now {
-    text-align: center;
-    font-size: xx-large;
+  text-align: center;
+  font-size: xx-large;
 }
 
 .w-max {
-    width: 100%;
+  width: 100%;
 }
 
 @keyframes pulse {
@@ -36,432 +35,436 @@ html, body {
 }
 
 .main-logo {
-    background-color: #282c37;
-    border-radius: 10px;
-    padding: 5px 0;
+  background-color: #282c37;
+  border-radius: 10px;
+  padding: 5px 0;
 }
 
 .login_list {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .icon-img {
-    width: 50px;
-    height: 50px;
-    border-radius: 5px;
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
 }
 
 .toot-right {
-    color: #606984;
-    float: right;
-    font-size: 14px;
+  color: #606984;
+  float: right;
+  font-size: 14px;
 }
 
 .toot-right-icon {
-    font-size: 16px;
-    color: #606984;
+  font-size: 16px;
+  color: #606984;
 }
 
 .date-disp {
-    margin-top: 8px;
+  margin-top: 8px;
 }
 
 .toot {
-    max-width: 100%;
-    border-left: none;
-    border-right: none;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    padding-left: 10px;
+  max-width: 100%;
+  border-left: none;
+  border-right: none;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding-left: 10px;
 }
 
 .toot-button {
-    margin-right: 1em;
-    font-size: x-large;
+  margin-right: 1em;
+  font-size: x-large;
 }
 
 .toot-button-last {
-    margin-right: 0;
+  margin-right: 0;
 }
 
 .toot-button.namu-fav {
-    margin-right: 5px !important;
+  margin-right: 5px !important;
 }
 
 .toot-group {
-    margin: 8px 0;
+  margin: 8px 0;
 }
 
 .toot-card-right {
-    margin-left: 5px;
+  margin-left: 5px;
 }
 
 .namu-fav {
-    font-size: xx-large;
-    position: absolute;
-    top: 30px;
-    right: 10px;
+  font-size: xx-large;
+  position: absolute;
+  top: 30px;
+  right: 10px;
 }
 
 .col-xs-9 {
-    width: 80%;
+  width: 80%;
 }
 
 .namu-toot {
-    margin-right: 30px;
+  margin-right: 30px;
 }
 
 .fav-active {
-    color: #ca8f04 !important;
+  color: #ca8f04 !important;
 }
 
 .boost-active, .follow-active {
-    color: #2b90d9 !important;
+  color: #2b90d9 !important;
 }
 
 .toot_big_border {
-    margin-top: 5px;
-    padding: 5px 0;
+  margin-top: 5px;
+  padding: 5px 0;
 }
 
 .showtoot-button {
-    font-size: x-large;
-    text-align: center;
+  font-size: x-large;
+  text-align: center;
 }
 
 .user-bg {
-    overflow-x: hidden;
-    overflow-y: hidden;
-    background-size: cover;
-    background-position: 50%;
-    background-color: rgba(23,25,31,.5);
+  overflow-x: hidden;
+  overflow-y: hidden;
+  background-size: cover;
+  background-position: 50%;
+  background-color: rgba(23, 25, 31, .5);
 }
 
-
 .userpage-button-bg {
-    margin: 10px 10px 0;
-    position: absolute;
+  margin: 10px 10px 0;
+  position: absolute;
 }
 
 .userpage-button-right {
-    right: 0;
+  right: 0;
 }
 
 .userpage-follower {
-    color: white;
-    opacity: .7;
-    background-color: rgba(0,0,0,.5);
-    text-transform: uppercase;
-    font-size: 11px;
-    font-weight: 500;
-    padding: 4px;
-    border-radius: 4px;
-    margin-bottom: 5px;
+  color: white;
+  opacity: .7;
+  background-color: rgba(0, 0, 0, .5);
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px;
+  border-radius: 4px;
+  margin-bottom: 5px;
 }
 
 .userpage-button {
-    color: #606984;
-    font-size: xx-large;
+  color: #606984;
+  font-size: xx-large;
 }
 
 .user-logo {
-    margin: 20px 0 5px;
-    border-radius: 5px;
-    width: 80px;
-    height: 80px;
+  margin: 20px 0 5px;
+  border-radius: 5px;
+  width: 80px;
+  height: 80px;
 }
 
 .user-logo-profile {
-    margin: 25px 0;
-    border-radius: 400px;
-    width: 100px;
-    height: 100px;
+  margin: 25px 0;
+  border-radius: 400px;
+  width: 100px;
+  height: 100px;
 }
 
 .card-bio {
-    padding: 5px 0 15px;
-    background: rgba(23,25,31,.8);
+  padding: 5px 0 15px;
+  background: rgba(23, 25, 31, .8);
 }
+
 .user-name {
-    margin: 0.6em 0 0.2em 0 !important;
-    color: white;
+  margin: 0.6em 0 0.2em 0 !important;
+  color: white;
 }
+
 .user-acct {
-    color: #2b90d9;
+  color: #2b90d9;
 }
+
 .user-bio {
-    margin: 10px 0;
-    color: #d9e1e8;
-    font-size: 14px;
-    line-height: 18px;
+  margin: 10px 0;
+  color: #d9e1e8;
+  font-size: 14px;
+  line-height: 18px;
 }
 
 .user-follow {
-    display: flex;
-    color: #d9e1e8;
-    justify-content: space-around;
-    width: 100%;
+  display: flex;
+  color: #d9e1e8;
+  justify-content: space-around;
+  width: 100%;
 }
 
 .account_activity {
-    width: 30%;
+  width: 30%;
 }
 
 .alert_text {
-    margin-bottom: 2px;
-    margin-top: 5px;
-    z-index: 1;
-    position: relative;
+  margin-bottom: 2px;
+  margin-top: 5px;
+  z-index: 1;
+  position: relative;
 }
 
 .tootpage-button {
-    margin-right: 10px;
-    font-size: xx-large;
+  margin-right: 10px;
+  font-size: xx-large;
 }
 
 .toot-limit {
-    color: black;
-    margin-right:10px;
+  color: black;
+  margin-right: 10px;
 }
 
 .cw-button {
-    padding: 1px 2px !important;
-    font-size: 14px !important;
+  padding: 1px 2px !important;
+  font-size: 14px !important;
 }
 
 .select-input, .text-input {
-    color: #fff;
+  color: #fff;
 }
 
 .post_name {
-    width: 80%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .color-box {
-    box-shadow:0 0 2px 2px #3a3e4f;
-    width: 90px;
-    height: 90px;
-    margin: 0 auto;
-    padding-top: 35px;
-    border-radius: 100%;
+  box-shadow: 0 0 2px 2px #3a3e4f;
+  width: 90px;
+  height: 90px;
+  margin: 0 auto;
+  padding-top: 35px;
+  border-radius: 100%;
 }
 
 .color-box-mini {
-    box-shadow: none;
-    width: 16px;
-    height: 16px;
-    border-radius: 100%;
+  box-shadow: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 100%;
 }
 
 .color-box-base {
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 10px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .account_tab_l, .account_tab_r {
-    color: white;
-    overflow: hidden;
-    width: 50%;
-    text-align: center;
-    padding: 10px 5px;
+  color: white;
+  overflow: hidden;
+  width: 50%;
+  text-align: center;
+  padding: 10px 5px;
 }
 
 .account_tab_l {
-    border-left: 1px solid #393f4f;
-    border-right: 1px solid #393f4f;
+  border-left: 1px solid #393f4f;
+  border-right: 1px solid #393f4f;
 }
 
 .account_tab_r {
-    border-right: 1px solid #393f4f;
+  border-right: 1px solid #393f4f;
 }
 
 .account_bar {
-    border-top: 1px solid #393f4f;
-    line-height: 36px;
-    overflow: hidden;
-    flex: 0 0 auto;
-    display: flex;
+  border-top: 1px solid #393f4f;
+  line-height: 36px;
+  overflow: hidden;
+  flex: 0 0 auto;
+  display: flex;
 }
 
 .account_links {
-    display: flex;
-    flex: 1 1 auto;
-    line-height: 18px;
+  display: flex;
+  flex: 1 1 auto;
+  line-height: 18px;
 }
 
 .reply-box {
-    background: #9baec8;
-    border-radius: 4px;
-    padding: 5px;
-    margin-bottom: 5px;
-    color: black;
+  background: #9baec8;
+  border-radius: 4px;
+  padding: 5px;
+  margin-bottom: 5px;
+  color: black;
 }
 
 #image_list {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .nsfw {
-    padding: 20px 0 !important;
-    width: 100%;
-    background-color: #000 !important;
-    color: #fff;
-    text-align: center;
+  padding: 20px 0 !important;
+  width: 100%;
+  background-color: #000 !important;
+  color: #fff;
+  text-align: center;
 }
 
 .card-image {
-    margin: 8px 0;
-    border-radius: 5px;
-    height: 120px;
-    width: 100%;
-    background-size: cover !important;
-    background-position: 50% !important;
+  margin: 8px 0;
+  border-radius: 5px;
+  height: 120px;
+  width: 100%;
+  background-size: cover !important;
+  background-position: 50% !important;
 }
 
 .big_date {
-    margin-top: 5px;
+  margin-top: 5px;
 }
 
 .quote {
-    padding: 10px 10px;
-    border-left: 5px solid #393f4f;
+  padding: 10px 10px;
+  border-left: 5px solid #393f4f;
 }
 
 pre {
-    display: block;
-    padding: 9px;
-    line-height: 1.42857143;
-    color: #fff;
-    word-break: break-all;
-    word-wrap: break-word;
-    background-color: #393f4f;
-    border: 1px solid #2a3040;
-    border-radius: 4px;
-    text-align: left;
+  display: block;
+  padding: 9px;
+  line-height: 1.42857143;
+  color: #fff;
+  word-break: break-all;
+  word-wrap: break-word;
+  background-color: #393f4f;
+  border: 1px solid #2a3040;
+  border-radius: 4px;
+  text-align: left;
 }
 
 .toot_content > p {
-    margin: 0 !important;
+  margin: 0 !important;
 }
 
 .splitter-profile {
-    background: rgba(23,25,31,.8);
-    width: 100%;
-    padding-left: 30px;
+  background: rgba(23, 25, 31, .8);
+  width: 100%;
+  padding-left: 30px;
 }
 
 .splitter-profile-item > .center {
-    padding-right: 0;
-    padding-top: 0;
+  padding-right: 0;
+  padding-top: 0;
 }
 
 .splitter-profile-item {
-    padding-left: 0;
+  padding-left: 0;
 }
 
 .splitter-profile-item > .center {
-    padding-bottom: 0;
+  padding-bottom: 0;
 }
 
 .toot-group {
-    margin: 2px 0;
+  margin: 2px 0;
 }
 
 .splitter-bottom {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }
 
 .tabbar__icon {
-    font-size: 15px;
+  font-size: 15px;
 }
 
 .tabbar {
-    height: 30px;
+  height: 30px;
 }
+
 .tabbar__button {
-    height: 30px;
+  height: 30px;
 }
 
 .tabbar--top {
-    border-bottom: 1px solid #242930;
+  border-bottom: 1px solid #242930;
 }
 
 .tabbar--top__content {
-    top: 23px;
+  top: 23px;
 }
 
 .tabbar__label {
-    display: none;
+  display: none;
 }
 
 .list-item-small.left {
-    padding: 5px 14px 5px 0;
-    min-height: 10px;
+  padding: 5px 14px 5px 0;
+  min-height: 10px;
 }
 
 .list-item-small.center {
-    padding: 5px 6px 5px 0;
-    min-height: 10px;
+  padding: 5px 6px 5px 0;
+  min-height: 10px;
 }
 
 .list-item-small.right {
-    padding: 5px 12px 5px 0;
-    min-height: 10px;
+  padding: 5px 12px 5px 0;
+  min-height: 10px;
 }
 
 .music-item.left {
-    padding: 7px 14px 7px 0;
-    min-height: 5px;
+  padding: 7px 14px 7px 0;
+  min-height: 5px;
 }
 
 .music-item.center {
-    padding: 7px 6px 7px 0;
-    min-height: 5px;
+  padding: 7px 6px 7px 0;
+  min-height: 5px;
 }
 
 ons-fab, ons-speed-dial {
-    z-index: 1;
+  z-index: 1;
 }
 
 img.emoji {
-    height: 1em;
-    width: 1em;
-    margin: 0 .05em 0 .1em;
-    vertical-align: -0.1em;
+  height: 1em;
+  width: 1em;
+  margin: 0 .05em 0 .1em;
+  vertical-align: -0.1em;
 }
 
 .simple-toot > div {
-    padding-top: 0;
-    padding-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
+
 .no-rd {
-    border-radius: 0;
-    color: #fff;
+  border-radius: 0;
+  color: #fff;
 }
 
 .simple_toot_open {
-    height: 100px;
+  height: 100px;
 }
 
 .emoji_list_scroll > ons-button {
-    padding-left: 5px;
-    padding-right: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .emoji_list_scroll {
-    display: block;
-    height: 300px;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: none;
-    -ms-scroll-snap-type: mandatory;
+  display: block;
+  height: 300px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  -ms-scroll-snap-type: mandatory;
 }
 
 /* 簡易トゥートなし
@@ -472,238 +475,238 @@ img.emoji {
 /* 簡易トゥートあり */
 
 .fab--bottom__right {
-    bottom: 50px;
+  bottom: 50px;
 }
 
 .fab_simple_toot_open {
-    bottom: 110px !important;
+  bottom: 110px !important;
 }
 
 .hashtag-card {
-    margin: 10px;
-    margin-right: 0;
+  margin: 10px;
+  margin-right: 0;
 }
 
-
 .alert-dialog-content > .text-input {
-    color: #1f1f21;
+  color: #1f1f21;
 }
 
 .toot_gold {
-    border: 1px solid #ca8f04 !important;
+  border: 1px solid #ca8f04 !important;
 }
 
 .toot_red {
-    border: 1px solid orangered !important;
+  border: 1px solid orangered !important;
 }
 
 .user-bio > p > a, .user-bio > p > a:link, .user-bio > p > a:visited, .user-bio > p > a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .TL_reload {
-    color: #2b90d9 !important;
+  color: #2b90d9 !important;
 }
 
 /* 絵文字 */
 .emoji, .emojione {
-    width: 20px !important;
-    height: 20px !important;
-    margin: -5px .05em -3px .1em !important
+  width: 20px !important;
+  height: 20px !important;
+  margin: -5px .05em -3px .1em !important
 }
 
-.toot_name > .emoji,.toot_name > .emojione {
-    height: 1.2em !important;
-    width: 1.2em !important;
+.toot_name > .emoji, .toot_name > .emojione {
+  height: 1.2em !important;
+  width: 1.2em !important;
 }
 
 .fa-2x > .emoji, .fa-2x > .emojione {
-    width: 36px !important;
-    height: 36px !important;
+  width: 36px !important;
+  height: 36px !important;
 }
 
 .fa-3x > .emoji, .fa-3x > .emojione {
-    width: 54px !important;
-    height: 54px !important;
+  width: 54px !important;
+  height: 54px !important;
 }
 
 .fa-4x > .emoji, .fa-4x > .emojione {
-    width: 72px !important;
-    height: 72px !important;
+  width: 72px !important;
+  height: 72px !important;
 }
 
 .fa-5x > .emoji, .fa-5x > .emojione {
-    width: 90px !important;
-    height: 90px !important;
+  width: 90px !important;
+  height: 90px !important;
 }
 
 .faicon_FTL {
-    display: none;
+  display: none;
 }
 
 #userpage-follow-button {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
 .image_fullsize {
-    margin: 5px 0;
-    border-radius: 5px;
-    display: block;
-    height: auto;
-    max-width: 100%;
+  margin: 5px 0;
+  border-radius: 5px;
+  display: block;
+  height: auto;
+  max-width: 100%;
 }
 
 #doodle_popover > .popover > .popover__arrow {
-    display: none;
+  display: none;
 }
 
 .doodle_base {
-    position: relative;
+  position: relative;
 }
 
 .doodle_nadenade {
-    position: absolute;
+  position: absolute;
 }
 
 .error_log {
-    text-align: left;
-    max-height: 50%;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: none;
-    -ms-scroll-snap-type: mandatory;
+  text-align: left;
+  max-height: 50%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  -ms-scroll-snap-type: mandatory;
 }
 
 .col_bg {
-    position: relative;
+  position: relative;
 }
 
 /* https://qiita.com/chii/items/5c4eeb250a26300fc955 */
 .col_bg::before {
-    background-color: rgba(0,0,0,0.3);
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    content: ' ';
+  background-color: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  content: ' ';
 }
 
 .moved-text {
-    margin: 10px 10px;
+  margin: 10px 10px;
 }
 
 #acct-moved > .toot {
-    border-top: none;
+  border-top: none;
 }
 
 .p0 {
-    padding: 0;
-    line-height: 20px;
+  padding: 0;
+  line-height: 20px;
 }
 
 .alert-dialog-content > a:link, .alert-dialog-content > a {
-    color: #2b90d9 !important;
+  color: #2b90d9 !important;
 }
 
 .no-icon-mode {
-    padding-bottom: 3px;
+  padding-bottom: 3px;
 }
 
 .popover__content {
-    width: 100%;
-    min-width: 220px;
+  width: 100%;
+  min-width: 220px;
 }
 
 .timeline {
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: none;
-    -ms-scroll-snap-type: mandatory;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  -ms-scroll-snap-type: mandatory;
 }
 
 .tutorial {
-    background: #d9e1e8;
-    color: #282c37 !important;
-    padding-top: 35px;
+  background: #d9e1e8;
+  color: #282c37 !important;
+  padding-top: 35px;
 }
 
-.tutorial> p > a:link {
-    color: #3c99dc !important;
+.tutorial > p > a:link {
+  color: #3c99dc !important;
 }
 
 .tutorial_box {
-    padding: 5px;
-    margin-bottom: 10px;
-    border: #fcecd8 1px solid;
-    border-radius: 5px;
-    background-color: #fefaf0;
-    color: #0d0d0d;
+  padding: 5px;
+  margin-bottom: 10px;
+  border: #fcecd8 1px solid;
+  border-radius: 5px;
+  background-color: #fefaf0;
+  color: #0d0d0d;
 }
 
 .toot_content > * {
-    -webkit-user-select: auto;
-    user-select: text;
+  -webkit-user-select: auto;
+  user-select: text;
 }
 
 .ep_category {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
+
 .close_button {
-    position:absolute;
-    top: 0;
-    right: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .ep_bt {
-    padding: 4px 10px;
+  padding: 4px 10px;
 }
 
 #emoji_popover > .popover > .popover__arrow {
-    display: none;
+  display: none;
 }
 
 #emoji_popover > .popover--bottom {
-    bottom: 10px !important;
-    top: initial !important;
-    right: 5px !important;
-    left: 5px !important;
+  bottom: 10px !important;
+  top: initial !important;
+  right: 5px !important;
+  left: 5px !important;
 }
 
 .ep_category {
-    background-color: #ccc;
-    border-radius: 0 0 4px 4px;
+  background-color: #ccc;
+  border-radius: 0 0 4px 4px;
 }
 
 .ep_category_r {
-    border-radius: 0;
+  border-radius: 0;
 }
 
 .ep_reset_button {
-    border-radius: 0 0 4px 4px;
+  border-radius: 0 0 4px 4px;
 }
 
 .ep_search_box {
-    display: inline;
+  display: inline;
 }
 
 .danger_title {
-    background-color: #a00000 !important;
-    color: #f2f2f2 !important;
+  background-color: #a00000 !important;
+  color: #f2f2f2 !important;
 }
 
 .danger_list {
-    border: solid 2px #a00000;
+  border: solid 2px #a00000;
 }
 
 #toot-button {
-    padding-bottom: 5px;
+  padding-bottom: 5px;
 }
 
 .toot_name {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 80%;
 }

@@ -15,26 +15,29 @@ function LoadBookmark() {
 }
 
 function renderBookmark(reshtml, json_bookmark, i) {
-  fetch("https://"+inst+"//api/v1/statuses/"+json_bookmark[i], {
-    headers: {'content-type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('knzkapp_now_mastodon_token')},
+  fetch("https://" + inst + "//api/v1/statuses/" + json_bookmark[i], {
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+    },
     method: 'GET'
-  }).then(function(response) {
-    if(response.ok) {
+  }).then(function (response) {
+    if (response.ok) {
       return response.json();
     } else {
       sendLog("Error/show_bookmark", response.json);
       showtoast('cannot-pros');
     }
-  }).then(function(json) {
+  }).then(function (json) {
     reshtml += toot_card(json, "full", null);
-    if (!json_bookmark[i+1]) {
+    if (!json_bookmark[i + 1]) {
       document.getElementById("olist_nav_title").innerHTML = "ブックマーク";
       document.getElementById("olist_nav_main").innerHTML = reshtml;
       document.getElementById("olist_right").innerHTML = "<ons-toolbar-button onclick=\"clearBookmark()\" class=\"toolbar-button\">\n" +
         "<ons-icon icon='fa-trash' class=\"ons-icon fa-trash fa\"></ons-icon>\n" +
         "</ons-toolbar-button>";
     } else { //次ある
-      renderBookmark(reshtml, json_bookmark, i+1);
+      renderBookmark(reshtml, json_bookmark, i + 1);
     }
   });
 }
@@ -56,14 +59,14 @@ function changeBookmark(id) {
   if (checkBookmark(id)) { //削除
     json[inst].splice(json[inst].indexOf(id), 1);
   } else { //追加
-    json[inst].unshift(""+id);
+    json[inst].unshift("" + id);
   }
   saveBookmark(json);
 }
 
 function checkBookmark(id) { //ブックマークされて無ければfalse
   var json = loadBookmark();
-  return json[inst].indexOf(""+id) !== -1;
+  return json[inst].indexOf("" + id) !== -1;
 }
 
 function loadBookmark() {
@@ -76,7 +79,7 @@ function saveBookmark(json) {
 }
 
 function clearBookmark() {
-  ons.notification.confirm('本当に削除しますか？<br>※'+inst+'のアカウントのブックマークが対象です。', {title: 'ブックマーク全削除'}).then(function (e) {
+  ons.notification.confirm('本当に削除しますか？<br>※' + inst + 'のアカウントのブックマークが対象です。', {title: 'ブックマーク全削除'}).then(function (e) {
     if (e === 1) {
       var bookmark = loadBookmark();
       bookmark[inst] = [];

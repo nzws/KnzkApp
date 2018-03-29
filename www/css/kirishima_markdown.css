@@ -5,147 +5,180 @@ Edited by @yuzulabo
  */
 
 .toot_content h1 {
-    font-size: 195%;
-    border-bottom: 2px solid #ff3333;
+  font-size: 195%;
+  border-bottom: 2px solid #ff3333;
 }
+
 .toot_content h2 {
-    font-size: 180%;
-    border-bottom: 2px solid #ff3333;
+  font-size: 180%;
+  border-bottom: 2px solid #ff3333;
 }
+
 .toot_content h3 {
-    font-size: 165%;
-    border-bottom: 2px solid #ff3333;
+  font-size: 165%;
+  border-bottom: 2px solid #ff3333;
 }
+
 .toot_content h4 {
-    font-size: 150%;
-    border-bottom: 2px solid #ff3333;
+  font-size: 150%;
+  border-bottom: 2px solid #ff3333;
 }
+
 .toot_content h5 {
-    font-size: 135%;
-    border-bottom: 2px solid #ff3333;
+  font-size: 135%;
+  border-bottom: 2px solid #ff3333;
 }
+
 .toot_content h6 {
-    font-size: 120%;
-    border-bottom: 2px solid #ff3333;
+  font-size: 120%;
+  border-bottom: 2px solid #ff3333;
 }
+
 .toot_content em {
-    font-style: italic;
+  font-style: italic;
 }
+
 .toot_content strong {
-    font-weight: bold;
+  font-weight: bold;
 }
+
 .toot_content code {
-    display: block;
-    border-left: 2px solid;
-    border-color: #079903;
-    padding-left: 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 5px;
-    background-color: #000000;
+  display: block;
+  border-left: 2px solid;
+  border-color: #079903;
+  padding-left: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  background-color: #000000;
 }
+
 .toot_content p ~ blockquote {
-    margin-top: -8px;
+  margin-top: -8px;
 }
+
 .toot_content blockquote {
-    padding-left: 8px;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-    color: #fff;
-    display: block;
-    border-left: 4px solid #2b90d9;
+  padding-left: 8px;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  color: #fff;
+  display: block;
+  border-left: 4px solid #2b90d9;
 }
+
 .toot_content ul {
-    list-style: inside;
+  list-style: inside;
 }
+
 .toot_content ul br {
-    display: none;
+  display: none;
 }
+
 .toot_content ul > ul br {
-    display: none;
+  display: none;
 }
+
 .toot_content ul > li > ul {
-    padding-left: 1em;
-    list-style: inside circle;
+  padding-left: 1em;
+  list-style: inside circle;
 }
+
 .toot_content ul > li {
-    padding-left: 1em;
-    list-style: inside circle;
+  padding-left: 1em;
+  list-style: inside circle;
 }
+
 .toot_content ul > br > li {
-    padding-left: 1em;
-    list-style: inside circle;
+  padding-left: 1em;
+  list-style: inside circle;
 }
+
 .toot_content ul > ul > li {
-    padding-left: 2em;
-    list-style: inside circle;
+  padding-left: 2em;
+  list-style: inside circle;
 }
+
 .toot_content ul > br > ul > br > li {
-    padding-left: 2em;
-    list-style: inside circle;
+  padding-left: 2em;
+  list-style: inside circle;
 }
+
 .toot_content ol {
-    list-style: inside decimal;
+  list-style: inside decimal;
 }
+
 .toot_content ol > li > ol {
-    padding-left: 1em;
+  padding-left: 1em;
 }
+
 .toot_content p > img {
-    width: 150px;
-    height: 150px;
-    object-fit: contain;
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
 }
+
 .toot_content img {
-    width: 150px;
-    height: 150px;
-    object-fit: contain;
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
 }
+
 .toot_content p > a {
-    color: #1FBFF9;
+  color: #1FBFF9;
 }
+
 .toot_content a {
-    color: #1FBFF9;
+  color: #1FBFF9;
 }
+
 .toot_content sup {
-    font-size: 75.5%;
-    vertical-align: top;
-    position: relative;
-    top: -0.5em;
+  font-size: 75.5%;
+  vertical-align: top;
+  position: relative;
+  top: -0.5em;
 }
+
 .toot_content sub {
-    font-size: 75.5%;
-    vertical-align: bottom;
-    position: relative;
-    top: 0.5em;
+  font-size: 75.5%;
+  vertical-align: bottom;
+  position: relative;
+  top: 0.5em;
 }
+
 .toot_content small {
-    font-size: 50.0%;
-    vertical-align: bottom;
-    position: relative;
+  font-size: 50.0%;
+  vertical-align: bottom;
+  position: relative;
 }
+
 .toot_content table {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-    color: #2b90d9;
-    display: block;
-    width: 100%;
-    overflow: auto;
-    border-spacing: 0;
-    border-collapse: collapse;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  color: #2b90d9;
+  display: block;
+  width: 100%;
+  overflow: auto;
+  border-spacing: 0;
+  border-collapse: collapse;
 }
+
 .toot_content table tr {
-    background-color: #000;
+  background-color: #000;
 }
+
 .toot_content table th, .toot_content table td {
-    padding: 6px 13px;
-    border: 1px solid #2b90d9;
+  padding: 6px 13px;
+  border: 1px solid #2b90d9;
 }
+
 .toot_content table th {
-    font-weight: 600;
+  font-weight: 600;
 }
+
 .toot_content table thead tr {
-    background-color: #000;
+  background-color: #000;
 }
+
 .toot_content td, .toot_content th {
-    padding: 0;
+  padding: 0;
 }
