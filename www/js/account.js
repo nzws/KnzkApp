@@ -250,7 +250,7 @@ function post_pre(text, force) {
 
 function OpenQR(user) {
   document.querySelector('#navigator').bringPageTop("qrcode.html").then(function () {
-    document.getElementById("qrimg").src = "http://chart.googleapis.com/chart?cht=qr&chs=200x200&choe=UTF-8&chl=https%3A%2F%2Fopenapp.yuzu.tk%2Fopen.html%3F" + encodeURIComponent(user);
+    document.getElementById("qrimg").src = "http://chart.googleapis.com/chart?cht=qr&chs=200x200&choe=UTF-8&chl=https%3A%2F%2Fopenapp.nzws.me%2Fopen.html%3F" + encodeURIComponent(user);
     document.getElementById("qr-userid").innerText = user;
   });
 }
