@@ -102,3 +102,23 @@ a, a:link, a:visited, a:hover {
 .alert-dialog-content > a:link, .alert-dialog-content > a {
   color: #2b90d9 !important;
 }
+
+.account_tab_left {
+  border-left: 1px solid #353535;
+}
+
+.account_tab {
+  border-right: 1px solid #353535;
+}
+
+.account_bar {
+  border-top: 1px solid #393f4f;
+}
+
+#accountTL_mode {
+  background-color: #111111;
+}
+
+.acctTL_now {
+  background-color: #353535;
+}

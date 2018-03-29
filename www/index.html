@@ -1587,22 +1587,18 @@
         </div>
         <div class="account_bar" style="border-bottom: none;">
           <div class="account_links">
-            <span class="account_tab_l" style="width: 100%;" id="userpage-hint"><span class="note">リモートアカウントの為、情報が不正確な可能性があります。</span></span>
+            <span class="account_tab_left account_tab" style="width: 100%;" id="userpage-hint"><span class="note">リモートアカウントの為、情報が不正確な可能性があります。</span></span>
           </div>
         </div>
-        <div class="account_bar">
+        <div class="account_bar" id="accountTL_mode">
           <div class="account_links">
-            <span class="account_tab_l" onclick="showAccountTL(account_page_id)">投稿</span>
-            <span class="account_tab_l" onclick="showAccountTL(account_page_id, null, 'with_re')">投稿と返信</span>
-            <span class="account_tab_r" onclick="showAccountTL(account_page_id, null, 'media')">メディア</span>
+            <span class="account_tab_left account_tab" onclick="showAccountTL(account_page_id, null, 'pinned')" id="acctTL_mode_pinned">固定</span>
+            <span class="account_tab acctTL_now" onclick="showAccountTL(account_page_id)" id="acctTL_mode_">投稿</span>
+            <span class="account_tab" onclick="showAccountTL(account_page_id, null, 'with_re')" id="acctTL_mode_with_re">+返信</span>
+            <span class="account_tab" onclick="showAccountTL(account_page_id, null, 'media')" id="acctTL_mode_media">メディア</span>
           </div>
         </div>
-        <div id="account_pinned_toot"></div>
-        <div id="account_toot">
-          <div class="loading-now">
-            <ons-progress-circular indeterminate></ons-progress-circular>
-          </div>
-        </div>
+        <div id="account_toot"></div>
       </ons-page>
     </ons-template>
     <ons-template id="about.html">
