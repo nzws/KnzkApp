@@ -57,7 +57,6 @@ function renderEmoji(emojiobj) {
 }
 
 function displayEmojiList(emojiobj, list, dispnum) {
-  console.log(dispnum);
   var locale = {
     "Custom": "カスタム絵文字",
     "People": "人々",
