@@ -3,7 +3,7 @@ function searchEmoji(query) {
 
   if (query) {
     $(".emoji_cate_box").addClass("ep_search_box");
-    $(".emoji_button").addClass("invisible");
+    $(".emoji_button:not(.invisible)").addClass("invisible");
     $(".ep_cate_title").addClass("invisible");
     $("#ep_search_result_title").removeClass("invisible");
     emoji_search.filter(function (value, index, array) {
