@@ -284,7 +284,7 @@ function showTL(mode, reload, more_load, clear_load) {
                           }
                         }
 
-                        if (!home_auto_mode) {
+                        if (!home_auto_mode && ((ws_reshtml['media_attachments'][0] && TLmode === "media") || TLmode !== "media")) {
                           home_auto_num++;
                           setTLheadcolor(1);
                         }
