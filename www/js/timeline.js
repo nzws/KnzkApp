@@ -389,31 +389,28 @@ function showTagTL(tag, more_load) {
   });
 }
 
-function showAccountTL(id, more_load, mode, reload) {
-  var i = 0, ip = 0, reshtml = "", get = "", reshtml_pinned = "";
+function showAccountTL(id, more_load, mode = "", reload) {
+  var i = 0, reshtml = "", get = "";
   acct_mode = mode;
   if (more_load) {
     more_load.value = "読み込み中...";
     more_load.disabled = true;
-    if (mode === "media")
-      get = "?max_id=" + account_toot_old_id + "&only_media=true";
-    else if (mode === "with_re")
-      get = "?max_id=" + account_toot_old_id + "&exclude_replies=false";
-    else
-      get = "?max_id=" + account_toot_old_id + "&exclude_replies=true";
+    get = "?max_id=" + account_toot_old_id + "&";
   } else {
     account_toot_old_id = 0;
-    if (mode === "media")
-      get = "?only_media=true";
-    else if (mode === "with_re")
-      get = "?exclude_replies=false";
-    else
-      get = "?exclude_replies=true";
+    get = "?";
   }
-  if (mode && !more_load) { //読み込みマーク入れる & ピンを表示しない
+
+  if (mode === "media") get += "only_media=true";
+  else if (mode === "with_re") get += "exclude_replies=false";
+  else if (mode === "pinned") get += "pinned=true";
+  else get += "exclude_replies=true";
+
+  if (!more_load) { //読み込みマーク入れる
+    i = 0;
     document.getElementById("account_toot").innerHTML = "<div class=\"loading-now\"><ons-progress-circular indeterminate></ons-progress-circular></div>";
-    document.getElementById("account_pinned_toot").innerHTML = "";
   }
+
   fetch("https://" + inst + "/api/v1/accounts/" + id + "/statuses" + get, {
     headers: {
       'content-type': 'application/json',
@@ -431,33 +428,16 @@ function showAccountTL(id, more_load, mode, reload) {
     }
   }).then(function (json) {
     if (json) {
-      if (!mode && !more_load) {
-        fetch("https://" + inst + "/api/v1/accounts/" + id + "/statuses?pinned=true", {
-          headers: {
-            'content-type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
-          },
-          method: 'GET'
-        }).then(function (response) {
-          if (response.ok) {
-            return response.json();
-          } else {
-            sendLog("Error/account_pin", response.json);
-            showtoast('cannot-load');
-          }
-        }).then(function (json_pinned) {
-          while (json_pinned[ip]) {
-            reshtml_pinned += toot_card(json_pinned[ip], "full", "<ons-icon icon='fa-thumb-tack'></ons-icon>　固定トゥート", "light", "acctpage_pinned");
-            ip++;
-          }
-          if (json != json_pinned) {
-            document.getElementById("account_pinned_toot").innerHTML = reshtml_pinned;
-          }
-        });
-      }
       if (more_load) {
         reshtml = document.getElementById("account_toot").innerHTML;
         displayTime('update');
+      } else {
+        var conf = $("[id^='acctTL_mode']");
+        while (conf[i]) {
+          $(conf[i]).removeClass("acctTL_now");
+          i++;
+        }
+        $("#acctTL_mode_"+mode).addClass("acctTL_now");
       }
       i = 0;
       while (json[i]) {

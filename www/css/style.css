@@ -263,7 +263,7 @@ html, body {
   margin-bottom: 10px;
 }
 
-.account_tab_l, .account_tab_r {
+.account_tab {
   color: white;
   overflow: hidden;
   width: 50%;
@@ -271,12 +271,11 @@ html, body {
   padding: 10px 5px;
 }
 
-.account_tab_l {
+.account_tab_left {
   border-left: 1px solid #393f4f;
-  border-right: 1px solid #393f4f;
 }
 
-.account_tab_r {
+.account_tab {
   border-right: 1px solid #393f4f;
 }
 
@@ -286,6 +285,14 @@ html, body {
   overflow: hidden;
   flex: 0 0 auto;
   display: flex;
+}
+
+#accountTL_mode {
+  background-color: #1f232b;
+}
+
+.acctTL_now {
+  background-color: #393f4f;
 }
 
 .account_links {
