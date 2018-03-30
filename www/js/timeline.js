@@ -248,9 +248,8 @@ function showTL(mode, reload, more_load, clear_load) {
               if (TL_websocket[now_tab]) {
                 try {TL_websocket[now_tab].close();} catch (e) {}
                 TL_websocket[now_tab] = null;
-              } else {
-                TL_websocket[now_tab] = new WebSocket(ws_url);
               }
+              TL_websocket[now_tab] = new WebSocket(ws_url);
               TL_websocket[now_tab].onopen = function () {
                 TL_websocket[now_tab].onmessage = function (message) {
                   displayTime('update');
