@@ -16,3 +16,7 @@
 .acct-small {
   padding-left: 0;
 }
+
+.toot_flex {
+  display: flex;
+}
