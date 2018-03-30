@@ -244,59 +244,77 @@ function showTL(mode, reload, more_load, clear_load) {
 
             if (!reload && !more_load) {
               var instance_ws = inst, now_tab = timeline_now_tab;
-              TL_websocket[now_tab] = new WebSocket("wss://" + inst + "/api/v1/streaming/?access_token=" + localStorage.getItem('knzkapp_now_mastodon_token') + "&stream=" + ws_mode);
-              TL_websocket[now_tab].onmessage = function (message) {
-                displayTime('update');
-                if (instance_ws !== inst || timeline_now_tab !== now_tab) {
-                  console.warn("エラー:Websocketが切断されていません");
-                  TL_websocket[now_tab].close();
-                  TL_websocket[now_tab] = null;
-                } else {
-                  var ws_resdata = JSON.parse(message.data);
-                  var ws_reshtml = JSON.parse(ws_resdata.payload);
+              var ws_url = "wss://" + inst + "/api/v1/streaming/?access_token=" + localStorage.getItem('knzkapp_now_mastodon_token') + "&stream=" + ws_mode;
+              if (TL_websocket[now_tab]) {
+                try {TL_websocket[now_tab].close();} catch (e) {}
+                TL_websocket[now_tab] = null;
+              } else {
+                TL_websocket[now_tab] = new WebSocket(ws_url);
+              }
+              TL_websocket[now_tab].onopen = function () {
+                TL_websocket[now_tab].onmessage = function (message) {
+                  displayTime('update');
+                  var ws_now_url = undefined;
+                  try {ws_now_url = TL_websocket[now_tab].url} catch (e) {}
+                  if (instance_ws !== inst || timeline_now_tab !== now_tab || ws_now_url !== ws_url) {
+                    console.warn("エラー:Websocketが切断されていません");
+                    try {TL_websocket[now_tab].close();} catch (e) {}
+                    TL_websocket[now_tab] = null;
+                  } else {
+                    var ws_resdata = JSON.parse(message.data);
+                    var ws_reshtml = JSON.parse(ws_resdata.payload);
 
-                  if (ws_resdata.event === "update") {
-                    if (ws_reshtml['id']) {
-                      if (toot_new_id !== ws_reshtml['id']) {
-                        var TLmode = mode === "local_media" || mode === "public_media" ? "media" : "";
+                    if (ws_resdata.event === "update") {
+                      if (ws_reshtml['id']) {
+                        if (toot_new_id !== ws_reshtml['id']) {
+                          var TLmode = mode === "local_media" || mode === "public_media" ? "media" : "";
 
-                        updateTLtrack();
-                        if (home_auto_mode) { //OK
-                          home_auto_event = false;
-                          if (getConfig(1, 'chatmode'))
-                            document.querySelector('#TL' + now_tab + '_main > .page__content').innerHTML = document.querySelector('#TL' + now_tab + '_main > .page__content').innerHTML + timeline_store_data[instance_ws][now_tab] + toot_card(ws_reshtml, "full", null, TLmode);
-                          else
-                            document.querySelector('#TL' + now_tab + '_main > .page__content').innerHTML = toot_card(ws_reshtml, "full", null, TLmode) + timeline_store_data[instance_ws][now_tab] + document.querySelector('#TL' + now_tab + '_main > .page__content').innerHTML;
+                          updateTLtrack();
+                          if (home_auto_mode) { //OK
+                            home_auto_event = false;
+                            if (getConfig(1, 'chatmode'))
+                              document.querySelector('#TL' + now_tab + '_main > .page__content').innerHTML = document.querySelector('#TL' + now_tab + '_main > .page__content').innerHTML + timeline_store_data[instance_ws][now_tab] + toot_card(ws_reshtml, "full", null, TLmode);
+                            else
+                              document.querySelector('#TL' + now_tab + '_main > .page__content').innerHTML = toot_card(ws_reshtml, "full", null, TLmode) + timeline_store_data[instance_ws][now_tab] + document.querySelector('#TL' + now_tab + '_main > .page__content').innerHTML;
 
-                          timeline_store_data[instance_ws][now_tab] = "";
-                          home_auto_num = 0;
-                          setTLheadcolor(0);
-                          if (getConfig(1, 'chatmode')) $(".page__content").scrollTop(99999999999999999999999);
-                        } else {
-                          if (getConfig(1, 'chatmode'))
-                            timeline_store_data[instance_ws][now_tab] += toot_card(ws_reshtml, "full", null, TLmode);
-                          else
-                            timeline_store_data[instance_ws][now_tab] = toot_card(ws_reshtml, "full", null, TLmode) + timeline_store_data[instance_ws][now_tab];
+                            timeline_store_data[instance_ws][now_tab] = "";
+                            home_auto_num = 0;
+                            setTLheadcolor(0);
+                            if (getConfig(1, 'chatmode')) $(".page__content").scrollTop(99999999999999999999999);
+                          } else {
+                            if (getConfig(1, 'chatmode'))
+                              timeline_store_data[instance_ws][now_tab] += toot_card(ws_reshtml, "full", null, TLmode);
+                            else
+                              timeline_store_data[instance_ws][now_tab] = toot_card(ws_reshtml, "full", null, TLmode) + timeline_store_data[instance_ws][now_tab];
 
-                          if (!home_auto_event) {
-                            home_auto_event = true;
-                            home_autoevent();
+                            if (!home_auto_event) {
+                              home_auto_event = true;
+                              home_autoevent();
+                            }
+                          }
+
+                          if (!home_auto_mode && ((ws_reshtml['media_attachments'][0] && TLmode === "media") || TLmode !== "media")) {
+                            home_auto_num++;
+                            setTLheadcolor(1);
                           }
                         }
-
-                        if (!home_auto_mode && ((ws_reshtml['media_attachments'][0] && TLmode === "media") || TLmode !== "media")) {
-                          home_auto_num++;
-                          setTLheadcolor(1);
-                        }
+                        toot_new_id = ws_reshtml['id'];
                       }
-                      toot_new_id = ws_reshtml['id'];
+                    } else if (ws_resdata.event === "delete") {
+                      var del_toot = document.getElementById("post_" + ws_resdata.payload);
+                      if (del_toot) del_toot.parentNode.removeChild(del_toot);
                     }
-                  } else if (ws_resdata.event === "delete") {
-                    var del_toot = document.getElementById("post_" + ws_resdata.payload);
-                    if (del_toot) del_toot.parentNode.removeChild(del_toot);
                   }
+                };
+
+                TL_websocket[now_tab].onclose = function() {
+                  console.log("ok:websocket:del");
                 }
               };
+
+              TL_websocket[now_tab].onerror = function () {
+                console.warn("err");
+              }
             }
           }
         }
