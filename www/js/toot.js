@@ -181,7 +181,7 @@ function toot_card(toot, mode, note, toot_light, page) {
   if (page === "alert" && note && getConfig(2, 'alert_m')) {
     layout_num["toot_content"] = "11 no-icon-mode";
   } else {
-    icon_html = "<div class=\"col-xs-2\">\n" +
+    icon_html = "<div width='50px'>\n" +
       "<p><img src=\"" + toot['account'][getConfig(1, 'no_gif') ? "avatar_static" : "avatar"] + "\" class=\"icon-img\" onclick='show_account(" + toot['account']['id'] + ")'/></p>\n" +
       "</div>\n";
     layout_num["toot_content"] = 9;
@@ -200,22 +200,12 @@ function toot_card(toot, mode, note, toot_light, page) {
 
   buf += "<div class=\"" + col_bg_cl + "toot" + light + " post_" + toot['id'] + "\" id='post_" + toot['id'] + "' data-bgpic='" + col_pic + "' style='" + col_bg_st + "'>\n" +
     alert_text +
-    "                    <div class=\"row\">\n" +
-    icon_html +
-    "                        <div class=\"col-xs-" + layout_num["toot_content"] + " toot-card-right\"> \n" +
-    "                           <div class='" + namucard + "'>" +
-    "                            <div class=\"toot-group\">\n" +
-    name +
-    "                            </div>" +
-    "                            <div class='" + is_col + "toot_content tootcontent_" + toot['id'] + "' data-id='" + toot['id'] + "' data-dispmode='" + mode + "'>" +
-    content +
-    "                            </div>" +
-    "                            </div> \n" +
-    button +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    bt_big +
-    "            </div>";
+    "<div class='toot_flex'>" + icon_html +
+    "<div class=\"toot-card-right\">" +
+    "<div class='" + namucard + "'>" +
+    "<div class=\"toot-group\">" + name + "</div>" +
+    "<div class='" + is_col + "toot_content tootcontent_" + toot['id'] + "' data-id='" + toot['id'] + "' data-dispmode='" + mode + "'>" + content + "</div>" +
+    "</div>" + button + "</div>" + "</div>" + bt_big + "</div>\n";
 
   return buf;
 }
