@@ -126,6 +126,7 @@ function init() {
             initevent();
 
             setTimeout(function () {
+              startWatching();
               TL_change(timeline_default_tab);
               now_TL = timeline_config[timeline_default_tab];
               timeline_now_tab = timeline_default_tab;

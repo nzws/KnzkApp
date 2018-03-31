@@ -82,10 +82,13 @@
       var timeline_config = {};
       var timeline_now_tab = 0;
       var timeline_default_tab = 0;
+      var Notification_ws = null;
+      var Notification_num = 0;
     </script>
     <script src="config/instance.js"></script>
     <script src="config/config.js"></script>
     <script src="js/tutorial.js"></script>
+    <script src="js/notification.js"></script>
     <script src="js/bookmark.js"></script>
     <script src="js/emoji.js"></script>
     <script src="js/log.js"></script>
@@ -164,7 +167,7 @@
                     <i class="list-item__icon list-item--chevron__icon ons-icon fa-bell fa fa-fw"></i>
                   </div>
                   <div class="center">
-                    通知
+                    通知 <span class="notification invisible noti_unread">1</span>
                   </div>
                 </ons-list-item>
                 <ons-list-item modifier="chevron" tappable onclick="list('favourites', 'お気に入り一覧', null, 'toot')" id="menu-fav-page" class="invisible">
@@ -441,6 +444,7 @@
                 <div class="left" style="padding-right: 6px">
                   <ons-button modifier="quiet" onclick="fn.open()" class="no-rd">
                     <ons-icon icon="fa-bars"></ons-icon>
+                    <span class="notification invisible noti_unread">1</span>
                   </ons-button>
                 </div>
                 <div class="center">
@@ -916,6 +920,14 @@
             </div>
             <div class="right">
               <ons-switch onclick="change_conf(1, 'SendLog', null, true)" input-id="conf-SendLog"></ons-switch>
+            </div>
+          </ons-list-item>
+          <ons-list-item>
+            <div class="center">
+              未読通知ラベルを表示しない
+            </div>
+            <div class="right">
+              <ons-switch onclick="change_conf(1, 'no_unread_label')" input-id="conf-no_unread_label"></ons-switch>
             </div>
           </ons-list-item>
         </ons-list>

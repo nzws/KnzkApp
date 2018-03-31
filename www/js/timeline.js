@@ -109,6 +109,7 @@ function showAlert(reload, more_load) {
 
 function openTL(mode) {
   if (mode === "alert") {
+    resetLabel();
     load("alert.html");
     showAlert();
     setTimeout(function () {
