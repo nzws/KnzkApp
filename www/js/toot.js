@@ -91,10 +91,10 @@ function toot_card(toot, mode, note, toot_light, page) {
     }
   }
   if (can_col && is_col) {
-    col_bt = "<button class='no-rd p0 button button--quiet' onclick='toot_col(\"" + toot['id'] + "\")'><i class='fa fa-fw fa-angle-double-down toot-right-icon blue toot_col_" + toot['id'] + "'></i></button>";
+    col_bt = "<button class='no-rd p0 button button--quiet' onclick='toot_col(\"" + toot['id'] + "\")' style='margin-left: 10px'><i class='fa fa-fw fa-angle-double-down toot-right-icon blue toot_col_" + toot['id'] + "'></i></button>";
     button_col = "disable ";
   } else if (can_col) {
-    col_bt = "<button class='no-rd p0 button button--quiet' onclick='toot_col(\"" + toot['id'] + "\")'><i class='fa fa-fw fa-angle-double-up toot-right-icon toot_col_" + toot['id'] + "'></i></button>";
+    col_bt = "<button class='no-rd p0 button button--quiet' onclick='toot_col(\"" + toot['id'] + "\")' style='margin-left: 10px'><i class='fa fa-fw fa-angle-double-up toot-right-icon toot_col_" + toot['id'] + "'></i></button>";
   }
   if (toot['visibility'] === "direct") {
     visibility_icon = "envelope";
@@ -187,7 +187,7 @@ function toot_card(toot, mode, note, toot_light, page) {
     layout_num["toot_content"] = 9;
   }
 
-  col_bt = "<div class='rightup-button'><button class='no-rd p0 button button--quiet' disabled><ons-icon icon='fa-" + visibility_icon + "' class='toot-right-icon' style='margin-right: 10px'></ons-icon></button>" + col_bt + "</div>";
+  col_bt = "<div class='rightup-button'><button class='no-rd p0 button button--quiet' disabled><ons-icon icon='fa-" + visibility_icon + "' class='toot-right-icon'></ons-icon></button>" + col_bt + "</div>";
 
   if (note) alert_text = "<div class='alert_text'>" + note + "</div>";
 
