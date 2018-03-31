@@ -62,7 +62,9 @@ html, body {
 }
 
 .date-disp {
-  margin-top: 8px;
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
 }
 
 .toot {
@@ -85,10 +87,6 @@ html, body {
 
 .toot-button.namu-fav {
   margin-right: 5px !important;
-}
-
-.toot-group {
-  margin: 8px 0;
 }
 
 .toot-card-right {
@@ -215,6 +213,7 @@ html, body {
   margin-top: 5px;
   z-index: 1;
   position: relative;
+  margin-right: 50px;
 }
 
 .tootpage-button {
@@ -379,6 +378,7 @@ pre {
 
 .toot-group {
   margin: 2px 0;
+  width: 100%;
 }
 
 .splitter-bottom {

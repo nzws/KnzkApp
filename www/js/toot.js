@@ -154,7 +154,7 @@ function toot_card(toot, mode, note, toot_light, page) {
       boost_full +
       "                                <ons-icon icon=\"fa-star\" onclick=\"toot_action('" + toot['id'] + "', null, 'fav')\" class=\"tootfav_" + toot['id'] + " toot-button" + namubt + fav + "\"></ons-icon>" +
       "                                <ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('" + toot['id'] + "')\" class=\"toot-button toot-button-last\"></ons-icon>" +
-      "                                 <span class='toot-right date date-disp' data-time='" + toot['created_at'] + "' onclick='show_post(\"" + toot['id'] + "\")'>" + date + "</span>" +
+      "                                 <div class='toot-right date date-disp' data-time='" + toot['created_at'] + "' onclick='show_post(\"" + toot['id'] + "\")'>" + date + "</div>" +
       "                            </div>\n";
   }
 
@@ -189,13 +189,14 @@ function toot_card(toot, mode, note, toot_light, page) {
 
   col_bt = "<div class='rightup-button'><button class='no-rd p0 button button--quiet' disabled><ons-icon icon='fa-" + visibility_icon + "' class='toot-right-icon' style='margin-right: 10px'></ons-icon></button>" + col_bt + "</div>";
 
+  if (note) alert_text = "<div class='alert_text'>" + note + "</div>";
+
   if (page === "alert" && note && getConfig(2, 'alert_m')) {
-    note += col_bt;
+    alert_text += col_bt;
   } else {
     name = "<div onclick='show_account(" + toot['account']['id'] + ")' class='toot_name'><b class='toot_name'>" + t_text(escapeHTML(toot['account']['display_name'])) + "</b> <small>@" + toot['account']['acct'] + "</small></div>" + col_bt;
   }
 
-  if (note) alert_text = "<div class='alert_text'>" + note + "</div>";
   content = t_text(content, toot['emojis']);
 
   buf += "<div class=\"" + col_bg_cl + "toot" + light + " post_" + toot['id'] + "\" id='post_" + toot['id'] + "' data-bgpic='" + col_pic + "' style='" + col_bg_st + "'>\n" +
