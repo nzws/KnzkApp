@@ -116,6 +116,7 @@ function openTL(mode) {
       initph("alert");
     }, 200);
   } else if (mode === "alert_nav") {
+    resetLabel();
     loadNav("alert.html");
     showAlert();
     setTimeout(function () {
