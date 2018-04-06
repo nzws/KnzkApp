@@ -2,7 +2,7 @@ function toot_card(toot, mode, note, toot_light, page) {
   var buf = "", piccard = "", fav = "", boost = "", namucard = "", namubt = "", p = 0, alert_text = "", content = "",
     button = "", bt_big = "", light = "", q = 0, enq_item = "";
   var appname, boost_full, boost_big, visibility_icon, can_col, is_col = "", col_bt = "", col_pic = "", col_bg_st = "",
-    col_bg_cl = "", button_col = "", icon_html = "", name = "";
+    col_bg_cl = "", button_col = "", icon_html = "", name = "", no_icon_class = "";
   if (!toot) {
     return "";
   }
@@ -182,6 +182,8 @@ function toot_card(toot, mode, note, toot_light, page) {
     icon_html = "<div width='50px'>\n" +
       "<p><img src=\"" + toot['account'][getConfig(1, 'no_gif') ? "avatar_static" : "avatar"] + "\" class=\"icon-img\" onclick='show_account(" + toot['account']['id'] + ")'/></p>\n" +
       "</div>\n";
+  } else {
+    no_icon_class = "no_icon ";
   }
 
   col_bt = "<div class='rightup-button'><button class='no-rd p0 button button--quiet' disabled><ons-icon icon='fa-" + visibility_icon + "' class='toot-right-icon'></ons-icon></button>" + col_bt + "</div>";
@@ -191,7 +193,7 @@ function toot_card(toot, mode, note, toot_light, page) {
   if (page === "alert" && note && getConfig(2, 'alert_m')) {
     alert_text += col_bt;
   } else {
-    name = "<div onclick='show_account(" + toot['account']['id'] + ")' class='toot_name'><b class='toot_name'>" + t_text(escapeHTML(toot['account']['display_name'])) + "</b> <small>@" + toot['account']['acct'] + "</small></div>" + col_bt;
+    name = "<div onclick='show_account(" + toot['account']['id'] + ")' class='toot_name'><b>" + t_text(escapeHTML(toot['account']['display_name'])) + "</b> <small>@" + toot['account']['acct'] + "</small></div>" + col_bt;
   }
 
   content = t_text(content, toot['emojis']);
@@ -201,8 +203,8 @@ function toot_card(toot, mode, note, toot_light, page) {
     "<div class='toot_flex'>" + icon_html +
     "<div class=\"toot-card-right\">" +
     "<div class='" + namucard + "'>" +
-    "<div class=\"toot-group\">" + name + "</div>" +
-    "<div class='" + is_col + "toot_content tootcontent_" + toot['id'] + "' data-id='" + toot['id'] + "' data-dispmode='" + mode + "'>" + content + "</div>" +
+    "<div class=\"toot-group name_box\">" + name + "</div>" +
+    "<div class='" + is_col + no_icon_class + "toot_content tootcontent_" + toot['id'] + "' data-id='" + toot['id'] + "' data-dispmode='" + mode + "'>" + content + "</div>" +
     "</div>" + button + "</div>" + "</div>" + bt_big + "</div>\n";
 
   return buf;
