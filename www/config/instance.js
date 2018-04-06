@@ -27,7 +27,7 @@ var instance_config = {
     enquete: true
   },
   "theboss.tech": {
-    limit: 500,
+    limit: 1000,
     yomigana: true
   }
 };
