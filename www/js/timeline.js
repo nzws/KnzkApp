@@ -65,15 +65,15 @@ function showAlert(reload, more_load) {
 
         if (json[i]['type'] === "follow") {
           alert_text = "<div class='alert_text'>";
-          alert_text += "<ons-icon icon=\"fa-user-plus\" class='boost-active'></ons-icon> <b onclick='show_account(" + json[i]['account']['id'] + ")'>" + escapeHTML(json[i]['account']['display_name']) + "</b>さんにフォローされました";
+          alert_text += "<ons-icon icon=\"fa-user-plus\" class='boost-active'></ons-icon> <b onclick='show_account(" + json[i]['account']['id'] + ")'>" + escapeHTML(json[i]['account']['display_name']) + "</b>さんにフォローされました (<span data-time='" + json[i]['created_at'] + "' class='date'>" + displayTime('new', json[i]['created_at']) + "</span>)";
           alert_text += "</div>";
           reshtml += "<div class=\"toot\">\n" +
             alert_text +
-            "                    <div class=\"row\">\n" +
-            "                        <div class=\"col-xs-2\">\n" +
+            "                    <div class='toot_flex'>\n" +
+            "                        <div width='50px'>\n" +
             "                            <p><img src=\"" + json[i]['account']['avatar'] + "\" class=\"icon-img\" onclick='show_account(" + json[i]['account']['id'] + ")'/></p>\n" +
             "                        </div>\n" +
-            "                        <div class=\"col-xs-9 toot-card-right\">\n" +
+            "                        <div class=\"toot-card-right\">\n" +
             "                            <div class=\"toot-group\">\n" +
             "                                <span onclick='show_account(" + json[i]['account']['id'] + ")'><b>" + escapeHTML(json[i]['account']['display_name']) + "</b> <small>@" + json[i]['account']['acct'] + "</small></span>\n" +
             "                            </div>\n" +
