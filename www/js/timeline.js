@@ -55,6 +55,7 @@ function showAlert(reload, more_load) {
     }
   }).then(function (json) {
     if (json[i]) {
+      resetLabel();
       displayTime('update');
       if (more_load) {
         reshtml = document.getElementById("alert_main").innerHTML;
@@ -109,14 +110,12 @@ function showAlert(reload, more_load) {
 
 function openTL(mode) {
   if (mode === "alert") {
-    resetLabel();
     load("alert.html");
     showAlert();
     setTimeout(function () {
       initph("alert");
     }, 200);
   } else if (mode === "alert_nav") {
-    resetLabel();
     loadNav("alert.html");
     showAlert();
     setTimeout(function () {
