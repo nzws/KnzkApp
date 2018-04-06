@@ -1,8 +1,8 @@
 function toot_card(toot, mode, note, toot_light, page) {
   var buf = "", piccard = "", fav = "", boost = "", namucard = "", namubt = "", p = 0, alert_text = "", content = "",
-    button = "", e = 0, bt_big = "", light = "", q = 0, enq_item = "";
+    button = "", bt_big = "", light = "", q = 0, enq_item = "";
   var appname, boost_full, boost_big, visibility_icon, can_col, is_col = "", col_bt = "", col_pic = "", col_bg_st = "",
-    col_bg_cl = "", button_col = "", icon_html = "", layout_num = {}, name = "";
+    col_bg_cl = "", button_col = "", icon_html = "", name = "";
   if (!toot) {
     return "";
   }
@@ -178,13 +178,10 @@ function toot_card(toot, mode, note, toot_light, page) {
       "                </div>";
   }
 
-  if (page === "alert" && note && getConfig(2, 'alert_m')) {
-    layout_num["toot_content"] = "11 no-icon-mode";
-  } else {
+  if (!(page === "alert" && note && getConfig(2, 'alert_m'))) {
     icon_html = "<div width='50px'>\n" +
       "<p><img src=\"" + toot['account'][getConfig(1, 'no_gif') ? "avatar_static" : "avatar"] + "\" class=\"icon-img\" onclick='show_account(" + toot['account']['id'] + ")'/></p>\n" +
       "</div>\n";
-    layout_num["toot_content"] = 9;
   }
 
   col_bt = "<div class='rightup-button'><button class='no-rd p0 button button--quiet' disabled><ons-icon icon='fa-" + visibility_icon + "' class='toot-right-icon'></ons-icon></button>" + col_bt + "</div>";
