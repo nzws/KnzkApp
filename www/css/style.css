@@ -523,7 +523,7 @@ img.emoji {
   margin: -5px .05em -3px .1em !important
 }
 
-.toot_name > .emoji, .toot_name > .emojione {
+.toot_name .emoji, .toot_name .emojione {
   height: 1.2em !important;
   width: 1.2em !important;
 }
@@ -718,4 +718,17 @@ img.emoji {
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 80%;
+  position: absolute;
+}
+
+.name_box {
+  position: relative;
+}
+
+.toot_content {
+  padding-top: 1.5em;
+}
+
+.no_icon {
+  padding: 0;
 }
