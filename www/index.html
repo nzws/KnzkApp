@@ -397,13 +397,15 @@
             </ons-toolbar-button>
           </div>
         </ons-toolbar>
-        <ons-tabbar swipeable hide-tabs id="tl_tabs">
-          <ons-tab page="tl-0.html" active></ons-tab>
-          <ons-tab page="tl-1.html"></ons-tab>
-          <ons-tab page="tl-2.html"></ons-tab>
-          <ons-tab page="tl-3.html"></ons-tab>
-          <ons-tab page="tl-4.html"></ons-tab>
-        </ons-tabbar>
+        <ons-gesture-detector>
+          <ons-tabbar hide-tabs id="tl_tabs">
+            <ons-tab page="tl-0.html" active></ons-tab>
+            <ons-tab page="tl-1.html"></ons-tab>
+            <ons-tab page="tl-2.html"></ons-tab>
+            <ons-tab page="tl-3.html"></ons-tab>
+            <ons-tab page="tl-4.html"></ons-tab>
+          </ons-tabbar>
+        </ons-gesture-detector>
         <ons-speed-dial position="bottom right" direction="up" onclick="opendial()" id="dial_main" class="invisible">
           <ons-fab>
             <ons-icon icon="fa-bell" id="dial-icon"></ons-icon>
