@@ -391,6 +391,14 @@ function initevent() {
     account_list();
     reset_nav();
   });
+
+  document.addEventListener('swipeleft', function(event) {
+    if (pageid === "home") TL_next();
+  });
+
+  document.addEventListener('swiperight', function(event) {
+    if (pageid === "home") TL_prev();
+  });
 }
 
 function home_autoevent() {
