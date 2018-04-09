@@ -149,13 +149,13 @@ function toot_card(toot, mode, note, toot_light, page) {
     content = toot['content'] + piccard;
   }
   if (mode == "full") {
-    button = "                            <div class=\"" + button_col + "toot-group tb_group_" + toot["id"] + "\">" +
-      "                                <ons-icon icon=\"fa-reply\" onclick=\"reply('" + toot['id'] + "', '" + toot["visibility"] + "')\" class=\"toot-button\"></ons-icon>" +
+    button = "<div class=\"" + button_col + "toot-group tb_group_" + toot["id"] + "\">" +
+      "<ons-icon icon=\"fa-reply\" onclick=\"reply('" + toot['id'] + "', '" + toot["visibility"] + "')\" class=\"toot-button\"></ons-icon>" +
       boost_full +
-      "                                <ons-icon icon=\"fa-star\" onclick=\"toot_action('" + toot['id'] + "', null, 'fav')\" class=\"tootfav_" + toot['id'] + " toot-button" + namubt + fav + "\"></ons-icon>" +
-      "                                <ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('" + toot['id'] + "')\" class=\"toot-button toot-button-last\"></ons-icon>" +
-      "                                 <div class='toot-right date date-disp' data-time='" + toot['created_at'] + "' onclick='show_post(\"" + toot['id'] + "\")'>" + date + "</div>" +
-      "                            </div>\n";
+      "<ons-icon icon=\"fa-star\" onclick=\"toot_action('" + toot['id'] + "', null, 'fav')\" class=\"tootfav_" + toot['id'] + " toot-button" + namubt + fav + "\"></ons-icon>" +
+      "<ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('" + toot['id'] + "')\" class=\"toot-button toot-button-last\"></ons-icon>" +
+      "<div class='toot-right date date-disp' data-time='" + toot['created_at'] + "' onclick='show_post(\"" + toot['id'] + "\")'>" + date + "</div>" +
+      "</div>\n";
   }
 
   if (mode == "big") {
@@ -171,11 +171,11 @@ function toot_card(toot, mode, note, toot_light, page) {
     });
     bt_big = "<span class='big_date'>" + appname + date_text + " · <span onclick='list(\"statuses/" + toot['id'] + "/reblogged_by\", \"ブーストしたユーザー\", null, \"acct\", true)'><ons-icon icon=\"fa-retweet\"></ons-icon> " + toot['reblogs_count'] + "</span> · <span onclick='list(\"statuses/" + toot['id'] + "/favourited_by\", \"お気に入りしたユーザー\", null, \"acct\", true)'><ons-icon icon=\"fa-star\"></ons-icon> " + toot['favourites_count'] + "</span></span>" +
       "<div class=\"row toot_big_border\">\n" +
-      "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-reply\" onclick=\"reply('" + toot['id'] + "', '" + toot["visibility"] + "')\" class=\"showtoot-button\"></ons-icon></div>\n" +
-      "                    <div class=\"col-xs-3 showtoot-button\">" + boost_big + "</div>\n" +
-      "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-star\" onclick=\"toot_action('" + toot['id'] + "', 'big', 'fav')\" class=\"tootfav_" + toot['id'] + " showtoot-button" + fav + "\"></ons-icon></div>\n" +
-      "                    <div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('" + toot['id'] + "')\" class=\"showtoot-button\"></ons-icon></div>\n" +
-      "                </div>";
+      "<div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-reply\" onclick=\"reply('" + toot['id'] + "', '" + toot["visibility"] + "')\" class=\"showtoot-button\"></ons-icon></div>\n" +
+      "<div class=\"col-xs-3 showtoot-button\">" + boost_big + "</div>\n" +
+      "<div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-star\" onclick=\"toot_action('" + toot['id'] + "', 'big', 'fav')\" class=\"tootfav_" + toot['id'] + " showtoot-button" + fav + "\"></ons-icon></div>\n" +
+      "<div class=\"col-xs-3 showtoot-button\"><ons-icon icon=\"fa-ellipsis-h\" onclick=\"more('" + toot['id'] + "')\" class=\"showtoot-button\"></ons-icon></div>\n" +
+      "</div>";
   }
 
   if (!(page === "alert" && note && getConfig(2, 'alert_m'))) {
@@ -189,11 +189,10 @@ function toot_card(toot, mode, note, toot_light, page) {
   col_bt = "<div class='rightup-button'><button class='no-rd p0 button button--quiet' disabled><ons-icon icon='fa-" + visibility_icon + "' class='toot-right-icon'></ons-icon></button>" + col_bt + "</div>";
 
   if (note) alert_text = "<div class='alert_text'>" + note + "</div>";
+  alert_text += col_bt;
 
-  if (page === "alert" && note && getConfig(2, 'alert_m')) {
-    alert_text += col_bt;
-  } else {
-    name = "<div onclick='show_account(" + toot['account']['id'] + ")' class='toot_name'><b>" + t_text(escapeHTML(toot['account']['display_name'])) + "</b> <small>@" + toot['account']['acct'] + "</small></div>" + col_bt;
+  if (!(page === "alert" && note && getConfig(2, 'alert_m'))) {
+    name = "<div onclick='show_account(" + toot['account']['id'] + ")' class='toot_name'><b>" + t_text(escapeHTML(toot['account']['display_name'])) + "</b> <small>@" + toot['account']['acct'] + "</small></div>";
   }
 
   content = t_text(content, toot['emojis']);

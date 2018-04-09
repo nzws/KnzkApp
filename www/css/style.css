@@ -732,3 +732,7 @@ img.emoji {
 .no_icon {
   padding: 0;
 }
+
+.toot_flex > div {
+  z-index: 1;
+}
