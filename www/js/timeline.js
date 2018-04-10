@@ -148,6 +148,7 @@ function openTL(mode) {
         $("#dial_TL").removeClass("invisible");
         setsd();
       }
+      if (getConfig(1, 'swipe_menu') == 1) document.getElementById("tl_tabs").setAttribute("swipeable", "1");
     }, 200);
   }
 }
