@@ -148,7 +148,10 @@ function init() {
                 $("#menu-followreq").addClass("invisible");
 
               if (getConfig(1, 'menu-fav') == 1) $("#menu-fav-page").removeClass("invisible");
-              if (getConfig(1, 'swipe_menu') == 1) document.getElementById("splitter-menu").setAttribute('swipeable', '1');
+              if (getConfig(1, 'swipe_menu') == 1) {
+                document.getElementById("splitter-menu").setAttribute('swipeable', '1');
+                document.getElementById("tl_tabs").setAttribute("swipeable", "1");
+              }
 
               var dial = getConfig(1, 'dial'), icon;
               if (dial && dial != "change") {
@@ -392,13 +395,15 @@ function initevent() {
     reset_nav();
   });
 
-  document.addEventListener('swipeleft', function(event) {
-    if (pageid === "home") TL_next();
-  });
+  if (getConfig(1, 'swipe_menu') != 1) {
+    document.addEventListener('swipeleft', function(event) {
+      if (pageid === "home") TL_next();
+    });
 
-  document.addEventListener('swiperight', function(event) {
-    if (pageid === "home") TL_prev();
-  });
+    document.addEventListener('swiperight', function(event) {
+      if (pageid === "home") TL_prev();
+    });
+  }
 }
 
 function home_autoevent() {
