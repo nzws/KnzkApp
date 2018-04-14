@@ -163,6 +163,7 @@ function init() {
                 $("#dial_TL").removeClass("invisible");
                 setsd();
               }
+              migration_app2glitch();
             }, 500);
           } catch (e) {
             sendLog("Error/init_2", e);

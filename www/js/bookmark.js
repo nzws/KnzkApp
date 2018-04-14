@@ -1,11 +1,15 @@
 function LoadBookmark() {
   var reshtml = "", json = loadBookmark()[inst];
   loadNav('olist_nav.html');
-  reshtml += "<div class=\"toot\">\n" +
-    "      ブックマークはKnzkApp独自の機能で、データが端末内に保管されます。<br>ブックマークはインスタンスごとに区別されます。\n" +
-    "    </div>";
-  if (json[0]) {
+  if (!instance_config[inst]["glitch_soc"]) {
+    reshtml += "<div class=\"toot\">\n" +
+      "      ブックマークはKnzkApp独自の機能で、データが端末内に保管されます。<br>ブックマークはインスタンスごとに区別されます。\n" +
+      "    </div>";
+  }
+  if (json[0] && !instance_config[inst]["glitch_soc"]) {
     renderBookmark(reshtml, json, 0);
+  } else if (instance_config[inst]["glitch_soc"]) {
+    renderBookmark_glitch();
   } else {
     setTimeout(function () {
       document.getElementById("olist_nav_title").innerHTML = "ブックマーク";
@@ -14,8 +18,37 @@ function LoadBookmark() {
   }
 }
 
+function renderBookmark_glitch() {
+  fetch("https://" + inst + "/api/v1/bookmarks", {
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+    },
+    method: 'GET'
+  }).then(function (response) {
+    if (response.ok) {
+      return response.json();
+    } else {
+      sendLog("Error/show_bookmark_glitch", response.json);
+      showtoast('cannot-pros');
+    }
+  }).then(function (json) {
+    if (json) {
+      var i = 0, reshtml = "";
+
+      while (json[i]) {
+        reshtml += toot_card(json[i], "full", null);
+        i++;
+      }
+
+      document.getElementById("olist_nav_main").innerHTML = reshtml;
+      document.getElementById("olist_nav_title").innerHTML = "ブックマーク";
+    }
+  });
+}
+
 function renderBookmark(reshtml, json_bookmark, i) {
-  fetch("https://" + inst + "//api/v1/statuses/" + json_bookmark[i], {
+  fetch("https://" + inst + "/api/v1/statuses/" + json_bookmark[i], {
     headers: {
       'content-type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
@@ -43,54 +76,87 @@ function renderBookmark(reshtml, json_bookmark, i) {
 }
 
 function initBookmark() {
-  var bookmark = JSON.parse(localStorage.getItem("knzkapp_bookmark"));
-  if (bookmark == undefined) {
-    localStorage.setItem('knzkapp_bookmark', JSON.stringify({}));
-    bookmark = JSON.parse(localStorage.getItem("knzkapp_bookmark"));
-  }
-  if (!bookmark[inst]) {
-    bookmark[inst] = [];
-    localStorage.setItem('knzkapp_bookmark', JSON.stringify(bookmark));
+  if (!instance_config[inst]["glitch_soc"]) {
+    var bookmark = JSON.parse(localStorage.getItem("knzkapp_bookmark"));
+    if (bookmark == undefined) {
+      localStorage.setItem('knzkapp_bookmark', JSON.stringify({}));
+      bookmark = JSON.parse(localStorage.getItem("knzkapp_bookmark"));
+    }
+    if (!bookmark[inst]) {
+      bookmark[inst] = [];
+      localStorage.setItem('knzkapp_bookmark', JSON.stringify(bookmark));
+    }
   }
 }
 
 function changeBookmark(id) {
-  var json = loadBookmark();
-  if (checkBookmark(id)) { //削除
-    json[inst].splice(json[inst].indexOf(id), 1);
-  } else { //追加
-    json[inst].unshift("" + id);
+  if (!instance_config[inst]["glitch_soc"]) {
+    var json = loadBookmark();
+    if (checkBookmark(id)) { //削除
+      json[inst].splice(json[inst].indexOf(id), 1);
+    } else { //追加
+      json[inst].unshift("" + id);
+    }
+    saveBookmark(json);
+  } else {
+    var bookmark_mode = tl_postdata[id]["bookmarked"] ? "/unbookmark" : "/bookmark";
+    fetch("https://" + inst + "/api/v1/statuses/" + id + bookmark_mode, {
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+      },
+      method: 'POST'
+    }).then(function (response) {
+      if (response.ok) {
+        return response.json();
+      } else {
+        sendLog("Error/bookmark_glitch", response.json);
+        showtoast('cannot-pros');
+      }
+    }).then(function (json) {
+      if (json["id"]) {
+        tl_postdata[json["id"]] = json;
+        showtoast('ok_conf_2');
+      }
+    });
   }
-  saveBookmark(json);
 }
 
 function checkBookmark(id) { //ブックマークされて無ければfalse
-  var json = loadBookmark();
-  return json[inst].indexOf("" + id) !== -1;
+  if (!instance_config[inst]["glitch_soc"]) {
+    var json = loadBookmark();
+    return json[inst].indexOf("" + id) !== -1;
+  } else {
+    return tl_postdata[id]["bookmarked"];
+  }
 }
 
 function loadBookmark() {
   return JSON.parse(localStorage.getItem("knzkapp_bookmark"));
 }
 
-function saveBookmark(json) {
+function saveBookmark(json, force) {
   localStorage.setItem('knzkapp_bookmark', JSON.stringify(json));
-  showtoast('ok_conf_2');
+  if (!force) showtoast('ok_conf_2');
 }
 
 function clearBookmark() {
-  ons.notification.confirm('本当に削除しますか？<br>※' + inst + 'のアカウントのブックマークが対象です。', {title: 'ブックマーク全削除'}).then(function (e) {
-    if (e === 1) {
-      var bookmark = loadBookmark();
-      bookmark[inst] = [];
-      saveBookmark(bookmark);
-      BackTab();
-    }
-  });
+  if (!instance_config[inst]["glitch_soc"]) {
+    ons.notification.confirm('本当に削除しますか？<br>※' + inst + 'のアカウントのブックマークが対象です。', {title: 'ブックマーク全削除'}).then(function (e) {
+      if (e === 1) {
+        var bookmark = loadBookmark();
+        bookmark[inst] = [];
+        saveBookmark(bookmark);
+        BackTab();
+      }
+    });
+  } else {
+    ons.notification.alert('Glitch-socブックマークでは全削除を行う事ができません。', {title: 'ブックマーク全削除'});
+  }
 }
 
 function clearAllBookmark() {
-  ons.notification.confirm('本当に「(あなたがログインしている全てのアカウントの)全てのブックマーク」を削除しますか？', {title: 'ブックマーク全削除'}).then(function (e) {
+  ons.notification.confirm('本当に「(あなたがログインしている全てのアカウントの)全てのブックマーク」を削除しますか？<br>※Glitch-socインスタンスを除きます。', {title: 'ブックマーク全削除'}).then(function (e) {
     if (e === 1) {
       ons.notification.confirm('もう一度聞きます。<br>本当に「(あなたがログインしている全てのアカウントの)全てのブックマーク」を削除しますか？', {title: 'ブックマーク全削除'}).then(function (e) {
         if (e === 1) {
@@ -101,4 +167,37 @@ function clearAllBookmark() {
       });
     }
   });
+}
+
+function migration_app2glitch() {
+  if (instance_config[inst]["glitch_soc"]) {
+    var json = loadBookmark();
+    if (json[inst][0]) {
+      var i = 0;
+      while (json[inst][i]) {
+        fetch("https://" + inst + "/api/v1/statuses/" + json[inst][i] + "/bookmark", {
+          headers: {
+            'content-type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+          },
+          method: 'POST'
+        }).then(function (response) {
+          if (response.ok) {
+            return response.json();
+          } else {
+            sendLog("Error/bookmark_glitch", response.json);
+            showtoast('cannot-pros');
+          }
+        }).then(function (data) {
+          var id = json[inst].indexOf("" + data["id"]);
+          if (!json[inst][id+1]) {
+            json[inst] = [];
+            saveBookmark(json, true);
+            console.log("Complete:app2glitch migration");
+          }
+        });
+        i++;
+      }
+    }
+  }
 }
