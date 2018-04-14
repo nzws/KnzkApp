@@ -32,6 +32,7 @@ Mastodonの基本機能はもちろん、いくつかのインスタンスの追
   - Local-only
   - Doodle
   - DM Timeline
+  - Bookmark
   - etc...
 - BBCode (from [now.kibousoft.co.jp](https://now.kibousoft.co.jp/))
 - Enquete (from [friends.nico](https://friends.nico/))
