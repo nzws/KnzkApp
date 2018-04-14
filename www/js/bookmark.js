@@ -2,13 +2,13 @@ function LoadBookmark() {
   var reshtml = "", json = loadBookmark()[inst];
   loadNav('olist_nav.html');
   reshtml += "<div class=\"toot\">\n" +
-    "      ブックマーク (App)はKnzkApp独自の機能で、データが端末内に保管されます。<br>ブックマーク (App)はインスタンスごとに区別されます。\n" +
+    "      ブックマークはKnzkApp独自の機能で、データが端末内に保管されます。<br>ブックマークはインスタンスごとに区別されます。\n" +
     "    </div>";
   if (json[0]) {
     renderBookmark(reshtml, json, 0);
   } else {
     setTimeout(function () {
-      document.getElementById("olist_nav_title").innerHTML = "ブックマーク (App)";
+      document.getElementById("olist_nav_title").innerHTML = "ブックマーク";
       document.getElementById("olist_nav_main").innerHTML = reshtml;
     }, 1000);
   }
@@ -31,7 +31,7 @@ function renderBookmark(reshtml, json_bookmark, i) {
   }).then(function (json) {
     reshtml += toot_card(json, "full", null);
     if (!json_bookmark[i + 1]) {
-      document.getElementById("olist_nav_title").innerHTML = "ブックマーク (App)";
+      document.getElementById("olist_nav_title").innerHTML = "ブックマーク";
       document.getElementById("olist_nav_main").innerHTML = reshtml;
       document.getElementById("olist_right").innerHTML = "<ons-toolbar-button onclick=\"clearBookmark()\" class=\"toolbar-button\">\n" +
         "<ons-icon icon='fa-trash' class=\"ons-icon fa-trash fa\"></ons-icon>\n" +
@@ -64,7 +64,7 @@ function changeBookmark(id) {
   saveBookmark(json);
 }
 
-function checkBookmark(id) { //ブックマーク (App)されて無ければfalse
+function checkBookmark(id) { //ブックマークされて無ければfalse
   var json = loadBookmark();
   return json[inst].indexOf("" + id) !== -1;
 }
@@ -79,7 +79,7 @@ function saveBookmark(json) {
 }
 
 function clearBookmark() {
-  ons.notification.confirm('本当に削除しますか？<br>※' + inst + 'のアカウントのブックマーク (App)が対象です。', {title: 'ブックマーク (App)全削除'}).then(function (e) {
+  ons.notification.confirm('本当に削除しますか？<br>※' + inst + 'のアカウントのブックマークが対象です。', {title: 'ブックマーク全削除'}).then(function (e) {
     if (e === 1) {
       var bookmark = loadBookmark();
       bookmark[inst] = [];
@@ -90,9 +90,9 @@ function clearBookmark() {
 }
 
 function clearAllBookmark() {
-  ons.notification.confirm('本当に「(あなたがログインしている全てのアカウントの)全てのブックマーク (App)」を削除しますか？', {title: 'ブックマーク (App)全削除'}).then(function (e) {
+  ons.notification.confirm('本当に「(あなたがログインしている全てのアカウントの)全てのブックマーク」を削除しますか？', {title: 'ブックマーク全削除'}).then(function (e) {
     if (e === 1) {
-      ons.notification.confirm('もう一度聞きます。<br>本当に「(あなたがログインしている全てのアカウントの)全てのブックマーク (App)」を削除しますか？', {title: 'ブックマーク (App)全削除'}).then(function (e) {
+      ons.notification.confirm('もう一度聞きます。<br>本当に「(あなたがログインしている全てのアカウントの)全てのブックマーク」を削除しますか？', {title: 'ブックマーク全削除'}).then(function (e) {
         if (e === 1) {
           var bookmark = {};
           bookmark[inst] = [];
