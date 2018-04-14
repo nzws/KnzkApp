@@ -445,7 +445,7 @@ function more(id) {
       else if (index == 6) delete_post();
     })
   } else {
-    var bookmark = checkBookmark(id) === true ? "ブックマークから削除" : "ブックマークする";
+    var bookmark = checkBookmark(id) === true ? "ブックマーク (App)から削除" : "ブックマーク (App)する";
     ons.openActionSheet({
       cancelable: true,
       buttons: [
