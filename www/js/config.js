@@ -6,6 +6,8 @@ function getConfig(type, name) {
       config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodoncol');
     } else if (type === 3) {
       config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodon_timeline');
+    } else if (type === 4) {
+      config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodon_push');
     }
   }
 
@@ -36,7 +38,8 @@ function setConfig(name, id, value) { //data->1: 基本設定, data->2: col
   var md = "";
   if (name === 1) md = 'knzkapp_conf_mastodon';
   else if (name === 2) md = 'knzkapp_conf_mastodoncol';
-  else if (name === 2) md = 'knzkapp_conf_mastodon_timeline';
+  else if (name === 3) md = 'knzkapp_conf_mastodon_timeline';
+  else if (name === 4) md = 'knzkapp_conf_mastodon_push';
 
   var data = JSON.parse(localStorage.getItem(md));
   data[id] = value;
@@ -45,7 +48,7 @@ function setConfig(name, id, value) { //data->1: 基本設定, data->2: col
 }
 
 function ConfigSetup() {
-  var last_version = 3;
+  var last_version = 4;
 
   if (!localStorage.getItem('knzkapp_conf_mastodon')) {
     if (localStorage.getItem('knzk_realtime') == undefined) localStorage.setItem('knzk_realtime', 1);
@@ -102,6 +105,9 @@ function ConfigSetup() {
         "default": 0
       }));
     }
+    if (now_version < 4) {
+      localStorage.setItem('knzkapp_conf_mastodon_push', JSON.stringify({}));
+    }
 
     localStorage.setItem('knzkapp_conf_version', last_version);
     hide('DB_migration');
@@ -124,6 +130,7 @@ function clearAllConfig() {
             "config": ["home", "local", "public", "local_media", "public_media"],
             "default": 0
           }));
+          localStorage.setItem('knzkapp_conf_mastodon_push', JSON.stringify({}));
           ons.notification.toast('設定をリセットしました。再起動してください。');
         }
       });
