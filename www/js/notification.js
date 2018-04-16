@@ -28,14 +28,14 @@ function resetLabel() {
   Notification_num = 0
 }
 
-function changeNotification(force, update) {
+function changeNotification(force) {
   var config = LoadNotificationConfig();
-  if (!config["is_running"] && update) {
+  if (!config["is_running"] && force) {
     return;
   }
   if (FCM_token) {
-    var is_unregister = force !== undefined ? force : "";
-    if (config["is_running"] && force === undefined && !update) {
+    var is_unregister = "";
+    if (config["is_running"] && !force) {
       is_unregister = "un";
     }
     var formdata = {
@@ -69,7 +69,6 @@ function changeNotification(force, update) {
       }
     }).then(function (json) {
       SetNotificationConfig("is_running", is_unregister ? 0 : 1);
-      showtoast("ok_conf");
     }).catch(function (error) {
       document.getElementById("noti-mode").checked = !!is_unregister;
       showtoast('cannot-pros');

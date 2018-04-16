@@ -427,12 +427,12 @@ function initevent() {
     FCMPlugin.onTokenRefresh(function(token) {
       if (FCM_token) var t = true;
       FCM_token = token;
-      if (LoadNotificationConfig()["is_running"] && !t) changeNotification(undefined, true);
+      if (!t) changeNotification(true);
     });
     FCMPlugin.getToken(function(token) {
       if (FCM_token) var t = true;
       FCM_token = token;
-      if (LoadNotificationConfig()["is_running"] && !t) changeNotification(undefined, true);
+      if (!t) changeNotification(true);
     });
   }
 }
