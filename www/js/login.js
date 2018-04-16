@@ -5,7 +5,7 @@ function login_open(domain) {
   } else if (platform === "android") {
     os_name = "Android";
   } else {
-    os_name = "PC";
+    os_name = "DeskTop";
     uri = "urn:ietf:wg:oauth:2.0:oob";
   }
   fetch("https://" + domain + "/api/v1/apps", {
