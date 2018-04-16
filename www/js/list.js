@@ -60,6 +60,9 @@ function list_n(mode, title, more_load, mode_toot, navmode) {
                 "<ons-button style=\"width: 45%\" class='y-center' onclick='followreq(" + json[i]['id'] + ", \"reject\")'><ons-icon icon='fa-times'></ons-icon></ons-button>\n" +
                 "</div>";
             }
+          } else if (mode_toot === "domain") {
+            reshtml += "<div class=\"toot acct-small\"><div class=\"hashtag-card\"><span class=\"toot-group\"><b>" +
+              json[i] + "</b></span></div></div>\n";
           }
           i++;
         }
