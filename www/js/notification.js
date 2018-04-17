@@ -38,6 +38,7 @@ function changeNotification(force) {
     if (config["is_running"] && !force) {
       is_unregister = "un";
     }
+    config["option"]["notification"]["user"] = getConfig(5, "notification");
     var formdata = {
       'server_key': push_default_serverKey,
       'instance_url': inst,

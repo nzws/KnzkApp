@@ -168,6 +168,9 @@ function initevent() {
       obj = event.currentTarget;
       url = obj.getAttribute('href');
     }
+    if (url === "#") {
+      return;
+    }
     if (obj.className === "u-url mention") {
       word = url.split("/");
       show_account_name(word[word.length - 1] + "@" + word[word.length - 2]);
@@ -261,6 +264,10 @@ function initevent() {
         renderKeyWordList();
         hide('now_loading');
       }, 500);
+    }
+
+    if (event.enterPage.id === "config_filter-page") {
+      renderFilter();
     }
 
     if (event.enterPage.id === "login-page") {
