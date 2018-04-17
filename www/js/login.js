@@ -35,7 +35,7 @@ function login_open(domain) {
     } else {
       window.open(url, "_system");
     }
-    if (os_name === "PC") {
+    if (os_name === "DeskTop") {
       ons.notification.prompt('認証コードを入力してください<br>(空欄でキャンセル)', {title: 'ログイン'}).then(function (code) {
         if (code) {
           login_callback(code);
