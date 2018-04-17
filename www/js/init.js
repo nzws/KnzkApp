@@ -45,7 +45,7 @@ function init() {
   timeline_now_tab = 0;
   timeline_default_tab = 0;
   init_d();
-  if (!localStorage || !fetch) {
+  if (!localStorage || !Fetch) {
     show("cannot-use-ls");
   } else {
     show('now_loading');
@@ -80,7 +80,7 @@ function init() {
         sendLog("Error/init_1", e);
       }
 
-      fetch("https://" + inst + "/api/v1/instance").then(function (response) {
+      Fetch("https://" + inst + "/api/v1/instance").then(function (response) {
         if (response.ok) {
           return response.json();
         } else {
@@ -88,7 +88,7 @@ function init() {
           throw new Error();
         }
       }).then(function (json) {
-        fetch("https://" + inst + "/api/v1/accounts/verify_credentials", {
+        Fetch("https://" + inst + "/api/v1/accounts/verify_credentials", {
           headers: {'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')}
         }).then(function (response) {
           if (response.ok) {
@@ -260,7 +260,7 @@ function initevent() {
 
     if (event.enterPage.id === "userconf-page") {
       show('now_loading');
-      fetch("https://" + inst + "/api/v1/accounts/verify_credentials", {
+      Fetch("https://" + inst + "/api/v1/accounts/verify_credentials", {
         headers: {'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')}
       }).then(function (response) {
         if (response.ok) {

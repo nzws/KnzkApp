@@ -236,7 +236,7 @@ function toot_col(id) {
 }
 
 function vote_item(q, obj, id) {
-  fetch("https://" + inst + "/api/v1/votes/" + id, {
+  Fetch("https://" + inst + "/api/v1/votes/" + id, {
     headers: {
       'content-type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
@@ -291,7 +291,7 @@ function toot_action(id, mode, action_mode) {
       i++;
     }
   }
-  fetch("https://" + inst + "/api/v1/statuses/" + id + url, {
+  Fetch("https://" + inst + "/api/v1/statuses/" + id + url, {
     headers: {
       'content-type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
@@ -387,7 +387,7 @@ function visibility_name(mode) {
 
 function pin_set(id) {
   var pin_mode = tl_postdata[id]["pinned"] ? "/unpin" : "/pin";
-  fetch("https://" + inst + "/api/v1/statuses/" + id + pin_mode, {
+  Fetch("https://" + inst + "/api/v1/statuses/" + id + pin_mode, {
     headers: {
       'content-type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
@@ -479,7 +479,7 @@ function more(id) {
 function delete_post() {
   ons.notification.confirm('本当に削除しますか？', {title: 'トゥートを削除'}).then(function (e) {
     if (e === 1) {
-      fetch("https://" + inst + "/api/v1/statuses/" + more_status_id, {
+      Fetch("https://" + inst + "/api/v1/statuses/" + more_status_id, {
         headers: {
           'content-type': 'application/json',
           'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
@@ -515,7 +515,7 @@ function delete_post() {
 function show_post(id, near) {
   var reshtml = "", d = 0, i = 0;
   loadNav('showtoot.html');
-  fetch("https://" + inst + "//api/v1/statuses/" + id, {
+  Fetch("https://" + inst + "//api/v1/statuses/" + id, {
     headers: {
       'content-type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
@@ -533,7 +533,7 @@ function show_post(id, near) {
       if (near) {
         i = 0;
         reshtml += toot_card(json_stat, "big", null, "gold");
-        fetch("https://" + inst + "/api/v1/timelines/public?local=true&limit=10&max_id=" + id, {
+        Fetch("https://" + inst + "/api/v1/timelines/public?local=true&limit=10&max_id=" + id, {
           headers: {
             'content-type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
@@ -557,7 +557,7 @@ function show_post(id, near) {
           }
         });
       } else {
-        fetch("https://" + inst + "//api/v1/statuses/" + id + "/context", {
+        Fetch("https://" + inst + "//api/v1/statuses/" + id + "/context", {
           headers: {
             'content-type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
@@ -594,7 +594,7 @@ function show_post(id, near) {
 function report() {
   var rep = ons.notification.prompt('通報のコメントを記入してください<br>(空欄でキャンセル)', {title: '通報'}).then(function (repcom) {
     if (repcom) {
-      fetch("https://" + inst + "/api/v1/reports", {
+      Fetch("https://" + inst + "/api/v1/reports", {
         headers: {
           'content-type': 'application/json',
           'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
@@ -629,7 +629,7 @@ function report() {
 
 function original_post(id, url, acct) {
   show("now_loading");
-  fetch(url, {
+  Fetch(url, {
     method: 'GET'
   }).then(function (response) {
     if (response.ok) {

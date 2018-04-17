@@ -1,9 +1,9 @@
 (function(self) {
   'use strict';
 
-  // if __disableNativeFetch is set to true, the it will always polyfill fetch
+  // if __disableNativeFetch is set to true, the it will always polyfill Fetch
   // with Ajax.
-  if (!self.__disableNativeFetch && self.fetch) {
+  if (!self.__disableNativeFetch && self.Fetch) {
     return
   }
 
@@ -328,7 +328,7 @@
   self.Request = Request;
   self.Response = Response;
 
-  self.fetch = function(input, init) {
+  self.Fetch = function(input, init) {
     return new Promise(function(resolve, reject) {
       var request
       if (Request.prototype.isPrototypeOf(input) && !init) {
@@ -409,10 +409,10 @@
       xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit)
     })
   }
-  self.fetch.polyfill = true
+  self.Fetch.polyfill = true
 
   // Support CommonJS
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = self.fetch;
+    module.exports = self.Fetch;
   }
 })(typeof self !== 'undefined' ? self : this);
