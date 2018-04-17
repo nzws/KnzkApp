@@ -13,6 +13,10 @@ function toot_card(toot, mode, note, toot_light, page) {
     toot = toot['reblog'];
   }
   tl_postdata[toot["id"]] = toot;
+  var filter = getConfig(5, (toot['account']['acct'].indexOf("@") === -1 ? toot['account']['acct'] + "@" + inst : toot['account']['acct']).toLowerCase());
+  if (filter["all"] || filter["toot"]) {
+    return "";
+  }
 
   if (!toot['account']['display_name'])
     toot['account']['display_name'] = toot['account']['username'];

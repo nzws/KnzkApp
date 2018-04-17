@@ -91,6 +91,7 @@
     <script src="js/tutorial.js"></script>
     <script src="js/notification.js"></script>
     <script src="js/bookmark.js"></script>
+    <script src="js/filter.js"></script>
     <script src="js/emoji.js"></script>
     <script src="js/log.js"></script>
     <script src="js/config.js"></script>
@@ -362,6 +363,14 @@
             </div>
             <div class="center">
               非表示にしたドメイン
+            </div>
+          </ons-list-item>
+          <ons-list-item modifier="chevron" tappable onclick="loadNav('config_filter.html')">
+            <div class="left">
+              <i class="list-item__icon list-item--chevron__icon ons-icon fa-filter fa fa-fw"></i>
+            </div>
+            <div class="center">
+              フィルター
             </div>
           </ons-list-item>
           <ons-list-item modifier="chevron" tappable onclick="LoadrepStatus()">
@@ -1161,19 +1170,139 @@
             <label for="noti-mute-favourite" class="center">お気に入り</label>
           </ons-list-item>
         </ons-list>
-        <!--
         <ons-list>
           <ons-list-header>ミュートする通知 (ユーザー)</ons-list-header>
         </ons-list>
         <div class="container">
-          ユーザーごとの通知制御は<b>ユーザーメニュー > フィルター</b>より行えます<br>
+          ユーザーごとの通知制御は<a href="#" onclick="loadNav('config_filter.html')"><b>ユーザーメニュー > フィルター</b></a>より行えます。<br>
           *ユーザー通知ミュート反映にはアプリの再起動が必要です。
         </div>
-        -->
         <div class="container"><h4>キーワード検知 <button class="button button--outline" style="border-radius: 100%;line-height: initial;" onclick="addKeyWord()"><i class="zmdi zmdi-plus"></i></button></h4>HTLをウォッチします</div>
         <ons-list id="keyword_list"></ons-list>
+        <p></p>
       </ons-page>
     </ons-template>
+
+    <ons-template id="config_filter.html">
+      <ons-page id="config_filter-page">
+        <ons-toolbar>
+          <div class="left">
+            <ons-toolbar-button onclick="BackTab()">
+              <ons-icon icon="fa-chevron-left"></ons-icon>
+              戻る
+            </ons-toolbar-button>
+          </div>
+          <div class="center">フィルター</div>
+          <div class="right">
+            <ons-toolbar-button onclick="loadNav('editFilter.html')">
+              <ons-icon icon="fa-plus"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+        </ons-toolbar>
+        <ons-list id="filter_list"></ons-list>
+        <div class="container">
+          <p>
+            *プッシュ通知ミュートの反映にはアプリの再起動が必要です。
+          </p>
+        </div>
+      </ons-page>
+    </ons-template>
+
+    <ons-template id="editFilter.html">
+      <ons-page id="editfilter-page">
+        <ons-toolbar>
+          <div class="left">
+            <ons-toolbar-button onclick="BackTab()">
+              <ons-icon icon="fa-chevron-left"></ons-icon>
+              戻る
+            </ons-toolbar-button>
+          </div>
+          <div class="center">フィルターの修正/追加</div>
+          <div class="right">
+            <ons-toolbar-button onclick="createFilter()">
+              <ons-icon icon="fa-check"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+        </ons-toolbar>
+        <div class="container">
+          <p>
+            <ons-input id="userid_filter" modifier="underbar" placeholder="ユーザーID (例: knzk@knzk.me)" class="w-max"></ons-input>
+          </p>
+        </div>
+        <ons-list>
+          <ons-list-header>表示をミュート</ons-list-header>
+          <ons-list-item tappable>
+            <label class="left">
+              <ons-checkbox input-id="filter_all"></ons-checkbox>
+            </label>
+            <label for="filter_all" class="center">すべて</label>
+          </ons-list-item>
+          <ons-list-item tappable>
+            <label class="left">
+              <ons-checkbox input-id="filter_toot"></ons-checkbox>
+            </label>
+            <label for="filter_toot" class="center">トゥート</label>
+          </ons-list-item>
+          <ons-list-item tappable>
+            <label class="left">
+              <ons-checkbox input-id="filter_follow"></ons-checkbox>
+            </label>
+            <label for="filter_follow" class="center">フォロー通知</label>
+          </ons-list-item>
+          <ons-list-item tappable>
+            <label class="left">
+              <ons-checkbox input-id="filter_mention"></ons-checkbox>
+            </label>
+            <label for="filter_mention" class="center">メンション通知</label>
+          </ons-list-item>
+          <ons-list-item tappable>
+            <label class="left">
+              <ons-checkbox input-id="filter_boost"></ons-checkbox>
+            </label>
+            <label for="filter_boost" class="center">ブースト通知</label>
+          </ons-list-item>
+          <ons-list-item tappable>
+            <label class="left">
+              <ons-checkbox input-id="filter_fav"></ons-checkbox>
+            </label>
+            <label for="filter_fav" class="center">お気に入り通知</label>
+          </ons-list-item>
+
+          <ons-list-header>プッシュ通知をミュート</ons-list-header>
+          <ons-list-item tappable>
+            <label class="left">
+              <ons-checkbox input-id="filterpush_all"></ons-checkbox>
+            </label>
+            <label for="filterpush_all" class="center">すべて</label>
+          </ons-list-item>
+          <ons-list-item tappable>
+            <label class="left">
+              <ons-checkbox input-id="filterpush_follow"></ons-checkbox>
+            </label>
+            <label for="filterpush_follow" class="center">フォロー</label>
+          </ons-list-item>
+          <ons-list-item tappable>
+            <label class="left">
+              <ons-checkbox input-id="filterpush_mention"></ons-checkbox>
+            </label>
+            <label for="filterpush_mention" class="center">メンション</label>
+          </ons-list-item>
+          <ons-list-item tappable>
+            <label class="left">
+              <ons-checkbox input-id="filterpush_reblog"></ons-checkbox>
+            </label>
+            <label for="filterpush_reblog" class="center">ブースト</label>
+          </ons-list-item>
+          <ons-list-item tappable>
+            <label class="left">
+              <ons-checkbox input-id="filterpush_favourite"></ons-checkbox>
+            </label>
+            <label for="filterpush_favourite" class="center">お気に入り</label>
+          </ons-list-item>
+        </ons-list>
+      </ons-page>
+    </ons-template>
+
     <ons-template id="config_TL.html">
       <ons-page id="config_TL-page">
         <ons-toolbar>
