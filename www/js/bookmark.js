@@ -19,7 +19,7 @@ function LoadBookmark() {
 }
 
 function renderBookmark_glitch() {
-  fetch("https://" + inst + "/api/v1/bookmarks", {
+  Fetch("https://" + inst + "/api/v1/bookmarks", {
     headers: {
       'content-type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
@@ -48,7 +48,7 @@ function renderBookmark_glitch() {
 }
 
 function renderBookmark(reshtml, json_bookmark, i) {
-  fetch("https://" + inst + "/api/v1/statuses/" + json_bookmark[i], {
+  Fetch("https://" + inst + "/api/v1/statuses/" + json_bookmark[i], {
     headers: {
       'content-type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
@@ -100,7 +100,7 @@ function changeBookmark(id) {
     saveBookmark(json);
   } else {
     var bookmark_mode = tl_postdata[id]["bookmarked"] ? "/unbookmark" : "/bookmark";
-    fetch("https://" + inst + "/api/v1/statuses/" + id + bookmark_mode, {
+    Fetch("https://" + inst + "/api/v1/statuses/" + id + bookmark_mode, {
       headers: {
         'content-type': 'application/json',
         'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
@@ -175,7 +175,7 @@ function migration_app2glitch() {
     if (json[inst][0]) {
       var i = 0;
       while (json[inst][i]) {
-        fetch("https://" + inst + "/api/v1/statuses/" + json[inst][i] + "/bookmark", {
+        Fetch("https://" + inst + "/api/v1/statuses/" + json[inst][i] + "/bookmark", {
           headers: {
             'content-type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')

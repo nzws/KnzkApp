@@ -1,7 +1,7 @@
 function reset_alert() {
   ons.notification.confirm('本当に通知を消去してもよろしいですか？', {title: '通知を消去'}).then(function (e) {
     if (e === 1) {
-      fetch("https://" + inst + "/api/v1/notifications/clear", {
+      Fetch("https://" + inst + "/api/v1/notifications/clear", {
         headers: {
           'content-type': 'application/json',
           'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
@@ -37,7 +37,7 @@ function showAlert(reload, more_load) {
     more_load.disabled = true;
     get = "?max_id=" + alert_old_id;
   }
-  fetch("https://" + inst + "/api/v1/notifications" + get, {
+  Fetch("https://" + inst + "/api/v1/notifications" + get, {
     headers: {
       'content-type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
@@ -213,7 +213,7 @@ function showTL(mode, reload, more_load, clear_load) {
   }
   if (more_load) more_load.className = "invisible";
   if (n) {
-    fetch("https://" + inst + "/api/v1/timelines/" + tlmode, {
+    Fetch("https://" + inst + "/api/v1/timelines/" + tlmode, {
       headers: {
         'content-type': 'application/json',
         'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
@@ -372,7 +372,7 @@ function showTagTL(tag, more_load) {
   } else {
     loadNav('showtag.html');
   }
-  fetch("https://" + inst + "/api/v1/timelines/tag/" + tag + get, {
+  Fetch("https://" + inst + "/api/v1/timelines/tag/" + tag + get, {
     headers: {
       'content-type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
@@ -430,7 +430,7 @@ function showAccountTL(id, more_load, mode = "", reload) {
     document.getElementById("account_toot").innerHTML = "<div class=\"loading-now\"><ons-progress-circular indeterminate></ons-progress-circular></div>";
   }
 
-  fetch("https://" + inst + "/api/v1/accounts/" + id + "/statuses" + get, {
+  Fetch("https://" + inst + "/api/v1/accounts/" + id + "/statuses" + get, {
     headers: {
       'content-type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')

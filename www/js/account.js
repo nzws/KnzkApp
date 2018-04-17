@@ -18,7 +18,7 @@ function show_account(id, navmode) {
   } else {
     loadNav('account.html');
   }
-  fetch("https://" + inst + "/api/v1/accounts/" + id, {
+  Fetch("https://" + inst + "/api/v1/accounts/" + id, {
     headers: {
       'content-type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
@@ -71,7 +71,7 @@ function show_account(id, navmode) {
     console.log(error);
   });
 
-  fetch("https://" + inst + "/api/v1/accounts/relationships?id=" + id, {
+  Fetch("https://" + inst + "/api/v1/accounts/relationships?id=" + id, {
     headers: {
       'content-type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
@@ -137,7 +137,7 @@ function account_state_action(id, mode) {
     url = acctdata["rs"][id][0]["blocking"] ? "/unblock" : "/block";
   }
 
-  fetch("https://" + inst + "/api/v1/accounts/" + id + url, {
+  Fetch("https://" + inst + "/api/v1/accounts/" + id + url, {
     headers: {
       'content-type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
@@ -212,7 +212,7 @@ function account_action(id) {
 }
 
 function show_account_name(username) {
-  fetch("https://" + inst + "/api/v1/search?q=" + username, {
+  Fetch("https://" + inst + "/api/v1/search?q=" + username, {
     headers: {
       'content-type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
@@ -256,7 +256,7 @@ function OpenQR(user) {
 }
 
 function update_userdata() {
-  fetch("https://" + inst + "/api/v1/accounts/update_credentials", {
+  Fetch("https://" + inst + "/api/v1/accounts/update_credentials", {
     headers: {
       'content-type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')

@@ -68,7 +68,7 @@ function up_file_suc(base64, mode_blob) {
     var formData = new FormData();
     formData.append('file', blob);
 
-    fetch("https://" + inst + "/api/v1/media", {
+    Fetch("https://" + inst + "/api/v1/media", {
       headers: {'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')},
       method: 'POST',
       body: formData
@@ -339,7 +339,7 @@ function post(id, option, simple) {
     }
     optiondata.media_ids = media_id;
   }
-  fetch("https://" + inst + "/api/v1/statuses", {
+  Fetch("https://" + inst + "/api/v1/statuses", {
     headers: {
       'content-type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')

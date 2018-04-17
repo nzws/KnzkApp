@@ -89,7 +89,7 @@ function list_n(mode, title, more_load, mode_toot, navmode) {
 }
 
 function followreq(id, mode) {
-  fetch("https://" + inst + "/api/v1/follow_requests/" + id + "/" + mode, {
+  Fetch("https://" + inst + "/api/v1/follow_requests/" + id + "/" + mode, {
     headers: {
       'content-type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
@@ -115,7 +115,7 @@ function followreq(id, mode) {
 function LoadrepStatus() {
   var i = 0, reshtml = "", repstatus = [];
   loadNav('olist_nav.html');
-  fetch("https://" + inst + "/api/v1/reports", {
+  Fetch("https://" + inst + "/api/v1/reports", {
     headers: {
       'content-type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')

@@ -8,7 +8,7 @@ function login_open(domain) {
     os_name = "DeskTop";
     uri = "urn:ietf:wg:oauth:2.0:oob";
   }
-  fetch("https://" + domain + "/api/v1/apps", {
+  Fetch("https://" + domain + "/api/v1/apps", {
     method: 'POST',
     headers: {'content-type': 'application/json'},
     body: JSON.stringify({
@@ -74,7 +74,7 @@ function login_callback(code) {
   } else if (platform !== "android") {
     uri = "urn:ietf:wg:oauth:2.0:oob";
   }
-  fetch("https://" + localStorage.getItem('knzkapp_tmp_domain') + "/oauth/token", {
+  Fetch("https://" + localStorage.getItem('knzkapp_tmp_domain') + "/oauth/token", {
     method: 'POST',
     headers: {'content-type': 'application/json'},
     body: JSON.stringify({
@@ -98,7 +98,7 @@ function login_callback(code) {
         localStorage.setItem('knzkapp_now_mastodon_domain', localStorage.getItem('knzkapp_tmp_domain'));
         inst = localStorage.getItem('knzkapp_tmp_domain');
 
-        fetch("https://" + inst + "/api/v1/accounts/verify_credentials", {
+        Fetch("https://" + inst + "/api/v1/accounts/verify_credentials", {
           headers: {'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')}
         }).then(function (response) {
           if (response.ok) {
@@ -135,7 +135,7 @@ function debug_login() {
   var token = document.getElementById("login_debug_token").value;
 
 
-  fetch("https://" + inst_domain + "/api/v1/accounts/verify_credentials", {
+  Fetch("https://" + inst_domain + "/api/v1/accounts/verify_credentials", {
     headers: {'Authorization': 'Bearer ' + token}
   }).then(function (response) {
     if (response.ok) {
@@ -202,7 +202,7 @@ function account_change(id) {
     var nid = parseInt(id);
     var next_account = list[nid];
     list.splice(nid, 1);
-    fetch("https://" + next_account["login_domain"] + "/api/v1/accounts/verify_credentials", {
+    Fetch("https://" + next_account["login_domain"] + "/api/v1/accounts/verify_credentials", {
       headers: {'Authorization': 'Bearer ' + next_account["login_token"]}
     }).then(function (response) {
       if (response.ok) {

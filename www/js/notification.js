@@ -53,7 +53,7 @@ function changeNotification(force) {
       body += key + "=" + encodeURIComponent(formdata[key]) + "&"
     }
     body += "d="+(new Date()).getTime();
-    fetch("https://" + config["server"] + "/"+is_unregister+"register", {
+    Fetch("https://" + config["server"] + "/"+is_unregister+"register", {
       headers: {
         'content-type': 'application/x-www-form-urlencoded; charset=utf-8',
         'Accept': 'application/json'
@@ -138,7 +138,7 @@ function setNotificationServer() {
   var config = LoadNotificationConfig();
   if (!config) config = {"option": {"notification": {"all": {}, "user": {}}, "keyword": []}, "server": "", "is_change": 0, "is_running": 0};
   if (!config["server"]) {
-    fetch(push_default_centerURL, {method: 'GET'}).then(function (response) {
+    Fetch(push_default_centerURL, {method: 'GET'}).then(function (response) {
       if (response.ok) {
         return response.json();
       } else {
