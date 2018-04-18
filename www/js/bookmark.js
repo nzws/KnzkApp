@@ -76,16 +76,14 @@ function renderBookmark(reshtml, json_bookmark, i) {
 }
 
 function initBookmark() {
-  if (!instance_config[inst]["glitch_soc"]) {
-    var bookmark = JSON.parse(localStorage.getItem("knzkapp_bookmark"));
-    if (bookmark == undefined) {
-      localStorage.setItem('knzkapp_bookmark', JSON.stringify({}));
-      bookmark = JSON.parse(localStorage.getItem("knzkapp_bookmark"));
-    }
-    if (!bookmark[inst]) {
-      bookmark[inst] = [];
-      localStorage.setItem('knzkapp_bookmark', JSON.stringify(bookmark));
-    }
+  var bookmark = JSON.parse(localStorage.getItem("knzkapp_bookmark"));
+  if (bookmark == undefined) {
+    localStorage.setItem('knzkapp_bookmark', JSON.stringify({}));
+    bookmark = JSON.parse(localStorage.getItem("knzkapp_bookmark"));
+  }
+  if (!bookmark[inst]) {
+    bookmark[inst] = [];
+    localStorage.setItem('knzkapp_bookmark', JSON.stringify(bookmark));
   }
 }
 
