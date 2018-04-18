@@ -129,7 +129,16 @@ function LoadrepStatus() {
       throw new Error();
     }
   }).then(function (json) {
-    json = json.reverse();
+    json.sort(function(a,b) {
+      let t = 0,
+        a_ = parseInt(a.id),
+        b_ = parseInt(b.id);
+
+      if(a_ < b_) t = 1;
+      if(a_ > b_) t = -1;
+
+      return t;
+    });
     reshtml += "<div class=\"toot\">\n" +
       "      あなたの通報が現在処理されているのか簡易的に確認することができます。\n" +
       "    </div>\n";
