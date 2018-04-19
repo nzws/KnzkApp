@@ -41,6 +41,13 @@ function SearchLoad() {
       i++;
     }
 
+    i = 0;
+    reshtml += "<ons-list><ons-list-header>トゥート</ons-list-header></ons-list>";
+    while (json['statuses'][i]) {
+      reshtml += toot_card(json['statuses'][i], "full");
+      i++;
+    }
+
     document.getElementById("olist_nav_main").innerHTML = reshtml;
   }).catch(function (error) {
     showtoast('cannot-pros');
