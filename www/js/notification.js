@@ -30,18 +30,19 @@ function resetLabel() {
 
 function changeNotification(force) {
   var config = LoadNotificationConfig();
-  var conf = $("[id^='noti-mute-']"), i = 0;
-  if (conf[0]) {
-    while (conf[i]) {
-      config["option"]["notification"]["all"][conf[i].id.replace("noti-mute-", "")] = conf[i].checked;
-      i++;
-    }
-    SetNotificationConfig("option",config["option"]);
-  }
-  if (!config["is_running"] && force) {
-    return;
-  }
   if (FCM_token) {
+    var conf = $("[id^='noti-mute-']"), i = 0;
+    if (conf[0]) {
+      while (conf[i]) {
+        config["option"]["notification"]["all"][conf[i].id.replace("noti-mute-", "")] = conf[i].checked;
+        i++;
+      }
+      SetNotificationConfig("option",config["option"]);
+    }
+    if (!config["is_running"] && force) {
+      if (conf[0]) showtoast("ok_conf");
+      return;
+    }
     var is_unregister = "";
     if (config["is_running"] && !force) {
       is_unregister = "un";
@@ -86,6 +87,7 @@ function changeNotification(force) {
     });
   } else {
     ons.notification.alert('FCMトークンの受信に失敗しました。<br>開発者にご連絡ください。', {title: 'エラー'});
+    document.getElementById("noti-mode").checked = !!is_unregister;
   }
 }
 
