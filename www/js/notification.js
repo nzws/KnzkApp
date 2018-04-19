@@ -30,6 +30,14 @@ function resetLabel() {
 
 function changeNotification(force) {
   var config = LoadNotificationConfig();
+  var conf = $("[id^='noti-mute-']"), i = 0;
+  if (conf[0]) {
+    while (conf[i]) {
+      config["option"]["notification"]["all"][conf[i].id.replace("noti-mute-", "")] = conf[i].checked;
+      i++;
+    }
+    SetNotificationConfig("option",config["option"]);
+  }
   if (!config["is_running"] && force) {
     return;
   }
@@ -70,6 +78,7 @@ function changeNotification(force) {
       }
     }).then(function (json) {
       SetNotificationConfig("is_running", is_unregister ? 0 : 1);
+      if (conf[0]) showtoast("ok_conf");
     }).catch(function (error) {
       document.getElementById("noti-mode").checked = !!is_unregister;
       showtoast('cannot-pros');
@@ -86,7 +95,6 @@ function addKeyWord() {
       var config = LoadNotificationConfig()["option"];
       config["keyword"].unshift(repcom);
       SetNotificationConfig("option",config);
-      showtoast("ok_conf");
       renderKeyWordList();
     }
   });
@@ -112,14 +120,6 @@ function KeyWord_del(id) {
   SetNotificationConfig("option",config);
   showtoast("del_ok");
   renderKeyWordList();
-}
-
-function changeConfNotificationMute(name) {
-  var config = LoadNotificationConfig()["option"],
-    mode = document.getElementById("noti-mute-"+name).checked;
-
-  config["notification"]["all"][name] = platform === "ios" ? mode !== true : mode === true;
-  SetNotificationConfig("option",config);
 }
 
 function LoadNotificationConfig() {
