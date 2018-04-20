@@ -58,6 +58,7 @@
     <config-file platform="ios" target="*-Info.plist" parent="NSCameraUsageDescription">
       <string>画像投稿にカメラを使用します。</string>
     </config-file>
+    <resource-file src="GoogleService-Info.plist" target="Resources/GoogleService-Info.plist"/>
   </platform>
   <platform name="android">
     <icon src="/res/android/icon/ldpi.png" density="ldpi"/>
