@@ -90,7 +90,6 @@
   <platform name="chrome">
     <icon src="/platforms/chrome/icon.png" width="128" height="128"/>
   </platform>
-  <preference name="android-minSdkVersion" value="21"/>
   <preference name="StatusBarStyle" value="lightcontent"/>
   <preference name="windows-target-version" value="10.0"/>
   <preference name="ios-XCBuildConfiguration-TARGETED_DEVICE_FAMILY" value="1,2"/>
