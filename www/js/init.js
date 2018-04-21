@@ -253,17 +253,6 @@ function initevent() {
 
     if (event.enterPage.id === "config_notification-page") {
       setNotificationServer();
-      show('now_loading');
-      setTimeout(function () {
-        document.getElementById("noti-mode").checked = !!LoadNotificationConfig()["is_running"];
-        var conf = $("[id^='noti-mute-']"), i = 0;
-        while (conf[i]) {
-          conf[i].checked = LoadNotificationConfig()["option"]["notification"]["all"][conf[i].id.replace("noti-mute-", "")];
-          i++;
-        }
-        renderKeyWordList();
-        hide('now_loading');
-      }, 500);
     }
 
     if (event.enterPage.id === "config_filter-page") {

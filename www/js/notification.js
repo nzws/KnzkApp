@@ -86,7 +86,7 @@ function changeNotification(force) {
       console.log(error);
     });
   } else {
-    ons.notification.alert('FCMトークンの受信に失敗しました。<br>開発者にご連絡ください。', {title: 'エラー'});
+    ons.notification.alert('FCMトークンの受信に失敗しました。<br>通知が無効になっている可能性があります。', {title: 'エラー'});
     document.getElementById("noti-mode").checked = !!is_unregister;
   }
 }
@@ -137,6 +137,7 @@ function SetNotificationConfig(n, data) {
 }
 
 function setNotificationServer() {
+  show('now_loading');
   var name = localStorage.getItem('knzkapp_now_mastodon_username')+"@"+inst;
   var config = LoadNotificationConfig();
   if (!config) config = {"option": {"notification": {"all": {}, "user": {}}, "keyword": []}, "server": "", "is_change": 0, "is_running": 0};
@@ -152,8 +153,19 @@ function setNotificationServer() {
       if (json[0]) {
         config["server"] = json[0];
         setConfig(4, name, config);
+        setTimeout(function () {
+          document.getElementById("noti-mode").checked = !!LoadNotificationConfig()["is_running"];
+          var conf = $("[id^='noti-mute-']"), i = 0;
+          while (conf[i]) {
+            conf[i].checked = LoadNotificationConfig()["option"]["notification"]["all"][conf[i].id.replace("noti-mute-", "")];
+            i++;
+          }
+          renderKeyWordList();
+          hide('now_loading');
+        }, 50);
       } else {
         ons.notification.alert('通知サーバーが見つかりませんでした。<br>開発者にご連絡ください。', {title: 'エラー'});
+        hide('now_loading');
       }
     }).catch(function (error) {
       showtoast('cannot-pros');
