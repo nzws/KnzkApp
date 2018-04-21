@@ -142,7 +142,6 @@ function openURL(url) {
         SafariViewController.show({
             url: url
           },
-          // this success handler will be invoked for the lifecycle events 'opened', 'loaded' and 'closed'
           function (result) {
             if (result.event === 'opened') {
               console.log('opened');
@@ -153,7 +152,7 @@ function openURL(url) {
             }
           },
           function (msg) {
-            console.log("KO: " + msg);
+            console.log("openURL["+ url +"]: " + msg);
           });
       } else {
         window.open(url, "_system");
