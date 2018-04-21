@@ -29,7 +29,7 @@ function login_open(domain) {
     localStorage.setItem('knzkapp_tmp_domain', inst_domain_tmp);
     localStorage.setItem('knzkapp_tmp_cid', json["client_id"]);
     localStorage.setItem('knzkapp_tmp_scr', json["client_secret"]);
-    var url = 'https://' + inst_domain_tmp + '/oauth/authorize?response_type=code&redirect_uri=' + uri + '&scope=read write follow&client_id=' + json["client_id"];
+    var url = 'https://' + inst_domain_tmp + '/oauth/authorize?response_type=code&redirect_uri=' + uri + '&scope=read+write+follow&client_id=' + json["client_id"];
     if (platform === "ios") {
       openURL(url);
     } else {
