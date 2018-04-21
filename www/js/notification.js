@@ -153,16 +153,7 @@ function setNotificationServer() {
       if (json[0]) {
         config["server"] = json[0];
         setConfig(4, name, config);
-        setTimeout(function () {
-          document.getElementById("noti-mode").checked = !!LoadNotificationConfig()["is_running"];
-          var conf = $("[id^='noti-mute-']"), i = 0;
-          while (conf[i]) {
-            conf[i].checked = LoadNotificationConfig()["option"]["notification"]["all"][conf[i].id.replace("noti-mute-", "")];
-            i++;
-          }
-          renderKeyWordList();
-          hide('now_loading');
-        }, 50);
+        initNotificationPage();
       } else {
         ons.notification.alert('通知サーバーが見つかりませんでした。<br>開発者にご連絡ください。', {title: 'エラー'});
         hide('now_loading');
@@ -171,5 +162,20 @@ function setNotificationServer() {
       showtoast('cannot-pros');
       console.log(error);
     });
+  } else {
+    initNotificationPage();
   }
+}
+
+function initNotificationPage() {
+  setTimeout(function () {
+    document.getElementById("noti-mode").checked = !!LoadNotificationConfig()["is_running"];
+    var conf = $("[id^='noti-mute-']"), i = 0;
+    while (conf[i]) {
+      conf[i].checked = LoadNotificationConfig()["option"]["notification"]["all"][conf[i].id.replace("noti-mute-", "")];
+      i++;
+    }
+    renderKeyWordList();
+    hide('now_loading');
+  }, 50);
 }
