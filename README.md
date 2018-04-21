@@ -48,8 +48,9 @@ Mastodonの基本機能はもちろん、いくつかのインスタンスの追
 ## 注意とか
 - masterは結構バグ多かったりするので非推奨です。
 - ビルドにはMonaca Pro以上のアカウントが必要です。
-- `www/config/config.sample.js`をリネームして`www/config/config.js`を生成し、sentry.ioのトークンを入力してください。
-<!-- - Firebaseで生成した`google-services.json` / `GoogleService-Info.plist`を`KnzkApp/`に設置して下さい -->
+- `www/config/config.sample.js`をコピーして`www/config/config.js`を生成し、sentry.ioのトークン、[KnzkApp Notification](https://github.com/yuzulabo/tusky-api)のセンターサーバーURLと認証キーを入力してください。
+> なお、is_debugをtrueにしてそれぞれ適当な文字列にしておけばデバッグ中は不要です。
+- Firebaseで生成した`google-services.json` / `GoogleService-Info.plist`をルートディレクトリに設置して下さい。
 
 ## License
 [KnzkApp License ( Restricted BSD License )](https://github.com/KnzkDev/KnzkApp/blob/master/LICENSE)
