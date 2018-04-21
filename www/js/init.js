@@ -387,16 +387,21 @@ function initevent() {
   }
 
   if (ons.isWebView()) {
-    FCMPlugin.onTokenRefresh(function(token) {
-      if (FCM_token) var t = true;
-      FCM_token = token;
-      if (!t) changeNotification(true);
-    });
-    FCMPlugin.getToken(function(token) {
-      if (FCM_token) var t = true;
-      FCM_token = token;
-      if (!t) changeNotification(true);
-    });
+    try {
+      FCMPlugin.onTokenRefresh(function(token) {
+        if (FCM_token) var t = true;
+        FCM_token = token;
+        if (!t) changeNotification(true);
+      });
+      FCMPlugin.getToken(function(token) {
+        if (FCM_token) var t = true;
+        FCM_token = token;
+        if (!t) changeNotification(true);
+      });
+    } catch (e) {
+      ons.notification.alert('FCMトークンの受信に失敗しました。<br>このままでもお使い頂けますが、プッシュ通知の配信が行えない可能性があります。', {title: 'エラー'});
+      sendLog("Error/FCM", "");
+    }
   }
 }
 
