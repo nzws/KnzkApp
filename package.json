@@ -20,12 +20,17 @@
             "cordova-custom-config": {},
             "cordova-plugin-inappbrowser": {},
             "cordova-plugin-statusbar": {},
+            "cordova-plugin-camera": {
+                "CAMERA_USAGE_DESCRIPTION": "This operation needs camera access to take pictures.",
+                "PHOTOLIBRARY_USAGE_DESCRIPTION": "This operation needs photo library access to get pictures."
+            },
             "cordova-plugin-safariviewcontroller": {},
             "cordova-plugin-customurlscheme": {
                 "URL_SCHEME": "knzkapp"
             },
             "cordova-plugin-fcm": {},
-            "cordova-clipboard": {}
+            "cordova-clipboard": {},
+            "cordova-plugin-file": {}
         }
     },
     "dependencies": {
@@ -38,7 +43,9 @@
         "cordova-plugin-whitelist": "1.3.3",
         "monaca-plugin-monaca-core": "3.2.0",
         "cordova-plugin-fcm": "git+https:\/\/github.com\/yuzulabo\/cordova-plugin-fcm",
-        "cordova-clipboard": "git+https:\/\/github.com\/yuzulabo\/cordova-clipboard"
+        "cordova-clipboard": "git+https:\/\/github.com\/yuzulabo\/cordova-clipboard",
+        "cordova-plugin-camera": "4.0.3",
+        "cordova-plugin-file": "5.0.0"
     },
     "devDependencies": []
 }

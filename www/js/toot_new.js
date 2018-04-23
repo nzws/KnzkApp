@@ -31,23 +31,32 @@ function post_vote() {
 }
 
 function up_file(simple) {
-  var simple_id = "";
-  if (simple) image_mode = simple_id = "_simple"; else image_mode = simple_id = "";
-  var card = document.getElementsByClassName("media-upload" + simple_id);
-  if (card.length >= 4) {
-    showtoast("maximum-media");
-  } else {
-    var file = $('#post_file' + simple_id)[0].files[0];
-    var fileReader = new FileReader();
-    fileReader.onloadend = function (e) {
-      var arrayBuffer = e.target.result;
-      blobUtil.arrayBufferToBlob(arrayBuffer, file.type).then(function (blob) {
+    var simple_id = "";
+    if (simple) image_mode = simple_id = "_simple"; else image_mode = simple_id = "";
+    var card = document.getElementsByClassName("media-upload"+simple_id);
+    if (card.length >= 4) {
+        showtoast("maximum-media");
+    } else {
+        navigator.camera.getPicture(up_file_onSuccess, file_error,
+            { quality: 100,
+                destinationType: Camera.DestinationType.FILE_URI,
+                sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                encodingType: 1
+            });
+    }
+}
+
+function up_file_onSuccess(URI) {
+  window.resolveLocalFileSystemURL(URI, function (fileEntry) {
+    fileEntry.file(function (file) {
+      var reader = new FileReader();
+      reader.onloadend = function(event) {
+        var blob = new Blob([event.target.result]);
         up_file_suc(null, blob);
-        $('#post_file' + simple_id).val("");
-      }).catch(console.log.bind(console));
-    };
-    fileReader.readAsArrayBuffer(file);
-  }
+      };
+      reader.readAsArrayBuffer(file);
+    }, file_error);
+  }, file_error);
 }
 
 function up_file_suc(base64, mode_blob) {
@@ -104,6 +113,10 @@ function file_del(card) {
       card.parentNode.removeChild(card);
     }
   });
+}
+
+function file_error(msg) {
+    console.log(msg);
 }
 
 function post_nsfw(simple) {

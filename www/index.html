@@ -18,7 +18,6 @@
     <script src="lib/jquery-3.2.1.slim.min.js" async></script>
     <script src="lib/twitter.relative.time.min.js" async></script>
     <script src="lib/fetch.js" async></script>
-    <script src="lib/blob-util.min.js" async></script>
     <script src="lib/atrament.min.js" async></script>
     <script src="lib/twemoji/twemoji.min.js" async></script>
     <link rel="stylesheet" href="css/theme-roller/components.css">
@@ -556,7 +555,7 @@
             <div id="image_list_simple"></div>
             </p>
             <p>
-              <ons-button onclick="$('#post_file_simple').click()" class="w-max">画像追加</ons-button>
+              <ons-button onclick="up_file(true)" class="w-max">画像追加</ons-button>
             </p>
             <p>
               <ons-button onclick="post_nsfw(true)" style="margin-bottom: 5px" id="nsfw_bt_simple" modifier="quiet">
@@ -1381,7 +1380,7 @@
             <input type="hidden" id="post_mode" value="public">
             <input type="hidden" id="post_reply">
             <input type="file" id="post_file" class="invisible" onchange="up_file()" accept="image/*;capture=camera">
-            <ons-button modifier="quiet" onclick="$('#post_file').click()" style="border-radius: 0" id="new_up_bt">
+            <ons-button modifier="quiet" onclick="up_file()" style="border-radius: 0" id="new_up_bt">
               <ons-icon icon="fa-picture-o"></ons-icon>
             </ons-button>
             <ons-button modifier="quiet" onclick="post_nsfw()" style="border-radius: 0" id="nsfw_bt">
