@@ -42,7 +42,7 @@ function show_account(id, navmode) {
         bio_field = "<div class=\"account_bar account_bar_mode\" style='border-top:none'>";
         while (json["fields"][i]) {
           bio_field += "<div class=\"account_links\">" +
-            "<span class=\"account_tab fields_left\">"+json["fields"][i]["name"]+"</span>" +
+            "<span class=\"account_tab fields_left\">"+escapeHTML(json["fields"][i]["name"])+"</span>" +
             "<span class=\"account_tab acctTL_now fields_right\">"+json["fields"][i]["value"]+"</span>" +
             "</div>";
           i++;
