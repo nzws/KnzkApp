@@ -181,11 +181,11 @@ function getParam(val) {
 }
 
 function escapeHTML(text) {
-  text = text.replace(/"/g, "&quot;");
-  text = text.replace(/'/g, "&#39;");
-  text = text.replace(/&/g, "&amp;");
-  text = text.replace(/</g, "&lt;");
-  text = text.replace(/>/g, "&gt;");
+  text = text.replace(/"/g, "\"")
+    .replace(/'/g, "\'")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 
   return text;
 }
