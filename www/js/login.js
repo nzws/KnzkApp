@@ -86,7 +86,7 @@ function login_callback(code) {
     })
   }).then(function (response) {
     if (response.ok) {
-      if (localStorage.getItem('knzkapp_now_mastodon_username')) account_change();
+      if (now_userconf["username"]) account_change();
     } else {
       sendLog("Error/oauth_token", response.json);
     }
@@ -99,7 +99,7 @@ function login_callback(code) {
         inst = localStorage.getItem('knzkapp_tmp_domain');
 
         Fetch("https://" + inst + "/api/v1/accounts/verify_credentials", {
-          headers: {'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')}
+          headers: {'Authorization': 'Bearer ' + now_userconf["token"]}
         }).then(function (response) {
           if (response.ok) {
             return response.json();
@@ -139,7 +139,7 @@ function debug_login() {
     headers: {'Authorization': 'Bearer ' + token}
   }).then(function (response) {
     if (response.ok) {
-      if (localStorage.getItem('knzkapp_now_mastodon_username')) account_change();
+      if (now_userconf["username"]) account_change();
       return response.json();
     } else {
       //デバッガなのでいらない
@@ -192,10 +192,10 @@ function account_change(id) {
   var list = JSON.parse(localStorage.getItem("knzkapp_account_list"));
 
   var now = {
-    "username": localStorage.getItem('knzkapp_now_mastodon_username'),
-    "userid": localStorage.getItem('knzkapp_now_mastodon_id'),
-    "login_token": localStorage.getItem('knzkapp_now_mastodon_token'),
-    "login_domain": localStorage.getItem('knzkapp_now_mastodon_domain')
+    "username": now_userconf["username"],
+    "userid": now_userconf["id"],
+    "login_token": now_userconf["token"],
+    "login_domain": localStorage.getItem('knzkapp_now_domain')
   };
 
   if (id) {

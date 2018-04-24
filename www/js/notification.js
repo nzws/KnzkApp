@@ -5,7 +5,7 @@ function startWatching() {
       Notification_ws = null;
     }
     if (!getConfig(1, 'no_unread_label')) {
-      Notification_ws = new WebSocket("wss://" + inst + "/api/v1/streaming/?access_token=" + localStorage.getItem('knzkapp_now_mastodon_token') + "&stream=user");
+      Notification_ws = new WebSocket("wss://" + inst + "/api/v1/streaming/?access_token=" + now_userconf["token"] + "&stream=user");
       Notification_ws.onopen = function () {
         Notification_ws.onmessage = function (message) {
           var ws_resdata = JSON.parse(message.data);
@@ -51,11 +51,11 @@ function changeNotification(force) {
     var formdata = {
       'server_key': push_default_serverKey,
       'instance_url': inst,
-      'access_token': localStorage.getItem('knzkapp_now_mastodon_token'),
+      'access_token': now_userconf["token"],
       'device_token': FCM_token,
       'option': JSON.stringify(config["option"]),
       'language': "ja",
-      'username': localStorage.getItem('knzkapp_now_mastodon_username'),
+      'username': now_userconf["username"],
       'app_name': version
     };
     var body = "";
@@ -124,12 +124,12 @@ function KeyWord_del(id) {
 }
 
 function LoadNotificationConfig() {
-  var name = localStorage.getItem('knzkapp_now_mastodon_username')+"@"+inst;
+  var name = now_userconf["username"]+"@"+inst;
   return getConfig(4, name);
 }
 
 function SetNotificationConfig(n, data) {
-  var name = localStorage.getItem('knzkapp_now_mastodon_username')+"@"+inst;
+  var name = now_userconf["username"]+"@"+inst;
   var config = getConfig(4, name);
   config[n] = data;
   setConfig(4, name, config);
@@ -137,7 +137,7 @@ function SetNotificationConfig(n, data) {
 
 function setNotificationServer() {
   show('now_loading');
-  var name = localStorage.getItem('knzkapp_now_mastodon_username')+"@"+inst;
+  var name = now_userconf["username"]+"@"+inst;
   var config = LoadNotificationConfig();
   if (!config) config = {"option": {"notification": {"all": {}, "user": {}}, "keyword": []}, "server": "", "is_change": 0, "is_running": 0};
   if (!config["server"]) {

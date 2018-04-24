@@ -243,7 +243,7 @@ function vote_item(q, obj, id) {
   Fetch("https://" + inst + "/api/v1/votes/" + id, {
     headers: {
       'content-type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+      'Authorization': 'Bearer ' + now_userconf["token"]
     },
     method: 'POST',
     body: JSON.stringify({
@@ -298,7 +298,7 @@ function toot_action(id, mode, action_mode) {
   Fetch("https://" + inst + "/api/v1/statuses/" + id + url, {
     headers: {
       'content-type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+      'Authorization': 'Bearer ' + now_userconf["token"]
     },
     method: 'POST'
   }).then(function (response) {
@@ -352,14 +352,14 @@ function reply(id, visibility) {
   var acct = "", i = 0;
   if (tl_postdata[id]["mentions"][0]) {
     while (tl_postdata[id]["mentions"][i]) {
-      if (tl_postdata[id]["mentions"][i]["acct"] !== localStorage.getItem('knzkapp_now_mastodon_username')) {
+      if (tl_postdata[id]["mentions"][i]["acct"] !== now_userconf["username"]) {
         acct += "@" + tl_postdata[id]["mentions"][i]["acct"] + " ";
       }
       i++;
     }
     tmp_text_pre = acct;
   }
-  if (tl_postdata[id]["account"]["acct"] !== localStorage.getItem('knzkapp_now_mastodon_username')) {
+  if (tl_postdata[id]["account"]["acct"] !== now_userconf["username"]) {
     tmp_text_pre += "@" + tl_postdata[id]["account"]["acct"] + " ";
   }
   tmp_post_reply = id;
@@ -394,7 +394,7 @@ function pin_set(id) {
   Fetch("https://" + inst + "/api/v1/statuses/" + id + pin_mode, {
     headers: {
       'content-type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+      'Authorization': 'Bearer ' + now_userconf["token"]
     },
     method: 'POST'
   }).then(function (response) {
@@ -416,7 +416,7 @@ function more(id) {
   var url = tl_postdata[id]["url"], acct = tl_postdata[id]["account"]["acct"];
   more_status_id = "" + id;
   more_acct_id = tl_postdata[id]["account"]["id"];
-  if (localStorage.getItem('knzkapp_now_mastodon_id') === tl_postdata[id]["account"]["id"]) {
+  if (now_userconf["id"] === tl_postdata[id]["account"]["id"]) {
     var pin = tl_postdata[id]["pinned"] === true ? "ピン留め解除" : "ピン留め";
     ons.openActionSheet({
       cancelable: true,
@@ -486,7 +486,7 @@ function delete_post() {
       Fetch("https://" + inst + "/api/v1/statuses/" + more_status_id, {
         headers: {
           'content-type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+          'Authorization': 'Bearer ' + now_userconf["token"]
         },
         method: 'DELETE'
       }).then(function (response) {
@@ -522,7 +522,7 @@ function show_post(id, near) {
   Fetch("https://" + inst + "//api/v1/statuses/" + id, {
     headers: {
       'content-type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+      'Authorization': 'Bearer ' + now_userconf["token"]
     },
     method: 'GET'
   }).then(function (response) {
@@ -540,7 +540,7 @@ function show_post(id, near) {
         Fetch("https://" + inst + "/api/v1/timelines/public?local=true&limit=10&max_id=" + id, {
           headers: {
             'content-type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+            'Authorization': 'Bearer ' + now_userconf["token"]
           },
           method: 'GET'
         }).then(function (response) {
@@ -564,7 +564,7 @@ function show_post(id, near) {
         Fetch("https://" + inst + "//api/v1/statuses/" + id + "/context", {
           headers: {
             'content-type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+            'Authorization': 'Bearer ' + now_userconf["token"]
           },
           method: 'GET'
         }).then(function (response) {
@@ -601,7 +601,7 @@ function report() {
       Fetch("https://" + inst + "/api/v1/reports", {
         headers: {
           'content-type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+          'Authorization': 'Bearer ' + now_userconf["token"]
         },
         method: 'POST',
         body: JSON.stringify({

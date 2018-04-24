@@ -6,9 +6,10 @@ function init() {
   } else {
     show('now_loading');
 
-    if (localStorage.getItem('knzkapp_now_mastodon_token')) {
+    if (localStorage.getItem('knzkapp_now_token')) {
       try {
-        inst = localStorage.getItem('knzkapp_now_mastodon_domain').toLowerCase();
+        now_userconf = {token:localStorage.getItem('knzkapp_now_token'),id:localStorage.getItem('knzkapp_now_id'),username:localStorage.getItem('knzkapp_now_username')};
+        inst = localStorage.getItem('knzkapp_now_domain').toLowerCase();
 
         if (getConfig(1, 'theme')) document.getElementById("theme_css").href = getConfig(1, 'theme');
 
@@ -45,7 +46,7 @@ function init() {
         }
       }).then(function (json) {
         Fetch("https://" + inst + "/api/v1/accounts/verify_credentials", {
-          headers: {'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')}
+          headers: {'Authorization': 'Bearer ' + now_userconf["token"]}
         }).then(function (response) {
           if (response.ok) {
             return response.json();
@@ -58,8 +59,8 @@ function init() {
             timeline_config = getConfig(3, "config");
             timeline_default_tab = getConfig(3, "default") === "" ? 0 : getConfig(3, "default");
 
-            if (localStorage.getItem('knzkapp_now_mastodon_id') == undefined) localStorage.setItem('knzkapp_now_mastodon_id', json.id);
-            if (localStorage.getItem('knzkapp_now_mastodon_username') == undefined) localStorage.setItem('knzkapp_now_mastodon_username', json.username);
+            if (now_userconf["id"] == undefined) localStorage.setItem('knzkapp_now_mastodon_id', json.id);
+            if (now_userconf["username"] == undefined) localStorage.setItem('knzkapp_now_mastodon_username', json.username);
             initBookmark();
 
             if (json.source) {
@@ -220,7 +221,7 @@ function initevent() {
     if (event.enterPage.id === "userconf-page") {
       show('now_loading');
       Fetch("https://" + inst + "/api/v1/accounts/verify_credentials", {
-        headers: {'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')}
+        headers: {'Authorization': 'Bearer ' + now_userconf["token"]}
       }).then(function (response) {
         if (response.ok) {
           return response.json();
@@ -260,7 +261,7 @@ function initevent() {
     }
 
     if (event.enterPage.id === "login-page") {
-      if (localStorage.getItem('knzkapp_now_mastodon_token')) {
+      if (now_userconf["token"]) {
         setTimeout(function () {
           document.getElementById("login_left").innerHTML = "<ons-toolbar-button onclick=\"BackTab()\" class=\"toolbar-button\">\n" +
             "                    <ons-icon icon=\"fa-chevron-left\" class=\"ons-icon fa-chevron-left fa\"></ons-icon>\n" +

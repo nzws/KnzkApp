@@ -78,7 +78,7 @@ function up_file_suc(base64, mode_blob) {
     formData.append('file', blob);
 
     Fetch("https://" + inst + "/api/v1/media", {
-      headers: {'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')},
+      headers: {'Authorization': 'Bearer ' + now_userconf["token"]},
       method: 'POST',
       body: formData
     }).then(function (response) {
@@ -356,7 +356,7 @@ function post(id, option, simple) {
   Fetch("https://" + inst + "/api/v1/statuses", {
     headers: {
       'content-type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+      'Authorization': 'Bearer ' + now_userconf["token"]
     },
     method: 'POST',
     body: JSON.stringify(optiondata)

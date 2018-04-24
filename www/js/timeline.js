@@ -4,7 +4,7 @@ function reset_alert() {
       Fetch("https://" + inst + "/api/v1/notifications/clear", {
         headers: {
           'content-type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+          'Authorization': 'Bearer ' + now_userconf["token"]
         },
         method: 'POST'
       }).then(function (response) {
@@ -40,7 +40,7 @@ function showAlert(reload, more_load) {
   Fetch("https://" + inst + "/api/v1/notifications" + get, {
     headers: {
       'content-type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+      'Authorization': 'Bearer ' + now_userconf["token"]
     },
     method: 'GET'
   }).then(function (response) {
@@ -219,7 +219,7 @@ function showTL(mode, reload, more_load, clear_load) {
     Fetch("https://" + inst + "/api/v1/timelines/" + tlmode, {
       headers: {
         'content-type': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+        'Authorization': 'Bearer ' + now_userconf["token"]
       },
       method: 'GET'
     }).then(function (response) {
@@ -249,7 +249,7 @@ function showTL(mode, reload, more_load, clear_load) {
 
             if (!reload && !more_load) {
               var instance_ws = inst, now_tab = timeline_now_tab;
-              var ws_url = "wss://" + inst + "/api/v1/streaming/?access_token=" + localStorage.getItem('knzkapp_now_mastodon_token') + "&stream=" + ws_mode;
+              var ws_url = "wss://" + inst + "/api/v1/streaming/?access_token=" + now_userconf["token"] + "&stream=" + ws_mode;
               if (TL_websocket[now_tab]) {
                 try {TL_websocket[now_tab].close();} catch (e) {}
                 TL_websocket[now_tab] = null;
@@ -378,7 +378,7 @@ function showTagTL(tag, more_load) {
   Fetch("https://" + inst + "/api/v1/timelines/tag/" + tag + get, {
     headers: {
       'content-type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+      'Authorization': 'Bearer ' + now_userconf["token"]
     },
     method: 'GET'
   }).then(function (response) {
@@ -436,7 +436,7 @@ function showAccountTL(id, more_load, mode = "", reload) {
   Fetch("https://" + inst + "/api/v1/accounts/" + id + "/statuses" + get, {
     headers: {
       'content-type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+      'Authorization': 'Bearer ' + now_userconf["token"]
     },
     method: 'GET'
   }).then(function (response) {

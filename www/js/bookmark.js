@@ -22,7 +22,7 @@ function renderBookmark_glitch() {
   Fetch("https://" + inst + "/api/v1/bookmarks", {
     headers: {
       'content-type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+      'Authorization': 'Bearer ' + now_userconf["token"]
     },
     method: 'GET'
   }).then(function (response) {
@@ -51,7 +51,7 @@ function renderBookmark(reshtml, json_bookmark, i) {
   Fetch("https://" + inst + "/api/v1/statuses/" + json_bookmark[i], {
     headers: {
       'content-type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+      'Authorization': 'Bearer ' + now_userconf["token"]
     },
     method: 'GET'
   }).then(function (response) {
@@ -101,7 +101,7 @@ function changeBookmark(id) {
     Fetch("https://" + inst + "/api/v1/statuses/" + id + bookmark_mode, {
       headers: {
         'content-type': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+        'Authorization': 'Bearer ' + now_userconf["token"]
       },
       method: 'POST'
     }).then(function (response) {
@@ -176,7 +176,7 @@ function migration_app2glitch() {
         Fetch("https://" + inst + "/api/v1/statuses/" + json[inst][i] + "/bookmark", {
           headers: {
             'content-type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+            'Authorization': 'Bearer ' + now_userconf["token"]
           },
           method: 'POST'
         }).then(function (response) {

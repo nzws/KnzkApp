@@ -8,7 +8,7 @@ function SearchLoad() {
   Fetch("https://" + inst + "/api/v1/search?q=" + q, {
     headers: {
       'content-type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+      'Authorization': 'Bearer ' + now_userconf["token"]
     },
     method: 'GET'
   }).then(function (response) {

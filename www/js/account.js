@@ -21,7 +21,7 @@ function show_account(id, navmode) {
   Fetch("https://" + inst + "/api/v1/accounts/" + id, {
     headers: {
       'content-type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+      'Authorization': 'Bearer ' + now_userconf["token"]
     },
     method: 'GET'
   }).then(function (response) {
@@ -89,7 +89,7 @@ function show_account(id, navmode) {
   Fetch("https://" + inst + "/api/v1/accounts/relationships?id=" + id, {
     headers: {
       'content-type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+      'Authorization': 'Bearer ' + now_userconf["token"]
     },
     method: 'GET'
   }).then(function (response) {
@@ -124,7 +124,7 @@ function show_account(id, navmode) {
     } else
       document.getElementById("userpage-block-badge").className = "invisible";
 
-    if (json[0]["id"] == localStorage.getItem('knzkapp_now_mastodon_id')) {
+    if (json[0]["id"] == now_userconf["id"]) {
       document.getElementById("userpage-follow-button").className = "invisible";
       document.getElementById("userpage-follower-badge").className = "invisible";
     }
@@ -155,7 +155,7 @@ function account_state_action(id, mode) {
   Fetch("https://" + inst + "/api/v1/accounts/" + id + url, {
     headers: {
       'content-type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+      'Authorization': 'Bearer ' + now_userconf["token"]
     },
     method: 'POST'
   }).then(function (response) {
@@ -177,7 +177,7 @@ function account_state_action(id, mode) {
 }
 
 function account_action(id) {
-  if (localStorage.getItem('knzkapp_now_mastodon_id') == id) {
+  if (now_userconf["id"] == id) {
     ons.openActionSheet({
       cancelable: true,
       buttons: [
@@ -230,7 +230,7 @@ function show_account_name(username) {
   Fetch("https://" + inst + "/api/v1/search?q=" + username, {
     headers: {
       'content-type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+      'Authorization': 'Bearer ' + now_userconf["token"]
     },
     method: 'GET'
   }).then(function (response) {
@@ -274,7 +274,7 @@ function update_userdata() {
   Fetch("https://" + inst + "/api/v1/accounts/update_credentials", {
     headers: {
       'content-type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('knzkapp_now_mastodon_token')
+      'Authorization': 'Bearer ' + now_userconf["token"]
     },
     method: 'PATCH',
     body: JSON.stringify({

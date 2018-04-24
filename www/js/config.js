@@ -56,7 +56,7 @@ function setConfig(name, id, value) { //data->1: 基本設定, data->2: col
 }
 
 function ConfigSetup() {
-  var last_version = 4;
+  var last_version = 5;
 
   if (!localStorage.getItem('knzkapp_conf_mastodon')) {
     if (localStorage.getItem('knzk_realtime') == undefined) localStorage.setItem('knzk_realtime', 1);
@@ -116,6 +116,24 @@ function ConfigSetup() {
     if (now_version < 4) {
       localStorage.setItem('knzkapp_conf_mastodon_push', JSON.stringify({}));
       localStorage.setItem('knzkapp_conf_mastodon_filter', JSON.stringify({"notification":{}}));
+    }
+    if (now_version < 5) {
+      localStorage.setItem('knzkapp_now_token', localStorage.getItem('knzkapp_now_mastodon_token'));
+      localStorage.setItem('knzkapp_now_id', localStorage.getItem('knzkapp_now_mastodon_id'));
+      localStorage.setItem('knzkapp_now_username', localStorage.getItem('knzkapp_now_mastodon_username'));
+      localStorage.setItem('knzkapp_now_domain', localStorage.getItem('knzkapp_now_mastodon_domain'));
+      localStorage.removeItem('knzkapp_now_mastodon_token');
+      localStorage.removeItem('knzkapp_now_mastodon_id');
+      localStorage.removeItem('knzkapp_now_mastodon_username');
+      localStorage.removeItem('knzkapp_now_mastodon_domain');
+
+      var acctlist = JSON.parse(localStorage.getItem('knzkapp_account_list'));
+      mig_i = 0;
+      while (acctlist[mig_i]) {
+        acctlist[mig_i]["service"] = "mastodon";
+        mig_i++;
+      }
+      localStorage.setItem('knzkapp_account_list', JSON.stringify(acctlist));
     }
 
     localStorage.setItem('knzkapp_conf_version', last_version);
