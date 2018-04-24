@@ -31,19 +31,19 @@ function post_vote() {
 }
 
 function up_file(simple) {
-    var simple_id = "";
-    if (simple) image_mode = simple_id = "_simple"; else image_mode = simple_id = "";
-    var card = document.getElementsByClassName("media-upload"+simple_id);
-    if (card.length >= 4) {
-        showtoast("maximum-media");
-    } else {
-        navigator.camera.getPicture(up_file_onSuccess, file_error,
-            { quality: 100,
-                destinationType: Camera.DestinationType.FILE_URI,
-                sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-                encodingType: 1
-            });
-    }
+  var simple_id = "";
+  if (simple) image_mode = simple_id = "_simple"; else image_mode = simple_id = "";
+  var card = document.getElementsByClassName("media-upload"+simple_id);
+  if (card.length >= 4) {
+    showtoast("maximum-media");
+  } else {
+    navigator.camera.getPicture(up_file_onSuccess, file_error,
+      { quality: 100,
+        destinationType: Camera.DestinationType.FILE_URI,
+        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+        encodingType: 1
+      });
+  }
 }
 
 function up_file_onSuccess(URI) {
@@ -116,7 +116,8 @@ function file_del(card) {
 }
 
 function file_error(msg) {
-    console.log(msg);
+  showtoast('cannot-post');
+  console.log(msg);
 }
 
 function post_nsfw(simple) {
