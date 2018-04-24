@@ -11,10 +11,14 @@ function startWatching() {
           var ws_resdata = JSON.parse(message.data);
 
           if (ws_resdata.event === "notification") {
-            Notification_num++;
-            var noti = $(".noti_unread");
-            noti.removeClass("invisible");
-            noti.html(Notification_num);
+            ws_resdata = JSON.parse(ws_resdata.payload);
+            var filter = getConfig(5, (ws_resdata['account']['acct'].indexOf("@") === -1 ? ws_resdata['account']['acct'] + "@" + inst : ws_resdata['account']['acct']).toLowerCase());
+            if (!((ws_resdata["type"] === "favourite" && filter["fav"]) || (ws_resdata["type"] === "reblog" && filter["boost"]) || (ws_resdata["type"] === "mention" && filter["mention"]))) {
+              Notification_num++;
+              var noti = $(".noti_unread");
+              noti.removeClass("invisible");
+              noti.html(Notification_num);
+            }
           }
         };
       };
