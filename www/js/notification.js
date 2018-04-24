@@ -106,9 +106,8 @@ function renderKeyWordList() {
   var config = LoadNotificationConfig();
   var reshtml = "", i = 0;
   while (config["option"]["keyword"][i]) {
-    reshtml += "<ons-list-item>" +
-      "<div class=\"center\"><span class=\"list-item__title\">" + config["option"]["keyword"][i] + "</span></div>" +
-      " <div class=\"right\" onclick='KeyWord_del(\"" + i + "\")'><span class=\"list-item__title\"><i class=\"list-item__icon list-item--chevron__icon ons-icon fa-trash fa fa-fw\"></i></span></div>\n" +
+    reshtml += "<ons-list-item onclick='KeyWord_del(" + i + ")'>" +
+      "<span class=\"list-item__title\">" + escapeHTML(config["option"]["keyword"][i]) + "</span>" +
       "</ons-list-item>\n";
     i++;
   }
