@@ -736,3 +736,11 @@ img.emoji {
 .toot_flex > div {
   z-index: 1;
 }
+
+.fields_left {
+  width: 60%;
+}
+
+.fields_right {
+  width: 100%;
+}
