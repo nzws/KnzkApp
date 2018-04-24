@@ -288,7 +288,7 @@ html, body {
   display: flex;
 }
 
-#accountTL_mode {
+.account_bar_mode {
   background-color: #1f232b;
 }
 

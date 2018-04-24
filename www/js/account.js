@@ -36,11 +36,26 @@ function show_account(id, navmode) {
     account_page_id = json.id;
     account_page_acct = json.acct;
 
+    var bio_field = "", i = 0;
+    if (json["fields"]) {
+      if (json["fields"][0]) {
+        bio_field = "<div class=\"account_bar account_bar_mode\" style='border-top:none'>";
+        while (json["fields"][i]) {
+          bio_field += "<div class=\"account_links\">" +
+            "<span class=\"account_tab\">"+json["fields"][i]["name"]+"</span>" +
+            "<span class=\"account_tab acctTL_now\">"+json["fields"][i]["value"]+"</span>" +
+            "</div>";
+          i++;
+        }
+        bio_field += "</div>";
+      }
+    }
+
     if (!json.display_name) json.display_name = json.username;
     document.getElementById("userpage-name").innerHTML = t_text(escapeHTML(json.display_name));
     document.getElementById("userpage-title").innerHTML = "@" + json.acct;
     document.getElementById("userpage-acct").innerHTML = "@" + json.acct;
-    document.getElementById("userpage-bio").innerHTML = t_text(json.note);
+    document.getElementById("userpage-bio").innerHTML = t_text(json.note) + bio_field;
     document.getElementById("userpage-icon").src = json[getConfig(1, 'no_gif') ? "avatar_static" : "avatar"];
     document.getElementById("userpage-bg").setAttribute('style', 'background-image: url(\'' + json[getConfig(1, 'no_gif') ? "header_static" : "header"] + '\');');
     document.getElementById("userpage-follow").innerHTML = json.following_count;

@@ -115,7 +115,7 @@ a, a:link, a:visited, a:hover {
   border-top: 1px solid #393f4f;
 }
 
-#accountTL_mode {
+.account_bar_mode {
   background-color: #111111;
 }
 
