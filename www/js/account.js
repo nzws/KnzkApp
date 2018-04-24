@@ -124,7 +124,7 @@ function show_account(id, navmode) {
     } else
       document.getElementById("userpage-block-badge").className = "invisible";
 
-    if (json[0]["id"] == now_userconf["id"]) {
+    if (json[0]["id"] === now_userconf["id"]) {
       document.getElementById("userpage-follow-button").className = "invisible";
       document.getElementById("userpage-follower-badge").className = "invisible";
     }
