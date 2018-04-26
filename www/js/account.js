@@ -36,18 +36,18 @@ function show_account(id, navmode) {
     account_page_id = json.id;
     account_page_acct = json.acct;
 
-    var bio_field = "", i = 0;
+    var bio_field = "", i = 0, border_style = "";
     if (json["fields"]) {
       if (json["fields"][0]) {
-        bio_field = "<div class=\"account_bar account_bar_mode\" style='border-top:none'>";
         while (json["fields"][i]) {
-          bio_field += "<div class=\"account_links\">" +
+          border_style = i === 0 ? "style='border-top:none'" : "";
+          bio_field += "<div class=\"account_bar account_bar_mode\" " + border_style + ">" +
+            "<div class=\"account_links\">" +
             "<span class=\"account_tab fields_left\">"+escapeHTML(json["fields"][i]["name"])+"</span>" +
             "<span class=\"account_tab acctTL_now fields_right\">"+json["fields"][i]["value"]+"</span>" +
-            "</div>";
+            "</div></div>";
           i++;
         }
-        bio_field += "</div>";
       }
     }
 
