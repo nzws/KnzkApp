@@ -22,6 +22,11 @@
     <a href="http://makeapullrequest.com">
     <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge">
   </p>
+
+  <p align="center">
+    <a href="https://github.com/KnzkDev/KnzkApp/blob/master/LICENSE">
+    <img src="https://img.shields.io/badge/license-knzkapp%20license-blue.svg?style=for-the-badge">
+  </p>
 </p>
 
 ## 特徴
@@ -53,7 +58,7 @@ Mastodonの基本機能はもちろん、いくつかのインスタンスの追
 - Firebaseで生成した`google-services.json` / `GoogleService-Info.plist`をルートディレクトリに設置して下さい。
 
 ## License
-[KnzkApp License ( Restricted BSD License )](https://github.com/KnzkDev/KnzkApp/blob/master/LICENSE)
+[KnzkApp License (Restricted BSD License)](https://github.com/KnzkDev/KnzkApp/blob/master/LICENSE)
 
 その他: https://github.com/KnzkDev/KnzkApp/wiki/License
 
