@@ -5,7 +5,7 @@
 
   <h1 align="center">KnzkApp</h1>
 
-  <p align="center">A mastodon mobile-app for Knzk.me</p>
+  <p align="center">A mastodon client for customized instances</p>
 
   <p align="center">
     <b>Get it on:</b>
