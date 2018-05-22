@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://knzkapp.yuzu.tk/">
+  <a href="https://knzkapp.nzws.me">
     <img src="res/android/icon/xxxhdpi.png" alt="Knzk.me Logo" width=100>
   </a>
 
@@ -64,5 +64,4 @@ Mastodonの基本機能はもちろん、いくつかのインスタンスの追
 
 ## Special Thanks ✨
 - [あんのたん @annotunzdy](https://knzk.me/@annotunzdy)
-- [神崎丼ロゴ: ネイティオ @twotwo](https://knzk.me/@twotwo)
-- [神崎丼ロゴ: NCLS @imncls](https://knzk.me/@imncls)
+- [神崎丼ロゴ(旧): ネイティオ @twotwo](https://knzk.me/@twotwo)
