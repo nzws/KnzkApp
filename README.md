@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://knzkapp.nzws.me">
-    <img src="res/android/icon/xxxhdpi.png" alt="Knzk.me Logo" width=100>
+    <img src="https://user-images.githubusercontent.com/38746192/40487755-18d4ef0c-5fa0-11e8-9eae-f2d1ef936d72.png" width="150">
   </a>
 
   <h1 align="center">
