@@ -1,11 +1,15 @@
-<p align="center">
+<div align="center">
   <a href="https://knzkapp.nzws.me">
     <img src="res/android/icon/xxxhdpi.png" alt="Knzk.me Logo" width=100>
   </a>
 
-  <h1 align="center">KnzkApp</h1>
+  <h1 align="center">
+    KnzkApp
+  </h1>
 
-  <p align="center">A mastodon client for customized instances</p>
+  <p align="center">
+    A mastodon client for customized instances.
+  </p>
 
   <p align="center">
     <b>Get it on:</b>
@@ -27,7 +31,7 @@
     <a href="https://github.com/KnzkDev/KnzkApp/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/license-knzkapp%20license-blue.svg?style=for-the-badge">
   </p>
-</p>
+</div>
 
 ## 特徴
 Mastodonの基本機能はもちろん、いくつかのインスタンスの追加機能に対応したアプリです。
