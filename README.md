@@ -28,6 +28,12 @@
   </p>
 
   <p align="center">
+    <a href="https://discord.gg/5teHfRK">
+      <img src="https://img.shields.io/badge/chat-on%20discord-7289DA.svg?style=for-the-badge">
+    </a>
+  </p>
+
+  <p align="center">
     <a href="https://github.com/KnzkDev/KnzkApp/blob/master/LICENSE">
       <img src="https://img.shields.io/badge/license-knzkapp%20license-blue.svg?style=for-the-badge">
     </a>
