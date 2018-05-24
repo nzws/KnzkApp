@@ -15,8 +15,8 @@ base64-js@1.1.2:
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.1.2.tgz#d6400cac1c4c660976d90d07a04351d89395f5e8"
 
 big-integer@^1.6.7:
-  version "1.6.27"
-  resolved "https://registry.yarnpkg.com/big-integer/-/big-integer-1.6.27.tgz#8e56c6f8b2dd6c4fe8d32102b83d4f25868e4b3a"
+  version "1.6.28"
+  resolved "https://registry.yarnpkg.com/big-integer/-/big-integer-1.6.28.tgz#8cef0fda3ccde8759c2c66efcfacc35aea658283"
 
 bplist-creator@0.0.7:
   version "0.0.7"
@@ -38,18 +38,18 @@ brace-expansion@^1.1.7:
     concat-map "0.0.1"
 
 colors@^1.1.2:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/colors/-/colors-1.2.1.tgz#f4a3d302976aaf042356ba1ade3b1a2c62d9d794"
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/colors/-/colors-1.3.0.tgz#5f20c9fef6945cb1134260aab33bfbdc8295e04e"
 
 concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
 
-cordova-clipboard@:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/cordova-clipboard/-/cordova-clipboard-1.1.1.tgz#8767a8c138ae840c98d20a2e0a1871ed6f4e1d0a"
+"cordova-clipboard@git+https://github.com/yuzulabo/cordova-clipboard":
+  version "1.2.1"
+  resolved "git+https://github.com/yuzulabo/cordova-clipboard#5a5f3ee0e0e095e46b3cc1c41fb1bbee51edbc84"
 
-cordova-custom-config@5.0.2:
+cordova-custom-config@^5.0.2:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/cordova-custom-config/-/cordova-custom-config-5.0.2.tgz#43e751d0c9d20845f57ace227c82c26668662eff"
   dependencies:
@@ -61,27 +61,39 @@ cordova-custom-config@5.0.2:
     tostr "^0.1.0"
     xcode "^1.0.0"
 
-cordova-plugin-customurlscheme@:
+cordova-plugin-camera@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-camera/-/cordova-plugin-camera-4.0.3.tgz#7373a5938318c86ccfd84e3713e2382d10fe076b"
+
+cordova-plugin-customurlscheme@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/cordova-plugin-customurlscheme/-/cordova-plugin-customurlscheme-4.3.0.tgz#02f968778b4093990eb0407f3fa1b1458d705f94"
 
-cordova-plugin-inappbrowser@2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-inappbrowser/-/cordova-plugin-inappbrowser-2.0.2.tgz#a448fcbe974ca6b42988bd3455109d923d6c9769"
+"cordova-plugin-fcm@git+https://github.com/yuzulabo/cordova-plugin-fcm":
+  version "2.1.2"
+  resolved "git+https://github.com/yuzulabo/cordova-plugin-fcm#cc9e8e571388cc8cb8a0a37d52dba89ed0c7a7c6"
 
-cordova-plugin-safariviewcontroller@:
+cordova-plugin-file@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-file/-/cordova-plugin-file-6.0.1.tgz#49606b8c15a5688d4728f92e4a7325a061de07f5"
+
+cordova-plugin-inappbrowser@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-inappbrowser/-/cordova-plugin-inappbrowser-3.0.0.tgz#d4ae00d36676210751057ad258ae4ad4a9161ada"
+
+cordova-plugin-safariviewcontroller@^1.5.3:
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/cordova-plugin-safariviewcontroller/-/cordova-plugin-safariviewcontroller-1.5.3.tgz#24e22755d93c78fe70a5ac36ebbdb1d83e339ffa"
 
-cordova-plugin-splashscreen@5.0.2:
+cordova-plugin-splashscreen@^5.0.2:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/cordova-plugin-splashscreen/-/cordova-plugin-splashscreen-5.0.2.tgz#747e74f56e201cd585bc62d14bca19f6867ff1ed"
 
-cordova-plugin-statusbar@2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-statusbar/-/cordova-plugin-statusbar-2.4.1.tgz#222628a78aa54d34d4c927990020d0a3bace5545"
+cordova-plugin-statusbar@^2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-statusbar/-/cordova-plugin-statusbar-2.4.2.tgz#fc1fbdc0d8d7033a7e8e1f1f7ff167ac9bd4faf6"
 
-cordova-plugin-whitelist@1.3.3:
+cordova-plugin-whitelist@^1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/cordova-plugin-whitelist/-/cordova-plugin-whitelist-1.3.3.tgz#b5e85ecdbbfe5aeded40a1bf4ee2372e67d96fb4"
 
@@ -126,8 +138,8 @@ lodash@^3.5.0:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
 lodash@^4.3.0:
-  version "4.17.5"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
+  version "4.17.10"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
 minimatch@^3.0.4:
   version "3.0.4"
@@ -135,7 +147,7 @@ minimatch@^3.0.4:
   dependencies:
     brace-expansion "^1.1.7"
 
-monaca-plugin-monaca-core@3.2.0:
+monaca-plugin-monaca-core@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/monaca-plugin-monaca-core/-/monaca-plugin-monaca-core-3.2.0.tgz#8de461d73bb9cee7e8bb563c5924169d6b3135b3"
 
@@ -181,8 +193,8 @@ rechoir@^0.6.2:
     resolve "^1.1.6"
 
 resolve@^1.1.6:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.6.0.tgz#0fbd21278b27b4004481c395349e7aba60a9ff5c"
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.7.1.tgz#aadd656374fd298aee895bc026b8297418677fd3"
   dependencies:
     path-parse "^1.0.5"
 
