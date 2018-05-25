@@ -8,7 +8,7 @@
   </h1>
 
   <p align="center">
-    A mastodon client for customized instances.
+    🐘 A mastodon client for ✨ customized instances ✨
   </p>
 
   <p align="center">
