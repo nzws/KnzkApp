@@ -3,54 +3,66 @@ function SearchKey() {
 }
 
 function SearchLoad() {
-  loadNav("olist_nav.html", null, true, true);
-  var q = escapeHTML(document.getElementById("nav-search").value);
-  Fetch("https://" + inst + "/api/v1/search?q=" + q, {
+  loadNav('olist_nav.html', null, true, true);
+  var q = escapeHTML(document.getElementById('nav-search').value);
+  Fetch('https://' + inst + '/api/v1/search?q=' + q, {
     headers: {
       'content-type': 'application/json',
-      'Authorization': 'Bearer ' + now_userconf["token"]
+      Authorization: 'Bearer ' + now_userconf['token'],
     },
-    method: 'GET'
-  }).then(function (response) {
-    if (response.ok) {
-      return response.json();
-    } else {
-      sendLog("Error/Search", response.json);
-      throw new Error();
-    }
-  }).then(function (json) {
-    var reshtml = "", i = 0;
-    document.getElementById("olist_nav_title").innerHTML = q + "の検索結果";
-    reshtml += "<ons-list><ons-list-header>アカウント</ons-list-header></ons-list>";
-    while (json['accounts'][i]) {
-      if (!json['accounts'][i]['display_name']) json['accounts'][i]['display_name'] = json['accounts'][i]['username'];
-      reshtml += AccountCard(json['accounts'][i]);
-      i++;
-    }
+    method: 'GET',
+  })
+    .then(function(response) {
+      if (response.ok) {
+        return response.json();
+      } else {
+        sendLog('Error/Search', response.json);
+        throw new Error();
+      }
+    })
+    .then(function(json) {
+      var reshtml = '',
+        i = 0;
+      document.getElementById('olist_nav_title').innerHTML = q + 'の検索結果';
+      reshtml +=
+        '<ons-list><ons-list-header>アカウント</ons-list-header></ons-list>';
+      while (json['accounts'][i]) {
+        if (!json['accounts'][i]['display_name'])
+          json['accounts'][i]['display_name'] = json['accounts'][i]['username'];
+        reshtml += AccountCard(json['accounts'][i]);
+        i++;
+      }
 
-    i = 0;
-    reshtml += "<ons-list><ons-list-header>タグ</ons-list-header></ons-list>";
-    while (json['hashtags'][i]) {
-      reshtml += "<div onclick='showTagTL(\"" + json['hashtags'][i] + "\")' class=\"toot acct-small\">\n" +
-        "    <div class=\"hashtag-card\">\n" +
-        "    <span class=\"toot-group\">\n" +
-        "      <b>#" + json['hashtags'][i] + "</b>\n" +
-        "    </span>\n" +
-        "    </div>\n" +
-        "</div>";
-      i++;
-    }
+      i = 0;
+      reshtml += '<ons-list><ons-list-header>タグ</ons-list-header></ons-list>';
+      while (json['hashtags'][i]) {
+        reshtml +=
+          '<div onclick=\'showTagTL("' +
+          json['hashtags'][i] +
+          '")\' class="toot acct-small">\n' +
+          '    <div class="hashtag-card">\n' +
+          '    <span class="toot-group">\n' +
+          '      <b>#' +
+          json['hashtags'][i] +
+          '</b>\n' +
+          '    </span>\n' +
+          '    </div>\n' +
+          '</div>';
+        i++;
+      }
 
-    i = 0;
-    reshtml += "<ons-list><ons-list-header>トゥート</ons-list-header></ons-list>";
-    while (json['statuses'][i]) {
-      reshtml += toot_card(json['statuses'][i], "full");
-      i++;
-    }
+      i = 0;
+      reshtml +=
+        '<ons-list><ons-list-header>トゥート</ons-list-header></ons-list>';
+      while (json['statuses'][i]) {
+        reshtml += toot_card(json['statuses'][i], 'full');
+        i++;
+      }
 
-    document.getElementById("olist_nav_main").innerHTML = reshtml;
-  }).catch(function (error) {
-    showtoast('cannot-pros');
-    console.log(error);
-  });
+      document.getElementById('olist_nav_main').innerHTML = reshtml;
+    })
+    .catch(function(error) {
+      showtoast('cannot-pros');
+      console.log(error);
+    });
 }

@@ -1,22 +1,42 @@
 function startWatching() {
   try {
     if (Notification_ws) {
-      try {Notification_ws.close()} catch (e) {}
+      try {
+        Notification_ws.close();
+      } catch (e) {}
       Notification_ws = null;
     }
     if (!getConfig(1, 'no_unread_label')) {
-      Notification_ws = new WebSocket("wss://" + inst + "/api/v1/streaming/?access_token=" + now_userconf["token"] + "&stream=user");
-      Notification_ws.onopen = function () {
-        Notification_ws.onmessage = function (message) {
+      Notification_ws = new WebSocket(
+        'wss://' +
+          inst +
+          '/api/v1/streaming/?access_token=' +
+          now_userconf['token'] +
+          '&stream=user'
+      );
+      Notification_ws.onopen = function() {
+        Notification_ws.onmessage = function(message) {
           var ws_resdata = JSON.parse(message.data);
 
-          if (ws_resdata.event === "notification") {
+          if (ws_resdata.event === 'notification') {
             ws_resdata = JSON.parse(ws_resdata.payload);
-            var filter = getConfig(5, (ws_resdata['account']['acct'].indexOf("@") === -1 ? ws_resdata['account']['acct'] + "@" + inst : ws_resdata['account']['acct']).toLowerCase());
-            if (!((ws_resdata["type"] === "favourite" && filter["fav"]) || (ws_resdata["type"] === "reblog" && filter["boost"]) || (ws_resdata["type"] === "mention" && filter["mention"]))) {
+            var filter = getConfig(
+              5,
+              (ws_resdata['account']['acct'].indexOf('@') === -1
+                ? ws_resdata['account']['acct'] + '@' + inst
+                : ws_resdata['account']['acct']
+              ).toLowerCase()
+            );
+            if (
+              !(
+                (ws_resdata['type'] === 'favourite' && filter['fav']) ||
+                (ws_resdata['type'] === 'reblog' && filter['boost']) ||
+                (ws_resdata['type'] === 'mention' && filter['mention'])
+              )
+            ) {
               Notification_num++;
-              var noti = $(".noti_unread");
-              noti.removeClass("invisible");
+              var noti = $('.noti_unread');
+              noti.removeClass('invisible');
               noti.html(Notification_num);
             }
           }
@@ -27,113 +47,133 @@ function startWatching() {
 }
 
 function resetLabel() {
-  var noti = $(".noti_unread");
-  noti.addClass("invisible");
-  Notification_num = 0
+  var noti = $('.noti_unread');
+  noti.addClass('invisible');
+  Notification_num = 0;
 }
 
 function changeNotification(force) {
   var config = LoadNotificationConfig();
   if (FCM_token) {
-    var conf = $("[id^='noti-mute-']"), i = 0;
+    var conf = $("[id^='noti-mute-']"),
+      i = 0;
     if (conf[0]) {
       while (conf[i]) {
-        config["option"]["notification"]["all"][conf[i].id.replace("noti-mute-", "")] = conf[i].checked;
+        config['option']['notification']['all'][
+          conf[i].id.replace('noti-mute-', '')
+        ] =
+          conf[i].checked;
         i++;
       }
-      SetNotificationConfig("option",config["option"]);
+      SetNotificationConfig('option', config['option']);
     }
-    if (!config["is_running"] && force) {
-      if (conf[0]) showtoast("ok_conf");
+    if (!config['is_running'] && force) {
+      if (conf[0]) showtoast('ok_conf');
       return;
     }
-    var is_unregister = "";
-    if (config["is_running"] && !force) {
-      is_unregister = "un";
+    var is_unregister = '';
+    if (config['is_running'] && !force) {
+      is_unregister = 'un';
     }
-    config["option"]["notification"]["user"] = getConfig(5, "notification");
+    config['option']['notification']['user'] = getConfig(5, 'notification');
     var formdata = {
-      'server_key': push_default_serverKey,
-      'instance_url': inst,
-      'access_token': now_userconf["token"],
-      'device_token': FCM_token,
-      'option': JSON.stringify(config["option"]),
-      'language': "ja",
-      'username': now_userconf["username"],
-      'app_name': version
+      server_key: push_default_serverKey,
+      instance_url: inst,
+      access_token: now_userconf['token'],
+      device_token: FCM_token,
+      option: JSON.stringify(config['option']),
+      language: 'ja',
+      username: now_userconf['username'],
+      app_name: version,
     };
-    var body = "";
+    var body = '';
     for (var key in formdata) {
-      body += key + "=" + encodeURIComponent(formdata[key]) + "&"
+      body += key + '=' + encodeURIComponent(formdata[key]) + '&';
     }
-    body += "d="+(new Date()).getTime();
-    Fetch("https://" + config["server"] + "/"+is_unregister+"register", {
+    body += 'd=' + new Date().getTime();
+    Fetch('https://' + config['server'] + '/' + is_unregister + 'register', {
       headers: {
         'content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-        'Accept': 'application/json'
+        Accept: 'application/json',
       },
       method: 'POST',
-      body: body
-    }).then(function (response) {
-      if (response.ok) {
-        return response.json();
-      } else {
-        sendLog("Error/registerNotification", response.json);
-        throw new Error();
-      }
-    }).then(function (json) {
-      SetNotificationConfig("is_running", is_unregister ? 0 : 1);
-      if (conf[0]) showtoast("ok_conf");
-    }).catch(function (error) {
-      document.getElementById("noti-mode").checked = !!is_unregister;
-      showtoast('cannot-pros');
-      console.log(error);
-    });
+      body: body,
+    })
+      .then(function(response) {
+        if (response.ok) {
+          return response.json();
+        } else {
+          sendLog('Error/registerNotification', response.json);
+          throw new Error();
+        }
+      })
+      .then(function(json) {
+        SetNotificationConfig('is_running', is_unregister ? 0 : 1);
+        if (conf[0]) showtoast('ok_conf');
+      })
+      .catch(function(error) {
+        document.getElementById('noti-mode').checked = !!is_unregister;
+        showtoast('cannot-pros');
+        console.log(error);
+      });
   } else {
-    ons.notification.alert('FCMトークンの受信に失敗しました。<br>通知が無効になっている可能性があります。', {title: 'エラー'});
-    document.getElementById("noti-mode").checked = !!is_unregister;
+    ons.notification.alert(
+      'FCMトークンの受信に失敗しました。<br>通知が無効になっている可能性があります。',
+      { title: 'エラー' }
+    );
+    document.getElementById('noti-mode').checked = !!is_unregister;
   }
 }
 
 function addKeyWord() {
-  ons.notification.prompt('検知させるワードを入力してください<br>(空欄でキャンセル)', {title: 'キーワード検知'}).then(function (repcom) {
-    if (repcom) {
-      var config = LoadNotificationConfig()["option"];
-      config["keyword"].unshift(repcom);
-      SetNotificationConfig("option",config);
-      renderKeyWordList();
-    }
-  });
+  ons.notification
+    .prompt('検知させるワードを入力してください<br>(空欄でキャンセル)', {
+      title: 'キーワード検知',
+    })
+    .then(function(repcom) {
+      if (repcom) {
+        var config = LoadNotificationConfig()['option'];
+        config['keyword'].unshift(repcom);
+        SetNotificationConfig('option', config);
+        renderKeyWordList();
+      }
+    });
 }
 
 function renderKeyWordList() {
   var config = LoadNotificationConfig();
-  var reshtml = "", i = 0;
-  while (config["option"]["keyword"][i]) {
-    reshtml += "<ons-list-item onclick='KeyWord_del(" + i + ")'>" +
-      "<span class=\"list-item__title\">" + escapeHTML(config["option"]["keyword"][i]) + "</span>" +
-      "</ons-list-item>\n";
+  var reshtml = '',
+    i = 0;
+  while (config['option']['keyword'][i]) {
+    reshtml +=
+      "<ons-list-item onclick='KeyWord_del(" +
+      i +
+      ")'>" +
+      '<span class="list-item__title">' +
+      escapeHTML(config['option']['keyword'][i]) +
+      '</span>' +
+      '</ons-list-item>\n';
     i++;
   }
-  document.getElementById("keyword_list").innerHTML = reshtml;
+  document.getElementById('keyword_list').innerHTML = reshtml;
 }
 
 function KeyWord_del(id) {
-  var config = LoadNotificationConfig()["option"],
+  var config = LoadNotificationConfig()['option'],
     nid = parseInt(id);
-  config["keyword"].splice(nid, 1);
-  SetNotificationConfig("option",config);
-  showtoast("del_ok");
+  config['keyword'].splice(nid, 1);
+  SetNotificationConfig('option', config);
+  showtoast('del_ok');
   renderKeyWordList();
 }
 
 function LoadNotificationConfig() {
-  var name = now_userconf["username"]+"@"+inst;
+  var name = now_userconf['username'] + '@' + inst;
   return getConfig(4, name);
 }
 
 function SetNotificationConfig(n, data) {
-  var name = now_userconf["username"]+"@"+inst;
+  var name = now_userconf['username'] + '@' + inst;
   var config = getConfig(4, name);
   config[n] = data;
   setConfig(4, name, config);
@@ -141,41 +181,58 @@ function SetNotificationConfig(n, data) {
 
 function setNotificationServer() {
   show('now_loading');
-  var name = now_userconf["username"]+"@"+inst;
+  var name = now_userconf['username'] + '@' + inst;
   var config = LoadNotificationConfig();
-  if (!config) config = {"option": {"notification": {"all": {}, "user": {}}, "keyword": []}, "server": "", "is_change": 0, "is_running": 0};
-  if (!config["server"]) {
-    Fetch(push_default_centerURL, {method: 'GET'}).then(function (response) {
-      if (response.ok) {
-        return response.json();
-      } else {
-        sendLog("Error/setNotificationServer", response.json);
-        throw new Error();
-      }
-    }).then(function (json) {
-      if (json[0]) {
-        config["server"] = json[0];
-        setConfig(4, name, config);
-        initNotificationPage();
-      } else {
-        ons.notification.alert('通知サーバーが見つかりませんでした。<br>開発者にご連絡ください。', {title: 'エラー'});
-        hide('now_loading');
-      }
-    }).catch(function (error) {
-      showtoast('cannot-pros');
-      console.log(error);
-    });
+  if (!config)
+    config = {
+      option: { notification: { all: {}, user: {} }, keyword: [] },
+      server: '',
+      is_change: 0,
+      is_running: 0,
+    };
+  if (!config['server']) {
+    Fetch(push_default_centerURL, { method: 'GET' })
+      .then(function(response) {
+        if (response.ok) {
+          return response.json();
+        } else {
+          sendLog('Error/setNotificationServer', response.json);
+          throw new Error();
+        }
+      })
+      .then(function(json) {
+        if (json[0]) {
+          config['server'] = json[0];
+          setConfig(4, name, config);
+          initNotificationPage();
+        } else {
+          ons.notification.alert(
+            '通知サーバーが見つかりませんでした。<br>開発者にご連絡ください。',
+            { title: 'エラー' }
+          );
+          hide('now_loading');
+        }
+      })
+      .catch(function(error) {
+        showtoast('cannot-pros');
+        console.log(error);
+      });
   } else {
     initNotificationPage();
   }
 }
 
 function initNotificationPage() {
-  setTimeout(function () {
-    document.getElementById("noti-mode").checked = !!LoadNotificationConfig()["is_running"];
-    var conf = $("[id^='noti-mute-']"), i = 0;
+  setTimeout(function() {
+    document.getElementById('noti-mode').checked = !!LoadNotificationConfig()[
+      'is_running'
+    ];
+    var conf = $("[id^='noti-mute-']"),
+      i = 0;
     while (conf[i]) {
-      conf[i].checked = LoadNotificationConfig()["option"]["notification"]["all"][conf[i].id.replace("noti-mute-", "")];
+      conf[i].checked = LoadNotificationConfig()['option']['notification'][
+        'all'
+      ][conf[i].id.replace('noti-mute-', '')];
       i++;
     }
     renderKeyWordList();
