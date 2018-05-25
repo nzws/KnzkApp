@@ -1,6 +1,7 @@
 {
   "env": {
-    "browser": true
+    "browser": true,
+    "es6": true
   },
   "extends": [
     "eslint:recommended",
@@ -13,6 +14,7 @@
         "singleQuote": true,
         "trailingComma": "es5"
       }
-    ]
+    ],
+    "no-unused-vars": 0
   }
 }
