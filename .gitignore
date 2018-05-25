@@ -5,6 +5,7 @@
 .DS_Store
 Thumbs.db
 node_modules/
+yarn-error.log
 
 google-services.json
 GoogleService-Info.plist

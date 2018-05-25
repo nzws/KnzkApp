@@ -1,9 +1,11 @@
-html, body {
+html,
+body {
   max-width: 100%;
   height: 100%;
 }
 
-.disable, .invisible {
+.disable,
+.invisible {
   display: none;
 }
 
@@ -24,6 +26,7 @@ html, body {
   0% {
     opacity: 1;
   }
+
   100% {
     opacity: 0.5;
   }
@@ -114,7 +117,8 @@ html, body {
   color: #ca8f04 !important;
 }
 
-.boost-active, .follow-active {
+.boost-active,
+.follow-active {
   color: #2b90d9 !important;
 }
 
@@ -133,7 +137,7 @@ html, body {
   overflow-y: hidden;
   background-size: cover;
   background-position: 50%;
-  background-color: rgba(23, 25, 31, .5);
+  background-color: rgba(23, 25, 31, 0.5);
 }
 
 .userpage-button-bg {
@@ -147,8 +151,8 @@ html, body {
 
 .userpage-follower {
   color: white;
-  opacity: .7;
-  background-color: rgba(0, 0, 0, .5);
+  opacity: 0.7;
+  background-color: rgba(0, 0, 0, 0.5);
   text-transform: uppercase;
   font-size: 11px;
   font-weight: 500;
@@ -178,7 +182,7 @@ html, body {
 
 .card-bio {
   padding: 5px 0 15px;
-  background: rgba(23, 25, 31, .8);
+  background: rgba(23, 25, 31, 0.8);
 }
 
 .user-name {
@@ -231,7 +235,8 @@ html, body {
   font-size: 14px !important;
 }
 
-.select-input, .text-input {
+.select-input,
+.text-input {
   color: #fff;
 }
 
@@ -270,14 +275,11 @@ html, body {
   width: 50%;
   text-align: center;
   padding: 10px 5px;
+  border-right: 1px solid #393f4f;
 }
 
 .account_tab_left {
   border-left: 1px solid #393f4f;
-}
-
-.account_tab {
-  border-right: 1px solid #393f4f;
 }
 
 .account_bar {
@@ -358,14 +360,9 @@ pre {
 }
 
 .splitter-profile {
-  background: rgba(23, 25, 31, .8);
+  background: rgba(23, 25, 31, 0.8);
   width: 100%;
   padding-left: 30px;
-}
-
-.splitter-profile-item > .center {
-  padding-right: 0;
-  padding-top: 0;
 }
 
 .splitter-profile-item {
@@ -374,6 +371,8 @@ pre {
 
 .splitter-profile-item > .center {
   padding-bottom: 0;
+  padding-right: 0;
+  padding-top: 0;
 }
 
 .toot-group {
@@ -437,14 +436,15 @@ pre {
   min-height: 5px;
 }
 
-ons-fab, ons-speed-dial {
+ons-fab,
+ons-speed-dial {
   z-index: 1;
 }
 
 img.emoji {
   height: 1em;
   width: 1em;
-  margin: 0 .05em 0 .1em;
+  margin: 0 0.05em 0 0.1em;
   vertical-align: -0.1em;
 }
 
@@ -481,6 +481,7 @@ img.emoji {
     bottom: 0;
 }
 */
+
 /* 簡易トゥートあり */
 
 .fab--bottom__right {
@@ -508,42 +509,44 @@ img.emoji {
   border: 1px solid orangered !important;
 }
 
-.user-bio > p > a, .user-bio > p > a:link, .user-bio > p > a:visited, .user-bio > p > a:hover {
-  text-decoration: underline;
-}
-
 .TL_reload {
   color: #2b90d9 !important;
 }
 
 /* 絵文字 */
-.emoji, .emojione {
+.emoji,
+.emojione {
   width: 20px !important;
   height: 20px !important;
-  margin: -5px .05em -3px .1em !important
+  margin: -5px 0.05em -3px 0.1em !important;
 }
 
-.toot_name .emoji, .toot_name .emojione {
+.toot_name .emoji,
+.toot_name .emojione {
   height: 1.2em !important;
   width: 1.2em !important;
 }
 
-.fa-2x > .emoji, .fa-2x > .emojione {
+.fa-2x > .emoji,
+.fa-2x > .emojione {
   width: 36px !important;
   height: 36px !important;
 }
 
-.fa-3x > .emoji, .fa-3x > .emojione {
+.fa-3x > .emoji,
+.fa-3x > .emojione {
   width: 54px !important;
   height: 54px !important;
 }
 
-.fa-4x > .emoji, .fa-4x > .emojione {
+.fa-4x > .emoji,
+.fa-4x > .emojione {
   width: 72px !important;
   height: 72px !important;
 }
 
-.fa-5x > .emoji, .fa-5x > .emojione {
+.fa-5x > .emoji,
+.fa-5x > .emojione {
   width: 90px !important;
   height: 90px !important;
 }
@@ -597,7 +600,7 @@ img.emoji {
   right: 0;
   bottom: 0;
   left: 0;
-  content: ' ';
+  content: " ";
 }
 
 .moved-text {
@@ -613,8 +616,22 @@ img.emoji {
   line-height: 20px;
 }
 
-.alert-dialog-content > a:link, .alert-dialog-content > a {
+.alert-dialog-content > a {
   color: #2b90d9 !important;
+}
+
+.user-bio > p > a {
+  text-decoration: underline;
+}
+
+.alert-dialog-content > a:link {
+  color: #2b90d9 !important;
+}
+
+.user-bio > p > a:link,
+.user-bio > p > a:visited,
+.user-bio > p > a:hover {
+  text-decoration: underline;
 }
 
 .no-icon-mode {
@@ -657,11 +674,6 @@ img.emoji {
   user-select: text;
 }
 
-.ep_category {
-  display: flex;
-  justify-content: space-around;
-}
-
 .close_button {
   position: absolute;
   top: 0;
@@ -684,6 +696,8 @@ img.emoji {
 }
 
 .ep_category {
+  display: flex;
+  justify-content: space-around;
   background-color: #ccc;
   border-radius: 0 0 4px 4px;
 }

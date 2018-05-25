@@ -21,7 +21,7 @@
     <script src="lib/atrament.min.js" async></script>
     <script src="lib/twemoji/twemoji.min.js" async></script>
     <link rel="stylesheet" href="css/theme-roller/components.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/enquete.css">
     <link rel="stylesheet" href="css/custom-size.css">
@@ -468,7 +468,7 @@
                   </ons-button>
                 </div>
                 <div class="center">
-                  <textarea class="textarea w-max" rows="1" placeholder="トゥート！" id="simple_toot_TL_input" onFocus="simple_open()" onkeyup="check_limit(value, 'toot_limit_simple', 'toot-button_simple', 'simple_toot_cw');"></textarea>
+                  <textarea class="textarea w-max" rows="1" placeholder="トゥート！" id="simple_toot_TL_input" onfocus="simple_open()" onkeyup="check_limit(value, 'toot_limit_simple', 'toot-button_simple', 'simple_toot_cw');"></textarea>
                 </div>
                 <div class="right" style="padding-right: 0">
                   <ons-button modifier="quiet" class="no-rd" onclick="post('simple_toot_TL_input', {cw:document.getElementById('simple_toot_cw').value, visibility:document.getElementById('post_mode_simple').value, sensitive:document.getElementById('nsfw_input_simple').value, in_reply_to_id: document.getElementById('post_reply_simple').value, local_only: document.getElementById('localonly_input_simple').value}, true)" id="toot-button_simple">
@@ -1174,7 +1174,7 @@
           <ons-list-header>ミュートする通知 (ユーザー)</ons-list-header>
         </ons-list>
         <div class="container">
-          ユーザーごとの通知制御は<a href="#" onclick="loadNav('config_filter.html')"><b>ユーザーメニュー > フィルター</b></a>より行えます。<br>
+          ユーザーごとの通知制御は<a href="#" onclick="loadNav('config_filter.html')"><b>ユーザーメニュー &gt; フィルター</b></a>より行えます。<br>
           *ユーザー通知ミュート反映にはアプリの再起動が必要です。
         </div>
         <div class="container"><h4>キーワード検知 <button class="button button--outline" style="border-radius: 100%;line-height: initial;" onclick="addKeyWord()"><i class="zmdi zmdi-plus"></i></button></h4>HTLをウォッチします</div>
@@ -1502,7 +1502,7 @@
               回転
             </div>
             <div class="right">
-              <ons-input id="bbcode_spin" modifier="underbar" type="number" value=0></ons-input>
+              <ons-input id="bbcode_spin" modifier="underbar" type="number" value="0"></ons-input>
             </div>
           </ons-list-item>
           <ons-list-item>
@@ -1510,7 +1510,7 @@
               点滅
             </div>
             <div class="right">
-              <ons-input id="bbcode_pulse" modifier="underbar" type="number" value=0></ons-input>
+              <ons-input id="bbcode_pulse" modifier="underbar" type="number" value="0"></ons-input>
             </div>
           </ons-list-item>
         </ons-list>
@@ -1673,7 +1673,7 @@
                   太さ
                 </div>
                 <div class="right">
-                  <ons-input modifier="underbar" type="number" value=2 id="doodle_weight" onchange="sketcher.weight=parseInt(document.getElementById('doodle_weight').value)"></ons-input>
+                  <ons-input modifier="underbar" type="number" value="2" id="doodle_weight" onchange="sketcher.weight=parseInt(document.getElementById('doodle_weight').value)"></ons-input>
                 </div>
               </ons-list-item>
               <ons-list-item style="padding-left: 6px;">
@@ -1964,7 +1964,7 @@
                       </ons-button>
                     </div>
                     <div class="center">
-                      <textarea class="textarea w-max" rows="1" placeholder="トゥート！(サンプル)" onFocus="tutorial_open()" id="tutorial_toot_TL_input"></textarea>
+                      <textarea class="textarea w-max" rows="1" placeholder="トゥート！(サンプル)" onfocus="tutorial_open()" id="tutorial_toot_TL_input"></textarea>
                     </div>
                     <div class="right" style="padding-right: 0">
                       <ons-button modifier="quiet" onclick="tutorial_alert('このボタンで投稿できます。')" class="no-rd">

@@ -6,32 +6,32 @@ Edited by @yuzulabo
 
 .toot_content h1 {
   font-size: 195%;
-  border-bottom: 2px solid #ff3333;
+  border-bottom: 2px solid #f33;
 }
 
 .toot_content h2 {
   font-size: 180%;
-  border-bottom: 2px solid #ff3333;
+  border-bottom: 2px solid #f33;
 }
 
 .toot_content h3 {
   font-size: 165%;
-  border-bottom: 2px solid #ff3333;
+  border-bottom: 2px solid #f33;
 }
 
 .toot_content h4 {
   font-size: 150%;
-  border-bottom: 2px solid #ff3333;
+  border-bottom: 2px solid #f33;
 }
 
 .toot_content h5 {
   font-size: 135%;
-  border-bottom: 2px solid #ff3333;
+  border-bottom: 2px solid #f33;
 }
 
 .toot_content h6 {
   font-size: 120%;
-  border-bottom: 2px solid #ff3333;
+  border-bottom: 2px solid #f33;
 }
 
 .toot_content em {
@@ -50,11 +50,7 @@ Edited by @yuzulabo
   margin-top: 5px;
   margin-bottom: 5px;
   margin-left: 5px;
-  background-color: #000000;
-}
-
-.toot_content p ~ blockquote {
-  margin-top: -8px;
+  background-color: #000;
 }
 
 .toot_content blockquote {
@@ -64,6 +60,10 @@ Edited by @yuzulabo
   color: #fff;
   display: block;
   border-left: 4px solid #2b90d9;
+}
+
+.toot_content p ~ blockquote {
+  margin-top: -8px;
 }
 
 .toot_content ul {
@@ -111,24 +111,24 @@ Edited by @yuzulabo
   padding-left: 1em;
 }
 
-.toot_content p > img {
-  width: 150px;
-  height: 150px;
-  object-fit: contain;
-}
-
 .toot_content img {
   width: 150px;
   height: 150px;
   object-fit: contain;
 }
 
-.toot_content p > a {
-  color: #1FBFF9;
+.toot_content p > img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
 }
 
 .toot_content a {
-  color: #1FBFF9;
+  color: #1fbff9;
+}
+
+.toot_content p > a {
+  color: #1fbff9;
 }
 
 .toot_content sup {
@@ -146,7 +146,7 @@ Edited by @yuzulabo
 }
 
 .toot_content small {
-  font-size: 50.0%;
+  font-size: 50%;
   vertical-align: bottom;
   position: relative;
 }
@@ -166,7 +166,13 @@ Edited by @yuzulabo
   background-color: #000;
 }
 
-.toot_content table th, .toot_content table td {
+.toot_content td,
+.toot_content th {
+  padding: 0;
+}
+
+.toot_content table th,
+.toot_content table td {
   padding: 6px 13px;
   border: 1px solid #2b90d9;
 }
@@ -177,8 +183,4 @@ Edited by @yuzulabo
 
 .toot_content table thead tr {
   background-color: #000;
-}
-
-.toot_content td, .toot_content th {
-  padding: 0;
 }

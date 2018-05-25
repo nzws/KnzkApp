@@ -3,7 +3,8 @@
   height: 50px;
 }
 
-.toot-small, .acct-small {
+.toot-small,
+.acct-small {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
