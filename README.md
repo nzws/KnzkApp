@@ -23,6 +23,11 @@
   </p>
 
   <p align="center">
+    <a href="https://circleci.com/gh/KnzkDev/KnzkApp">
+    <img src="https://img.shields.io/circleci/project/KnzkDev/KnzkApp/master.svg?style=for-the-badge">
+  </p>
+
+  <p align="center">
     <a href="http://makeapullrequest.com">
     <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge">
   </p>
