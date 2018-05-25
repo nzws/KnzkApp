@@ -137,7 +137,7 @@ function t_text(text, emojidata) {
   //読み仮名 from theboss.tech
   //参考: https://github.com/theboss/mastodon/commit/f14da9bf85298000c4882e604b3d1eda8c99d0ee
   text = text.replace(
-    /[\|｜]?([^\|｜《]+?)《([^》]+?)》/g,
+    /[|｜]?([^|｜《]+?)《([^》]+?)》/g,
     '<ruby><rb>$1</rb><rt>$2</rt></ruby>'
   );
 
