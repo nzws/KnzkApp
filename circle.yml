@@ -1,19 +1,19 @@
 version: 2
 jobs:
-  test:
+  build:
     docker:
       - image: circleci/node:latest-browsers
     steps:
       - checkout
       - restore_cache:
-        key: dependency-cache-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
-        name: Install dependences
-        command: yarn
+          name: Install dependences
+          command: yarn
       - save_cache:
-        key: dependency-cache-{{ checksum "yarn.lock" }}
-        paths:
-          - ./node_modules
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
       - run:
-        name: Lint
-        command: yarn lint
+          name: Lint
+          command: yarn lint
