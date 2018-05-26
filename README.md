@@ -24,12 +24,14 @@
 
   <p align="center">
     <a href="https://circleci.com/gh/KnzkDev/KnzkApp">
-    <img src="https://img.shields.io/circleci/project/KnzkDev/KnzkApp/master.svg?style=for-the-badge">
+      <img src="https://img.shields.io/circleci/project/KnzkDev/KnzkApp/master.svg?style=for-the-badge">
+    </a>
   </p>
 
   <p align="center">
     <a href="http://makeapullrequest.com">
-    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge">
+      <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge">
+    </a>
   </p>
 
   <p align="center">
@@ -72,7 +74,7 @@ If you are a beginner, Let us know! ([@y@knzk.me](https://knzk.me/@y) or Email.)
 
 ## 📜 Licenses
 - [KnzkApp License](https://github.com/KnzkDev/KnzkApp/blob/master/LICENSE)
-- [List of all other licenses](https://github.com/KnzkDev/KnzkApp/wiki/License)
+- [List of all other licenses](https://github.com/KnzkDev/KnzkApp/wiki/Licenses)
 
 ## ❤️ Special Thanks
 - [あんのたん @annotunzdy](https://knzk.me/@annotunzdy)
