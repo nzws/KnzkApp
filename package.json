@@ -1,5 +1,5 @@
 {
-  "name": "KnzkApp",
+  "name": "knzkapp",
   "version": "1.0.0",
   "description": "A mastodon client for customized instances.",
   "repository": "git@github.com:KnzkDev/KnzkApp.git",
