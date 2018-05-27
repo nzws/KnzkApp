@@ -915,7 +915,7 @@ function show_post(id, near, near_domain, origin_id) {
                 while (json_shita[i]) {
                   reshtml += toot_card(
                     json_shita[i],
-                  'full',
+                    'full',
                     null,
                     null,
                     near_domain ? 'near_federated' : null
