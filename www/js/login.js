@@ -46,9 +46,7 @@ function login_open(domain) {
       }
       if (os_name === 'DeskTop') {
         ons.notification
-          .prompt('認証コードを入力してください<br>(空欄でキャンセル)', {
-            title: 'ログイン',
-          })
+          .prompt(dialog_i18n('code', 1), { title: dialog_i18n('code') })
           .then(function(code) {
             if (code) {
               login_callback(code);
@@ -66,9 +64,7 @@ function login_open(domain) {
 function login_open_c(domain) {
   if (domain) {
     ons.notification
-      .confirm('OKを押してインスタンスの利用規約に同意したものとします。', {
-        title: 'ログイン',
-      })
+      .confirm(dialog_i18n('terms', 1), { title: dialog_i18n('terms') })
       .then(function(e) {
         if (e === 1) {
           login_open(domain);
@@ -120,9 +116,10 @@ function login_callback(code) {
     .then(function(json) {
       setTimeout(function() {
         if (json.access_token) {
-          localStorage.setItem('knzkapp_now_mastodon_token', json.access_token);
+          now_userconf['token'] = json.access_token;
+          localStorage.setItem('knzkapp_now_token', json.access_token);
           localStorage.setItem(
-            'knzkapp_now_mastodon_domain',
+            'knzkapp_now_domain',
             localStorage.getItem('knzkapp_tmp_domain')
           );
           inst = localStorage.getItem('knzkapp_tmp_domain');
@@ -144,11 +141,8 @@ function login_callback(code) {
                   'knzkapp_account_list',
                   JSON.stringify([])
                 );
-              localStorage.setItem(
-                'knzkapp_now_mastodon_username',
-                json_acct.acct
-              );
-              localStorage.setItem('knzkapp_now_mastodon_id', json_acct.id);
+              localStorage.setItem('knzkapp_now_username', json_acct.acct);
+              localStorage.setItem('knzkapp_now_id', json_acct.id);
               window.location.reload();
             })
             .catch(function(error) {
@@ -159,7 +153,7 @@ function login_callback(code) {
         } else {
           hide('now_loading');
           ons.notification.alert(json.error, {
-            title: 'ログイン中にエラーが発生しました。',
+            title: i18next.t('dialogs_js.login_error'),
           });
         }
       }, 500);
@@ -192,10 +186,10 @@ function debug_login() {
       setTimeout(function() {
         if (localStorage.getItem('knzkapp_account_list') == undefined)
           localStorage.setItem('knzkapp_account_list', JSON.stringify([]));
-        localStorage.setItem('knzkapp_now_mastodon_token', token);
-        localStorage.setItem('knzkapp_now_mastodon_domain', inst_domain);
-        localStorage.setItem('knzkapp_now_mastodon_username', json.acct);
-        localStorage.setItem('knzkapp_now_mastodon_id', json.id);
+        localStorage.setItem('knzkapp_now_token', token);
+        localStorage.setItem('knzkapp_now_domain', inst_domain);
+        localStorage.setItem('knzkapp_now_username', json.acct);
+        localStorage.setItem('knzkapp_now_id', json.id);
 
         window.location.reload();
       }, 500);
@@ -205,17 +199,6 @@ function debug_login() {
       console.log(error);
       hide('now_loading');
     });
-}
-
-function logout() {
-  hide('logout_dialog');
-  localStorage.removeItem('knzkapp_now_mastodon_token');
-  localStorage.removeItem('knzkapp_now_mastodon_username');
-  localStorage.removeItem('knzkapp_now_mastodon_id');
-  localStorage.removeItem('knzkapp_now_mastodon_domain');
-  //localStorage.clear(); //設定は消さない
-  init();
-  showtoast('loggedout_dialog');
 }
 
 function account_change_list() {
@@ -264,17 +247,11 @@ function account_change(id) {
         }
       })
       .then(function(json) {
+        localStorage.setItem('knzkapp_now_token', next_account['login_token']);
+        localStorage.setItem('knzkapp_now_username', next_account['username']);
+        localStorage.setItem('knzkapp_now_id', next_account['userid']);
         localStorage.setItem(
-          'knzkapp_now_mastodon_token',
-          next_account['login_token']
-        );
-        localStorage.setItem(
-          'knzkapp_now_mastodon_username',
-          next_account['username']
-        );
-        localStorage.setItem('knzkapp_now_mastodon_id', next_account['userid']);
-        localStorage.setItem(
-          'knzkapp_now_mastodon_domain',
+          'knzkapp_now_domain',
           next_account['login_domain'].toLowerCase()
         );
 
@@ -295,8 +272,8 @@ function account_change(id) {
 
 function account_del(id) {
   ons.notification
-    .confirm('アプリからこのアカウントを削除してもよろしいですか？', {
-      title: 'アカウントの削除',
+    .confirm(dialog_i18n('delete_account', 1), {
+      title: dialog_i18n('delete_account'),
     })
     .then(function(e) {
       if (e === 1) {
@@ -347,24 +324,23 @@ function open_addaccount() {
 
 function clearAllAccount() {
   ons.notification
-    .confirm('本当に全てのアカウントからログアウトしますか？', {
-      title: '全アカウントをログアウト',
+    .confirm(dialog_i18n('clear_account.1', 1), {
+      title: dialog_i18n('clear_account'),
     })
     .then(function(e) {
       if (e === 1) {
         ons.notification
-          .confirm(
-            'もう一度聞きます。<br>本当に全てのアカウントからログアウトしますか？',
-            { title: '全アカウントをログアウト' }
-          )
+          .confirm(dialog_i18n('clear_account.2', 1), {
+            title: dialog_i18n('clear_account'),
+          })
           .then(function(e) {
             if (e === 1) {
               localStorage.setItem('knzkapp_account_list', JSON.stringify([]));
 
-              localStorage.removeItem('knzkapp_now_mastodon_token');
-              localStorage.removeItem('knzkapp_now_mastodon_username');
-              localStorage.removeItem('knzkapp_now_mastodon_id');
-              localStorage.removeItem('knzkapp_now_mastodon_domain');
+              localStorage.removeItem('knzkapp_now_token');
+              localStorage.removeItem('knzkapp_now_username');
+              localStorage.removeItem('knzkapp_now_id');
+              localStorage.removeItem('knzkapp_now_domain');
             }
           });
       }

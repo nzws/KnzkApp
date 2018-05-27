@@ -99,6 +99,7 @@ function init() {
 
                 document.querySelector('#navigator').resetToPage('home.html');
                 initevent();
+                i18n_init();
 
                 setTimeout(function() {
                   startWatching();
@@ -237,6 +238,9 @@ function initevent() {
   });
 
   document.addEventListener('postpush', function(event) {
+    try {
+      $('[data-i18n]').localize();
+    } catch (e) {}
     pageid = event.enterPage.id;
     if (event.enterPage.id === 'home') {
       setTimeout(function() {
@@ -346,9 +350,9 @@ function initevent() {
         setTimeout(function() {
           document.getElementById('login_left').innerHTML =
             '<ons-toolbar-button onclick="BackTab()" class="toolbar-button">\n' +
-            '                    <ons-icon icon="fa-chevron-left" class="ons-icon fa-chevron-left fa"></ons-icon>\n' +
-            '                    戻る\n' +
-            '                </ons-toolbar-button>';
+            '<ons-icon icon="fa-chevron-left" class="ons-icon fa-chevron-left fa"></ons-icon>\n' +
+            i18next.t('navigation.back') +
+            '</ons-toolbar-button>';
           initph('alert');
         }, 200);
       }
@@ -441,10 +445,10 @@ function initevent() {
         document.getElementById('tutorial_next_icon'),
       ];
       if (event.activeIndex === 3) {
-        label[0].innerText = '完了';
+        label[0].innerText = i18next.t('tutorial.done');
         label[1].className = 'ons-icon fa-check fa';
       } else {
-        label[0].innerText = '次へ';
+        label[0].innerText = i18next.t('tutorial.next');
         label[1].className = 'ons-icon fa-chevron-right fa';
       }
     } else if ($('#navigator').attr('page') === 'home.html') {
@@ -491,10 +495,9 @@ function initevent() {
         if (!t) changeNotification(true);
       });
     } catch (e) {
-      ons.notification.alert(
-        'FCMトークンの受信に失敗しました。<br>このままでもお使い頂けますが、プッシュ通知の配信が行えない可能性があります。',
-        { title: 'エラー' }
-      );
+      ons.notification.alert(dialog_i18n('err_fcm', 1), {
+        title: dialog_i18n('err_fcm'),
+      });
       sendLog('Error/FCM', '');
     }
   }
@@ -633,19 +636,19 @@ ons.ready(function() {
   init();
   if (is_debug) {
     ons.notification.alert('この状態で公開しないで下さい！', {
-      title: 'デバッグモード',
+      title: 'Debug mode',
     });
     if (getConfig(1, 'SendLog') === '') setConfig(1, 'SendLog', '0');
   } else {
     if (getConfig(1, 'SendLog') === '') {
       ons.notification
-        .confirm(
-          'KnzkAppでは、エラー時に開発者が原因を特定しやすいようログを送信する機能が備わっています。<br>エラー時にログを開発者へ送信してもよろしいですか？<br><a onclick="openURL(\'https://knzkapp.yuzu.tk/privacy.html\')">プライバシーポリシー</a>',
-          {
-            title: 'KnzkAppへようこそ',
-            buttonLabels: ['同意しない', '同意する'],
-          }
-        )
+        .confirm(dialog_i18n('log', 1), {
+          title: dialog_i18n('log'),
+          buttonLabels: [
+            i18next.t('dialogs_js.log.no'),
+            i18next.t('dialogs_js.log.yes'),
+          ],
+        })
         .then(function(e) {
           if (e === 1) {
             setConfig(1, 'SendLog', '1');

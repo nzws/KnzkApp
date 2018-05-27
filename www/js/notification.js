@@ -117,19 +117,16 @@ function changeNotification(force) {
         console.log(error);
       });
   } else {
-    ons.notification.alert(
-      'FCMトークンの受信に失敗しました。<br>通知が無効になっている可能性があります。',
-      { title: 'エラー' }
-    );
+    ons.notification.alert(dialog_i18n('err_fcm_2', 1), {
+      title: dialog_i18n('err_fcm_2'),
+    });
     document.getElementById('noti-mode').checked = !!is_unregister;
   }
 }
 
 function addKeyWord() {
   ons.notification
-    .prompt('検知させるワードを入力してください<br>(空欄でキャンセル)', {
-      title: 'キーワード検知',
-    })
+    .prompt(dialog_i18n('keyword', 1), { title: dialog_i18n('keyword') })
     .then(function(repcom) {
       if (repcom) {
         var config = LoadNotificationConfig()['option'];
@@ -206,10 +203,9 @@ function setNotificationServer() {
           setConfig(4, name, config);
           initNotificationPage();
         } else {
-          ons.notification.alert(
-            '通知サーバーが見つかりませんでした。<br>開発者にご連絡ください。',
-            { title: 'エラー' }
-          );
+          ons.notification.alert(dialog_i18n('err_notification_sv', 1), {
+            title: dialog_i18n('err_notification_sv'),
+          });
           hide('now_loading');
         }
       })

@@ -17,8 +17,10 @@ function tutorial_open() {
   $('#tutorial_more').removeClass('invisible');
 }
 
-function tutorial_alert(text) {
-  ons.notification.alert(text, { title: 'Tutorial' });
+function tutorial_alert(id) {
+  ons.notification.alert(i18next.t('tutorial.page2.alert.' + id), {
+    title: 'Tutorial',
+  });
 }
 
 function tutorial_close() {

@@ -11,6 +11,7 @@ window.fn = {};
 window.fn.open = function() {
   var menu = document.getElementById('splitter-menu');
   menu.open();
+  $('[data-i18n]').localize();
 };
 
 function reset_nav() {
@@ -28,31 +29,26 @@ function load(page) {
       closeAllws();
     } catch (e) {}
   }
-  loadNav(page, null, true);
+  loadNav(page, null, 'reset');
 }
 
-function loadNav(page, mode, splitter, splitter_next) {
-  //mode: アニメーション方法, splitter: スライドメニューを使用しているか, splitter_next: その中で、ページリセットをするか
-  var option;
-  if (mode === 'up') option = { animation: 'lift' };
-  else option = { animation: 'slide' };
+function loadNav(page, mode, move_mode) {
+  //mode: アニメーション方法, splitter: スライドメニューを使用しているか, move_mode: ページを読み込むモード
+  var option = mode === 'up' ? { animation: 'lift' } : { animation: 'slide' },
+    menu = document.getElementById('splitter-menu'),
+    nav = document.querySelector('#navigator');
 
-  if (splitter) {
-    var menu = document.getElementById('splitter-menu');
-    if (splitter_next) {
-      document
-        .querySelector('#navigator')
-        .bringPageTop(page, option)
-        .then(menu.close.bind(menu));
-    } else {
-      document
-        .querySelector('#navigator')
-        .resetToPage(page, { animation: 'none' })
-        .then(menu.close.bind(menu));
-    }
-  } else {
-    document.querySelector('#navigator').bringPageTop(page, option);
-  }
+  var onLoad = function() {
+    menu.close();
+    setTimeout(function() {
+      $('[data-i18n]').localize();
+    }, 0);
+  };
+
+  if (move_mode === 'reset')
+    nav.resetToPage(page, { animation: 'none' }).then(onLoad());
+  // else if (move_mode === "reload") nav.bringPageTop(page, option).then(onLoad());
+  else nav.bringPageTop(page, option).then(onLoad());
 }
 
 function BackTab(mode) {
@@ -65,7 +61,7 @@ function BackTab(mode) {
 
 function displayTime(mode, time) {
   if (mode == 'new') {
-    return new Date(time).toTwitterRelativeTime('ja');
+    return new Date(time).toTwitterRelativeTime(lng);
   } else {
     var i = 0;
     var list = document.getElementsByClassName('date');

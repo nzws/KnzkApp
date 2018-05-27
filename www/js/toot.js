@@ -37,8 +37,11 @@ function toot_card(toot, mode, note, toot_light, page) {
       "<p class='alert_text'><ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" +
       toot['account']['id'] +
       ")'>" +
+      i18next.t('toot.boost.prefix') +
       escapeHTML(toot['account']['display_name']) +
-      "</b>さんがブースト (<span data-time='" +
+      '</b>' +
+      i18next.t('toot.boost.suffix') +
+      " (<span data-time='" +
       toot['created_at'] +
       "' class='date'>" +
       displayTime('new', toot['created_at']) +
@@ -272,7 +275,9 @@ function toot_card(toot, mode, note, toot_light, page) {
       rand +
       '_' +
       toot['id'] +
-      "\", this);' class='cw-button'>もっと見る</ons-button><div class='invisible' id='cw_" +
+      "\", this);' class='cw-button'>" +
+      i18next.t('navigation.load_more') +
+      "</ons-button><div class='invisible' id='cw_" +
       rand +
       '_' +
       toot['id'] +
@@ -345,11 +350,11 @@ function toot_card(toot, mode, note, toot_light, page) {
       date_text +
       ' · <span onclick=\'list("statuses/' +
       toot['id'] +
-      '/reblogged_by", "ブーストしたユーザー", null, "acct", true)\'><ons-icon icon="fa-retweet"></ons-icon> ' +
+      '/reblogged_by", "toot.boost.user", null, "acct", true)\'><ons-icon icon="fa-retweet"></ons-icon> ' +
       toot['reblogs_count'] +
       '</span> · <span onclick=\'list("statuses/' +
       toot['id'] +
-      '/favourited_by", "お気に入りしたユーザー", null, "acct", true)\'><ons-icon icon="fa-star"></ons-icon> ' +
+      '/favourited_by", "toot.fav.user", null, "acct", true)\'><ons-icon icon="fa-star"></ons-icon> ' +
       toot['favourites_count'] +
       '</span></span>' +
       '<div class="row toot_big_border">\n' +
@@ -686,26 +691,29 @@ function more(id) {
   more_status_id = '' + id;
   more_acct_id = tl_postdata[id]['account']['id'];
   if (now_userconf['id'] === tl_postdata[id]['account']['id']) {
-    var pin = tl_postdata[id]['pinned'] === true ? 'ピン留め解除' : 'ピン留め';
+    var pin =
+      tl_postdata[id]['pinned'] === true
+        ? i18next.t('actionsheet.toot.pin.unset')
+        : i18next.t('actionsheet.toot.pin.set');
     ons
       .openActionSheet({
         cancelable: true,
         buttons: [
-          '詳細を表示',
-          'ブラウザで表示',
-          'URLをコピー',
-          '元のトゥートを表示',
-          '近くのトゥートを表示',
+          i18next.t('actionsheet.toot.more'),
+          i18next.t('actionsheet.toot.openbrowser'),
+          i18next.t('actionsheet.toot.url'),
+          i18next.t('actionsheet.toot.original_toot'),
+          i18next.t('actionsheet.toot.near'),
           {
             label: pin,
             modifier: 'fa-thumb-tack',
           },
           {
-            label: '削除',
+            label: i18next.t('actionsheet.toot.delete'),
             modifier: 'destructive',
           },
           {
-            label: 'キャンセル',
+            label: i18next.t('navigation.cancel'),
             icon: 'md-close',
           },
         ],
@@ -721,23 +729,25 @@ function more(id) {
       });
   } else {
     var bookmark =
-      checkBookmark(id) === true ? 'ブックマークから削除' : 'ブックマークする';
+      checkBookmark(id) === true
+        ? i18next.t('actionsheet.toot.bookmark.unset')
+        : i18next.t('actionsheet.toot.bookmark.set');
     ons
       .openActionSheet({
         cancelable: true,
         buttons: [
-          '詳細を表示',
-          'ブラウザで表示',
-          'URLをコピー',
-          '元のトゥートを表示',
-          '近くのトゥートを表示',
+          i18next.t('actionsheet.toot.more'),
+          i18next.t('actionsheet.toot.openbrowser'),
+          i18next.t('actionsheet.toot.url'),
+          i18next.t('actionsheet.toot.original_toot'),
+          i18next.t('actionsheet.toot.near'),
           bookmark,
           {
-            label: '通報',
+            label: i18next.t('dialogs_js.report.title'),
             modifier: 'destructive',
           },
           {
-            label: 'キャンセル',
+            label: i18next.t('navigation.cancel'),
             icon: 'md-close',
           },
         ],
@@ -756,7 +766,7 @@ function more(id) {
 
 function delete_post() {
   ons.notification
-    .confirm('本当に削除しますか？', { title: 'トゥートを削除' })
+    .confirm(dialog_i18n('delete', 1), { title: dialog_i18n('delete') })
     .then(function(e) {
       if (e === 1) {
         Fetch('https://' + inst + '/api/v1/statuses/' + more_status_id, {
@@ -891,9 +901,7 @@ function show_post(id, near) {
 
 function report() {
   var rep = ons.notification
-    .prompt('通報のコメントを記入してください<br>(空欄でキャンセル)', {
-      title: '通報',
-    })
+    .prompt(dialog_i18n('report', 1), { title: dialog_i18n('report') })
     .then(function(repcom) {
       if (repcom) {
         Fetch('https://' + inst + '/api/v1/reports', {
@@ -963,4 +971,18 @@ function original_post(id, url, acct) {
       console.log(error);
       hide('now_loading');
     });
+}
+
+function quote_toot(text, acct) {
+  acct = '@' + acct;
+  hide('dialog-original_post');
+  post_pre(
+    text +
+      '\n' +
+      i18next.t('original_toot.quote.prefix') +
+      acct +
+      i18next.t('original_toot.quote.suffix') +
+      '\n',
+    1
+  );
 }

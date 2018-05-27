@@ -115,7 +115,6 @@ function ConfigSetup() {
         'swipe',
         'joke',
         'menu-fav',
-        'alert-back',
         'image_full',
         'swipe_menu',
         'head_reset',
@@ -219,9 +218,11 @@ function ConfigSetup() {
 
       var acctlist = JSON.parse(localStorage.getItem('knzkapp_account_list'));
       mig_i = 0;
-      while (acctlist[mig_i]) {
-        acctlist[mig_i]['service'] = 'mastodon';
-        mig_i++;
+      if (acctlist) {
+        while (acctlist[mig_i]) {
+          acctlist[mig_i]['service'] = 'mastodon';
+          mig_i++;
+        }
       }
       localStorage.setItem('knzkapp_account_list', JSON.stringify(acctlist));
     }
@@ -234,16 +235,15 @@ function ConfigSetup() {
 
 function clearAllConfig() {
   ons.notification
-    .confirm('本当に全ての設定をリセットしますか？', {
-      title: '設定をリセット',
+    .confirm(dialog_i18n('clear_account.1', 1), {
+      title: dialog_i18n('clear_account'),
     })
     .then(function(e) {
       if (e === 1) {
         ons.notification
-          .confirm(
-            'もう一度聞きます。<br>本当に全ての設定をリセットしますか？',
-            { title: '設定をリセット' }
-          )
+          .confirm(dialog_i18n('clear_account.2', 1), {
+            title: dialog_i18n('clear_account'),
+          })
           .then(function(e) {
             if (e === 1) {
               localStorage.setItem(
@@ -279,9 +279,7 @@ function clearAllConfig() {
                 'knzkapp_conf_mastodon_filter',
                 JSON.stringify({ notification: {} })
               );
-              ons.notification.toast(
-                '設定をリセットしました。再起動してください。'
-              );
+              ons.notification.toast(dialog_i18n('clear_account.3', 1));
             }
           });
       }

@@ -27,7 +27,9 @@ function openDoodle(simple) {
 
 function Doodle_reset() {
   ons.notification
-    .confirm('お絵かきが破棄されますがよろしいですか？', { title: 'リセット' })
+    .confirm(i18next.t('doodle.reset.text'), {
+      title: i18next.t('doodle.reset.title'),
+    })
     .then(function(e) {
       if (e === 1) {
         sketcher.clear();
@@ -49,8 +51,8 @@ function closeDoodle(force) {
     BackTab('down');
   } else {
     ons.notification
-      .confirm('お絵かきが破棄されますがよろしいですか？', {
-        title: 'お絵かきを閉じる',
+      .confirm(i18next.t('doodle.reset.text'), {
+        title: i18next.t('doodle.reset.close'),
       })
       .then(function(e) {
         if (e === 1) {
@@ -74,7 +76,9 @@ function dataURLtoFile(dataURI) {
 
 function Doodle_upload() {
   ons.notification
-    .confirm('よろしいですか？', { title: 'アップロード' })
+    .confirm(i18next.t('doodle.upload.text'), {
+      title: i18next.t('doodle.upload.title'),
+    })
     .then(function(e) {
       if (e === 1) {
         closeDoodle(true);

@@ -129,7 +129,7 @@ function up_file_suc(base64, mode_blob) {
 
 function file_del(card) {
   ons.notification
-    .confirm('画像を削除してもよろしいですか？')
+    .confirm(i18next.t('dialogs_js.delete_picture'))
     .then(function(e) {
       if (e === 1) {
         card.parentNode.removeChild(card);
@@ -198,12 +198,12 @@ function post_mode(simple) {
     .openActionSheet({
       cancelable: true,
       buttons: [
-        { label: '公開', icon: 'fa-globe' },
-        { label: '未収載', icon: 'fa-unlock-alt' },
-        { label: '非公開', icon: 'fa-lock' },
-        { label: 'ダイレクト', icon: 'fa-envelope' },
+        { label: i18next.t('privacy.public'), icon: 'fa-globe' },
+        { label: i18next.t('privacy.unlisted'), icon: 'fa-unlock-alt' },
+        { label: i18next.t('privacy.private'), icon: 'fa-lock' },
+        { label: i18next.t('privacy.direct'), icon: 'fa-envelope' },
         {
-          label: 'キャンセル',
+          label: i18next.t('navigation.cancel'),
           icon: 'md-close',
         },
       ],
@@ -262,10 +262,9 @@ function bbcodegen(force) {
     value = '';
   if (spin > 9 && !force) {
     ons.notification
-      .confirm(
-        '回転を多く指定すると、TLが重くなる原因となり、警告を受ける可能性があります。続行しますか？',
-        { title: '注意:TLが重くなります' }
-      )
+      .confirm(dialog_i18n('warning_spin', 1), {
+        title: dialog_i18n('warning_spin'),
+      })
       .then(function(e) {
         if (e === 1) {
           bbcodegen(true);

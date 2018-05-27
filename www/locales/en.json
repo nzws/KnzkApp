@@ -1,0 +1,517 @@
+{
+  "navigation": {
+    "title": "Navigation",
+    "toot": "New toot",
+    "notifications": "Notifications",
+    "favourites": "Favourites",
+    "follow_req": "Follow requests",
+    "user_menu": "User menu",
+    "preferences": "Preferences",
+    "pinned_toots": "Pinned toots",
+    "dm_tl": "Direct messages",
+    "muted_users": "Muted users",
+    "blocked_users": "Blocked users",
+    "hidden_domains": "Hidden domains",
+    "report_status": "Report status",
+    "back": "Back",
+    "close": "Close",
+    "cancel": "Cancel",
+    "load_more": "Load more...",
+    "search": "Search"
+  },
+  "toot": {
+    "toot": "Toot!",
+    "cw": "Write your warning here",
+    "picture": "Add picture",
+    "fav": {
+      "user": "お気に入りしたユーザー",
+      "prefix": "",
+      "suffix": " さんがお気に入り"
+    },
+    "boost": {
+      "user": "ブーストしたユーザー",
+      "prefix": "",
+      "suffix": "さんがブースト"
+    },
+    "enquete": {
+      "30s": "30s",
+      "1m": "1m",
+      "3m": "3m",
+      "5m": "5m",
+      "10m": "10m",
+      "1h": "1h",
+      "1d": "1d",
+      "column1": "Item1",
+      "column2": "Item2",
+      "column3": "Item3 (Option)",
+      "column4": "Item4 (Option)",
+      "toot_box_placeholder": "What is on your mind?",
+      "reply": {
+        "prefix": "Reply to ",
+        "suffix": ""
+      }
+    },
+    "md": {
+      "note": "*MarkDown can use at Swipe-menu → New toot."
+    },
+    "bbcode": {
+      "text": "Text",
+      "base": {
+        "title": "Base",
+        "none": "None",
+        "bold": "Bold",
+        "italic": "Italic",
+        "underline": "Underline",
+        "strikethrough": "Strikethrough"
+      },
+      "color": "Color",
+      "color_default": "(Default)",
+      "size": "Size",
+      "spin": "Spin",
+      "pulse": "Pulse"
+    },
+    "doodle": {
+      "color": "Color",
+      "weight": "Weight",
+      "reset": {
+        "title": "リセット",
+        "text": "お絵かきが破棄されますがよろしいですか？",
+        "close": "お絵かきを閉じる"
+      },
+      "upload": {
+        "title": "アップロード",
+        "text": "よろしいですか？"
+      }
+    }
+  },
+  "emoji_category": {
+    "Custom": "カスタム絵文字",
+    "People": "人々",
+    "Nature": "自然",
+    "Foods": "食べ物",
+    "Activity": "活動",
+    "Places": "場所",
+    "Objects": "物",
+    "Symbols": "記号",
+    "Flags": "国旗",
+    "Search": "検索結果"
+  },
+  "account": {
+    "add": "Add account",
+    "moved": "This account has moved to",
+    "followreq": "Awaiting approval",
+    "follower": "Follower",
+    "mute": "Muted",
+    "block": "Blocked",
+    "toots": "Toots",
+    "following": "Following",
+    "followers": "Followers",
+    "note": "Information below may reflect the user's profile incompletely.",
+    "pinned": "Pinned",
+    "replies": "+Replies",
+    "media": "Media",
+    "joined_at": "Joined at",
+    "date": "{{date, YYYY/MM/DD HH:MM}}"
+  },
+  "app_filter": {
+    "title": "Filter",
+    "note": "*プッシュ通知ミュートの反映にはアプリの再起動が必要です。",
+    "edit": {
+      "title": "Add / edit filter",
+      "placeholder": "UserID (e.g. knzk@knzk.me)",
+      "mute": {
+        "title": "Hide display",
+        "all": "All",
+        "toot": "Toots",
+        "follow": "Follows",
+        "mention": "Mentions",
+        "boost": "Boosts",
+        "favourite": "Favourites",
+        "push": "Mute push notifications",
+        "keyword": "Keyword notice"
+      }
+    }
+  },
+  "bookmark": {
+    "title": "Bookmarks",
+    "note": "ブックマークはKnzkApp独自の機能で、データが端末内に保管されます。<br>ブックマークはインスタンスごとに区別されます。",
+    "clear1": {
+      "title": "ブックマーク全削除",
+      "text": "本当に削除しますか？<br>*{{inst}}のアカウントのブックマークが対象です。"
+    },
+    "clear2": "本当に「(あなたがログインしている全てのアカウントの)全てのブックマーク」を削除しますか？<br>※Glitch-socインスタンスを除きます。",
+    "clear3": "もう一度聞きます。<br>本当に「(あなたがログインしている全てのアカウントの)全てのブックマーク」を削除しますか？"
+  },
+  "timeline": {
+    "title": "Timelines",
+    "home": "Home",
+    "local": "Local",
+    "federated": "Federated",
+    "local_media": "Media (Local)",
+    "federated_media": "Media (Federated)"
+  },
+  "qrcode": {
+    "title": "QR Code",
+    "note": {
+      "L1": "この画面をスクショするか直接見せてあなたのアカウントを簡単に共有することができます。",
+      "L2": "QRコードは通常のQRコードリーダーアプリ等で読み取ってください。"
+    }
+  },
+  "emoji": {
+    "reset": "Show all categories",
+    "loading_now": "Generating emoji picker..."
+  },
+  "copyoption": {
+    "copy": "Copy",
+    "paste": "Paste"
+  },
+  "original_toot": {
+    "title": "Original toot",
+    "quote": {
+      "title": "Quote and toot",
+      "prefix": "Posted by ",
+      "suffix": ""
+    }
+  },
+  "privacy": {
+    "public": "Public",
+    "unlisted": "Unlisted",
+    "private": "Followers-only",
+    "direct": "Direct"
+  },
+  "dialogs_html": {
+    "error": "Error",
+    "del_post": "トゥートを削除しました。",
+    "report": "Thanks for reporting.",
+    "del_notification": "通知を消去しました。",
+    "ok_conf": "設定を保存しました。",
+    "ok_conf_2": "設定しました。",
+    "del_ok": "削除しました。",
+    "post_now": "投稿しています...",
+    "vote_ok": "投票に成功しました！",
+    "vote_ng": "投票に失敗しました。<br>投票済みか締め切りとなっている可能性があります。",
+    "maximum_media": "エラー: これ以上画像をアップする事はできません。",
+    "bbcode_limit": "エラー: 文字数制限を超えています！<br>回転や点滅、文字列を少なくしてください。",
+    "cannot_pros": "エラー: 実行できませんでした。<br> 接続環境が悪いか鯖落ちしている可能性があります。",
+    "cannot_post": "エラー: 投稿できませんでした。<br> 接続環境が悪いか鯖落ちしている可能性があります。",
+    "cannot_load": "エラー: 取得できませんでした。<br> 接続環境が悪いか鯖落ちしている可能性があります。",
+    "cannot_use_ls": "OSのバージョンが古い可能性があります。<br> 詳細は開発者にお問い合わせください。",
+    "ok_copy": "コピーしました。",
+    "sv_login": "インスタンスに接続できません！<br> このインスタンスが存在しない、一時的にメンテナンス中、通信環境が悪い可能性があります。",
+    "connect_sv": "エラー: エラーが発生しました。<br>再起動するなどでもう一度お試しください。",
+    "connect_API": "エラー: APIを認証できませんでした。<br>アカ一覧から一度削除して、もう一度ログインしてください。",
+    "no_acct": "エラー: アカウントが正常に取得できませんでした。<br>このインスタンスに登録されていない可能性があります。",
+    "no_original": "エラー: 取得できませんでした。",
+    "DB_migrate": {
+      "title": "Starting now...",
+      "text": "データベースのマイグレーション中です。<br>しばらくお待ち下さい..."
+    }
+  },
+  "report_status_note": "あなたの通報が現在処理されているのか簡易的に確認することができます。",
+  "dialogs_js": {
+    "report": {
+      "title": "通報",
+      "text": "通報のコメントを記入してください<br>(空欄でキャンセル)"
+    },
+    "delete": {
+      "title": "トゥートを削除",
+      "text": "本当に削除しますか？"
+    },
+    "log": {
+      "title": "KnzkAppへようこそ",
+      "text": "KnzkAppでは、エラー時に開発者が原因を特定しやすいようログを送信する機能が備わっています。<br>エラー時にログを開発者へ送信してもよろしいですか？<br><a onclick=\"openURL('https://knzkapp.nzws.me/privacy.html')\">プライバシーポリシー</a>",
+      "yes": "同意する",
+      "no": "同意しない"
+    },
+    "err_fcm": {
+      "title": "エラー",
+      "text": "FCMトークンの受信に失敗しました。<br>このままでもお使い頂けますが、プッシュ通知の配信が行えない可能性があります。"
+    },
+    "code": {
+      "title": "ログイン",
+      "text": "認証コードを入力してください<br>(空欄でキャンセル)"
+    },
+    "terms": {
+      "title": "ログイン",
+      "text": "OKを押してインスタンスの利用規約に同意したものとします。"
+    },
+    "login_error": "ログイン中にエラーが発生しました。",
+    "delete_account": {
+      "title": "アカウントの削除",
+      "text": "アプリからこのアカウントを削除してもよろしいですか？"
+    },
+    "clear_account": {
+      "title": "全アカウントをログアウト",
+      "1": {
+        "text": "本当に全てのアカウントからログアウトしますか？"
+      },
+      "2": {
+        "text": "もう一度聞きます。<br>本当に全てのアカウントからログアウトしますか？"
+      }
+    },
+    "err_fcm_2": {
+      "title": "エラー",
+      "text": "FCMトークンの受信に失敗しました。<br>通知が無効になっている可能性があります。"
+    },
+    "keyword": {
+      "title": "キーワード検知",
+      "text": "検知させるワードを入力してください<br>(空欄でキャンセル)"
+    },
+    "err_notification_sv": {
+      "title": "エラー",
+      "text": "通知サーバーが見つかりませんでした。<br>開発者にご連絡ください。"
+    },
+    "clear_alert": {
+      "title": "通知を消去",
+      "text": "本当に通知を消去してもよろしいですか？"
+    },
+    "delete_picture": "画像を削除してもよろしいですか？",
+    "warning_spin": {
+      "title": "注意:TLが重くなります",
+      "text": "回転を多く指定すると、TLが重くなる原因となり、警告を受ける可能性があります。続行しますか？"
+    }
+  },
+  "search": {
+    "result": "{{text}}の検索結果",
+    "accts": "アカウント",
+    "tags": "タグ",
+    "toots": "トゥート"
+  },
+  "actionsheet": {
+    "toot": {
+      "more": "詳細を表示",
+      "openbrowser": "ブラウザで表示",
+      "url": "URLをコピー",
+      "original_toot": "元のトゥートを表示",
+      "near": "近くのトゥートを表示",
+      "delete": "削除",
+      "pin": {
+        "set": "ピン留め",
+        "unset": "ピン留め解除"
+      },
+      "bookmark": {
+        "set": "ブックマークする",
+        "unset": "ブックマークから削除"
+      },
+      "qrcode": "QRコードを表示",
+      "mention": "返信",
+      "mute": {
+        "set": "ミュート",
+        "unset": "ミュート解除"
+      },
+      "block": {
+        "set": "ブロック",
+        "unset": "ブロック解除"
+      }
+    }
+  },
+  "config": {
+    "profile": {
+      "title": "Edit profile",
+      "display_name": "Display name",
+      "bio": "Bio",
+      "lock": "Lock account",
+      "note": "* インスタンスにより文字数、容量制限が異なりますのでリミットは表示していません。",
+      "advanced_setting": "Advanced Setting",
+      "advanced_setting_note": "Go to Mastodon settings page"
+    },
+    "preferences": {
+      "about_instance": "About this instance",
+      "about_app": "About this app",
+      "about_app_note": {
+        "l1": "KnzkApp is open source software.",
+        "l2_pre": "You can contribute or report issues on GitHub at ",
+        "l2_suf": "",
+        "privacy_policy": "KnzkApp privacy policy (Japanese)"
+      },
+      "tl": {
+        "title": "Timeline settings",
+        "chatmode": {
+          "title": "Chat mode",
+          "sub": "下に行くほど最新の投稿になるモード"
+        },
+        "joke": "Joke mode",
+        "realtime": "RealTime update",
+        "cw": "Always show toot marked as content warning",
+        "nsfw": "Always show media marked as sensitive",
+        "head_reset": {
+          "title": "Enable timeline reload when you tapped timeline header",
+          "sub": "リセットさせる事で軽くなります"
+        },
+        "resume_reload": "Disable auto reload at resume",
+        "edit": {
+          "title": "Edit timeline",
+          "note": "ボタンで編集できます",
+          "load": "First timeline to load",
+          "sort": "Sort"
+        },
+        "speed_dial": {
+          "title": "Edit speed dial",
+          "none": "None",
+          "toot": "New toot",
+          "notification": "Notification",
+          "reload": "Reload Timeline",
+          "menu": "Timeline menu"
+        }
+      },
+      "display": {
+        "title": "Display settings",
+        "bigfav": "Show larger favorite buttons",
+        "spin": "Disable [spin] (BBCode)",
+        "menu_fav": "Show favourites in slide menu",
+        "image_full": "メディアを完全に表示",
+        "copy": {
+          "title": "Enable copy and paste option",
+          "sub": "If you found any problems about copy and paste, please turn on."
+        },
+        "theme": "Theme",
+        "platform": {
+          "title": "Platform design",
+          "ios": "iOS",
+          "android": "Android"
+        }
+      },
+      "system": {
+        "title": "System settings",
+        "openurl": {
+          "title": "Mode of open links",
+          "inapp": "In app browser",
+          "inapp_older": "In app browser (older)",
+          "browser": "Default browser"
+        },
+        "swipe_menu": {
+          "title": "Change Swipe-mode",
+          "sub": "Off: gesture-swiper / On: Tabbar & menu swiper"
+        },
+        "gpu": {
+          "title": "Disable hardware acceleration",
+          "sub": "If you found any problems about view, please turn on."
+        },
+        "SendLog": {
+          "title": "Send error logs to developer",
+          "sub": "Privacy policy (Japanese)"
+        },
+        "no_unread_label": "Disable unread notification label"
+      },
+      "eco": {
+        "title": "Economy settings",
+        "gif": {
+          "title": "Disable playing animated GIFs",
+          "sub": "電池の節約"
+        },
+        "custom_emoji": {
+          "title": "Disable show custom emojis",
+          "sub": "ネットワーク通信の節約"
+        }
+      },
+      "font": {
+        "title": "Font-size settings",
+        "button": "Button in toots",
+        "body": "Text in toots"
+      },
+      "note": "一部の設定は再起動後に反映されます。",
+      "danger": {
+        "bookmarks": "Delete all bookmarks",
+        "settings": "Reset all settings",
+        "accounts": "Logout all accounts"
+      }
+    },
+    "collapsed": {
+      "title": "Collapsed toots",
+      "enable": "Enable collapsed toots",
+      "auto": {
+        "title": "Automatic collapseing settings",
+        "all": "All",
+        "notification": "Notifications",
+        "long": "Lengthy toots",
+        "boost": "Boosts",
+        "mention": "Mentions",
+        "media": "Media toot",
+        "pinned": "Pinned toot"
+      },
+      "bg": {
+        "title": "Image background settings",
+        "collapse": "Give collapsed toots an image background",
+        "preview": "Preview collapsed toot media"
+      },
+      "more": {
+        "title": "More settings",
+        "alert": "Hide my display_name and avatar in notification"
+      }
+    },
+    "notification": {
+      "title": "Notification settings",
+      "save": "Save",
+      "enable": "Enable notifications",
+      "note": "*設定を保存するまでサーバー上に更新されません。",
+      "default": {
+        "title": "通常の通知",
+        "everyone": {
+          "title": "Mute notifications (Everyone)",
+          "all": "All",
+          "follow": "Follow",
+          "mention": "Mention",
+          "boost": "Boost",
+          "favourite": "Favourite"
+        },
+        "user": {
+          "title": "Mute notifications (User)",
+          "sub": " ユーザーごとの通知制御は<a href=\"#\" onclick=\"loadNav('config_filter.html')\"><b>ユーザーメニュー > フィルター</b></a>より行えます。",
+          "note": "*ユーザー通知ミュート反映にはアプリの再起動が必要です。"
+        },
+        "keyword": {
+          "title": "キーワード検知",
+          "note": "* タップで削除できます。"
+        }
+      }
+    }
+  },
+  "login": {
+    "title": "Login to KnzkApp",
+    "login": "Login",
+    "terms": "Terms",
+    "privacy_policy": "Privacy policy",
+    "other": "Other instance",
+    "advance": {
+      "title": "(for advanced users) Input the access token to login",
+      "domain": "Domain (e.g. mastodon.social)",
+      "token": "Access token"
+    }
+  },
+  "tutorial": {
+    "skip": "Skip",
+    "next": "Next",
+    "done": "Done",
+    "title": "Welcome to KnzkApp!",
+    "page1": {
+      "L1": "KnzkAppは、元々Knzk.meのBBCode(文字装飾)をアプリでも見られるように開発されたMastodonクライアントです。",
+      "L2": "現在では様々なインスタンスの独自仕様に対応しています。"
+    },
+    "page2": {
+      "L1": "KnzkAppでは、主にタイムラインの下にあるフォームから投稿できます。",
+      "L2": "このフォームは、黒い部分(本文を入力する部分)をタップする事で細かなボタンが表示されます。ボタンを押すと、それぞれの説明を表示します。",
+      "toot": "Toot! (Sample)",
+      "alert": {
+        "menu": "設定等に飛べるメニューを表示します。",
+        "toot": "このボタンで投稿できます。",
+        "privacy": "このボタンで公開範囲を変更できます。",
+        "local_only": "このボタンでローカル限定にする事ができます。 *対応インスタンスのみ",
+        "emoji": "このボタンで絵文字を追加する事ができます。",
+        "deco_box": "このボックスで様々な追加機能を使用する事ができます。",
+        "bbcode": "このボタンでBBCodeを追加する事ができます。 *対応インスタンスのみ",
+        "doodle": "このボタンで簡易お絵かきを起動する事ができます。投稿時は画像になる為、どのインスタンスでも使用できます。",
+        "cw": "このボックスで警告文(CW)を追加する事ができます。",
+        "picture": "このボックスで画像を追加する事ができます。",
+        "enquete": "このボックスで投票を作成する事ができます。 *対応インスタンスのみ"
+      }
+    },
+    "page3": {
+      "L1": "タイムラインは、左右にスワイプするか、メニューバーの矢印で切り替える事ができます。"
+    },
+    "page4": {
+      "L1": "簡単な説明は以上です。",
+      "L2": "その他、お困りの際や新しいアイデアなど、何でもいいのでまあまあ暇な開発者(<a href='https://knzk.me/@y'>@y@knzk.me</a>)に質問してみてください。",
+      "L3": "ボナペトゥート！"
+    }
+  }
+}

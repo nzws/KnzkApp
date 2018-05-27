@@ -28,7 +28,7 @@ function list_n(mode, title, more_load, mode_toot, navmode) {
   var id_title, id_main;
   if (more_load) {
     get = '?' + list_old_id[0];
-    more_load.value = '読み込み中...';
+    more_load.value = 'Loading now...';
     more_load.disabled = true;
   }
   if (mode === 'pin') {
@@ -51,7 +51,7 @@ function list_n(mode, title, more_load, mode_toot, navmode) {
           more_load.className = 'button button--large--quiet invisible';
           reshtml = document.getElementById(id_main).innerHTML;
         } else {
-          document.getElementById(id_title).innerHTML = title;
+          document.getElementById(id_title).innerHTML = i18next.t(title);
         }
 
         while (json[i]) {
@@ -97,7 +97,9 @@ function list_n(mode, title, more_load, mode_toot, navmode) {
             mode_toot +
             '", ' +
             navmode +
-            ")'>もっと読み込む...</button>";
+            ")'>" +
+            i18next.t('navigation.load_more') +
+            '</button>';
         document.getElementById(id_main).innerHTML = reshtml;
         return true;
       } else {
@@ -130,12 +132,12 @@ function followreq(id, mode) {
     })
     .then(function(json) {
       showtoast('ok_conf_2');
-      list_n('follow_requests', 'フォローリクエスト', null, 'acct', true);
+      list_n('follow_requests', 'navigation.follow_req', null, 'acct', true);
     })
     .catch(function(error) {
       showtoast('cannot-pros');
       console.log(error);
-      list_n('follow_requests', 'フォローリクエスト', null, 'acct', true);
+      list_n('follow_requests', 'navigation.follow_req', null, 'acct', true);
     });
 }
 
@@ -171,9 +173,7 @@ function LoadrepStatus() {
         return t;
       });
       reshtml +=
-        '<div class="toot">\n' +
-        'あなたの通報が現在処理されているのか簡易的に確認することができます。\n' +
-        '</div>\n';
+        '<div class="toot">\n' + i18next.t('report_status_note') + '</div>\n';
       while (json[i]) {
         if (json[i]['action_taken']) {
           repstatus[0] = '管理者が確認済み';
@@ -200,7 +200,9 @@ function LoadrepStatus() {
         repstatus = [];
         i++;
       }
-      document.getElementById('olist_nav_title').innerHTML = '通報ステータス';
+      document.getElementById('olist_nav_title').innerHTML = i18next.t(
+        'navigation.report_status'
+      );
       document.getElementById('olist_nav_main').innerHTML = reshtml;
     })
     .catch(function(error) {

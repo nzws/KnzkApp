@@ -3,7 +3,7 @@ function SearchKey() {
 }
 
 function SearchLoad() {
-  loadNav('olist_nav.html', null, true, true);
+  loadNav('olist_nav.html');
   var q = escapeHTML(document.getElementById('nav-search').value);
   Fetch('https://' + inst + '/api/v1/search?q=' + q, {
     headers: {
@@ -23,9 +23,14 @@ function SearchLoad() {
     .then(function(json) {
       var reshtml = '',
         i = 0;
-      document.getElementById('olist_nav_title').innerHTML = q + 'の検索結果';
+      document.getElementById('olist_nav_title').innerHTML = i18next.t(
+        'search.result',
+        { text: q }
+      );
       reshtml +=
-        '<ons-list><ons-list-header>アカウント</ons-list-header></ons-list>';
+        '<ons-list><ons-list-header>' +
+        i18next.t('search.accts') +
+        '</ons-list-header></ons-list>';
       while (json['accounts'][i]) {
         if (!json['accounts'][i]['display_name'])
           json['accounts'][i]['display_name'] = json['accounts'][i]['username'];
@@ -34,7 +39,10 @@ function SearchLoad() {
       }
 
       i = 0;
-      reshtml += '<ons-list><ons-list-header>タグ</ons-list-header></ons-list>';
+      reshtml +=
+        '<ons-list><ons-list-header>' +
+        i18next.t('search.tags') +
+        '</ons-list-header></ons-list>';
       while (json['hashtags'][i]) {
         reshtml +=
           '<div onclick=\'showTagTL("' +
@@ -53,7 +61,9 @@ function SearchLoad() {
 
       i = 0;
       reshtml +=
-        '<ons-list><ons-list-header>トゥート</ons-list-header></ons-list>';
+        '<ons-list><ons-list-header>' +
+        i18next.t('search.toots') +
+        '</ons-list-header></ons-list>';
       while (json['statuses'][i]) {
         reshtml += toot_card(json['statuses'][i], 'full');
         i++;

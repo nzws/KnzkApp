@@ -1,6 +1,8 @@
 function reset_alert() {
   ons.notification
-    .confirm('本当に通知を消去してもよろしいですか？', { title: '通知を消去' })
+    .confirm(dialog_i18n('clear_alert', 1), {
+      title: dialog_i18n('clear_alert'),
+    })
     .then(function(e) {
       if (e === 1) {
         Fetch('https://' + inst + '/api/v1/notifications/clear', {
@@ -42,7 +44,7 @@ function showAlert(reload, more_load) {
     get = '?since_id=' + alert_new_id;
   }
   if (more_load) {
-    more_load.value = '読み込み中...';
+    more_load.value = 'Loading now...';
     more_load.disabled = true;
     get = '?max_id=' + alert_old_id;
   }
@@ -99,36 +101,40 @@ function showAlert(reload, more_load) {
               reshtml +=
                 '<div class="toot">\n' +
                 alert_text +
-                "<div class='toot_flex'>\n" +
-                "<div width='50px'>\n" +
-                '<p><img src="' +
+                "                    <div class='toot_flex'>\n" +
+                "                        <div width='50px'>\n" +
+                '                            <p><img src="' +
                 json[i]['account']['avatar'] +
                 '" class="icon-img" onclick=\'show_account(' +
                 json[i]['account']['id'] +
                 ")'/></p>\n" +
-                '</div>\n' +
-                '<div class="toot-card-right">\n' +
-                '<div class="toot-group">\n' +
-                "<span onclick='show_account(" +
+                '                        </div>\n' +
+                '                        <div class="toot-card-right">\n' +
+                '                            <div class="toot-group">\n' +
+                "                                <span onclick='show_account(" +
                 json[i]['account']['id'] +
                 ")'><b>" +
                 escapeHTML(json[i]['account']['display_name']) +
                 '</b> <small>@' +
                 json[i]['account']['acct'] +
                 '</small></span>\n' +
-                '</div>\n' +
-                '</div>\n' +
-                '</div>\n' +
-                '</div>';
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '            </div>';
             }
           } else {
             if (json[i]['type'] === 'favourite') {
               alert_text =
-                "<ons-icon icon=\"fa-star\" class='fav-active'></ons-icon> <b onclick='show_account(" +
+                '<ons-icon icon="fa-star" class=\'fav-active\'></ons-icon> ' +
+                i18next.t('toot.fav.prefix') +
+                "<b onclick='show_account(" +
                 json[i]['account']['id'] +
                 ")'>" +
                 escapeHTML(json[i]['account']['display_name']) +
-                "</b>さんがお気に入りしました (<span data-time='" +
+                '</b>' +
+                i18next.t('toot.fav.suffix') +
+                " (<span data-time='" +
                 json[i]['created_at'] +
                 "' class='date'>" +
                 displayTime('new', json[i]['created_at']) +
@@ -136,11 +142,15 @@ function showAlert(reload, more_load) {
             }
             if (json[i]['type'] === 'reblog') {
               alert_text =
-                "<ons-icon icon=\"fa-retweet\" class='boost-active'></ons-icon> <b onclick='show_account(" +
+                '<ons-icon icon="fa-retweet" class=\'boost-active\'></ons-icon> ' +
+                i18next.t('toot.boost.prefix') +
+                "<b onclick='show_account(" +
                 json[i]['account']['id'] +
                 ")'>" +
                 escapeHTML(json[i]['account']['display_name']) +
-                "</b>さんがブーストしました (<span data-time='" +
+                '</b>' +
+                i18next.t('toot.boost.suffix') +
+                " (<span data-time='" +
                 json[i]['created_at'] +
                 "' class='date'>" +
                 displayTime('new', json[i]['created_at']) +
@@ -161,8 +171,8 @@ function showAlert(reload, more_load) {
                 'alert'
               );
             }
+            alert_text = '';
           }
-          alert_text = '';
           i++;
         }
         if (reload) {
@@ -173,12 +183,14 @@ function showAlert(reload, more_load) {
           //TL初回
           if (i !== 0) alert_old_id = json[i - 1]['id'];
           reshtml +=
-            "<button class='button button--large--quiet' onclick='showAlert(null,this)'>もっと読み込む...</button>";
+            "<button class='button button--large--quiet' onclick='showAlert(null,this)'>" +
+            i18next.t('navigation.load_more') +
+            '</button>';
         }
         document.getElementById('alert_main').innerHTML = reshtml;
+        if (reload) reload();
+        return true;
       }
-      if (reload) reload();
-      return true;
     });
 }
 
@@ -195,13 +207,11 @@ function openTL(mode) {
     setTimeout(function() {
       document.getElementById('alert_button').innerHTML =
         '<ons-toolbar-button onclick="BackTab()" class="toolbar-button">\n' +
-        '<ons-icon icon="fa-chevron-left" class="ons-icon fa-chevron-left fa"></ons-icon>\n' +
-        '戻る\n' +
+        '<ons-icon icon="fa-chevron-left" class="ons-icon fa-chevron-left fa"></ons-icon>' +
+        i18next.t('navigation.back') +
         '</ons-toolbar-button>';
       initph('alert');
-      if (getConfig(1, 'alert-back') == '1') {
-        $('#alert-speed_dial').removeClass('invisible');
-      }
+      $('#alert-speed_dial').removeClass('invisible');
     }, 200);
   } else {
     closeAllws();
@@ -461,7 +471,9 @@ function showTL(mode, reload, more_load, clear_load) {
               reshtml +=
                 "<button class='button button--large--quiet more_load_bt_" +
                 timeline_now_tab +
-                "' onclick='showTL(null,null,this)'>もっと読み込む...</button>";
+                "' onclick='showTL(null,null,this)'>" +
+                i18next.t('navigation.load_more') +
+                '</button>';
             }
             json = json.reverse();
           }
@@ -478,20 +490,8 @@ function showTL(mode, reload, more_load, clear_load) {
             i++;
           }
 
-          if (
-            more_load &&
-            mode == last_load_TL &&
-            !clear_load &&
-            getConfig(1, 'chatmode')
-          ) {
-            reshtml += document.querySelector(
-              '#TL' + timeline_now_tab + '_main > .page__content'
-            ).innerHTML;
-          }
-
           if (!getConfig(1, 'chatmode')) {
-            if (!more_load && mode == last_load_TL && !clear_load) {
-              //追加読み込みでない&前回と同じTL
+            if (more_load && mode == last_load_TL && !clear_load) {
               reshtml += document.querySelector(
                 '#TL' + timeline_now_tab + '_main > .page__content'
               ).innerHTML;
@@ -502,7 +502,9 @@ function showTL(mode, reload, more_load, clear_load) {
               reshtml +=
                 "<button class='button button--large--quiet more_load_bt_" +
                 timeline_now_tab +
-                "' onclick='showTL(null,null,this)'>もっと読み込む...</button>";
+                "' onclick='showTL(null,null,this)'>" +
+                i18next.t('navigation.load_more') +
+                '</button>';
             }
           }
           last_load_TL = timeline_now_tab;
@@ -526,7 +528,7 @@ function showTagTL(tag, more_load) {
   else tag_str = tag;
   if (more_load) {
     get = '?max_id=' + tag_old_id;
-    more_load.value = '読み込み中...';
+    more_load.value = 'Loading now...';
     more_load.disabled = true;
   } else {
     loadNav('showtag.html');
@@ -564,7 +566,9 @@ function showTagTL(tag, more_load) {
 
         if (i !== 0) tag_old_id = json[i - 1]['id'];
         reshtml +=
-          "<button class='button button--large--quiet' onclick='showTagTL(null,this)'>もっと読み込む...</button>";
+          "<button class='button button--large--quiet' onclick='showTagTL(null,this)'>" +
+          i18next.t('navigation.load_more') +
+          '</button>';
         document.getElementById('tag_main').innerHTML = reshtml;
         return true;
       }
@@ -577,7 +581,7 @@ function showAccountTL(id, more_load, mode = '', reload) {
     get = '';
   acct_mode = mode;
   if (more_load) {
-    more_load.value = '読み込み中...';
+    more_load.value = 'Loading now...';
     more_load.disabled = true;
     get = '?max_id=' + account_toot_old_id + '&';
   } else {
@@ -637,10 +641,14 @@ function showAccountTL(id, more_load, mode = '', reload) {
           reshtml +=
             "<button class='button button--large--quiet' onclick='showAccountTL(account_page_id, this, \"" +
             mode +
-            '")\'>もっと読み込む...</button>';
+            '")\'>' +
+            i18next.t('navigation.load_more') +
+            '</button>';
         else
           reshtml +=
-            "<button class='button button--large--quiet' onclick='showAccountTL(account_page_id, this)'>もっと読み込む...</button>";
+            "<button class='button button--large--quiet' onclick='showAccountTL(account_page_id, this)'>" +
+            i18next.t('navigation.load_more') +
+            '</button>';
 
         document.getElementById('account_toot').innerHTML = reshtml;
         if (reload) reload();
@@ -712,14 +720,14 @@ function setTLheadcolor(mode) {
 
 function TLname(mode) {
   var locale = {
-    home: 'ホーム',
-    local: 'ローカル',
-    public: '連合',
-    local_media: 'ローカルメディア',
-    public_media: '連合メディア',
+    home: 'home',
+    local: 'local',
+    public: 'federated',
+    local_media: 'local_media',
+    public_media: 'federated_media',
     plus_local: '+ローカル',
   };
-  return locale[mode];
+  return i18next.t('timeline.' + locale[mode]);
 }
 
 function initph(mode) {

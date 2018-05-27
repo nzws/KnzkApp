@@ -5,7 +5,7 @@ function LoadBookmark() {
   if (!instance_config[inst]['glitch_soc']) {
     reshtml +=
       '<div class="toot">\n' +
-      'ブックマークはKnzkApp独自の機能で、データが端末内に保管されます。<br>ブックマークはインスタンスごとに区別されます。\n' +
+      i18next.t('bookmark.note', { interpolation: { escapeValue: false } }) +
       '</div>';
   }
   if (json[0] && !instance_config[inst]['glitch_soc']) {
@@ -14,7 +14,9 @@ function LoadBookmark() {
     renderBookmark_glitch();
   } else {
     setTimeout(function() {
-      document.getElementById('olist_nav_title').innerHTML = 'ブックマーク';
+      document.getElementById('olist_nav_title').innerHTML = i18next.t(
+        'bookmark.title'
+      );
       document.getElementById('olist_nav_main').innerHTML = reshtml;
     }, 1000);
   }
@@ -47,7 +49,9 @@ function renderBookmark_glitch() {
         }
 
         document.getElementById('olist_nav_main').innerHTML = reshtml;
-        document.getElementById('olist_nav_title').innerHTML = 'ブックマーク';
+        document.getElementById('olist_nav_title').innerHTML = i18next.t(
+          'bookmark.title'
+        );
       }
     });
 }
@@ -71,7 +75,9 @@ function renderBookmark(reshtml, json_bookmark, i) {
     .then(function(json) {
       reshtml += toot_card(json, 'full', null);
       if (!json_bookmark[i + 1]) {
-        document.getElementById('olist_nav_title').innerHTML = 'ブックマーク';
+        document.getElementById('olist_nav_title').innerHTML = i18next.t(
+          'bookmark.title'
+        );
         document.getElementById('olist_nav_main').innerHTML = reshtml;
         document.getElementById('olist_right').innerHTML =
           '<ons-toolbar-button onclick="clearBookmark()" class="toolbar-button">\n' +
@@ -158,10 +164,11 @@ function clearBookmark() {
   if (!instance_config[inst]['glitch_soc']) {
     ons.notification
       .confirm(
-        '本当に削除しますか？<br>※' +
-          inst +
-          'のアカウントのブックマークが対象です。',
-        { title: 'ブックマーク全削除' }
+        i18next.t('bookmark.clear1.text', {
+          inst: inst,
+          interpolation: { escapeValue: false },
+        }),
+        { title: i18next.t('bookmark.clear1.title') }
       )
       .then(function(e) {
         if (e === 1) {
@@ -182,15 +189,17 @@ function clearBookmark() {
 function clearAllBookmark() {
   ons.notification
     .confirm(
-      '本当に「(あなたがログインしている全てのアカウントの)全てのブックマーク」を削除しますか？<br>※Glitch-socインスタンスを除きます。',
-      { title: 'ブックマーク全削除' }
+      i18next.t('bookmark.clear2', { interpolation: { escapeValue: false } }),
+      { title: i18next.t('bookmark.clear1.title') }
     )
     .then(function(e) {
       if (e === 1) {
         ons.notification
           .confirm(
-            'もう一度聞きます。<br>本当に「(あなたがログインしている全てのアカウントの)全てのブックマーク」を削除しますか？',
-            { title: 'ブックマーク全削除' }
+            i18next.t('bookmark.clear3', {
+              interpolation: { escapeValue: false },
+            }),
+            { title: i18next.t('bookmark.clear1.title') }
           )
           .then(function(e) {
             if (e === 1) {

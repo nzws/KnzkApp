@@ -20,16 +20,8 @@ function AccountCard(acct) {
   return reshtml;
 }
 
-function show_account(id, navmode) {
-  if (navmode) {
-    var menu = document.getElementById('splitter-menu');
-    document
-      .querySelector('#navigator')
-      .bringPageTop('account.html')
-      .then(menu.close.bind(menu));
-  } else {
-    loadNav('account.html');
-  }
+function show_account(id) {
+  loadNav('account.html', null);
   Fetch('https://' + inst + '/api/v1/accounts/' + id, {
     headers: {
       'content-type': 'application/json',
@@ -115,24 +107,14 @@ function show_account(id, navmode) {
       if (json.username === json.acct) {
         //登録日
         var d = new Date(json['created_at']);
-        var min = '0';
-        if (d.getMinutes() < 10) min = '0' + d.getMinutes();
-        else min = d.getMinutes();
         document.getElementById('userpage-hint').innerHTML =
-          '登録日: <b>' +
-          d.getFullYear() +
-          '年' +
-          (d.getMonth() + 1) +
-          '月' +
-          d.getDate() +
-          '日 ' +
-          d.getHours() +
-          ':' +
-          min +
+          i18next.t('account.joined_at') +
+          ': <b>' +
+          i18next.t('account.date', { date: d }) +
           '</b>';
       } else {
         document.getElementById('userpage-hint').innerHTML =
-          "<span class='note'>リモートアカウントの為、情報が不正確な可能性があります。</span>";
+          "<span class='note'>" + i18next.t('account.note') + '</span>';
       }
     })
     .catch(function(error) {
@@ -254,11 +236,11 @@ function account_action(id) {
       .openActionSheet({
         cancelable: true,
         buttons: [
-          'ブラウザで表示',
-          'URLをコピー',
-          'QRコードを表示',
+          i18next.t('actionsheet.toot.openbrowser'),
+          i18next.t('actionsheet.toot.url'),
+          i18next.t('actionsheet.toot.qrcode'),
           {
-            label: 'キャンセル',
+            label: i18next.t('navigation.cancel'),
             icon: 'md-close',
           },
         ],
@@ -270,17 +252,19 @@ function account_action(id) {
           OpenQR('@' + account_page_acct.split('@')[0] + '@' + inst);
       });
   } else {
-    var mute_m = acctdata['rs'][id][0]['muting'] ? 'ミュート解除' : 'ミュート';
+    var mute_m = acctdata['rs'][id][0]['muting']
+      ? i18next.t('actionsheet.toot.mute.unset')
+      : i18next.t('actionsheet.toot.mute.set');
     var block_m = acctdata['rs'][id][0]['blocking']
-      ? 'ブロック解除'
-      : 'ブロック';
+      ? i18next.t('actionsheet.toot.block.unset')
+      : i18next.t('actionsheet.toot.block.unset');
     ons
       .openActionSheet({
         cancelable: true,
         buttons: [
-          '返信',
-          'ブラウザで表示',
-          'URLをコピー',
+          i18next.t('actionsheet.toot.mention'),
+          i18next.t('actionsheet.toot.openbrowser'),
+          i18next.t('actionsheet.toot.url'),
           {
             label: mute_m,
             modifier: 'destructive',
@@ -290,7 +274,7 @@ function account_action(id) {
             modifier: 'destructive',
           },
           {
-            label: 'キャンセル',
+            label: i18next.t('navigation.cancel'),
             icon: 'md-close',
           },
         ],

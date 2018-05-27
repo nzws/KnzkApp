@@ -68,17 +68,21 @@ function renderEmoji(emojiobj) {
   }
 }
 
+function returnEmojiCategoryStr(id) {
+  return i18next.t('emoji_category.' + id);
+}
+
 function displayEmojiList(emojiobj, list, dispnum) {
   var locale = {
-    Custom: 'カスタム絵文字',
-    People: '人々',
-    Nature: '自然',
-    Foods: '食べ物',
-    Activity: '活動',
-    Places: '場所',
-    Objects: '物',
-    Symbols: '記号',
-    Flags: '国旗',
+    Custom: returnEmojiCategoryStr('Custom'),
+    People: returnEmojiCategoryStr('People'),
+    Nature: returnEmojiCategoryStr('Nature'),
+    Foods: returnEmojiCategoryStr('Foods'),
+    Activity: returnEmojiCategoryStr('Activity'),
+    Places: returnEmojiCategoryStr('Places'),
+    Objects: returnEmojiCategoryStr('Objects'),
+    Symbols: returnEmojiCategoryStr('Symbols'),
+    Flags: returnEmojiCategoryStr('Flags'),
   };
   var key,
     i = 0,
@@ -146,13 +150,15 @@ function renderCustomEmoji(emojiobj) {
           }
           emoji_search = search_a_custom.concat(emoji_search);
           customreshtml =
-            "<div id='emojip_custom' class='emoji_cate_box'><ons-list-title class='ep_cate_title'>カスタム絵文字</ons-list-title>" +
+            "<div id='emojip_custom' class='emoji_cate_box'><ons-list-title class='ep_cate_title'>" +
+            locale['Custom'] +
+            '</ons-list-title>' +
             customreshtml +
             '</div>';
           emojiobj.innerHTML =
-            "<ons-list-title class='invisible' id='ep_search_result_title'>検索結果</ons-list-title>" +
-            customreshtml +
-            emojiobj.innerHTML;
+            "<ons-list-title class='invisible' id='ep_search_result_title'>" +
+            i18next.t('emoji_category.Search');
+          +'</ons-list-title>' + customreshtml + emojiobj.innerHTML;
         }
         emojiobj.dataset.isload = 'yes';
         load.className = 'invisible';
