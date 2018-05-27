@@ -26,12 +26,12 @@
     "fav": {
       "user": "お気に入りしたユーザー",
       "prefix": "",
-      "suffix": " さんがお気に入り"
+      "suffix": " favourited"
     },
     "boost": {
       "user": "ブーストしたユーザー",
       "prefix": "",
-      "suffix": "さんがブースト"
+      "suffix": "boosted"
     },
     "enquete": {
       "30s": "30s",
@@ -74,9 +74,9 @@
       "color": "Color",
       "weight": "Weight",
       "reset": {
-        "title": "リセット",
+        "title": "Clear doodle",
         "text": "お絵かきが破棄されますがよろしいですか？",
-        "close": "お絵かきを閉じる"
+        "close": "Close doodle"
       },
       "upload": {
         "title": "アップロード",
@@ -85,16 +85,16 @@
     }
   },
   "emoji_category": {
-    "Custom": "カスタム絵文字",
-    "People": "人々",
-    "Nature": "自然",
-    "Foods": "食べ物",
-    "Activity": "活動",
-    "Places": "場所",
-    "Objects": "物",
-    "Symbols": "記号",
-    "Flags": "国旗",
-    "Search": "検索結果"
+    "Custom": "Custom",
+    "People": "People",
+    "Nature": "Nature",
+    "Foods": "Foods",
+    "Activity": "Activity",
+    "Places": "Places",
+    "Objects": "Objects",
+    "Symbols": "Symbols",
+    "Flags": "Flags",
+    "Search": "Search"
   },
   "account": {
     "add": "Add account",
@@ -136,7 +136,7 @@
     "title": "Bookmarks",
     "note": "ブックマークはKnzkApp独自の機能で、データが端末内に保管されます。<br>ブックマークはインスタンスごとに区別されます。",
     "clear1": {
-      "title": "ブックマーク全削除",
+      "title": "Clear all bookmarks",
       "text": "本当に削除しますか？<br>*{{inst}}のアカウントのブックマークが対象です。"
     },
     "clear2": "本当に「(あなたがログインしている全てのアカウントの)全てのブックマーク」を削除しますか？<br>※Glitch-socインスタンスを除きます。",
@@ -210,29 +210,29 @@
   "report_status_note": "あなたの通報が現在処理されているのか簡易的に確認することができます。",
   "dialogs_js": {
     "report": {
-      "title": "通報",
+      "title": "Report",
       "text": "通報のコメントを記入してください<br>(空欄でキャンセル)"
     },
     "delete": {
-      "title": "トゥートを削除",
-      "text": "本当に削除しますか？"
+      "title": "Delete this toot",
+      "text": "Are you sure you want to delete this toot?"
     },
     "log": {
-      "title": "KnzkAppへようこそ",
+      "title": "Welcome to KnzkApp",
       "text": "KnzkAppでは、エラー時に開発者が原因を特定しやすいようログを送信する機能が備わっています。<br>エラー時にログを開発者へ送信してもよろしいですか？<br><a onclick=\"openURL('https://knzkapp.nzws.me/privacy.html')\">プライバシーポリシー</a>",
-      "yes": "同意する",
-      "no": "同意しない"
+      "yes": "Agree",
+      "no": "Disagree"
     },
     "err_fcm": {
-      "title": "エラー",
+      "title": "Error",
       "text": "FCMトークンの受信に失敗しました。<br>このままでもお使い頂けますが、プッシュ通知の配信が行えない可能性があります。"
     },
     "code": {
-      "title": "ログイン",
+      "title": "Login",
       "text": "認証コードを入力してください<br>(空欄でキャンセル)"
     },
     "terms": {
-      "title": "ログイン",
+      "title": "Login",
       "text": "OKを押してインスタンスの利用規約に同意したものとします。"
     },
     "login_error": "ログイン中にエラーが発生しました。",
@@ -250,20 +250,20 @@
       }
     },
     "err_fcm_2": {
-      "title": "エラー",
+      "title": "Error",
       "text": "FCMトークンの受信に失敗しました。<br>通知が無効になっている可能性があります。"
     },
     "keyword": {
-      "title": "キーワード検知",
+      "title": "Keyword notice",
       "text": "検知させるワードを入力してください<br>(空欄でキャンセル)"
     },
     "err_notification_sv": {
-      "title": "エラー",
+      "title": "Error",
       "text": "通知サーバーが見つかりませんでした。<br>開発者にご連絡ください。"
     },
     "clear_alert": {
-      "title": "通知を消去",
-      "text": "本当に通知を消去してもよろしいですか？"
+      "title": "Clear notifications",
+      "text": "Are you sure you want to clear all notifications?"
     },
     "delete_picture": "画像を削除してもよろしいですか？",
     "warning_spin": {
@@ -272,43 +272,43 @@
     }
   },
   "search": {
-    "result": "{{text}}の検索結果",
-    "accts": "アカウント",
-    "tags": "タグ",
-    "toots": "トゥート"
+    "result": "Search results of {{text}}",
+    "accts": "Accounts",
+    "tags": "Tags",
+    "toots": "Toots"
   },
   "actionsheet": {
     "toot": {
-      "more": "詳細を表示",
-      "openbrowser": "ブラウザで表示",
-      "url": "URLをコピー",
-      "original_toot": "元のトゥートを表示",
+      "more": "Expand",
+      "openbrowser": "Open in browser",
+      "url": "Copy URL",
+      "original_toot": "Show original toot",
       "near": "近くのトゥートを表示",
-      "delete": "削除",
+      "delete": "Delete",
       "pin": {
-        "set": "ピン留め",
-        "unset": "ピン留め解除"
+        "set": "Pin",
+        "unset": "Unpin"
       },
       "bookmark": {
-        "set": "ブックマークする",
-        "unset": "ブックマークから削除"
+        "set": "Bookmark",
+        "unset": "Unbookmark"
       },
-      "qrcode": "QRコードを表示",
-      "mention": "返信",
+      "qrcode": "Show QRCode",
+      "mention": "Mention",
       "mute": {
-        "set": "ミュート",
-        "unset": "ミュート解除"
+        "set": "Mute",
+        "unset": "Unmute"
       },
       "block": {
-        "set": "ブロック",
-        "unset": "ブロック解除"
+        "set": "Block",
+        "unset": "Unblock"
       }
     },
     "near": {
-      "title": "表示するタイムライン",
-      "htl": "HTL",
-      "ltl": "{{inst}}のLTL",
-      "ftl": "{{inst}}のFTL"
+      "title": "Select timeline",
+      "htl": "Home",
+      "ltl": "Local on {{inst}}",
+      "ftl": "Federated on {{inst}}"
     }
   },
   "config": {

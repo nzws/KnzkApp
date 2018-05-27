@@ -196,6 +196,12 @@
         "set": "ブロック",
         "unset": "ブロック解除"
       }
+    },
+    "near": {
+      "title": "表示するタイムライン",
+      "htl": "HTL",
+      "ltl": "{{inst}}のLTL",
+      "ftl": "{{inst}}のFTL"
     }
   },
   "tutorial": {
