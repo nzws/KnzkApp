@@ -231,7 +231,11 @@ function toot_card(toot, mode, note, toot_light, page) {
           piccard +=
             "<a href='" +
             toot['media_attachments'][p]['url'] +
-            "'><ons-card class='nsfw'><h3>回覧注意</h3><small>タップで表示</small></ons-card></a>";
+            "'><ons-card class='nsfw'><h3>" +
+            i18next.t('toot.nsfw.title') +
+            '</h3><small>' +
+            i18next.t('toot.nsfw.sub') +
+            '</small></ons-card></a>';
         } else {
           if (getConfig(1, 'image_full') == '1') {
             piccard +=
@@ -336,7 +340,7 @@ function toot_card(toot, mode, note, toot_light, page) {
       appname = '(' + escapeHTML(toot['application']['name']) + ')<br>';
     else appname = '';
     var d = new Date(toot['created_at']);
-    var date_text = d.toLocaleDateString('ja-JP', {
+    var date_text = d.toLocaleDateString(lng, {
       weekday: 'short',
       year: 'numeric',
       month: 'short',

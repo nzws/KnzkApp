@@ -107,11 +107,17 @@ function show_account(id) {
       if (json.username === json.acct) {
         //登録日
         var d = new Date(json['created_at']);
+        var date_text = d.toLocaleDateString(lng, {
+          weekday: 'short',
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+        });
+
         document.getElementById('userpage-hint').innerHTML =
-          i18next.t('account.joined_at') +
-          ': <b>' +
-          i18next.t('account.date', { date: d }) +
-          '</b>';
+          i18next.t('account.joined_at') + ': <b>' + date_text + '</b>';
       } else {
         document.getElementById('userpage-hint').innerHTML =
           "<span class='note'>" + i18next.t('account.note') + '</span>';

@@ -18,6 +18,10 @@
     "search": "検索結果"
   },
   "toot": {
+    "nsfw": {
+      "title": "閲覧注意",
+      "sub": "タップで表示"
+    },
     "fav": {
       "user": "お気に入りしたユーザー",
       "prefix": "",
@@ -55,7 +59,6 @@
   "account": {
     "note": "リモートアカウントの為、情報が不正確な可能性があります。",
     "joined_at": "登録日",
-    "date": "{{date, YYYY/MM/DD HH:MM}}",
     "followers": "フォロワー",
     "following": "フォロー"
   },

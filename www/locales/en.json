@@ -23,6 +23,10 @@
     "toot": "Toot!",
     "cw": "Write your warning here",
     "picture": "Add picture",
+    "nsfw": {
+      "title": "Sensitive content",
+      "sub": "Click to view"
+    },
     "fav": {
       "user": "お気に入りしたユーザー",
       "prefix": "",
@@ -110,8 +114,7 @@
     "pinned": "Pinned",
     "replies": "+Replies",
     "media": "Media",
-    "joined_at": "Joined at",
-    "date": "{{date, YYYY/MM/DD HH:MM}}"
+    "joined_at": "Joined at"
   },
   "app_filter": {
     "title": "Filter",
