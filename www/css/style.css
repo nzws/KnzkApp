@@ -758,3 +758,7 @@ img.emoji {
 .fields_right {
   width: 100%;
 }
+
+.near_federated {
+  pointer-events: none;
+}

@@ -417,6 +417,8 @@ function toot_card(toot, mode, note, toot_light, page) {
       '</small></div>';
   }
 
+  var near_federated = page === 'near_federated' ? ' near_federated' : '';
+
   content = t_text(content, toot['emojis']);
 
   buf +=
@@ -424,6 +426,7 @@ function toot_card(toot, mode, note, toot_light, page) {
     col_bg_cl +
     'toot' +
     light +
+    near_federated +
     ' post_' +
     toot['id'] +
     '" id=\'post_' +
@@ -882,13 +885,13 @@ function show_post(id, near, near_domain, origin_id) {
             ? null
             : 'Bearer ' + now_userconf['token'];
 
-          if (!near_domain) near_domain = inst;
+          var toot_origin_domain = near_domain ? near_domain : inst;
           if (!origin_id) origin_id = id;
           i = 0;
           reshtml += toot_card(json_stat, 'big', null, 'gold');
           Fetch(
             'https://' +
-              near_domain +
+              toot_origin_domain +
               '/api/v1/timelines/' +
               near +
               'limit=10&max_id=' +
@@ -910,7 +913,13 @@ function show_post(id, near, near_domain, origin_id) {
             .then(function(json_shita) {
               if (json_shita) {
                 while (json_shita[i]) {
-                  reshtml += toot_card(json_shita[i], 'full', null);
+                  reshtml += toot_card(
+                    json_shita[i],
+                    near_domain ? null : 'full',
+                    null,
+                    null,
+                    near_domain ? 'near_federated' : null
+                  );
                   i++;
                 }
                 document.getElementById('show_toot').innerHTML = reshtml;
