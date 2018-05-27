@@ -723,7 +723,7 @@ function more(id) {
         else if (index == 1) openURL(url);
         else if (index == 2) copy(url);
         else if (index == 3) original_post(more_status_id, url, acct);
-        else if (index == 4) show_post(more_status_id, true);
+        else if (index == 4) nearToot(more_status_id, acct.split('@')[1]);
         else if (index == 5) pin_set(more_status_id);
         else if (index == 6) delete_post();
       });
@@ -757,11 +757,55 @@ function more(id) {
         else if (index == 1) openURL(url);
         else if (index == 2) copy(url);
         else if (index == 3) original_post(more_status_id, url, acct);
-        else if (index == 4) show_post(more_status_id, true);
+        else if (index == 4) nearToot(more_status_id, acct.split('@')[1]);
         else if (index == 5) changeBookmark(more_status_id);
         else if (index == 6) report();
       });
   }
+}
+
+function nearToot(id, domain) {
+  var list = [
+    {
+      label: i18next.t('actionsheet.near.htl'),
+      modifier: 'fa-home',
+    },
+    {
+      label: i18next.t('actionsheet.near.ltl', { inst: inst }),
+      modifier: 'fa-users',
+    },
+    {
+      label: i18next.t('actionsheet.near.ftl', { inst: inst }),
+      modifier: 'fa-globe',
+    },
+  ];
+  if (domain) {
+    list.push({
+      label: i18next.t('actionsheet.near.ltl', { inst: domain }),
+      icon: 'fa-users',
+    });
+    list.push({
+      label: i18next.t('actionsheet.near.ftl', { inst: domain }),
+      icon: 'fa-globe',
+    });
+  }
+  list.push({ label: i18next.t('navigation.cancel'), icon: 'md-close' });
+  ons
+    .openActionSheet({
+      title: i18next.t('actionsheet.near.title'),
+      cancelable: true,
+      buttons: list,
+    })
+    .then(function(index) {
+      if (index == 0) show_post(id, 'home?');
+      if (index == 1) show_post(id, 'public?local=true&');
+      if (index == 2) show_post(id, 'public?');
+      if (domain) {
+        var origin_id = tl_postdata[id]['url'].split('/')[4];
+        if (index == 3) show_post(id, 'public?local=true&', domain, origin_id);
+        if (index == 4) show_post(id, 'public?', domain, origin_id);
+      }
+    });
 }
 
 function delete_post() {
@@ -806,7 +850,7 @@ function delete_post() {
     });
 }
 
-function show_post(id, near) {
+function show_post(id, near, near_domain, origin_id) {
   var reshtml = '',
     d = 0,
     i = 0;
@@ -829,18 +873,24 @@ function show_post(id, near) {
     .then(function(json_stat) {
       if (json_stat) {
         if (near) {
+          var near_header = { 'content-type': 'application/json' };
+          near_header['Authorization'] = near_domain
+            ? null
+            : 'Bearer ' + now_userconf['token'];
+
+          if (!near_domain) near_domain = inst;
+          if (!origin_id) origin_id = id;
           i = 0;
           reshtml += toot_card(json_stat, 'big', null, 'gold');
           Fetch(
             'https://' +
-              inst +
-              '/api/v1/timelines/public?local=true&limit=10&max_id=' +
-              id,
+              near_domain +
+              '/api/v1/timelines/' +
+              near +
+              'limit=10&max_id=' +
+              origin_id,
             {
-              headers: {
-                'content-type': 'application/json',
-                Authorization: 'Bearer ' + now_userconf['token'],
-              },
+              headers: near_header,
               method: 'GET',
             }
           )
