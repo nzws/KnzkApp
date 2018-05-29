@@ -17,7 +17,11 @@
     "close": "Close",
     "cancel": "Cancel",
     "load_more": "Load more...",
-    "search": "Search"
+    "search": "Search",
+    "trend": {
+      "title": "Trending now",
+      "talking": "{{accounts}} persons talking"
+    }
   },
   "toot": {
     "toot": "Toot!",

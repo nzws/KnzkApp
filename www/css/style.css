@@ -762,3 +762,13 @@ img.emoji {
 .near_federated {
   pointer-events: none;
 }
+
+.trend_item.right {
+  padding: 3px 12px 3px 0;
+  min-height: 0;
+}
+
+.trend_item.center {
+  padding: 3px 6px 3px 0;
+  min-height: 0;
+}
