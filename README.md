@@ -41,7 +41,7 @@
   </p>
 
   <p align="center">
-    <a href="https://github.com/KnzkDev/KnzkApp/blob/master/LICENSE">
+    <a href="https://github.com/KnzkDev/KnzkApp/blob/master/LICENSE.md">
       <img src="https://img.shields.io/badge/license-knzkapp%20license-blue.svg?style=for-the-badge">
     </a>
   </p>
