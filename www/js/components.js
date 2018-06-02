@@ -134,7 +134,7 @@ function t_text(text, emojidata, domain) {
   // インスタンスのドメインが送られてきた場合はチェックを行うが、送られてこなかった場合は今まで通り全て読み仮名通す
   var isYomigana = false;
   try {
-    if (instance_config[(domain).toLowerCase()]['yomigana']) isYomigana = true;
+    if (instance_config[domain.toLowerCase()]['yomigana']) isYomigana = true;
   } catch (e) {}
   if (!domain) isYomigana = true;
 

@@ -517,9 +517,9 @@ function showTL(mode, reload, more_load, clear_load) {
             };
           }
           last_load_TL = timeline_now_tab;
-            document.querySelector(
-              '#TL' + timeline_now_tab + '_main > .page__content'
-            ).innerHTML = reshtml;
+          document.querySelector(
+            '#TL' + timeline_now_tab + '_main > .page__content'
+          ).innerHTML = reshtml;
 
           if (reload && reload !== 'dial') reload();
           if (!getConfig(1, 'chatmode') && more_load) more_load();
