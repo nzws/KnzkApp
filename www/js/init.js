@@ -530,25 +530,6 @@ function home_autoevent() {
         if (getConfig(1, 'chatmode'))
           $('.page__content').scrollTop(99999999999999999999999);
       }
-
-      if (!getConfig(1, 'chatmode')) {
-        try {
-          var mr =
-            $('.more_load_bt_' + timeline_now_tab).offset().top -
-            window.innerHeight;
-          if (mr < -10) {
-            showTL(
-              null,
-              null,
-              document.getElementsByClassName(
-                'more_load_bt_' + timeline_now_tab
-              )[0]
-            );
-          }
-        } catch (e) {
-          console.log(e);
-        }
-      }
       home_autoevent();
     }
   }, 1000);
