@@ -299,7 +299,7 @@ function showTL(mode, reload, more_load, clear_load) {
     else tlmode = 'public?limit=40&since_id=' + toot_new_id;
     n = true;
   }
-  if (more_load) more_load.className = 'invisible';
+  if (more_load && getConfig(1, 'chatmode')) more_load.className = 'invisible';
   if (n) {
     Fetch('https://' + inst + '/api/v1/timelines/' + tlmode, {
       headers: {
@@ -320,9 +320,7 @@ function showTL(mode, reload, more_load, clear_load) {
       })
       .then(function(json) {
         if (json) {
-          if (!more_load && mode == last_load_TL && !clear_load) {
-            displayTime('update');
-          }
+          displayTime('update');
           if (more_load && !getConfig(1, 'chatmode')) {
             reshtml = document.querySelector(
               '#TL' + timeline_now_tab + '_main > .page__content'
@@ -481,37 +479,50 @@ function showTL(mode, reload, more_load, clear_load) {
           while (json[i]) {
             var TLmode =
               mode === 'local_media' || mode === 'public_media' ? 'media' : '';
-            reshtml += toot_card(json[i], 'full', null, TLmode);
+
+            var tootbox = toot_card(json[i], 'full', null, TLmode);
+
+            reshtml += tootbox;
 
             toot_new_id = getConfig(1, 'chatmode')
               ? json[i]['id']
               : json[0]['id'];
-            if (getConfig(1, 'chatmode')) toot_old_id = json[0]['id'];
+
+            toot_old_id = getConfig(1, 'chatmode')
+              ? json[0]['id']
+              : json[i]['id'];
             i++;
           }
 
-          if (!getConfig(1, 'chatmode')) {
-            if (more_load && mode == last_load_TL && !clear_load) {
-              reshtml += document.querySelector(
-                '#TL' + timeline_now_tab + '_main > .page__content'
-              ).innerHTML;
-            }
-            if (more_load || mode != last_load_TL || clear_load) {
-              //TL初回
-              if (i !== 0) toot_old_id = json[i - 1]['id'];
-              reshtml +=
-                "<button class='button button--large--quiet more_load_bt_" +
-                timeline_now_tab +
-                "' onclick='showTL(null,null,this)'>" +
-                i18next.t('navigation.load_more') +
-                '</button>';
-            }
+          if (
+            more_load &&
+            mode == last_load_TL &&
+            !clear_load &&
+            getConfig(1, 'chatmode')
+          ) {
+            reshtml += document.querySelector(
+              '#TL' + timeline_now_tab + '_main > .page__content'
+            ).innerHTML;
+          }
+
+          if (
+            !more_load &&
+            mode !== last_load_TL &&
+            !getConfig(1, 'chatmode')
+          ) {
+            var tl = document.querySelector('#TL' + timeline_now_tab + '_main');
+
+            tl.onInfiniteScroll = function(done) {
+              showTL(null, null, done);
+            };
           }
           last_load_TL = timeline_now_tab;
-          document.querySelector(
-            '#TL' + timeline_now_tab + '_main > .page__content'
-          ).innerHTML = reshtml;
+            document.querySelector(
+              '#TL' + timeline_now_tab + '_main > .page__content'
+            ).innerHTML = reshtml;
+
           if (reload && reload !== 'dial') reload();
+          if (!getConfig(1, 'chatmode') && more_load) more_load();
           if (getConfig(1, 'chatmode') && !more_load)
             $('.page__content').scrollTop(99999999999999999999999);
           return true;
