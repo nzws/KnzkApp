@@ -419,7 +419,9 @@ function toot_card(toot, mode, note, toot_light, page) {
 
   var near_federated = page === 'near_federated' ? ' near_federated' : '';
 
-  content = t_text(content, toot['emojis']);
+  var toot_origin_domain = toot['account']['acct'] === toot['account']['username'] ? inst : toot['account']['acct'].split('@')[1];
+
+  content = t_text(content, toot['emojis'], toot_origin_domain);
 
   buf +=
     '<div class="' +

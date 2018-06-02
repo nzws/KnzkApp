@@ -91,7 +91,7 @@ function showtoast(id) {
   }, 2000);
 }
 
-function t_text(text, emojidata) {
+function t_text(text, emojidata, domain) {
   var i = 0,
     emoji = '',
     replacetext = '';
@@ -131,12 +131,21 @@ function t_text(text, emojidata) {
     }
   }
 
-  //読み仮名 from theboss.tech
-  //参考: https://github.com/theboss/mastodon/commit/f14da9bf85298000c4882e604b3d1eda8c99d0ee
-  text = text.replace(
-    /[|｜]?([^|｜《]+?)《([^》]+?)》/g,
-    '<ruby><rb>$1</rb><rt>$2</rt></ruby>'
-  );
+  // インスタンスのドメインが送られてきた場合はチェックを行うが、送られてこなかった場合は今まで通り全て読み仮名通す
+  var isYomigana = false;
+  try {
+    if (instance_config[(domain).toLowerCase()]['yomigana']) isYomigana = true;
+  } catch (e) {}
+  if (!domain) isYomigana = true;
+
+  if (isYomigana) {
+    //読み仮名 from theboss.tech
+    //参考: https://github.com/theboss/mastodon/commit/f14da9bf85298000c4882e604b3d1eda8c99d0ee
+    text = text.replace(
+      /[|｜]?([^|｜《]+?)《([^》]+?)》/g,
+      '<ruby><rb>$1</rb><rt>$2</rt></ruby>'
+    );
+  }
 
   //text = emojione.toImage(text);
   text = twemoji.parse(text);
