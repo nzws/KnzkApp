@@ -21,7 +21,6 @@ function reset_nav() {
   list.style.display = 'none';
   account_list.style.display = 'none';
   menu.style.display = 'block';
-  HideTrend();
 }
 
 function load(page) {

@@ -151,88 +151,72 @@
             </div>
             <div id="menu-list">
               <ons-list>
-                <ons-search-input placeholder="検索" data-i18n="[placeholder]navigation.search" onkeydown="SearchKey()" onfocus="ShowTrend()" input-id="nav-search" class="w-max nav-search"></ons-search-input>
-                <div id="trend_list" class="invisible">
-                  <ons-list-item>
-                    <div class="left" onclick="HideTrend()">
-                      <i class="list-item__icon ons-icon fa-chevron-left fa fa-fw"></i> <span data-i18n="navigation.back">戻る</span>
-                    </div>
-                  </ons-list-item>
-                  <div id="trend_list_data">
-                            <div class="loading-now">
-                              <ons-progress-circular indeterminate></ons-progress-circular>
-                            </div>
+                <ons-search-input placeholder="検索" data-i18n="[placeholder]navigation.search" onkeydown="SearchKey();" input-id="nav-search" class="w-max nav-search"></ons-search-input>
+                <ons-list-header data-i18n="navigation.title">ナビゲーション</ons-list-header>
+                <ons-list-item modifier="chevron" tappable onclick="loadNav('post.html', 'up');">
+                  <label class="left music-item">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-pencil fa fa-fw"></i>
+                  </label>
+                  <div class="center music-item" data-i18n="navigation.toot">
+                    新規トゥート
                   </div>
-                </div>
-                <div id="menu_list_without_search">
-                  <ons-list-header data-i18n="navigation.title">ナビゲーション</ons-list-header>
-                  <ons-list-item modifier="chevron" tappable onclick="loadNav('post.html', 'up');">
-                    <label class="left music-item">
-                                      <i class="list-item__icon list-item--chevron__icon ons-icon fa-pencil fa fa-fw"></i>
-                                    </label>
-                    <div class="center music-item" data-i18n="navigation.toot">
-                      新規トゥート
-                    </div>
-                  </ons-list-item>
-                  <ons-list-item modifier="chevron" tappable onclick="openTL()">
-                    <div class="left">
-                      <i class="list-item__icon list-item--chevron__icon ons-icon fa-home fa fa-fw"></i>
-                    </div>
-                    <div class="center" data-i18n="timeline.title">
-                      タイムライン
-                    </div>
-                  </ons-list-item>
-                  <ons-list-item modifier="chevron" tappable onclick="openTL('alert')">
-                    <div class="left">
-                      <i class="list-item__icon list-item--chevron__icon ons-icon fa-bell fa fa-fw"></i>
-                    </div>
-                    <div class="center">
-                      <span data-i18n="navigation.notifications">通知</span> <span class="notification invisible noti_unread">1</span>
-                    </div>
-                  </ons-list-item>
-                  <ons-list-item modifier="chevron" tappable onclick="list('favourites', 'navigation.favourites', null, 'toot')" id="menu-fav-page"
-                    class="invisible">
-                    <div class="left">
-                      <i class="list-item__icon list-item--chevron__icon ons-icon fa-star fa fa-fw"></i>
-                    </div>
-                    <div class="center" data-i18n="navigation.favourites">
-                      お気に入り一覧
-                    </div>
-                  </ons-list-item>
-                  <ons-list-item modifier="chevron" tappable onclick="list('follow_requests', 'navigation.follow_req', null, 'acct')" id="menu-followreq"
-                    class="invisible">
-                    <div class="left">
-                      <i class="list-item__icon list-item--chevron__icon ons-icon fa-users fa fa-fw"></i>
-                    </div>
-                    <div class="center" data-i18n="navigation.follow_req">
-                      フォローリクエスト
-                    </div>
-                  </ons-list-item>
-                  <ons-list-item modifier="chevron" tappable onclick="load('usermenu.html')">
-                    <div class="left">
-                      <i class="list-item__icon list-item--chevron__icon ons-icon fa-ellipsis-h fa fa-fw"></i>
-                    </div>
-                    <div class="center" data-i18n="navigation.user_menu">
-                      ユーザーメニュー
-                    </div>
-                  </ons-list-item>
-                  <ons-list-item modifier="chevron" tappable onclick="load('config.html')">
-                    <div class="left">
-                      <i class="list-item__icon list-item--chevron__icon ons-icon fa-cog fa fa-fw"></i>
-                    </div>
-                    <div class="center" data-i18n="navigation.preferences">
-                      設定
-                    </div>
-                  </ons-list-item>
-                  <ons-list-item modifier="chevron" tappable onclick="music_change()">
-                    <div class="left">
-                      <i class="list-item__icon list-item--chevron__icon ons-icon fa-music fa fa-fw"></i>
-                    </div>
-                    <div class="center">
-                      <span class="list-item__title">Radio</span><span class="list-item__subtitle" id="music_title">Listen.moe</span>
-                    </div>
-                  </ons-list-item>
-                </div>
+                </ons-list-item>
+                <ons-list-item modifier="chevron" tappable onclick="openTL()">
+                  <div class="left">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-home fa fa-fw"></i>
+                  </div>
+                  <div class="center" data-i18n="timeline.title">
+                    タイムライン
+                  </div>
+                </ons-list-item>
+                <ons-list-item modifier="chevron" tappable onclick="openTL('alert')">
+                  <div class="left">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-bell fa fa-fw"></i>
+                  </div>
+                  <div class="center">
+                    <span data-i18n="navigation.notifications">通知</span> <span class="notification invisible noti_unread">1</span>
+                  </div>
+                </ons-list-item>
+                <ons-list-item modifier="chevron" tappable onclick="list('favourites', 'navigation.favourites', null, 'toot')" id="menu-fav-page" class="invisible">
+                  <div class="left">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-star fa fa-fw"></i>
+                  </div>
+                  <div class="center" data-i18n="navigation.favourites">
+                    お気に入り一覧
+                  </div>
+                </ons-list-item>
+                <ons-list-item modifier="chevron" tappable onclick="list('follow_requests', 'navigation.follow_req', null, 'acct')" id="menu-followreq" class="invisible">
+                  <div class="left">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-users fa fa-fw"></i>
+                  </div>
+                  <div class="center" data-i18n="navigation.follow_req">
+                    フォローリクエスト
+                  </div>
+                </ons-list-item>
+                <ons-list-item modifier="chevron" tappable onclick="load('usermenu.html')">
+                  <div class="left">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-ellipsis-h fa fa-fw"></i>
+                  </div>
+                  <div class="center" data-i18n="navigation.user_menu">
+                    ユーザーメニュー
+                  </div>
+                </ons-list-item>
+                <ons-list-item modifier="chevron" tappable onclick="load('config.html')">
+                  <div class="left">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-cog fa fa-fw"></i>
+                  </div>
+                  <div class="center" data-i18n="navigation.preferences">
+                    設定
+                  </div>
+                </ons-list-item>
+                <ons-list-item modifier="chevron" tappable onclick="music_change()">
+                  <div class="left">
+                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-music fa fa-fw"></i>
+                  </div>
+                  <div class="center">
+                    <span class="list-item__title">Radio</span><span class="list-item__subtitle" id="music_title">Listen.moe</span>
+                  </div>
+                </ons-list-item>
               </ons-list>
             </div>
             <form id="music-form" style="display: none;">
