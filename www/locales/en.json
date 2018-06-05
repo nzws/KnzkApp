@@ -39,7 +39,7 @@
     "boost": {
       "user": "ブーストしたユーザー",
       "prefix": "",
-      "suffix": "boosted"
+      "suffix": " boosted"
     },
     "enquete": {
       "30s": "30s",
@@ -137,6 +137,13 @@
         "push": "Mute push notifications",
         "keyword": "Keyword notice"
       }
+    }
+  },
+  "lists": {
+    "title": "Lists",
+    "people": {
+      "title": "Edit list",
+      "accounts": "リストに登録しているアカウント"
     }
   },
   "bookmark": {
@@ -276,6 +283,30 @@
     "warning_spin": {
       "title": "注意:TLが重くなります",
       "text": "回転を多く指定すると、TLが重くなる原因となり、警告を受ける可能性があります。続行しますか？"
+    },
+    "hashtag": {
+      "title": "Add hashtag timeline",
+      "text": "ハッシュタグを入力してください。"
+    },
+    "list_note": {
+      "title": "Add list timeline",
+      "text": "リストTLの追加は<a href=\"#\" onclick=\"$('ons-alert-dialog-button').click();loadNav('lists.html')\"><b>ユーザーメニュー > リスト</b></a>より行なえます。"
+    },
+    "err_new_tl": {
+      "title": "Error",
+      "text": "これ以上タイムラインを増やすことはできません。"
+    },
+    "editlist": {
+      "title": "Add / Edit Lists",
+      "text": "名前を入力してください。(空欄でキャンセル)"
+    },
+    "deletelist": {
+      "title": "Delete list",
+      "text": "Are you sure you want to delete?"
+    },
+    "add_tag": {
+      "title": "このタグをタイムラインに追加",
+      "text": "Are you sure you want to add?"
     }
   },
   "search": {
@@ -316,6 +347,21 @@
       "htl": "Home",
       "ltl": "Local on {{inst}}",
       "ftl": "Federated on {{inst}}"
+    },
+    "editTL": {
+      "title": "Add Timeline",
+      "hashtag": "Hashtag",
+      "list": "List",
+      "option": {
+        "default": "デフォルトで表示するTLに設定する",
+        "delete": "削除する"
+      }
+    },
+    "editlist": {
+      "name": "Rename list",
+      "people": "Edit list",
+      "delete": "Delete list",
+      "add": "Add to timeline page"
     }
   },
   "config": {

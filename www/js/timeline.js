@@ -195,6 +195,7 @@ function showAlert(reload, more_load) {
 }
 
 function openTL(mode) {
+  $('#TLChangeTab').hide();
   if (mode === 'alert') {
     load('alert.html');
     showAlert();
@@ -217,30 +218,67 @@ function openTL(mode) {
     closeAllws();
     load('home.html');
     setTimeout(function() {
-      TL_change(timeline_default_tab);
-      now_TL = timeline_config[timeline_default_tab];
-      timeline_now_tab = timeline_default_tab;
-      document.getElementById('home_title').innerHTML = TLname(
-        timeline_config[timeline_now_tab]
-      );
-      showTL(null, null, null, true);
-
-      var dial = getConfig(1, 'dial'),
-        icon;
-      if (dial && dial != 'change') {
-        $('#dial_main').removeClass('invisible');
-        if (dial === 'toot') icon = 'fa-pencil';
-        else if (dial === 'alert') icon = 'fa-bell';
-        if (dial === 'reload') icon = 'fa-refresh';
-        document.getElementById('dial-icon').className = 'ons-icon fa ' + icon;
-      } else if (dial) {
-        $('#dial_TL').removeClass('invisible');
-        setsd();
-      }
-      if (getConfig(1, 'swipe_menu') == 1)
-        document.getElementById('tl_tabs').setAttribute('swipeable', '1');
+      initTimeline();
     }, 200);
   }
+}
+
+function initTimeline() {
+  var i = 0;
+  while (timeline_config[i]) {
+    document.querySelector('#TL' + i + '_main > .page__content').innerHTML =
+      '<div class="loading-now"><ons-progress-circular indeterminate></ons-progress-circular></div>';
+    i++;
+  }
+  TL_change(timeline_default_tab);
+  now_TL = timeline_config[timeline_default_tab];
+  timeline_now_tab = timeline_default_tab;
+  document.getElementById('home_title').innerHTML = TLname(
+    timeline_config[timeline_now_tab]
+  );
+  showTL(null, null, null, true);
+
+  var dial = getConfig(1, 'dial'),
+    icon;
+  if (dial && dial != 'change') {
+    $('#dial_main').removeClass('invisible');
+    if (dial === 'toot') icon = 'fa-pencil';
+    else if (dial === 'alert') icon = 'fa-bell';
+    if (dial === 'reload') icon = 'fa-refresh';
+    document.getElementById('dial-icon').className = 'ons-icon fa ' + icon;
+  } else if (dial) {
+    $('#dial_TL').removeClass('invisible');
+    var bufhtml = '',
+      icons = {
+        home: 'fa fa-fw fa-home',
+        local: 'fa fa-fw fa-users',
+        federated: 'fa fa-fw fa-globe',
+        local_media: 'fa fa-fw fa-picture-o',
+        federated_media: 'ons-icon zmdi zmdi-collection-image-o',
+        hashtag: 'fa fa-fw fa-hashtag',
+        list: 'fa fa-fw fa-bars',
+        plus_local: '+ローカル',
+      };
+    i = 0;
+    bufhtml +=
+      '<div onclick="openTL(\'alert_nav\')"><span>' +
+      i18next.t('navigation.notifications') +
+      '</span><div><i class="fa fa-fw fa-bell"></i></div></div>';
+    while (i <= timeline_config.length - 1) {
+      bufhtml +=
+        '<div onclick="TL_change(' +
+        i +
+        ')"><span>' +
+        TLname(timeline_config[i]) +
+        '</span><div><i class="' +
+        icons[TLident(timeline_config[i])] +
+        '"></i></div></div>';
+      i++;
+    }
+    document.getElementById('TLChangeList').innerHTML = bufhtml;
+  }
+  if (getConfig(1, 'swipe_menu') == 1)
+    document.getElementById('tl_tabs').setAttribute('swipeable', '1');
 }
 
 /**
@@ -273,11 +311,12 @@ function showTL(mode, reload, more_load, clear_load) {
         document.querySelector(
           '#TL' + last_load_TL + '_main > .page__content'
         ).innerHTML =
-          '';
+          '<div class="loading-now"><ons-progress-circular indeterminate></ons-progress-circular></div>';
     } catch (e) {
       console.error(e);
     }
   }
+  if (!mode) return;
   if (mode === 'home') {
     if (more_load) tlmode = 'home?max_id=' + toot_old_id;
     else tlmode = 'home?since_id=' + toot_new_id;
@@ -297,6 +336,16 @@ function showTL(mode, reload, more_load, clear_load) {
   } else if (mode === 'public_media') {
     if (more_load) tlmode = 'public?max_id=' + toot_old_id;
     else tlmode = 'public?limit=40&since_id=' + toot_new_id;
+    n = true;
+  } else if (mode.match(/hashtag:/i)) {
+    var tag = mode.replace('hashtag:', '');
+    if (more_load) tlmode = 'tag/' + tag + '?max_id=' + toot_old_id;
+    else tlmode = 'tag/' + tag + '?since_id=' + toot_new_id;
+    n = true;
+  } else if (mode.match(/list:/i)) {
+    var list = mode.replace('list:', '');
+    if (more_load) tlmode = 'list/' + list + '?max_id=' + toot_old_id;
+    else tlmode = 'list/' + list + '?since_id=' + toot_new_id;
     n = true;
   }
   if (more_load && getConfig(1, 'chatmode')) more_load.className = 'invisible';
@@ -331,7 +380,11 @@ function showTL(mode, reload, more_load, clear_load) {
                 ws_mode = 'public';
               else if (mode === 'local' || mode === 'local_media')
                 ws_mode = 'public:local';
-              else ws_mode = 'user';
+              else if (mode === 'home') ws_mode = 'user';
+              else if (mode.match(/hashtag:/i))
+                ws_mode = 'hashtag&tag=' + mode.replace('hashtag:', '');
+              else if (mode.match(/list:/i))
+                ws_mode = 'list&list=' + mode.replace('list:', '');
 
               if (!reload && !more_load) {
                 var instance_ws = inst,
@@ -680,12 +733,13 @@ function TL_prev() {
 function TL_next() {
   var tab = document.getElementById('tl_tabs');
   var index = tab.getActiveTabIndex();
-  if (index !== -1 && index < 4) {
+  if (index !== -1 && index < timeline_config.length - 1) {
     tab.setActiveTab(index + 1);
   }
 }
 
 function TL_change(mode) {
+  $('#TLChangeTab').hide();
   var tab = document.getElementById('tl_tabs');
   tab.setActiveTab(mode);
 }
@@ -729,16 +783,33 @@ function setTLheadcolor(mode) {
   }
 }
 
+function TLident(mode) {
+  var name,
+    locale = {
+      home: 'home',
+      local: 'local',
+      public: 'federated',
+      local_media: 'local_media',
+      public_media: 'federated_media',
+      plus_local: '+ローカル',
+    };
+
+  if (!mode) return;
+  if (locale[mode]) name = locale[mode];
+  else if (mode.match(/hashtag:/i)) name = 'hashtag';
+  else if (mode.match(/list:/i)) name = 'list';
+
+  return name;
+}
+
 function TLname(mode) {
-  var locale = {
-    home: 'home',
-    local: 'local',
-    public: 'federated',
-    local_media: 'local_media',
-    public_media: 'federated_media',
-    plus_local: '+ローカル',
-  };
-  return i18next.t('timeline.' + locale[mode]);
+  var n = TLident(mode),
+    text;
+  if (n === 'hashtag') text = mode;
+  else if (n === 'list')
+    text = 'list:' + timeline_list_names['' + mode.split(':')[1]];
+  else text = i18next.t('timeline.' + n);
+  return text;
 }
 
 function initph(mode) {
@@ -831,21 +902,21 @@ function initTLConf() {
 
     reshtml +=
       '<ons-list-item class="list-item">\n' +
-      '<label class="left list-item__left" onclick=\'editTLConfD(' +
-      i +
-      ')\'><ons-radio name="tl_default" input-id="tl_default-' +
+      '<label class="left list-item__left"><ons-radio disabled name="tl_default" input-id="tl_default-' +
       i +
       '" ' +
       ch +
       ' class="radio-button">\n' +
       '<input type="radio" class="radio-button__input" id="tl_default-' +
       i +
-      '" name="tl_default">\n' +
+      '" name="tl_default" disabled>\n' +
       '<span class="radio-button__checkmark"></span>\n' +
       '</ons-radio></label>\n' +
       '<label for="tl_default-' +
       i +
-      '" class="center list-item__center">' +
+      '" class="center list-item__center" onclick="editTLConfigOption(' +
+      i +
+      ')">' +
       TLname(timeline_config[i]) +
       '</label>\n' +
       '<label class="right list-item__right">\n' +
@@ -855,6 +926,33 @@ function initTLConf() {
     i++;
   }
   document.getElementById('tlconf-list').innerHTML = reshtml;
+}
+
+function editTLdel(i) {
+  if (timeline_config.length < 2 || timeline_default_tab === i) {
+    return;
+  }
+  if (timeline_default_tab > i) {
+    timeline_default_tab--;
+    localStorage.setItem(
+      'knzkapp_conf_mastodon_timeline',
+      JSON.stringify({
+        config: timeline_config,
+        default: timeline_default_tab,
+        list_names: timeline_list_names,
+      })
+    );
+  }
+  timeline_config.splice(i, 1);
+  localStorage.setItem(
+    'knzkapp_conf_mastodon_timeline',
+    JSON.stringify({
+      config: timeline_config,
+      default: timeline_default_tab,
+      list_names: timeline_list_names,
+    })
+  );
+  initTLConf();
 }
 
 function editTLConf(i, mode) {
@@ -875,6 +973,7 @@ function editTLConf(i, mode) {
     JSON.stringify({
       config: timeline_config,
       default: timeline_default_tab,
+      list_names: timeline_list_names,
     })
   );
   initTLConf();
@@ -888,30 +987,34 @@ function editTLConfD(i) {
     JSON.stringify({
       config: timeline_config,
       default: timeline_default_tab,
+      list_names: timeline_list_names,
     })
   );
+  initTLConf();
 }
 
-function setsd() {
-  var i = 0,
-    icons = {
-      home: 'ons-icon fa fa-home',
-      local: 'ons-icon fa fa-users',
-      public: 'ons-icon fa fa-globe',
-      local_media: 'ons-icon fa fa-picture-o',
-      public_media: 'ons-icon zmdi zmdi-collection-image-o',
-      plus_local: '+ローカル',
-    };
-  while (i <= 4) {
-    document.getElementById('sd_icon' + i).className =
-      icons[timeline_config[i]];
-    i++;
+function editTLConfAdd(name) {
+  if (timeline_config.length >= 10) {
+    ons.notification.alert(dialog_i18n('err_new_tl', 1), {
+      title: dialog_i18n('err_new_tl'),
+    });
+    return;
   }
+  timeline_config.push(name);
+  localStorage.setItem(
+    'knzkapp_conf_mastodon_timeline',
+    JSON.stringify({
+      config: timeline_config,
+      default: timeline_default_tab,
+      list_names: timeline_list_names,
+    })
+  );
+  showtoast('ok_conf_2');
 }
 
 function closeAllws() {
   try {
-    for (var i = 0; i <= 4; i++) {
+    for (var i = 0; i <= timeline_config.length - 1; i++) {
       if (TL_websocket[i]) {
         TL_websocket[i].close();
         TL_websocket[i] = null;
@@ -921,4 +1024,98 @@ function closeAllws() {
   } catch (e) {
     console.warn('TL切断失敗:', e);
   }
+}
+
+function AddTLConfig() {
+  if (timeline_config.length >= 10) {
+    ons.notification.alert(dialog_i18n('err_new_tl', 1), {
+      title: dialog_i18n('err_new_tl'),
+    });
+    return;
+  }
+
+  var buttons = [
+      i18next.t('actionsheet.editTL.hashtag'),
+      i18next.t('actionsheet.editTL.list'),
+    ],
+    defaultTL = ['home', 'local', 'public', 'local_media', 'public_media'],
+    defaultTLdisable = [null, null],
+    i = 0;
+  while (defaultTL[i]) {
+    if (timeline_config.indexOf(defaultTL[i]) === -1) {
+      buttons.push(TLname(defaultTL[i]));
+      defaultTLdisable.push(defaultTL[i]);
+    }
+    i++;
+  }
+  buttons.push({
+    label: i18next.t('navigation.cancel'),
+    icon: 'md-close',
+  });
+
+  ons
+    .openActionSheet({
+      title: i18next.t('actionsheet.editTL.title'),
+      cancelable: true,
+      buttons: buttons,
+    })
+    .then(function(index) {
+      if (index === 0) addHashtag();
+      else if (index === 1)
+        ons.notification.alert(dialog_i18n('list_note', 1), {
+          title: dialog_i18n('list_note'),
+        });
+      else {
+        if (defaultTLdisable[index]) {
+          editTLConfAdd(defaultTLdisable[index]);
+          initTLConf();
+        }
+      }
+    });
+}
+
+function editTLConfigOption(id) {
+  var buttons = [i18next.t('actionsheet.editTL.option.default')];
+
+  if (timeline_config.length > 1 && timeline_default_tab !== id) {
+    buttons.push(i18next.t('actionsheet.editTL.option.delete'));
+  }
+
+  buttons.push({
+    label: i18next.t('navigation.cancel'),
+    icon: 'md-close',
+  });
+
+  ons
+    .openActionSheet({
+      cancelable: true,
+      buttons: buttons,
+    })
+    .then(function(index) {
+      if (index === 0) editTLConfD(id);
+      else if (index === 1) editTLdel(id);
+    });
+}
+
+function addHashtag() {
+  ons.notification
+    .prompt(dialog_i18n('hashtag', 1), { title: dialog_i18n('hashtag') })
+    .then(function(repcom) {
+      if (repcom) {
+        editTLConfAdd('hashtag:' + escapeHTML(repcom));
+        initTLConf();
+      }
+    });
+}
+
+function addTagToTimeline(tag) {
+  ons.notification
+    .confirm(dialog_i18n('add_tag', 1), {
+      title: dialog_i18n('add_tag'),
+    })
+    .then(function(e) {
+      if (e === 1) {
+        editTLConfAdd('hashtag:' + escapeHTML(tag));
+      }
+    });
 }

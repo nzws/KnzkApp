@@ -169,6 +169,30 @@
     "warning_spin": {
       "title": "注意:TLが重くなります",
       "text": "回転を多く指定すると、TLが重くなる原因となり、警告を受ける可能性があります。続行しますか？"
+    },
+    "hashtag": {
+      "title": "ハッシュタグTLを追加",
+      "text": "ハッシュタグを入力してください。"
+    },
+    "list_note": {
+      "title": "リストTLを追加",
+      "text": "リストTLの追加は<a href=\"#\" onclick=\"$('ons-alert-dialog-button').click();loadNav('lists.html')\"><b>ユーザーメニュー > リスト</b></a>より行なえます。"
+    },
+    "err_new_tl": {
+      "title": "エラー",
+      "text": "これ以上タイムラインを増やすことはできません。"
+    },
+    "editlist": {
+      "title": "リストの追加/編集",
+      "text": "名前を入力してください。(空欄でキャンセル)"
+    },
+    "deletelist": {
+      "title": "リストを削除",
+      "text": "よろしいですか？"
+    },
+    "add_tag": {
+      "title": "このタグをタイムラインに追加",
+      "text": "よろしいですか？"
     }
   },
   "search": {
@@ -209,6 +233,21 @@
       "htl": "HTL",
       "ltl": "{{inst}}のLTL",
       "ftl": "{{inst}}のFTL"
+    },
+    "editTL": {
+      "title": "タイムラインを追加",
+      "hashtag": "ハッシュタグ",
+      "list": "リスト",
+      "option": {
+        "default": "デフォルトで表示するTLに設定する",
+        "delete": "削除する"
+      }
+    },
+    "editlist": {
+      "name": "名前を変更する",
+      "people": "表示するユーザー",
+      "delete": "削除",
+      "add": "タイムラインに追加"
     }
   },
   "tutorial": {

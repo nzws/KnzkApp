@@ -1,10 +1,18 @@
-function AccountCard(acct) {
-  var reshtml;
+function AccountCard(acct, mode) {
+  var reshtml, action;
+
+  if (mode === 'addList') {
+    action = 'addAccountToList(' + acct['id'] + ')';
+  } else if (mode === 'delList') {
+    action = 'addAccountToList(' + acct['id'] + ', true)';
+  } else {
+    action = 'show_account(' + acct['id'] + ')';
+  }
 
   reshtml =
-    "<div onclick='show_account(" +
-    acct['id'] +
-    ')\' class="toot acct-small">\n' +
+    "<div onclick='" +
+    action +
+    '\' class="toot acct-small">\n' +
     '<img src="' +
     acct['avatar'] +
     '"class="icon-img-small" align="middle">\n' +

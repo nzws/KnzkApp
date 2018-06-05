@@ -184,6 +184,7 @@ function ConfigSetup() {
         JSON.stringify({
           config: ['home', 'local', 'public', 'local_media', 'public_media'],
           default: 0,
+          list_names: {},
         })
       );
     }
@@ -269,6 +270,7 @@ function clearAllConfig() {
                     'public_media',
                   ],
                   default: 0,
+                  list_names: {},
                 })
               );
               localStorage.setItem(

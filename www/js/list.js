@@ -51,7 +51,9 @@ function list_n(mode, title, more_load, mode_toot, navmode) {
           more_load.className = 'button button--large--quiet invisible';
           reshtml = document.getElementById(id_main).innerHTML;
         } else {
-          document.getElementById(id_title).innerHTML = i18next.t(title);
+          document.getElementById(id_title).innerHTML = title.match(/\./i)
+            ? i18next.t(title)
+            : title;
         }
 
         while (json[i]) {
@@ -209,4 +211,245 @@ function LoadrepStatus() {
       showtoast('cannot-pros');
       console.log(error);
     });
+}
+
+function renderListsCollection(isEdit) {
+  if (isEdit) {
+    editing_id = isEdit;
+    loadNav('lists_people.html');
+  }
+  Fetch(
+    'https://' +
+      inst +
+      '/api/v1/lists' +
+      (isEdit ? '/' + isEdit + '/accounts' : ''),
+    {
+      headers: {
+        'content-type': 'application/json',
+        Authorization: 'Bearer ' + now_userconf['token'],
+      },
+      method: 'GET',
+    }
+  )
+    .then(function(response) {
+      if (response.ok) {
+        return response.json();
+      } else {
+        sendLog('Error/render_lists', response.json);
+        showtoast('cannot-pros');
+        return false;
+      }
+    })
+    .then(function(json) {
+      if (json) {
+        var i = 0,
+          buf = '';
+        while (json[i]) {
+          if (isEdit) {
+            if (!json[i]['display_name'])
+              json[i]['display_name'] = json[i]['username'];
+            buf += AccountCard(json[i], 'delList');
+          } else {
+            buf +=
+              '<ons-list-item class="list-item"><div class="center list-item__center" onclick="showList(' +
+              json[i]['id'] +
+              ", '" +
+              json[i]['title'] +
+              '\')">' +
+              json[i]['title'] +
+              '</div>' +
+              '<div class="right list-item__right" onclick="listMore(' +
+              json[i]['id'] +
+              ", '" +
+              json[i]['title'] +
+              '\')"><i class="fa fa-ellipsis-h"></i></div></ons-list-item>';
+          }
+          i++;
+        }
+        document.getElementById(
+          isEdit ? 'people-list' : 'lists-list'
+        ).innerHTML = buf;
+      }
+    });
+}
+
+function addAccountToList(id, isDelete) {
+  Fetch('https://' + inst + '/api/v1/lists/' + editing_id + '/accounts', {
+    headers: {
+      'content-type': 'application/json',
+      Authorization: 'Bearer ' + now_userconf['token'],
+    },
+    method: isDelete ? 'DELETE' : 'POST',
+    body: JSON.stringify({ account_ids: [id] }),
+  })
+    .then(function(response) {
+      if (response.ok) {
+        return response.json();
+      } else {
+        sendLog('Error/AddToList', response.json);
+        throw new Error();
+      }
+    })
+    .then(function(json) {
+      showtoast('ok_conf');
+      renderListsCollection(editing_id);
+    })
+    .catch(function(error) {
+      showtoast('cannot-pros');
+      console.log(error);
+    });
+}
+
+function SearchListLoad() {
+  var q = escapeHTML(document.getElementById('List-search').value);
+  Fetch(
+    'https://' +
+      inst +
+      '/api/v1/accounts/search?q=' +
+      q +
+      '&resolve=false&following=true',
+    {
+      headers: {
+        'content-type': 'application/json',
+        Authorization: 'Bearer ' + now_userconf['token'],
+      },
+      method: 'GET',
+    }
+  )
+    .then(function(response) {
+      if (response.ok) {
+        return response.json();
+      } else {
+        sendLog('Error/SearchList', response.json);
+        throw new Error();
+      }
+    })
+    .then(function(json) {
+      var reshtml = '',
+        i = 0;
+      reshtml +=
+        '<ons-list-item tappable="" onclick="closeSearchList()" class="list-item">' +
+        '<label class="left music-item list-item__left"><i class="list-item__icon list-item--chevron__icon ons-icon fa-times fa fa-fw"></i></label>' +
+        '<div class="center music-item list-item__center">' +
+        i18next.t('navigation.close') +
+        '</div></ons-list-item>';
+      while (json[i]) {
+        if (!json[i]['display_name'])
+          json[i]['display_name'] = json[i]['username'];
+        reshtml += AccountCard(json[i], 'addList');
+        i++;
+      }
+
+      document.getElementById('searchpeople-list').innerHTML = reshtml;
+    })
+    .catch(function(error) {
+      showtoast('cannot-pros');
+      console.log(error);
+    });
+}
+
+function closeSearchList() {
+  renderListsCollection(editing_id);
+  document.getElementById('searchpeople-list').innerHTML = '';
+}
+
+function listMore(id, title) {
+  timeline_list_names[id] = title;
+  ons
+    .openActionSheet({
+      cancelable: true,
+      buttons: [
+        i18next.t('actionsheet.editlist.name'),
+        i18next.t('actionsheet.editlist.people'),
+        i18next.t('actionsheet.editlist.delete'),
+        i18next.t('actionsheet.editlist.add'),
+        {
+          label: i18next.t('navigation.cancel'),
+          icon: 'md-close',
+        },
+      ],
+    })
+    .then(function(index) {
+      if (index === 0) editList(id, title);
+      else if (index === 1) renderListsCollection(id);
+      else if (index === 2) deleteList(id, title);
+      else if (index === 3) editTLConfAdd('list:' + id);
+    });
+}
+
+function editList(id, title) {
+  var method = id ? 'PUT' : 'POST';
+  ons.notification
+    .prompt(dialog_i18n('editlist', 1), {
+      title: dialog_i18n('editlist'),
+      defaultValue: title ? title : '',
+    })
+    .then(function(repcom) {
+      if (repcom) {
+        Fetch('https://' + inst + '/api/v1/lists' + (id ? '/' + id : ''), {
+          headers: {
+            'content-type': 'application/json',
+            Authorization: 'Bearer ' + now_userconf['token'],
+          },
+          method: method,
+          body: JSON.stringify({ title: repcom }),
+        })
+          .then(function(response) {
+            if (response.ok) {
+              return response.json();
+            } else {
+              sendLog('Error/edit_list', response.json);
+              showtoast('cannot-pros');
+              return false;
+            }
+          })
+          .then(function(json) {
+            renderListsCollection();
+          });
+      }
+    });
+}
+
+function deleteList(id, title) {
+  ons.notification
+    .confirm(dialog_i18n('deletelist', 1) + '<br>(' + title + ')', {
+      title: dialog_i18n('deletelist'),
+    })
+    .then(function(e) {
+      if (e === 1) {
+        Fetch('https://' + inst + '/api/v1/lists/' + id, {
+          headers: {
+            'content-type': 'application/json',
+            Authorization: 'Bearer ' + now_userconf['token'],
+          },
+          method: 'DELETE',
+        })
+          .then(function(response) {
+            if (response.ok) {
+              return response.json();
+            } else {
+              sendLog('Error/del_list', response.json);
+              showtoast('cannot-pros');
+              return false;
+            }
+          })
+          .then(function(json) {
+            renderListsCollection();
+          });
+      }
+    });
+}
+
+function showList(id, title) {
+  list('timelines/list/' + id, 'List:' + title, null, 'toot', true);
+  setTimeout(function() {
+    document.getElementById('olist_right').innerHTML =
+      '<ons-toolbar-button onclick="loadNav(\'lists.html\')" class="toolbar-button">\n' +
+      '<ons-icon icon=\'fa-cogs\' class="ons-icon fa-cogs fa"></ons-icon>\n' +
+      '</ons-toolbar-button>';
+  }, 100);
+}
+
+function SearchListKey() {
+  if (window.event.keyCode == 13) SearchListLoad();
 }

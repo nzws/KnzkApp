@@ -3,7 +3,7 @@
   "rules": {
     "selector-list-comma-newline-after": "always-multi-line",
     "selector-type-no-unknown": [true, {
-      "ignoreTypes": ["ons-fab", "ons-speed-dial", "ons-button"]
+      "ignoreTypes": ["/^ons-/"]
     }]
   }
 }
