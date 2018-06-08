@@ -22,6 +22,12 @@
     Sponsored by <a href="http://kibousoft.co.jp/">Kibousoft LLC</a>.
   </p>
 
+   <p align="center">
+    <a href="http://makeapullrequest.com">
+      <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge">
+    </a>
+  </p>
+
   <p align="center">
     <a href="https://circleci.com/gh/KnzkDev/KnzkApp">
       <img src="https://img.shields.io/circleci/project/KnzkDev/KnzkApp/master.svg?style=for-the-badge">
@@ -29,14 +35,14 @@
   </p>
 
   <p align="center">
-    <a href="http://makeapullrequest.com">
-      <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge">
+    <a href="https://discord.gg/5teHfRK">
+      <img src="https://img.shields.io/badge/chat-on%20discord-7289DA.svg?style=for-the-badge">
     </a>
   </p>
 
   <p align="center">
-    <a href="https://discord.gg/5teHfRK">
-      <img src="https://img.shields.io/badge/chat-on%20discord-7289DA.svg?style=for-the-badge">
+    <a href="https://github.com/prettier/prettier">
+      <img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=for-the-badge">
     </a>
   </p>
 
