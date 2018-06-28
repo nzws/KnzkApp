@@ -119,11 +119,7 @@ function toot_card(toot, mode, note, toot_light, page) {
         }
       }
     }
-    toot['content'] =
-      toot['enquete']['question'] +
-      '<div class="toot enq">' +
-      enq_item +
-      '</div>';
+    toot['content'] = toot['enquete']['question'] + '<div class="toot enq">' + enq_item + '</div>';
   }
   if (toot['favourited'] == true) {
     fav = ' fav-active';
@@ -142,11 +138,7 @@ function toot_card(toot, mode, note, toot_light, page) {
     light = ' toot_light';
   }
   if (getConfig(2, 'collapse') && mode != 'big') {
-    if (
-      getConfig(2, 'preview') &&
-      toot['media_attachments'][0] &&
-      !toot['sensitive']
-    ) {
+    if (getConfig(2, 'preview') && toot['media_attachments'][0] && !toot['sensitive']) {
       col_pic = toot['media_attachments'][0]['preview_url'];
     } else if (getConfig(2, 'bg')) {
       col_pic = toot['account']['header_static'];
@@ -195,8 +187,7 @@ function toot_card(toot, mode, note, toot_light, page) {
       '<ons-icon icon="fa-envelope"  class="showtoot-button toot-button-disabled"></ons-icon>';
   } else if (toot['visibility'] === 'private') {
     visibility_icon = 'lock';
-    boost_full =
-      '<ons-icon icon="fa-lock" class="toot-button toot-button-disabled"></ons-icon>';
+    boost_full = '<ons-icon icon="fa-lock" class="toot-button toot-button-disabled"></ons-icon>';
     boost_big =
       '<ons-icon icon="fa-lock"  class="showtoot-button toot-button-disabled"></ons-icon>';
   } else {
@@ -291,12 +282,7 @@ function toot_card(toot, mode, note, toot_light, page) {
       '</p></div>';
   } else if (toot['spoiler_text']) {
     //CW / 常に表示
-    content =
-      escapeHTML(toot['spoiler_text']) +
-      '<p>' +
-      toot['content'] +
-      piccard +
-      '</p>';
+    content = escapeHTML(toot['spoiler_text']) + '<p>' + toot['content'] + piccard + '</p>';
   } else {
     //CWなし
     content = toot['content'] + piccard;
@@ -336,8 +322,7 @@ function toot_card(toot, mode, note, toot_light, page) {
   }
 
   if (mode == 'big') {
-    if (toot['application'])
-      appname = '(' + escapeHTML(toot['application']['name']) + ')<br>';
+    if (toot['application']) appname = '(' + escapeHTML(toot['application']['name']) + ')<br>';
     else appname = '';
     var d = new Date(toot['created_at']);
     var date_text = d.toLocaleDateString(lng, {
@@ -484,8 +469,7 @@ function toot_col(id) {
   while (toot[i]) {
     if (mode) {
       $(toot[i]).removeClass('toot-small');
-      obj[i].className =
-        'fa fa-fw fa-angle-double-up toot-right-icon toot_col_' + id;
+      obj[i].className = 'fa fa-fw fa-angle-double-up toot-right-icon toot_col_' + id;
       tb[i].className = 'toot-group tb_group_' + id;
       if (toot_b[i].dataset.bgpic) {
         toot_b[i].removeAttribute('style');
@@ -493,8 +477,7 @@ function toot_col(id) {
       }
     } else {
       $(toot[i]).addClass('toot-small');
-      obj[i].className =
-        'fa fa-fw fa-angle-double-down toot-right-icon blue toot_col_' + id;
+      obj[i].className = 'fa fa-fw fa-angle-double-down toot-right-icon blue toot_col_' + id;
       tb[i].className = 'disable toot-group tb_group_' + id;
       if (toot_b[i].dataset.bgpic) {
         toot_b[i].setAttribute(
@@ -886,9 +869,7 @@ function show_post(id, near, near_domain, origin_id) {
       if (json_stat) {
         if (near) {
           var near_header = { 'content-type': 'application/json' };
-          near_header['Authorization'] = near_domain
-            ? null
-            : 'Bearer ' + now_userconf['token'];
+          near_header['Authorization'] = near_domain ? null : 'Bearer ' + now_userconf['token'];
 
           var toot_origin_domain = near_domain ? near_domain : inst;
           if (!origin_id) origin_id = id;

@@ -1,15 +1,10 @@
 function getConfig(type, name) {
   if (!config_tmp[type]) {
-    if (type === 1)
-      config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodon');
-    else if (type === 2)
-      config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodoncol');
-    else if (type === 3)
-      config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodon_timeline');
-    else if (type === 4)
-      config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodon_push');
-    else if (type === 5)
-      config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodon_filter');
+    if (type === 1) config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodon');
+    else if (type === 2) config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodoncol');
+    else if (type === 3) config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodon_timeline');
+    else if (type === 4) config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodon_push');
+    else if (type === 5) config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodon_filter');
   }
 
   var data = config_tmp[type];
@@ -19,16 +14,11 @@ function getConfig(type, name) {
 
 function getConfig_original(type) {
   if (!config_tmp[type]) {
-    if (type === 1)
-      config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodon');
-    else if (type === 2)
-      config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodoncol');
-    else if (type === 3)
-      config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodon_timeline');
-    else if (type === 4)
-      config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodon_push');
-    else if (type === 5)
-      config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodon_filter');
+    if (type === 1) config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodon');
+    else if (type === 2) config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodoncol');
+    else if (type === 3) config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodon_timeline');
+    else if (type === 4) config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodon_push');
+    else if (type === 5) config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodon_filter');
   }
   return JSON.parse(config_tmp[type]);
 }
@@ -43,17 +33,8 @@ function change_conf(name, id, sel, istext) {
     if (md === 'knzkapp_conf_mastodoncol') colmd = 'col-';
     var mode = document.getElementById('conf-' + colmd + id).checked;
     if (istext)
-      data[id] =
-        platform === 'ios'
-          ? mode == true
-            ? '0'
-            : '1'
-          : mode == true
-            ? '1'
-            : '0';
-    else
-      data[id] =
-        platform === 'ios' ? (mode == true ? 0 : 1) : mode == true ? 1 : 0;
+      data[id] = platform === 'ios' ? (mode == true ? '0' : '1') : mode == true ? '1' : '0';
+    else data[id] = platform === 'ios' ? (mode == true ? 0 : 1) : mode == true ? 1 : 0;
   }
   localStorage.setItem(md, JSON.stringify(data));
   config_tmp[name] = null;
@@ -82,8 +63,7 @@ function ConfigSetup() {
       localStorage.setItem('knzk_realtime', 1);
     if (localStorage.getItem('knzk_head_reset') == undefined)
       localStorage.setItem('knzk_head_reset', 1);
-    if (localStorage.getItem('knzk_dial') == undefined)
-      localStorage.setItem('knzk_dial', 'change');
+    if (localStorage.getItem('knzk_dial') == undefined) localStorage.setItem('knzk_dial', 'change');
   }
 
   if (localStorage.getItem('knzkapp_conf_version') == undefined)
@@ -122,16 +102,7 @@ function ConfigSetup() {
         'theme',
         'url_open',
       ];
-      var list_col = [
-        'alert',
-        'all',
-        'bg',
-        'bs',
-        'collapse',
-        'leng',
-        'media',
-        'preview',
-      ];
+      var list_col = ['alert', 'all', 'bg', 'bs', 'collapse', 'leng', 'media', 'preview'];
       var new_conf = {};
       var new_conf_col = {};
       mig_i = 0;
@@ -153,30 +124,17 @@ function ConfigSetup() {
       localStorage.clear();
 
       localStorage.setItem('knzkapp_conf_mastodon', JSON.stringify(new_conf));
-      localStorage.setItem(
-        'knzkapp_conf_mastodoncol',
-        JSON.stringify(new_conf_col)
-      );
+      localStorage.setItem('knzkapp_conf_mastodoncol', JSON.stringify(new_conf_col));
 
-      if (accountdata['list'])
-        localStorage.setItem('knzkapp_account_list', accountdata['list']);
+      if (accountdata['list']) localStorage.setItem('knzkapp_account_list', accountdata['list']);
       if (accountdata['token'])
-        localStorage.setItem(
-          'knzkapp_now_mastodon_token',
-          accountdata['token']
-        );
+        localStorage.setItem('knzkapp_now_mastodon_token', accountdata['token']);
       if (accountdata['userid'])
         localStorage.setItem('knzkapp_now_mastodon_id', accountdata['userid']);
       if (accountdata['username'])
-        localStorage.setItem(
-          'knzkapp_now_mastodon_username',
-          accountdata['username']
-        );
+        localStorage.setItem('knzkapp_now_mastodon_username', accountdata['username']);
       if (accountdata['domain'])
-        localStorage.setItem(
-          'knzkapp_now_mastodon_domain',
-          accountdata['domain']
-        );
+        localStorage.setItem('knzkapp_now_mastodon_domain', accountdata['domain']);
     }
     if (now_version < 3) {
       localStorage.setItem(
@@ -190,20 +148,11 @@ function ConfigSetup() {
     }
     if (now_version < 4) {
       localStorage.setItem('knzkapp_conf_mastodon_push', JSON.stringify({}));
-      localStorage.setItem(
-        'knzkapp_conf_mastodon_filter',
-        JSON.stringify({ notification: {} })
-      );
+      localStorage.setItem('knzkapp_conf_mastodon_filter', JSON.stringify({ notification: {} }));
     }
     if (now_version < 5) {
-      localStorage.setItem(
-        'knzkapp_now_token',
-        localStorage.getItem('knzkapp_now_mastodon_token')
-      );
-      localStorage.setItem(
-        'knzkapp_now_id',
-        localStorage.getItem('knzkapp_now_mastodon_id')
-      );
+      localStorage.setItem('knzkapp_now_token', localStorage.getItem('knzkapp_now_mastodon_token'));
+      localStorage.setItem('knzkapp_now_id', localStorage.getItem('knzkapp_now_mastodon_id'));
       localStorage.setItem(
         'knzkapp_now_username',
         localStorage.getItem('knzkapp_now_mastodon_username')
@@ -255,28 +204,16 @@ function clearAllConfig() {
                   dial: 'change',
                 })
               );
-              localStorage.setItem(
-                'knzkapp_conf_mastodoncol',
-                JSON.stringify({})
-              );
+              localStorage.setItem('knzkapp_conf_mastodoncol', JSON.stringify({}));
               localStorage.setItem(
                 'knzkapp_conf_mastodon_timeline',
                 JSON.stringify({
-                  config: [
-                    'home',
-                    'local',
-                    'public',
-                    'local_media',
-                    'public_media',
-                  ],
+                  config: ['home', 'local', 'public', 'local_media', 'public_media'],
                   default: 0,
                   list_names: {},
                 })
               );
-              localStorage.setItem(
-                'knzkapp_conf_mastodon_push',
-                JSON.stringify({})
-              );
+              localStorage.setItem('knzkapp_conf_mastodon_push', JSON.stringify({}));
               localStorage.setItem(
                 'knzkapp_conf_mastodon_filter',
                 JSON.stringify({ notification: {} })

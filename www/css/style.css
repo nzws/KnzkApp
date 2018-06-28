@@ -600,7 +600,7 @@ img.emoji {
   right: 0;
   bottom: 0;
   left: 0;
-  content: " ";
+  content: ' ';
 }
 
 .moved-text {

@@ -45,8 +45,7 @@ function loadNav(page, mode, move_mode) {
     }, 0);
   };
 
-  if (move_mode === 'reset')
-    nav.resetToPage(page, { animation: 'none' }).then(onLoad());
+  if (move_mode === 'reset') nav.resetToPage(page, { animation: 'none' }).then(onLoad());
   // else if (move_mode === "reload") nav.bringPageTop(page, option).then(onLoad());
   else nav.bringPageTop(page, option).then(onLoad());
 }
@@ -99,10 +98,7 @@ function t_text(text, emojidata, domain) {
     text = text.replace(/。/g, '、それと便座カバー。');
     text = text.replace(/toot/g, 'awoo');
     text = text.replace(/TOOT/g, 'AWOO');
-    text = text.replace(
-      /(神崎|おにいさん)/g,
-      "<span style='color: red'>$1</span>"
-    );
+    text = text.replace(/(神崎|おにいさん)/g, "<span style='color: red'>$1</span>");
     text = text.replace(/あんのたん/g, "<span class='fav-active'>$1</span>");
     text = text.replace(
       /(ごちうさ|ご注文はうさぎですか？)/g,
@@ -122,9 +118,7 @@ function t_text(text, emojidata, domain) {
       emoji = ':' + emojidata[i]['shortcode'] + ':';
 
       replacetext =
-        '<img draggable="false" class="emojione" src="' +
-        emojidata[i][emoji_mode] +
-        '" />';
+        '<img draggable="false" class="emojione" src="' + emojidata[i][emoji_mode] + '" />';
       text = text.replace(new RegExp(emoji, 'g'), replacetext);
       i++;
     }
@@ -140,10 +134,7 @@ function t_text(text, emojidata, domain) {
   if (isYomigana) {
     //読み仮名 from theboss.tech
     //参考: https://github.com/theboss/mastodon/commit/f14da9bf85298000c4882e604b3d1eda8c99d0ee
-    text = text.replace(
-      /[|｜]?([^|｜《]+?)《([^》]+?)》/g,
-      '<ruby><rb>$1</rb><rt>$2</rt></ruby>'
-    );
+    text = text.replace(/[|｜]?([^|｜《]+?)《([^》]+?)》/g, '<ruby><rb>$1</rb><rt>$2</rt></ruby>');
   }
 
   //text = emojione.toImage(text);

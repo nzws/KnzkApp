@@ -128,13 +128,11 @@ function up_file_suc(base64, mode_blob) {
 }
 
 function file_del(card) {
-  ons.notification
-    .confirm(i18next.t('dialogs_js.delete_picture'))
-    .then(function(e) {
-      if (e === 1) {
-        card.parentNode.removeChild(card);
-      }
-    });
+  ons.notification.confirm(i18next.t('dialogs_js.delete_picture')).then(function(e) {
+    if (e === 1) {
+      card.parentNode.removeChild(card);
+    }
+  });
 }
 
 function file_error(msg) {
@@ -427,8 +425,7 @@ function post(id, option, simple) {
           );
           document.getElementById('image_list_simple').innerHTML = '';
           $('#post_mode_simple').val(default_post_visibility);
-          document.getElementById('localonly_bt_simple').className =
-            'no-rd button button--quiet';
+          document.getElementById('localonly_bt_simple').className = 'no-rd button button--quiet';
           document.getElementById('post_mode_icon_simple').className =
             'ons-icon fa-fw fa fa-' + visibility_name(default_post_visibility);
           hide('post_now');
@@ -451,18 +448,13 @@ function post(id, option, simple) {
 }
 
 function simple_open() {
-  if (instance_config[inst]['enquete'])
-    $('#vote_bt_simple').removeClass('invisible');
-  if (instance_config[inst]['yomigana'])
-    $('#yomigana_bt_simple').removeClass('invisible');
-  if (instance_config[inst]['bbcode'])
-    $('#bbcode_bt_simple').removeClass('invisible');
+  if (instance_config[inst]['enquete']) $('#vote_bt_simple').removeClass('invisible');
+  if (instance_config[inst]['yomigana']) $('#yomigana_bt_simple').removeClass('invisible');
+  if (instance_config[inst]['bbcode']) $('#bbcode_bt_simple').removeClass('invisible');
   if (instance_config[inst]['enquete_duration'])
     $('#vote_new_time_simple').removeClass('invisible');
-  if (instance_config[inst]['glitch_soc'])
-    $('#localonly_bt_simple').removeClass('invisible');
-  if (instance_config[inst]['markdown'])
-    $('#md_note_simple').removeClass('invisible');
+  if (instance_config[inst]['glitch_soc']) $('#localonly_bt_simple').removeClass('invisible');
+  if (instance_config[inst]['markdown']) $('#md_note_simple').removeClass('invisible');
 
   document.getElementById('simple_toot_TL_input').rows = 3;
   $('#simple_toot_TL_toolbar').addClass('simple_toot_open');

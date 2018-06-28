@@ -17,14 +17,11 @@ function music_set(id, force) {
     }
 
     if (chmode.value === 'listen-moe') title.innerHTML = 'Listen.moe';
-    else if (chmode.value === 'AnimeNfo-Radio')
-      title.innerHTML = 'AnimeNfo Radio';
-    else if (chmode.value === 'LoFi-hip-hop-Radio')
-      title.innerHTML = 'LoFi hip hop Radio';
+    else if (chmode.value === 'AnimeNfo-Radio') title.innerHTML = 'AnimeNfo Radio';
+    else if (chmode.value === 'LoFi-hip-hop-Radio') title.innerHTML = 'LoFi hip hop Radio';
     else if (chmode.value === 'Poolside-fm') title.innerHTML = 'Poolside.fm';
     else if (chmode.value === 'dubplate-fm') title.innerHTML = "Drum 'n Bass";
-    else if (chmode.value === 'FUTURE-BASS-MIX')
-      title.innerHTML = 'FUTURE-BASS-MIX';
+    else if (chmode.value === 'FUTURE-BASS-MIX') title.innerHTML = 'FUTURE-BASS-MIX';
     else if (chmode.value === 'TOP-40-RU') title.innerHTML = 'TOP 40 RU';
     else if (chmode.value === 'REMIXES-RU') title.innerHTML = 'REMIXES RU';
     else if (chmode.value === 'danceradiouk') title.innerHTML = 'danceradiouk';
@@ -42,26 +39,18 @@ function music_set(id, force) {
   }
 
   if (chmode.value === 'listen-moe') churl = 'https://listen.moe/stream';
-  else if (chmode.value === 'AnimeNfo-Radio')
-    churl = 'http://itori.animenfo.com:443/;';
-  else if (chmode.value === 'LoFi-hip-hop-Radio')
-    churl = 'http://hyades.shoutca.st:8043/stream';
-  else if (chmode.value === 'Poolside-fm')
-    churl = 'http://stream.radio.co/s98f81d47e/listen';
-  else if (chmode.value === 'dubplate-fm')
-    churl = 'http://sc2.dubplate.fm:5000/DnB/192';
-  else if (chmode.value === 'FUTURE-BASS-MIX')
-    churl = 'http://stream.zenolive.com/am16uk1f4k5tv';
+  else if (chmode.value === 'AnimeNfo-Radio') churl = 'http://itori.animenfo.com:443/;';
+  else if (chmode.value === 'LoFi-hip-hop-Radio') churl = 'http://hyades.shoutca.st:8043/stream';
+  else if (chmode.value === 'Poolside-fm') churl = 'http://stream.radio.co/s98f81d47e/listen';
+  else if (chmode.value === 'dubplate-fm') churl = 'http://sc2.dubplate.fm:5000/DnB/192';
+  else if (chmode.value === 'FUTURE-BASS-MIX') churl = 'http://stream.zenolive.com/am16uk1f4k5tv';
   else if (chmode.value === 'TOP-40-RU')
     churl = 'http://stream.europeanhitradio.com:8000/Stream_35.aac';
   else if (chmode.value === 'REMIXES-RU')
     churl = 'http://stream.europeanhitradio.com:8000/Stream_33.aac';
-  else if (chmode.value === 'danceradiouk')
-    churl = 'http://uk2.internet-radio.com:8145/;stream';
-  else if (chmode.value === 'FMHIPHOP-COM')
-    churl = 'http://149.56.175.167:5708/;';
-  else if (chmode.value === 'DEEP-RADIO')
-    churl = 'http://stream.deep.radio/sd/;';
+  else if (chmode.value === 'danceradiouk') churl = 'http://uk2.internet-radio.com:8145/;stream';
+  else if (chmode.value === 'FMHIPHOP-COM') churl = 'http://149.56.175.167:5708/;';
+  else if (chmode.value === 'DEEP-RADIO') churl = 'http://stream.deep.radio/sd/;';
 
   if (mode === 1) {
     audio.src = churl;

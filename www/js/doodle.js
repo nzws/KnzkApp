@@ -5,15 +5,9 @@ function openDoodle(simple) {
   if (getConfig(1, 'swipe_menu') == 1)
     document.getElementById('splitter-menu').removeAttribute('swipeable');
   $.when(
-    document
-      .querySelector('#navigator')
-      .bringPageTop('doodle.html', { animation: 'lift' })
+    document.querySelector('#navigator').bringPageTop('doodle.html', { animation: 'lift' })
   ).done(function() {
-    sketcher = atrament(
-      '#mySketcher',
-      window.innerWidth,
-      window.innerHeight - 50
-    );
+    sketcher = atrament('#mySketcher', window.innerWidth, window.innerHeight - 50);
     sketcher.smoothing = false;
     sketcher.adaptiveStroke = false;
     doodle_mode = 'draw';
@@ -58,9 +52,7 @@ function closeDoodle(force) {
         if (e === 1) {
           document.getElementById('navigator').setAttribute('swipeable', '');
           if (getConfig(1, 'swipe_menu') == 1)
-            document
-              .getElementById('splitter-menu')
-              .setAttribute('swipeable', '1');
+            document.getElementById('splitter-menu').setAttribute('swipeable', '1');
           BackTab('down');
         }
       });

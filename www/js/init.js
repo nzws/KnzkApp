@@ -34,13 +34,11 @@ function init() {
           let html_tag = document.documentElement;
           html_tag.setAttribute('onsflag-iphonex-portrait', '1');
           html_tag.setAttribute('onsflag-iphonex-landscape', '1');
-          document.getElementById('css_toolbar_android').href =
-            'css/iphonex.css';
+          document.getElementById('css_toolbar_android').href = 'css/iphonex.css';
         }
 
         if (platform === 'android')
-          document.getElementById('css_toolbar_android').href =
-            'css/toolbar-height.css';
+          document.getElementById('css_toolbar_android').href = 'css/toolbar-height.css';
       } catch (e) {
         sendLog('Error/init_1', e);
       }
@@ -69,17 +67,13 @@ function init() {
             .then(function(json) {
               try {
                 timeline_config = getConfig(3, 'config');
-                timeline_default_tab =
-                  getConfig(3, 'default') === '' ? 0 : getConfig(3, 'default');
+                timeline_default_tab = getConfig(3, 'default') === '' ? 0 : getConfig(3, 'default');
                 timeline_list_names = getConfig(3, 'list_names');
 
                 if (now_userconf['id'] == undefined)
                   localStorage.setItem('knzkapp_now_mastodon_id', json.id);
                 if (now_userconf['username'] == undefined)
-                  localStorage.setItem(
-                    'knzkapp_now_mastodon_username',
-                    json.username
-                  );
+                  localStorage.setItem('knzkapp_now_mastodon_username', json.username);
                 initBookmark();
 
                 if (json.source) {
@@ -114,36 +108,25 @@ function init() {
                     .setAttribute(
                       'style',
                       "background-image: url('" +
-                        json[
-                          getConfig(1, 'no_gif') ? 'header_static' : 'header'
-                        ] +
+                        json[getConfig(1, 'no_gif') ? 'header_static' : 'header'] +
                         "');"
                     );
                   document.getElementById('splitter-icon').src =
                     json[getConfig(1, 'no_gif') ? 'avatar_static' : 'avatar'];
                   if (instance_config[inst]['yomigana'])
-                    document.getElementById(
-                      'splitter-profile-name'
-                    ).style.height =
-                      '30px';
-                  document.getElementById(
-                    'splitter-profile-name'
-                  ).innerHTML = t_text(escapeHTML(json.display_name));
+                    document.getElementById('splitter-profile-name').style.height = '30px';
+                  document.getElementById('splitter-profile-name').innerHTML = t_text(
+                    escapeHTML(json.display_name)
+                  );
                   document.getElementById('account_change-username').innerHTML =
                     json.acct + '@' + inst;
-                  if (json.locked === true)
-                    $('#menu-followreq').removeClass('invisible');
+                  if (json.locked === true) $('#menu-followreq').removeClass('invisible');
                   else $('#menu-followreq').addClass('invisible');
 
-                  if (getConfig(1, 'menu-fav') == 1)
-                    $('#menu-fav-page').removeClass('invisible');
+                  if (getConfig(1, 'menu-fav') == 1) $('#menu-fav-page').removeClass('invisible');
                   if (getConfig(1, 'swipe_menu') == 1) {
-                    document
-                      .getElementById('splitter-menu')
-                      .setAttribute('swipeable', '1');
-                    document
-                      .getElementById('tl_tabs')
-                      .setAttribute('swipeable', '1');
+                    document.getElementById('splitter-menu').setAttribute('swipeable', '1');
+                    document.getElementById('tl_tabs').setAttribute('swipeable', '1');
                   }
                   migration_app2glitch();
                 }, 500);
@@ -228,8 +211,7 @@ function initevent() {
         $('#post_mode_simple').val(default_post_visibility);
         document.getElementById('post_mode_icon_simple').className =
           'ons-icon fa-fw fa fa-' + visibility_name(default_post_visibility);
-        if (getConfig(1, 'cp_popover'))
-          $('#simple_cp_bt').removeClass('invisible');
+        if (getConfig(1, 'cp_popover')) $('#simple_cp_bt').removeClass('invisible');
       }, 500);
     } else {
       home_auto_event = false;
@@ -239,38 +221,24 @@ function initevent() {
     if (event.enterPage.id === 'config-page') {
       show('now_loading');
       setTimeout(function() {
-        if (ons.platform.isIPhoneX())
-          document.getElementById('item-dp').className = 'invisible'; //iPhoneXだとぶっ壊れるため
+        if (ons.platform.isIPhoneX()) document.getElementById('item-dp').className = 'invisible'; //iPhoneXだとぶっ壊れるため
         if (getConfig(1, 'dial'))
-          document.getElementById(
-            'dial_' + getConfig(1, 'dial')
-          ).selected = true;
+          document.getElementById('dial_' + getConfig(1, 'dial')).selected = true;
         if (getConfig(1, 'theme'))
-          document.getElementById(
-            'theme_' + getConfig(1, 'theme')
-          ).selected = true;
+          document.getElementById('theme_' + getConfig(1, 'theme')).selected = true;
         if (getConfig(1, 'design_platform'))
-          document.getElementById(
-            'dp_' + getConfig(1, 'design_platform')
-          ).selected = true;
+          document.getElementById('dp_' + getConfig(1, 'design_platform')).selected = true;
         if (getConfig(1, 'url_open'))
-          document.getElementById(
-            'url_' + getConfig(1, 'url_open')
-          ).selected = true;
+          document.getElementById('url_' + getConfig(1, 'url_open')).selected = true;
         if (getConfig(1, 'toot_button'))
-          document.getElementById(
-            'toot_bt_' + getConfig(1, 'toot_button')
-          ).selected = true;
+          document.getElementById('toot_bt_' + getConfig(1, 'toot_button')).selected = true;
         if (getConfig(1, 'toot_body'))
-          document.getElementById(
-            'toot_body_' + getConfig(1, 'toot_body')
-          ).selected = true;
+          document.getElementById('toot_body_' + getConfig(1, 'toot_body')).selected = true;
         hide('now_loading');
         var conf = $("[id^='conf-']"),
           i = 0;
         while (conf[i]) {
-          if (parseInt(getConfig(1, conf[i].id.replace('conf-', ''))))
-            conf[i].checked = true;
+          if (parseInt(getConfig(1, conf[i].id.replace('conf-', '')))) conf[i].checked = true;
           i++;
         }
       }, 500);
@@ -290,10 +258,8 @@ function initevent() {
           }
         })
         .then(function(json) {
-          document.getElementById('userconf-display_name').value =
-            json['display_name'];
-          document.getElementById('userconf-note').value =
-            json['source']['note'];
+          document.getElementById('userconf-display_name').value = json['display_name'];
+          document.getElementById('userconf-note').value = json['source']['note'];
           document.getElementById('userconf-lock').checked = json['locked'];
           hide('now_loading');
         })
@@ -309,8 +275,7 @@ function initevent() {
         var conf = $("[id^='conf-col-']"),
           i = 0;
         while (conf[i]) {
-          if (parseInt(getConfig(2, conf[i].id.replace('conf-col-', ''))))
-            conf[i].checked = true;
+          if (parseInt(getConfig(2, conf[i].id.replace('conf-col-', '')))) conf[i].checked = true;
           i++;
         }
         hide('now_loading');
@@ -361,18 +326,12 @@ function initevent() {
       tmp_post_visibility = null;
 
       document.getElementById('toot-limit').innerHTML = toot_limit;
-      if (instance_config[inst]['enquete'])
-        $('#vote_bt').removeClass('invisible');
-      if (instance_config[inst]['yomigana'])
-        $('#yomigana_bt').removeClass('invisible');
-      if (instance_config[inst]['bbcode'])
-        $('#bbcode_bt').removeClass('invisible');
-      if (instance_config[inst]['enquete_duration'])
-        $('#vote_new_time').removeClass('invisible');
-      if (instance_config[inst]['glitch_soc'])
-        $('#localonly_bt').removeClass('invisible');
-      if (instance_config[inst]['markdown'])
-        $('#md-box').removeClass('invisible');
+      if (instance_config[inst]['enquete']) $('#vote_bt').removeClass('invisible');
+      if (instance_config[inst]['yomigana']) $('#yomigana_bt').removeClass('invisible');
+      if (instance_config[inst]['bbcode']) $('#bbcode_bt').removeClass('invisible');
+      if (instance_config[inst]['enquete_duration']) $('#vote_new_time').removeClass('invisible');
+      if (instance_config[inst]['glitch_soc']) $('#localonly_bt').removeClass('invisible');
+      if (instance_config[inst]['markdown']) $('#md-box').removeClass('invisible');
 
       renderEmoji(document.getElementById('emoji_list_popover'));
     }
@@ -437,9 +396,7 @@ function initevent() {
       }
     } else if ($('#navigator').attr('page') === 'home.html') {
       timeline_now_tab = event.index;
-      document.getElementById('home_title').innerHTML = TLname(
-        timeline_config[event.index]
-      );
+      document.getElementById('home_title').innerHTML = TLname(timeline_config[event.index]);
       now_TL = timeline_config[event.index];
       showTL(null, null, null, true);
     }
@@ -495,25 +452,17 @@ function home_autoevent() {
       var storedata = timeline_store_data[inst][timeline_now_tab];
       if (storedata !== '' && home_auto_mode) {
         if (getConfig(1, 'chatmode'))
-          document.querySelector(
-            '#TL' + timeline_now_tab + '_main > .page__content'
-          ).innerHTML =
-            document.querySelector(
-              '#TL' + timeline_now_tab + '_main > .page__content'
-            ).innerHTML + storedata;
+          document.querySelector('#TL' + timeline_now_tab + '_main > .page__content').innerHTML =
+            document.querySelector('#TL' + timeline_now_tab + '_main > .page__content').innerHTML +
+            storedata;
         else
-          document.querySelector(
-            '#TL' + timeline_now_tab + '_main > .page__content'
-          ).innerHTML =
+          document.querySelector('#TL' + timeline_now_tab + '_main > .page__content').innerHTML =
             storedata +
-            document.querySelector(
-              '#TL' + timeline_now_tab + '_main > .page__content'
-            ).innerHTML;
+            document.querySelector('#TL' + timeline_now_tab + '_main > .page__content').innerHTML;
         timeline_store_data[inst][timeline_now_tab] = '';
         home_auto_num = 0;
         setTLheadcolor(0);
-        if (getConfig(1, 'chatmode'))
-          $('.page__content').scrollTop(99999999999999999999999);
+        if (getConfig(1, 'chatmode')) $('.page__content').scrollTop(99999999999999999999999);
       }
       home_autoevent();
     }
@@ -610,10 +559,7 @@ ons.ready(function() {
       ons.notification
         .confirm(dialog_i18n('log', 1), {
           title: dialog_i18n('log'),
-          buttonLabels: [
-            i18next.t('dialogs_js.log.no'),
-            i18next.t('dialogs_js.log.yes'),
-          ],
+          buttonLabels: [i18next.t('dialogs_js.log.no'), i18next.t('dialogs_js.log.yes')],
         })
         .then(function(e) {
           if (e === 1) {

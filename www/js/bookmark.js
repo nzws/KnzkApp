@@ -14,9 +14,7 @@ function LoadBookmark() {
     renderBookmark_glitch();
   } else {
     setTimeout(function() {
-      document.getElementById('olist_nav_title').innerHTML = i18next.t(
-        'bookmark.title'
-      );
+      document.getElementById('olist_nav_title').innerHTML = i18next.t('bookmark.title');
       document.getElementById('olist_nav_main').innerHTML = reshtml;
     }, 1000);
   }
@@ -49,9 +47,7 @@ function renderBookmark_glitch() {
         }
 
         document.getElementById('olist_nav_main').innerHTML = reshtml;
-        document.getElementById('olist_nav_title').innerHTML = i18next.t(
-          'bookmark.title'
-        );
+        document.getElementById('olist_nav_title').innerHTML = i18next.t('bookmark.title');
       }
     });
 }
@@ -75,9 +71,7 @@ function renderBookmark(reshtml, json_bookmark, i) {
     .then(function(json) {
       reshtml += toot_card(json, 'full', null);
       if (!json_bookmark[i + 1]) {
-        document.getElementById('olist_nav_title').innerHTML = i18next.t(
-          'bookmark.title'
-        );
+        document.getElementById('olist_nav_title').innerHTML = i18next.t('bookmark.title');
         document.getElementById('olist_nav_main').innerHTML = reshtml;
         document.getElementById('olist_right').innerHTML =
           '<ons-toolbar-button onclick="clearBookmark()" class="toolbar-button">\n' +
@@ -114,9 +108,7 @@ function changeBookmark(id) {
     }
     saveBookmark(json);
   } else {
-    var bookmark_mode = tl_postdata[id]['bookmarked']
-      ? '/unbookmark'
-      : '/bookmark';
+    var bookmark_mode = tl_postdata[id]['bookmarked'] ? '/unbookmark' : '/bookmark';
     Fetch('https://' + inst + '/api/v1/statuses/' + id + bookmark_mode, {
       headers: {
         'content-type': 'application/json',
@@ -179,19 +171,17 @@ function clearBookmark() {
         }
       });
   } else {
-    ons.notification.alert(
-      'Glitch-socブックマークでは全削除を行う事ができません。',
-      { title: 'ブックマーク全削除' }
-    );
+    ons.notification.alert('Glitch-socブックマークでは全削除を行う事ができません。', {
+      title: 'ブックマーク全削除',
+    });
   }
 }
 
 function clearAllBookmark() {
   ons.notification
-    .confirm(
-      i18next.t('bookmark.clear2', { interpolation: { escapeValue: false } }),
-      { title: i18next.t('bookmark.clear1.title') }
-    )
+    .confirm(i18next.t('bookmark.clear2', { interpolation: { escapeValue: false } }), {
+      title: i18next.t('bookmark.clear1.title'),
+    })
     .then(function(e) {
       if (e === 1) {
         ons.notification
@@ -218,16 +208,13 @@ function migration_app2glitch() {
     if (json[inst][0]) {
       var i = 0;
       while (json[inst][i]) {
-        Fetch(
-          'https://' + inst + '/api/v1/statuses/' + json[inst][i] + '/bookmark',
-          {
-            headers: {
-              'content-type': 'application/json',
-              Authorization: 'Bearer ' + now_userconf['token'],
-            },
-            method: 'POST',
-          }
-        )
+        Fetch('https://' + inst + '/api/v1/statuses/' + json[inst][i] + '/bookmark', {
+          headers: {
+            'content-type': 'application/json',
+            Authorization: 'Bearer ' + now_userconf['token'],
+          },
+          method: 'POST',
+        })
           .then(function(response) {
             if (response.ok) {
               return response.json();

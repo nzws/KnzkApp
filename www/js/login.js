@@ -91,20 +91,17 @@ function login_callback(code) {
   } else if (platform !== 'android') {
     uri = 'urn:ietf:wg:oauth:2.0:oob';
   }
-  Fetch(
-    'https://' + localStorage.getItem('knzkapp_tmp_domain') + '/oauth/token',
-    {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({
-        client_id: localStorage.getItem('knzkapp_tmp_cid'),
-        client_secret: localStorage.getItem('knzkapp_tmp_scr'),
-        grant_type: 'authorization_code',
-        redirect_uri: uri,
-        code: code,
-      }),
-    }
-  )
+  Fetch('https://' + localStorage.getItem('knzkapp_tmp_domain') + '/oauth/token', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({
+      client_id: localStorage.getItem('knzkapp_tmp_cid'),
+      client_secret: localStorage.getItem('knzkapp_tmp_scr'),
+      grant_type: 'authorization_code',
+      redirect_uri: uri,
+      code: code,
+    }),
+  })
     .then(function(response) {
       if (response.ok) {
         if (now_userconf['username']) account_change();
@@ -118,10 +115,7 @@ function login_callback(code) {
         if (json.access_token) {
           now_userconf['token'] = json.access_token;
           localStorage.setItem('knzkapp_now_token', json.access_token);
-          localStorage.setItem(
-            'knzkapp_now_domain',
-            localStorage.getItem('knzkapp_tmp_domain')
-          );
+          localStorage.setItem('knzkapp_now_domain', localStorage.getItem('knzkapp_tmp_domain'));
           inst = localStorage.getItem('knzkapp_tmp_domain');
 
           Fetch('https://' + inst + '/api/v1/accounts/verify_credentials', {
@@ -137,10 +131,7 @@ function login_callback(code) {
             })
             .then(function(json_acct) {
               if (localStorage.getItem('knzkapp_account_list') == undefined)
-                localStorage.setItem(
-                  'knzkapp_account_list',
-                  JSON.stringify([])
-                );
+                localStorage.setItem('knzkapp_account_list', JSON.stringify([]));
               localStorage.setItem('knzkapp_now_username', json_acct.acct);
               localStorage.setItem('knzkapp_now_id', json_acct.id);
               window.location.reload();
@@ -230,14 +221,9 @@ function account_change(id) {
     var nid = parseInt(id);
     var next_account = list[nid];
     list.splice(nid, 1);
-    Fetch(
-      'https://' +
-        next_account['login_domain'] +
-        '/api/v1/accounts/verify_credentials',
-      {
-        headers: { Authorization: 'Bearer ' + next_account['login_token'] },
-      }
-    )
+    Fetch('https://' + next_account['login_domain'] + '/api/v1/accounts/verify_credentials', {
+      headers: { Authorization: 'Bearer ' + next_account['login_token'] },
+    })
       .then(function(response) {
         if (response.ok) {
           return response.json();
@@ -250,10 +236,7 @@ function account_change(id) {
         localStorage.setItem('knzkapp_now_token', next_account['login_token']);
         localStorage.setItem('knzkapp_now_username', next_account['username']);
         localStorage.setItem('knzkapp_now_id', next_account['userid']);
-        localStorage.setItem(
-          'knzkapp_now_domain',
-          next_account['login_domain'].toLowerCase()
-        );
+        localStorage.setItem('knzkapp_now_domain', next_account['login_domain'].toLowerCase());
 
         list.unshift(now);
         localStorage.setItem('knzkapp_account_list', JSON.stringify(list));

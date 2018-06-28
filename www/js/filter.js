@@ -2,9 +2,7 @@ function createFilter() {
   var conf = $("[id^='filter_']"),
     i = 0,
     config = {},
-    id = escapeHTML(
-      document.getElementById('userid_filter').value
-    ).toLowerCase();
+    id = escapeHTML(document.getElementById('userid_filter').value).toLowerCase();
   if (!id) return;
   if (id.indexOf('@') === -1) id += '@' + inst;
   while (conf[i]) {
@@ -65,8 +63,7 @@ function editFilter(id) {
       conf = $("[id^='filterpush_']");
       i = 0;
       while (conf[i]) {
-        conf[i].checked =
-          config['notification'][id][conf[i].id.replace('filterpush_', '')];
+        conf[i].checked = config['notification'][id][conf[i].id.replace('filterpush_', '')];
         i++;
       }
     });

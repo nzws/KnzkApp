@@ -23,14 +23,11 @@ function SearchLoad() {
     .then(function(json) {
       var reshtml = '',
         i = 0;
-      document.getElementById('olist_nav_title').innerHTML = i18next.t(
-        'search.result',
-        { text: q }
-      );
+      document.getElementById('olist_nav_title').innerHTML = i18next.t('search.result', {
+        text: q,
+      });
       reshtml +=
-        '<ons-list><ons-list-header>' +
-        i18next.t('search.accts') +
-        '</ons-list-header></ons-list>';
+        '<ons-list><ons-list-header>' + i18next.t('search.accts') + '</ons-list-header></ons-list>';
       while (json['accounts'][i]) {
         if (!json['accounts'][i]['display_name'])
           json['accounts'][i]['display_name'] = json['accounts'][i]['username'];
@@ -40,9 +37,7 @@ function SearchLoad() {
 
       i = 0;
       reshtml +=
-        '<ons-list><ons-list-header>' +
-        i18next.t('search.tags') +
-        '</ons-list-header></ons-list>';
+        '<ons-list><ons-list-header>' + i18next.t('search.tags') + '</ons-list-header></ons-list>';
       while (json['hashtags'][i]) {
         reshtml +=
           '<ons-list-item onclick=\'showTagTL("' +
@@ -64,9 +59,7 @@ function SearchLoad() {
 
       i = 0;
       reshtml +=
-        '<ons-list><ons-list-header>' +
-        i18next.t('search.toots') +
-        '</ons-list-header></ons-list>';
+        '<ons-list><ons-list-header>' + i18next.t('search.toots') + '</ons-list-header></ons-list>';
       while (json['statuses'][i]) {
         reshtml += toot_card(json['statuses'][i], 'full');
         i++;

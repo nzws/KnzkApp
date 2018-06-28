@@ -1,9 +1,7 @@
 function list(mode, title, more_load, mode_toot, navmode) {
   if (navmode === true) {
     $.when(
-      document
-        .querySelector('#navigator')
-        .bringPageTop('olist_nav.html', { animation: 'slide' })
+      document.querySelector('#navigator').bringPageTop('olist_nav.html', { animation: 'slide' })
     ).done(function() {
       list_n(mode, title, more_load, mode_toot, true);
     });
@@ -60,8 +58,7 @@ function list_n(mode, title, more_load, mode_toot, navmode) {
           if (mode_toot === 'toot') {
             reshtml += toot_card(json[i], 'full', null);
           } else if (mode_toot === 'acct') {
-            if (!json[i]['display_name'])
-              json[i]['display_name'] = json[i]['username'];
+            if (!json[i]['display_name']) json[i]['display_name'] = json[i]['username'];
 
             reshtml += AccountCard(json[i]);
 
@@ -174,8 +171,7 @@ function LoadrepStatus() {
 
         return t;
       });
-      reshtml +=
-        '<div class="toot">\n' + i18next.t('report_status_note') + '</div>\n';
+      reshtml += '<div class="toot">\n' + i18next.t('report_status_note') + '</div>\n';
       while (json[i]) {
         if (json[i]['action_taken']) {
           repstatus[0] = '管理者が確認済み';
@@ -202,9 +198,7 @@ function LoadrepStatus() {
         repstatus = [];
         i++;
       }
-      document.getElementById('olist_nav_title').innerHTML = i18next.t(
-        'navigation.report_status'
-      );
+      document.getElementById('olist_nav_title').innerHTML = i18next.t('navigation.report_status');
       document.getElementById('olist_nav_main').innerHTML = reshtml;
     })
     .catch(function(error) {
@@ -218,19 +212,13 @@ function renderListsCollection(isEdit) {
     editing_id = isEdit;
     loadNav('lists_people.html');
   }
-  Fetch(
-    'https://' +
-      inst +
-      '/api/v1/lists' +
-      (isEdit ? '/' + isEdit + '/accounts' : ''),
-    {
-      headers: {
-        'content-type': 'application/json',
-        Authorization: 'Bearer ' + now_userconf['token'],
-      },
-      method: 'GET',
-    }
-  )
+  Fetch('https://' + inst + '/api/v1/lists' + (isEdit ? '/' + isEdit + '/accounts' : ''), {
+    headers: {
+      'content-type': 'application/json',
+      Authorization: 'Bearer ' + now_userconf['token'],
+    },
+    method: 'GET',
+  })
     .then(function(response) {
       if (response.ok) {
         return response.json();
@@ -246,8 +234,7 @@ function renderListsCollection(isEdit) {
           buf = '';
         while (json[i]) {
           if (isEdit) {
-            if (!json[i]['display_name'])
-              json[i]['display_name'] = json[i]['username'];
+            if (!json[i]['display_name']) json[i]['display_name'] = json[i]['username'];
             buf += AccountCard(json[i], 'delList');
           } else {
             buf +=
@@ -266,9 +253,7 @@ function renderListsCollection(isEdit) {
           }
           i++;
         }
-        document.getElementById(
-          isEdit ? 'people-list' : 'lists-list'
-        ).innerHTML = buf;
+        document.getElementById(isEdit ? 'people-list' : 'lists-list').innerHTML = buf;
       }
     });
 }
@@ -302,20 +287,13 @@ function addAccountToList(id, isDelete) {
 
 function SearchListLoad() {
   var q = escapeHTML(document.getElementById('List-search').value);
-  Fetch(
-    'https://' +
-      inst +
-      '/api/v1/accounts/search?q=' +
-      q +
-      '&resolve=false&following=true',
-    {
-      headers: {
-        'content-type': 'application/json',
-        Authorization: 'Bearer ' + now_userconf['token'],
-      },
-      method: 'GET',
-    }
-  )
+  Fetch('https://' + inst + '/api/v1/accounts/search?q=' + q + '&resolve=false&following=true', {
+    headers: {
+      'content-type': 'application/json',
+      Authorization: 'Bearer ' + now_userconf['token'],
+    },
+    method: 'GET',
+  })
     .then(function(response) {
       if (response.ok) {
         return response.json();
@@ -334,8 +312,7 @@ function SearchListLoad() {
         i18next.t('navigation.close') +
         '</div></ons-list-item>';
       while (json[i]) {
-        if (!json[i]['display_name'])
-          json[i]['display_name'] = json[i]['username'];
+        if (!json[i]['display_name']) json[i]['display_name'] = json[i]['username'];
         reshtml += AccountCard(json[i], 'addList');
         i++;
       }

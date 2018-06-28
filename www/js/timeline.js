@@ -163,13 +163,7 @@ function showAlert(reload, more_load) {
                 (json[i]['type'] === 'mention' && filter['mention'])
               )
             ) {
-              reshtml += toot_card(
-                json[i]['status'],
-                'full',
-                alert_text,
-                null,
-                'alert'
-              );
+              reshtml += toot_card(json[i]['status'], 'full', alert_text, null, 'alert');
             }
             alert_text = '';
           }
@@ -233,9 +227,7 @@ function initTimeline() {
   TL_change(timeline_default_tab);
   now_TL = timeline_config[timeline_default_tab];
   timeline_now_tab = timeline_default_tab;
-  document.getElementById('home_title').innerHTML = TLname(
-    timeline_config[timeline_now_tab]
-  );
+  document.getElementById('home_title').innerHTML = TLname(timeline_config[timeline_now_tab]);
   showTL(null, null, null, true);
 
   var dial = getConfig(1, 'dial'),
@@ -308,9 +300,7 @@ function showTL(mode, reload, more_load, clear_load) {
     setTLheadcolor(0);
     try {
       if (last_load_TL)
-        document.querySelector(
-          '#TL' + last_load_TL + '_main > .page__content'
-        ).innerHTML =
+        document.querySelector('#TL' + last_load_TL + '_main > .page__content').innerHTML =
           '<div class="loading-now"><ons-progress-circular indeterminate></ons-progress-circular></div>';
     } catch (e) {
       console.error(e);
@@ -371,20 +361,16 @@ function showTL(mode, reload, more_load, clear_load) {
         if (json) {
           displayTime('update');
           if (more_load && !getConfig(1, 'chatmode')) {
-            reshtml = document.querySelector(
-              '#TL' + timeline_now_tab + '_main > .page__content'
-            ).innerHTML;
+            reshtml = document.querySelector('#TL' + timeline_now_tab + '_main > .page__content')
+              .innerHTML;
           } else {
             if (getConfig(1, 'realtime') == 1) {
-              if (mode === 'public' || mode === 'public_media')
-                ws_mode = 'public';
-              else if (mode === 'local' || mode === 'local_media')
-                ws_mode = 'public:local';
+              if (mode === 'public' || mode === 'public_media') ws_mode = 'public';
+              else if (mode === 'local' || mode === 'local_media') ws_mode = 'public:local';
               else if (mode === 'home') ws_mode = 'user';
               else if (mode.match(/hashtag:/i))
                 ws_mode = 'hashtag&tag=' + mode.replace('hashtag:', '');
-              else if (mode.match(/list:/i))
-                ws_mode = 'list&list=' + mode.replace('list:', '');
+              else if (mode.match(/list:/i)) ws_mode = 'list&list=' + mode.replace('list:', '');
 
               if (!reload && !more_load) {
                 var instance_ws = inst,
@@ -428,9 +414,7 @@ function showTL(mode, reload, more_load, clear_load) {
                         if (ws_reshtml['id']) {
                           if (toot_new_id !== ws_reshtml['id']) {
                             var TLmode =
-                              mode === 'local_media' || mode === 'public_media'
-                                ? 'media'
-                                : '';
+                              mode === 'local_media' || mode === 'public_media' ? 'media' : '';
 
                             updateTLtrack();
                             if (home_auto_mode) {
@@ -440,9 +424,8 @@ function showTL(mode, reload, more_load, clear_load) {
                                 document.querySelector(
                                   '#TL' + now_tab + '_main > .page__content'
                                 ).innerHTML =
-                                  document.querySelector(
-                                    '#TL' + now_tab + '_main > .page__content'
-                                  ).innerHTML +
+                                  document.querySelector('#TL' + now_tab + '_main > .page__content')
+                                    .innerHTML +
                                   timeline_store_data[instance_ws][now_tab] +
                                   toot_card(ws_reshtml, 'full', null, TLmode);
                               else
@@ -451,22 +434,17 @@ function showTL(mode, reload, more_load, clear_load) {
                                 ).innerHTML =
                                   toot_card(ws_reshtml, 'full', null, TLmode) +
                                   timeline_store_data[instance_ws][now_tab] +
-                                  document.querySelector(
-                                    '#TL' + now_tab + '_main > .page__content'
-                                  ).innerHTML;
+                                  document.querySelector('#TL' + now_tab + '_main > .page__content')
+                                    .innerHTML;
 
                               timeline_store_data[instance_ws][now_tab] = '';
                               home_auto_num = 0;
                               setTLheadcolor(0);
                               if (getConfig(1, 'chatmode'))
-                                $('.page__content').scrollTop(
-                                  99999999999999999999999
-                                );
+                                $('.page__content').scrollTop(99999999999999999999999);
                             } else {
                               if (getConfig(1, 'chatmode'))
-                                timeline_store_data[instance_ws][
-                                  now_tab
-                                ] += toot_card(
+                                timeline_store_data[instance_ws][now_tab] += toot_card(
                                   ws_reshtml,
                                   'full',
                                   null,
@@ -485,8 +463,7 @@ function showTL(mode, reload, more_load, clear_load) {
 
                             if (
                               !home_auto_mode &&
-                              ((ws_reshtml['media_attachments'][0] &&
-                                TLmode === 'media') ||
+                              ((ws_reshtml['media_attachments'][0] && TLmode === 'media') ||
                                 TLmode !== 'media')
                             ) {
                               home_auto_num++;
@@ -496,9 +473,7 @@ function showTL(mode, reload, more_load, clear_load) {
                           toot_new_id = ws_reshtml['id'];
                         }
                       } else if (ws_resdata.event === 'delete') {
-                        var del_toot = document.getElementById(
-                          'post_' + ws_resdata.payload
-                        );
+                        var del_toot = document.getElementById('post_' + ws_resdata.payload);
                         if (del_toot) del_toot.parentNode.removeChild(del_toot);
                       }
                     }
@@ -530,39 +505,24 @@ function showTL(mode, reload, more_load, clear_load) {
           }
 
           while (json[i]) {
-            var TLmode =
-              mode === 'local_media' || mode === 'public_media' ? 'media' : '';
+            var TLmode = mode === 'local_media' || mode === 'public_media' ? 'media' : '';
 
             var tootbox = toot_card(json[i], 'full', null, TLmode);
 
             reshtml += tootbox;
 
-            toot_new_id = getConfig(1, 'chatmode')
-              ? json[i]['id']
-              : json[0]['id'];
+            toot_new_id = getConfig(1, 'chatmode') ? json[i]['id'] : json[0]['id'];
 
-            toot_old_id = getConfig(1, 'chatmode')
-              ? json[0]['id']
-              : json[i]['id'];
+            toot_old_id = getConfig(1, 'chatmode') ? json[0]['id'] : json[i]['id'];
             i++;
           }
 
-          if (
-            more_load &&
-            mode == last_load_TL &&
-            !clear_load &&
-            getConfig(1, 'chatmode')
-          ) {
-            reshtml += document.querySelector(
-              '#TL' + timeline_now_tab + '_main > .page__content'
-            ).innerHTML;
+          if (more_load && mode == last_load_TL && !clear_load && getConfig(1, 'chatmode')) {
+            reshtml += document.querySelector('#TL' + timeline_now_tab + '_main > .page__content')
+              .innerHTML;
           }
 
-          if (
-            !more_load &&
-            mode !== last_load_TL &&
-            !getConfig(1, 'chatmode')
-          ) {
+          if (!more_load && mode !== last_load_TL && !getConfig(1, 'chatmode')) {
             var tl = document.querySelector('#TL' + timeline_now_tab + '_main');
 
             tl.onInfiniteScroll = function(done) {
@@ -619,8 +579,7 @@ function showTagTL(tag, more_load) {
         if (more_load) {
           reshtml = document.getElementById('tag_main').innerHTML;
         } else {
-          document.getElementById('showtag_title').innerHTML =
-            '#' + decodeURI(tag);
+          document.getElementById('showtag_title').innerHTML = '#' + decodeURI(tag);
         }
 
         while (json[i]) {
@@ -758,9 +717,7 @@ function updateTLtrack() {
         .offset().top - window.innerHeight;
     home_auto_mode = h < -10;
   } else {
-    h = document.querySelector(
-      '#TL' + timeline_now_tab + '_main > .page__content'
-    ).scrollTop;
+    h = document.querySelector('#TL' + timeline_now_tab + '_main > .page__content').scrollTop;
     home_auto_mode = h <= 100;
   }
 }
@@ -806,8 +763,7 @@ function TLname(mode) {
   var n = TLident(mode),
     text;
   if (n === 'hashtag') text = mode;
-  else if (n === 'list')
-    text = 'list:' + timeline_list_names['' + mode.split(':')[1]];
+  else if (n === 'list') text = 'list:' + timeline_list_names['' + mode.split(':')[1]];
   else text = i18next.t('timeline.' + n);
   return text;
 }
@@ -961,12 +917,7 @@ function editTLConf(i, mode) {
     timeline_config.splice(i, 2, timeline_config[i + 1], timeline_config[i]);
   } else {
     //下げる
-    timeline_config.splice(
-      i - 1,
-      2,
-      timeline_config[i],
-      timeline_config[i - 1]
-    );
+    timeline_config.splice(i - 1, 2, timeline_config[i], timeline_config[i - 1]);
   }
   localStorage.setItem(
     'knzkapp_conf_mastodon_timeline',
@@ -1034,10 +985,7 @@ function AddTLConfig() {
     return;
   }
 
-  var buttons = [
-      i18next.t('actionsheet.editTL.hashtag'),
-      i18next.t('actionsheet.editTL.list'),
-    ],
+  var buttons = [i18next.t('actionsheet.editTL.hashtag'), i18next.t('actionsheet.editTL.list')],
     defaultTL = ['home', 'local', 'public', 'local_media', 'public_media'],
     defaultTLdisable = [null, null],
     i = 0;
