@@ -29,8 +29,8 @@
   </p>
 
   <p align="center">
-    <a href="https://circleci.com/gh/KnzkDev/KnzkApp">
-      <img src="https://img.shields.io/circleci/project/KnzkDev/KnzkApp/master.svg?style=for-the-badge">
+    <a href="https://travis-ci.org/KnzkDev/KnzkApp">
+      <img src="https://img.shields.io/travis/KnzkDev/KnzkApp.svg?style=for-the-badge">
     </a>
   </p>
 
