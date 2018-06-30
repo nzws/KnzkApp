@@ -30,6 +30,7 @@ function i18n_init_callback(lang) {
       },
     },
     function(err, t) {
+      console.log('lang:' + lang);
       jqueryI18next.init(i18next, $);
       $('[data-i18n]').localize();
     }

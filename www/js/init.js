@@ -94,7 +94,6 @@ function init() {
 
                 document.querySelector('#navigator').resetToPage('home.html');
                 initevent();
-                i18n_init();
 
                 setTimeout(function() {
                   startWatching();
@@ -546,6 +545,7 @@ function init_d() {
 }
 
 init_d();
+i18n_init();
 ons.ready(function() {
   ConfigSetup();
   init();
@@ -556,19 +556,21 @@ ons.ready(function() {
     if (getConfig(1, 'SendLog') === '') setConfig(1, 'SendLog', '0');
   } else {
     if (getConfig(1, 'SendLog') === '') {
-      ons.notification
-        .confirm(dialog_i18n('log', 1), {
-          title: dialog_i18n('log'),
-          buttonLabels: [i18next.t('dialogs_js.log.no'), i18next.t('dialogs_js.log.yes')],
-        })
-        .then(function(e) {
-          if (e === 1) {
-            setConfig(1, 'SendLog', '1');
-            Raven.config(sentryID, { release: version }).install();
-          } else {
-            setConfig(1, 'SendLog', '0');
-          }
-        });
+      setTimeout(function() {
+        ons.notification
+          .confirm(dialog_i18n('log', 1), {
+            title: dialog_i18n('log'),
+            buttonLabels: [i18next.t('dialogs_js.log.no'), i18next.t('dialogs_js.log.yes')],
+          })
+          .then(function(e) {
+            if (e === 1) {
+              setConfig(1, 'SendLog', '1');
+              Raven.config(sentryID, { release: version }).install();
+            } else {
+              setConfig(1, 'SendLog', '0');
+            }
+          });
+      }, 500);
     } else if (getConfig(1, 'SendLog') === '1') {
       Raven.config(sentryID, { release: version }).install();
     }
