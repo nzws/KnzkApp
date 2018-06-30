@@ -151,30 +151,32 @@ function ConfigSetup() {
       localStorage.setItem('knzkapp_conf_mastodon_filter', JSON.stringify({ notification: {} }));
     }
     if (now_version < 5) {
-      localStorage.setItem('knzkapp_now_token', localStorage.getItem('knzkapp_now_mastodon_token'));
-      localStorage.setItem('knzkapp_now_id', localStorage.getItem('knzkapp_now_mastodon_id'));
-      localStorage.setItem(
-        'knzkapp_now_username',
-        localStorage.getItem('knzkapp_now_mastodon_username')
-      );
-      localStorage.setItem(
-        'knzkapp_now_domain',
-        localStorage.getItem('knzkapp_now_mastodon_domain')
-      );
-      localStorage.removeItem('knzkapp_now_mastodon_token');
-      localStorage.removeItem('knzkapp_now_mastodon_id');
-      localStorage.removeItem('knzkapp_now_mastodon_username');
-      localStorage.removeItem('knzkapp_now_mastodon_domain');
+      if (localStorage.getItem('knzkapp_now_mastodon_id')) {
+        localStorage.setItem('knzkapp_now_token', localStorage.getItem('knzkapp_now_mastodon_token'));
+        localStorage.setItem('knzkapp_now_id', localStorage.getItem('knzkapp_now_mastodon_id'));
+        localStorage.setItem(
+          'knzkapp_now_username',
+          localStorage.getItem('knzkapp_now_mastodon_username')
+        );
+        localStorage.setItem(
+          'knzkapp_now_domain',
+          localStorage.getItem('knzkapp_now_mastodon_domain')
+        );
+        localStorage.removeItem('knzkapp_now_mastodon_token');
+        localStorage.removeItem('knzkapp_now_mastodon_id');
+        localStorage.removeItem('knzkapp_now_mastodon_username');
+        localStorage.removeItem('knzkapp_now_mastodon_domain');
 
-      var acctlist = JSON.parse(localStorage.getItem('knzkapp_account_list'));
-      mig_i = 0;
-      if (acctlist) {
-        while (acctlist[mig_i]) {
-          acctlist[mig_i]['service'] = 'mastodon';
-          mig_i++;
+        var acctlist = JSON.parse(localStorage.getItem('knzkapp_account_list'));
+        mig_i = 0;
+        if (acctlist) {
+          while (acctlist[mig_i]) {
+            acctlist[mig_i]['service'] = 'mastodon';
+            mig_i++;
+          }
         }
+        localStorage.setItem('knzkapp_account_list', JSON.stringify(acctlist));
       }
-      localStorage.setItem('knzkapp_account_list', JSON.stringify(acctlist));
     }
 
     localStorage.setItem('knzkapp_conf_version', last_version);
@@ -188,13 +190,13 @@ function clearAllConfig() {
     .confirm(dialog_i18n('clear_account.1', 1), {
       title: dialog_i18n('clear_account'),
     })
-    .then(function(e) {
+    .then(function (e) {
       if (e === 1) {
         ons.notification
           .confirm(dialog_i18n('clear_account.2', 1), {
             title: dialog_i18n('clear_account'),
           })
-          .then(function(e) {
+          .then(function (e) {
             if (e === 1) {
               localStorage.setItem(
                 'knzkapp_conf_mastodon',
