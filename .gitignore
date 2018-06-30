@@ -1,13 +1,11 @@
-.monaca/winrt/
+.monaca/winrt
 .monaca/local_properties.json
-.vscode/
-.idea/
+.vscode
+.idea
 .DS_Store
 Thumbs.db
-node_modules/
+node_modules
 yarn-error.log
-
 google-services.json
 GoogleService-Info.plist
-
 www/config/config.js
