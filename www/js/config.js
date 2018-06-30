@@ -152,7 +152,10 @@ function ConfigSetup() {
     }
     if (now_version < 5) {
       if (localStorage.getItem('knzkapp_now_mastodon_id')) {
-        localStorage.setItem('knzkapp_now_token', localStorage.getItem('knzkapp_now_mastodon_token'));
+        localStorage.setItem(
+          'knzkapp_now_token',
+          localStorage.getItem('knzkapp_now_mastodon_token')
+        );
         localStorage.setItem('knzkapp_now_id', localStorage.getItem('knzkapp_now_mastodon_id'));
         localStorage.setItem(
           'knzkapp_now_username',
@@ -190,13 +193,13 @@ function clearAllConfig() {
     .confirm(dialog_i18n('clear_account.1', 1), {
       title: dialog_i18n('clear_account'),
     })
-    .then(function (e) {
+    .then(function(e) {
       if (e === 1) {
         ons.notification
           .confirm(dialog_i18n('clear_account.2', 1), {
             title: dialog_i18n('clear_account'),
           })
-          .then(function (e) {
+          .then(function(e) {
             if (e === 1) {
               localStorage.setItem(
                 'knzkapp_conf_mastodon',
