@@ -26,27 +26,15 @@
     <a href="http://makeapullrequest.com">
       <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge">
     </a>
-  </p>
-
-  <p align="center">
     <a href="https://travis-ci.org/KnzkDev/KnzkApp">
       <img src="https://img.shields.io/travis/KnzkDev/KnzkApp.svg?style=for-the-badge">
     </a>
-  </p>
-
-  <p align="center">
     <a href="https://discord.gg/5teHfRK">
       <img src="https://img.shields.io/badge/chat-on%20discord-7289DA.svg?style=for-the-badge">
     </a>
-  </p>
-
-  <p align="center">
     <a href="https://github.com/prettier/prettier">
       <img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=for-the-badge">
     </a>
-  </p>
-
-  <p align="center">
     <a href="https://github.com/KnzkDev/KnzkApp/blob/master/LICENSE.md">
       <img src="https://img.shields.io/badge/license-knzkapp%20license-blue.svg?style=for-the-badge">
     </a>
