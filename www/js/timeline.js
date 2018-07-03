@@ -16,8 +16,7 @@ function reset_alert() {
             if (response.ok) {
               return response.json();
             } else {
-              sendLog('Error/noti_clear', response.json);
-              throw new Error();
+              throw response;
             }
           })
           .then(function(json) {
@@ -27,8 +26,9 @@ function reset_alert() {
             alert_new_id = 0;
           })
           .catch(function(error) {
-            showtoast('cannot-pros');
-            console.log(error);
+            error.text().then(errorMessage => {
+              sendLog('Error/ClearNotification', errorMessage);
+            });
           });
       }
     });
@@ -60,10 +60,7 @@ function showAlert(reload, more_load) {
         if (more_load) more_load.className = 'invisible';
         return response.json();
       } else {
-        sendLog('Error/noti', response.json);
-        showtoast('cannot-load');
-        if (reload) reload();
-        return false;
+        throw response;
       }
     })
     .then(function(json) {
@@ -185,6 +182,13 @@ function showAlert(reload, more_load) {
         if (reload) reload();
         return true;
       }
+    })
+    .catch(error => {
+      error.text().then(errorMessage => {
+        showtoast('cannot-load');
+        if (reload) reload();
+        sendLog('Error/Notification', errorMessage, true);
+      });
     });
 }
 
@@ -351,10 +355,7 @@ function showTL(mode, reload, more_load, clear_load) {
         if (response.ok) {
           return response.json();
         } else {
-          sendLog('Error/timeline', response.json);
-          showtoast('cannot-load');
-          if (reload && reload !== 'dial') reload();
-          return false;
+          throw response;
         }
       })
       .then(function(json) {
@@ -540,6 +541,13 @@ function showTL(mode, reload, more_load, clear_load) {
             $('.page__content').scrollTop(99999999999999999999999);
           return true;
         }
+      })
+      .catch(error => {
+        showtoast('cannot-load');
+        if (reload && reload !== 'dial') reload();
+        error.text().then(errorMessage => {
+          sendLog('Error/timeline', errorMessage, true);
+        });
       });
   }
 }
@@ -569,9 +577,7 @@ function showTagTL(tag, more_load) {
         if (more_load) more_load.className = 'invisible';
         return response.json();
       } else {
-        sendLog('Error/tag', response.json);
-        showtoast('cannot-load');
-        return false;
+        throw response;
       }
     })
     .then(function(json) {
@@ -595,6 +601,11 @@ function showTagTL(tag, more_load) {
         document.getElementById('tag_main').innerHTML = reshtml;
         return true;
       }
+    })
+    .catch(error => {
+      error.text().then(errorMessage => {
+        sendLog('Error/showaccount', errorMessage);
+      });
     });
 }
 
@@ -636,9 +647,7 @@ function showAccountTL(id, more_load, mode = '', reload) {
         if (more_load) more_load.className = 'invisible';
         return response.json();
       } else {
-        sendLog('Error/accountTL', response.json);
-        showtoast('cannot-load');
-        return false;
+        throw response;
       }
     })
     .then(function(json) {
@@ -678,6 +687,11 @@ function showAccountTL(id, more_load, mode = '', reload) {
         else if (!more_load) initph('acct');
         return true;
       }
+    })
+    .catch(error => {
+      error.text().then(errorMessage => {
+        sendLog('Error/showaccountTL', errorMessage);
+      });
     });
 }
 

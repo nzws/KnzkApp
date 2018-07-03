@@ -125,8 +125,7 @@ function followreq(id, mode) {
       if (response.ok) {
         return response.json();
       } else {
-        sendLog('Error/followreq', response.json);
-        throw new Error();
+        throw response;
       }
     })
     .then(function(json) {
@@ -134,8 +133,9 @@ function followreq(id, mode) {
       list_n('follow_requests', 'navigation.follow_req', null, 'acct', true);
     })
     .catch(function(error) {
-      showtoast('cannot-pros');
-      console.log(error);
+      error.text().then(errorMessage => {
+        sendLog('Error/followreq', errorMessage);
+      });
       list_n('follow_requests', 'navigation.follow_req', null, 'acct', true);
     });
 }
@@ -156,8 +156,7 @@ function LoadrepStatus() {
       if (response.ok) {
         return response.json();
       } else {
-        sendLog('Error/LoadrepStatus', response.json);
-        throw new Error();
+        throw response;
       }
     })
     .then(function(json) {
@@ -202,8 +201,9 @@ function LoadrepStatus() {
       document.getElementById('olist_nav_main').innerHTML = reshtml;
     })
     .catch(function(error) {
-      showtoast('cannot-pros');
-      console.log(error);
+      error.text().then(errorMessage => {
+        sendLog('Error/loadRepStatus', errorMessage);
+      });
     });
 }
 
@@ -223,9 +223,7 @@ function renderListsCollection(isEdit) {
       if (response.ok) {
         return response.json();
       } else {
-        sendLog('Error/render_lists', response.json);
-        showtoast('cannot-pros');
-        return false;
+        throw response;
       }
     })
     .then(function(json) {
@@ -255,6 +253,11 @@ function renderListsCollection(isEdit) {
         }
         document.getElementById(isEdit ? 'people-list' : 'lists-list').innerHTML = buf;
       }
+    })
+    .catch(error => {
+      error.text().then(errorMessage => {
+        sendLog('Error/render_lists', errorMessage);
+      });
     });
 }
 
@@ -271,8 +274,7 @@ function addAccountToList(id, isDelete) {
       if (response.ok) {
         return response.json();
       } else {
-        sendLog('Error/AddToList', response.json);
-        throw new Error();
+        throw response;
       }
     })
     .then(function(json) {
@@ -280,8 +282,9 @@ function addAccountToList(id, isDelete) {
       renderListsCollection(editing_id);
     })
     .catch(function(error) {
-      showtoast('cannot-pros');
-      console.log(error);
+      error.text().then(errorMessage => {
+        sendLog('Error/AddToList', errorMessage);
+      });
     });
 }
 
@@ -298,8 +301,7 @@ function SearchListLoad() {
       if (response.ok) {
         return response.json();
       } else {
-        sendLog('Error/SearchList', response.json);
-        throw new Error();
+        throw response;
       }
     })
     .then(function(json) {
@@ -320,8 +322,9 @@ function SearchListLoad() {
       document.getElementById('searchpeople-list').innerHTML = reshtml;
     })
     .catch(function(error) {
-      showtoast('cannot-pros');
-      console.log(error);
+      error.text().then(errorMessage => {
+        sendLog('Error/SearchList', errorMessage);
+      });
     });
 }
 
@@ -375,13 +378,16 @@ function editList(id, title) {
             if (response.ok) {
               return response.json();
             } else {
-              sendLog('Error/edit_list', response.json);
-              showtoast('cannot-pros');
-              return false;
+              throw response;
             }
           })
           .then(function(json) {
             renderListsCollection();
+          })
+          .catch(error => {
+            error.text().then(errorMessage => {
+              sendLog('Error/edit_list', errorMessage);
+            });
           });
       }
     });
@@ -405,13 +411,16 @@ function deleteList(id, title) {
             if (response.ok) {
               return response.json();
             } else {
-              sendLog('Error/del_list', response.json);
-              showtoast('cannot-pros');
-              return false;
+              throw response;
             }
           })
           .then(function(json) {
             renderListsCollection();
+          })
+          .catch(error => {
+            error.text().then(errorMessage => {
+              sendLog('Error/del_list', errorMessage);
+            });
           });
       }
     });

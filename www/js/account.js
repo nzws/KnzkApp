@@ -41,8 +41,7 @@ function show_account(id) {
       if (response.ok) {
         return response.json();
       } else {
-        sendLog('Error/showaccount', response.json);
-        throw new Error();
+        throw response;
       }
     })
     .then(function(json) {
@@ -123,8 +122,9 @@ function show_account(id) {
       }
     })
     .catch(function(error) {
-      showtoast('cannot-pros');
-      console.log(error);
+      error.text().then(errorMessage => {
+        getError('Error/showaccount', errorMessage);
+      });
     });
 
   Fetch('https://' + inst + '/api/v1/accounts/relationships?id=' + id, {
@@ -138,8 +138,7 @@ function show_account(id) {
       if (response.ok) {
         return response.json();
       } else {
-        sendLog('Error/relationships', response.json);
-        throw new Error();
+        throw response;
       }
     })
     .then(function(json) {
@@ -178,8 +177,9 @@ function show_account(id) {
       } else document.getElementById('userpage-followreq-badge').className = 'invisible';
     })
     .catch(function(error) {
-      showtoast('cannot-pros');
-      console.log(error);
+      error.text().then(errorMessage => {
+        sendLog('Error/relationships', errorMessage);
+      });
     });
 }
 
@@ -209,8 +209,7 @@ function account_state_action(id, mode) {
       if (response.ok) {
         return response.json();
       } else {
-        sendLog('Error/state_action', response.json);
-        throw new Error();
+        throw response;
       }
     })
     .then(function(json) {
@@ -220,8 +219,9 @@ function account_state_action(id, mode) {
       }, 500);
     })
     .catch(function(error) {
-      showtoast('cannot-pros');
-      console.log(error);
+      error.text().then(errorMessage => {
+        sendLog('Error/state_action', errorMessage);
+      });
     });
 }
 
@@ -295,9 +295,7 @@ function show_account_name(username) {
       if (response.ok) {
         return response.json();
       } else {
-        sendLog('Error/show_account_name', response.json);
-        showtoast('cannot-pros');
-        return false;
+        throw response;
       }
     })
     .then(function(json) {
@@ -317,6 +315,11 @@ function show_account_name(username) {
           return false;
         }
       }
+    })
+    .catch(error => {
+      error.text().then(errorMessage => {
+        sendLog('Error/show_account_name', errorMessage);
+      });
     });
 }
 
@@ -354,8 +357,7 @@ function update_userdata() {
       if (response.ok) {
         return response.json();
       } else {
-        sendLog('Error/update_userdata', response);
-        throw new Error();
+        throw response;
       }
     })
     .then(function(json) {
@@ -363,7 +365,8 @@ function update_userdata() {
       BackTab();
     })
     .catch(function(error) {
-      showtoast('cannot-pros');
-      console.log(error);
+      error.text().then(errorMessage => {
+        sendLog('Error/update_userdata', errorMessage);
+      });
     });
 }

@@ -506,8 +506,7 @@ function vote_item(q, obj, id) {
       if (response.ok) {
         return response.json();
       } else {
-        sendLog('Error/vote', response.json);
-        showtoast('cannot-pros');
+        throw response;
       }
     })
     .then(function(json) {
@@ -517,6 +516,11 @@ function vote_item(q, obj, id) {
         showtoast('vote-ng');
       }
       console.log(json);
+    })
+    .catch(error => {
+      error.text().then(errorMessage => {
+        sendLog('Error/vote', errorMessage);
+      });
     });
 }
 
@@ -563,8 +567,7 @@ function toot_action(id, mode, action_mode) {
       if (response.ok) {
         return response.json();
       } else {
-        sendLog('Error/toot_action', response.json);
-        throw new Error();
+        throw response;
       }
     })
     .then(function(json) {
@@ -593,6 +596,11 @@ function toot_action(id, mode, action_mode) {
           i++;
         }
       }
+    })
+    .catch(error => {
+      error.text().then(errorMessage => {
+        sendLog('Error/toot_action', errorMessage);
+      });
     });
 }
 
@@ -668,8 +676,7 @@ function pin_set(id) {
       if (response.ok) {
         return response.json();
       } else {
-        sendLog('Error/pin_set', response.json);
-        showtoast('cannot-pros');
+        throw response;
       }
     })
     .then(function(json) {
@@ -677,6 +684,11 @@ function pin_set(id) {
         tl_postdata[json['id']] = json;
         showtoast('ok_conf_2');
       }
+    })
+    .catch(error => {
+      error.text().then(errorMessage => {
+        sendLog('Error/pin_set', errorMessage);
+      });
     });
 }
 
@@ -819,8 +831,7 @@ function delete_post() {
             if (response.ok) {
               return response.json();
             } else {
-              sendLog('Error/delete_post', response.json);
-              throw new Error();
+              throw response;
             }
           })
           .then(function(json) {
@@ -836,10 +847,11 @@ function delete_post() {
             more_status_id = 0;
           })
           .catch(function(error) {
-            showtoast('cannot-pros');
-            console.log(error);
             more_acct_id = 0;
             more_status_id = 0;
+            error.text().then(errorMessage => {
+              sendLog('Error/del_post', errorMessage);
+            });
           });
       }
     });
@@ -861,8 +873,7 @@ function show_post(id, near, near_domain, origin_id) {
       if (response.ok) {
         return response.json();
       } else {
-        sendLog('Error/show_post', response.json);
-        showtoast('cannot-pros');
+        throw response;
       }
     })
     .then(function(json_stat) {
@@ -891,9 +902,7 @@ function show_post(id, near, near_domain, origin_id) {
               if (response.ok) {
                 return response.json();
               } else {
-                sendLog('Error/near_show_toot', response.json);
-                showtoast('cannot-load');
-                return false;
+                throw response;
               }
             })
             .then(function(json_shita) {
@@ -910,6 +919,11 @@ function show_post(id, near, near_domain, origin_id) {
                 }
                 document.getElementById('show_toot').innerHTML = reshtml;
               }
+            })
+            .catch(error => {
+              error.text().then(errorMessage => {
+                sendLog('Error/near_show_toot', errorMessage);
+              });
             });
         } else {
           Fetch('https://' + inst + '//api/v1/statuses/' + id + '/context', {
@@ -923,8 +937,7 @@ function show_post(id, near, near_domain, origin_id) {
               if (response.ok) {
                 return response.json();
               } else {
-                sendLog('Error/show_toot_context', response.json);
-                showtoast('cannot-pros');
+                throw response;
               }
             })
             .then(function(json) {
@@ -942,9 +955,19 @@ function show_post(id, near, near_domain, origin_id) {
               }
 
               document.getElementById('show_toot').innerHTML = reshtml;
+            })
+            .catch(error => {
+              error.text().then(errorMessage => {
+                sendLog('Error/show_toot_context', errorMessage);
+              });
             });
         }
       }
+    })
+    .catch(error => {
+      error.text().then(errorMessage => {
+        sendLog('Error/show_post', errorMessage);
+      });
     });
 }
 
@@ -969,8 +992,7 @@ function report() {
             if (response.ok) {
               return response.json();
             } else {
-              sendLog('Error/report', response.json);
-              throw new Error();
+              throw response;
             }
           })
           .then(function(json) {
@@ -980,10 +1002,11 @@ function report() {
             more_status_id = 0;
           })
           .catch(function(error) {
-            showtoast('cannot-pros');
-            console.log(error);
             more_acct_id = 0;
             more_status_id = 0;
+            error.text().then(errorMessage => {
+              sendLog('Error/report', errorMessage);
+            });
           });
       }
     });
@@ -998,7 +1021,7 @@ function original_post(id, url, acct) {
       if (response.ok) {
         return response.text();
       } else {
-        throw new Error();
+        throw response;
       }
     })
     .then(function(text) {
@@ -1016,9 +1039,10 @@ function original_post(id, url, acct) {
       hide('now_loading');
     })
     .catch(function(error) {
-      showtoast('cannot-pros');
-      console.log(error);
       hide('now_loading');
+      error.text().then(errorMessage => {
+        sendLog('Error/show_original_post', errorMessage);
+      });
     });
 }
 

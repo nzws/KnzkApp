@@ -16,8 +16,7 @@ function SearchLoad() {
       if (response.ok) {
         return response.json();
       } else {
-        sendLog('Error/Search', response.json);
-        throw new Error();
+        throw response;
       }
     })
     .then(function(json) {
@@ -68,7 +67,8 @@ function SearchLoad() {
       document.getElementById('olist_nav_main').innerHTML = reshtml;
     })
     .catch(function(error) {
-      showtoast('cannot-pros');
-      console.log(error);
+      error.text().then(errorMessage => {
+        sendLog('Error/search', errorMessage);
+      });
     });
 }

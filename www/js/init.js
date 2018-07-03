@@ -48,8 +48,7 @@ function init() {
           if (response.ok) {
             return response.json();
           } else {
-            sendLog('Error/init_instance', response.json);
-            throw new Error();
+            throw response;
           }
         })
         .then(function(json) {
@@ -60,8 +59,7 @@ function init() {
               if (response.ok) {
                 return response.json();
               } else {
-                sendLog('Error/init_verify_credentials', response.json);
-                throw new Error();
+                throw response;
               }
             })
             .then(function(json) {
@@ -135,12 +133,17 @@ function init() {
               }
             })
             .catch(function(error) {
-              console.log(error);
+              error.text().then(errorMessage => {
+                sendLog('Error/init_verify_credentials', errorMessage, true);
+              });
               showtoast('cannot-connect-API');
               hide('now_loading');
             });
         })
         .catch(function(error) {
+          error.text().then(errorMessage => {
+            sendLog('Error/init_instance', errorMessage, true);
+          });
           showtoast('cannot-connect-sv');
           hide('now_loading');
         });
@@ -252,8 +255,7 @@ function initevent() {
           if (response.ok) {
             return response.json();
           } else {
-            sendLog('Error/event_userconf-page', response);
-            throw new Error();
+            throw response;
           }
         })
         .then(function(json) {
@@ -263,7 +265,9 @@ function initevent() {
           hide('now_loading');
         })
         .catch(function(error) {
-          showtoast('cannot-pros');
+          error.text().then(errorMessage => {
+            sendLog('Error/event_userconf-page', errorMessage);
+          });
           hide('now_loading');
         });
     }

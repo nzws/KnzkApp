@@ -95,8 +95,7 @@ function up_file_suc(base64, mode_blob) {
         if (response.ok) {
           return response.json();
         } else {
-          sendLog('Error/media', response.json);
-          throw new Error();
+          throw response;
         }
       })
       .then(function(json) {
@@ -120,8 +119,9 @@ function up_file_suc(base64, mode_blob) {
         }
       })
       .catch(function(error) {
-        showtoast('cannot-pros');
-        console.log(error);
+        error.text().then(errorMessage => {
+          sendLog('Error/media', errorMessage);
+        });
         hide('now_loading');
       });
   }
@@ -397,8 +397,7 @@ function post(id, option, simple) {
       if (response.ok) {
         return response.json();
       } else {
-        sendLog('Error/post', response.json);
-        throw new Error();
+        throw response;
       }
     })
     .then(function(json) {
@@ -444,6 +443,9 @@ function post(id, option, simple) {
       console.log(error);
       if (simple) hide('post_now');
       else hide('now_loading');
+      error.text().then(errorMessage => {
+        sendLog('Error/post', errorMessage, true);
+      });
     });
 }
 

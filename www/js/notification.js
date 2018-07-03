@@ -101,8 +101,7 @@ function changeNotification(force) {
         if (response.ok) {
           return response.json();
         } else {
-          sendLog('Error/registerNotification', response.json);
-          throw new Error();
+          throw response;
         }
       })
       .then(function(json) {
@@ -111,8 +110,9 @@ function changeNotification(force) {
       })
       .catch(function(error) {
         document.getElementById('noti-mode').checked = !!is_unregister;
-        showtoast('cannot-pros');
-        console.log(error);
+        error.text().then(errorMessage => {
+          sendLog('Error/registerNotification', errorMessage);
+        });
       });
   } else {
     ons.notification.alert(dialog_i18n('err_fcm_2', 1), {
@@ -191,8 +191,7 @@ function setNotificationServer() {
         if (response.ok) {
           return response.json();
         } else {
-          sendLog('Error/setNotificationServer', response.json);
-          throw new Error();
+          throw response;
         }
       })
       .then(function(json) {
@@ -208,8 +207,9 @@ function setNotificationServer() {
         }
       })
       .catch(function(error) {
-        showtoast('cannot-pros');
-        console.log(error);
+        error.text().then(errorMessage => {
+          sendLog('Error/setNotificationServer', errorMessage);
+        });
       });
   } else {
     initNotificationPage();

@@ -23,8 +23,7 @@ function login_open(domain) {
       if (response.ok) {
         return response.json();
       } else {
-        sendLog('Error/CreateApp', response.json);
-        throw new Error();
+        throw response;
       }
     })
     .then(function(json) {
@@ -55,7 +54,9 @@ function login_open(domain) {
       }
     })
     .catch(function(error) {
-      console.log(error);
+      error.text().then(errorMessage => {
+        sendLog('Error/CreateApp', errorMessage, true);
+      });
       show('cannot-connect-sv-login');
       hide('now_loading');
     });
@@ -106,7 +107,7 @@ function login_callback(code) {
       if (response.ok) {
         if (now_userconf['username']) account_change();
       } else {
-        sendLog('Error/oauth_token', response.json);
+        throw response;
       }
       return response.json();
     })
@@ -150,8 +151,10 @@ function login_callback(code) {
       }, 500);
     })
     .catch(function(error) {
+      error.text().then(errorMessage => {
+        sendLog('Error/oauth_token', errorMessage);
+      });
       showtoast('cannot-connect-sv');
-      console.log(error);
       hide('now_loading');
     });
 }
@@ -228,8 +231,7 @@ function account_change(id) {
         if (response.ok) {
           return response.json();
         } else {
-          sendLog('Error/login_verify_credentials', response.json);
-          throw new Error();
+          throw response;
         }
       })
       .then(function(json) {
@@ -244,7 +246,9 @@ function account_change(id) {
         window.location.reload();
       })
       .catch(function(error) {
-        console.log(error);
+        error.text().then(errorMessage => {
+          sendLog('Error/login_verify_credentials', errorMessage, true);
+        });
         showtoast('cannot-connect-API');
       });
   } else {

@@ -32,8 +32,7 @@ function renderBookmark_glitch() {
       if (response.ok) {
         return response.json();
       } else {
-        sendLog('Error/show_bookmark_glitch', response.json);
-        showtoast('cannot-pros');
+        throw response;
       }
     })
     .then(function(json) {
@@ -49,6 +48,11 @@ function renderBookmark_glitch() {
         document.getElementById('olist_nav_main').innerHTML = reshtml;
         document.getElementById('olist_nav_title').innerHTML = i18next.t('bookmark.title');
       }
+    })
+    .catch(error => {
+      error.text().then(errorMessage => {
+        sendLog('Error/show_bookmark_glitch', errorMessage);
+      });
     });
 }
 
@@ -64,8 +68,7 @@ function renderBookmark(reshtml, json_bookmark, i) {
       if (response.ok) {
         return response.json();
       } else {
-        sendLog('Error/show_bookmark', response.json);
-        showtoast('cannot-pros');
+        throw response;
       }
     })
     .then(function(json) {
@@ -81,6 +84,11 @@ function renderBookmark(reshtml, json_bookmark, i) {
         //次ある
         renderBookmark(reshtml, json_bookmark, i + 1);
       }
+    })
+    .catch(error => {
+      error.text().then(errorMessage => {
+        sendLog('Error/showBookmark', errorMessage);
+      });
     });
 }
 
@@ -120,8 +128,7 @@ function changeBookmark(id) {
         if (response.ok) {
           return response.json();
         } else {
-          sendLog('Error/bookmark_glitch', response.json);
-          showtoast('cannot-pros');
+          throw response;
         }
       })
       .then(function(json) {
@@ -129,6 +136,11 @@ function changeBookmark(id) {
           tl_postdata[json['id']] = json;
           showtoast('ok_conf_2');
         }
+      })
+      .catch(error => {
+        error.text().then(errorMessage => {
+          sendLog('Error/bookmark_glitch', errorMessage);
+        });
       });
   }
 }
@@ -219,8 +231,7 @@ function migration_app2glitch() {
             if (response.ok) {
               return response.json();
             } else {
-              sendLog('Error/bookmark_glitch', response.json);
-              showtoast('cannot-pros');
+              throw response;
             }
           })
           .then(function(data) {
@@ -230,6 +241,11 @@ function migration_app2glitch() {
               saveBookmark(json, true);
               console.log('Complete:app2glitch migration');
             }
+          })
+          .catch(error => {
+            error.text().then(errorMessage => {
+              sendLog('Error/bookmark_glitch2', errorMessage);
+            });
           });
         i++;
       }

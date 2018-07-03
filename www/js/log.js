@@ -1,9 +1,6 @@
-function sendLog(name, log) {
+function getError(name, log, mode) {
+  if (!mode) showtoast('cannot-pros');
   if (getConfig(1, 'SendLog') === '1') {
-    log = JSON.stringify(log);
-    try {
-      log = log.replace(/Bearer ([a-z0-9].*)/g, '[token masked]');
-    } catch (e) {}
     console.log('ログ送信');
     if (Raven.isSetup()) {
       Raven.captureMessage(new Error(name), {
