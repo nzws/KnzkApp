@@ -40,7 +40,7 @@ function init() {
         if (platform === 'android')
           document.getElementById('css_toolbar_android').href = 'css/toolbar-height.css';
       } catch (e) {
-        sendLog('Error/init_1', e);
+        getError('Error/init_1', e);
       }
 
       Fetch('https://' + inst + '/api/v1/instance')
@@ -129,12 +129,12 @@ function init() {
                 }, 500);
               } catch (e) {
                 console.log(e);
-                sendLog('Error/init_2', e);
+                getError('Error/init_2', e);
               }
             })
             .catch(function(error) {
               error.text().then(errorMessage => {
-                sendLog('Error/init_verify_credentials', errorMessage, true);
+                getError('Error/init_verify_credentials', errorMessage, true);
               });
               showtoast('cannot-connect-API');
               hide('now_loading');
@@ -142,7 +142,7 @@ function init() {
         })
         .catch(function(error) {
           error.text().then(errorMessage => {
-            sendLog('Error/init_instance', errorMessage, true);
+            getError('Error/init_instance', errorMessage, true);
           });
           showtoast('cannot-connect-sv');
           hide('now_loading');
@@ -266,7 +266,7 @@ function initevent() {
         })
         .catch(function(error) {
           error.text().then(errorMessage => {
-            sendLog('Error/event_userconf-page', errorMessage);
+            getError('Error/event_userconf-page', errorMessage);
           });
           hide('now_loading');
         });
@@ -443,7 +443,7 @@ function initevent() {
       ons.notification.alert(dialog_i18n('err_fcm', 1), {
         title: dialog_i18n('err_fcm'),
       });
-      sendLog('Error/FCM', '');
+      getError('Error/FCM', '');
     }
   }
 }

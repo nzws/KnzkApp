@@ -68,7 +68,7 @@ function SearchLoad() {
     })
     .catch(function(error) {
       error.text().then(errorMessage => {
-        sendLog('Error/search', errorMessage);
+        getError('Error/search', errorMessage);
       });
     });
 }

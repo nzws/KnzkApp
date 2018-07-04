@@ -55,7 +55,7 @@ function login_open(domain) {
     })
     .catch(function(error) {
       error.text().then(errorMessage => {
-        sendLog('Error/CreateApp', errorMessage, true);
+        getError('Error/CreateApp', errorMessage, true);
       });
       show('cannot-connect-sv-login');
       hide('now_loading');
@@ -126,7 +126,7 @@ function login_callback(code) {
               if (response.ok) {
                 return response.json();
               } else {
-                sendLog('Error/loginjs_verify_credentials', response.json);
+                getError('Error/loginjs_verify_credentials', response.json);
                 throw new Error();
               }
             })
@@ -152,7 +152,7 @@ function login_callback(code) {
     })
     .catch(function(error) {
       error.text().then(errorMessage => {
-        sendLog('Error/oauth_token', errorMessage);
+        getError('Error/oauth_token', errorMessage);
       });
       showtoast('cannot-connect-sv');
       hide('now_loading');
@@ -247,7 +247,7 @@ function account_change(id) {
       })
       .catch(function(error) {
         error.text().then(errorMessage => {
-          sendLog('Error/login_verify_credentials', errorMessage, true);
+          getError('Error/login_verify_credentials', errorMessage, true);
         });
         showtoast('cannot-connect-API');
       });

@@ -178,7 +178,7 @@ function show_account(id) {
     })
     .catch(function(error) {
       error.text().then(errorMessage => {
-        sendLog('Error/relationships', errorMessage);
+        getError('Error/relationships', errorMessage);
       });
     });
 }
@@ -220,7 +220,7 @@ function account_state_action(id, mode) {
     })
     .catch(function(error) {
       error.text().then(errorMessage => {
-        sendLog('Error/state_action', errorMessage);
+        getError('Error/state_action', errorMessage);
       });
     });
 }
@@ -318,7 +318,7 @@ function show_account_name(username) {
     })
     .catch(error => {
       error.text().then(errorMessage => {
-        sendLog('Error/show_account_name', errorMessage);
+        getError('Error/show_account_name', errorMessage);
       });
     });
 }
@@ -366,7 +366,7 @@ function update_userdata() {
     })
     .catch(function(error) {
       error.text().then(errorMessage => {
-        sendLog('Error/update_userdata', errorMessage);
+        getError('Error/update_userdata', errorMessage);
       });
     });
 }

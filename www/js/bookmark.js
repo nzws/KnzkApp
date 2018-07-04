@@ -51,7 +51,7 @@ function renderBookmark_glitch() {
     })
     .catch(error => {
       error.text().then(errorMessage => {
-        sendLog('Error/show_bookmark_glitch', errorMessage);
+        getError('Error/show_bookmark_glitch', errorMessage);
       });
     });
 }
@@ -87,7 +87,7 @@ function renderBookmark(reshtml, json_bookmark, i) {
     })
     .catch(error => {
       error.text().then(errorMessage => {
-        sendLog('Error/showBookmark', errorMessage);
+        getError('Error/showBookmark', errorMessage);
       });
     });
 }
@@ -139,7 +139,7 @@ function changeBookmark(id) {
       })
       .catch(error => {
         error.text().then(errorMessage => {
-          sendLog('Error/bookmark_glitch', errorMessage);
+          getError('Error/bookmark_glitch', errorMessage);
         });
       });
   }
@@ -244,7 +244,7 @@ function migration_app2glitch() {
           })
           .catch(error => {
             error.text().then(errorMessage => {
-              sendLog('Error/bookmark_glitch2', errorMessage);
+              getError('Error/bookmark_glitch2', errorMessage);
             });
           });
         i++;

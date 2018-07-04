@@ -120,7 +120,7 @@ function up_file_suc(base64, mode_blob) {
       })
       .catch(function(error) {
         error.text().then(errorMessage => {
-          sendLog('Error/media', errorMessage);
+          getError('Error/media', errorMessage);
         });
         hide('now_loading');
       });
@@ -444,7 +444,7 @@ function post(id, option, simple) {
       if (simple) hide('post_now');
       else hide('now_loading');
       error.text().then(errorMessage => {
-        sendLog('Error/post', errorMessage, true);
+        getError('Error/post', errorMessage, true);
       });
     });
 }

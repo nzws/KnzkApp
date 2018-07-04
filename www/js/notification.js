@@ -111,7 +111,7 @@ function changeNotification(force) {
       .catch(function(error) {
         document.getElementById('noti-mode').checked = !!is_unregister;
         error.text().then(errorMessage => {
-          sendLog('Error/registerNotification', errorMessage);
+          getError('Error/registerNotification', errorMessage);
         });
       });
   } else {
@@ -208,7 +208,7 @@ function setNotificationServer() {
       })
       .catch(function(error) {
         error.text().then(errorMessage => {
-          sendLog('Error/setNotificationServer', errorMessage);
+          getError('Error/setNotificationServer', errorMessage);
         });
       });
   } else {

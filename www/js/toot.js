@@ -519,7 +519,7 @@ function vote_item(q, obj, id) {
     })
     .catch(error => {
       error.text().then(errorMessage => {
-        sendLog('Error/vote', errorMessage);
+        getError('Error/vote', errorMessage);
       });
     });
 }
@@ -599,7 +599,7 @@ function toot_action(id, mode, action_mode) {
     })
     .catch(error => {
       error.text().then(errorMessage => {
-        sendLog('Error/toot_action', errorMessage);
+        getError('Error/toot_action', errorMessage);
       });
     });
 }
@@ -687,7 +687,7 @@ function pin_set(id) {
     })
     .catch(error => {
       error.text().then(errorMessage => {
-        sendLog('Error/pin_set', errorMessage);
+        getError('Error/pin_set', errorMessage);
       });
     });
 }
@@ -850,7 +850,7 @@ function delete_post() {
             more_acct_id = 0;
             more_status_id = 0;
             error.text().then(errorMessage => {
-              sendLog('Error/del_post', errorMessage);
+              getError('Error/del_post', errorMessage);
             });
           });
       }
@@ -922,7 +922,7 @@ function show_post(id, near, near_domain, origin_id) {
             })
             .catch(error => {
               error.text().then(errorMessage => {
-                sendLog('Error/near_show_toot', errorMessage);
+                getError('Error/near_show_toot', errorMessage);
               });
             });
         } else {
@@ -958,7 +958,7 @@ function show_post(id, near, near_domain, origin_id) {
             })
             .catch(error => {
               error.text().then(errorMessage => {
-                sendLog('Error/show_toot_context', errorMessage);
+                getError('Error/show_toot_context', errorMessage);
               });
             });
         }
@@ -966,7 +966,7 @@ function show_post(id, near, near_domain, origin_id) {
     })
     .catch(error => {
       error.text().then(errorMessage => {
-        sendLog('Error/show_post', errorMessage);
+        getError('Error/show_post', errorMessage);
       });
     });
 }
@@ -1005,7 +1005,7 @@ function report() {
             more_acct_id = 0;
             more_status_id = 0;
             error.text().then(errorMessage => {
-              sendLog('Error/report', errorMessage);
+              getError('Error/report', errorMessage);
             });
           });
       }
@@ -1041,7 +1041,7 @@ function original_post(id, url, acct) {
     .catch(function(error) {
       hide('now_loading');
       error.text().then(errorMessage => {
-        sendLog('Error/show_original_post', errorMessage);
+        getError('Error/show_original_post', errorMessage);
       });
     });
 }

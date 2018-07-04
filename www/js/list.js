@@ -134,7 +134,7 @@ function followreq(id, mode) {
     })
     .catch(function(error) {
       error.text().then(errorMessage => {
-        sendLog('Error/followreq', errorMessage);
+        getError('Error/followreq', errorMessage);
       });
       list_n('follow_requests', 'navigation.follow_req', null, 'acct', true);
     });
@@ -202,7 +202,7 @@ function LoadrepStatus() {
     })
     .catch(function(error) {
       error.text().then(errorMessage => {
-        sendLog('Error/loadRepStatus', errorMessage);
+        getError('Error/loadRepStatus', errorMessage);
       });
     });
 }
@@ -256,7 +256,7 @@ function renderListsCollection(isEdit) {
     })
     .catch(error => {
       error.text().then(errorMessage => {
-        sendLog('Error/render_lists', errorMessage);
+        getError('Error/render_lists', errorMessage);
       });
     });
 }
@@ -283,7 +283,7 @@ function addAccountToList(id, isDelete) {
     })
     .catch(function(error) {
       error.text().then(errorMessage => {
-        sendLog('Error/AddToList', errorMessage);
+        getError('Error/AddToList', errorMessage);
       });
     });
 }
@@ -323,7 +323,7 @@ function SearchListLoad() {
     })
     .catch(function(error) {
       error.text().then(errorMessage => {
-        sendLog('Error/SearchList', errorMessage);
+        getError('Error/SearchList', errorMessage);
       });
     });
 }
@@ -386,7 +386,7 @@ function editList(id, title) {
           })
           .catch(error => {
             error.text().then(errorMessage => {
-              sendLog('Error/edit_list', errorMessage);
+              getError('Error/edit_list', errorMessage);
             });
           });
       }
@@ -419,7 +419,7 @@ function deleteList(id, title) {
           })
           .catch(error => {
             error.text().then(errorMessage => {
-              sendLog('Error/del_list', errorMessage);
+              getError('Error/del_list', errorMessage);
             });
           });
       }
