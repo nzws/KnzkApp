@@ -95,7 +95,7 @@ body {
 .toot-card-right {
   margin-left: 10px;
   margin-right: 5px;
-  width: 100%;
+  width: calc(100% - 50px);
 }
 
 .namu-fav {
@@ -672,6 +672,7 @@ img.emoji {
 .toot_content > * {
   -webkit-user-select: auto;
   user-select: text;
+  word-wrap: break-word;
 }
 
 .close_button {
