@@ -24,19 +24,19 @@
 
    <p align="center">
     <a href="http://makeapullrequest.com">
-      <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge">
+      <img src="https://cdn.rawgit.com/yuzulabo/45c2e5726eeaa96083d837f20a05dfc9/raw/67f43e6c156e1ec112cf217198f42549bdb32a0f/PRs-welcome.svg">
     </a>
     <a href="https://travis-ci.org/KnzkDev/KnzkApp">
       <img src="https://img.shields.io/travis/KnzkDev/KnzkApp.svg?style=for-the-badge">
     </a>
     <a href="https://discord.gg/5teHfRK">
-      <img src="https://img.shields.io/badge/chat-on%20discord-7289DA.svg?style=for-the-badge">
+      <img src="https://cdn.rawgit.com/yuzulabo/45c2e5726eeaa96083d837f20a05dfc9/raw/67f43e6c156e1ec112cf217198f42549bdb32a0f/chat-on-discord.svg">
     </a>
     <a href="https://github.com/prettier/prettier">
-      <img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=for-the-badge">
+      <img src="https://cdn.rawgit.com/yuzulabo/45c2e5726eeaa96083d837f20a05dfc9/raw/67f43e6c156e1ec112cf217198f42549bdb32a0f/code_style-prettier.svg">
     </a>
     <a href="https://github.com/KnzkDev/KnzkApp/blob/master/LICENSE.md">
-      <img src="https://img.shields.io/badge/license-knzkapp%20license-blue.svg?style=for-the-badge">
+      <img src="https://cdn.rawgit.com/yuzulabo/45c2e5726eeaa96083d837f20a05dfc9/raw/67f43e6c156e1ec112cf217198f42549bdb32a0f/license-knzkapp.svg">
     </a>
   </p>
 </div>
