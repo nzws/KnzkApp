@@ -151,7 +151,7 @@ function renderCustomEmoji(emojiobj) {
           emoji_search = search_a_custom.concat(emoji_search);
           customreshtml =
             "<div id='emojip_custom' class='emoji_cate_box'><ons-list-title class='ep_cate_title'>" +
-            locale['Custom'] +
+            returnEmojiCategoryStr('Custom') +
             '</ons-list-title>' +
             customreshtml +
             '</div>';
