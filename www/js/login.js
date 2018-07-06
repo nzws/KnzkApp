@@ -131,6 +131,17 @@ function login_callback(code) {
               }
             })
             .then(function(json_acct) {
+              var confdata = JSON.parse(localStorage.getItem('knzkapp_conf_mastodon_timeline'));
+              var acct = json_acct['username'] + '@' + inst;
+
+              confdata[acct] = {
+                config: ['home', 'local', 'public', 'local_media', 'public_media'],
+                default: 0,
+                list_names: {},
+              };
+
+              localStorage.setItem('knzkapp_conf_mastodon_timeline', JSON.stringify(confdata));
+
               if (localStorage.getItem('knzkapp_account_list') == undefined)
                 localStorage.setItem('knzkapp_account_list', JSON.stringify([]));
               localStorage.setItem('knzkapp_now_username', json_acct.acct);

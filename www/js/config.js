@@ -9,6 +9,10 @@ function getConfig(type, name) {
 
   var data = config_tmp[type];
   data = JSON.parse(data);
+  if (type === 3) {
+    var acct = now_userconf['username'] + '@' + inst;
+    data[name] = data[acct] ? data[acct][name] : data['origin'][name];
+  }
   return data[name] ? data[name] : '';
 }
 
@@ -56,7 +60,7 @@ function setConfig(name, id, value) {
 }
 
 function ConfigSetup() {
-  var last_version = 5;
+  var last_version = 6;
 
   if (!localStorage.getItem('knzkapp_conf_mastodon')) {
     if (localStorage.getItem('knzk_realtime') == undefined)
@@ -181,6 +185,20 @@ function ConfigSetup() {
         localStorage.setItem('knzkapp_account_list', JSON.stringify(acctlist));
       }
     }
+    if (now_version < 6) {
+      var v6d = JSON.parse(localStorage.getItem('knzkapp_conf_mastodon_timeline'));
+
+      localStorage.setItem(
+        'knzkapp_conf_mastodon_timeline',
+        JSON.stringify({
+          origin: {
+            config: v6d['config'],
+            default: v6d['default'],
+            list_names: v6d['list_names'] ? v6d['list_names'] : {},
+          },
+        })
+      );
+    }
 
     localStorage.setItem('knzkapp_conf_version', last_version);
     hide('DB_migration');
@@ -213,9 +231,11 @@ function clearAllConfig() {
               localStorage.setItem(
                 'knzkapp_conf_mastodon_timeline',
                 JSON.stringify({
-                  config: ['home', 'local', 'public', 'local_media', 'public_media'],
-                  default: 0,
-                  list_names: {},
+                  origin: {
+                    config: ['home', 'local', 'public', 'local_media', 'public_media'],
+                    default: 0,
+                    list_names: {},
+                  },
                 })
               );
               localStorage.setItem('knzkapp_conf_mastodon_push', JSON.stringify({}));

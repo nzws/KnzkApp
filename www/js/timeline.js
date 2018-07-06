@@ -904,25 +904,9 @@ function editTLdel(i) {
   }
   if (timeline_default_tab > i) {
     timeline_default_tab--;
-    localStorage.setItem(
-      'knzkapp_conf_mastodon_timeline',
-      JSON.stringify({
-        config: timeline_config,
-        default: timeline_default_tab,
-        list_names: timeline_list_names,
-      })
-    );
   }
   timeline_config.splice(i, 1);
-  localStorage.setItem(
-    'knzkapp_conf_mastodon_timeline',
-    JSON.stringify({
-      config: timeline_config,
-      default: timeline_default_tab,
-      list_names: timeline_list_names,
-    })
-  );
-  initTLConf();
+  editTLSave();
 }
 
 function editTLConf(i, mode) {
@@ -933,29 +917,27 @@ function editTLConf(i, mode) {
     //下げる
     timeline_config.splice(i - 1, 2, timeline_config[i], timeline_config[i - 1]);
   }
-  localStorage.setItem(
-    'knzkapp_conf_mastodon_timeline',
-    JSON.stringify({
-      config: timeline_config,
-      default: timeline_default_tab,
-      list_names: timeline_list_names,
-    })
-  );
+  editTLSave();
+}
+
+function editTLSave() {
+  var confdata = JSON.parse(localStorage.getItem('knzkapp_conf_mastodon_timeline'));
+  var acct = now_userconf['username'] + '@' + inst;
+
+  confdata[acct] = {
+    config: timeline_config,
+    default: timeline_default_tab,
+    list_names: timeline_list_names,
+  };
+
+  localStorage.setItem('knzkapp_conf_mastodon_timeline', JSON.stringify(confdata));
   initTLConf();
 }
 
 function editTLConfD(i) {
   console.log('OK');
   timeline_default_tab = i;
-  localStorage.setItem(
-    'knzkapp_conf_mastodon_timeline',
-    JSON.stringify({
-      config: timeline_config,
-      default: timeline_default_tab,
-      list_names: timeline_list_names,
-    })
-  );
-  initTLConf();
+  editTLSave();
 }
 
 function editTLConfAdd(name) {
@@ -966,14 +948,7 @@ function editTLConfAdd(name) {
     return;
   }
   timeline_config.push(name);
-  localStorage.setItem(
-    'knzkapp_conf_mastodon_timeline',
-    JSON.stringify({
-      config: timeline_config,
-      default: timeline_default_tab,
-      list_names: timeline_list_names,
-    })
-  );
+  editTLSave();
   showtoast('ok_conf_2');
 }
 
