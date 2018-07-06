@@ -1403,8 +1403,11 @@
         </div>
         <div class="center" data-i18n="lists.people.title">リスト編集</div>
       </ons-toolbar>
-      <ons-search-input placeholder="Search" onkeydown="SearchListKey()" input-id="List-search"></ons-search-input>
-      <ons-list id="searchpeople-list"></ons-list>
+      <ons-list modifier="inset">
+        <ons-search-input placeholder="Search" onkeydown="SearchListKey()" input-id="List-search"></ons-search-input>
+        <div id="searchpeople-list"></div>
+      </ons-list>
+      <p></p>
       <ons-list-header data-i18n="lists.people.accounts">リストに登録しているアカウント</ons-list-header>
       <ons-list id="people-list"></ons-list>
     </ons-page>
