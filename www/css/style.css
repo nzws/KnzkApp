@@ -820,3 +820,8 @@ img.emoji {
   margin: 0 10px;
   pointer-events: initial;
 }
+
+#home-icon {
+  border-radius: 100%;
+  width: 25px;
+}

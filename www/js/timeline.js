@@ -217,6 +217,13 @@ function openTL(mode) {
     load('home.html');
     setTimeout(function() {
       initTimeline();
+      document.getElementById('home-icon').src = user_icon;
+      document
+        .getElementById('simple_toot_TL_input')
+        .setAttribute(
+          'placeholder',
+          i18next.t('toot.toot_as', { acct: now_userconf['username'] + '@' + inst })
+        );
     }, 200);
   }
 }

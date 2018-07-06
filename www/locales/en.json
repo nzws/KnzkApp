@@ -25,6 +25,7 @@
   },
   "toot": {
     "toot": "Toot!",
+    "toot_as": "Toot as {{acct}}!",
     "cw": "Write your warning here",
     "picture": "Add picture",
     "nsfw": {

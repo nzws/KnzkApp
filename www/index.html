@@ -93,6 +93,7 @@
     var now_userconf = {};
     var lng = "en";
     var editing_id = "";
+    var user_icon = "";
   </script>
   <script src="config/instance.js"></script>
   <script src="config/config.js"></script>
@@ -471,13 +472,12 @@
             <ons-list-item style="padding-left: 0" class="simple-toot">
               <div class="left" style="padding-right: 6px">
                 <ons-button modifier="quiet" onclick="fn.open()" class="no-rd">
-                  <ons-icon icon="fa-bars"></ons-icon>
+                  <img id="home-icon" src="img/missing.png" />
                   <span class="notification invisible noti_unread">1</span>
                 </ons-button>
               </div>
               <div class="center">
-                <textarea class="textarea w-max" rows="1" placeholder="トゥート！" data-i18n="[placeholder]toot.toot" id="simple_toot_TL_input"
-                  onfocus="simple_open()" onkeyup="check_limit(value, 'toot_limit_simple', 'toot-button_simple', 'simple_toot_cw');"></textarea>
+                <textarea class="textarea w-max" rows="1" placeholder="トゥート！" id="simple_toot_TL_input" onfocus="simple_open()" onkeyup="check_limit(value, 'toot_limit_simple', 'toot-button_simple', 'simple_toot_cw');"></textarea>
               </div>
               <div class="right" style="padding-right: 0">
                 <ons-button modifier="quiet" class="no-rd" onclick="post('simple_toot_TL_input', {cw:document.getElementById('simple_toot_cw').value, visibility:document.getElementById('post_mode_simple').value, sensitive:document.getElementById('nsfw_input_simple').value, in_reply_to_id: document.getElementById('post_reply_simple').value, local_only: document.getElementById('localonly_input_simple').value}, true)"

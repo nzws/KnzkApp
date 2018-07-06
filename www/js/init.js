@@ -108,8 +108,8 @@ function init() {
                         json[getConfig(1, 'no_gif') ? 'header_static' : 'header'] +
                         "');"
                     );
-                  document.getElementById('splitter-icon').src =
-                    json[getConfig(1, 'no_gif') ? 'avatar_static' : 'avatar'];
+                  user_icon = json[getConfig(1, 'no_gif') ? 'avatar_static' : 'avatar'];
+                  document.getElementById('splitter-icon').src = user_icon;
                   if (instance_config[inst]['yomigana'])
                     document.getElementById('splitter-profile-name').style.height = '30px';
                   document.getElementById('splitter-profile-name').innerHTML = t_text(
@@ -119,7 +119,13 @@ function init() {
                     json.acct + '@' + inst;
                   if (json.locked === true) $('#menu-followreq').removeClass('invisible');
                   else $('#menu-followreq').addClass('invisible');
-
+                  document.getElementById('home-icon').src = user_icon;
+                  document
+                    .getElementById('simple_toot_TL_input')
+                    .setAttribute(
+                      'placeholder',
+                      i18next.t('toot.toot_as', { acct: now_userconf['username'] + '@' + inst })
+                    );
                   if (getConfig(1, 'menu-fav') == 1) $('#menu-fav-page').removeClass('invisible');
                   if (getConfig(1, 'swipe_menu') == 1) {
                     document.getElementById('splitter-menu').setAttribute('swipeable', '1');
