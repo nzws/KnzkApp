@@ -201,9 +201,7 @@ function toot_card(toot, mode, note, toot_light, page) {
   }
 
   if (mode == 'big') {
-    var appname = toot['application']
-      ? '(via ' + escapeHTML(toot['application']['name']) + ')<br>'
-      : (appname = '');
+    var appname = toot['application'] ? escapeHTML(toot['application']['name']) : '';
     var d = new Date(toot['created_at']);
     var date_text = d.toLocaleDateString(lng, {
       weekday: 'short',
@@ -319,12 +317,13 @@ function vote_item(q, obj, id) {
     });
 }
 
-function toot_action(id, mode, action_mode) {
+function toot_action(action_mode) {
   var toot,
     i = 0,
     url = '',
     a_mode;
-  if (action_mode === 'fav') {
+  id = event.srcElement.dataset.id;
+  if (action_mode === 0) {
     toot = $('.tootfav_' + id);
     a_mode = toot[0].className.indexOf('fav-active') == -1;
     while (toot[i]) {
@@ -369,10 +368,8 @@ function toot_action(id, mode, action_mode) {
       console.log('OK:' + action_mode);
     })
     .catch(function(error) {
-      showtoast('cannot-pros');
-      console.log(error);
       i = 0;
-      if (action_mode === 'fav') {
+      if (action_mode === 0) {
         while (toot[i]) {
           if (a_mode) {
             $(toot[i]).removeClass('fav-active');
@@ -391,11 +388,13 @@ function toot_action(id, mode, action_mode) {
           i++;
         }
       }
-    })
-    .catch(error => {
-      error.text().then(errorMessage => {
-        getError('Error/toot_action', errorMessage);
-      });
+      try {
+        error.text().then(errorMessage => {
+          getError('Error/toot_action', errorMessage);
+        });
+      } catch (e) {
+        console.error(error);
+      }
     });
 }
 

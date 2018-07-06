@@ -2426,9 +2426,9 @@
               <% if (toot['visibility'] === 'private' || toot['visibility'] === 'direct') { %>
                 <ons-icon icon="fa-<%=visibility_icon%>" class="toot-button toot-button-disabled"></ons-icon>
               <% } else { %>
-                <ons-icon icon="fa-retweet" onclick="toot_action('<%=toot['id']%>', null, 'boost')" class="tootbs_<%=toot['id']%> toot-button ons-icon fa-retweet fa<%=boosted%>"></ons-icon>
+                <ons-icon icon="fa-retweet" onclick="toot_action(1)" class="tootbs_<%=toot['id']%> toot-button ons-icon fa-retweet fa<%=boosted%>" data-id="<%=toot['id']%>"></ons-icon>
               <% } %>
-              <ons-icon icon="fa-star" onclick="toot_action('<%=toot['id']%>', null, 'fav')" class="tootfav_<%=toot['id']%> toot-button ons-icon fa-star fa<%=faved%>"></ons-icon>
+              <ons-icon icon="fa-star" onclick="toot_action(0)" class="tootfav_<%=toot['id']%> toot-button ons-icon fa-star fa<%=faved%>" data-id="<%=toot['id']%>"></ons-icon>
               <ons-icon icon="fa-ellipsis-h" onclick="more('<%=toot['id']%>')" class="toot-button toot-button-last ons-icon fa-ellipsis-h fa"></ons-icon>
               <div class="toot-right date date-disp" data-time="<%=toot['created_at']%>" onclick="show_post('<%=toot['id']%>')">
                 <%=(displayTime('new', toot['created_at']))%>
@@ -2453,11 +2453,11 @@
             <% if (toot['visibility'] === 'private' || toot['visibility'] === 'direct') { %>
               <ons-icon icon="fa-<%=visibility_icon%>" class="showtoot-button ons-icon fa-<%=visibility_icon%> fa toot-button-disabled<%=boosted%>"></ons-icon>
             <% } else { %>
-              <ons-icon icon="fa-retweet" onclick="toot_action('<%=toot['id']%>', 'big', 'boost')" class="tootbs_<%=toot['id']%> showtoot-button ons-icon fa-retweet fa"></ons-icon>
+              <ons-icon icon="fa-retweet" onclick="toot_action(1)" class="tootbs_<%=toot['id']%> showtoot-button ons-icon fa-retweet fa" data-id="<%=toot['id']%>"></ons-icon>
             <% } %>
           </div>
           <div class="col-xs-3 showtoot-button">
-            <ons-icon icon="fa-star" onclick="toot_action('<%=toot['id']%>', 'big', 'fav')" class="tootfav_<%=toot['id']%> showtoot-button ons-icon fa-star fa<%=faved%>"></ons-icon>
+            <ons-icon icon="fa-star" onclick="toot_action(0)" class="tootfav_<%=toot['id']%> showtoot-button ons-icon fa-star fa<%=faved%>" data-id="<%=toot['id']%>"></ons-icon>
           </div>
           <div class="col-xs-3 showtoot-button">
             <ons-icon icon="fa-ellipsis-h" onclick="more('<%=toot['id']%>')" class="showtoot-button ons-icon fa-ellipsis-h fa"></ons-icon>
