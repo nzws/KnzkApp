@@ -1,32 +1,16 @@
 function toot_card(toot, mode, note, toot_light, page) {
-  var buf = '',
-    piccard = '',
-    fav = '',
-    boost = '',
+  var piccard = '',
     namucard = '',
-    namubt = '',
     p = 0,
     alert_text = '',
-    content = '',
-    button = '',
-    bt_big = '',
-    light = '',
-    q = 0,
-    enq_item = '';
-  var appname,
-    boost_full,
-    boost_big,
-    visibility_icon,
+    content = '';
+  var visibility_icon,
     can_col,
     is_col = '',
     col_bt = '',
     col_pic = '',
-    col_bg_st = '',
-    col_bg_cl = '',
-    button_col = '',
-    icon_html = '',
-    name = '',
-    no_icon_class = '';
+    col_bg_st = '';
+  var BoxData = {};
   if (!toot) {
     return '';
   }
@@ -64,24 +48,10 @@ function toot_card(toot, mode, note, toot_light, page) {
     toot['account']['display_name'] = toot['account']['username'];
 
   if (toot['enquete']) {
+    var vote = '';
     toot['enquete'] = JSON.parse(toot['enquete']);
     if (toot['enquete']['ratios_text']) {
-      //締め切り
-      while (toot['enquete']['items'][q]) {
-        enq_item +=
-          "<div class='progress-bar enq'>\n" +
-          "           <div class='progress-bar__primary' style='width: " +
-          toot['enquete']['ratios'][q] +
-          "%'></div>\n" +
-          "           <div class='text'>" +
-          toot['enquete']['items'][q] +
-          '</div>\n' +
-          "           <div class='text right'>" +
-          toot['enquete']['ratios_text'][q] +
-          '</div>\n' +
-          '       </div>';
-        q++;
-      }
+      vote = 'closed_result';
     } else {
       //受付中
       if (!toot['enquete']['duration']) toot['enquete']['duration'] = 30;
@@ -91,52 +61,20 @@ function toot_card(toot, mode, note, toot_light, page) {
           Math.floor(new Date(toot['created_at']).getTime() / 1000)
       );
       var enq_sec_comp = toot['enquete']['duration'] - enq_comp_date;
-      if (enq_sec_comp >= 0) {
-        //受付中
-        while (toot['enquete']['items'][q]) {
-          enq_item +=
-            "<div class='progress-bar enq open enquete' onclick='vote_item(" +
-            q +
-            ', this, "' +
-            toot['id'] +
-            '")\'>\n' +
-            "           <div class='text enquete'>" +
-            toot['enquete']['items'][q] +
-            '</div>\n' +
-            '       </div>';
-          q++;
-        }
-      } else {
-        //締め切り（投票トゥート）
-        while (toot['enquete']['items'][q]) {
-          enq_item +=
-            "<div class='progress-bar enq close'>\n" +
-            "           <div class='text'>" +
-            toot['enquete']['items'][q] +
-            '</div>\n' +
-            '       </div>';
-          q++;
-        }
-      }
+
+      vote = enq_sec_comp >= 0 ? 'open' : 'closed';
+      BoxData['vote'] = vote;
     }
-    toot['content'] = toot['enquete']['question'] + '<div class="toot enq">' + enq_item + '</div>';
   }
-  if (toot['favourited'] == true) {
-    fav = ' fav-active';
-  }
-  if (toot['reblogged'] == true) {
-    boost = ' boost-active';
-  }
+
   if (getConfig(1, 'bigfav') == 1 && mode != 'big') {
     namucard = ' namu-toot';
     namubt = ' namu-fav';
   }
-  if (toot_light === 'gold') {
-    light = ' toot_gold';
-  }
-  if (toot_light === 'light') {
-    light = ' toot_light';
-  }
+
+  if (toot_light === 'gold') BoxData['toot_base_classes'] += ' toot_gold';
+  if (toot_light === 'light') BoxData['toot_base_classes'] += ' toot_light';
+
   if (getConfig(2, 'collapse') && mode != 'big') {
     if (getConfig(2, 'preview') && toot['media_attachments'][0] && !toot['sensitive']) {
       col_pic = toot['media_attachments'][0]['preview_url'];
@@ -153,15 +91,16 @@ function toot_card(toot, mode, note, toot_light, page) {
       (getConfig(2, 'pinned') && page === 'acctpage_pinned')
     ) {
       can_col = true;
-      is_col = 'toot-small ';
+      is_col = ' toot-small';
       if (col_pic) {
         col_bg_st = 'background: url("' + col_pic + '");';
-        col_bg_cl = 'col_bg ';
+        BoxData['toot_base_classes'] += ' col_bg';
       }
     } else {
       can_col = true;
     }
   }
+
   if (can_col && is_col) {
     col_bt =
       "<button class='no-rd p0 button button--quiet' onclick='toot_col(\"" +
@@ -180,38 +119,12 @@ function toot_card(toot, mode, note, toot_light, page) {
   }
   if (toot['visibility'] === 'direct') {
     visibility_icon = 'envelope';
-    light = ' toot_dm';
-    boost_full =
-      '<ons-icon icon="fa-envelope" class="toot-button toot-button-disabled"></ons-icon>';
-    boost_big =
-      '<ons-icon icon="fa-envelope"  class="showtoot-button toot-button-disabled"></ons-icon>';
+    BoxData['toot_base_classes'] += ' toot_dm';
   } else if (toot['visibility'] === 'private') {
     visibility_icon = 'lock';
-    boost_full = '<ons-icon icon="fa-lock" class="toot-button toot-button-disabled"></ons-icon>';
-    boost_big =
-      '<ons-icon icon="fa-lock"  class="showtoot-button toot-button-disabled"></ons-icon>';
   } else {
-    if (toot['visibility'] === 'unlisted') {
-      visibility_icon = 'unlock-alt';
-    } else if (toot['visibility'] === 'public') {
-      visibility_icon = 'globe';
-    }
-    boost_full =
-      '<ons-icon icon="fa-retweet" onclick="toot_action(\'' +
-      toot['id'] +
-      "', null, 'boost')\" class=\"tootbs_" +
-      toot['id'] +
-      ' toot-button' +
-      boost +
-      '"></ons-icon>';
-    boost_big =
-      '<ons-icon icon="fa-retweet" onclick="toot_action(\'' +
-      toot['id'] +
-      "', 'big', 'boost')\" class=\"tootbs_" +
-      toot['id'] +
-      ' showtoot-button' +
-      boost +
-      '"></ons-icon>';
+    if (toot['visibility'] === 'unlisted') visibility_icon = 'unlock-alt';
+    else if (toot['visibility'] === 'public') visibility_icon = 'globe';
   }
 
   try {
@@ -252,7 +165,6 @@ function toot_card(toot, mode, note, toot_light, page) {
   } catch (e) {
     console.log('error_image');
   }
-  var date = displayTime('new', toot['created_at']);
 
   toot['content'] = toot['content'].replace(
     /<a href="((http:|https:)\/\/[\x21-\x26\x28-\x7e]+)\/media\/([\x21-\x26\x28-\x7e]+)" rel="nofollow noopener" target="_blank"><span class="invisible">(http:|https:)\/\/<\/span><span class="ellipsis">([\x21-\x26\x28-\x7e]+)\/media\/([\x21-\x26\x28-\x7e]+)<\/span><span class="invisible">([\x21-\x26\x28-\x7e]+)<\/span><\/a>/g,
@@ -287,43 +199,11 @@ function toot_card(toot, mode, note, toot_light, page) {
     //CWなし
     content = toot['content'] + piccard;
   }
-  if (mode == 'full') {
-    button =
-      '<div class="' +
-      button_col +
-      'toot-group tb_group_' +
-      toot['id'] +
-      '">' +
-      '<ons-icon icon="fa-reply" onclick="reply(\'' +
-      toot['id'] +
-      "', '" +
-      toot['visibility'] +
-      '\')" class="toot-button"></ons-icon>' +
-      boost_full +
-      '<ons-icon icon="fa-star" onclick="toot_action(\'' +
-      toot['id'] +
-      "', null, 'fav')\" class=\"tootfav_" +
-      toot['id'] +
-      ' toot-button' +
-      namubt +
-      fav +
-      '"></ons-icon>' +
-      '<ons-icon icon="fa-ellipsis-h" onclick="more(\'' +
-      toot['id'] +
-      '\')" class="toot-button toot-button-last"></ons-icon>' +
-      "<div class='toot-right date date-disp' data-time='" +
-      toot['created_at'] +
-      "' onclick='show_post(\"" +
-      toot['id'] +
-      '")\'>' +
-      date +
-      '</div>' +
-      '</div>\n';
-  }
 
   if (mode == 'big') {
-    if (toot['application']) appname = '(' + escapeHTML(toot['application']['name']) + ')<br>';
-    else appname = '';
+    var appname = toot['application']
+      ? '(via ' + escapeHTML(toot['application']['name']) + ')<br>'
+      : (appname = '');
     var d = new Date(toot['created_at']);
     var date_text = d.toLocaleDateString(lng, {
       weekday: 'short',
@@ -333,52 +213,8 @@ function toot_card(toot, mode, note, toot_light, page) {
       hour: '2-digit',
       minute: '2-digit',
     });
-    bt_big =
-      "<span class='big_date'>" +
-      appname +
-      date_text +
-      ' · <span onclick=\'list("statuses/' +
-      toot['id'] +
-      '/reblogged_by", "toot.boost.user", null, "acct", true)\'><ons-icon icon="fa-retweet"></ons-icon> ' +
-      toot['reblogs_count'] +
-      '</span> · <span onclick=\'list("statuses/' +
-      toot['id'] +
-      '/favourited_by", "toot.fav.user", null, "acct", true)\'><ons-icon icon="fa-star"></ons-icon> ' +
-      toot['favourites_count'] +
-      '</span></span>' +
-      '<div class="row toot_big_border">\n' +
-      '<div class="col-xs-3 showtoot-button"><ons-icon icon="fa-reply" onclick="reply(\'' +
-      toot['id'] +
-      "', '" +
-      toot['visibility'] +
-      '\')" class="showtoot-button"></ons-icon></div>\n' +
-      '<div class="col-xs-3 showtoot-button">' +
-      boost_big +
-      '</div>\n' +
-      '<div class="col-xs-3 showtoot-button"><ons-icon icon="fa-star" onclick="toot_action(\'' +
-      toot['id'] +
-      "', 'big', 'fav')\" class=\"tootfav_" +
-      toot['id'] +
-      ' showtoot-button' +
-      fav +
-      '"></ons-icon></div>\n' +
-      '<div class="col-xs-3 showtoot-button"><ons-icon icon="fa-ellipsis-h" onclick="more(\'' +
-      toot['id'] +
-      '\')" class="showtoot-button"></ons-icon></div>\n' +
-      '</div>';
-  }
-
-  if (!(page === 'alert' && note && getConfig(2, 'alert_m'))) {
-    icon_html =
-      "<div width='50px'>\n" +
-      '<p><img src="' +
-      toot['account'][getConfig(1, 'no_gif') ? 'avatar_static' : 'avatar'] +
-      '" class="icon-img" onclick=\'show_account(' +
-      toot['account']['id'] +
-      ")'/></p>\n" +
-      '</div>\n';
-  } else {
-    no_icon_class = 'no_icon ';
+    BoxData['appname'] = appname;
+    BoxData['date_text'] = date_text;
   }
 
   col_bt =
@@ -391,71 +227,30 @@ function toot_card(toot, mode, note, toot_light, page) {
   if (note) alert_text = "<div class='alert_text'>" + note + '</div>';
   alert_text += col_bt;
 
-  if (!(page === 'alert' && note && getConfig(2, 'alert_m'))) {
-    name =
-      "<div onclick='show_account(" +
-      toot['account']['id'] +
-      ")' class='toot_name'><b>" +
-      t_text(escapeHTML(toot['account']['display_name'])) +
-      '</b> <small>@' +
-      toot['account']['acct'] +
-      '</small></div>';
-  }
-
-  var near_federated = page === 'near_federated' ? ' near_federated' : '';
+  BoxData['toot_base_classes'] += page === 'near_federated' ? ' near_federated' : '';
 
   var toot_origin_domain =
     toot['account']['acct'] === toot['account']['username']
       ? inst
       : toot['account']['acct'].split('@')[1];
 
-  content = t_text(content, toot['emojis'], toot_origin_domain);
+  toot['content'] = t_text(content, toot['emojis'], toot_origin_domain);
 
-  buf +=
-    '<div class="' +
-    col_bg_cl +
-    'toot' +
-    light +
-    near_federated +
-    ' post_' +
-    toot['id'] +
-    '" id=\'post_' +
-    toot['id'] +
-    "' data-bgpic='" +
-    col_pic +
-    "' style='" +
-    col_bg_st +
-    "'>\n" +
-    alert_text +
-    "<div class='toot_flex'>" +
-    icon_html +
-    '<div class="toot-card-right">' +
-    "<div class='" +
-    namucard +
-    "'>" +
-    '<div class="toot-group name_box">' +
-    name +
-    '</div>' +
-    "<div class='" +
-    is_col +
-    no_icon_class +
-    'toot_content tootcontent_' +
-    toot['id'] +
-    "' data-id='" +
-    toot['id'] +
-    "' data-dispmode='" +
-    mode +
-    "'>" +
-    content +
-    '</div>' +
-    '</div>' +
-    button +
-    '</div>' +
-    '</div>' +
-    bt_big +
-    '</div>\n';
+  BoxData['faved'] = toot['favourited'] ? ' fav-active' : '';
+  BoxData['boosted'] = toot['reblogged'] ? ' boost-active' : '';
 
-  return buf;
+  BoxData['toot'] = toot;
+  BoxData['bgpic'] = col_pic;
+  BoxData['bgstyle'] = col_bg_st;
+  BoxData['alert_text'] = alert_text;
+  BoxData['no_icon'] = page === 'alert' && note && getConfig(2, 'alert_m') ? ' no_icon' : '';
+  BoxData['namucard'] = namucard;
+  BoxData['is_col'] = is_col;
+  BoxData['visibility_icon'] = visibility_icon;
+  BoxData['display_mode'] = mode;
+  //BoxData['displayDate'] = displayTime('new', toot['created_at']);
+
+  return tmpl('toot_full_tmpl', BoxData);
 }
 
 function toot_col(id) {
@@ -617,7 +412,7 @@ function open_cw(id, btobj) {
   }
 }
 
-function reply(id, visibility) {
+function reply(id) {
   tmp_text_pre = '';
   var acct = '',
     i = 0;
@@ -636,8 +431,8 @@ function reply(id, visibility) {
   tmp_post_reply = id;
 
   tmp_post_visibility =
-    visibility_rank(visibility) > visibility_rank(default_post_visibility)
-      ? visibility
+    visibility_rank(tl_postdata[id]['visibility']) > visibility_rank(default_post_visibility)
+      ? tl_postdata[id]['visibility']
       : default_post_visibility;
 
   loadNav('post.html', 'up');

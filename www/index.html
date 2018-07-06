@@ -16,6 +16,7 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.8.3/css/onsen-css-components.css">
     -->
   <script src="lib/raven.min.js" async></script>
+  <script src="lib/tmpl.min.js" async></script>
   <script src="lib/jquery-3.2.1.slim.min.js" async></script>
   <script src="lib/twitter.relative.time.min.js" async></script>
   <script src="lib/fetch.js" async></script>
@@ -153,158 +154,158 @@
               <div id="account-list-other"></div>
             </ons-list>
           </div>
-            <div id="menu-list">
-              <ons-list>
-                <ons-search-input placeholder="検索" data-i18n="[placeholder]navigation.search" onkeydown="SearchKey();" input-id="nav-search"
-                  class="w-max nav-search"></ons-search-input>
-                <ons-list-header data-i18n="navigation.title">ナビゲーション</ons-list-header>
-                <ons-list-item modifier="chevron" tappable onclick="loadNav('post.html', 'up');">
-                  <label class="left music-item">
+          <div id="menu-list">
+            <ons-list>
+              <ons-search-input placeholder="検索" data-i18n="[placeholder]navigation.search" onkeydown="SearchKey();" input-id="nav-search"
+                class="w-max nav-search"></ons-search-input>
+              <ons-list-header data-i18n="navigation.title">ナビゲーション</ons-list-header>
+              <ons-list-item modifier="chevron" tappable onclick="loadNav('post.html', 'up');">
+                <label class="left music-item">
                                 <i class="list-item__icon list-item--chevron__icon ons-icon fa-pencil fa fa-fw"></i>
                               </label>
-                  <div class="center music-item" data-i18n="navigation.toot">
-                    新規トゥート
-                  </div>
-                </ons-list-item>
-                <ons-list-item modifier="chevron" tappable onclick="openTL()">
-                  <div class="left">
-                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-home fa fa-fw"></i>
-                  </div>
-                  <div class="center" data-i18n="timeline.title">
-                    タイムライン
-                  </div>
-                </ons-list-item>
-                <ons-list-item modifier="chevron" tappable onclick="openTL('alert')">
-                  <div class="left">
-                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-bell fa fa-fw"></i>
-                  </div>
-                  <div class="center">
-                    <span data-i18n="navigation.notifications">通知</span> <span class="notification invisible noti_unread">1</span>
-                  </div>
-                </ons-list-item>
-                <ons-list-item modifier="chevron" tappable onclick="list('favourites', 'navigation.favourites', null, 'toot')" id="menu-fav-page"
-                  class="invisible">
-                  <div class="left">
-                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-star fa fa-fw"></i>
-                  </div>
-                  <div class="center" data-i18n="navigation.favourites">
-                    お気に入り一覧
-                  </div>
-                </ons-list-item>
-                <ons-list-item modifier="chevron" tappable onclick="list('follow_requests', 'navigation.follow_req', null, 'acct')" id="menu-followreq"
-                  class="invisible">
-                  <div class="left">
-                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-users fa fa-fw"></i>
-                  </div>
-                  <div class="center" data-i18n="navigation.follow_req">
-                    フォローリクエスト
-                  </div>
-                </ons-list-item>
-                <ons-list-item modifier="chevron" tappable onclick="load('usermenu.html')">
-                  <div class="left">
-                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-ellipsis-h fa fa-fw"></i>
-                  </div>
-                  <div class="center" data-i18n="navigation.user_menu">
-                    ユーザーメニュー
-                  </div>
-                </ons-list-item>
-                <ons-list-item modifier="chevron" tappable onclick="load('config.html')">
-                  <div class="left">
-                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-cog fa fa-fw"></i>
-                  </div>
-                  <div class="center" data-i18n="navigation.preferences">
-                    設定
-                  </div>
-                </ons-list-item>
-                <ons-list-item modifier="chevron" tappable onclick="music_change()">
-                  <div class="left">
-                    <i class="list-item__icon list-item--chevron__icon ons-icon fa-music fa fa-fw"></i>
-                  </div>
-                  <div class="center">
-                    <span class="list-item__title">Radio</span><span class="list-item__subtitle" id="music_title">Listen.moe</span>
-                  </div>
-                </ons-list-item>
-              </ons-list>
-            </div>
-        <form id="music-form" style="display: none;">
-          <ons-list>
-            <ons-list-item>
-              <div class="left" onclick="music_change()">
-                <i class="list-item__icon ons-icon fa-chevron-left fa fa-fw"></i> <span data-i18n="navigation.back">戻る</span>
-              </div>
-              <div class="right" onclick="music_set('music-button')">
-                <i class="list-item__icon ons-icon fa-play fa fa-fw" id="music-button"></i>
-              </div>
-            </ons-list-item>
-            <ons-list-header>Channel</ons-list-header>
-            <ons-list-item tappable onclick="music_set('music-button',true)">
-              <label class="left music-item">
+                <div class="center music-item" data-i18n="navigation.toot">
+                  新規トゥート
+                </div>
+              </ons-list-item>
+              <ons-list-item modifier="chevron" tappable onclick="openTL()">
+                <div class="left">
+                  <i class="list-item__icon list-item--chevron__icon ons-icon fa-home fa fa-fw"></i>
+                </div>
+                <div class="center" data-i18n="timeline.title">
+                  タイムライン
+                </div>
+              </ons-list-item>
+              <ons-list-item modifier="chevron" tappable onclick="openTL('alert')">
+                <div class="left">
+                  <i class="list-item__icon list-item--chevron__icon ons-icon fa-bell fa fa-fw"></i>
+                </div>
+                <div class="center">
+                  <span data-i18n="navigation.notifications">通知</span> <span class="notification invisible noti_unread">1</span>
+                </div>
+              </ons-list-item>
+              <ons-list-item modifier="chevron" tappable onclick="list('favourites', 'navigation.favourites', null, 'toot')" id="menu-fav-page"
+                class="invisible">
+                <div class="left">
+                  <i class="list-item__icon list-item--chevron__icon ons-icon fa-star fa fa-fw"></i>
+                </div>
+                <div class="center" data-i18n="navigation.favourites">
+                  お気に入り一覧
+                </div>
+              </ons-list-item>
+              <ons-list-item modifier="chevron" tappable onclick="list('follow_requests', 'navigation.follow_req', null, 'acct')" id="menu-followreq"
+                class="invisible">
+                <div class="left">
+                  <i class="list-item__icon list-item--chevron__icon ons-icon fa-users fa fa-fw"></i>
+                </div>
+                <div class="center" data-i18n="navigation.follow_req">
+                  フォローリクエスト
+                </div>
+              </ons-list-item>
+              <ons-list-item modifier="chevron" tappable onclick="load('usermenu.html')">
+                <div class="left">
+                  <i class="list-item__icon list-item--chevron__icon ons-icon fa-ellipsis-h fa fa-fw"></i>
+                </div>
+                <div class="center" data-i18n="navigation.user_menu">
+                  ユーザーメニュー
+                </div>
+              </ons-list-item>
+              <ons-list-item modifier="chevron" tappable onclick="load('config.html')">
+                <div class="left">
+                  <i class="list-item__icon list-item--chevron__icon ons-icon fa-cog fa fa-fw"></i>
+                </div>
+                <div class="center" data-i18n="navigation.preferences">
+                  設定
+                </div>
+              </ons-list-item>
+              <ons-list-item modifier="chevron" tappable onclick="music_change()">
+                <div class="left">
+                  <i class="list-item__icon list-item--chevron__icon ons-icon fa-music fa fa-fw"></i>
+                </div>
+                <div class="center">
+                  <span class="list-item__title">Radio</span><span class="list-item__subtitle" id="music_title">Listen.moe</span>
+                </div>
+              </ons-list-item>
+            </ons-list>
+          </div>
+          <form id="music-form" style="display: none;">
+            <ons-list>
+              <ons-list-item>
+                <div class="left" onclick="music_change()">
+                  <i class="list-item__icon ons-icon fa-chevron-left fa fa-fw"></i> <span data-i18n="navigation.back">戻る</span>
+                </div>
+                <div class="right" onclick="music_set('music-button')">
+                  <i class="list-item__icon ons-icon fa-play fa fa-fw" id="music-button"></i>
+                </div>
+              </ons-list-item>
+              <ons-list-header>Channel</ons-list-header>
+              <ons-list-item tappable onclick="music_set('music-button',true)">
+                <label class="left music-item">
                     <ons-radio name="channel" input-id="listen-moe" value="listen-moe" checked></ons-radio>
                   </label>
-              <label for="listen-moe" class="center music-item">Listen.moe</label>
-            </ons-list-item>
-            <ons-list-item tappable onclick="music_set('music-button',true)">
-              <label class="left music-item">
+                <label for="listen-moe" class="center music-item">Listen.moe</label>
+              </ons-list-item>
+              <ons-list-item tappable onclick="music_set('music-button',true)">
+                <label class="left music-item">
                     <ons-radio name="channel" input-id="AnimeNfo-Radio" value="AnimeNfo-Radio"></ons-radio>
                   </label>
-              <label for="AnimeNfo-Radio" class="center music-item">AnimeNfo Radio</label>
-            </ons-list-item>
-            <ons-list-item tappable onclick="music_set('music-button',true)">
-              <label class="left music-item">
+                <label for="AnimeNfo-Radio" class="center music-item">AnimeNfo Radio</label>
+              </ons-list-item>
+              <ons-list-item tappable onclick="music_set('music-button',true)">
+                <label class="left music-item">
                     <ons-radio name="channel" value="LoFi-hip-hop-Radio" input-id="LoFi-hip-hop-Radio"></ons-radio>
                   </label>
-              <label for="LoFi-hip-hop-Radio" class="center music-item">LoFi hip hop Radio</label>
-            </ons-list-item>
-            <ons-list-item tappable onclick="music_set('music-button',true)">
-              <label class="left music-item">
+                <label for="LoFi-hip-hop-Radio" class="center music-item">LoFi hip hop Radio</label>
+              </ons-list-item>
+              <ons-list-item tappable onclick="music_set('music-button',true)">
+                <label class="left music-item">
                     <ons-radio name="channel" value="Poolside-fm" input-id="Poolside-fm"></ons-radio>
                   </label>
-              <label for="Poolside-fm" class="center music-item">Poolside.fm</label>
-            </ons-list-item>
-            <ons-list-item tappable onclick="music_set('music-button',true)">
-              <label class="left music-item">
+                <label for="Poolside-fm" class="center music-item">Poolside.fm</label>
+              </ons-list-item>
+              <ons-list-item tappable onclick="music_set('music-button',true)">
+                <label class="left music-item">
                     <ons-radio name="channel" value="dubplate-fm" input-id="dubplate-fm"></ons-radio>
                   </label>
-              <label for="dubplate-fm" class="center music-item">Drum 'n Bass   <small>(dubplate.fm)</small></label>
-            </ons-list-item>
-            <ons-list-item tappable onclick="music_set('music-button',true)">
-              <label class="left music-item">
+                <label for="dubplate-fm" class="center music-item">Drum 'n Bass   <small>(dubplate.fm)</small></label>
+              </ons-list-item>
+              <ons-list-item tappable onclick="music_set('music-button',true)">
+                <label class="left music-item">
                     <ons-radio name="channel" value="FUTURE-BASS-MIX" input-id="FUTURE-BASS-MIX"></ons-radio>
                   </label>
-              <label for="FUTURE-BASS-MIX" class="center music-item">FUTURE-BASS-MIX</label>
-            </ons-list-item>
-            <ons-list-item tappable onclick="music_set('music-button',true)">
-              <label class="left music-item">
+                <label for="FUTURE-BASS-MIX" class="center music-item">FUTURE-BASS-MIX</label>
+              </ons-list-item>
+              <ons-list-item tappable onclick="music_set('music-button',true)">
+                <label class="left music-item">
                     <ons-radio name="channel" value="TOP-40-RU" input-id="TOP-40-RU"></ons-radio>
                   </label>
-              <label for="TOP-40-RU" class="center music-item">TOP 40 RU   <small>(European Hit Radio)</small></label>
-            </ons-list-item>
-            <ons-list-item tappable onclick="music_set('music-button',true)">
-              <label class="left music-item">
+                <label for="TOP-40-RU" class="center music-item">TOP 40 RU   <small>(European Hit Radio)</small></label>
+              </ons-list-item>
+              <ons-list-item tappable onclick="music_set('music-button',true)">
+                <label class="left music-item">
                     <ons-radio name="channel" value="REMIXES-RU" input-id="REMIXES-RU"></ons-radio>
                   </label>
-              <label for="REMIXES-RU" class="center music-item">REMIXES RU   <small>(European Hit Radio)</small></label>
-            </ons-list-item>
-            <ons-list-item tappable onclick="music_set('music-button',true)">
-              <label class="left music-item">
+                <label for="REMIXES-RU" class="center music-item">REMIXES RU   <small>(European Hit Radio)</small></label>
+              </ons-list-item>
+              <ons-list-item tappable onclick="music_set('music-button',true)">
+                <label class="left music-item">
                     <ons-radio name="channel" value="danceradiouk" input-id="danceradiouk"></ons-radio>
                   </label>
-              <label for="danceradiouk" class="center music-item">danceradiouk   <small>(Box UK Radio)</small></label>
-            </ons-list-item>
-            <ons-list-item tappable onclick="music_set('music-button',true)">
-              <label class="left music-item">
+                <label for="danceradiouk" class="center music-item">danceradiouk   <small>(Box UK Radio)</small></label>
+              </ons-list-item>
+              <ons-list-item tappable onclick="music_set('music-button',true)">
+                <label class="left music-item">
                     <ons-radio name="channel" value="FMHIPHOP-COM" input-id="FMHIPHOP-COM"></ons-radio>
                   </label>
-              <label for="FMHIPHOP-COM" class="center music-item">FMHIPHOP.COM</label>
-            </ons-list-item>
-            <ons-list-item tappable onclick="music_set('music-button',true)">
-              <label class="left music-item">
+                <label for="FMHIPHOP-COM" class="center music-item">FMHIPHOP.COM</label>
+              </ons-list-item>
+              <ons-list-item tappable onclick="music_set('music-button',true)">
+                <label class="left music-item">
                     <ons-radio name="channel" value="DEEP-RADIO" input-id="DEEP-RADIO"></ons-radio>
                   </label>
-              <label for="DEEP-RADIO" class="center music-item">DEEP RADIO</label>
-            </ons-list-item>
-          </ons-list>
-        </form>
+                <label for="DEEP-RADIO" class="center music-item">DEEP RADIO</label>
+              </ons-list-item>
+            </ons-list>
+          </form>
         </div>
       </ons-page>
     </ons-splitter-side>
@@ -2383,6 +2384,85 @@
       </div>
     </ons-alert-dialog>
   </div>
+
+  <script type="text/html" id="toot_full_tmpl">
+    <div class="toot post_<%=toot['id']%><%=toot_base_classes%>" id="post_<%=toot['id']%>" data-bgpic="" style="">
+      <%=(alert_text ? alert_text : '')%>
+      <div class="rightup-button">
+        <button class="no-rd p0 button button--quiet" disabled>
+          <ons-icon icon="fa-<%=visibility_icon%>" class="toot-right-icon ons-icon fa-<%=visibility_icon%> fa"></ons-icon>
+        </button>
+      </div>
+      <div class="toot_flex">
+        <% if (!no_icon) { %>
+          <div width="50px">
+            <p>
+              <img src="<%=toot['account'][getConfig(1, 'no_gif') ? 'avatar_static' : 'avatar']%>" class="icon-img" onclick="show_account('<%=toot['account']['id']%>')">
+            </p>
+          </div>
+        <% } %>
+        <div class="toot-card-right">
+          <div class="<%=namucard%>">
+            <div class="toot-group name_box">
+              <% if (!no_icon) { %>
+                <div onclick="show_account('<%=toot['account']['id']%>')" class="toot_name">
+                  <b><%=(t_text(escapeHTML(toot['account']['display_name'])))%></b> <small>@<%=toot['account']['acct']%></small>
+                </div>
+              <% } %>
+            </div>
+            <div class="toot_content tootcontent_<%=toot['id']%><%=no_icon%><%=is_col%>" data-id="<%=toot['id']%>" data-dispmode="<%=display_mode%>">
+              <p>
+                <%=toot['content']%>
+              </p>
+
+            </div>
+          </div>
+          <% if (display_mode === 'full') { %>
+            <div class="toot-group tb_group_<%=toot['id']%>">
+              <ons-icon icon="fa-reply" onclick="reply('<%=toot['id']%>')" class="toot-button ons-icon fa-reply fa"></ons-icon>
+              <% if (toot['visibility'] === 'private' || toot['visibility'] === 'direct') { %>
+                <ons-icon icon="fa-<%=visibility_icon%>" class="toot-button toot-button-disabled"></ons-icon>
+              <% } else { %>
+                <ons-icon icon="fa-retweet" onclick="toot_action('<%=toot['id']%>', null, 'boost')" class="tootbs_<%=toot['id']%> toot-button ons-icon fa-retweet fa<%=boosted%>"></ons-icon>
+              <% } %>
+              <ons-icon icon="fa-star" onclick="toot_action('<%=toot['id']%>', null, 'fav')" class="tootfav_<%=toot['id']%> toot-button ons-icon fa-star fa<%=faved%>"></ons-icon>
+              <ons-icon icon="fa-ellipsis-h" onclick="more('<%=toot['id']%>')" class="toot-button toot-button-last ons-icon fa-ellipsis-h fa"></ons-icon>
+              <div class="toot-right date date-disp" data-time="<%=toot['created_at']%>" onclick="show_post('<%=toot['id']%>')">
+                <%=(displayTime('new', toot['created_at']))%>
+              </div>
+            </div>
+          <% } %>
+        </div>
+      </div>
+      <% if (display_mode === 'big') { %>
+        <span class="big_date">
+          (via <%=appname%>)<br>
+          <%=date_text%> ·
+          <span onclick="list('statuses/<%=toot['id']%>/reblogged_by', 'toot.boost.user', null, 'acct', true)"><ons-icon icon="fa-retweet" class="ons-icon fa-retweet fa"></ons-icon> <%=toot['reblogs_count']%></span> ·
+          <span onclick="list('statuses/<%=toot['id']%>/favourited_by', 'toot.fav.user', null, 'acct', true)"><ons-icon icon="fa-star" class="ons-icon fa-star fa"></ons-icon> <%=toot['favourites_count']%></span>
+        </span>
+
+        <div class="row toot_big_border">
+          <div class="col-xs-3 showtoot-button">
+            <ons-icon icon="fa-reply" onclick="reply('<%=toot['id']%>')" class="showtoot-button ons-icon fa-reply fa"></ons-icon>
+          </div>
+          <div class="col-xs-3 showtoot-button">
+            <% if (toot['visibility'] === 'private' || toot['visibility'] === 'direct') { %>
+              <ons-icon icon="fa-<%=visibility_icon%>" class="showtoot-button ons-icon fa-<%=visibility_icon%> fa toot-button-disabled<%=boosted%>"></ons-icon>
+            <% } else { %>
+              <ons-icon icon="fa-retweet" onclick="toot_action('<%=toot['id']%>', 'big', 'boost')" class="tootbs_<%=toot['id']%> showtoot-button ons-icon fa-retweet fa"></ons-icon>
+            <% } %>
+          </div>
+          <div class="col-xs-3 showtoot-button">
+            <ons-icon icon="fa-star" onclick="toot_action('<%=toot['id']%>', 'big', 'fav')" class="tootfav_<%=toot['id']%> showtoot-button ons-icon fa-star fa<%=faved%>"></ons-icon>
+          </div>
+          <div class="col-xs-3 showtoot-button">
+            <ons-icon icon="fa-ellipsis-h" onclick="more('<%=toot['id']%>')" class="showtoot-button ons-icon fa-ellipsis-h fa"></ons-icon>
+          </div>
+        </div>
+      <% } %>
+    </div>
+  </script>
 </body>
 
 </html>
