@@ -825,3 +825,7 @@ img.emoji {
   border-radius: 100%;
   width: 25px;
 }
+
+* {
+  -webkit-overflow-scrolling: touch;
+}
