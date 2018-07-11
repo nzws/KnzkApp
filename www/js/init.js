@@ -429,6 +429,11 @@ function initevent() {
     });
 
     document.addEventListener('swiperight', function(event) {
+      var h = event.gesture.startEvent.center.clientX;
+      if (h <= 20) {
+        fn.open();
+        return false;
+      }
       if (pageid === 'home') TL_prev();
     });
   }
