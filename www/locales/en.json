@@ -88,8 +88,8 @@
         "close": "Close doodle"
       },
       "upload": {
-        "title": "アップロード",
-        "text": "よろしいですか？"
+        "title": "Upload",
+        "text": "Are you sure you want to upload?"
       }
     }
   },
