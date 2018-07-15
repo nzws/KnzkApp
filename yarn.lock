@@ -484,9 +484,9 @@ copy-descriptor@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/copy-descriptor/-/copy-descriptor-0.1.1.tgz#676f6eb3c39997c2ee1ac3a924fd6124748f578d"
 
-"cordova-clipboard@git+https://github.com/yuzulabo/cordova-clipboard":
+"cordova-clipboard@git+https://github.com/KnzkApp/cordova-clipboard":
   version "1.2.1"
-  resolved "git+https://github.com/yuzulabo/cordova-clipboard#5a5f3ee0e0e095e46b3cc1c41fb1bbee51edbc84"
+  resolved "git+https://github.com/KnzkApp/cordova-clipboard#5a5f3ee0e0e095e46b3cc1c41fb1bbee51edbc84"
 
 cordova-custom-config@5.0.2:
   version "5.0.2"
@@ -508,9 +508,9 @@ cordova-plugin-customurlscheme@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/cordova-plugin-customurlscheme/-/cordova-plugin-customurlscheme-4.3.0.tgz#02f968778b4093990eb0407f3fa1b1458d705f94"
 
-"cordova-plugin-fcm@git+https://github.com/yuzulabo/cordova-plugin-fcm":
+"cordova-plugin-fcm@git+https://github.com/KnzkApp/cordova-plugin-fcm":
   version "2.1.2"
-  resolved "git+https://github.com/yuzulabo/cordova-plugin-fcm#cc9e8e571388cc8cb8a0a37d52dba89ed0c7a7c6"
+  resolved "git+https://github.com/KnzkApp/cordova-plugin-fcm#cc9e8e571388cc8cb8a0a37d52dba89ed0c7a7c6"
 
 cordova-plugin-file@^6.0.1:
   version "6.0.1"
@@ -519,6 +519,10 @@ cordova-plugin-file@^6.0.1:
 cordova-plugin-inappbrowser@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/cordova-plugin-inappbrowser/-/cordova-plugin-inappbrowser-3.0.0.tgz#d4ae00d36676210751057ad258ae4ad4a9161ada"
+
+"cordova-plugin-ipad-multitasking@git+https://github.com/KnzkApp/cordova-plugin-ipad-multitasking":
+  version "0.1.1"
+  resolved "git+https://github.com/KnzkApp/cordova-plugin-ipad-multitasking#4a3233ca26499586cf8849d25af7d4546a76feed"
 
 cordova-plugin-safariviewcontroller@^1.5.3:
   version "1.5.4"
@@ -808,13 +812,17 @@ eslint-scope@^4.0.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
+eslint-utils@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/eslint-utils/-/eslint-utils-1.3.1.tgz#9a851ba89ee7c460346f97cf8939c7298827e512"
+
 eslint-visitor-keys@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#3f3180fb2e291017716acb4c9d6d5b5c34a6a81d"
 
-eslint@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-5.0.1.tgz#109b90ab7f7a736f54e0f341c8bb9d09777494c3"
+eslint@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-5.1.0.tgz#2ed611f1ce163c0fb99e1e0cda5af8f662dff645"
   dependencies:
     ajv "^6.5.0"
     babel-code-frame "^6.26.0"
@@ -823,6 +831,7 @@ eslint@^5.0.1:
     debug "^3.1.0"
     doctrine "^2.1.0"
     eslint-scope "^4.0.0"
+    eslint-utils "^1.3.1"
     eslint-visitor-keys "^1.0.0"
     espree "^4.0.0"
     esquery "^1.0.1"
@@ -830,7 +839,7 @@ eslint@^5.0.1:
     file-entry-cache "^2.0.0"
     functional-red-black-tree "^1.0.1"
     glob "^7.1.2"
-    globals "^11.5.0"
+    globals "^11.7.0"
     ignore "^3.3.3"
     imurmurhash "^0.1.4"
     inquirer "^5.2.0"
@@ -1187,7 +1196,7 @@ global-dirs@^0.1.0:
   dependencies:
     ini "^1.3.4"
 
-globals@^11.5.0:
+globals@^11.7.0:
   version "11.7.0"
   resolved "https://registry.yarnpkg.com/globals/-/globals-11.7.0.tgz#a583faa43055b1aca771914bf68258e2fc125673"
 
