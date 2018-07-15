@@ -4,6 +4,10 @@ body {
   height: 100%;
 }
 
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
 .disable,
 .invisible {
   display: none;
@@ -824,8 +828,4 @@ img.emoji {
 #home-icon {
   border-radius: 100%;
   width: 25px;
-}
-
-* {
-  -webkit-overflow-scrolling: touch;
 }
