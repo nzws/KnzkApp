@@ -23,13 +23,24 @@
   </p>
 
   <p align="center">
+    <a href="https://app.fossa.io/projects/git%2Bgithub.com%2FKnzkDev%2FKnzkApp?ref=badge_small" alt="FOSSA Status">
+      <img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2FKnzkDev%2FKnzkApp.svg?type=small"/>
+    </a>
+  </p>
+
+  <p align="center">
+    <a href="https://app.fossa.io/projects/git%2Bgithub.com%2FKnzkDev%2FKnzkApp?ref=badge_large" alt="FOSSA Status">
+      <img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2FKnzkDev%2FKnzkApp.svg?type=large"/>
+    </a>
+  </p>
+
+  <p align="center">
     <a href="http://makeapullrequest.com">
       <img src="https://cdn.rawgit.com/yuzulabo/45c2e5726eeaa96083d837f20a05dfc9/raw/67f43e6c156e1ec112cf217198f42549bdb32a0f/PRs-welcome.svg">
     </a>
     <a href="https://circleci.com/gh/KnzkDev/KnzkApp">
       <img src="https://img.shields.io/circleci/project/KnzkDev/KnzkApp/master.svg?style=for-the-badge">
     </a>
-<a href="https://app.fossa.io/projects/git%2Bgithub.com%2FKnzkDev%2FKnzkApp?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2FKnzkDev%2FKnzkApp.svg?type=shield"/></a>
     <a href="https://discord.gg/5teHfRK">
       <img src="https://cdn.rawgit.com/yuzulabo/45c2e5726eeaa96083d837f20a05dfc9/raw/67f43e6c156e1ec112cf217198f42549bdb32a0f/chat-on-discord.svg">
     </a>
@@ -41,9 +52,6 @@
     </a>
   </p>
 </div>
-
-
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FKnzkDev%2FKnzkApp.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FKnzkDev%2FKnzkApp?ref=badge_large)
 
 ## ✨ Support features
 - Features of [glitch-soc](https://github.com/glitch-soc/mastodon)
