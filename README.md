@@ -22,12 +22,12 @@
     Sponsored by <a href="http://kibousoft.co.jp/">Kibousoft LLC</a>.
   </p>
 
-   <p align="center">
+  <p align="center">
     <a href="http://makeapullrequest.com">
       <img src="https://cdn.rawgit.com/yuzulabo/45c2e5726eeaa96083d837f20a05dfc9/raw/67f43e6c156e1ec112cf217198f42549bdb32a0f/PRs-welcome.svg">
     </a>
-    <a href="https://travis-ci.org/KnzkDev/KnzkApp">
-      <img src="https://img.shields.io/travis/KnzkDev/KnzkApp.svg?style=for-the-badge">
+    <a href="https://circleci.com/gh/KnzkDev/KnzkApp">
+      <img src="https://img.shields.io/circleci/project/KnzkDev/KnzkApp/master.svg?style=for-the-badge">
     </a>
     <a href="https://discord.gg/5teHfRK">
       <img src="https://cdn.rawgit.com/yuzulabo/45c2e5726eeaa96083d837f20a05dfc9/raw/67f43e6c156e1ec112cf217198f42549bdb32a0f/chat-on-discord.svg">
