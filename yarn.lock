@@ -2403,7 +2403,7 @@ plist@2.0.1:
     xmlbuilder "8.2.2"
     xmldom "0.1.x"
 
-"plist@github:xiangpingmeng/plist.js":
+plist@xiangpingmeng/plist.js:
   version "1.2.0"
   resolved "https://codeload.github.com/xiangpingmeng/plist.js/tar.gz/5ccd600b0b7fd3ae204edc9e69c1c30406d07747"
   dependencies:
@@ -3688,7 +3688,3 @@ yargs-parser@^10.0.0:
   resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-10.1.0.tgz#7202265b89f7e9e9f2e5765e0fe735a905edbaa8"
   dependencies:
     camelcase "^4.1.0"
-
-yarn@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.7.0.tgz#0076b9fde6010e01950526a609bc53bc175ef925"

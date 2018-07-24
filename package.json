@@ -61,7 +61,6 @@
         "prettier": "^1.12.1",
         "prettier-stylelint": "^0.4.2",
         "stylelint": "^9.2.1",
-        "stylelint-config-standard": "^18.2.0",
-        "yarn": "^1.7.0"
+        "stylelint-config-standard": "^18.2.0"
     }
 }
