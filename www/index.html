@@ -765,6 +765,14 @@
             プッシュ通知設定
           </div>
         </ons-list-item>
+        <ons-list-item modifier="chevron" tappable onclick="loadNav('config_TL.html')">
+          <div class="left">
+            <i class="list-item__icon list-item--chevron__icon ons-icon fa-sliders fa fa-fw"></i>
+          </div>
+          <div class="center" data-i18n="config.preferences.tl.edit.title">
+            タイムライン編集
+          </div>
+        </ons-list-item>
       </ons-list>
       <ons-list>
         <ons-list-header data-i18n="config.preferences.tl.title">タイムライン設定</ons-list-header>
@@ -829,11 +837,6 @@
           </div>
           <div class="right">
             <ons-switch onclick="change_conf(1, 'resume_reload')" input-id="conf-resume_reload"></ons-switch>
-          </div>
-        </ons-list-item>
-        <ons-list-item modifier="chevron" tappable onclick="loadNav('config_TL.html')">
-          <div class="center" data-i18n="config.preferences.tl.edit.title">
-            タイムライン編集
           </div>
         </ons-list-item>
         <ons-list-item>
