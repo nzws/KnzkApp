@@ -33,12 +33,12 @@
       "sub": "Click to view"
     },
     "fav": {
-      "user": "お気に入りしたユーザー",
+      "user": "Favourited",
       "prefix": "",
       "suffix": " favourited"
     },
     "boost": {
-      "user": "ブーストしたユーザー",
+      "user": "Boosted",
       "prefix": "",
       "suffix": " boosted"
     },
@@ -84,7 +84,7 @@
       "weight": "Weight",
       "reset": {
         "title": "Clear doodle",
-        "text": "お絵かきが破棄されますがよろしいですか？",
+        "text": "Are you sure you want to clear doodle?",
         "close": "Close doodle"
       },
       "upload": {
@@ -196,15 +196,15 @@
   },
   "dialogs_html": {
     "error": "Error",
-    "del_post": "トゥートを削除しました。",
+    "del_post": "Your post deleted.",
     "report": "Thanks for reporting.",
-    "del_notification": "通知を消去しました。",
-    "ok_conf": "設定を保存しました。",
-    "ok_conf_2": "設定しました。",
-    "del_ok": "削除しました。",
-    "post_now": "投稿しています...",
-    "vote_ok": "投票に成功しました！",
-    "vote_ng": "投票に失敗しました。<br>投票済みか締め切りとなっている可能性があります。",
+    "del_notification": "All notifications deleted.",
+    "ok_conf": "Settings saved.",
+    "ok_conf_2": "Settings saved.",
+    "del_ok": "Deleted.",
+    "post_now": "Posting now...",
+    "vote_ok": "Succeeded voting!",
+    "vote_ng": "Failed voting.<br>投票済みか締め切りとなっている可能性があります。",
     "maximum_media": "エラー: これ以上画像をアップする事はできません。",
     "bbcode_limit": "エラー: 文字数制限を超えています！<br>回転や点滅、文字列を少なくしてください。",
     "cannot_pros": "エラー: 実行できませんでした。<br> 接続環境が悪いか鯖落ちしている可能性があります。",
@@ -256,12 +256,12 @@
       "text": "アプリからこのアカウントを削除してもよろしいですか？"
     },
     "clear_account": {
-      "title": "全アカウントをログアウト",
+      "title": "Logout of all accounts",
       "1": {
-        "text": "本当に全てのアカウントからログアウトしますか？"
+        "text": "Are you sure you want to logout?"
       },
       "2": {
-        "text": "もう一度聞きます。<br>本当に全てのアカウントからログアウトしますか？"
+        "text": "I ask again.<br>Are you sure you want to logout?"
       }
     },
     "err_fcm_2": {
@@ -280,14 +280,14 @@
       "title": "Clear notifications",
       "text": "Are you sure you want to clear all notifications?"
     },
-    "delete_picture": "画像を削除してもよろしいですか？",
+    "delete_picture": "Are you sure you want to delete picture?",
     "warning_spin": {
       "title": "注意:TLが重くなります",
       "text": "回転を多く指定すると、TLが重くなる原因となり、警告を受ける可能性があります。続行しますか？"
     },
     "hashtag": {
       "title": "Add hashtag timeline",
-      "text": "ハッシュタグを入力してください。"
+      "text": "Please enter hashtag name."
     },
     "list_note": {
       "title": "Add list timeline",
@@ -299,14 +299,14 @@
     },
     "editlist": {
       "title": "Add / Edit Lists",
-      "text": "名前を入力してください。(空欄でキャンセル)"
+      "text": "Please enter list name.(空欄でキャンセル)"
     },
     "deletelist": {
       "title": "Delete list",
       "text": "Are you sure you want to delete?"
     },
     "add_tag": {
-      "title": "このタグをタイムラインに追加",
+      "title": "Add this hashtag to timelines",
       "text": "Are you sure you want to add?"
     }
   },
@@ -354,8 +354,8 @@
       "hashtag": "Hashtag",
       "list": "List",
       "option": {
-        "default": "デフォルトで表示するTLに設定する",
-        "delete": "削除する"
+        "default": "Set to initial display timeline",
+        "delete": "Delete"
       }
     },
     "editlist": {
@@ -419,7 +419,7 @@
         "bigfav": "Show larger favorite buttons",
         "spin": "Disable [spin] (BBCode)",
         "menu_fav": "Show favourites in slide menu",
-        "image_full": "メディアを完全に表示",
+        "image_full": "Display the whole photo",
         "copy": {
           "title": "Enable copy and paste option",
           "sub": "If you found any problems about copy and paste, please turn on."
@@ -457,11 +457,11 @@
         "title": "Economy settings",
         "gif": {
           "title": "Disable playing animated GIFs",
-          "sub": "電池の節約"
+          "sub": "Battery saving"
         },
         "custom_emoji": {
           "title": "Disable show custom emojis",
-          "sub": "ネットワーク通信の節約"
+          "sub": "Network-communication saving"
         }
       },
       "font": {
@@ -469,7 +469,7 @@
         "button": "Button in toots",
         "body": "Text in toots"
       },
-      "note": "一部の設定は再起動後に反映されます。",
+      "note": "Some settings are reflected after rebooting.",
       "danger": {
         "bookmarks": "Delete all bookmarks",
         "settings": "Reset all settings",
@@ -520,8 +520,8 @@
           "note": "*ユーザー通知ミュート反映にはアプリの再起動が必要です。"
         },
         "keyword": {
-          "title": "キーワード検知",
-          "note": "* タップで削除できます。"
+          "title": "Keyword notifications",
+          "note": "* Tap to delete keyword."
         }
       }
     }
