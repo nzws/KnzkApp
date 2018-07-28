@@ -226,7 +226,7 @@
   "dialogs_js": {
     "report": {
       "title": "Report",
-      "text": "通報のコメントを記入してください<br>(空欄でキャンセル)"
+      "text": "通報のコメントを記入してください<br>(If you OK with blank, you can cancel.)"
     },
     "delete": {
       "title": "Delete this toot",
@@ -244,7 +244,7 @@
     },
     "code": {
       "title": "Login",
-      "text": "認証コードを入力してください<br>(空欄でキャンセル)"
+      "text": "認証コードを入力してください<br>(If you OK with blank, you can cancel.)"
     },
     "terms": {
       "title": "Login",
@@ -270,7 +270,7 @@
     },
     "keyword": {
       "title": "Keyword notice",
-      "text": "検知させるワードを入力してください<br>(空欄でキャンセル)"
+      "text": "検知させるワードを入力してください<br>(If you OK with blank, you can cancel.)"
     },
     "err_notification_sv": {
       "title": "Error",
@@ -287,7 +287,7 @@
     },
     "hashtag": {
       "title": "Add hashtag timeline",
-      "text": "Please enter hashtag name."
+      "text": "Please enter hashtag name.<br>(If you OK with blank, you can cancel.)"
     },
     "list_note": {
       "title": "Add list timeline",
@@ -299,7 +299,7 @@
     },
     "editlist": {
       "title": "Add / Edit Lists",
-      "text": "Please enter list name.(空欄でキャンセル)"
+      "text": "Please enter list name.<br>(If you OK with blank, you can cancel.)"
     },
     "deletelist": {
       "title": "Delete list",
