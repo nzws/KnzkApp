@@ -36,64 +36,65 @@
   <script>
     const version = "KnzkApp 1.3.2";
 
-    var now_TL = "";
-    var last_load_TL = "";
-    var tmp_post_text = "";
-    var toot_new_id = "";
-    var toot_old_id = "";
-    var account_toot_old_id = "";
-    var account_page_id = "";
-    var alert_new_id = "";
-    var alert_old_id = "";
-    var more_status_id = "";
-    var more_acct_id = "";
-    var tmp_bbcode_id = "";
-    var tmp_bbcode_limit = "";
-    var tmp_bbcode_tootbutton = "";
-    var emoji_list = Array();
-    var account_page_acct = "";
-    var tmp_text_pre = "";
-    var tmp_post_reply = 0;
-    var tmp_post_visibility = "";
-    var follow_old_id = "";
-    var tmp_media_del_id = 0;
-    var tmp_media_del_obj = "";
-    var tag_old_id = "";
-    var tag_str = "";
-    var list_old_id = "";
-    var TL_websocket = {};
-    var image_mode = "";
-    var old_page = "";
-    var inst = "";
-    var home_auto_event = false;
-    var home_auto_mode = true;
-    var home_auto_num = 0;
-    var toot_limit = 500;
-    var doodle_old_color = null;
-    var doodle_mode = null;
-    var pageid = "";
-    var default_post_visibility = "";
-    var default_sensitive = false;
-    var config_tmp = {};
-    var original_post_text = "";
-    var original_post_userid = "";
-    var tl_postdata = {};
-    var acctdata = { "acct": {}, "rs": {} };
-    var emoji_search = [];
-    var platform = "";
-    var acct_mode = "";
-    var timeline_store_data = {};
-    var timeline_config = {};
-    var timeline_now_tab = 0;
-    var timeline_default_tab = 0;
-    var timeline_list_names = {};
-    var Notification_ws = null;
-    var Notification_num = 0;
-    var FCM_token = null;
-    var now_userconf = {};
-    var lng = "en";
-    var editing_id = "";
-    var user_icon = "";
+    var now_TL = "",
+      last_load_TL = "",
+      tmp_post_text = "",
+      toot_new_id = "",
+      toot_old_id = "",
+      account_toot_old_id = "",
+      account_page_id = "",
+      alert_new_id = "",
+      alert_old_id = "",
+      more_status_id = "",
+      more_acct_id = "",
+      tmp_bbcode_id = "",
+      tmp_bbcode_limit = "",
+      tmp_bbcode_tootbutton = "",
+      emoji_list = Array(),
+      account_page_acct = "",
+      tmp_text_pre = "",
+      tmp_post_reply = 0,
+      tmp_post_visibility = "",
+      follow_old_id = "",
+      tmp_media_del_id = 0,
+      tmp_media_del_obj = "",
+      tag_old_id = "",
+      tag_str = "",
+      list_old_id = "",
+      TL_websocket = {},
+      image_mode = "",
+      old_page = "",
+      inst = "",
+      home_auto_event = false,
+      home_auto_mode = true,
+      home_auto_num = 0,
+      toot_limit = 500,
+      doodle_old_color = null,
+      doodle_mode = null,
+      pageid = "",
+      default_post_visibility = "",
+      default_sensitive = false,
+      config_tmp = {},
+      original_post_text = "",
+      original_post_userid = "",
+      tl_postdata = {},
+      acctdata = { "acct": {}, "rs": {} },
+      emoji_search = [],
+      platform = "",
+      acct_mode = "",
+      TlStoreData_pre = {},
+      TlStoreData_suf = {},
+      timeline_config = {},
+      timeline_now_tab = 0,
+      timeline_default_tab = 0,
+      timeline_list_names = {},
+      Notification_ws = null,
+      Notification_num = 0,
+      FCM_token = null,
+      now_userconf = {},
+      lng = "en",
+      editing_id = "",
+      user_icon = "";
   </script>
   <script src="config/instance.js"></script>
   <script src="config/config.js"></script>
@@ -519,8 +520,8 @@
       <ons-popover direction="up" id="tools_popover">
         <div style="padding: 10px; text-align: center;">
           <p>
-            <ons-button onclick="hidePopover('tools_popover');showPopover(elemId('tools_bt_simple'), 'vote_popover')"
-              class="w-max invisible" id="vote_bt_simple">
+            <ons-button onclick="hidePopover('tools_popover');showPopover(elemId('tools_bt_simple'), 'vote_popover')" class="w-max invisible"
+              id="vote_bt_simple">
               <ons-icon icon="fa-align-left"></ons-icon>
               Enquete
             </ons-button>
@@ -545,8 +546,7 @@
       <ons-popover direction="up" id="cp_popover">
         <div style="padding: 10px; text-align: center;">
           <p>
-            <ons-button onclick="hidePopover('cp_popover');copy(elemId('simple_toot_TL_input').value)" class="w-max"
-              data-i18n="copyoption.copy">全てコピー</ons-button>
+            <ons-button onclick="hidePopover('cp_popover');copy(elemId('simple_toot_TL_input').value)" class="w-max" data-i18n="copyoption.copy">全てコピー</ons-button>
             <ons-button onclick="hidePopover('cp_popover');paste_simple()" style="margin-top: 5px" class="w-max" data-i18n="copyoption.paste">ペースト</ons-button>
           </p>
           <p>
@@ -2112,8 +2112,7 @@
             <div style="padding: 10px; text-align: center;">
               <div class="tutorial_box" data-i18n="tutorial.page2.alert.deco_box">このボックスで様々な追加機能を使用する事ができます。</div>
               <p>
-                <ons-button onclick="showPopover(elemId('tools_bt_tutorial'), 'vote_popover_t')" class="w-max invisible"
-                  id="vote_bt_tutorial">
+                <ons-button onclick="showPopover(elemId('tools_bt_tutorial'), 'vote_popover_t')" class="w-max invisible" id="vote_bt_tutorial">
                   <ons-icon icon="fa-align-left"></ons-icon>
                   Enquete
                 </ons-button>
