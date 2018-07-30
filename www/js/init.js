@@ -451,13 +451,10 @@ function home_autoevent() {
       var storedata = timeline_store_data[inst][timeline_now_tab];
       if (storedata !== '' && home_auto_mode) {
         if (getConfig(1, 'chatmode'))
-          document.querySelector('#TL' + timeline_now_tab + '_main > .page__content').innerHTML =
-            document.querySelector('#TL' + timeline_now_tab + '_main > .page__content').innerHTML +
-            storedata;
-        else
-          document.querySelector('#TL' + timeline_now_tab + '_main > .page__content').innerHTML =
-            storedata +
-            document.querySelector('#TL' + timeline_now_tab + '_main > .page__content').innerHTML;
+          elemTimeline().innerHTML = elemTimeline().innerHTML + storedata;
+        else {
+          elemTimeline().innerHTML = storedata + elemTimeline().innerHTML;
+        }
         timeline_store_data[inst][timeline_now_tab] = '';
         home_auto_num = 0;
         setTLheadcolor(0);

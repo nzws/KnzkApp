@@ -231,7 +231,7 @@ function openTL(mode) {
 function initTimeline() {
   var i = 0;
   while (timeline_config[i]) {
-    document.querySelector('#TL' + i + '_main > .page__content').innerHTML =
+    elemTimeline(i).innerHTML =
       '<div class="loading-now"><ons-progress-circular indeterminate></ons-progress-circular></div>';
     i++;
   }
@@ -310,7 +310,7 @@ function showTL(mode, reload, more_load, clear_load) {
     setTLheadcolor(0);
     try {
       if (last_load_TL)
-        document.querySelector('#TL' + last_load_TL + '_main > .page__content').innerHTML =
+        elemTimeline(last_load_TL).innerHTML =
           '<div class="loading-now"><ons-progress-circular indeterminate></ons-progress-circular></div>';
     } catch (e) {
       console.error(e);
@@ -368,8 +368,7 @@ function showTL(mode, reload, more_load, clear_load) {
         if (json) {
           displayTime('update');
           if (more_load && !getConfig(1, 'chatmode')) {
-            reshtml = document.querySelector('#TL' + timeline_now_tab + '_main > .page__content')
-              .innerHTML;
+            reshtml = elemTimeline().innerHTML;
           } else {
             if (getConfig(1, 'realtime') == 1) {
               if (mode === 'public' || mode === 'public_media') ws_mode = 'public';
@@ -428,21 +427,16 @@ function showTL(mode, reload, more_load, clear_load) {
                               //OK
                               home_auto_event = false;
                               if (getConfig(1, 'chatmode'))
-                                document.querySelector(
-                                  '#TL' + now_tab + '_main > .page__content'
-                                ).innerHTML =
-                                  document.querySelector('#TL' + now_tab + '_main > .page__content')
-                                    .innerHTML +
+                                elemTimeline(now_tab).innerHTML =
+                                  elemTimeline(now_tab).innerHTML +
                                   timeline_store_data[instance_ws][now_tab] +
                                   toot_card(ws_reshtml, 'full', null, TLmode);
-                              else
-                                document.querySelector(
-                                  '#TL' + now_tab + '_main > .page__content'
-                                ).innerHTML =
+                              else {
+                                elemTimeline(now_tab).innerHTML =
                                   toot_card(ws_reshtml, 'full', null, TLmode) +
                                   timeline_store_data[instance_ws][now_tab] +
-                                  document.querySelector('#TL' + now_tab + '_main > .page__content')
-                                    .innerHTML;
+                                  elemTimeline(now_tab).innerHTML;
+                              }
 
                               timeline_store_data[instance_ws][now_tab] = '';
                               home_auto_num = 0;
@@ -525,8 +519,7 @@ function showTL(mode, reload, more_load, clear_load) {
           }
 
           if (more_load && mode == last_load_TL && !clear_load && getConfig(1, 'chatmode')) {
-            reshtml += document.querySelector('#TL' + timeline_now_tab + '_main > .page__content')
-              .innerHTML;
+            reshtml += elemTimeline().innerHTML;
           }
 
           if (!more_load && mode !== last_load_TL && !getConfig(1, 'chatmode')) {
@@ -537,9 +530,7 @@ function showTL(mode, reload, more_load, clear_load) {
             };
           }
           last_load_TL = timeline_now_tab;
-          document.querySelector(
-            '#TL' + timeline_now_tab + '_main > .page__content'
-          ).innerHTML = reshtml;
+          elemTimeline().innerHTML = reshtml;
 
           if (reload && reload !== 'dial') reload();
           if (!getConfig(1, 'chatmode') && more_load) more_load();
@@ -556,6 +547,10 @@ function showTL(mode, reload, more_load, clear_load) {
         });
       });
   }
+}
+
+function elemTimeline(number = timeline_now_tab) {
+  return document.querySelector('#TL' + number + '_main > .page__content');
 }
 
 function showTagTL(tag, more_load) {
@@ -737,7 +732,7 @@ function updateTLtrack() {
         .offset().top - window.innerHeight;
     home_auto_mode = h < -10;
   } else {
-    h = document.querySelector('#TL' + timeline_now_tab + '_main > .page__content').scrollTop;
+    h = elemTimeline().scrollTop;
     home_auto_mode = h <= 100;
   }
 }
