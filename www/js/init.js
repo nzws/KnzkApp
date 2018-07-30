@@ -448,14 +448,15 @@ function home_autoevent() {
   setTimeout(function() {
     if (home_auto_event) {
       updateTLtrack();
-      var storedata = timeline_store_data[inst][timeline_now_tab];
+      var storedata = TlStoreData_pre[inst][timeline_now_tab];
       if (storedata !== '' && home_auto_mode) {
         if (getConfig(1, 'chatmode'))
           elemTimeline().innerHTML = elemTimeline().innerHTML + storedata;
         else {
           elemTimeline().innerHTML = storedata + elemTimeline().innerHTML;
+          cacheTL();
         }
-        timeline_store_data[inst][timeline_now_tab] = '';
+        TlStoreData_pre[inst][timeline_now_tab] = '';
         home_auto_num = 0;
         setTLheadcolor(0);
         if (getConfig(1, 'chatmode')) $('.page__content').scrollTop(99999999999999999999999);

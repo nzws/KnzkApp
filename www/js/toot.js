@@ -71,7 +71,7 @@ function toot_card(toot, mode, note, toot_light, page) {
     namucard = ' namu-toot';
     namubt = ' namu-fav';
   }
-
+  BoxData['toot_base_classes'] = '';
   if (toot_light === 'gold') BoxData['toot_base_classes'] += ' toot_gold';
   if (toot_light === 'light') BoxData['toot_base_classes'] += ' toot_light';
 

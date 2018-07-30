@@ -300,9 +300,12 @@ function showTL(mode, reload, more_load, clear_load) {
   if (clear_load) {
     closeAllws();
     tl_postdata = {};
-    timeline_store_data = {};
-    timeline_store_data[inst] = {};
-    timeline_store_data[inst][timeline_now_tab] = '';
+    TlStoreData_pre = {};
+    TlStoreData_pre[inst] = {};
+    TlStoreData_pre[inst][timeline_now_tab] = '';
+    TlStoreData_suf = {};
+    TlStoreData_suf[inst] = {};
+    TlStoreData_suf[inst][timeline_now_tab] = '';
     home_auto_num = 0;
     toot_new_id = 0;
     toot_old_id = 0;
@@ -429,32 +432,33 @@ function showTL(mode, reload, more_load, clear_load) {
                               if (getConfig(1, 'chatmode'))
                                 elemTimeline(now_tab).innerHTML =
                                   elemTimeline(now_tab).innerHTML +
-                                  timeline_store_data[instance_ws][now_tab] +
+                                  TlStoreData_pre[instance_ws][now_tab] +
                                   toot_card(ws_reshtml, 'full', null, TLmode);
                               else {
                                 elemTimeline(now_tab).innerHTML =
                                   toot_card(ws_reshtml, 'full', null, TLmode) +
-                                  timeline_store_data[instance_ws][now_tab] +
+                                  TlStoreData_pre[instance_ws][now_tab] +
                                   elemTimeline(now_tab).innerHTML;
+                                cacheTL(now_tab);
                               }
 
-                              timeline_store_data[instance_ws][now_tab] = '';
+                              TlStoreData_pre[instance_ws][now_tab] = '';
                               home_auto_num = 0;
                               setTLheadcolor(0);
                               if (getConfig(1, 'chatmode'))
                                 $('.page__content').scrollTop(99999999999999999999999);
                             } else {
                               if (getConfig(1, 'chatmode'))
-                                timeline_store_data[instance_ws][now_tab] += toot_card(
+                                TlStoreData_pre[instance_ws][now_tab] += toot_card(
                                   ws_reshtml,
                                   'full',
                                   null,
                                   TLmode
                                 );
                               else
-                                timeline_store_data[instance_ws][now_tab] =
+                                TlStoreData_pre[instance_ws][now_tab] =
                                   toot_card(ws_reshtml, 'full', null, TLmode) +
-                                  timeline_store_data[instance_ws][now_tab];
+                                  TlStoreData_pre[instance_ws][now_tab];
 
                               if (!home_auto_event) {
                                 home_auto_event = true;
@@ -507,13 +511,11 @@ function showTL(mode, reload, more_load, clear_load) {
 
           while (json[i]) {
             var TLmode = mode === 'local_media' || mode === 'public_media' ? 'media' : '';
-
             var tootbox = toot_card(json[i], 'full', null, TLmode);
 
             reshtml += tootbox;
 
             toot_new_id = getConfig(1, 'chatmode') ? json[i]['id'] : json[0]['id'];
-
             toot_old_id = getConfig(1, 'chatmode') ? json[0]['id'] : json[i]['id'];
             i++;
           }
@@ -526,7 +528,14 @@ function showTL(mode, reload, more_load, clear_load) {
             var tl = document.querySelector('#TL' + timeline_now_tab + '_main');
 
             tl.onInfiniteScroll = function(done) {
-              showTL(null, null, done);
+              var cache = TlStoreData_suf[instance_ws][now_tab];
+              if (cache) {
+                setTimeout(function() {
+                  elemTimeline(now_tab).innerHTML += cache;
+                  TlStoreData_suf[instance_ws][now_tab] = '';
+                  done();
+                }, 500);
+              } else showTL(null, null, done);
             };
           }
           last_load_TL = timeline_now_tab;
@@ -546,6 +555,29 @@ function showTL(mode, reload, more_load, clear_load) {
           getError('Error/timeline', errorMessage, true);
         });
       });
+  }
+}
+
+function cacheTL(loc = timeline_now_tab) {
+  if (pageid === 'home') {
+    var posts = Array.from(elemTimeline(loc).children);
+    if (posts.length > 30) {
+      var cutData = posts.slice(24),
+        i = 0,
+        html = '';
+
+      while (cutData[i]) {
+        html += posts[24 + i].outerHTML;
+        i++;
+      }
+      i = 0;
+      while (cutData[i]) {
+        posts[24 + i].parentNode.removeChild(posts[24 + i]);
+        i++;
+      }
+      TlStoreData_suf[inst][loc] = html + TlStoreData_suf[inst][loc];
+      console.log('CACHED:' + TlStoreData_suf[inst][loc].length);
+    }
   }
 }
 
