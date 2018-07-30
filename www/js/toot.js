@@ -117,17 +117,9 @@ function toot_card(toot, mode, note, toot_light, page) {
       toot['id'] +
       "'></i></button>";
   }
-  if (toot['visibility'] === 'direct') {
-    visibility_icon = 'envelope';
-    BoxData['toot_base_classes'] += ' toot_dm';
-  } else if (toot['visibility'] === 'private') {
-    visibility_icon = 'lock';
-  } else if (toot['visibility'] === 'limited') {
-    visibility_icon = 'low-vision';
-  } else {
-    if (toot['visibility'] === 'unlisted') visibility_icon = 'unlock-alt';
-    else if (toot['visibility'] === 'public') visibility_icon = 'globe';
-  }
+
+  visibility_icon = visibility_icon_name(toot['visibility']);
+  if (toot['visibility'] === 'direct') BoxData['toot_base_classes'] += ' toot_dm';
 
   try {
     if (toot['media_attachments'][0] && (mode == 'full' || mode == 'big')) {
@@ -450,7 +442,7 @@ function visibility_rank(mode) {
   return rank;
 }
 
-function visibility_name(mode) {
+function visibility_icon_name(mode) {
   var name = '';
   if (mode === 'public') name = 'globe';
   else if (mode === 'unlisted') name = 'unlock-alt';

@@ -212,7 +212,7 @@ function initevent() {
         elemId('toot_limit_simple').innerHTML = toot_limit;
         $('#post_mode_simple').val(default_post_visibility);
         elemId('post_mode_icon_simple').className =
-          'ons-icon fa-fw fa fa-' + visibility_name(default_post_visibility);
+          'ons-icon fa-fw fa fa-' + visibility_icon_name(default_post_visibility);
         if (getConfig(1, 'cp_popover')) $('#simple_cp_bt').removeClass('invisible');
       }, 500);
     } else {
@@ -305,7 +305,7 @@ function initevent() {
     if (event.enterPage.id === 'toot-page') {
       if (!tmp_post_visibility) tmp_post_visibility = default_post_visibility;
       elemId('post_mode_icon').className =
-        'ons-icon fa fa-fw fa-' + visibility_name(tmp_post_visibility);
+        'ons-icon fa fa-fw fa-' + visibility_icon_name(tmp_post_visibility);
 
       if (tmp_post_reply) {
         if (tmp_text_pre) {

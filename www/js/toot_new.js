@@ -191,6 +191,7 @@ function post_mode(simple) {
   var input_obj = elemId('post_mode' + simple_id);
   var bt_obj = elemId('post_mode_icon' + simple_id);
   var icon_base = 'ons-icon fa-fw fa fa-';
+  var visibility_name = '';
 
   var buttons = [
     { label: i18next.t('privacy.public'), icon: 'fa-globe' },
@@ -204,7 +205,7 @@ function post_mode(simple) {
   ];
 
   if (instance_config[inst]['privacy_limited'])
-    buttons.splice(3, 0, { label: i18next.t('privacy.limited'), icon: 'low-vision' });
+    buttons.splice(3, 0, { label: i18next.t('privacy.limited'), icon: 'fa-low-vision' });
 
   ons
     .openActionSheet({
@@ -212,25 +213,19 @@ function post_mode(simple) {
       buttons: buttons,
     })
     .then(function(index) {
-      if (index == 0) {
-        input_obj.value = 'public';
-        bt_obj.className = icon_base + 'globe';
-      } else if (index == 1) {
-        input_obj.value = 'unlisted';
-        bt_obj.className = icon_base + 'unlock-alt';
-      } else if (index == 2) {
-        input_obj.value = 'private';
-        bt_obj.className = icon_base + 'lock';
-      } else if (index == 3 && instance_config[inst]['privacy_limited']) {
-        input_obj.value = 'limited';
-        bt_obj.className = icon_base + 'low-vision';
-      } else if (
+      if (index == 0) visibility_name = 'public';
+      else if (index == 1) visibility_name = 'unlisted';
+      else if (index == 2) visibility_name = 'private';
+      else if (index == 3 && instance_config[inst]['privacy_limited']) visibility_name = 'limited';
+      else if (
         (index == 3 && !instance_config[inst]['privacy_limited']) ||
         (index == 4 && instance_config[inst]['privacy_limited'])
-      ) {
-        input_obj.value = 'direct';
-        bt_obj.className = icon_base + 'envelope';
-      }
+      )
+        visibility_name = 'direct';
+      else return;
+
+      input_obj.value = visibility_name;
+      bt_obj.className = visibility_icon_name(visibility_name);
     });
 }
 
@@ -437,7 +432,7 @@ function post(id, option, simple) {
           $('#post_mode_simple').val(default_post_visibility);
           elemId('localonly_bt_simple').className = 'no-rd button button--quiet';
           elemId('post_mode_icon_simple').className =
-            'ons-icon fa-fw fa fa-' + visibility_name(default_post_visibility);
+            'ons-icon fa-fw fa fa-' + visibility_icon_name(default_post_visibility);
           hide('post_now');
         } else {
           hide('now_loading');
