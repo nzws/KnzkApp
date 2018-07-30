@@ -192,19 +192,24 @@ function post_mode(simple) {
   var bt_obj = elemId('post_mode_icon' + simple_id);
   var icon_base = 'ons-icon fa-fw fa fa-';
 
+  var buttons = [
+    { label: i18next.t('privacy.public'), icon: 'fa-globe' },
+    { label: i18next.t('privacy.unlisted'), icon: 'fa-unlock-alt' },
+    { label: i18next.t('privacy.private'), icon: 'fa-lock' },
+    { label: i18next.t('privacy.direct'), icon: 'fa-envelope' },
+    {
+      label: i18next.t('navigation.cancel'),
+      icon: 'md-close',
+    },
+  ];
+
+  if (instance_config[inst]['privacy_limited'])
+    buttons.splice(3, 0, { label: i18next.t('privacy.limited'), icon: 'low-vision' });
+
   ons
     .openActionSheet({
       cancelable: true,
-      buttons: [
-        { label: i18next.t('privacy.public'), icon: 'fa-globe' },
-        { label: i18next.t('privacy.unlisted'), icon: 'fa-unlock-alt' },
-        { label: i18next.t('privacy.private'), icon: 'fa-lock' },
-        { label: i18next.t('privacy.direct'), icon: 'fa-envelope' },
-        {
-          label: i18next.t('navigation.cancel'),
-          icon: 'md-close',
-        },
-      ],
+      buttons: buttons,
     })
     .then(function(index) {
       if (index == 0) {
@@ -216,7 +221,13 @@ function post_mode(simple) {
       } else if (index == 2) {
         input_obj.value = 'private';
         bt_obj.className = icon_base + 'lock';
-      } else if (index == 3) {
+      } else if (index == 3 && instance_config[inst]['privacy_limited']) {
+        input_obj.value = 'limited';
+        bt_obj.className = icon_base + 'low-vision';
+      } else if (
+        (index == 3 && !instance_config[inst]['privacy_limited']) ||
+        (index == 4 && instance_config[inst]['privacy_limited'])
+      ) {
         input_obj.value = 'direct';
         bt_obj.className = icon_base + 'envelope';
       }

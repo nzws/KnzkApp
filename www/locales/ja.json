@@ -94,6 +94,7 @@
     "public": "公開",
     "unlisted": "未収載",
     "private": "非公開",
+    "limited": "限定公開",
     "direct": "ダイレクト"
   },
   "report_status_note": "あなたの通報が現在処理されているのか簡易的に確認することができます。",

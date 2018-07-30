@@ -122,6 +122,8 @@ function toot_card(toot, mode, note, toot_light, page) {
     BoxData['toot_base_classes'] += ' toot_dm';
   } else if (toot['visibility'] === 'private') {
     visibility_icon = 'lock';
+  } else if (toot['visibility'] === 'limited') {
+    visibility_icon = 'low-vision';
   } else {
     if (toot['visibility'] === 'unlisted') visibility_icon = 'unlock-alt';
     else if (toot['visibility'] === 'public') visibility_icon = 'globe';
@@ -442,7 +444,8 @@ function visibility_rank(mode) {
   if (mode === 'public') rank = 1;
   else if (mode === 'unlisted') rank = 2;
   else if (mode === 'private') rank = 3;
-  else if (mode === 'direct') rank = 4;
+  else if (mode === 'limited') rank = 4;
+  else if (mode === 'direct') rank = 5;
 
   return rank;
 }
@@ -452,6 +455,7 @@ function visibility_name(mode) {
   if (mode === 'public') name = 'globe';
   else if (mode === 'unlisted') name = 'unlock-alt';
   else if (mode === 'private') name = 'lock';
+  else if (mode === 'limited') name = 'low-vision';
   else if (mode === 'direct') name = 'envelope';
 
   return name;

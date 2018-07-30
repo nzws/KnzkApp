@@ -192,6 +192,7 @@
     "public": "Public",
     "unlisted": "Unlisted",
     "private": "Followers-only",
+    "limited": "Limited",
     "direct": "Direct"
   },
   "dialogs_html": {

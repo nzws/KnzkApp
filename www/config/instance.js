@@ -1,12 +1,13 @@
 /**
  * インスタンス仕様設定ファイル
- * limit: 文字数 [必須]
- * glitch_soc: Glitch-socインスタンスか
- * bbcode: BBCode (from now.kibousoft.co.jp) 対応か
- * markdown: Markdown (from kirishima.cloud) 対応か
- * enquete: アンケート(from friends.nico) 対応か
- * enquete_duration: アンケートの期間設定 (from knzk.me) 対応か
- * yomigana: 読み仮名 (from theboss.tech) 対応か
+ * limit: character-limit [Required]
+ * glitch_soc: Is Glitch-soc server
+ * bbcode: Is supported BBCode (from now.kibousoft.co.jp)
+ * markdown: Is supported Markdown (from kirishima.cloud)
+ * enquete: Is supported enquete (from friends.nico)
+ * enquete_duration: アンケートの期間設定 (from knzk.me)
+ * yomigana: Is supported yomigana (from theboss.tech)
+ * privacy_limited: Is supported limited mode (from itabashi.0j0.jp)
  */
 
 var instance_config = {
@@ -32,5 +33,9 @@ var instance_config = {
   'theboss.tech': {
     limit: 1000,
     yomigana: true,
+  },
+  'itabashi.0j0.jp': {
+    limit: 1024,
+    privacy_limited: true,
   },
 };
