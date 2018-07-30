@@ -11,8 +11,10 @@
 
 var instance_config = {
   'knzk.me': {
-    limit: 5000,
-    glitch_soc: true,
+    limit: 500,
+  },
+  'mastodon.cloud': {
+    limit: 500,
   },
   'now.kibousoft.co.jp': {
     limit: 4096,
@@ -21,6 +23,7 @@ var instance_config = {
   'kirishima.cloud': {
     limit: 6229,
     bbcode: true,
+    markdown: true,
   },
   'friends.nico': {
     limit: 500,
