@@ -4,7 +4,7 @@ function SearchKey() {
 
 function SearchLoad() {
   loadNav('olist_nav.html');
-  var q = escapeHTML(document.getElementById('nav-search').value);
+  var q = escapeHTML(elemId('nav-search').value);
   Fetch('https://' + inst + '/api/v2/search?q=' + q, {
     headers: {
       'content-type': 'application/json',
@@ -22,7 +22,7 @@ function SearchLoad() {
     .then(function(json) {
       var reshtml = '',
         i = 0;
-      document.getElementById('olist_nav_title').innerHTML = i18next.t('search.result', {
+      elemId('olist_nav_title').innerHTML = i18next.t('search.result', {
         text: q,
       });
       reshtml +=
@@ -64,7 +64,7 @@ function SearchLoad() {
         i++;
       }
 
-      document.getElementById('olist_nav_main').innerHTML = reshtml;
+      elemId('olist_nav_main').innerHTML = reshtml;
     })
     .catch(function(error) {
       error.text().then(errorMessage => {

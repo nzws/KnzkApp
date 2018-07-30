@@ -21,8 +21,8 @@ function getError(name, log, mode) {
 
 function Seterrorlog(id, text, data) {
   if (data) {
-    document.getElementById(id).innerHTML = JSON.stringify(text);
+    elemId(id).innerHTML = JSON.stringify(text);
   } else {
-    document.getElementById(id).innerHTML = text;
+    elemId(id).innerHTML = text;
   }
 }

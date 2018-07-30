@@ -118,7 +118,7 @@ function renderCustomEmoji(emojiobj) {
   var i = 0,
     customreshtml = '',
     search_a_custom = [],
-    load = document.getElementById('emoji_loading');
+    load = elemId('emoji_loading');
   if (!getConfig(1, 'no_custom_emoji')) {
     Fetch('https://' + inst + '/api/v1/custom_emojis', {
       headers: { 'content-type': 'application/json' },

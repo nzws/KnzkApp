@@ -1,9 +1,8 @@
 function openDoodle(simple) {
   if (simple) image_mode = '_simple';
   else image_mode = '';
-  document.getElementById('navigator').removeAttribute('swipeable');
-  if (getConfig(1, 'swipe_menu') == 1)
-    document.getElementById('splitter-menu').removeAttribute('swipeable');
+  elemId('navigator').removeAttribute('swipeable');
+  if (getConfig(1, 'swipe_menu') == 1) elemId('splitter-menu').removeAttribute('swipeable');
   $.when(
     document.querySelector('#navigator').bringPageTop('doodle.html', { animation: 'lift' })
   ).done(function() {
@@ -12,7 +11,7 @@ function openDoodle(simple) {
     sketcher.adaptiveStroke = false;
     doodle_mode = 'draw';
     doodle_old_color = '#000000';
-    var canvas = document.getElementById('mySketcher');
+    var canvas = elemId('mySketcher');
     var ctx = canvas.getContext('2d');
     ctx.fillStyle = 'rgb(255,255,255)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -29,7 +28,7 @@ function Doodle_reset() {
         sketcher.clear();
         hidePopover('doodle_popover');
 
-        var canvas = document.getElementById('mySketcher');
+        var canvas = elemId('mySketcher');
         var ctx = canvas.getContext('2d');
         ctx.fillStyle = 'rgb(255,255,255)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -39,9 +38,8 @@ function Doodle_reset() {
 
 function closeDoodle(force) {
   if (force) {
-    document.getElementById('navigator').setAttribute('swipeable', '');
-    if (getConfig(1, 'swipe_menu') == 1)
-      document.getElementById('splitter-menu').setAttribute('swipeable', '1');
+    elemId('navigator').setAttribute('swipeable', '');
+    if (getConfig(1, 'swipe_menu') == 1) elemId('splitter-menu').setAttribute('swipeable', '1');
     BackTab('down');
   } else {
     ons.notification
@@ -50,9 +48,9 @@ function closeDoodle(force) {
       })
       .then(function(e) {
         if (e === 1) {
-          document.getElementById('navigator').setAttribute('swipeable', '');
+          elemId('navigator').setAttribute('swipeable', '');
           if (getConfig(1, 'swipe_menu') == 1)
-            document.getElementById('splitter-menu').setAttribute('swipeable', '1');
+            elemId('splitter-menu').setAttribute('swipeable', '1');
           BackTab('down');
         }
       });
@@ -81,7 +79,7 @@ function Doodle_upload() {
 }
 
 function Doodle_config(id) {
-  var mode = document.getElementById('doodle_' + id).checked;
+  var mode = elemId('doodle_' + id).checked;
   if (platform === 'ios') {
     if (mode == true) {
       Doodle_changeType(id, false);
@@ -99,7 +97,7 @@ function Doodle_config(id) {
 
 function Doodle_changeMode() {
   var now = doodle_mode;
-  var button = document.getElementById('doodle_pen_bt');
+  var button = elemId('doodle_pen_bt');
   if (now === 'draw') {
     sketcher.color = doodle_old_color;
     button.className = 'ons-icon fa-bath fa';

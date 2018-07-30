@@ -74,12 +74,11 @@ function show_account(id) {
       }
 
       if (!json.display_name) json.display_name = json.username;
-      document.getElementById('userpage-name').innerHTML = t_text(escapeHTML(json.display_name));
-      document.getElementById('userpage-title').innerHTML = '@' + json.acct;
-      document.getElementById('userpage-acct').innerHTML = '@' + json.acct;
-      document.getElementById('userpage-bio').innerHTML = t_text(json.note) + bio_field;
-      document.getElementById('userpage-icon').src =
-        json[getConfig(1, 'no_gif') ? 'avatar_static' : 'avatar'];
+      elemId('userpage-name').innerHTML = t_text(escapeHTML(json.display_name));
+      elemId('userpage-title').innerHTML = '@' + json.acct;
+      elemId('userpage-acct').innerHTML = '@' + json.acct;
+      elemId('userpage-bio').innerHTML = t_text(json.note) + bio_field;
+      elemId('userpage-icon').src = json[getConfig(1, 'no_gif') ? 'avatar_static' : 'avatar'];
       document
         .getElementById('userpage-bg')
         .setAttribute(
@@ -88,18 +87,18 @@ function show_account(id) {
             json[getConfig(1, 'no_gif') ? 'header_static' : 'header'] +
             "');"
         );
-      document.getElementById('userpage-follow').innerHTML = json.following_count;
-      document.getElementById('userpage-follower').innerHTML = json.followers_count;
-      document.getElementById('userpage-post-count').innerHTML = json.statuses_count;
+      elemId('userpage-follow').innerHTML = json.following_count;
+      elemId('userpage-follower').innerHTML = json.followers_count;
+      elemId('userpage-post-count').innerHTML = json.statuses_count;
       if (json.locked === true) $('#userpage-lock').removeClass('invisible');
       else $('#userpage-lock').addClass('invisible');
       showAccountTL(json.id);
 
       if (json.moved) {
-        document.getElementById('acct-moved-base').className = 'toot acct-small';
-        document.getElementById('acct-moved').innerHTML = AccountCard(json.moved);
+        elemId('acct-moved-base').className = 'toot acct-small';
+        elemId('acct-moved').innerHTML = AccountCard(json.moved);
       } else {
-        document.getElementById('acct-moved-base').className = 'invisible';
+        elemId('acct-moved-base').className = 'invisible';
       }
 
       if (json.username === json.acct) {
@@ -114,10 +113,10 @@ function show_account(id) {
           minute: '2-digit',
         });
 
-        document.getElementById('userpage-hint').innerHTML =
+        elemId('userpage-hint').innerHTML =
           i18next.t('account.joined_at') + ': <b>' + date_text + '</b>';
       } else {
-        document.getElementById('userpage-hint').innerHTML =
+        elemId('userpage-hint').innerHTML =
           "<span class='note'>" + i18next.t('account.note') + '</span>';
       }
     })
@@ -145,36 +144,34 @@ function show_account(id) {
       acctdata['rs'][id] = json;
 
       if (json[0]['followed_by'] === true)
-        document.getElementById('userpage-follower-badge').className = 'userpage-follower';
-      else document.getElementById('userpage-follower-badge').className = 'invisible';
+        elemId('userpage-follower-badge').className = 'userpage-follower';
+      else elemId('userpage-follower-badge').className = 'invisible';
 
       if (json[0]['following'])
-        document.getElementById('userpage-follow-button').className =
+        elemId('userpage-follow-button').className =
           'userpage-button follow-active ons-icon fa-user-times fa';
-      else
-        document.getElementById('userpage-follow-button').className =
-          'userpage-button ons-icon fa-user-plus fa';
+      else elemId('userpage-follow-button').className = 'userpage-button ons-icon fa-user-plus fa';
 
       if (json[0]['muting']) {
-        document.getElementById('userpage-follow-button').className = 'invisible';
-        document.getElementById('userpage-mute-badge').className = 'userpage-follower';
-      } else document.getElementById('userpage-mute-badge').className = 'invisible';
+        elemId('userpage-follow-button').className = 'invisible';
+        elemId('userpage-mute-badge').className = 'userpage-follower';
+      } else elemId('userpage-mute-badge').className = 'invisible';
 
       if (json[0]['blocking'] === true) {
-        document.getElementById('userpage-follow-button').className = 'invisible';
-        document.getElementById('userpage-block-badge').className = 'userpage-follower';
-      } else document.getElementById('userpage-block-badge').className = 'invisible';
+        elemId('userpage-follow-button').className = 'invisible';
+        elemId('userpage-block-badge').className = 'userpage-follower';
+      } else elemId('userpage-block-badge').className = 'invisible';
 
       if (json[0]['id'] === now_userconf['id']) {
-        document.getElementById('userpage-follow-button').className = 'invisible';
-        document.getElementById('userpage-follower-badge').className = 'invisible';
+        elemId('userpage-follow-button').className = 'invisible';
+        elemId('userpage-follower-badge').className = 'invisible';
       }
 
       if (json[0]['requested'] === true) {
-        document.getElementById('userpage-follow-button').className =
+        elemId('userpage-follow-button').className =
           'userpage-button follow-active ons-icon fa-hourglass fa';
-        document.getElementById('userpage-followreq-badge').className = 'userpage-follower';
-      } else document.getElementById('userpage-followreq-badge').className = 'invisible';
+        elemId('userpage-followreq-badge').className = 'userpage-follower';
+      } else elemId('userpage-followreq-badge').className = 'invisible';
     })
     .catch(function(error) {
       error.text().then(errorMessage => {
@@ -190,8 +187,7 @@ function account_state_action(id, mode) {
       acctdata['rs'][id][0]['following'] || acctdata['rs'][id][0]['requested']
         ? '/unfollow'
         : '/follow';
-    document.getElementById('userpage-follow-button').className =
-      'userpage-button ons-icon fa-spinner fa fa-spin';
+    elemId('userpage-follow-button').className = 'userpage-button ons-icon fa-spinner fa fa-spin';
   } else if (mode === 'mute') {
     url = acctdata['rs'][id][0]['muting'] ? '/unmute' : '/mute';
   } else if (mode === 'block') {
@@ -333,10 +329,10 @@ function OpenQR(user) {
     .querySelector('#navigator')
     .bringPageTop('qrcode.html')
     .then(function() {
-      document.getElementById('qrimg').src =
+      elemId('qrimg').src =
         'http://chart.googleapis.com/chart?cht=qr&chs=200x200&choe=UTF-8&chl=https%3A%2F%2Fopenapp.nzws.me%2Fopen.html%3F' +
         encodeURIComponent(user);
-      document.getElementById('qr-userid').innerText = user;
+      elemId('qr-userid').innerText = user;
     });
 }
 
@@ -348,9 +344,9 @@ function update_userdata() {
     },
     method: 'PATCH',
     body: JSON.stringify({
-      display_name: document.getElementById('userconf-display_name').value,
-      note: document.getElementById('userconf-note').value,
-      locked: document.getElementById('userconf-lock').checked,
+      display_name: elemId('userconf-display_name').value,
+      note: elemId('userconf-note').value,
+      locked: elemId('userconf-lock').checked,
     }),
   })
     .then(function(response) {

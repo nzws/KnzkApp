@@ -2,7 +2,7 @@ function createFilter() {
   var conf = $("[id^='filter_']"),
     i = 0,
     config = {},
-    id = escapeHTML(document.getElementById('userid_filter').value).toLowerCase();
+    id = escapeHTML(elemId('userid_filter').value).toLowerCase();
   if (!id) return;
   if (id.indexOf('@') === -1) id += '@' + inst;
   while (conf[i]) {
@@ -43,7 +43,7 @@ function renderFilter() {
         '</ons-list-item>\n';
     }
   }
-  document.getElementById('filter_list').innerHTML = reshtml;
+  elemId('filter_list').innerHTML = reshtml;
 }
 
 function editFilter(id) {
@@ -52,7 +52,7 @@ function editFilter(id) {
     .querySelector('#navigator')
     .bringPageTop('editFilter.html')
     .then(function() {
-      document.getElementById('userid_filter').value = id;
+      elemId('userid_filter').value = id;
       var conf = $("[id^='filter_']"),
         i = 0;
       while (conf[i]) {

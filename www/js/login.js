@@ -172,8 +172,8 @@ function login_callback(code) {
 
 function debug_login() {
   show('now_loading');
-  var inst_domain = document.getElementById('login_debug_domain').value;
-  var token = document.getElementById('login_debug_token').value;
+  var inst_domain = elemId('login_debug_domain').value;
+  var token = elemId('login_debug_token').value;
 
   Fetch('https://' + inst_domain + '/api/v1/accounts/verify_credentials', {
     headers: { Authorization: 'Bearer ' + token },
@@ -207,9 +207,9 @@ function debug_login() {
 }
 
 function account_change_list() {
-  var music = document.getElementById('music-form');
-  var menu = document.getElementById('menu-list');
-  var account_list = document.getElementById('account-list');
+  var music = elemId('music-form');
+  var menu = elemId('menu-list');
+  var account_list = elemId('account-list');
   if (account_list.style.display === 'none') {
     account_list.style.display = 'block';
     menu.style.display = 'none';
@@ -279,7 +279,7 @@ function account_del(id) {
         var nid = parseInt(id);
         list.splice(nid, 1);
         localStorage.setItem('knzkapp_account_list', JSON.stringify(list));
-        document.getElementById('splitter-menu').close();
+        elemId('splitter-menu').close();
         showtoast('del_ok');
       }
     });
@@ -309,11 +309,11 @@ function account_list() {
       '    </ons-list-item>';
     i++;
   }
-  document.getElementById('account-list-other').innerHTML = reshtml;
+  elemId('account-list-other').innerHTML = reshtml;
 }
 
 function open_addaccount() {
-  var menu = document.getElementById('splitter-menu');
+  var menu = elemId('splitter-menu');
   document
     .querySelector('#navigator')
     .bringPageTop('login.html', { animation: 'slide' })

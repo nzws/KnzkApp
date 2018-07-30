@@ -6,7 +6,7 @@ function list(mode, title, more_load, mode_toot, navmode) {
       list_n(mode, title, more_load, mode_toot, true);
     });
   } else {
-    var menu = document.getElementById('splitter-menu');
+    var menu = elemId('splitter-menu');
     $.when(
       document
         .querySelector('#navigator')
@@ -47,11 +47,9 @@ function list_n(mode, title, more_load, mode_toot, navmode) {
         var json = JSON.parse(xhr.responseText);
         if (more_load) {
           more_load.className = 'button button--large--quiet invisible';
-          reshtml = document.getElementById(id_main).innerHTML;
+          reshtml = elemId(id_main).innerHTML;
         } else {
-          document.getElementById(id_title).innerHTML = title.match(/\./i)
-            ? i18next.t(title)
-            : title;
+          elemId(id_title).innerHTML = title.match(/\./i) ? i18next.t(title) : title;
         }
 
         while (json[i]) {
@@ -99,7 +97,7 @@ function list_n(mode, title, more_load, mode_toot, navmode) {
             ")'>" +
             i18next.t('navigation.load_more') +
             '</button>';
-        document.getElementById(id_main).innerHTML = reshtml;
+        elemId(id_main).innerHTML = reshtml;
         return true;
       } else {
         showtoast('cannot-load');
@@ -197,8 +195,8 @@ function LoadrepStatus() {
         repstatus = [];
         i++;
       }
-      document.getElementById('olist_nav_title').innerHTML = i18next.t('navigation.report_status');
-      document.getElementById('olist_nav_main').innerHTML = reshtml;
+      elemId('olist_nav_title').innerHTML = i18next.t('navigation.report_status');
+      elemId('olist_nav_main').innerHTML = reshtml;
     })
     .catch(function(error) {
       error.text().then(errorMessage => {
@@ -251,7 +249,7 @@ function renderListsCollection(isEdit) {
           }
           i++;
         }
-        document.getElementById(isEdit ? 'people-list' : 'lists-list').innerHTML = buf;
+        elemId(isEdit ? 'people-list' : 'lists-list').innerHTML = buf;
       }
     })
     .catch(error => {
@@ -289,7 +287,7 @@ function addAccountToList(id, isDelete) {
 }
 
 function SearchListLoad() {
-  var q = escapeHTML(document.getElementById('List-search').value);
+  var q = escapeHTML(elemId('List-search').value);
   Fetch('https://' + inst + '/api/v1/accounts/search?q=' + q + '&resolve=false&following=true', {
     headers: {
       'content-type': 'application/json',
@@ -319,7 +317,7 @@ function SearchListLoad() {
         i++;
       }
 
-      document.getElementById('searchpeople-list').innerHTML = reshtml;
+      elemId('searchpeople-list').innerHTML = reshtml;
     })
     .catch(function(error) {
       error.text().then(errorMessage => {
@@ -330,7 +328,7 @@ function SearchListLoad() {
 
 function closeSearchList() {
   renderListsCollection(editing_id);
-  document.getElementById('searchpeople-list').innerHTML = '';
+  elemId('searchpeople-list').innerHTML = '';
 }
 
 function listMore(id, title) {
@@ -429,7 +427,7 @@ function deleteList(id, title) {
 function showList(id, title) {
   list('timelines/list/' + id, 'List:' + title, null, 'toot', true);
   setTimeout(function() {
-    document.getElementById('olist_right').innerHTML =
+    elemId('olist_right').innerHTML =
       '<ons-toolbar-button onclick="loadNav(\'lists.html\')" class="toolbar-button">\n' +
       '<ons-icon icon=\'fa-cogs\' class="ons-icon fa-cogs fa"></ons-icon>\n' +
       '</ons-toolbar-button>';

@@ -1,23 +1,23 @@
 var showPopover = function(target, id) {
-  document.getElementById(id).show(target);
+  elemId(id).show(target);
 };
 
 var hidePopover = function(id) {
-  document.getElementById(id).hide();
+  elemId(id).hide();
 };
 
 window.fn = {};
 
 window.fn.open = function() {
-  var menu = document.getElementById('splitter-menu');
+  var menu = elemId('splitter-menu');
   menu.open();
   $('[data-i18n]').localize();
 };
 
 function reset_nav() {
-  var list = document.getElementById('music-form');
-  var menu = document.getElementById('menu-list');
-  var account_list = document.getElementById('account-list');
+  var list = elemId('music-form');
+  var menu = elemId('menu-list');
+  var account_list = elemId('account-list');
   list.style.display = 'none';
   account_list.style.display = 'none';
   menu.style.display = 'block';
@@ -35,7 +35,7 @@ function load(page) {
 function loadNav(page, mode, move_mode) {
   //mode: アニメーション方法, splitter: スライドメニューを使用しているか, move_mode: ページを読み込むモード
   var option = mode === 'up' ? { animation: 'lift' } : { animation: 'slide' },
-    menu = document.getElementById('splitter-menu'),
+    menu = elemId('splitter-menu'),
     nav = document.querySelector('#navigator');
 
   var onLoad = function() {
@@ -82,10 +82,10 @@ function opendial() {
 }
 
 function showtoast(id) {
-  document.getElementById(id).show();
+  elemId(id).show();
   setTimeout(function() {
     //3秒くらい
-    document.getElementById(id).hide();
+    elemId(id).hide();
   }, 2000);
 }
 
@@ -143,11 +143,11 @@ function t_text(text, emojidata, domain) {
 }
 
 function show(id) {
-  document.getElementById(id).show();
+  elemId(id).show();
 }
 
 function hide(id) {
-  document.getElementById(id).hide();
+  elemId(id).hide();
 }
 
 function openURL(url) {
@@ -215,4 +215,8 @@ function escapeHTML(text) {
 function copy(text) {
   cordova.plugins.clipboard.copy(text);
   showtoast('ok-copy');
+}
+
+function elemId(id) {
+  return document.getElementById(id);
 }

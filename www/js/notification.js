@@ -109,7 +109,7 @@ function changeNotification(force) {
         if (conf[0]) showtoast('ok_conf');
       })
       .catch(function(error) {
-        document.getElementById('noti-mode').checked = !!is_unregister;
+        elemId('noti-mode').checked = !!is_unregister;
         error.text().then(errorMessage => {
           getError('Error/registerNotification', errorMessage);
         });
@@ -118,7 +118,7 @@ function changeNotification(force) {
     ons.notification.alert(dialog_i18n('err_fcm_2', 1), {
       title: dialog_i18n('err_fcm_2'),
     });
-    document.getElementById('noti-mode').checked = !!is_unregister;
+    elemId('noti-mode').checked = !!is_unregister;
   }
 }
 
@@ -150,7 +150,7 @@ function renderKeyWordList() {
       '</ons-list-item>\n';
     i++;
   }
-  document.getElementById('keyword_list').innerHTML = reshtml;
+  elemId('keyword_list').innerHTML = reshtml;
 }
 
 function KeyWord_del(id) {
@@ -218,7 +218,7 @@ function setNotificationServer() {
 
 function initNotificationPage() {
   setTimeout(function() {
-    document.getElementById('noti-mode').checked = !!LoadNotificationConfig()['is_running'];
+    elemId('noti-mode').checked = !!LoadNotificationConfig()['is_running'];
     var conf = $("[id^='noti-mute-']"),
       i = 0;
     while (conf[i]) {

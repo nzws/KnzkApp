@@ -1,8 +1,8 @@
 function music_set(id, force) {
-  var obj = document.getElementById(id);
-  var audio = document.getElementById('music-control');
-  var chmode = document.getElementById('music-form').channel;
-  var title = document.getElementById('music_title');
+  var obj = elemId(id);
+  var audio = elemId('music-control');
+  var chmode = elemId('music-form').channel;
+  var title = elemId('music_title');
   var mode, churl, fmode;
 
   if (force === true) {
@@ -62,9 +62,9 @@ function music_set(id, force) {
 }
 
 function music_change() {
-  var list = document.getElementById('music-form');
-  var menu = document.getElementById('menu-list');
-  var account_list = document.getElementById('account-list');
+  var list = elemId('music-form');
+  var menu = elemId('menu-list');
+  var account_list = elemId('account-list');
   if (list.style.display === 'none') {
     list.style.display = 'block';
     menu.style.display = 'none';

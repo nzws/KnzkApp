@@ -1,6 +1,6 @@
 function post_cw() {
-  var cw_input = document.getElementById('cw_input');
-  var cwicon = document.getElementById('cw_bt');
+  var cw_input = elemId('cw_input');
+  var cwicon = elemId('cw_bt');
 
   if (cw_input.style.display == 'block') {
     //CW オン→オフ
@@ -15,17 +15,17 @@ function post_cw() {
 }
 
 function post_vote() {
-  var cw_input = document.getElementById('vote_new_list');
-  var cwicon = document.getElementById('vote_bt');
+  var cw_input = elemId('vote_new_list');
+  var cwicon = elemId('vote_bt');
 
   if (cw_input.style.display == 'block') {
     //vote オン→オフ
     cw_input.style.display = 'none';
-    document.getElementById('vote_new_1').value = '';
-    document.getElementById('vote_new_2').value = '';
-    document.getElementById('vote_new_3').value = '';
-    document.getElementById('vote_new_4').value = '';
-    document.getElementById('vote_new_time').value = '30';
+    elemId('vote_new_1').value = '';
+    elemId('vote_new_2').value = '';
+    elemId('vote_new_3').value = '';
+    elemId('vote_new_4').value = '';
+    elemId('vote_new_time').value = '30';
     cwicon.className = quiet;
   } else {
     //vote オフ→オン
@@ -101,7 +101,7 @@ function up_file_suc(base64, mode_blob) {
       .then(function(json) {
         if (json) {
           if (json['id'] && json['type'] !== 'unknown') {
-            document.getElementById('image_list' + image_mode).innerHTML =
+            elemId('image_list' + image_mode).innerHTML =
               '<ons-card onclick="file_del(this)" style=\'background-image: url(' +
               json['preview_url'] +
               ")' class='card-image media-upload" +
@@ -109,7 +109,7 @@ function up_file_suc(base64, mode_blob) {
               "' data-mediaid='" +
               json['id'] +
               "'></ons-card>" +
-              document.getElementById('image_list' + image_mode).innerHTML;
+              elemId('image_list' + image_mode).innerHTML;
             image_mode = '';
             hide('now_loading');
           } else {
@@ -143,8 +143,8 @@ function file_error(msg) {
 function post_nsfw(simple) {
   var simple_id = '';
   if (simple) simple_id = '_simple';
-  var cw_input = document.getElementById('nsfw_input' + simple_id);
-  var cwicon = document.getElementById('nsfw_bt' + simple_id);
+  var cw_input = elemId('nsfw_input' + simple_id);
+  var cwicon = elemId('nsfw_bt' + simple_id);
 
   if (simple) {
     if (cwicon.className == button + ' w-max') {
@@ -171,8 +171,8 @@ function post_nsfw(simple) {
 function post_localonly(simple) {
   var simple_id = '';
   if (simple) simple_id = '_simple';
-  var cw_input = document.getElementById('localonly_input' + simple_id);
-  var cwicon = document.getElementById('localonly_bt' + simple_id);
+  var cw_input = elemId('localonly_input' + simple_id);
+  var cwicon = elemId('localonly_bt' + simple_id);
 
   if (cwicon.className == button) {
     //選択済み→解除
@@ -188,8 +188,8 @@ function post_localonly(simple) {
 function post_mode(simple) {
   var simple_id = '';
   if (simple) simple_id = '_simple';
-  var input_obj = document.getElementById('post_mode' + simple_id);
-  var bt_obj = document.getElementById('post_mode_icon' + simple_id);
+  var input_obj = elemId('post_mode' + simple_id);
+  var bt_obj = elemId('post_mode_icon' + simple_id);
   var icon_base = 'ons-icon fa-fw fa fa-';
 
   ons
@@ -226,16 +226,16 @@ function post_mode(simple) {
 function check_limit(value, id, tb_id, cw_id) {
   var limit = 0;
   if (cw_id) {
-    var cw = document.getElementById(cw_id).value;
+    var cw = elemId(cw_id).value;
     limit = toot_limit - value.length - cw.length;
   } else {
     limit = toot_limit - value.length;
   }
-  document.getElementById(id).innerHTML = limit;
+  elemId(id).innerHTML = limit;
   if (limit < 0) {
-    document.getElementById(id).setAttribute('style', 'color: red');
+    elemId(id).setAttribute('style', 'color: red');
   } else {
-    document.getElementById(id).setAttribute('style', '');
+    elemId(id).setAttribute('style', '');
   }
 }
 
@@ -243,17 +243,17 @@ function show_bbcodegen(id, limit, button) {
   tmp_bbcode_limit = limit;
   tmp_bbcode_tootbutton = button;
   tmp_bbcode_id = id;
-  tmp_post_text = document.getElementById(id).value;
+  tmp_post_text = elemId(id).value;
   loadNav('bbcode.html');
 }
 
 function bbcodegen(force) {
-  var text = document.getElementById('bbcode_text').value;
-  var base = document.getElementById('bbcode_base').value;
-  var color = document.getElementById('bbcode_color').value;
-  var large = document.getElementById('bbcode_large').value;
-  var spin = parseInt(document.getElementById('bbcode_spin').value);
-  var pulse = parseInt(document.getElementById('bbcode_pulse').value);
+  var text = elemId('bbcode_text').value;
+  var base = elemId('bbcode_base').value;
+  var color = elemId('bbcode_color').value;
+  var large = elemId('bbcode_large').value;
+  var spin = parseInt(elemId('bbcode_spin').value);
+  var pulse = parseInt(elemId('bbcode_pulse').value);
   var pre = '',
     suf = '',
     buf = '',
@@ -306,7 +306,7 @@ function bbcodegen(force) {
       showtoast('bbcode-limit');
     } else {
       document.querySelector('#navigator').popPage();
-      document.getElementById(tmp_bbcode_id).value = value;
+      elemId(tmp_bbcode_id).value = value;
       check_limit(value, tmp_bbcode_limit, tmp_bbcode_tootbutton);
     }
   }
@@ -316,7 +316,7 @@ function bbcode_color(color) {
   BackTab();
   var color_s = '#' + color;
   if (color_mode) {
-    var d_box = document.getElementById('doodle-color-box-mini');
+    var d_box = elemId('doodle-color-box-mini');
     if (color) {
       doodle_old_color = color_s;
       sketcher.color = color_s;
@@ -326,8 +326,8 @@ function bbcode_color(color) {
       d_box.style.backgroundColor = '#000000';
     }
   } else {
-    var b_color = document.getElementById('bbcode_color');
-    var b_box = document.getElementById('color-box-mini');
+    var b_color = elemId('bbcode_color');
+    var b_box = elemId('color-box-mini');
     if (color) {
       b_color.value = color;
       b_box.style.backgroundColor = color_s;
@@ -343,7 +343,7 @@ function post(id, option, simple) {
     i,
     simple_id = '',
     optiondata = {
-      status: document.getElementById(id).value,
+      status: elemId(id).value,
       visibility: option.visibility,
     };
   if (simple) {
@@ -354,11 +354,11 @@ function post(id, option, simple) {
 
   var media = document.getElementsByClassName('media-upload' + simple_id);
 
-  var vote1 = document.getElementById('vote_new_1' + simple_id).value;
-  var vote2 = document.getElementById('vote_new_2' + simple_id).value;
-  var vote3 = document.getElementById('vote_new_3' + simple_id).value;
-  var vote4 = document.getElementById('vote_new_4' + simple_id).value;
-  var votem = document.getElementById('vote_new_time' + simple_id).value;
+  var vote1 = elemId('vote_new_1' + simple_id).value;
+  var vote2 = elemId('vote_new_2' + simple_id).value;
+  var vote3 = elemId('vote_new_3' + simple_id).value;
+  var vote4 = elemId('vote_new_4' + simple_id).value;
+  var votem = elemId('vote_new_time' + simple_id).value;
 
   if (vote1 != '' && vote2 != '') {
     optiondata.isEnquete = true;
@@ -417,15 +417,15 @@ function post(id, option, simple) {
             .prop('checked', false);
           $('#simple_toot_cw').val('');
           check_limit(
-            document.getElementById('simple_toot_TL_input').value,
+            elemId('simple_toot_TL_input').value,
             'toot_limit_simple',
             'toot-button_simple',
             'simple_toot_cw'
           );
-          document.getElementById('image_list_simple').innerHTML = '';
+          elemId('image_list_simple').innerHTML = '';
           $('#post_mode_simple').val(default_post_visibility);
-          document.getElementById('localonly_bt_simple').className = 'no-rd button button--quiet';
-          document.getElementById('post_mode_icon_simple').className =
+          elemId('localonly_bt_simple').className = 'no-rd button button--quiet';
+          elemId('post_mode_icon_simple').className =
             'ons-icon fa-fw fa fa-' + visibility_name(default_post_visibility);
           hide('post_now');
         } else {
@@ -458,18 +458,18 @@ function simple_open() {
   if (instance_config[inst]['glitch_soc']) $('#localonly_bt_simple').removeClass('invisible');
   if (instance_config[inst]['markdown']) $('#md_note_simple').removeClass('invisible');
 
-  document.getElementById('simple_toot_TL_input').rows = 3;
+  elemId('simple_toot_TL_input').rows = 3;
   $('#simple_toot_TL_toolbar').addClass('simple_toot_open');
   $('#simple_more').removeClass('invisible');
 
   $('#dial_main').addClass('fab_simple_toot_open');
   $('#dial_TL').addClass('fab_simple_toot_open');
 
-  renderEmoji(document.getElementById('emoji_list_popover'));
+  renderEmoji(elemId('emoji_list_popover'));
 }
 
 function simple_close() {
-  document.getElementById('simple_toot_TL_input').rows = 1;
+  elemId('simple_toot_TL_input').rows = 1;
   $('#simple_toot_TL_toolbar').removeClass('simple_toot_open');
   $('#simple_more').addClass('invisible');
 
@@ -488,7 +488,7 @@ function add_emoji_simple(addtext, mode) {
   } else {
     if (mode) id = 'toot_textarea';
   }
-  var textarea = document.getElementById(id);
+  var textarea = elemId(id);
   var sentence = textarea.value;
   var len = sentence.length;
   var pos = textarea.selectionStart;

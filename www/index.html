@@ -480,7 +480,7 @@
                 <textarea class="textarea w-max" rows="1" placeholder="トゥート！" id="simple_toot_TL_input" onfocus="simple_open()" onkeyup="check_limit(value, 'toot_limit_simple', 'toot-button_simple', 'simple_toot_cw');"></textarea>
               </div>
               <div class="right" style="padding-right: 0">
-                <ons-button modifier="quiet" class="no-rd" onclick="post('simple_toot_TL_input', {cw:document.getElementById('simple_toot_cw').value, visibility:document.getElementById('post_mode_simple').value, sensitive:document.getElementById('nsfw_input_simple').value, in_reply_to_id: document.getElementById('post_reply_simple').value, local_only: document.getElementById('localonly_input_simple').value}, true)"
+                <ons-button modifier="quiet" class="no-rd" onclick="post('simple_toot_TL_input', {cw:elemId('simple_toot_cw').value, visibility:elemId('post_mode_simple').value, sensitive:elemId('nsfw_input_simple').value, in_reply_to_id: elemId('post_reply_simple').value, local_only: elemId('localonly_input_simple').value}, true)"
                   id="toot-button_simple">
                   <ons-icon icon="fa-paper-plane-o"></ons-icon>
                 </ons-button>
@@ -519,7 +519,7 @@
       <ons-popover direction="up" id="tools_popover">
         <div style="padding: 10px; text-align: center;">
           <p>
-            <ons-button onclick="hidePopover('tools_popover');showPopover(document.getElementById('tools_bt_simple'), 'vote_popover')"
+            <ons-button onclick="hidePopover('tools_popover');showPopover(elemId('tools_bt_simple'), 'vote_popover')"
               class="w-max invisible" id="vote_bt_simple">
               <ons-icon icon="fa-align-left"></ons-icon>
               Enquete
@@ -545,7 +545,7 @@
       <ons-popover direction="up" id="cp_popover">
         <div style="padding: 10px; text-align: center;">
           <p>
-            <ons-button onclick="hidePopover('cp_popover');copy(document.getElementById('simple_toot_TL_input').value)" class="w-max"
+            <ons-button onclick="hidePopover('cp_popover');copy(elemId('simple_toot_TL_input').value)" class="w-max"
               data-i18n="copyoption.copy">全てコピー</ons-button>
             <ons-button onclick="hidePopover('cp_popover');paste_simple()" style="margin-top: 5px" class="w-max" data-i18n="copyoption.paste">ペースト</ons-button>
           </p>
@@ -1491,7 +1491,7 @@
           <ons-button modifier="quiet" onclick="add_emoji_simple('｜漢字《》', 1)" style="border-radius: 0" id="yomigana_bt" class="invisible">読み</ons-button>
           <span style="float: right">
               <b id="toot-limit" class="toot-limit">4096</b>
-              <ons-button onclick="post('toot_textarea', {cw:document.getElementById('cw_input').value, visibility:document.getElementById('post_mode').value, sensitive:document.getElementById('nsfw_input').value, in_reply_to_id: document.getElementById('post_reply').value, local_only: document.getElementById('localonly_input').value})" id="toot-button" style="border-radius: 4px 0 4px 0;">トゥート！</ons-button>
+              <ons-button onclick="post('toot_textarea', {cw:elemId('cw_input').value, visibility:elemId('post_mode').value, sensitive:elemId('nsfw_input').value, in_reply_to_id: elemId('post_reply').value, local_only: elemId('localonly_input').value})" id="toot-button" style="border-radius: 4px 0 4px 0;">トゥート！</ons-button>
             </span>
         </div>
         <div id="md-box" class="invisible">
@@ -1752,7 +1752,7 @@
                 太さ
               </div>
               <div class="right">
-                <ons-input modifier="underbar" type="number" value="2" id="doodle_weight" onchange="sketcher.weight=parseInt(document.getElementById('doodle_weight').value)"></ons-input>
+                <ons-input modifier="underbar" type="number" value="2" id="doodle_weight" onchange="sketcher.weight=parseInt(elemId('doodle_weight').value)"></ons-input>
               </div>
             </ons-list-item>
             <ons-list-item style="padding-left: 6px;">
@@ -2016,7 +2016,7 @@
             <p><b data-i18n="login.other">他のインスタンス</b></p>
             <ons-input id="inst_url" modifier="underbar" placeholder="mastodon.social" float></ons-input>
             <p class="y-center">
-              <ons-button onclick="login_open_c(document.getElementById('inst_url').value)" style="width: 80%;"><b data-i18n="login.login">ログイン</b></ons-button>
+              <ons-button onclick="login_open_c(elemId('inst_url').value)" style="width: 80%;"><b data-i18n="login.login">ログイン</b></ons-button>
             </p>
           </div>
           <div class="w-max main-logo login_list" id="login_debug">
@@ -2112,7 +2112,7 @@
             <div style="padding: 10px; text-align: center;">
               <div class="tutorial_box" data-i18n="tutorial.page2.alert.deco_box">このボックスで様々な追加機能を使用する事ができます。</div>
               <p>
-                <ons-button onclick="showPopover(document.getElementById('tools_bt_tutorial'), 'vote_popover_t')" class="w-max invisible"
+                <ons-button onclick="showPopover(elemId('tools_bt_tutorial'), 'vote_popover_t')" class="w-max invisible"
                   id="vote_bt_tutorial">
                   <ons-icon icon="fa-align-left"></ons-icon>
                   Enquete

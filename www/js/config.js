@@ -31,11 +31,11 @@ function change_conf(name, id, sel, istext) {
   var md = name === 1 ? 'knzkapp_conf_mastodon' : 'knzkapp_conf_mastodoncol';
   var data = JSON.parse(localStorage.getItem(md));
   if (sel) {
-    data[id] = document.getElementById('conf-' + id).value;
+    data[id] = elemId('conf-' + id).value;
   } else {
     var colmd = '';
     if (md === 'knzkapp_conf_mastodoncol') colmd = 'col-';
-    var mode = document.getElementById('conf-' + colmd + id).checked;
+    var mode = elemId('conf-' + colmd + id).checked;
     if (istext)
       data[id] =
         platform === 'ios' && name === 1 ? (mode == true ? '0' : '1') : mode == true ? '1' : '0';

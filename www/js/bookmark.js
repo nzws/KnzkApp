@@ -14,8 +14,8 @@ function LoadBookmark() {
     renderBookmark_glitch();
   } else {
     setTimeout(function() {
-      document.getElementById('olist_nav_title').innerHTML = i18next.t('bookmark.title');
-      document.getElementById('olist_nav_main').innerHTML = reshtml;
+      elemId('olist_nav_title').innerHTML = i18next.t('bookmark.title');
+      elemId('olist_nav_main').innerHTML = reshtml;
     }, 1000);
   }
 }
@@ -45,8 +45,8 @@ function renderBookmark_glitch() {
           i++;
         }
 
-        document.getElementById('olist_nav_main').innerHTML = reshtml;
-        document.getElementById('olist_nav_title').innerHTML = i18next.t('bookmark.title');
+        elemId('olist_nav_main').innerHTML = reshtml;
+        elemId('olist_nav_title').innerHTML = i18next.t('bookmark.title');
       }
     })
     .catch(error => {
@@ -74,9 +74,9 @@ function renderBookmark(reshtml, json_bookmark, i) {
     .then(function(json) {
       reshtml += toot_card(json, 'full', null);
       if (!json_bookmark[i + 1]) {
-        document.getElementById('olist_nav_title').innerHTML = i18next.t('bookmark.title');
-        document.getElementById('olist_nav_main').innerHTML = reshtml;
-        document.getElementById('olist_right').innerHTML =
+        elemId('olist_nav_title').innerHTML = i18next.t('bookmark.title');
+        elemId('olist_nav_main').innerHTML = reshtml;
+        elemId('olist_right').innerHTML =
           '<ons-toolbar-button onclick="clearBookmark()" class="toolbar-button">\n' +
           '<ons-icon icon=\'fa-trash\' class="ons-icon fa-trash fa"></ons-icon>\n' +
           '</ons-toolbar-button>';

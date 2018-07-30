@@ -15,8 +15,7 @@ function init() {
         };
         inst = localStorage.getItem('knzkapp_now_domain').toLowerCase();
 
-        if (getConfig(1, 'theme'))
-          document.getElementById('theme_css').href = getConfig(1, 'theme');
+        if (getConfig(1, 'theme')) elemId('theme_css').href = getConfig(1, 'theme');
 
         if (instance_config[inst]) {
           toot_limit = instance_config[inst]['limit'];
@@ -25,20 +24,18 @@ function init() {
           toot_limit = 500;
         }
 
-        if (instance_config[inst]['markdown'])
-          document.getElementById('css_md').href = 'css/kirishima_markdown.css';
-        else document.getElementById('css_md').href = '';
+        if (instance_config[inst]['markdown']) elemId('css_md').href = 'css/kirishima_markdown.css';
+        else elemId('css_md').href = '';
 
         if (ons.platform.isIPhoneX()) {
           // for iPhone X
           let html_tag = document.documentElement;
           html_tag.setAttribute('onsflag-iphonex-portrait', '1');
           html_tag.setAttribute('onsflag-iphonex-landscape', '1');
-          document.getElementById('css_toolbar_android').href = 'css/iphonex.css';
+          elemId('css_toolbar_android').href = 'css/iphonex.css';
         }
 
-        if (platform === 'android')
-          document.getElementById('css_toolbar_android').href = 'css/toolbar-height.css';
+        if (platform === 'android') elemId('css_toolbar_android').href = 'css/toolbar-height.css';
       } catch (e) {
         getError('Error/init_1', e);
       }
@@ -85,7 +82,7 @@ function init() {
                   $('#ep_bt_custom').addClass('invisible');
                 } else {
                   $('#ep_bt_custom').removeClass('invisible');
-                  var elist = document.getElementById('emoji_list_popover');
+                  var elist = elemId('emoji_list_popover');
                   elist.innerHTML = 'loading now...';
                   elist.dataset.isload = 'no';
                 }
@@ -109,17 +106,14 @@ function init() {
                         "');"
                     );
                   user_icon = json[getConfig(1, 'no_gif') ? 'avatar_static' : 'avatar'];
-                  document.getElementById('splitter-icon').src = user_icon;
+                  elemId('splitter-icon').src = user_icon;
                   if (instance_config[inst]['yomigana'])
-                    document.getElementById('splitter-profile-name').style.height = '30px';
-                  document.getElementById('splitter-profile-name').innerHTML = t_text(
-                    escapeHTML(json.display_name)
-                  );
-                  document.getElementById('account_change-username').innerHTML =
-                    json.acct + '@' + inst;
+                    elemId('splitter-profile-name').style.height = '30px';
+                  elemId('splitter-profile-name').innerHTML = t_text(escapeHTML(json.display_name));
+                  elemId('account_change-username').innerHTML = json.acct + '@' + inst;
                   if (json.locked === true) $('#menu-followreq').removeClass('invisible');
                   else $('#menu-followreq').addClass('invisible');
-                  document.getElementById('home-icon').src = user_icon;
+                  elemId('home-icon').src = user_icon;
                   document
                     .getElementById('simple_toot_TL_input')
                     .setAttribute(
@@ -128,8 +122,8 @@ function init() {
                     );
                   if (getConfig(1, 'menu-fav') == 1) $('#menu-fav-page').removeClass('invisible');
                   if (getConfig(1, 'swipe_menu') == 1) {
-                    document.getElementById('splitter-menu').setAttribute('swipeable', '1');
-                    document.getElementById('tl_tabs').setAttribute('swipeable', '1');
+                    elemId('splitter-menu').setAttribute('swipeable', '1');
+                    elemId('tl_tabs').setAttribute('swipeable', '1');
                   }
                   migration_app2glitch();
                 }, 500);
@@ -215,9 +209,9 @@ function initevent() {
     pageid = event.enterPage.id;
     if (event.enterPage.id === 'home') {
       setTimeout(function() {
-        document.getElementById('toot_limit_simple').innerHTML = toot_limit;
+        elemId('toot_limit_simple').innerHTML = toot_limit;
         $('#post_mode_simple').val(default_post_visibility);
-        document.getElementById('post_mode_icon_simple').className =
+        elemId('post_mode_icon_simple').className =
           'ons-icon fa-fw fa fa-' + visibility_name(default_post_visibility);
         if (getConfig(1, 'cp_popover')) $('#simple_cp_bt').removeClass('invisible');
       }, 500);
@@ -229,19 +223,16 @@ function initevent() {
     if (event.enterPage.id === 'config-page') {
       show('now_loading');
       setTimeout(function() {
-        if (ons.platform.isIPhoneX()) document.getElementById('item-dp').className = 'invisible'; //iPhoneXだとぶっ壊れるため
-        if (getConfig(1, 'dial'))
-          document.getElementById('dial_' + getConfig(1, 'dial')).selected = true;
-        if (getConfig(1, 'theme'))
-          document.getElementById('theme_' + getConfig(1, 'theme')).selected = true;
+        if (ons.platform.isIPhoneX()) elemId('item-dp').className = 'invisible'; //iPhoneXだとぶっ壊れるため
+        if (getConfig(1, 'dial')) elemId('dial_' + getConfig(1, 'dial')).selected = true;
+        if (getConfig(1, 'theme')) elemId('theme_' + getConfig(1, 'theme')).selected = true;
         if (getConfig(1, 'design_platform'))
-          document.getElementById('dp_' + getConfig(1, 'design_platform')).selected = true;
-        if (getConfig(1, 'url_open'))
-          document.getElementById('url_' + getConfig(1, 'url_open')).selected = true;
+          elemId('dp_' + getConfig(1, 'design_platform')).selected = true;
+        if (getConfig(1, 'url_open')) elemId('url_' + getConfig(1, 'url_open')).selected = true;
         if (getConfig(1, 'toot_button'))
-          document.getElementById('toot_bt_' + getConfig(1, 'toot_button')).selected = true;
+          elemId('toot_bt_' + getConfig(1, 'toot_button')).selected = true;
         if (getConfig(1, 'toot_body'))
-          document.getElementById('toot_body_' + getConfig(1, 'toot_body')).selected = true;
+          elemId('toot_body_' + getConfig(1, 'toot_body')).selected = true;
         hide('now_loading');
         var conf = $("[id^='conf-']"),
           i = 0;
@@ -265,9 +256,9 @@ function initevent() {
           }
         })
         .then(function(json) {
-          document.getElementById('userconf-display_name').value = json['display_name'];
-          document.getElementById('userconf-note').value = json['source']['note'];
-          document.getElementById('userconf-lock').checked = json['locked'];
+          elemId('userconf-display_name').value = json['display_name'];
+          elemId('userconf-note').value = json['source']['note'];
+          elemId('userconf-lock').checked = json['locked'];
           hide('now_loading');
         })
         .catch(function(error) {
@@ -302,7 +293,7 @@ function initevent() {
     if (event.enterPage.id === 'login-page') {
       if (now_userconf['token']) {
         setTimeout(function() {
-          document.getElementById('login_left').innerHTML =
+          elemId('login_left').innerHTML =
             '<ons-toolbar-button onclick="BackTab()" class="toolbar-button">\n' +
             '<ons-icon icon="fa-chevron-left" class="ons-icon fa-chevron-left fa"></ons-icon>\n' +
             i18next.t('navigation.back') +
@@ -313,7 +304,7 @@ function initevent() {
     }
     if (event.enterPage.id === 'toot-page') {
       if (!tmp_post_visibility) tmp_post_visibility = default_post_visibility;
-      document.getElementById('post_mode_icon').className =
+      elemId('post_mode_icon').className =
         'ons-icon fa fa-fw fa-' + visibility_name(tmp_post_visibility);
 
       if (tmp_post_reply) {
@@ -324,17 +315,15 @@ function initevent() {
             post_reply_acct = post_reply_acct_s[0] + ' ...';
           }
         }
-        document.getElementById('post_reply').value = tmp_post_reply; //投稿ID
-        document.getElementById('post_reply_box').className = 'reply-box'; //返信のダイアログ表示
-        document.getElementById('post_reply_acct').innerHTML = tmp_text_pre
-          ? post_reply_acct
-          : '自分';
-        document.getElementById('post_mode').value = tmp_post_visibility; //投稿モード
+        elemId('post_reply').value = tmp_post_reply; //投稿ID
+        elemId('post_reply_box').className = 'reply-box'; //返信のダイアログ表示
+        elemId('post_reply_acct').innerHTML = tmp_text_pre ? post_reply_acct : '自分';
+        elemId('post_mode').value = tmp_post_visibility; //投稿モード
         tmp_post_reply = null;
       }
       tmp_post_visibility = null;
 
-      document.getElementById('toot-limit').innerHTML = toot_limit;
+      elemId('toot-limit').innerHTML = toot_limit;
       if (instance_config[inst]['enquete']) $('#vote_bt').removeClass('invisible');
       if (instance_config[inst]['yomigana']) $('#yomigana_bt').removeClass('invisible');
       if (instance_config[inst]['bbcode']) $('#bbcode_bt').removeClass('invisible');
@@ -342,20 +331,19 @@ function initevent() {
       if (instance_config[inst]['glitch_soc']) $('#localonly_bt').removeClass('invisible');
       if (instance_config[inst]['markdown']) $('#md-box').removeClass('invisible');
 
-      renderEmoji(document.getElementById('emoji_list_popover'));
+      renderEmoji(elemId('emoji_list_popover'));
     }
-    if (document.getElementById('toot_textarea') && tmp_text_pre) {
-      document.getElementById('toot_textarea').value = tmp_text_pre;
+    if (elemId('toot_textarea') && tmp_text_pre) {
+      elemId('toot_textarea').value = tmp_text_pre;
       tmp_text_pre = null;
     }
 
     if (event.enterPage.id === 'about-page') {
-      document.getElementById('app-version').innerText = version;
+      elemId('app-version').innerText = version;
     }
 
     if (event.enterPage.id === 'usermenu-page') {
-      if (!instance_config[inst]['glitch_soc'])
-        document.getElementById('dmtimeline_bt').className = 'invisible';
+      if (!instance_config[inst]['glitch_soc']) elemId('dmtimeline_bt').className = 'invisible';
     }
 
     if (event.enterPage.id === 'config_TL-page') {
@@ -372,7 +360,7 @@ function initevent() {
     if (event.enterPage.id === 'home') {
       home_auto_event = true;
       home_autoevent();
-      document.getElementById('toot_limit_simple').innerHTML = toot_limit;
+      elemId('toot_limit_simple').innerHTML = toot_limit;
     } else {
       home_auto_event = false;
     }
@@ -392,10 +380,7 @@ function initevent() {
 
   document.addEventListener('prechange', function(event) {
     if (event.carousel) {
-      var label = [
-        document.getElementById('tutorial_next_label'),
-        document.getElementById('tutorial_next_icon'),
-      ];
+      var label = [elemId('tutorial_next_label'), elemId('tutorial_next_icon')];
       if (event.activeIndex === 3) {
         label[0].innerText = i18next.t('tutorial.done');
         label[1].className = 'ons-icon fa-check fa';
@@ -405,7 +390,7 @@ function initevent() {
       }
     } else if ($('#navigator').attr('page') === 'home.html') {
       timeline_now_tab = event.index;
-      document.getElementById('home_title').innerHTML = TLname(timeline_config[event.index]);
+      elemId('home_title').innerHTML = TLname(timeline_config[event.index]);
       now_TL = timeline_config[event.index];
       showTL(null, null, null, true);
     }

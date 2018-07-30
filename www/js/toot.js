@@ -399,14 +399,14 @@ function toot_action(action_mode) {
 }
 
 function open_cw(id, btobj) {
-  var cw = document.getElementById(id).className;
+  var cw = elemId(id).className;
   if (cw == 'invisible') {
     //開く
-    document.getElementById(id).className = '';
+    elemId(id).className = '';
     btobj.className = 'cw-button button--large ' + button;
   } else {
     //閉じる
-    document.getElementById(id).className = 'invisible';
+    elemId(id).className = 'invisible';
     btobj.className = 'cw-button ' + large_quiet;
   }
 }
@@ -711,7 +711,7 @@ function show_post(id, near, near_domain, origin_id) {
                   );
                   i++;
                 }
-                document.getElementById('show_toot').innerHTML = reshtml;
+                elemId('show_toot').innerHTML = reshtml;
               }
             })
             .catch(error => {
@@ -748,7 +748,7 @@ function show_post(id, near, near_domain, origin_id) {
                 d++;
               }
 
-              document.getElementById('show_toot').innerHTML = reshtml;
+              elemId('show_toot').innerHTML = reshtml;
             })
             .catch(error => {
               error.text().then(errorMessage => {
@@ -823,7 +823,7 @@ function original_post(id, url, acct) {
         .filter("meta[property='og:description']")
         .attr('content');
       if (t) {
-        document.getElementById('original_post_box').innerText = t;
+        elemId('original_post_box').innerText = t;
         original_post_text = t;
         original_post_userid = acct;
         show('dialog-original_post');
