@@ -63,6 +63,7 @@
 - Enquete - [friends.nico](https://friends.nico)
 - Markdown - [kirishima.cloud](https://kirishima.cloud)
 - Yomigana - [theboss.tech](https://theboss.tech)
+- Limited visibility - [itabashi.0j0.jp](https://itabashi.0j0.jp)
 
 Does your instance have compatible features with these?
 Send a pull request for update `www/config/instance.js`!
