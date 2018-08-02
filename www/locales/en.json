@@ -575,5 +575,13 @@
       "L2": "その他、お困りの際や新しいアイデアなど、何でもいいのでまあまあ暇な開発者(<a href='https://knzk.me/@y'>@y@knzk.me</a>)に質問してみてください。",
       "L3": "ボナペトゥート！"
     }
+  },
+  "starting": {
+    "instance_conf": "Loading instance settings...",
+    "theme": "Loading UI settings...",
+    "instance_login": "Verifying instance...",
+    "login": "Login in...",
+    "prepare": "Preparing...",
+    "user": "Loading user informations..."
   }
 }

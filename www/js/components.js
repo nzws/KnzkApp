@@ -220,3 +220,15 @@ function copy(text) {
 function elemId(id) {
   return document.getElementById(id);
 }
+
+function change_splash(mode) {
+  if (ons.isWebView()) {
+    if (mode) {
+      navigator.splashscreen.show();
+    } else {
+      navigator.splashscreen.hide();
+    }
+  } else {
+    console.log('[splash screen]:' + !!mode);
+  }
+}

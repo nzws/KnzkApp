@@ -1,10 +1,11 @@
 function init() {
   closeAllws();
   init_d();
+  change_splash(0);
   if (!localStorage || !Fetch) {
     show('cannot-use-ls');
   } else {
-    show('now_loading');
+    show('starting_screen');
 
     if (localStorage.getItem('knzkapp_now_token')) {
       try {
@@ -14,32 +15,49 @@ function init() {
           username: localStorage.getItem('knzkapp_now_username'),
         };
         inst = localStorage.getItem('knzkapp_now_domain').toLowerCase();
+      } catch (e) {
+        starting_alert('err');
+        getError('Error/init_login', e);
+        return false;
+      }
 
-        if (getConfig(1, 'theme')) elemId('theme_css').href = getConfig(1, 'theme');
-
+      try {
+        starting_alert('instance_conf');
         if (instance_config[inst]) {
           toot_limit = instance_config[inst]['limit'];
         } else {
           instance_config[inst] = { limit: 500 };
           toot_limit = 500;
         }
+      } catch (e) {
+        starting_alert('err');
+        getError('Error/init_instance', e);
+        return false;
+      }
 
-        if (instance_config[inst]['markdown']) elemId('css_md').href = 'css/kirishima_markdown.css';
-        else elemId('css_md').href = '';
+      try {
+        starting_alert('theme');
+        elemId('theme_css').href = getConfig(1, 'theme') ? getConfig(1, 'theme') : '';
+        elemId('css_md').href = instance_config[inst]['markdown']
+          ? 'css/kirishima_markdown.css'
+          : '';
 
         if (ons.platform.isIPhoneX()) {
           // for iPhone X
           let html_tag = document.documentElement;
           html_tag.setAttribute('onsflag-iphonex-portrait', '1');
           html_tag.setAttribute('onsflag-iphonex-landscape', '1');
-          elemId('css_toolbar_android').href = 'css/iphonex.css';
+          elemId('css_custom_platform').href = 'css/iphonex.css';
+        } else if (platform === 'android') {
+          elemId('css_custom_platform').href = 'css/toolbar-height.css';
         }
-
-        if (platform === 'android') elemId('css_toolbar_android').href = 'css/toolbar-height.css';
       } catch (e) {
-        getError('Error/init_1', e);
+        starting_alert('err');
+        getError('Error/init_instance', e);
+        return false;
       }
 
+      starting_alert('instance_login');
       Fetch('https://' + inst + '/api/v1/instance')
         .then(function(response) {
           if (response.ok) {
@@ -49,6 +67,7 @@ function init() {
           }
         })
         .then(function(json) {
+          starting_alert('login');
           Fetch('https://' + inst + '/api/v1/accounts/verify_credentials', {
             headers: { Authorization: 'Bearer ' + now_userconf['token'] },
           })
@@ -61,6 +80,7 @@ function init() {
             })
             .then(function(json) {
               try {
+                starting_alert('prepare');
                 timeline_config = getConfig(3, 'config');
                 timeline_default_tab = getConfig(3, 'default') === '' ? 0 : getConfig(3, 'default');
                 timeline_list_names = getConfig(3, 'list_names');
@@ -69,7 +89,6 @@ function init() {
                   localStorage.setItem('knzkapp_now_mastodon_id', json.id);
                 if (now_userconf['username'] == undefined)
                   localStorage.setItem('knzkapp_now_mastodon_username', json.username);
-                initBookmark();
 
                 if (json.source) {
                   default_post_visibility = json.source.privacy;
@@ -88,44 +107,58 @@ function init() {
                 }
 
                 document.querySelector('#navigator').resetToPage('home.html');
+                initBookmark();
                 initevent();
 
                 setTimeout(function() {
                   startWatching();
                   initTimeline();
+                  migration_app2glitch();
+
                   if (getConfig(1, 'tutorial') !== 1) {
                     loadNav('tutorial.html', 'up');
                     setConfig(1, 'tutorial', 1);
                   }
-                  document
-                    .getElementById('splitter-profile-bg')
-                    .setAttribute(
-                      'style',
-                      "background-image: url('" +
-                        json[getConfig(1, 'no_gif') ? 'header_static' : 'header'] +
-                        "');"
+
+                  try {
+                    starting_alert('user');
+
+                    if (getConfig(1, 'menu-fav') == 1) $('#menu-fav-page').removeClass('invisible');
+                    if (getConfig(1, 'swipe_menu') == 1) {
+                      elemId('splitter-menu').setAttribute('swipeable', '1');
+                      elemId('tl_tabs').setAttribute('swipeable', '1');
+                    }
+                    document
+                      .getElementById('splitter-profile-bg')
+                      .setAttribute(
+                        'style',
+                        "background-image: url('" +
+                          json[getConfig(1, 'no_gif') ? 'header_static' : 'header'] +
+                          "');"
+                      );
+                    user_icon = json[getConfig(1, 'no_gif') ? 'avatar_static' : 'avatar'];
+                    elemId('splitter-icon').src = user_icon;
+                    if (instance_config[inst]['yomigana'])
+                      elemId('splitter-profile-name').style.height = '30px';
+                    elemId('splitter-profile-name').innerHTML = t_text(
+                      escapeHTML(json.display_name)
                     );
-                  user_icon = json[getConfig(1, 'no_gif') ? 'avatar_static' : 'avatar'];
-                  elemId('splitter-icon').src = user_icon;
-                  if (instance_config[inst]['yomigana'])
-                    elemId('splitter-profile-name').style.height = '30px';
-                  elemId('splitter-profile-name').innerHTML = t_text(escapeHTML(json.display_name));
-                  elemId('account_change-username').innerHTML = json.acct + '@' + inst;
-                  if (json.locked === true) $('#menu-followreq').removeClass('invisible');
-                  else $('#menu-followreq').addClass('invisible');
-                  elemId('home-icon').src = user_icon;
-                  document
-                    .getElementById('simple_toot_TL_input')
-                    .setAttribute(
-                      'placeholder',
-                      i18next.t('toot.toot_as', { acct: now_userconf['username'] + '@' + inst })
-                    );
-                  if (getConfig(1, 'menu-fav') == 1) $('#menu-fav-page').removeClass('invisible');
-                  if (getConfig(1, 'swipe_menu') == 1) {
-                    elemId('splitter-menu').setAttribute('swipeable', '1');
-                    elemId('tl_tabs').setAttribute('swipeable', '1');
+                    elemId('account_change-username').innerHTML = json.acct + '@' + inst;
+                    if (json.locked === true) $('#menu-followreq').removeClass('invisible');
+                    else $('#menu-followreq').addClass('invisible');
+                    elemId('home-icon').src = user_icon;
+                    document
+                      .getElementById('simple_toot_TL_input')
+                      .setAttribute(
+                        'placeholder',
+                        i18next.t('toot.toot_as', { acct: now_userconf['username'] + '@' + inst })
+                      );
+                  } catch (e) {
+                    starting_alert('err');
+                    getError('Error/init_instance', e);
+                    return false;
                   }
-                  migration_app2glitch();
+                  hide('starting_screen');
                 }, 500);
               } catch (e) {
                 console.log(e);
@@ -137,7 +170,7 @@ function init() {
                 getError('Error/init_verify_credentials', errorMessage, true);
               });
               showtoast('cannot-connect-API');
-              hide('now_loading');
+              hide('starting_screen');
             });
         })
         .catch(function(error) {
@@ -145,14 +178,14 @@ function init() {
             getError('Error/init_instance', errorMessage, true);
           });
           showtoast('cannot-connect-sv');
-          hide('now_loading');
+          hide('starting_screen');
         });
     } else {
       setTimeout(function() {
+        hide('starting_screen');
         document.querySelector('#navigator').resetToPage('login.html');
       }, 500);
     }
-    hide('now_loading');
   }
 }
 
@@ -589,4 +622,25 @@ function handleOpenURL(url) {
       show_account_name(user);
     }
   }, 100);
+}
+
+function starting_alert(type) {
+  if (type === 'err') {
+    elemId('starting_err').className = '';
+  } else {
+    if (i18next.t('starting.' + type) == 'starting.' + type) {
+      //i18nロードされてない: 仕方ないのでen読み込む
+      const en_locale = {
+        instance_conf: 'Loading instance settings...',
+        theme: 'Loading UI settings...',
+        instance_login: 'Verifying instance...',
+        login: 'Login in...',
+        prepare: 'Preparing...',
+        user: 'Loading user informations...',
+      };
+      elemId('starting_alert').innerText = en_locale[type];
+    } else {
+      elemId('starting_alert').innerText = i18next.t('starting.' + type);
+    }
+  }
 }
