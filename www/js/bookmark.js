@@ -10,14 +10,18 @@ function LoadBookmark() {
   }
   if (json[0] && !instance_config[inst]['glitch_soc']) {
     renderBookmark(reshtml, json, 0);
+    setTimeout(function() {
+      elemId('olist_right').innerHTML =
+        '<ons-toolbar-button onclick="clearBookmark()" class="toolbar-button">\n' +
+        '<ons-icon icon=\'fa-trash\' class="ons-icon fa-trash fa"></ons-icon>\n' +
+        '</ons-toolbar-button>';
+    }, 500);
   } else if (instance_config[inst]['glitch_soc']) {
     renderBookmark_glitch();
-  } else {
-    setTimeout(function() {
-      elemId('olist_nav_title').innerHTML = i18next.t('bookmark.title');
-      elemId('olist_nav_main').innerHTML = reshtml;
-    }, 1000);
   }
+  setTimeout(function() {
+    elemId('olist_nav_title').innerHTML = i18next.t('bookmark.title');
+  }, 500);
 }
 
 function renderBookmark_glitch() {
@@ -46,7 +50,6 @@ function renderBookmark_glitch() {
         }
 
         elemId('olist_nav_main').innerHTML = reshtml;
-        elemId('olist_nav_title').innerHTML = i18next.t('bookmark.title');
       }
     })
     .catch(error => {
@@ -73,22 +76,26 @@ function renderBookmark(reshtml, json_bookmark, i) {
     })
     .then(function(json) {
       reshtml += toot_card(json, 'full', null);
-      if (!json_bookmark[i + 1]) {
-        elemId('olist_nav_title').innerHTML = i18next.t('bookmark.title');
-        elemId('olist_nav_main').innerHTML = reshtml;
-        elemId('olist_right').innerHTML =
-          '<ons-toolbar-button onclick="clearBookmark()" class="toolbar-button">\n' +
-          '<ons-icon icon=\'fa-trash\' class="ons-icon fa-trash fa"></ons-icon>\n' +
-          '</ons-toolbar-button>';
-      } else {
+      if (json_bookmark[i + 1]) {
         //次ある
         renderBookmark(reshtml, json_bookmark, i + 1);
+      } else {
+        elemId('olist_nav_main').innerHTML = reshtml;
       }
     })
     .catch(error => {
-      error.text().then(errorMessage => {
-        getError('Error/showBookmark', errorMessage);
-      });
+      reshtml +=
+        '<div onclick="changeBookmark(\'' +
+        json_bookmark[i] +
+        '\');LoadBookmark()" class="toot acct-small"><div class="hashtag-card"><span class="toot-group"><b>' +
+        i18next.t('bookmark.deleted', { interpolation: { escapeValue: false } }) +
+        '</b></span></div></div>\n';
+      if (json_bookmark[i + 1]) {
+        //次ある
+        renderBookmark(reshtml, json_bookmark, i + 1);
+      } else {
+        elemId('olist_nav_main').innerHTML = reshtml;
+      }
     });
 }
 
