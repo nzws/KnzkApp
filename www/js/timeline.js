@@ -231,8 +231,10 @@ function openTL(mode) {
 function initTimeline() {
   var i = 0;
   while (timeline_config[i]) {
-    elemTimeline(i).innerHTML =
-      '<div class="loading-now"><ons-progress-circular indeterminate></ons-progress-circular></div>';
+    try {
+      elemTimeline(i).innerHTML =
+        '<div class="loading-now"><ons-progress-circular indeterminate></ons-progress-circular></div>';
+    } catch (e) {}
     i++;
   }
   TL_change(timeline_default_tab);
