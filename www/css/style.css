@@ -841,6 +841,10 @@ img.emoji {
   border-bottom: 1px solid #c0cdd9;
 }
 
+.action-sheet-button:nth-last-of-type(2) {
+  border-radius: 0;
+}
+
 .action-sheet-button:first-child {
   border-radius: 0;
 }
@@ -851,10 +855,6 @@ img.emoji {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
   }
-}
-
-.action-sheet-button:nth-last-of-type(2) {
-  border-radius: 0;
 }
 
 .action-sheet-button:last-of-type {
