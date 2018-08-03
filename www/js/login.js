@@ -254,7 +254,6 @@ function account_change(id) {
         list.unshift(now);
         localStorage.setItem('knzkapp_account_list', JSON.stringify(list));
 
-        change_splash(1);
         window.location.reload();
       })
       .catch(function(error) {
