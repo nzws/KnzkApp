@@ -829,3 +829,53 @@ img.emoji {
   border-radius: 100%;
   width: 25px;
 }
+
+.action-sheet-button {
+  background: #d9e1e8;
+  color: #282c37;
+  text-align: left;
+  height: 43px;
+  line-height: 43px;
+  padding-left: 15px;
+  font-size: 15px;
+  border-bottom: 1px solid #c0cdd9;
+}
+
+.action-sheet-button:first-child {
+  border-radius: 0;
+}
+
+@media screen and (min-width: 400px) {
+  /* 400px以上はディスプレイに引っ付かなくなる  */
+  .action-sheet-button:first-child {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+}
+
+.action-sheet-button:nth-last-of-type(2) {
+  border-radius: 0;
+}
+
+.action-sheet-button:last-of-type {
+  border-radius: 0;
+  margin: 0;
+  background: #d9e1e8;
+  border-bottom: none;
+}
+
+.action-sheet {
+  width: 100%;
+  max-width: 400px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0 auto;
+}
+
+.action-sheet-title:first-child {
+  background: #d9e1e8;
+  border-bottom: 1px solid #c0cdd9;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
