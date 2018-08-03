@@ -331,7 +331,7 @@ function closeSearchList() {
   elemId('searchpeople-list').innerHTML = '';
 }
 
-function listMore(id, title) {
+function listMore(id, title, is_page) {
   timeline_list_names[id] = title;
   ons
     .openActionSheet({
@@ -348,14 +348,14 @@ function listMore(id, title) {
       ],
     })
     .then(function(index) {
-      if (index === 0) editList(id, title);
+      if (index === 0) editList(id, title, is_page);
       else if (index === 1) renderListsCollection(id);
-      else if (index === 2) deleteList(id, title);
+      else if (index === 2) deleteList(id, title, is_page);
       else if (index === 3) editTLConfAdd('list:' + id);
     });
 }
 
-function editList(id, title) {
+function editList(id, title, is_page) {
   var method = id ? 'PUT' : 'POST';
   ons.notification
     .prompt(dialog_i18n('editlist', 1), {
@@ -381,6 +381,7 @@ function editList(id, title) {
           })
           .then(function(json) {
             renderListsCollection();
+            if (is_page) showList(id, repcom);
           })
           .catch(error => {
             error.text().then(errorMessage => {
@@ -391,7 +392,7 @@ function editList(id, title) {
     });
 }
 
-function deleteList(id, title) {
+function deleteList(id, title, is_page) {
   ons.notification
     .confirm(dialog_i18n('deletelist', 1) + '<br>(' + title + ')', {
       title: dialog_i18n('deletelist'),
@@ -414,6 +415,7 @@ function deleteList(id, title) {
           })
           .then(function(json) {
             renderListsCollection();
+            if (is_page) BackTab();
           })
           .catch(error => {
             error.text().then(errorMessage => {
@@ -428,7 +430,11 @@ function showList(id, title) {
   list('timelines/list/' + id, 'List:' + title, null, 'toot', true);
   setTimeout(function() {
     elemId('olist_right').innerHTML =
-      '<ons-toolbar-button onclick="loadNav(\'lists.html\')" class="toolbar-button">\n' +
+      '<ons-toolbar-button onclick="listMore(\'' +
+      id +
+      "', '" +
+      title +
+      '\', 1)" class="toolbar-button">\n' +
       '<ons-icon icon=\'fa-cogs\' class="ons-icon fa-cogs fa"></ons-icon>\n' +
       '</ons-toolbar-button>';
   }, 100);
