@@ -849,9 +849,20 @@ img.emoji {
   border-radius: 0;
 }
 
+.action-sheet-title:first-child {
+  background: #d9e1e8;
+  border-bottom: 1px solid #c0cdd9;
+  border-radius: 0;
+}
+
 @media screen and (min-width: 400px) {
   /* 400px以上はディスプレイに引っ付かなくなる  */
   .action-sheet-button:first-child {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+
+  .action-sheet-title:first-child {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
   }
@@ -871,11 +882,4 @@ img.emoji {
   right: 0;
   bottom: 0;
   margin: 0 auto;
-}
-
-.action-sheet-title:first-child {
-  background: #d9e1e8;
-  border-bottom: 1px solid #c0cdd9;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
 }
