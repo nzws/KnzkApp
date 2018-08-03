@@ -225,7 +225,7 @@ function post_mode(simple) {
       else return;
 
       input_obj.value = visibility_name;
-      bt_obj.className = visibility_icon_name(visibility_name);
+      bt_obj.className = icon_base + visibility_icon_name(visibility_name);
     });
 }
 
