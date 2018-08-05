@@ -247,7 +247,7 @@ function account_action(id) {
       : i18next.t('actionsheet.toot.mute.set');
     var block_m = acctdata['rs'][id][0]['blocking']
       ? i18next.t('actionsheet.toot.block.unset')
-      : i18next.t('actionsheet.toot.block.unset');
+      : i18next.t('actionsheet.toot.block.set');
     ons
       .openActionSheet({
         cancelable: true,
