@@ -426,12 +426,7 @@
           "title": "Enable copy and paste option",
           "sub": "If you found any problems about copy and paste, please turn on."
         },
-        "theme": "Theme",
-        "platform": {
-          "title": "Platform design",
-          "ios": "iOS",
-          "android": "Android"
-        }
+        "theme": "Theme"
       },
       "system": {
         "title": "System settings",

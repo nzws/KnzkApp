@@ -259,8 +259,6 @@ function initevent() {
         if (ons.platform.isIPhoneX()) elemId('item-dp').className = 'invisible'; //iPhoneXだとぶっ壊れるため
         if (getConfig(1, 'dial')) elemId('dial_' + getConfig(1, 'dial')).selected = true;
         if (getConfig(1, 'theme')) elemId('theme_' + getConfig(1, 'theme')).selected = true;
-        if (getConfig(1, 'design_platform'))
-          elemId('dp_' + getConfig(1, 'design_platform')).selected = true;
         if (getConfig(1, 'url_open')) elemId('url_' + getConfig(1, 'url_open')).selected = true;
         if (getConfig(1, 'toot_button'))
           elemId('toot_bt_' + getConfig(1, 'toot_button')).selected = true;
@@ -506,8 +504,7 @@ var button = '',
   platform = '';
 
 function init_d() {
-  var platform_mode = 'ios',
-    css = '';
+  var css = '';
 
   if (!platform) {
     if (ons.platform.isIOS()) {
@@ -519,26 +516,12 @@ function init_d() {
     }
   }
   if (localStorage.getItem('knzkapp_conf_mastodon') != undefined) {
-    if (getConfig(1, 'design_platform')) {
-      platform_mode = getConfig(1, 'design_platform');
-    } else {
-      ons.disableAutoStyling();
-    }
+    ons.disableAutoStyling();
 
-    if (platform_mode === 'ios') {
-      button = 'button';
-      quiet = button + ' button--quiet';
-      light = button + ' button--light';
-      large_quiet = button + ' button--large--quiet';
-      ons.platform.select('ios');
-    } else {
-      button = 'button button--material';
-      quiet = 'button button--material--flat';
-      light = button + ' button--light';
-      large_quiet = button + ' button--material--flat button--large';
-      ons.platform.select('android');
-      css += '#toot-button { padding-bottom: 0; }';
-    }
+    button = 'button';
+    quiet = button + ' button--quiet';
+    light = button + ' button--light';
+    large_quiet = button + ' button--large--quiet';
 
     if (getConfig(1, 'spin') == 1 || getConfig(1, 'gpu') != 1) {
       if (getConfig(1, 'spin') == 1) {
