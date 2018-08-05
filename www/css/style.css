@@ -883,3 +883,7 @@ img.emoji {
   bottom: 0;
   margin: 0 auto;
 }
+
+.action-sheet-button--destructive {
+  color: #fe3824;
+}
