@@ -15,7 +15,7 @@ function getError(name, log, mode) {
     }
   }
   if (is_debug) {
-    ons.notification.alert('<pre>' + log + '</pre>', { title: 'log' });
+    ons.notification.alert('<pre>' + log + '</pre>', { title: 'log', modifier: 'material' });
   }
 }
 

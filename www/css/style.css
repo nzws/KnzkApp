@@ -887,3 +887,13 @@ img.emoji {
 .action-sheet-button--destructive {
   color: #fe3824;
 }
+
+.alert-dialog,
+.alert-dialog-button {
+  border-radius: 5px;
+}
+
+.alert-dialog-button--primal {
+  background: #56a7e1;
+  color: #fff;
+}

@@ -179,7 +179,7 @@ function clearBookmark() {
           inst: inst,
           interpolation: { escapeValue: false },
         }),
-        { title: i18next.t('bookmark.clear1.title') }
+        { title: i18next.t('bookmark.clear1.title'), modifier: 'material' }
       )
       .then(function(e) {
         if (e === 1) {
@@ -192,6 +192,7 @@ function clearBookmark() {
   } else {
     ons.notification.alert('Glitch-socブックマークでは全削除を行う事ができません。', {
       title: 'ブックマーク全削除',
+      modifier: 'material',
     });
   }
 }
@@ -200,6 +201,7 @@ function clearAllBookmark() {
   ons.notification
     .confirm(i18next.t('bookmark.clear2', { interpolation: { escapeValue: false } }), {
       title: i18next.t('bookmark.clear1.title'),
+      modifier: 'material',
     })
     .then(function(e) {
       if (e === 1) {
@@ -208,7 +210,7 @@ function clearAllBookmark() {
             i18next.t('bookmark.clear3', {
               interpolation: { escapeValue: false },
             }),
-            { title: i18next.t('bookmark.clear1.title') }
+            { title: i18next.t('bookmark.clear1.title'), modifier: 'material' }
           )
           .then(function(e) {
             if (e === 1) {

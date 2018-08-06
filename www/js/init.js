@@ -469,6 +469,7 @@ function initevent() {
     } catch (e) {
       ons.notification.alert(dialog_i18n('err_fcm', 1), {
         title: dialog_i18n('err_fcm'),
+        modifier: 'material',
       });
       getError('Error/FCM', '');
     }
@@ -566,6 +567,7 @@ ons.ready(function() {
   if (is_debug) {
     ons.notification.alert('この状態で公開しないで下さい！', {
       title: 'Debug mode',
+      modifier: 'material',
     });
     if (getConfig(1, 'SendLog') === '') setConfig(1, 'SendLog', '0');
   } else {
@@ -574,6 +576,7 @@ ons.ready(function() {
         ons.notification
           .confirm(dialog_i18n('log', 1), {
             title: dialog_i18n('log'),
+            modifier: 'material',
             buttonLabels: [i18next.t('dialogs_js.log.no'), i18next.t('dialogs_js.log.yes')],
           })
           .then(function(e) {

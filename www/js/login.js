@@ -45,7 +45,7 @@ function login_open(domain) {
       }
       if (os_name === 'DeskTop') {
         ons.notification
-          .prompt(dialog_i18n('code', 1), { title: dialog_i18n('code') })
+          .prompt(dialog_i18n('code', 1), { title: dialog_i18n('code'), modifier: 'material' })
           .then(function(code) {
             if (code) {
               login_callback(code);
@@ -65,7 +65,7 @@ function login_open(domain) {
 function login_open_c(domain) {
   if (domain) {
     ons.notification
-      .confirm(dialog_i18n('terms', 1), { title: dialog_i18n('terms') })
+      .confirm(dialog_i18n('terms', 1), { title: dialog_i18n('terms'), modifier: 'material' })
       .then(function(e) {
         if (e === 1) {
           login_open(domain);
@@ -157,6 +157,7 @@ function login_callback(code) {
           hide('now_loading');
           ons.notification.alert(json.error, {
             title: i18next.t('dialogs_js.login_error'),
+            modifier: 'material',
           });
         }
       }, 500);
@@ -272,6 +273,7 @@ function account_del(id) {
   ons.notification
     .confirm(dialog_i18n('delete_account', 1), {
       title: dialog_i18n('delete_account'),
+      modifier: 'material',
     })
     .then(function(e) {
       if (e === 1) {
@@ -324,12 +326,14 @@ function clearAllAccount() {
   ons.notification
     .confirm(dialog_i18n('clear_account.1', 1), {
       title: dialog_i18n('clear_account'),
+      modifier: 'material',
     })
     .then(function(e) {
       if (e === 1) {
         ons.notification
           .confirm(dialog_i18n('clear_account.2', 1), {
             title: dialog_i18n('clear_account'),
+            modifier: 'material',
           })
           .then(function(e) {
             if (e === 1) {

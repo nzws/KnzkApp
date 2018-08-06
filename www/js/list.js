@@ -361,6 +361,7 @@ function editList(id, title, is_page) {
     .prompt(dialog_i18n('editlist', 1), {
       title: dialog_i18n('editlist'),
       defaultValue: title ? title : '',
+      modifier: 'material',
     })
     .then(function(repcom) {
       if (repcom) {
@@ -396,6 +397,7 @@ function deleteList(id, title, is_page) {
   ons.notification
     .confirm(dialog_i18n('deletelist', 1) + '<br>(' + title + ')', {
       title: dialog_i18n('deletelist'),
+      modifier: 'material',
     })
     .then(function(e) {
       if (e === 1) {

@@ -117,6 +117,7 @@ function changeNotification(force) {
   } else {
     ons.notification.alert(dialog_i18n('err_fcm_2', 1), {
       title: dialog_i18n('err_fcm_2'),
+      modifier: 'material',
     });
     elemId('noti-mode').checked = !!is_unregister;
   }
@@ -124,7 +125,7 @@ function changeNotification(force) {
 
 function addKeyWord() {
   ons.notification
-    .prompt(dialog_i18n('keyword', 1), { title: dialog_i18n('keyword') })
+    .prompt(dialog_i18n('keyword', 1), { title: dialog_i18n('keyword'), modifier: 'material' })
     .then(function(repcom) {
       if (repcom) {
         var config = LoadNotificationConfig()['option'];
@@ -202,6 +203,7 @@ function setNotificationServer() {
         } else {
           ons.notification.alert(dialog_i18n('err_notification_sv', 1), {
             title: dialog_i18n('err_notification_sv'),
+            modifier: 'material',
           });
           hide('now_loading');
         }

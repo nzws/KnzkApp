@@ -128,11 +128,13 @@ function up_file_suc(base64, mode_blob) {
 }
 
 function file_del(card) {
-  ons.notification.confirm(i18next.t('dialogs_js.delete_picture')).then(function(e) {
-    if (e === 1) {
-      card.parentNode.removeChild(card);
-    }
-  });
+  ons.notification
+    .confirm(i18next.t('dialogs_js.delete_picture'), { modifier: 'material' })
+    .then(function(e) {
+      if (e === 1) {
+        card.parentNode.removeChild(card);
+      }
+    });
 }
 
 function file_error(msg) {
@@ -268,6 +270,7 @@ function bbcodegen(force) {
     ons.notification
       .confirm(dialog_i18n('warning_spin', 1), {
         title: dialog_i18n('warning_spin'),
+        modifier: 'material',
       })
       .then(function(e) {
         if (e === 1) {

@@ -22,6 +22,7 @@ function Doodle_reset() {
   ons.notification
     .confirm(i18next.t('doodle.reset.text'), {
       title: i18next.t('doodle.reset.title'),
+      modifier: 'material',
     })
     .then(function(e) {
       if (e === 1) {
@@ -45,6 +46,7 @@ function closeDoodle(force) {
     ons.notification
       .confirm(i18next.t('doodle.reset.text'), {
         title: i18next.t('doodle.reset.close'),
+        modifier: 'material',
       })
       .then(function(e) {
         if (e === 1) {
@@ -68,6 +70,7 @@ function Doodle_upload() {
   ons.notification
     .confirm(i18next.t('doodle.upload.text'), {
       title: i18next.t('doodle.upload.title'),
+      modifier: 'material',
     })
     .then(function(e) {
       if (e === 1) {
