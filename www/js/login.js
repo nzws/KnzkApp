@@ -324,27 +324,19 @@ function open_addaccount() {
 
 function clearAllAccount() {
   ons.notification
-    .confirm(dialog_i18n('clear_account.1', 1), {
+    .confirm(dialog_i18n('clear_account', 1), {
       title: dialog_i18n('clear_account'),
       modifier: 'material',
     })
     .then(function(e) {
       if (e === 1) {
-        ons.notification
-          .confirm(dialog_i18n('clear_account.2', 1), {
-            title: dialog_i18n('clear_account'),
-            modifier: 'material',
-          })
-          .then(function(e) {
-            if (e === 1) {
-              localStorage.setItem('knzkapp_account_list', JSON.stringify([]));
+        localStorage.setItem('knzkapp_account_list', JSON.stringify([]));
 
-              localStorage.removeItem('knzkapp_now_token');
-              localStorage.removeItem('knzkapp_now_username');
-              localStorage.removeItem('knzkapp_now_id');
-              localStorage.removeItem('knzkapp_now_domain');
-            }
-          });
+        localStorage.removeItem('knzkapp_now_token');
+        localStorage.removeItem('knzkapp_now_username');
+        localStorage.removeItem('knzkapp_now_id');
+        localStorage.removeItem('knzkapp_now_domain');
+        ons.notification.toast(i18next.t('dialogs_js.clear_done'));
       }
     });
 }

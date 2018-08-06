@@ -210,46 +210,34 @@ function ConfigSetup() {
 
 function clearAllConfig() {
   ons.notification
-    .confirm(dialog_i18n('clear_account.1', 1), {
-      title: dialog_i18n('clear_account'),
+    .confirm(dialog_i18n('clear_config', 1), {
+      title: dialog_i18n('clear_config'),
       modifier: 'material',
     })
     .then(function(e) {
       if (e === 1) {
-        ons.notification
-          .confirm(dialog_i18n('clear_account.2', 1), {
-            title: dialog_i18n('clear_account'),
-            modifier: 'material',
+        localStorage.setItem(
+          'knzkapp_conf_mastodon',
+          JSON.stringify({
+            realtime: 1,
+            head_reset: 1,
+            dial: 'change',
           })
-          .then(function(e) {
-            if (e === 1) {
-              localStorage.setItem(
-                'knzkapp_conf_mastodon',
-                JSON.stringify({
-                  realtime: 1,
-                  head_reset: 1,
-                  dial: 'change',
-                })
-              );
-              localStorage.setItem('knzkapp_conf_mastodoncol', JSON.stringify({}));
-              localStorage.setItem(
-                'knzkapp_conf_mastodon_timeline',
-                JSON.stringify({
-                  origin: {
-                    config: ['home', 'local', 'public', 'local_media', 'public_media'],
-                    default: 0,
-                    list_names: {},
-                  },
-                })
-              );
-              localStorage.setItem('knzkapp_conf_mastodon_push', JSON.stringify({}));
-              localStorage.setItem(
-                'knzkapp_conf_mastodon_filter',
-                JSON.stringify({ notification: {} })
-              );
-              ons.notification.toast(dialog_i18n('clear_account.3', 1));
-            }
-          });
+        );
+        localStorage.setItem('knzkapp_conf_mastodoncol', JSON.stringify({}));
+        localStorage.setItem(
+          'knzkapp_conf_mastodon_timeline',
+          JSON.stringify({
+            origin: {
+              config: ['home', 'local', 'public', 'local_media', 'public_media'],
+              default: 0,
+              list_names: {},
+            },
+          })
+        );
+        localStorage.setItem('knzkapp_conf_mastodon_push', JSON.stringify({}));
+        localStorage.setItem('knzkapp_conf_mastodon_filter', JSON.stringify({ notification: {} }));
+        ons.notification.toast(i18next.t('dialogs_js.clear_done'));
       }
     });
 }

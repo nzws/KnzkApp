@@ -150,12 +150,10 @@
   "bookmark": {
     "title": "Bookmarks",
     "note": "ブックマークはKnzkApp独自の機能で、データが端末内に保管されます。<br>ブックマークはインスタンスごとに区別されます。",
-    "clear1": {
+    "clear": {
       "title": "Clear all bookmarks",
       "text": "本当に削除しますか？<br>*{{inst}}のアカウントのブックマークが対象です。"
     },
-    "clear2": "本当に「(あなたがログインしている全てのアカウントの)全てのブックマーク」を削除しますか？<br>※Glitch-socインスタンスを除きます。",
-    "clear3": "もう一度聞きます。<br>本当に「(あなたがログインしている全てのアカウントの)全てのブックマーク」を削除しますか？",
     "deleted": "This post has been deleted.<br>Tap to delete this bookmark"
   },
   "timeline": {
@@ -221,14 +219,14 @@
     "no_original": "エラー: 取得できませんでした。",
     "DB_migrate": {
       "title": "Starting now...",
-      "text": "データベースのマイグレーション中です。<br>しばらくお待ち下さい..."
+      "text": "データベースのマイグレーション中です。<br>Please wait..."
     }
   },
   "report_status_note": "あなたの通報が現在処理されているのか簡易的に確認することができます。",
   "dialogs_js": {
     "report": {
       "title": "Report",
-      "text": "通報のコメントを記入してください<br>(If you OK with blank, you can cancel.)"
+      "text": "Please enter a report comment.<br>(If you OK with blank, you can cancel.)"
     },
     "delete": {
       "title": "Delete this toot",
@@ -246,25 +244,28 @@
     },
     "code": {
       "title": "Login",
-      "text": "認証コードを入力してください<br>(If you OK with blank, you can cancel.)"
+      "text": "Please enter authorization code.<br>(If you OK with blank, you can cancel.)"
     },
     "terms": {
       "title": "Login",
       "text": "OKを押してインスタンスの利用規約に同意したものとします。"
     },
-    "login_error": "ログイン中にエラーが発生しました。",
+    "login_error": "An error occurred while logging in.",
     "delete_account": {
-      "title": "アカウントの削除",
-      "text": "アプリからこのアカウントを削除してもよろしいですか？"
+      "title": "Delete account",
+      "text": "Are you sure you want to delete this account from app?"
     },
     "clear_account": {
-      "title": "Logout of all accounts",
-      "1": {
-        "text": "Are you sure you want to logout?"
-      },
-      "2": {
-        "text": "I ask again.<br>Are you sure you want to logout?"
-      }
+      "title": "Logout all accounts",
+      "text": "Are you sure you want to logout <b>all accounts</b>?"
+    },
+    "clear_bookmark": {
+      "title": "Clear all bookmarks",
+      "text": "Are you sure you want to clear <b>all bookmarks</b>?"
+    },
+    "clear_config": {
+      "title": "Reset all config",
+      "text": "Are you sure you want to reset <b>all config</b>?"
     },
     "err_fcm_2": {
       "title": "Error",
@@ -272,7 +273,7 @@
     },
     "keyword": {
       "title": "Keyword notice",
-      "text": "検知させるワードを入力してください<br>(If you OK with blank, you can cancel.)"
+      "text": "Please enter a keyword.<br>(If you OK with blank, you can cancel.)"
     },
     "err_notification_sv": {
       "title": "Error",
@@ -310,7 +311,8 @@
     "add_tag": {
       "title": "Add this hashtag to timelines",
       "text": "Are you sure you want to add?"
-    }
+    },
+    "clear_done": "完了しました。アプリを再起動してください。"
   },
   "search": {
     "result": "Search results of {{text}}",
@@ -324,7 +326,7 @@
       "openbrowser": "Open in browser",
       "url": "Copy URL",
       "original_toot": "Show original toot",
-      "near": "近くのトゥートを表示",
+      "near": "Show nearby toot",
       "delete": "Delete",
       "pin": {
         "set": "Pin",
@@ -568,7 +570,7 @@
     "page4": {
       "L1": "簡単な説明は以上です。",
       "L2": "その他、お困りの際や新しいアイデアなど、何でもいいのでまあまあ暇な開発者(<a href='https://knzk.me/@y'>@y@knzk.me</a>)に質問してみてください。",
-      "L3": "ボナペトゥート！"
+      "L3": "Bon Appetoot!"
     }
   },
   "starting": {

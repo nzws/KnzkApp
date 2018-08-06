@@ -175,11 +175,11 @@ function clearBookmark() {
   if (!instance_config[inst]['glitch_soc']) {
     ons.notification
       .confirm(
-        i18next.t('bookmark.clear1.text', {
+        i18next.t('bookmark.clear.text', {
           inst: inst,
           interpolation: { escapeValue: false },
         }),
-        { title: i18next.t('bookmark.clear1.title'), modifier: 'material' }
+        { title: i18next.t('bookmark.clear.title'), modifier: 'material' }
       )
       .then(function(e) {
         if (e === 1) {
@@ -199,26 +199,16 @@ function clearBookmark() {
 
 function clearAllBookmark() {
   ons.notification
-    .confirm(i18next.t('bookmark.clear2', { interpolation: { escapeValue: false } }), {
-      title: i18next.t('bookmark.clear1.title'),
+    .confirm(dialog_i18n('clear_bookmark', 1), {
+      title: dialog_i18n('clear_bookmark'),
       modifier: 'material',
     })
     .then(function(e) {
       if (e === 1) {
-        ons.notification
-          .confirm(
-            i18next.t('bookmark.clear3', {
-              interpolation: { escapeValue: false },
-            }),
-            { title: i18next.t('bookmark.clear1.title'), modifier: 'material' }
-          )
-          .then(function(e) {
-            if (e === 1) {
-              var bookmark = {};
-              bookmark[inst] = [];
-              saveBookmark(bookmark);
-            }
-          });
+        var bookmark = {};
+        bookmark[inst] = [];
+        saveBookmark(bookmark);
+        ons.notification.toast(i18next.t('dialogs_js.clear_done'));
       }
     });
 }
