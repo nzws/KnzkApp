@@ -70,6 +70,7 @@ function show_account(id) {
               '</div></div>';
             i++;
           }
+          elemId('bio_field').innerHTML = bio_field;
         }
       }
 
@@ -77,7 +78,7 @@ function show_account(id) {
       elemId('userpage-name').innerHTML = t_text(escapeHTML(json.display_name));
       elemId('userpage-title').innerHTML = '@' + json.acct;
       elemId('userpage-acct').innerHTML = '@' + json.acct;
-      elemId('userpage-bio').innerHTML = t_text(json.note) + bio_field;
+      elemId('userpage-bio').innerHTML = t_text(json.note);
       elemId('userpage-icon').src = json[getConfig(1, 'no_gif') ? 'avatar_static' : 'avatar'];
       document
         .getElementById('userpage-bg')
