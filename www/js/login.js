@@ -340,3 +340,36 @@ function clearAllAccount() {
       }
     });
 }
+
+function changeAccountInLoad() {
+  var list = JSON.parse(localStorage.getItem('knzkapp_account_list'));
+  var buttons = [],
+    i = 0;
+  while (list[i]) {
+    buttons.push({ label: list[i]['username'] + '@' + list[i]['login_domain'] });
+    i++;
+  }
+  buttons.push({ label: '<b>' + i18next.t('account.add') + '</b>' });
+  buttons.push({ label: i18next.t('navigation.cancel'), icon: 'md-close' });
+
+  ons
+    .openActionSheet({
+      title: i18next.t('starting.error_acct'),
+      cancelable: true,
+      buttons: buttons,
+    })
+    .then(function(index) {
+      if (list.length === index) {
+        hide('starting_screen');
+        open_addaccount();
+        return;
+      }
+      if (list.length + 1 === index) {
+        hide('starting_screen');
+        return;
+      }
+      account_change(index);
+    });
+
+  elemId('account-list-other').innerHTML = reshtml;
+}

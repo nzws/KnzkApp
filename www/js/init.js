@@ -170,7 +170,8 @@ function init() {
                 getError('Error/init_verify_credentials', errorMessage, true);
               });
               showtoast('cannot-connect-API');
-              hide('starting_screen');
+              starting_alert('err');
+              changeAccountInLoad();
             });
         })
         .catch(function(error) {
@@ -178,7 +179,9 @@ function init() {
             getError('Error/init_instance', errorMessage, true);
           });
           showtoast('cannot-connect-sv');
-          hide('starting_screen');
+          starting_alert('err');
+          changeAccountInLoad();
+          //hide('starting_screen');
         });
     } else {
       setTimeout(function() {
