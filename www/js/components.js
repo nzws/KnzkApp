@@ -14,6 +14,12 @@ window.fn.open = function() {
   $('[data-i18n]').localize();
 };
 
+window.fn.close = function() {
+  var menu = elemId('splitter-menu');
+  menu.close();
+  $('[data-i18n]').localize();
+};
+
 function reset_nav() {
   var list = elemId('music-form');
   var menu = elemId('menu-list');

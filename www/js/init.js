@@ -441,16 +441,17 @@ function initevent() {
 
   if (getConfig(1, 'swipe_menu') != 1) {
     document.addEventListener('swipeleft', function(event) {
-      if (pageid === 'home') TL_next();
+      if (elemId('splitter-menu').isOpen) {
+        fn.close();
+      } else if (pageid === 'home') TL_next();
     });
 
     document.addEventListener('swiperight', function(event) {
+      console.log(event.gesture.startEvent);
       var h = event.gesture.startEvent.center.clientX;
-      if (h <= 20) {
+      if (h <= 20 || elemId('splitter-menu').isOpen) {
         fn.open();
-        return false;
-      }
-      if (pageid === 'home') TL_prev();
+      } else if (pageid === 'home') TL_prev();
     });
   }
 
