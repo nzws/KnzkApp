@@ -738,7 +738,7 @@ function TL_change(mode) {
 }
 
 function scrollTL() {
-  window.location = '#post_' + toot_new_id;
+  $('.page__content').scrollTop(0);
 }
 
 function updateTLtrack() {
