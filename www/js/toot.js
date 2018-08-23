@@ -177,7 +177,7 @@ function toot_card(toot, mode, note, toot_light, page) {
       '_' +
       toot['id'] +
       "\", this);' class='cw-button'>" +
-      i18next.t('navigation.load_more') +
+      i18next.t('toot.cw_toot') +
       "</ons-button><div class='invisible' id='cw_" +
       rand +
       '_' +
