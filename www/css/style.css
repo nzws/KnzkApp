@@ -903,7 +903,8 @@ img.emoji {
     opacity: 0.2;
     pointer-events: none;
   }
-  to {
+
+  100% {
     opacity: 1;
     pointer-events: initial;
   }
