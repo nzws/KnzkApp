@@ -144,35 +144,31 @@ function show_account(id) {
     .then(function(json) {
       acctdata['rs'][id] = json;
 
-      if (json[0]['followed_by'] === true)
-        elemId('userpage-follower-badge').className = 'userpage-follower';
-      else elemId('userpage-follower-badge').className = 'invisible';
+      elemId('userpage-follower-badge').className =
+        json[0]['followed_by'] === true ? 'userpage-follower' : 'invisible';
+      elemId('userpage-follow-button').className =
+        'userpage-button ons-icon fa ' +
+        (json[0]['following'] ? 'fa-user-times follow-active' : 'fa-user-plus');
 
-      if (json[0]['following'])
-        elemId('userpage-follow-button').className =
-          'userpage-button follow-active ons-icon fa-user-times fa';
-      else elemId('userpage-follow-button').className = 'userpage-button ons-icon fa-user-plus fa';
+      if (json[0]['muting']) elemId('userpage-follow-button').className = 'invisible';
+      elemId('userpage-mute-badge').className = json[0]['muting']
+        ? 'userpage-follower'
+        : 'invisible';
 
-      if (json[0]['muting']) {
-        elemId('userpage-follow-button').className = 'invisible';
-        elemId('userpage-mute-badge').className = 'userpage-follower';
-      } else elemId('userpage-mute-badge').className = 'invisible';
-
-      if (json[0]['blocking'] === true) {
-        elemId('userpage-follow-button').className = 'invisible';
-        elemId('userpage-block-badge').className = 'userpage-follower';
-      } else elemId('userpage-block-badge').className = 'invisible';
+      if (json[0]['blocking'] === true) elemId('userpage-follow-button').className = 'invisible';
+      elemId('userpage-block-badge').className =
+        json[0]['blocking'] === true ? 'userpage-follower' : 'invisible';
 
       if (json[0]['id'] === now_userconf['id']) {
         elemId('userpage-follow-button').className = 'invisible';
         elemId('userpage-follower-badge').className = 'invisible';
       }
 
-      if (json[0]['requested'] === true) {
+      if (json[0]['requested'] === true)
         elemId('userpage-follow-button').className =
           'userpage-button follow-active ons-icon fa-hourglass fa';
-        elemId('userpage-followreq-badge').className = 'userpage-follower';
-      } else elemId('userpage-followreq-badge').className = 'invisible';
+      elemId('userpage-followreq-badge').className =
+        json[0]['requested'] === true ? 'userpage-follower' : 'invisible';
     })
     .catch(function(error) {
       error.text().then(errorMessage => {
