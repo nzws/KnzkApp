@@ -707,7 +707,7 @@
         </ons-list-item>
       </ons-list>
       <div class="container">
-        <p class="note" data-i18n="config.profile.note">* インスタンスにより文字数、容量制限が異なりますのでリミットは表示していません。</p>
+        <p class="note" data-i18n="config.profile.note">* 文字数制限を超えると保存に失敗します。</p>
       </div>
       <ons-list>
         <ons-list-item modifier="chevron" tappable onclick="openURL('https://' + inst + '/settings/preferences')">
@@ -823,15 +823,6 @@
           </div>
         </ons-list-item>
         <ons-list-item>
-          <div class="center">
-            <span class="list-item__title" data-i18n="config.preferences.tl.head_reset.title">ヘッダを押した時にTLをリセット</span><span
-              class="list-item__subtitle" data-i18n="config.preferences.tl.head_reset.sub">リセットさせる事で軽くなります</span>
-          </div>
-          <div class="right">
-            <ons-switch modifier="material" onclick="change_conf(1, 'head_reset')" input-id="conf-head_reset"></ons-switch>
-          </div>
-        </ons-list-item>
-        <ons-list-item>
           <div class="center" data-i18n="config.preferences.tl.resume_reload">
             復帰時にリロードしない
           </div>
@@ -882,7 +873,7 @@
         </ons-list-item>
         <ons-list-item>
           <div class="center" data-i18n="config.preferences.display.image_full">
-            メディアを完全に表示
+            メディアのプレビューで全体を表示する
           </div>
           <div class="right">
             <ons-switch modifier="material" onclick="change_conf(1, 'image_full')" input-id="conf-image_full"></ons-switch>
@@ -891,7 +882,7 @@
         <ons-list-item>
           <div class="center">
             <span class="list-item__title" data-i18n="config.preferences.display.copy.title">コピペオプションを表示</span><span class="list-item__subtitle"
-              data-i18n="config.preferences.display.copy.sub">TLトゥート欄のみ · OSのコピペができない人向け</span>
+              data-i18n="config.preferences.display.copy.sub">OS標準のコピペに問題が発生した場合は有効にしてください</span>
           </div>
           <div class="right">
             <ons-switch modifier="material" onclick="change_conf(1, 'cp_popover')" input-id="conf-cp_popover"></ons-switch>
@@ -913,20 +904,20 @@
         <ons-list-header data-i18n="config.preferences.system.title">システム設定</ons-list-header>
         <ons-list-item>
           <div class="center" data-i18n="config.preferences.system.openurl.title">
-            URLの開き方
+            リンクの開き方
           </div>
           <div class="right">
             <ons-select id="conf-url_open" onchange="change_conf(1, 'url_open', true)">
               <option value="" data-i18n="config.preferences.system.openurl.inapp">アプリ内ブラウザ</option>
               <option value="Inapp" id="url_Inapp" data-i18n="config.preferences.system.openurl.inapp_older">アプリ内ブラウザ(旧)</option>
-              <option value="OS" id="url_OS" data-i18n="config.preferences.system.openurl.browser">OSブラウザ</option>
+              <option value="OS" id="url_OS" data-i18n="config.preferences.system.openurl.browser">OSの標準ブラウザ</option>
             </ons-select>
           </div>
         </ons-list-item>
         <ons-list-item>
           <div class="center">
-            <span class="list-item__title" data-i18n="config.preferences.system.swipe_menu.title">スワイプモード切替</span><span class="list-item__subtitle"
-              data-i18n="config.preferences.system.swipe_menu.sub">OFF:ジェスチャスワイパー<br>ON:タブスワイパー+メニュー</span>
+            <span class="list-item__title" data-i18n="config.preferences.system.swipe_menu.title">スワイプの検知方法</span><span class="list-item__subtitle"
+              data-i18n="[html]config.preferences.system.swipe_menu.sub">有効にすると高精度になりますがTLのスクロールが難しくなります</span>
           </div>
           <div class="right">
             <ons-switch modifier="material" onclick="change_conf(1, 'swipe_menu')" input-id="conf-swipe_menu"></ons-switch>
@@ -943,7 +934,7 @@
         </ons-list-item>
         <ons-list-item>
           <div class="center">
-            <span class="list-item__title" data-i18n="config.preferences.system.SendLog.title">エラーログを開発者に送信</span><span class="list-item__subtitle"><a href="https://knzkapp.yuzu.tk/privacy.html" target="_blank" data-i18n="config.preferences.system.SendLog.sub">プライバシーポリシー</a></span>
+            <span class="list-item__title" data-i18n="config.preferences.system.SendLog.title">エラーログを開発者に送信</span><span class="list-item__subtitle"><a href="https://knzkapp.nzws.me/privacy.html" target="_blank" data-i18n="config.preferences.system.SendLog.sub">プライバシーポリシー</a></span>
           </div>
           <div class="right">
             <ons-switch modifier="material" onclick="change_conf(1, 'SendLog', null, true)" input-id="conf-SendLog"></ons-switch>
@@ -1149,7 +1140,7 @@
         <h4 data-i18n="config.notification.default.title">通常の通知</h4>
       </div>
       <ons-list>
-        <ons-list-header data-i18n="config.notification.default.everyone.title">ミュートする通知 (全体)</ons-list-header>
+        <ons-list-header data-i18n="config.notification.default.everyone.title">除外する通知 (全員)</ons-list-header>
         <ons-list-item tappable>
           <label class="left">
               <ons-checkbox input-id="noti-mute-all"></ons-checkbox>
@@ -1195,7 +1186,8 @@
       </div>
       <div class="container">
         <h4><span data-i18n="config.notification.keyword.title">キーワード検知</span> <button class="button button--outline" style="border-radius: 100%;line-height: initial;"
-            onclick="addKeyWord()"><i class="zmdi zmdi-plus"></i></button></h4>HTLをウォッチします</div>
+            onclick="addKeyWord()"><i class="zmdi zmdi-plus"></i></button></h4><span data-i18n="config.notification.keyword.watch">HTLをウォッチします</span>
+      </div>
       <ons-list id="keyword_list"></ons-list>
       <div class="container">
         <p>
@@ -1253,7 +1245,7 @@
         </p>
       </div>
       <ons-list>
-        <ons-list-header data-i18n="app_filter.edit.mute.title">表示をミュート</ons-list-header>
+        <ons-list-header data-i18n="app_filter.edit.mute.title">非表示の項目</ons-list-header>
         <ons-list-item tappable>
           <label class="left">
               <ons-checkbox input-id="filter_all"></ons-checkbox>
@@ -1291,7 +1283,7 @@
           <label for="filter_fav" class="center" data-i18n="app_filter.edit.mute.favourite">お気に入り通知</label>
         </ons-list-item>
 
-        <ons-list-header data-i18n="app_filter.edit.mute.push">プッシュ通知をミュート</ons-list-header>
+        <ons-list-header data-i18n="app_filter.edit.mute.push">プッシュ通知から除外</ons-list-header>
         <ons-list-item tappable>
           <label class="left">
               <ons-checkbox input-id="filterpush_all"></ons-checkbox>
@@ -1942,7 +1934,7 @@
       </div>
       <ons-list>
         <ons-list-item onclick="openURL('https://github.com/KnzkDev/KnzkApp/wiki/License')">OSS License</ons-list-item>
-        <ons-list-item onclick="openURL('https://knzkapp.yuzu.tk/privacy.html')"><span data-i18n="config.preferences.about_app_note.privacy_policy">KnzkApp プライバシーポリシー</span></ons-list-item>
+        <ons-list-item onclick="openURL('https://knzkapp.nzws.me/privacy.html')"><span data-i18n="config.preferences.about_app_note.privacy_policy">KnzkApp プライバシーポリシー</span></ons-list-item>
         <ons-list-header>Credit</ons-list-header>
         <ons-list-item onclick="openURL('https://knzk.me/@y')">
           <span class="list-item__title">nzws (ねじわさ)</span>
@@ -2179,7 +2171,7 @@
         </ons-carousel-item>
         <ons-carousel-item class="container tutorial">
           <h3 data-i18n="tutorial.page4.L1">簡単な説明は以上です。</h3>
-          <p data-i18n="[html]tutorial.page4.L2">その他、お困りの際や新しいアイデアなど、何でもいいのでまあまあ暇な開発者(<a href="https://knzk.me/@y">@y@knzk.me</a>)に質問してみてください。</p>
+          <p data-i18n="[html]tutorial.page4.L2">お困りの際や要望などがあれば、開発者(<a href="https://knzk.me/@y">@y@knzk.me</a>)に質問してみてください。</p>
           <p><b data-i18n="tutorial.page4.L3">ボナペトゥート！</b></p>
         </ons-carousel-item>
       </ons-carousel>
@@ -2268,7 +2260,7 @@
       <span data-i18n="dialogs_html.del_post">トゥートを削除しました。</span>
     </ons-toast>
     <ons-toast id="report-post">
-      <span data-i18n="dialogs_html.report">レポートのご協力ありがとうございます。</span>
+      <span data-i18n="dialogs_html.report">送信しました。レポートのご協力ありがとうございます。</span>
     </ons-toast>
     <ons-toast id="ok-clear-alert">
       <span data-i18n="dialogs_html.del_notification">通知を消去しました。</span>
