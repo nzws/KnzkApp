@@ -607,7 +607,11 @@ function nearToot(id, domain) {
 
 function delete_post() {
   ons.notification
-    .confirm(dialog_i18n('delete', 1), { title: dialog_i18n('delete'), modifier: 'material' })
+    .confirm(dialog_i18n('delete', 1), {
+      title: dialog_i18n('delete'),
+      modifier: 'material',
+      cancelable: true,
+    })
     .then(function(e) {
       if (e === 1) {
         Fetch('https://' + inst + '/api/v1/statuses/' + more_status_id, {
@@ -763,7 +767,11 @@ function show_post(id, near, near_domain, origin_id) {
 
 function report() {
   var rep = ons.notification
-    .prompt(dialog_i18n('report', 1), { title: dialog_i18n('report'), modifier: 'material' })
+    .prompt(dialog_i18n('report', 1), {
+      title: dialog_i18n('report'),
+      modifier: 'material',
+      cancelable: true,
+    })
     .then(function(repcom) {
       if (repcom) {
         Fetch('https://' + inst + '/api/v1/reports', {

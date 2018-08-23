@@ -3,25 +3,26 @@ const languages = {
   en: 'English',
 };
 
-function i18n_init() {
-  try {
-    navigator.globalization.getPreferredLanguage(
-      function(language) {
-        lng = language.value;
-        if (lng.split('-').length == 2) lng = lng.split('-')[0];
-        if (!languages[lng]) lng = 'en';
-        i18n_init_callback(lng);
-      },
-      function() {
-        i18n_init_callback('en');
-      }
-    );
-  } catch (e) {
-    i18n_init_callback('en');
-  }
-}
+const i18n_init = () =>
+  new Promise((resolve, reject) => {
+    try {
+      navigator.globalization.getPreferredLanguage(
+        function(language) {
+          lng = language.value;
+          if (lng.split('-').length == 2) lng = lng.split('-')[0];
+          if (!languages[lng]) lng = 'en';
+          i18n_init_callback(lng, resolve);
+        },
+        function() {
+          i18n_init_callback('en', resolve);
+        }
+      );
+    } catch (e) {
+      i18n_init_callback('en', resolve);
+    }
+  });
 
-function i18n_init_callback(lang) {
+function i18n_init_callback(lang, resolve) {
   i18next.use(i18nextXHRBackend).init(
     {
       lng: lang,
@@ -33,6 +34,7 @@ function i18n_init_callback(lang) {
       console.log('lang:' + lang);
       jqueryI18next.init(i18next, $);
       $('[data-i18n]').localize();
+      resolve();
     }
   );
 }

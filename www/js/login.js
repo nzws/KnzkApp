@@ -45,7 +45,11 @@ function login_open(domain) {
       }
       if (os_name === 'DeskTop') {
         ons.notification
-          .prompt(dialog_i18n('code', 1), { title: dialog_i18n('code'), modifier: 'material' })
+          .prompt(dialog_i18n('code', 1), {
+            title: dialog_i18n('code'),
+            modifier: 'material',
+            cancelable: true,
+          })
           .then(function(code) {
             if (code) {
               login_callback(code);
@@ -65,7 +69,11 @@ function login_open(domain) {
 function login_open_c(domain) {
   if (domain) {
     ons.notification
-      .confirm(dialog_i18n('terms', 1), { title: dialog_i18n('terms'), modifier: 'material' })
+      .confirm(dialog_i18n('terms', 1), {
+        title: dialog_i18n('terms'),
+        modifier: 'material',
+        cancelable: true,
+      })
       .then(function(e) {
         if (e === 1) {
           login_open(domain);
@@ -327,6 +335,7 @@ function clearAllAccount() {
     .confirm(dialog_i18n('clear_account', 1), {
       title: dialog_i18n('clear_account'),
       modifier: 'material',
+      cancelable: true,
     })
     .then(function(e) {
       if (e === 1) {

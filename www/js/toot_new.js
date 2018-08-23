@@ -129,7 +129,7 @@ function up_file_suc(base64, mode_blob) {
 
 function file_del(card) {
   ons.notification
-    .confirm(i18next.t('dialogs_js.delete_picture'), { modifier: 'material' })
+    .confirm(i18next.t('dialogs_js.delete_picture'), { modifier: 'material', cancelable: true })
     .then(function(e) {
       if (e === 1) {
         card.parentNode.removeChild(card);
@@ -271,6 +271,7 @@ function bbcodegen(force) {
       .confirm(dialog_i18n('warning_spin', 1), {
         title: dialog_i18n('warning_spin'),
         modifier: 'material',
+        cancelable: true,
       })
       .then(function(e) {
         if (e === 1) {

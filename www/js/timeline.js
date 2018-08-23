@@ -3,6 +3,7 @@ function reset_alert() {
     .confirm(dialog_i18n('clear_alert', 1), {
       title: dialog_i18n('clear_alert'),
       modifier: 'material',
+      cancelable: true,
     })
     .then(function(e) {
       if (e === 1) {
@@ -981,6 +982,7 @@ function editTLConfAdd(name) {
     ons.notification.alert(dialog_i18n('err_new_tl', 1), {
       title: dialog_i18n('err_new_tl'),
       modifier: 'material',
+      cancelable: true,
     });
     return;
   }
@@ -1008,6 +1010,7 @@ function AddTLConfig() {
     ons.notification.alert(dialog_i18n('err_new_tl', 1), {
       title: dialog_i18n('err_new_tl'),
       modifier: 'material',
+      cancelable: true,
     });
     return;
   }
@@ -1040,6 +1043,7 @@ function AddTLConfig() {
         ons.notification.alert(dialog_i18n('list_note', 1), {
           title: dialog_i18n('list_note'),
           modifier: 'material',
+          cancelable: true,
         });
       else {
         if (defaultTLdisable[index]) {
@@ -1075,7 +1079,11 @@ function editTLConfigOption(id) {
 
 function addHashtag() {
   ons.notification
-    .prompt(dialog_i18n('hashtag', 1), { title: dialog_i18n('hashtag'), modifier: 'material' })
+    .prompt(dialog_i18n('hashtag', 1), {
+      title: dialog_i18n('hashtag'),
+      modifier: 'material',
+      cancelable: true,
+    })
     .then(function(repcom) {
       if (repcom) {
         editTLConfAdd('hashtag:' + escapeHTML(repcom));
@@ -1089,6 +1097,7 @@ function addTagToTimeline(tag) {
     .confirm(dialog_i18n('add_tag', 1), {
       title: dialog_i18n('add_tag'),
       modifier: 'material',
+      cancelable: true,
     })
     .then(function(e) {
       if (e === 1) {

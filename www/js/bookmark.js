@@ -202,6 +202,7 @@ function clearAllBookmark() {
     .confirm(dialog_i18n('clear_bookmark', 1), {
       title: dialog_i18n('clear_bookmark'),
       modifier: 'material',
+      cancelable: true,
     })
     .then(function(e) {
       if (e === 1) {

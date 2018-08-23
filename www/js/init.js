@@ -474,6 +474,7 @@ function initevent() {
       ons.notification.alert(dialog_i18n('err_fcm', 1), {
         title: dialog_i18n('err_fcm'),
         modifier: 'material',
+        cancelable: true,
       });
       getError('Error/FCM', '');
     }
@@ -502,72 +503,117 @@ function home_autoevent() {
   }, 1000);
 }
 
+function BackButtonEvent() {
+  const actionSheet = document.querySelectorAll('ons-action-sheet'),
+    dialog = document.querySelectorAll('ons-alert-dialog');
+  var openedDialog,
+    i = 0;
+  if (dialog) {
+    while (dialog[i]) {
+      if (dialog[i].visible && dialog[i].cancelable) {
+        dialog[i].hide();
+        openedDialog = true;
+        break;
+      }
+      i++;
+    }
+  }
+  if (actionSheet && !openedDialog) {
+    i = 0;
+    while (actionSheet[i]) {
+      if (actionSheet[i].visible) {
+        actionSheet[i].hide();
+        openedDialog = true;
+        break;
+      }
+      i++;
+    }
+  }
+  if (!openedDialog) {
+    if (pageid === 'home') {
+      if (elemId('simple_toot_TL_toolbar').rows === 3) {
+        simple_close();
+      } else {
+        //終了
+        navigator.app.exitApp();
+      }
+    } else {
+      try {
+        document
+          .querySelector('#navigator')
+          .popPage()
+          .catch(openTL());
+      } catch (e) {}
+    }
+  }
+}
+
 var button = '',
   quiet = '',
   light = '',
   large_quiet = '',
   platform = '';
 
-function init_d() {
-  var css = '';
+const init_d = () =>
+  new Promise((resolve, reject) => {
+    var css = '';
 
-  if (!platform) {
-    if (ons.platform.isIOS()) {
-      platform = 'ios';
-    } else if (ons.platform.isAndroid()) {
-      platform = 'android';
-    } else {
-      platform = 'other';
-    }
-  }
-  if (localStorage.getItem('knzkapp_conf_mastodon') != undefined) {
-    ons.disableAutoStyling();
-
-    button = 'button';
-    quiet = button + ' button--quiet';
-    light = button + ' button--light';
-    large_quiet = button + ' button--large--quiet';
-
-    if (getConfig(1, 'spin') == 1 || getConfig(1, 'gpu') != 1) {
-      if (getConfig(1, 'spin') == 1) {
-        css += '.fa-spin {-webkit-animation: none;  animation: none;}';
-      }
-      if (getConfig(1, 'gpu') != 1) {
-        css += '.toot, .timeline {transform: translate3d(0, 0, 0);}';
-      }
-      if (getConfig(1, 'toot_button')) {
-        if (getConfig(1, 'toot_button') === 'large') {
-          css += '.toot-button { margin-right: 0.5em; font-size: xx-large; }';
-        } else if (getConfig(1, 'toot_button') === 'small') {
-          css +=
-            '.toot-button { margin-right: 1.5em; font-size: large; } .date-disp { margin-top: 0 }';
-        }
+    if (!platform) {
+      if (ons.platform.isIOS()) {
+        platform = 'ios';
+      } else if (ons.platform.isAndroid()) {
+        platform = 'android';
       } else {
-        setConfig(1, 'toot_button', 'normal');
-      }
-      if (getConfig(1, 'toot_body')) {
-        if (getConfig(1, 'toot_body') === 'large') {
-          css += '.toot_content > p { font-size: medium; }';
-        } else if (getConfig(1, 'toot_body') === 'small') {
-          css += '.toot_content > p { font-size: small; }';
-        }
-      } else {
-        setConfig(1, 'toot_body', 'normal');
+        platform = 'other';
       }
     }
-    var node = document.createElement('style');
-    node.type = 'text/css';
-    node.appendChild(document.createTextNode(css));
-    var heads = document.getElementsByTagName('head');
-    heads[0].appendChild(node);
-  }
-}
+    if (localStorage.getItem('knzkapp_conf_mastodon') != undefined) {
+      ons.disableAutoStyling();
 
-init_d();
-i18n_init();
+      button = 'button';
+      quiet = button + ' button--quiet';
+      light = button + ' button--light';
+      large_quiet = button + ' button--large--quiet';
+
+      if (getConfig(1, 'spin') == 1 || getConfig(1, 'gpu') != 1) {
+        if (getConfig(1, 'spin') == 1) {
+          css += '.fa-spin {-webkit-animation: none;  animation: none;}';
+        }
+        if (getConfig(1, 'gpu') != 1) {
+          css += '.toot, .timeline {transform: translate3d(0, 0, 0);}';
+        }
+        if (getConfig(1, 'toot_button')) {
+          if (getConfig(1, 'toot_button') === 'large') {
+            css += '.toot-button { margin-right: 0.5em; font-size: xx-large; }';
+          } else if (getConfig(1, 'toot_button') === 'small') {
+            css +=
+              '.toot-button { margin-right: 1.5em; font-size: large; } .date-disp { margin-top: 0 }';
+          }
+        } else {
+          setConfig(1, 'toot_button', 'normal');
+        }
+        if (getConfig(1, 'toot_body')) {
+          if (getConfig(1, 'toot_body') === 'large') {
+            css += '.toot_content > p { font-size: medium; }';
+          } else if (getConfig(1, 'toot_body') === 'small') {
+            css += '.toot_content > p { font-size: small; }';
+          }
+        } else {
+          setConfig(1, 'toot_body', 'normal');
+        }
+      }
+      var node = document.createElement('style');
+      node.type = 'text/css';
+      node.appendChild(document.createTextNode(css));
+      var heads = document.getElementsByTagName('head');
+      heads[0].appendChild(node);
+    }
+    resolve();
+  });
+
 ons.ready(function() {
-  ConfigSetup();
-  init();
+  i18n_init().then(init_d().then(ConfigSetup().then(init())));
+  if (ons.platform.isAndroid()) ons.setDefaultDeviceBackButtonListener(BackButtonEvent);
   if (is_debug) {
     ons.notification.alert('この状態で公開しないで下さい！', {
       title: 'Debug mode',

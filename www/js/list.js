@@ -362,6 +362,7 @@ function editList(id, title, is_page) {
       title: dialog_i18n('editlist'),
       defaultValue: title ? title : '',
       modifier: 'material',
+      cancelable: true,
     })
     .then(function(repcom) {
       if (repcom) {
@@ -398,6 +399,7 @@ function deleteList(id, title, is_page) {
     .confirm(dialog_i18n('deletelist', 1) + '<br>(' + title + ')', {
       title: dialog_i18n('deletelist'),
       modifier: 'material',
+      cancelable: true,
     })
     .then(function(e) {
       if (e === 1) {

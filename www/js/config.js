@@ -61,158 +61,161 @@ function setConfig(name, id, value) {
   config_tmp[name] = null;
 }
 
-function ConfigSetup() {
-  var last_version = 6;
+const ConfigSetup = () =>
+  new Promise((resolve, reject) => {
+    var last_version = 6;
 
-  if (!localStorage.getItem('knzkapp_conf_mastodon')) {
-    if (localStorage.getItem('knzk_realtime') == undefined)
-      localStorage.setItem('knzk_realtime', 1);
-    if (localStorage.getItem('knzk_head_reset') == undefined)
-      localStorage.setItem('knzk_head_reset', 1);
-    if (localStorage.getItem('knzk_dial') == undefined) localStorage.setItem('knzk_dial', 'change');
-  }
-
-  if (localStorage.getItem('knzkapp_conf_version') == undefined)
-    localStorage.setItem('knzkapp_conf_version', 1);
-
-  var now_version = parseInt(localStorage.getItem('knzkapp_conf_version'));
-  if (now_version !== last_version) {
-    show('DB_migration');
-    var mig_i = 0;
-    if (now_version < 2) {
-      //config migration v1 -> v2
-      /**
-       * v2
-       * 散らばっていたconfigをまとめました。
-       */
-      var accountdata = {
-        list: localStorage.getItem('knzk_account_list'),
-        token: localStorage.getItem('knzk_account_token'),
-        userid: localStorage.getItem('knzk_userid'),
-        username: localStorage.getItem('knzk_username'),
-        domain: localStorage.getItem('knzk_login_domain'),
-      };
-      var list_d = [
-        'bigfav',
-        'nsfw',
-        'cw',
-        'realtime',
-        'spin',
-        'swipe',
-        'joke',
-        'menu-fav',
-        'image_full',
-        'swipe_menu',
-        'head_reset',
-        'dial',
-        'theme',
-        'url_open',
-      ];
-      var list_col = ['alert', 'all', 'bg', 'bs', 'collapse', 'leng', 'media', 'preview'];
-      var new_conf = {};
-      var new_conf_col = {};
-      mig_i = 0;
-      while (list_d[mig_i]) {
-        new_conf[list_d[mig_i]] =
-          localStorage.getItem('knzk_' + list_d[mig_i]) == undefined
-            ? ''
-            : localStorage.getItem('knzk_' + list_d[mig_i]);
-        mig_i++;
-      }
-      mig_i = 0;
-      while (list_col[mig_i]) {
-        new_conf_col[list_col[mig_i]] =
-          localStorage.getItem('conf-col-' + list_col[mig_i]) == undefined
-            ? ''
-            : localStorage.getItem('conf-col-' + list_col[mig_i]);
-        mig_i++;
-      }
-      localStorage.clear();
-
-      localStorage.setItem('knzkapp_conf_mastodon', JSON.stringify(new_conf));
-      localStorage.setItem('knzkapp_conf_mastodoncol', JSON.stringify(new_conf_col));
-
-      if (accountdata['list']) localStorage.setItem('knzkapp_account_list', accountdata['list']);
-      if (accountdata['token'])
-        localStorage.setItem('knzkapp_now_mastodon_token', accountdata['token']);
-      if (accountdata['userid'])
-        localStorage.setItem('knzkapp_now_mastodon_id', accountdata['userid']);
-      if (accountdata['username'])
-        localStorage.setItem('knzkapp_now_mastodon_username', accountdata['username']);
-      if (accountdata['domain'])
-        localStorage.setItem('knzkapp_now_mastodon_domain', accountdata['domain']);
+    if (!localStorage.getItem('knzkapp_conf_mastodon')) {
+      if (localStorage.getItem('knzk_realtime') == undefined)
+        localStorage.setItem('knzk_realtime', 1);
+      if (localStorage.getItem('knzk_head_reset') == undefined)
+        localStorage.setItem('knzk_head_reset', 1);
+      if (localStorage.getItem('knzk_dial') == undefined)
+        localStorage.setItem('knzk_dial', 'change');
     }
-    if (now_version < 3) {
-      localStorage.setItem(
-        'knzkapp_conf_mastodon_timeline',
-        JSON.stringify({
-          config: ['home', 'local', 'public', 'local_media', 'public_media'],
-          default: 0,
-          list_names: {},
-        })
-      );
-    }
-    if (now_version < 4) {
-      localStorage.setItem('knzkapp_conf_mastodon_push', JSON.stringify({}));
-      localStorage.setItem('knzkapp_conf_mastodon_filter', JSON.stringify({ notification: {} }));
-    }
-    if (now_version < 5) {
-      if (localStorage.getItem('knzkapp_now_mastodon_id')) {
-        localStorage.setItem(
-          'knzkapp_now_token',
-          localStorage.getItem('knzkapp_now_mastodon_token')
-        );
-        localStorage.setItem('knzkapp_now_id', localStorage.getItem('knzkapp_now_mastodon_id'));
-        localStorage.setItem(
-          'knzkapp_now_username',
-          localStorage.getItem('knzkapp_now_mastodon_username')
-        );
-        localStorage.setItem(
-          'knzkapp_now_domain',
-          localStorage.getItem('knzkapp_now_mastodon_domain')
-        );
-        localStorage.removeItem('knzkapp_now_mastodon_token');
-        localStorage.removeItem('knzkapp_now_mastodon_id');
-        localStorage.removeItem('knzkapp_now_mastodon_username');
-        localStorage.removeItem('knzkapp_now_mastodon_domain');
 
-        var acctlist = JSON.parse(localStorage.getItem('knzkapp_account_list'));
+    if (localStorage.getItem('knzkapp_conf_version') == undefined)
+      localStorage.setItem('knzkapp_conf_version', 1);
+
+    var now_version = parseInt(localStorage.getItem('knzkapp_conf_version'));
+    if (now_version !== last_version) {
+      show('DB_migration');
+      var mig_i = 0;
+      if (now_version < 2) {
+        //config migration v1 -> v2
+        /**
+         * v2
+         * 散らばっていたconfigをまとめました。
+         */
+        var accountdata = {
+          list: localStorage.getItem('knzk_account_list'),
+          token: localStorage.getItem('knzk_account_token'),
+          userid: localStorage.getItem('knzk_userid'),
+          username: localStorage.getItem('knzk_username'),
+          domain: localStorage.getItem('knzk_login_domain'),
+        };
+        var list_d = [
+          'bigfav',
+          'nsfw',
+          'cw',
+          'realtime',
+          'spin',
+          'swipe',
+          'joke',
+          'menu-fav',
+          'image_full',
+          'swipe_menu',
+          'head_reset',
+          'dial',
+          'theme',
+          'url_open',
+        ];
+        var list_col = ['alert', 'all', 'bg', 'bs', 'collapse', 'leng', 'media', 'preview'];
+        var new_conf = {};
+        var new_conf_col = {};
         mig_i = 0;
-        if (acctlist) {
-          while (acctlist[mig_i]) {
-            acctlist[mig_i]['service'] = 'mastodon';
-            mig_i++;
-          }
+        while (list_d[mig_i]) {
+          new_conf[list_d[mig_i]] =
+            localStorage.getItem('knzk_' + list_d[mig_i]) == undefined
+              ? ''
+              : localStorage.getItem('knzk_' + list_d[mig_i]);
+          mig_i++;
         }
-        localStorage.setItem('knzkapp_account_list', JSON.stringify(acctlist));
+        mig_i = 0;
+        while (list_col[mig_i]) {
+          new_conf_col[list_col[mig_i]] =
+            localStorage.getItem('conf-col-' + list_col[mig_i]) == undefined
+              ? ''
+              : localStorage.getItem('conf-col-' + list_col[mig_i]);
+          mig_i++;
+        }
+        localStorage.clear();
+
+        localStorage.setItem('knzkapp_conf_mastodon', JSON.stringify(new_conf));
+        localStorage.setItem('knzkapp_conf_mastodoncol', JSON.stringify(new_conf_col));
+
+        if (accountdata['list']) localStorage.setItem('knzkapp_account_list', accountdata['list']);
+        if (accountdata['token'])
+          localStorage.setItem('knzkapp_now_mastodon_token', accountdata['token']);
+        if (accountdata['userid'])
+          localStorage.setItem('knzkapp_now_mastodon_id', accountdata['userid']);
+        if (accountdata['username'])
+          localStorage.setItem('knzkapp_now_mastodon_username', accountdata['username']);
+        if (accountdata['domain'])
+          localStorage.setItem('knzkapp_now_mastodon_domain', accountdata['domain']);
       }
-    }
-    if (now_version < 6) {
-      var v6d = JSON.parse(localStorage.getItem('knzkapp_conf_mastodon_timeline'));
+      if (now_version < 3) {
+        localStorage.setItem(
+          'knzkapp_conf_mastodon_timeline',
+          JSON.stringify({
+            config: ['home', 'local', 'public', 'local_media', 'public_media'],
+            default: 0,
+            list_names: {},
+          })
+        );
+      }
+      if (now_version < 4) {
+        localStorage.setItem('knzkapp_conf_mastodon_push', JSON.stringify({}));
+        localStorage.setItem('knzkapp_conf_mastodon_filter', JSON.stringify({ notification: {} }));
+      }
+      if (now_version < 5) {
+        if (localStorage.getItem('knzkapp_now_mastodon_id')) {
+          localStorage.setItem(
+            'knzkapp_now_token',
+            localStorage.getItem('knzkapp_now_mastodon_token')
+          );
+          localStorage.setItem('knzkapp_now_id', localStorage.getItem('knzkapp_now_mastodon_id'));
+          localStorage.setItem(
+            'knzkapp_now_username',
+            localStorage.getItem('knzkapp_now_mastodon_username')
+          );
+          localStorage.setItem(
+            'knzkapp_now_domain',
+            localStorage.getItem('knzkapp_now_mastodon_domain')
+          );
+          localStorage.removeItem('knzkapp_now_mastodon_token');
+          localStorage.removeItem('knzkapp_now_mastodon_id');
+          localStorage.removeItem('knzkapp_now_mastodon_username');
+          localStorage.removeItem('knzkapp_now_mastodon_domain');
 
-      localStorage.setItem(
-        'knzkapp_conf_mastodon_timeline',
-        JSON.stringify({
-          origin: {
-            config: v6d['config'],
-            default: v6d['default'],
-            list_names: v6d['list_names'] ? v6d['list_names'] : {},
-          },
-        })
-      );
-    }
+          var acctlist = JSON.parse(localStorage.getItem('knzkapp_account_list'));
+          mig_i = 0;
+          if (acctlist) {
+            while (acctlist[mig_i]) {
+              acctlist[mig_i]['service'] = 'mastodon';
+              mig_i++;
+            }
+          }
+          localStorage.setItem('knzkapp_account_list', JSON.stringify(acctlist));
+        }
+      }
+      if (now_version < 6) {
+        var v6d = JSON.parse(localStorage.getItem('knzkapp_conf_mastodon_timeline'));
 
-    localStorage.setItem('knzkapp_conf_version', last_version);
-    hide('DB_migration');
-    init();
-  }
-}
+        localStorage.setItem(
+          'knzkapp_conf_mastodon_timeline',
+          JSON.stringify({
+            origin: {
+              config: v6d['config'],
+              default: v6d['default'],
+              list_names: v6d['list_names'] ? v6d['list_names'] : {},
+            },
+          })
+        );
+      }
+
+      localStorage.setItem('knzkapp_conf_version', last_version);
+      hide('DB_migration');
+      resolve();
+    }
+  });
 
 function clearAllConfig() {
   ons.notification
     .confirm(dialog_i18n('clear_config', 1), {
       title: dialog_i18n('clear_config'),
       modifier: 'material',
+      cancelable: true,
     })
     .then(function(e) {
       if (e === 1) {
