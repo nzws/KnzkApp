@@ -307,9 +307,6 @@ function showTL(mode, reload, more_load, clear_load) {
     TlStoreData_pre = {};
     TlStoreData_pre[inst] = {};
     TlStoreData_pre[inst][timeline_now_tab] = '';
-    TlStoreData_suf = {};
-    TlStoreData_suf[inst] = {};
-    TlStoreData_suf[inst][timeline_now_tab] = '';
     home_auto_num = 0;
     toot_new_id = 0;
     toot_old_id = 0;
@@ -532,14 +529,7 @@ function showTL(mode, reload, more_load, clear_load) {
             var tl = document.querySelector('#TL' + timeline_now_tab + '_main');
 
             tl.onInfiniteScroll = function(done) {
-              var cache = TlStoreData_suf[instance_ws][now_tab];
-              if (cache) {
-                setTimeout(function() {
-                  elemTimeline(now_tab).innerHTML += cache;
-                  TlStoreData_suf[instance_ws][now_tab] = '';
-                  done();
-                }, 500);
-              } else showTL(null, null, done);
+              showTL(null, null, done);
             };
           }
           last_load_TL = timeline_now_tab;
@@ -567,20 +557,13 @@ function cacheTL(loc = timeline_now_tab) {
     var posts = Array.from(elemTimeline(loc).children);
     if (posts.length > 30) {
       var cutData = posts.slice(24),
-        i = 0,
-        html = '';
-
-      while (cutData[i]) {
-        html += posts[24 + i].outerHTML;
-        i++;
-      }
-      i = 0;
+        i = 0;
+      toot_old_id = posts[24].id.replace('post_', '');
       while (cutData[i]) {
         posts[24 + i].parentNode.removeChild(posts[24 + i]);
         i++;
       }
-      TlStoreData_suf[inst][loc] = html + TlStoreData_suf[inst][loc];
-      console.log('CACHED:' + TlStoreData_suf[inst][loc].length);
+      console.log(toot_old_id);
     }
   }
 }
@@ -755,8 +738,7 @@ function TL_change(mode) {
 }
 
 function scrollTL() {
-  $('.page__content').scrollTop(0);
-  if (getConfig(1, 'head_reset') == 1) showTL(null, null, null, true);
+  window.location = '#post_' + toot_new_id;
 }
 
 function updateTLtrack() {

@@ -68,8 +68,6 @@ const ConfigSetup = () =>
     if (!localStorage.getItem('knzkapp_conf_mastodon')) {
       if (localStorage.getItem('knzk_realtime') == undefined)
         localStorage.setItem('knzk_realtime', 1);
-      if (localStorage.getItem('knzk_head_reset') == undefined)
-        localStorage.setItem('knzk_head_reset', 1);
       if (localStorage.getItem('knzk_dial') == undefined)
         localStorage.setItem('knzk_dial', 'change');
     }
@@ -223,7 +221,6 @@ function clearAllConfig() {
           'knzkapp_conf_mastodon',
           JSON.stringify({
             realtime: 1,
-            head_reset: 1,
             dial: 'change',
           })
         );

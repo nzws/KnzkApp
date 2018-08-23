@@ -652,7 +652,7 @@ img.emoji {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;
-  -ms-scroll-snap-type: mandatory;
+  scroll-behavior: smooth;
 }
 
 .tutorial {
