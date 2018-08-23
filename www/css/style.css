@@ -151,6 +151,7 @@ body {
 
 .userpage-button-right {
   right: 0;
+  text-align: right;
 }
 
 .userpage-follower {
