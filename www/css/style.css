@@ -897,3 +897,19 @@ img.emoji {
   background: #56a7e1;
   color: #fff;
 }
+
+@keyframes fade {
+  0% {
+    opacity: 0.2;
+    pointer-events: none;
+  }
+  to {
+    opacity: 1;
+    pointer-events: initial;
+  }
+}
+
+.post:first-child {
+  opacity: 1;
+  animation: fade 0.2s linear;
+}
