@@ -1,67 +1,68 @@
 {
   "navigation": {
     "title": "Navigation",
-    "toot": "New toot",
+    "toot": "New Toot",
     "notifications": "Notifications",
-    "favourites": "Favourites",
-    "follow_req": "Follow requests",
-    "user_menu": "User menu",
+    "favourites": "Favorites",
+    "follow_req": "Follow Requests",
+    "user_menu": "User Menu",
     "preferences": "Preferences",
-    "pinned_toots": "Pinned toots",
-    "dm_tl": "Direct messages",
-    "muted_users": "Muted users",
-    "blocked_users": "Blocked users",
-    "hidden_domains": "Hidden domains",
-    "report_status": "Report status",
+    "pinned_toots": "Pinned Toots",
+    "dm_tl": "Direct Messages",
+    "muted_users": "Muted Users",
+    "blocked_users": "Blocked Users",
+    "hidden_domains": "Blacklisted Domains",
+    "report_status": "Report Status",
     "back": "Back",
     "close": "Close",
     "cancel": "Cancel",
-    "load_more": "Load more...",
+    "load_more": "Load More...",
     "search": "Search",
     "trend": {
-      "title": "Trending now",
-      "talking": "{{accounts}} persons talking"
+      "title": "Trends",
+      "talking": "{{accounts}} people talking"
     }
   },
   "toot": {
     "toot": "Toot!",
     "toot_as": "Toot as {{acct}}!",
+    "toot_box_placeholder": "What's on your mind?",
+    "reply": {
+      "prefix": "Reply to ",
+      "suffix": ""
+    },
     "cw": "Write your warning here",
-    "picture": "Add picture",
+    "cw_toot": "Show more",
+    "picture": "Add a picture",
     "nsfw": {
       "title": "Sensitive content",
-      "sub": "Click to view"
+      "sub": "Tap to view"
     },
     "fav": {
-      "user": "Favourited",
+      "user": "Favorited by",
       "prefix": "",
-      "suffix": " favourited"
+      "suffix": " favorited your status"
     },
     "boost": {
-      "user": "Boosted",
+      "user": "Boosted by",
       "prefix": "",
-      "suffix": " boosted"
+      "suffix": " boosted your status"
     },
     "enquete": {
-      "30s": "30s",
-      "1m": "1m",
-      "3m": "3m",
-      "5m": "5m",
-      "10m": "10m",
-      "1h": "1h",
-      "1d": "1d",
-      "column1": "Item1",
-      "column2": "Item2",
-      "column3": "Item3 (Option)",
-      "column4": "Item4 (Option)",
-      "toot_box_placeholder": "What is on your mind?",
-      "reply": {
-        "prefix": "Reply to ",
-        "suffix": ""
-      }
+      "30s": "30 Seconds",
+      "1m": "1 Minute",
+      "3m": "3 Minutes",
+      "5m": "5 Minutes",
+      "10m": "10 Minutes",
+      "1h": "1 Hour",
+      "1d": "1 Day",
+      "column1": "Column 1",
+      "column2": "Column 2",
+      "column3": "Column 3 (Optional)",
+      "column4": "Column 4 (Optional)"
     },
     "md": {
-      "note": "*MarkDown can use at Swipe-menu → New toot."
+      "note": "* You can use MarkDown from Swipe Menu -> New Toot"
     },
     "bbcode": {
       "text": "Text",
@@ -83,13 +84,13 @@
       "color": "Color",
       "weight": "Weight",
       "reset": {
-        "title": "Clear doodle",
-        "text": "Are you sure you want to clear doodle?",
+        "title": "Reset",
+        "text": "Your doodle will be discarded. Continue?",
         "close": "Close doodle"
       },
       "upload": {
         "title": "Upload",
-        "text": "Are you sure you want to upload?"
+        "text": "Upload doodle?"
       }
     }
   },
@@ -97,64 +98,64 @@
     "Custom": "Custom",
     "People": "People",
     "Nature": "Nature",
-    "Foods": "Foods",
+    "Foods": "Food & Drink",
     "Activity": "Activity",
-    "Places": "Places",
+    "Places": "Travel & Places",
     "Objects": "Objects",
     "Symbols": "Symbols",
     "Flags": "Flags",
-    "Search": "Search"
+    "Search": "Search results"
   },
   "account": {
-    "add": "Add account",
-    "moved": "This account has moved to",
-    "followreq": "Awaiting approval",
-    "follower": "Follower",
+    "add": "Add an account",
+    "moved": "This account has moved",
+    "followreq": "Request sent",
+    "follower": "Follows you",
     "mute": "Muted",
     "block": "Blocked",
     "toots": "Toots",
-    "following": "Following",
-    "followers": "Followers",
-    "note": "Information below may reflect the user's profile incompletely.",
     "pinned": "Pinned",
     "replies": "+Replies",
+    "note": "Information below may reflect the user's profile incompletely.",
+    "followers": "Followers",
+    "following": "Following",
     "media": "Media",
-    "joined_at": "Joined at"
+    "joined_at": "Joined "
   },
   "app_filter": {
-    "title": "Filter",
-    "note": "*プッシュ通知ミュートの反映にはアプリの再起動が必要です。",
+    "title": "Filters",
+    "note": "*Please restart the app to reflect changes on push notification filtering",
     "edit": {
-      "title": "Add / edit filter",
-      "placeholder": "UserID (e.g. knzk@knzk.me)",
+      "title": "Add / Edit a Filter",
+      "placeholder": "User ID (e.g.: knzk@knzk.me)",
       "mute": {
-        "title": "Hide display",
+        "title": "Muted Content",
         "all": "All",
         "toot": "Toots",
         "follow": "Follows",
         "mention": "Mentions",
         "boost": "Boosts",
-        "favourite": "Favourites",
-        "push": "Mute push notifications",
-        "keyword": "Keyword notice"
+        "favourite": "Favorites",
+        "push": "Push notifications (restart required)",
+        "keyword": "Detect keywords"
       }
     }
   },
   "lists": {
     "title": "Lists",
     "people": {
-      "title": "Edit list",
-      "accounts": "リストに登録しているアカウント"
+      "title": "Edit Lists",
+      "accounts": "Accounts in this list"
     }
   },
   "bookmark": {
     "title": "Bookmarks",
-    "note": "ブックマークはKnzkApp独自の機能で、データが端末内に保管されます。<br>ブックマークはインスタンスごとに区別されます。",
+    "note": "All bookmarks are stored locally to this device.<br>Each instance will have a separate bookmark list.",
     "clear": {
-      "title": "Clear all bookmarks",
-      "text": "本当に削除しますか？<br>*{{inst}}のアカウントのブックマークが対象です。"
+      "title": "Delete All Bookmarks",
+      "text": "You are about to delete all bookmarks of {{inst}}. <br>Continue?"
     },
-    "deleted": "This post has been deleted.<br>Tap to delete this bookmark"
+    "deleted": "This post has been deleted.<br>Tap to remove it from your bookmarks"
   },
   "timeline": {
     "title": "Timelines",
@@ -167,373 +168,370 @@
   "qrcode": {
     "title": "QR Code",
     "note": {
-      "L1": "この画面をスクショするか直接見せてあなたのアカウントを簡単に共有することができます。",
-      "L2": "QRコードは通常のQRコードリーダーアプリ等で読み取ってください。"
+      "L1": "You can share your account easily by showing this QR code to others.",
+      "L2": "QR code can be read using any QR code reader apps."
     }
   },
   "emoji": {
     "reset": "Show all categories",
-    "loading_now": "Generating emoji picker..."
+    "loading_now": "Initializing emoji picker..."
   },
   "copyoption": {
     "copy": "Copy",
     "paste": "Paste"
   },
   "original_toot": {
-    "title": "Original toot",
+    "title": "Show original toot",
     "quote": {
-      "title": "Quote and toot",
-      "prefix": "Posted by ",
+      "title": "Quote and Toot",
+      "prefix": "From",
       "suffix": ""
     }
   },
   "privacy": {
     "public": "Public",
     "unlisted": "Unlisted",
-    "private": "Followers-only",
+    "private": "Private",
     "limited": "Limited",
     "direct": "Direct"
   },
   "dialogs_html": {
     "error": "Error",
-    "del_post": "Your post deleted.",
-    "report": "Thanks for reporting.",
-    "del_notification": "All notifications deleted.",
-    "ok_conf": "Settings saved.",
-    "ok_conf_2": "Settings saved.",
+    "del_post": "Toot successfully deleted.",
+    "report": "Report sent!",
+    "del_notification": "Notifications successfully deleted.",
+    "ok_conf": "Changes successfully saved.",
+    "ok_conf_2": "Changes applied.",
     "del_ok": "Deleted.",
-    "post_now": "Posting now...",
-    "vote_ok": "Succeeded voting!",
-    "vote_ng": "Failed voting.<br>投票済みか締め切りとなっている可能性があります。",
-    "maximum_media": "エラー: これ以上画像をアップする事はできません。",
-    "bbcode_limit": "エラー: 文字数制限を超えています！<br>回転や点滅、文字列を少なくしてください。",
-    "cannot_pros": "エラー: 実行できませんでした。<br> 接続環境が悪いか鯖落ちしている可能性があります。",
-    "cannot_post": "エラー: 投稿できませんでした。<br> 接続環境が悪いか鯖落ちしている可能性があります。",
-    "cannot_load": "エラー: 取得できませんでした。<br> 接続環境が悪いか鯖落ちしている可能性があります。",
-    "cannot_use_ls": "OSのバージョンが古い可能性があります。<br> 詳細は開発者にお問い合わせください。",
-    "ok_copy": "コピーしました。",
-    "sv_login": "インスタンスに接続できません！<br> このインスタンスが存在しない、一時的にメンテナンス中、通信環境が悪い可能性があります。",
-    "connect_sv": "エラー: エラーが発生しました。<br>再起動するなどでもう一度お試しください。",
-    "connect_API": "エラー: APIを認証できませんでした。<br>アカ一覧から一度削除して、もう一度ログインしてください。",
-    "no_acct": "エラー: アカウントが正常に取得できませんでした。<br>このインスタンスに登録されていない可能性があります。",
-    "no_original": "エラー: 取得できませんでした。",
+    "post_now": "Tooting...",
+    "vote_ok": "Vote successfully sent!",
+    "vote_ng": "Failed to vote.<br>You have already voted once, or the vote has been closed already.",
+    "maximum_media": "Error: Maximum number of pictures exceeded.",
+    "bbcode_limit": "Error: Maximum number of characters exceeded.<br>Please try shortening your toot.",
+    "cannot_pros": "Error: Failed to execute.<br>Bad connection, or the server is down.",
+    "cannot_post": "Error: Failed to toot.<br>Bad connection, or the server is down.",
+    "cannot_load": "Error: Failed to load.<br>Bad connection, or the server is down.",
+    "cannot_use_ls": "Your OS version may be old.<br> Please contact the administrator for details",
+    "ok_copy": "Copied!",
+    "sv_login": "Connection to instance could not be established.<br> Please check your connection and server status.",
+    "connect_sv": "Error: An error occurred.<br>Please restart the app and try again.",
+    "connect_API": "Error: Failed to authorize API.<br>Please remove this account from the list, and relogin.",
+    "no_acct": "Error: Failed to fetch account details.<br>The account you entered could not be found in this instance.",
+    "no_original": "Error: Failed to fetch data.",
     "DB_migrate": {
-      "title": "Starting now...",
-      "text": "データベースのマイグレーション中です。<br>Please wait..."
+      "title": "Launching...",
+      "text": "Migrating database.<br>Please wait..."
     }
   },
-  "report_status_note": "あなたの通報が現在処理されているのか簡易的に確認することができます。",
+  "report_status_note": "You can check the status of reports that you have sent here.",
   "dialogs_js": {
     "report": {
       "title": "Report",
-      "text": "Please enter a report comment.<br>(If you OK with blank, you can cancel.)"
+      "text": "Enter any comment regarding this report<br>(Leave blank to cancel)"
     },
     "delete": {
-      "title": "Delete this toot",
-      "text": "Are you sure you want to delete this toot?"
+      "title": "Delete toot",
+      "text": "Your toot will be deleted. Continue?"
     },
     "log": {
-      "title": "Welcome to KnzkApp",
-      "text": "KnzkAppでは、エラー時に開発者が原因を特定しやすいようログを送信する機能が備わっています。<br>エラー時にログを開発者へ送信してもよろしいですか？<br><a onclick=\"openURL('https://knzkapp.nzws.me/privacy.html')\">プライバシーポリシー</a>",
+      "title": "Welcome to KnzkApp!",
+      "text": "KnzkApp sends error logs to the developer to improve your experience.<br>Allow KnzkApp to send error logs?<br><a href='https://knzkapp.nzws.me/privacy.html'>Privacy Policy(Japanese)</a>",
       "yes": "Agree",
-      "no": "Disagree"
+      "no": "Refuse"
     },
     "err_fcm": {
       "title": "Error",
-      "text": "FCMトークンの受信に失敗しました。<br>このままでもお使い頂けますが、プッシュ通知の配信が行えない可能性があります。"
+      "text": "Failed to receive FCM token.<br>You may still use KnzkApp, but push notification may not work properly."
     },
     "code": {
       "title": "Login",
-      "text": "Please enter authorization code.<br>(If you OK with blank, you can cancel.)"
+      "text": "Enter the verification code<br>(Leave blank to cancel)"
     },
     "terms": {
       "title": "Login",
-      "text": "OKを押してインスタンスの利用規約に同意したものとします。"
+      "text": "By pressing OK, you agree to the user agreement of this instance."
     },
     "login_error": "An error occurred while logging in.",
     "delete_account": {
-      "title": "Delete account",
-      "text": "Are you sure you want to delete this account from app?"
+      "title": "Delete Account",
+      "text": "This account will be deleted from the app. Continue?"
     },
     "clear_account": {
-      "title": "Logout all accounts",
-      "text": "Are you sure you want to logout <b>all accounts</b>?"
+      "title": "Log Out from All Accounts",
+      "text": "Are you sure you want to log out from <b>ALL accounts</b>?"
     },
     "clear_bookmark": {
-      "title": "Clear all bookmarks",
-      "text": "Are you sure you want to clear <b>all bookmarks</b>?"
+      "title": "Delete All Bookmarks",
+      "text": "Are you sure you want to delete <b>ALL bookmarks</b>?"
     },
     "clear_config": {
-      "title": "Reset all config",
-      "text": "Are you sure you want to reset <b>all config</b>?"
+      "title": "Reset Settings",
+      "text": "Are you sure you want to reset <b>ALL settings</b>?"
     },
     "err_fcm_2": {
       "title": "Error",
-      "text": "FCMトークンの受信に失敗しました。<br>通知が無効になっている可能性があります。"
+      "text": "Failed to receive FCM token.<br>Push notification may be disabled."
     },
     "keyword": {
-      "title": "Keyword notice",
-      "text": "Please enter a keyword.<br>(If you OK with blank, you can cancel.)"
+      "title": "Keyword detection",
+      "text": "Enter keywords you would like to detect<br>(Leave blank to cancel)"
     },
     "err_notification_sv": {
       "title": "Error",
-      "text": "通知サーバーが見つかりませんでした。<br>開発者にご連絡ください。"
+      "text": "Failed to reach notification server.<br>Please contact the administrator."
     },
     "clear_alert": {
-      "title": "Clear notifications",
-      "text": "Are you sure you want to clear all notifications?"
+      "title": "Clear Alert",
+      "text": "Notifications will be cleared. Continue?"
     },
-    "delete_picture": "Are you sure you want to delete picture?",
+    "delete_picture": "Picture will be deleted. Continue?",
     "warning_spin": {
-      "title": "注意:TLが重くなります",
-      "text": "回転を多く指定すると、TLが重くなる原因となり、警告を受ける可能性があります。続行しますか？"
+      "title": "Warning: This may slow the timeline down",
+      "text": "You might get a warning if you slow the timeline down by using spin too many times. Continue?"
     },
     "hashtag": {
-      "title": "Add hashtag timeline",
-      "text": "Please enter hashtag name.<br>(If you OK with blank, you can cancel.)"
+      "title": "Add a Hashtag Timeline",
+      "text": "Enter a hashtag."
     },
     "list_note": {
-      "title": "Add list timeline",
-      "text": "リストTLの追加は<a href=\"#\" onclick=\"$('ons-alert-dialog-button').click();loadNav('lists.html')\"><b>ユーザーメニュー > リスト</b></a>より行なえます。"
+      "title": "Add a List Timeline",
+      "text": "You can add a list timeline from <a href='#' onclick=\"$('ons-alert-dialog-button').click();loadNav('lists.html')\"><b>User Menu > Lists</b></a>."
     },
     "err_new_tl": {
       "title": "Error",
-      "text": "これ以上タイムラインを増やすことはできません。"
+      "text": "You have reached the maximum number of timelines you can add."
     },
     "editlist": {
-      "title": "Add / Edit Lists",
-      "text": "Please enter list name.<br>(If you OK with blank, you can cancel.)"
+      "title": "Add/Edit Lists",
+      "text": "Enter name (Leave blank to cancel)"
     },
     "deletelist": {
-      "title": "Delete list",
-      "text": "Are you sure you want to delete?"
+      "title": "Delete a List",
+      "text": "Continue?"
     },
     "add_tag": {
-      "title": "Add this hashtag to timelines",
-      "text": "Are you sure you want to add?"
+      "title": "Add This Tag to Timeline",
+      "text": "Continue?"
     },
-    "clear_done": "完了しました。アプリを再起動してください。"
+    "clear_done": "Success! Please restart the app."
   },
   "search": {
-    "result": "Search results of {{text}}",
+    "result": "Search results for {{text}}",
     "accts": "Accounts",
     "tags": "Tags",
     "toots": "Toots"
   },
   "actionsheet": {
     "toot": {
-      "more": "Expand",
-      "openbrowser": "Open in browser",
+      "more": "Expand This Status",
+      "openbrowser": "Open in Browser",
       "url": "Copy URL",
-      "original_toot": "Show original toot",
-      "near": "Show nearby toot",
-      "delete": "Delete",
+      "original_toot": "Show Original Toot",
+      "near": "Show Toots Nearby",
+      "delete": "Delete This Status",
       "pin": {
-        "set": "Pin",
-        "unset": "Unpin"
+        "set": "Pin This Status",
+        "unset": "Unpin This Status"
       },
       "bookmark": {
-        "set": "Bookmark",
-        "unset": "Unbookmark"
+        "set": "Bookmark This Status",
+        "unset": "Delete from Bookmark"
       },
-      "qrcode": "Show QRCode",
-      "mention": "Mention",
+      "qrcode": "Show QR Code",
+      "mention": "Reply",
       "mute": {
-        "set": "Mute",
-        "unset": "Unmute"
+        "set": "Mute This User",
+        "unset": "Unmute This User"
       },
       "block": {
-        "set": "Block",
-        "unset": "Unblock"
+        "set": "Block This User",
+        "unset": "Unblock This User"
       }
     },
     "near": {
-      "title": "Select timeline",
-      "htl": "Home",
-      "ltl": "Local on {{inst}}",
-      "ftl": "Federated on {{inst}}"
+      "title": "Select Timeline",
+      "htl": "HTL",
+      "ltl": "LTL of {{inst}}",
+      "ftl": "FTL of {{inst}}"
     },
     "editTL": {
-      "title": "Add Timeline",
+      "title": "Add a Timeline",
       "hashtag": "Hashtag",
       "list": "List",
       "option": {
-        "default": "Set to initial display timeline",
+        "default": "Set as default timeline to display",
         "delete": "Delete"
       }
     },
     "editlist": {
-      "name": "Rename list",
-      "people": "Edit list",
-      "delete": "Delete list",
-      "add": "Add to timeline page"
+      "name": "Edit Name",
+      "people": "Users to display",
+      "delete": "Delete",
+      "add": "Add to timeline"
     }
   },
   "config": {
     "profile": {
-      "title": "Edit profile",
+      "title": "Edit User Profile",
       "display_name": "Display name",
       "bio": "Bio",
       "lock": "Lock account",
-      "note": "* インスタンスにより文字数、容量制限が異なりますのでリミットは表示していません。",
-      "advanced_setting": "Advanced Setting",
-      "advanced_setting_note": "Go to Mastodon settings page"
+      "note": "* Saving fails when character limit is exceeded.",
+      "advanced_setting": "More settings",
+      "advanced_setting_note": "You will be redirected to Mastodon settings page"
     },
     "preferences": {
-      "about_instance": "About this instance",
-      "about_app": "About this app",
+      "about_instance": "About This Instance",
+      "about_app": "About This App",
       "about_app_note": {
-        "l1": "KnzkApp is open source software.",
-        "l2_pre": "You can contribute or report issues on GitHub at ",
+        "l1": "KnzkApp is an Open Source Software.",
+        "l2_pre": "You can join the development or report a problem from ",
         "l2_suf": "",
-        "privacy_policy": "KnzkApp privacy policy (Japanese)"
+        "privacy_policy": "KnzkApp Privacy Policy (Japanese)"
       },
       "tl": {
-        "title": "Timeline settings",
+        "title": "Timeline Settings",
         "chatmode": {
-          "title": "Chat mode",
-          "sub": "下に行くほど最新の投稿になるモード"
+          "title": "Reverse Mode",
+          "sub": "Newest toots will be displayed at the bottom"
         },
-        "joke": "Joke mode",
-        "realtime": "RealTime update",
-        "cw": "Always show toot marked as content warning",
-        "nsfw": "Always show media marked as sensitive",
-        "head_reset": {
-          "title": "Enable timeline reload when you tapped timeline header",
-          "sub": "リセットさせる事で軽くなります"
-        },
-        "resume_reload": "Disable auto reload at resume",
+        "joke": "Joke Mode",
+        "realtime": "Timeline Streaming",
+        "cw": "Always Display CW Content",
+        "nsfw": "Always Display NSFW Media",
+        "resume_reload": "Do Not Reload on App Resume",
         "edit": {
-          "title": "Edit timeline",
-          "note": "ボタンで編集できます",
-          "load": "First timeline to load",
-          "sort": "Sort"
+          "title": "Edit Timeline",
+          "note": "Use Buttons to Edit",
+          "load": "Timeline to Display First",
+          "sort": "Order"
         },
         "speed_dial": {
-          "title": "Edit speed dial",
+          "title": "Speed Dial Settings",
           "none": "None",
-          "toot": "New toot",
-          "notification": "Notification",
-          "reload": "Reload Timeline",
-          "menu": "Timeline menu"
+          "toot": "New Toot",
+          "notification": "Notifications",
+          "reload": "Refresh Timeline",
+          "menu": "Timeline Menu"
         }
       },
       "display": {
-        "title": "Display settings",
-        "bigfav": "Show larger favorite buttons",
-        "spin": "Disable [spin] (BBCode)",
-        "menu_fav": "Show favourites in slide menu",
-        "image_full": "Display the whole photo",
+        "title": "Display Settings",
+        "bigfav": "LargerFav Button",
+        "spin": "Disable Spin (BBCode)",
+        "menu_fav": "Display Favorites in Swipe Menu",
+        "image_full": "Display Full Image when Previewing Media",
         "copy": {
-          "title": "Enable copy and paste option",
-          "sub": "If you found any problems about copy and paste, please turn on."
+          "title": "Display Options for Copying/Pasting",
+          "sub": "Enable when you cannot use native OS c/p functions"
         },
         "theme": "Theme"
       },
       "system": {
-        "title": "System settings",
+        "title": "System Settings",
         "openurl": {
-          "title": "Mode of open links",
-          "inapp": "In app browser",
-          "inapp_older": "In app browser (older)",
-          "browser": "Default browser"
+          "title": "Open URL with",
+          "inapp": "In-app Browser",
+          "inapp_older": "In-app Browser (classic)",
+          "browser": "Default OS Browser"
         },
         "swipe_menu": {
-          "title": "Change Swipe-mode",
-          "sub": "Off: gesture-swiper / On: Tabbar & menu swiper"
+          "title": "Swipe Detection Sensitivity",
+          "sub": "Enabling this makes swiping easier, but timeline scrolling harder"
         },
         "gpu": {
-          "title": "Disable hardware acceleration",
-          "sub": "If you found any problems about view, please turn on."
+          "title": "Disable Hardware Acceleration",
+          "sub": "Enable if you have problems with rendering"
         },
         "SendLog": {
-          "title": "Send error logs to developer",
-          "sub": "Privacy policy (Japanese)"
+          "title": "Send Error Logs to the Developer",
+          "sub": "Privacy Policy (Japanese)"
         },
-        "no_unread_label": "Disable unread notification label"
+        "no_unread_label": "Do Not Display Unread Counts"
       },
       "eco": {
-        "title": "Economy settings",
+        "title": "Battery/Data Saver Settings",
         "gif": {
-          "title": "Disable playing animated GIFs",
-          "sub": "Battery saving"
+          "title": "Do Not Use Animated GIFs",
+          "sub": "Enabling this conserves battery"
         },
         "custom_emoji": {
-          "title": "Disable show custom emojis",
-          "sub": "Network-communication saving"
+          "title": "Do Not Use Custom Emojis",
+          "sub": "Enabling this decreases data usage"
         }
       },
       "font": {
-        "title": "Font-size settings",
-        "button": "Button in toots",
-        "body": "Text in toots"
+        "title": "Font Size",
+        "button": "Toot Buttons",
+        "body": "Toot Texts"
       },
-      "note": "Some settings are reflected after rebooting.",
+      "note": "Changes to some settings will be applied after restart.",
       "danger": {
-        "bookmarks": "Delete all bookmarks",
-        "settings": "Reset all settings",
-        "accounts": "Logout all accounts"
+        "bookmarks": "Delete Bookmarks from All Accounts",
+        "settings": "Reset All Settings",
+        "accounts": "Log Out from All Accounts"
       }
     },
     "collapsed": {
-      "title": "Collapsed toots",
-      "enable": "Enable collapsed toots",
+      "title": "Collapse Toots",
+      "enable": "Enable collapsing",
       "auto": {
-        "title": "Automatic collapseing settings",
+        "title": "Auto-collapse",
         "all": "All",
         "notification": "Notifications",
-        "long": "Lengthy toots",
+        "long": "Long toots",
         "boost": "Boosts",
-        "mention": "Mentions",
-        "media": "Media toot",
-        "pinned": "Pinned toot"
+        "mention": "Replies",
+        "media": "Toots with media",
+        "pinned": "Pinned toots"
       },
       "bg": {
-        "title": "Image background settings",
-        "collapse": "Give collapsed toots an image background",
-        "preview": "Preview collapsed toot media"
+        "title": "Background",
+        "collapse": "Change background when collapsed",
+        "preview": "Preview media"
       },
       "more": {
-        "title": "More settings",
-        "alert": "Hide my display_name and avatar in notification"
+        "title": "More",
+        "alert": "Do not display Icon/Name of my own toots in notifications"
       }
     },
     "notification": {
-      "title": "Notification settings",
+      "title": "Push Notifications",
       "save": "Save",
-      "enable": "Enable notifications",
-      "note": "*設定を保存するまでサーバー上に更新されません。",
+      "enable": "Enable push notifications",
+      "note": "*your changes will not be applied to the server until you save the changes.",
       "default": {
-        "title": "通常の通知",
+        "title": "Regular Notifications",
         "everyone": {
-          "title": "Mute notifications (Everyone)",
+          "title": "Disable Notifications (From All Users)",
           "all": "All",
-          "follow": "Follow",
-          "mention": "Mention",
-          "boost": "Boost",
-          "favourite": "Favourite"
+          "follow": "Follows",
+          "mention": "Mentions",
+          "boost": "Boosts",
+          "favourite": "Favorites"
         },
         "user": {
-          "title": "Mute notifications (User)",
-          "sub": " ユーザーごとの通知制御は<a href=\"#\" onclick=\"loadNav('config_filter.html')\"><b>ユーザーメニュー > フィルター</b></a>より行えます。",
-          "note": "*ユーザー通知ミュート反映にはアプリの再起動が必要です。"
+          "title": "Disable Notifications (From a Specific User)",
+          "sub": "Please go to <a href=\"#\" onclick=\"loadNav('config_filter.html')\"><b>User Menu > Filter </b></a> to disable notifications from a specific user.",
+          "note": "*Please restart the app after you have changed user-specific notification settings."
         },
         "keyword": {
-          "title": "Keyword notifications",
-          "note": "* Tap to delete keyword."
+          "title": "Keyword detection",
+          "watch": "Watches HTL for the keyword.",
+          "note": "* Tap to delete a keyword."
         }
       }
     }
   },
   "login": {
-    "title": "Login to KnzkApp",
-    "login": "Login",
-    "terms": "Terms",
-    "privacy_policy": "Privacy policy",
-    "other": "Other instance",
+    "title": "Log in to KnzkApp",
+    "login": "Log In",
+    "terms": "User Agreement",
+    "privacy_policy": "Privacy Policy",
+    "other": "Other Instance",
     "advance": {
-      "title": "(for advanced users) Input the access token to login",
-      "domain": "Domain (e.g. mastodon.social)",
+      "title": "Log in using access token (advanced)",
+      "domain": "Domain (e.g.: mastodon.social)",
       "token": "Access token"
     }
   },
@@ -543,33 +541,33 @@
     "done": "Done",
     "title": "Welcome to KnzkApp!",
     "page1": {
-      "L1": "KnzkAppは、元々Knzk.meのBBCode(文字装飾)をアプリでも見られるように開発されたMastodonクライアントです。",
-      "L2": "現在では様々なインスタンスの独自仕様に対応しています。"
+      "L1": "KnzkApp is a Mastodon client originally created to display BBCode (Text Decorations) of knzk.me in a mobile app.",
+      "L2": "With the current version of KnzkApp, you can even use special features of other popular instances right from KnzkApp."
     },
     "page2": {
-      "L1": "KnzkAppでは、主にタイムラインの下にあるフォームから投稿できます。",
-      "L2": "このフォームは、黒い部分(本文を入力する部分)をタップする事で細かなボタンが表示されます。ボタンを押すと、それぞれの説明を表示します。",
+      "L1": "In KnzkApp, you can easily toot from the toot box at the bottom of the timeline.",
+      "L2": "You can tap on this toot box to launch edit screen. Press a button to show details of that button.",
       "toot": "Toot! (Sample)",
       "alert": {
-        "menu": "設定等に飛べるメニューを表示します。",
-        "toot": "このボタンで投稿できます。",
-        "privacy": "このボタンで公開範囲を変更できます。",
-        "local_only": "このボタンでローカル限定にする事ができます。 *対応インスタンスのみ",
-        "emoji": "このボタンで絵文字を追加する事ができます。",
-        "deco_box": "このボックスで様々な追加機能を使用する事ができます。",
-        "bbcode": "このボタンでBBCodeを追加する事ができます。 *対応インスタンスのみ",
-        "doodle": "このボタンで簡易お絵かきを起動する事ができます。投稿時は画像になる為、どのインスタンスでも使用できます。",
-        "cw": "このボックスで警告文(CW)を追加する事ができます。",
-        "picture": "このボックスで画像を追加する事ができます。",
-        "enquete": "このボックスで投票を作成する事ができます。 *対応インスタンスのみ"
+        "menu": "Display menu for accessing settings, etc.",
+        "toot": "Post your toot using this button",
+        "privacy": "Edit toot privacy settings with this button.",
+        "local_only": "When enabled, your toot will be shown only in LTL (and not FTL). *Limited instances only",
+        "emoji": "Add your favorite emojis with this button.",
+        "deco_box": "Additional features will be displayed in this box.",
+        "bbcode": "Add BBCode with this button. *Limited instances only",
+        "doodle": "You can doodle anything with this button. Since all doodles are uploaded as a picture, you can use this in any instance.",
+        "cw": "Turn on Content Warning (CW) with this button.",
+        "picture": "Upload pictures with this button.",
+        "enquete": "Create a poll with this button. *Limited instances only"
       }
     },
     "page3": {
-      "L1": "タイムラインは、左右にスワイプするか、メニューバーの矢印で切り替える事ができます。"
+      "L1": "You can swipe or tap the arrow at top left/right to switch between timelines."
     },
     "page4": {
-      "L1": "簡単な説明は以上です。",
-      "L2": "その他、お困りの際や新しいアイデアなど、何でもいいのでまあまあ暇な開発者(<a href='https://knzk.me/@y'>@y@knzk.me</a>)に質問してみてください。",
+      "L1": "That's it!",
+      "L2": "If you have any problems or suggestions, please feel free to contact (<a href='https://knzk.me/@y'>@y@knzk.me</a>)!",
       "L3": "Bon Appetoot!"
     }
   },
@@ -577,9 +575,9 @@
     "instance_conf": "Loading instance settings...",
     "theme": "Loading UI settings...",
     "instance_login": "Verifying instance...",
-    "login": "Login in...",
+    "login": "Logging in...",
     "prepare": "Preparing...",
-    "user": "Loading user informations...",
-    "error_acct": "問題が発生したため、アカウントを切り替えてください。"
+    "user": "Loading user information...",
+    "error_acct": "A problem occurred. Please switch your account"
   }
 }
