@@ -93,3 +93,4 @@ If you are a beginner, Let us know! ([@y@knzk.me](https://knzk.me/@y) or Email.)
 ## ❤️ Special Thanks
 - [あんのたん @annotunzdy](https://knzk.me/@annotunzdy)
 - [ネイティオ @twotwo](https://knzk.me/@twotwo)
+- [yuzumina @yuzumina](https://knzk.me/@yuzumina)
