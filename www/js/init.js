@@ -568,8 +568,6 @@ const init_d = () =>
       }
     }
     if (localStorage.getItem('knzkapp_conf_mastodon') != undefined) {
-      ons.disableAutoStyling();
-
       button = 'button';
       quiet = button + ' button--quiet';
       light = button + ' button--light';
@@ -612,7 +610,8 @@ const init_d = () =>
   });
 
 ons.ready(function() {
-  i18n_init().then(init_d().then(ConfigSetup().then(init())));
+  ons.disableAutoStyling();
+  init_d().then(i18n_init().then(ConfigSetup().then(init())));
   if (ons.platform.isAndroid()) ons.setDefaultDeviceBackButtonListener(BackButtonEvent);
   if (is_debug) {
     ons.notification.alert('この状態で公開しないで下さい！', {
