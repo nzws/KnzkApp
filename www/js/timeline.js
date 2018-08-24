@@ -436,6 +436,12 @@ function showTL(mode, reload, more_load, clear_load) {
                                   TlStoreData_pre[instance_ws][now_tab] +
                                   toot_card(ws_reshtml, 'full', null, TLmode);
                               else {
+                                if (getConfig(1, 'tl_speech')) {
+                                  var ssu = new SpeechSynthesisUtterance();
+                                  ssu.text = ws_reshtml.content.replace(/<.*?>/gi, '');
+                                  ssu.lang = getConfig(1, 'tl_speech');
+                                  speechSynthesis.speak(ssu);
+                                }
                                 elemTimeline(now_tab).innerHTML =
                                   toot_card(ws_reshtml, 'full', null, TLmode) +
                                   TlStoreData_pre[instance_ws][now_tab] +
@@ -563,7 +569,6 @@ function cacheTL(loc = timeline_now_tab) {
         posts[24 + i].parentNode.removeChild(posts[24 + i]);
         i++;
       }
-      console.log(toot_old_id);
     }
   }
 }

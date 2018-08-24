@@ -259,7 +259,8 @@ function initevent() {
     if (event.enterPage.id === 'config-page') {
       show('now_loading');
       setTimeout(function() {
-        if (ons.platform.isIPhoneX()) elemId('item-dp').className = 'invisible'; //iPhoneXだとぶっ壊れるため
+        if (getConfig(1, 'tl_speech'))
+          elemId('tl_speech_' + getConfig(1, 'tl_speech')).selected = true;
         if (getConfig(1, 'dial')) elemId('dial_' + getConfig(1, 'dial')).selected = true;
         if (getConfig(1, 'theme')) elemId('theme_' + getConfig(1, 'theme')).selected = true;
         if (getConfig(1, 'url_open')) elemId('url_' + getConfig(1, 'url_open')).selected = true;
@@ -450,7 +451,6 @@ function initevent() {
     });
 
     document.addEventListener('swiperight', function(event) {
-      console.log(event.gesture.startEvent);
       var h = event.gesture.startEvent.center.clientX;
       if (h <= 20 || elemId('splitter-menu').isOpen) {
         fn.open();

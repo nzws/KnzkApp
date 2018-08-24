@@ -391,6 +391,10 @@
       },
       "tl": {
         "title": "Timeline Settings",
+        "speech": {
+          "title": "トゥート読み上げ",
+          "none": "None"
+        },
         "chatmode": {
           "title": "Reverse Mode",
           "sub": "Newest toots will be displayed at the bottom"
