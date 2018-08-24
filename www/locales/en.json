@@ -313,7 +313,8 @@
       "title": "Add This Tag to Timeline",
       "text": "Continue?"
     },
-    "clear_done": "Success! Please restart the app."
+    "clear_done": "Success! Please restart the app.",
+    "keyword_limit": "キーワードは30文字以下にする必要があります。"
   },
   "search": {
     "result": "Search results for {{text}}",
@@ -518,12 +519,12 @@
           "title": "Disable Notifications (From a Specific User)",
           "sub": "Please go to <a href=\"#\" onclick=\"loadNav('config_filter.html')\"><b>User Menu > Filter </b></a> to disable notifications from a specific user.",
           "note": "*Please restart the app after you have changed user-specific notification settings."
-        },
-        "keyword": {
-          "title": "Keyword detection",
-          "watch": "Watches HTL for the keyword.",
-          "note": "* Tap to delete a keyword."
         }
+      },
+      "keyword": {
+        "title": "Keyword detection",
+        "watch": "Watches HTL for the keyword.",
+        "note": "* Tap to delete a keyword."
       }
     }
   },

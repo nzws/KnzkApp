@@ -133,6 +133,13 @@ function addKeyWord() {
     })
     .then(function(repcom) {
       if (repcom) {
+        if (repcom.length > 30) {
+          ons.notification.alert(i18next.t('dialogs_js.keyword_limit'), {
+            title: 'Error',
+            modifier: 'material',
+          });
+          return;
+        }
         var config = LoadNotificationConfig()['option'];
         config['keyword'].unshift(repcom);
         SetNotificationConfig('option', config);
