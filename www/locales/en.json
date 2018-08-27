@@ -314,7 +314,7 @@
       "text": "Continue?"
     },
     "clear_done": "Success! Please restart the app.",
-    "keyword_limit": "キーワードは30文字以下にする必要があります。"
+    "keyword_limit": "Keyword must be 30 characters or less."
   },
   "search": {
     "result": "Search results for {{text}}",
@@ -393,7 +393,7 @@
       "tl": {
         "title": "Timeline Settings",
         "speech": {
-          "title": "トゥート読み上げ",
+          "title": "Toot-to-Speech",
           "none": "None"
         },
         "chatmode": {
