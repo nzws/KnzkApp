@@ -1,4 +1,5 @@
 function startWatching() {
+  var heartbeat;
   try {
     if (Notification_ws) {
       try {
@@ -15,6 +16,7 @@ function startWatching() {
           '&stream=user'
       );
       Notification_ws.onopen = function() {
+        heartbeat = setInterval(() => Notification_ws.send('p'), 10000); //ping
         Notification_ws.onmessage = function(message) {
           var ws_resdata = JSON.parse(message.data);
 
@@ -40,6 +42,10 @@ function startWatching() {
               noti.html(Notification_num);
             }
           }
+        };
+        Notification_ws.onclose = function() {
+          clearInterval(heartbeat);
+          startWatching();
         };
       };
     }

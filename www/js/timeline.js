@@ -298,7 +298,6 @@ function showTL(mode, reload, more_load, clear_load) {
   var tlmode = '',
     i = 0,
     reshtml = '',
-    ws_mode,
     n;
   if (!mode) mode = now_TL;
   if (clear_load) {
@@ -374,133 +373,7 @@ function showTL(mode, reload, more_load, clear_load) {
           if (more_load && !getConfig(1, 'chatmode')) {
             reshtml = elemTimeline().innerHTML;
           } else {
-            if (getConfig(1, 'realtime') == 1) {
-              if (mode === 'public' || mode === 'public_media') ws_mode = 'public';
-              else if (mode === 'local' || mode === 'local_media') ws_mode = 'public:local';
-              else if (mode === 'home') ws_mode = 'user';
-              else if (mode.match(/hashtag:/i))
-                ws_mode = 'hashtag&tag=' + mode.replace('hashtag:', '');
-              else if (mode.match(/list:/i)) ws_mode = 'list&list=' + mode.replace('list:', '');
-
-              if (!reload && !more_load) {
-                var instance_ws = inst,
-                  now_tab = timeline_now_tab;
-                var ws_url =
-                  'wss://' +
-                  inst +
-                  '/api/v1/streaming/?access_token=' +
-                  now_userconf['token'] +
-                  '&stream=' +
-                  ws_mode;
-                if (TL_websocket[now_tab]) {
-                  try {
-                    TL_websocket[now_tab].close();
-                  } catch (e) {}
-                  TL_websocket[now_tab] = null;
-                }
-                TL_websocket[now_tab] = new WebSocket(ws_url);
-                TL_websocket[now_tab].onopen = function() {
-                  TL_websocket[now_tab].onmessage = function(message) {
-                    displayTime('update');
-                    var ws_now_url = undefined;
-                    try {
-                      ws_now_url = TL_websocket[now_tab].url;
-                    } catch (e) {}
-                    if (
-                      instance_ws !== inst ||
-                      timeline_now_tab !== now_tab ||
-                      ws_now_url !== ws_url
-                    ) {
-                      console.warn('エラー:Websocketが切断されていません');
-                      try {
-                        TL_websocket[now_tab].close();
-                      } catch (e) {}
-                      TL_websocket[now_tab] = null;
-                    } else {
-                      var ws_resdata = JSON.parse(message.data);
-                      var ws_reshtml = JSON.parse(ws_resdata.payload);
-
-                      if (ws_resdata.event === 'update') {
-                        if (ws_reshtml['id']) {
-                          if (toot_new_id !== ws_reshtml['id']) {
-                            var TLmode =
-                              mode === 'local_media' || mode === 'public_media' ? 'media' : '';
-
-                            updateTLtrack();
-                            if (home_auto_mode) {
-                              //OK
-                              home_auto_event = false;
-                              if (getConfig(1, 'chatmode'))
-                                elemTimeline(now_tab).innerHTML =
-                                  elemTimeline(now_tab).innerHTML +
-                                  TlStoreData_pre[instance_ws][now_tab] +
-                                  toot_card(ws_reshtml, 'full', null, TLmode);
-                              else {
-                                if (getConfig(1, 'tl_speech')) {
-                                  var ssu = new SpeechSynthesisUtterance();
-                                  ssu.text = ws_reshtml.content.replace(/<.*?>/gi, '');
-                                  ssu.lang = getConfig(1, 'tl_speech');
-                                  speechSynthesis.speak(ssu);
-                                }
-                                elemTimeline(now_tab).innerHTML =
-                                  toot_card(ws_reshtml, 'full', null, TLmode) +
-                                  TlStoreData_pre[instance_ws][now_tab] +
-                                  elemTimeline(now_tab).innerHTML;
-                                cacheTL(now_tab);
-                              }
-
-                              TlStoreData_pre[instance_ws][now_tab] = '';
-                              home_auto_num = 0;
-                              setTLheadcolor(0);
-                              if (getConfig(1, 'chatmode'))
-                                $('.page__content').scrollTop(99999999999999999999999);
-                            } else {
-                              if (getConfig(1, 'chatmode'))
-                                TlStoreData_pre[instance_ws][now_tab] += toot_card(
-                                  ws_reshtml,
-                                  'full',
-                                  null,
-                                  TLmode
-                                );
-                              else
-                                TlStoreData_pre[instance_ws][now_tab] =
-                                  toot_card(ws_reshtml, 'full', null, TLmode) +
-                                  TlStoreData_pre[instance_ws][now_tab];
-
-                              if (!home_auto_event) {
-                                home_auto_event = true;
-                                home_autoevent();
-                              }
-                            }
-
-                            if (
-                              !home_auto_mode &&
-                              ((ws_reshtml['media_attachments'][0] && TLmode === 'media') ||
-                                TLmode !== 'media')
-                            ) {
-                              home_auto_num++;
-                              setTLheadcolor(1);
-                            }
-                          }
-                          toot_new_id = ws_reshtml['id'];
-                        }
-                      } else if (ws_resdata.event === 'delete') {
-                        var del_toot = elemId('post_' + ws_resdata.payload);
-                        if (del_toot) del_toot.parentNode.removeChild(del_toot);
-                      }
-                    }
-                  };
-
-                  TL_websocket[now_tab].onclose = function() {
-                    console.log('ok:websocket:del');
-                  };
-                };
-
-                TL_websocket[now_tab].onerror = function() {
-                  console.warn('err');
-                };
-              }
-            }
+            if (getConfig(1, 'realtime') == 1) startWebSocket(mode, reload, more_load);
           }
 
           if (getConfig(1, 'chatmode')) {
@@ -555,6 +428,135 @@ function showTL(mode, reload, more_load, clear_load) {
           getError('Error/timeline', errorMessage, true);
         });
       });
+  }
+}
+
+function startWebSocket(mode, reload, more_load) {
+  var ws_mode;
+  if (mode === 'public' || mode === 'public_media') ws_mode = 'public';
+  else if (mode === 'local' || mode === 'local_media') ws_mode = 'public:local';
+  else if (mode === 'home') ws_mode = 'user';
+  else if (mode.match(/hashtag:/i)) ws_mode = 'hashtag&tag=' + mode.replace('hashtag:', '');
+  else if (mode.match(/list:/i)) ws_mode = 'list&list=' + mode.replace('list:', '');
+
+  if (!reload && !more_load) {
+    var instance_ws = inst,
+      now_tab = timeline_now_tab;
+    var ws_url =
+      'wss://' +
+      inst +
+      '/api/v1/streaming/?access_token=' +
+      now_userconf['token'] +
+      '&stream=' +
+      ws_mode;
+    if (TL_websocket[now_tab]) {
+      try {
+        TL_websocket[now_tab].close();
+      } catch (e) {}
+      TL_websocket[now_tab] = null;
+    }
+    TL_websocket[now_tab] = new WebSocket(ws_url);
+    TL_websocket[now_tab].onopen = function() {
+      var heartbeat = setInterval(() => TL_websocket[now_tab].send('p'), 10000); //ping
+      TL_websocket[now_tab].onmessage = function(message) {
+        displayTime('update');
+        var ws_now_url = undefined;
+        try {
+          ws_now_url = TL_websocket[now_tab].url;
+        } catch (e) {}
+        if (instance_ws !== inst || timeline_now_tab !== now_tab || ws_now_url !== ws_url) {
+          console.warn('エラー:Websocketが切断されていません');
+          try {
+            TL_websocket[now_tab].close();
+          } catch (e) {}
+          TL_websocket[now_tab] = null;
+        } else {
+          var ws_resdata = JSON.parse(message.data);
+          var ws_reshtml = JSON.parse(ws_resdata.payload);
+
+          if (ws_resdata.event === 'update') {
+            if (ws_reshtml['id']) {
+              if (toot_new_id !== ws_reshtml['id']) {
+                var TLmode = mode === 'local_media' || mode === 'public_media' ? 'media' : '';
+
+                updateTLtrack();
+                if (home_auto_mode) {
+                  //OK
+                  home_auto_event = false;
+                  if (getConfig(1, 'chatmode'))
+                    elemTimeline(now_tab).innerHTML =
+                      elemTimeline(now_tab).innerHTML +
+                      TlStoreData_pre[instance_ws][now_tab] +
+                      toot_card(ws_reshtml, 'full', null, TLmode);
+                  else {
+                    if (getConfig(1, 'tl_speech')) {
+                      var ssu = new SpeechSynthesisUtterance();
+                      ssu.text = ws_reshtml.content.replace(/<.*?>/gi, '');
+                      ssu.lang = getConfig(1, 'tl_speech');
+                      speechSynthesis.speak(ssu);
+                    }
+                    elemTimeline(now_tab).innerHTML =
+                      toot_card(ws_reshtml, 'full', null, TLmode) +
+                      TlStoreData_pre[instance_ws][now_tab] +
+                      elemTimeline(now_tab).innerHTML;
+                    cacheTL(now_tab);
+                  }
+
+                  TlStoreData_pre[instance_ws][now_tab] = '';
+                  home_auto_num = 0;
+                  setTLheadcolor(0);
+                  if (getConfig(1, 'chatmode'))
+                    $('.page__content').scrollTop(99999999999999999999999);
+                } else {
+                  if (getConfig(1, 'chatmode'))
+                    TlStoreData_pre[instance_ws][now_tab] += toot_card(
+                      ws_reshtml,
+                      'full',
+                      null,
+                      TLmode
+                    );
+                  else
+                    TlStoreData_pre[instance_ws][now_tab] =
+                      toot_card(ws_reshtml, 'full', null, TLmode) +
+                      TlStoreData_pre[instance_ws][now_tab];
+
+                  if (!home_auto_event) {
+                    home_auto_event = true;
+                    home_autoevent();
+                  }
+                }
+
+                if (
+                  !home_auto_mode &&
+                  ((ws_reshtml['media_attachments'][0] && TLmode === 'media') || TLmode !== 'media')
+                ) {
+                  home_auto_num++;
+                  setTLheadcolor(1);
+                }
+              }
+              toot_new_id = ws_reshtml['id'];
+            }
+          } else if (ws_resdata.event === 'delete') {
+            var del_toot = elemId('post_' + ws_resdata.payload);
+            if (del_toot) del_toot.parentNode.removeChild(del_toot);
+          }
+        }
+      };
+
+      TL_websocket[now_tab].onclose = function() {
+        clearInterval(heartbeat);
+        if (instance_ws === inst && timeline_now_tab === now_tab && ws_now_url === ws_url) {
+          console.log('reconnect:websocket');
+          startWebSocket(mode, reload, more_load);
+        } else {
+          console.log('ok:websocket:del');
+        }
+      };
+    };
+
+    TL_websocket[now_tab].onerror = function() {
+      console.warn('err');
+    };
   }
 }
 
