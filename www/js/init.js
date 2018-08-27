@@ -166,18 +166,14 @@ function init() {
               }
             })
             .catch(function(error) {
-              error.text().then(errorMessage => {
-                getError('Error/init_verify_credentials', errorMessage, true);
-              });
+              catchHttpErr('init_verify_credentials', error);
               showtoast('cannot-connect-API');
               starting_alert('err');
               changeAccountInLoad();
             });
         })
         .catch(function(error) {
-          error.text().then(errorMessage => {
-            getError('Error/init_instance', errorMessage, true);
-          });
+          catchHttpErr('init_instance', error);
           showtoast('cannot-connect-sv');
           starting_alert('err');
           changeAccountInLoad();
@@ -297,9 +293,7 @@ function initevent() {
           hide('now_loading');
         })
         .catch(function(error) {
-          error.text().then(errorMessage => {
-            getError('Error/event_userconf-page', errorMessage);
-          });
+          catchHttpErr('event_userconf-page', error);
           hide('now_loading');
         });
     }

@@ -116,9 +116,7 @@ function changeNotification(force) {
       })
       .catch(function(error) {
         elemId('noti-mode').checked = !!is_unregister;
-        error.text().then(errorMessage => {
-          getError('Error/registerNotification', errorMessage);
-        });
+        catchHttpErr('register_notification', error);
       });
   } else {
     ons.notification.alert(dialog_i18n('err_fcm_2', 1), {
@@ -228,9 +226,7 @@ function setNotificationServer() {
         }
       })
       .catch(function(error) {
-        error.text().then(errorMessage => {
-          getError('Error/setNotificationServer', errorMessage);
-        });
+        catchHttpErr('setNotificationServer', error);
       });
   } else {
     initNotificationPage();

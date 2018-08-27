@@ -128,7 +128,6 @@ function renderCustomEmoji(emojiobj) {
         if (response.ok) {
           return response.json();
         } else {
-          getError('Error/event_toot_emoji', response.json);
           //カスタム絵文字非対応インスタンス
           $('#toot_emoji_bt').addClass('invisible');
         }

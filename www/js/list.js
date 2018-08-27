@@ -131,10 +131,7 @@ function followreq(id, mode) {
       list_n('follow_requests', 'navigation.follow_req', null, 'acct', true);
     })
     .catch(function(error) {
-      error.text().then(errorMessage => {
-        getError('Error/followreq', errorMessage);
-      });
-      list_n('follow_requests', 'navigation.follow_req', null, 'acct', true);
+      catchHttpErr('follow_req', error);
     });
 }
 
@@ -199,9 +196,7 @@ function LoadrepStatus() {
       elemId('olist_nav_main').innerHTML = reshtml;
     })
     .catch(function(error) {
-      error.text().then(errorMessage => {
-        getError('Error/loadRepStatus', errorMessage);
-      });
+      catchHttpErr('repStatus', error);
     });
 }
 
@@ -252,10 +247,8 @@ function renderListsCollection(isEdit) {
         elemId(isEdit ? 'people-list' : 'lists-list').innerHTML = buf;
       }
     })
-    .catch(error => {
-      error.text().then(errorMessage => {
-        getError('Error/render_lists', errorMessage);
-      });
+    .catch(function(error) {
+      catchHttpErr('render_lists', error);
     });
 }
 
@@ -280,9 +273,7 @@ function addAccountToList(id, isDelete) {
       renderListsCollection(editing_id);
     })
     .catch(function(error) {
-      error.text().then(errorMessage => {
-        getError('Error/AddToList', errorMessage);
-      });
+      catchHttpErr('AddToList', error);
     });
 }
 
@@ -320,9 +311,7 @@ function SearchListLoad() {
       elemId('searchpeople-list').innerHTML = reshtml;
     })
     .catch(function(error) {
-      error.text().then(errorMessage => {
-        getError('Error/SearchList', errorMessage);
-      });
+      catchHttpErr('searchList', error);
     });
 }
 
@@ -385,10 +374,8 @@ function editList(id, title, is_page) {
             renderListsCollection();
             if (is_page) showList(id, repcom);
           })
-          .catch(error => {
-            error.text().then(errorMessage => {
-              getError('Error/edit_list', errorMessage);
-            });
+          .catch(function(error) {
+            catchHttpErr('editList', error);
           });
       }
     });
@@ -421,10 +408,8 @@ function deleteList(id, title, is_page) {
             renderListsCollection();
             if (is_page) BackTab();
           })
-          .catch(error => {
-            error.text().then(errorMessage => {
-              getError('Error/del_list', errorMessage);
-            });
+          .catch(function(error) {
+            catchHttpErr('delList', error);
           });
       }
     });

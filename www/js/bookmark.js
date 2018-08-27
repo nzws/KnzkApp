@@ -52,10 +52,8 @@ function renderBookmark_glitch() {
         elemId('olist_nav_main').innerHTML = reshtml;
       }
     })
-    .catch(error => {
-      error.text().then(errorMessage => {
-        getError('Error/show_bookmark_glitch', errorMessage);
-      });
+    .catch(function(error) {
+      catchHttpErr('show_bookmark_glitch', error);
     });
 }
 
@@ -144,10 +142,8 @@ function changeBookmark(id) {
           showtoast('ok_conf_2');
         }
       })
-      .catch(error => {
-        error.text().then(errorMessage => {
-          getError('Error/bookmark_glitch', errorMessage);
-        });
+      .catch(function(error) {
+        catchHttpErr('bookmark_glitch', error);
       });
   }
 }
@@ -242,10 +238,8 @@ function migration_app2glitch() {
               console.log('Complete:app2glitch migration');
             }
           })
-          .catch(error => {
-            error.text().then(errorMessage => {
-              getError('Error/bookmark_glitch2', errorMessage);
-            });
+          .catch(function(error) {
+            catchHttpErr('bookmark_app2glitch', error);
           });
         i++;
       }

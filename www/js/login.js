@@ -58,9 +58,7 @@ function login_open(domain) {
       }
     })
     .catch(function(error) {
-      error.text().then(errorMessage => {
-        getError('Error/CreateApp', errorMessage, true);
-      });
+      catchHttpErr('createApp', error);
       show('cannot-connect-sv-login');
       hide('now_loading');
     });
@@ -134,8 +132,7 @@ function login_callback(code) {
               if (response.ok) {
                 return response.json();
               } else {
-                getError('Error/loginjs_verify_credentials', response.json);
-                throw new Error();
+                throw response;
               }
             })
             .then(function(json_acct) {
@@ -157,8 +154,8 @@ function login_callback(code) {
               window.location.reload();
             })
             .catch(function(error) {
+              catchHttpErr('login_verify_credentials', error);
               showtoast('cannot-connect-sv');
-              console.log(error);
               hide('now_loading');
             });
         } else {
@@ -171,9 +168,7 @@ function login_callback(code) {
       }, 500);
     })
     .catch(function(error) {
-      error.text().then(errorMessage => {
-        getError('Error/oauth_token', errorMessage);
-      });
+      catchHttpErr('login_oauth_token', error);
       showtoast('cannot-connect-sv');
       hide('now_loading');
     });
@@ -266,9 +261,7 @@ function account_change(id) {
         window.location.reload();
       })
       .catch(function(error) {
-        error.text().then(errorMessage => {
-          getError('Error/login_verify_credentials', errorMessage, true);
-        });
+        catchHttpErr('loginchange_verify_credentials', error);
         showtoast('cannot-connect-API');
       });
   } else {

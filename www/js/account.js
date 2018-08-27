@@ -122,9 +122,7 @@ function show_account(id) {
       }
     })
     .catch(function(error) {
-      error.text().then(errorMessage => {
-        getError('Error/showaccount', errorMessage);
-      });
+      catchHttpErr('show_account', error);
     });
 
   Fetch('https://' + inst + '/api/v1/accounts/relationships?id=' + id, {
@@ -171,9 +169,7 @@ function show_account(id) {
         json[0]['requested'] === true ? 'userpage-follower' : 'invisible';
     })
     .catch(function(error) {
-      error.text().then(errorMessage => {
-        getError('Error/relationships', errorMessage);
-      });
+      catchHttpErr('relationships', error);
     });
 }
 
@@ -212,9 +208,7 @@ function account_state_action(id, mode) {
       }, 500);
     })
     .catch(function(error) {
-      error.text().then(errorMessage => {
-        getError('Error/state_action', errorMessage);
-      });
+      catchHttpErr('state_action', error);
     });
 }
 
@@ -309,10 +303,8 @@ function show_account_name(username) {
         }
       }
     })
-    .catch(error => {
-      error.text().then(errorMessage => {
-        getError('Error/show_account_name', errorMessage);
-      });
+    .catch(function(error) {
+      catchHttpErr('show_account_username', error);
     });
 }
 
@@ -358,8 +350,6 @@ function update_userdata() {
       BackTab();
     })
     .catch(function(error) {
-      error.text().then(errorMessage => {
-        getError('Error/update_userdata', errorMessage);
-      });
+      catchHttpErr('update_userdata', error);
     });
 }

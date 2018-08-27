@@ -67,8 +67,6 @@ function SearchLoad() {
       elemId('olist_nav_main').innerHTML = reshtml;
     })
     .catch(function(error) {
-      error.text().then(errorMessage => {
-        getError('Error/search', errorMessage);
-      });
+      catchHttpErr('search', error);
     });
 }

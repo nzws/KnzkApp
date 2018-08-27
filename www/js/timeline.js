@@ -28,9 +28,7 @@ function reset_alert() {
             alert_new_id = 0;
           })
           .catch(function(error) {
-            error.text().then(errorMessage => {
-              getError('Error/ClearNotification', errorMessage);
-            });
+            catchHttpErr('clear_notification', error);
           });
       }
     });
@@ -186,11 +184,9 @@ function showAlert(reload, more_load) {
       }
     })
     .catch(error => {
-      error.text().then(errorMessage => {
-        showtoast('cannot-load');
-        if (reload) reload();
-        getError('Error/Notification', errorMessage, true);
-      });
+      showtoast('cannot-load');
+      if (reload) reload();
+      catchHttpErr('notification', error);
     });
 }
 
@@ -424,9 +420,7 @@ function showTL(mode, reload, more_load, clear_load) {
       .catch(error => {
         showtoast('cannot-load');
         if (reload && reload !== 'dial') reload();
-        error.text().then(errorMessage => {
-          getError('Error/timeline', errorMessage, true);
-        });
+        catchHttpErr('timeline', error);
       });
   }
 }
@@ -629,10 +623,8 @@ function showTagTL(tag, more_load) {
         return true;
       }
     })
-    .catch(error => {
-      error.text().then(errorMessage => {
-        getError('Error/showaccount', errorMessage);
-      });
+    .catch(function(error) {
+      catchHttpErr('show_account', error);
     });
 }
 
@@ -715,10 +707,8 @@ function showAccountTL(id, more_load, mode = '', reload) {
         return true;
       }
     })
-    .catch(error => {
-      error.text().then(errorMessage => {
-        getError('Error/showaccountTL', errorMessage);
-      });
+    .catch(function(error) {
+      catchHttpErr('show_account_TL', error);
     });
 }
 

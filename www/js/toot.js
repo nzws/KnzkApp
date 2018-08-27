@@ -304,10 +304,8 @@ function vote_item(q, obj, id) {
       }
       console.log(json);
     })
-    .catch(error => {
-      error.text().then(errorMessage => {
-        getError('Error/vote', errorMessage);
-      });
+    .catch(function(error) {
+      catchHttpErr('vote', error);
     });
 }
 
@@ -382,13 +380,7 @@ function toot_action(action_mode) {
           i++;
         }
       }
-      try {
-        error.text().then(errorMessage => {
-          getError('Error/toot_action', errorMessage);
-        });
-      } catch (e) {
-        console.error(error);
-      }
+      catchHttpErr('toot_action', error);
     });
 }
 
@@ -475,10 +467,8 @@ function pin_set(id) {
         showtoast('ok_conf_2');
       }
     })
-    .catch(error => {
-      error.text().then(errorMessage => {
-        getError('Error/pin_set', errorMessage);
-      });
+    .catch(function(error) {
+      catchHttpErr('pin_set', error);
     });
 }
 
@@ -643,9 +633,7 @@ function delete_post() {
           .catch(function(error) {
             more_acct_id = 0;
             more_status_id = 0;
-            error.text().then(errorMessage => {
-              getError('Error/del_post', errorMessage);
-            });
+            catchHttpErr('del_post', error);
           });
       }
     });
@@ -715,9 +703,7 @@ function show_post(id, near, near_domain, origin_id) {
               }
             })
             .catch(error => {
-              error.text().then(errorMessage => {
-                getError('Error/near_show_toot', errorMessage);
-              });
+              catchHttpErr('show_nearby', error);
             });
         } else {
           Fetch('https://' + inst + '//api/v1/statuses/' + id + '/context', {
@@ -750,18 +736,14 @@ function show_post(id, near, near_domain, origin_id) {
 
               elemId('show_toot').innerHTML = reshtml;
             })
-            .catch(error => {
-              error.text().then(errorMessage => {
-                getError('Error/show_toot_context', errorMessage);
-              });
+            .catch(function(error) {
+              catchHttpErr('show_toot_context', error);
             });
         }
       }
     })
-    .catch(error => {
-      error.text().then(errorMessage => {
-        getError('Error/show_post', errorMessage);
-      });
+    .catch(function(error) {
+      catchHttpErr('show_post', error);
     });
 }
 
@@ -802,9 +784,7 @@ function report() {
           .catch(function(error) {
             more_acct_id = 0;
             more_status_id = 0;
-            error.text().then(errorMessage => {
-              getError('Error/report', errorMessage);
-            });
+            catchHttpErr('report', error);
           });
       }
     });
@@ -838,9 +818,7 @@ function original_post(id, url, acct) {
     })
     .catch(function(error) {
       hide('now_loading');
-      error.text().then(errorMessage => {
-        getError('Error/show_original_post', errorMessage);
-      });
+      catchHttpErr('show_original', error);
     });
 }
 
