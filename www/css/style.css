@@ -792,6 +792,11 @@ img.emoji {
   padding: 0;
 }
 
+.toast__message {
+  line-height: 35px;
+  margin: 5px 0;
+}
+
 #TLChangeTab .toast__message {
   margin: 10px 0 15px;
   white-space: normal;
@@ -914,9 +919,4 @@ img.emoji {
 .post:first-child {
   opacity: 1;
   animation: fade 0.2s linear;
-}
-
-.toast__message {
-  line-height: 35px;
-  margin: 5px 0;
 }
