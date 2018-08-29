@@ -578,8 +578,8 @@ const init_d = () =>
     resolve();
   });
 
+ons.disableAutoStyling();
 ons.ready(function() {
-  ons.disableAutoStyling();
   init_d().then(i18n_init().then(ConfigSetup().then(init())));
   if (ons.platform.isAndroid()) ons.setDefaultDeviceBackButtonListener(BackButtonEvent);
   if (is_debug) {
