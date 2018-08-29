@@ -2418,7 +2418,7 @@
             <div class="toot-group name_box">
               <% if (!no_icon) { %>
                 <div onclick="show_account('<%=toot['account']['id']%>')" class="toot_name">
-                  <b><%=(t_text(escapeHTML(toot['account']['display_name'])))%></b> <small>@<%=toot['account']['acct']%></small>
+                  <b><%=toot['account']['display_name']%></b> <small>@<%=toot['account']['acct']%></small>
                 </div>
               <% } %>
             </div>

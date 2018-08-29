@@ -95,7 +95,7 @@ function showtoast(id) {
   }, 2000);
 }
 
-function t_text(text, emojidata, domain) {
+function t_text(text, emojidata, acct) {
   var i = 0,
     emoji = '',
     replacetext = '';
@@ -131,11 +131,12 @@ function t_text(text, emojidata, domain) {
   }
 
   // インスタンスのドメインが送られてきた場合はチェックを行うが、送られてこなかった場合は今まで通り全て読み仮名通す
-  var isYomigana = false;
-  try {
-    if (instance_config[domain.toLowerCase()]['yomigana']) isYomigana = true;
-  } catch (e) {}
-  if (!domain) isYomigana = true;
+  var isYomigana = true;
+  if (acct) {
+    acct = acct.split('@');
+    var t_domain = (acct[1] ? acct[1] : inst).toLowerCase();
+    isYomigana = instance_config[t_domain] ? !!instance_config[t_domain]['yomigana'] : false;
+  }
 
   if (isYomigana) {
     //読み仮名 from theboss.tech

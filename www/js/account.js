@@ -6,7 +6,7 @@ function AccountCard(acct, mode) {
   else action = "show_account('" + acct['id'] + "')";
 
   acct['action'] = action;
-  acct['display_name'] = t_text(escapeHTML(acct['display_name']));
+  acct['display_name'] = t_text(escapeHTML(acct['display_name']), acct['emojis'], acct['acct']);
 
   return tmpl('account_card_tmpl', acct);
 }
@@ -48,7 +48,7 @@ function show_account(id) {
               escapeHTML(json['fields'][i]['name']) +
               '</span>' +
               '<span class="account_tab acctTL_now fields_right">' +
-              json['fields'][i]['value'] +
+              t_text(json['fields'][i]['value'], json['emojis'], json['acct']) +
               '</span>' +
               '</div></div>';
             i++;
@@ -58,10 +58,14 @@ function show_account(id) {
       elemId('bio_field').innerHTML = bio_field;
 
       if (!json.display_name) json.display_name = json.username;
-      elemId('userpage-name').innerHTML = t_text(escapeHTML(json.display_name));
+      elemId('userpage-name').innerHTML = t_text(
+        escapeHTML(json.display_name),
+        json.emojis,
+        json.acct
+      );
       elemId('userpage-title').innerHTML = '@' + json.acct;
       elemId('userpage-acct').innerHTML = '@' + json.acct;
-      elemId('userpage-bio').innerHTML = t_text(json.note);
+      elemId('userpage-bio').innerHTML = t_text(json.note, json.emojis, json.acct);
       elemId('userpage-icon').src = json[getConfig(1, 'no_gif') ? 'avatar_static' : 'avatar'];
       document
         .getElementById('userpage-bg')

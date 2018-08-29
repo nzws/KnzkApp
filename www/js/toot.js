@@ -14,6 +14,7 @@ function toot_card(toot, mode, note, toot_light, page) {
   if (!toot) {
     return '';
   }
+
   if (toot['reblog']) {
     if (!toot['account']['display_name'])
       toot['account']['display_name'] = toot['account']['username'];
@@ -22,7 +23,11 @@ function toot_card(toot, mode, note, toot_light, page) {
       toot['account']['id'] +
       ")'>" +
       i18next.t('toot.boost.prefix') +
-      escapeHTML(toot['account']['display_name']) +
+      t_text(
+        escapeHTML(toot['account']['display_name']),
+        toot['account']['emojis'],
+        toot['account']['acct']
+      ) +
       '</b>' +
       i18next.t('toot.boost.suffix') +
       " (<span data-time='" +
@@ -223,17 +228,17 @@ function toot_card(toot, mode, note, toot_light, page) {
 
   BoxData['toot_base_classes'] += page === 'near_federated' ? ' near_federated' : '';
 
-  var toot_origin_domain =
-    toot['account']['acct'] === toot['account']['username']
-      ? inst
-      : toot['account']['acct'].split('@')[1];
-
-  toot['content'] = t_text(content, toot['emojis'], toot_origin_domain);
+  toot['content'] = t_text(content, toot['emojis'], toot['account']['acct']);
 
   BoxData['faved'] = toot['favourited'] ? ' fav-active' : '';
   BoxData['boosted'] = toot['reblogged'] ? ' boost-active' : '';
 
   BoxData['toot'] = toot;
+  BoxData['toot']['account']['display_name'] = t_text(
+    escapeHTML(toot['account']['display_name']),
+    toot['account']['emojis'],
+    toot['account']['acct']
+  );
   BoxData['bgpic'] = col_pic;
   BoxData['bgstyle'] = col_bg_st;
   BoxData['alert_text'] = alert_text;

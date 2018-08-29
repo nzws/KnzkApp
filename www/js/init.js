@@ -141,7 +141,9 @@ function init() {
                     if (instance_config[inst]['yomigana'])
                       elemId('splitter-profile-name').style.height = '30px';
                     elemId('splitter-profile-name').innerHTML = t_text(
-                      escapeHTML(json.display_name)
+                      escapeHTML(json.display_name),
+                      json.emojis,
+                      json.acct
                     );
                     elemId('account_change-username').innerHTML = json.acct + '@' + inst;
                     if (json.locked === true) $('#menu-followreq').removeClass('invisible');
