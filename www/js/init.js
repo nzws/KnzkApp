@@ -663,9 +663,10 @@ function starting_alert(type) {
         instance_conf: 'Loading instance settings...',
         theme: 'Loading UI settings...',
         instance_login: 'Verifying instance...',
-        login: 'Login in...',
+        login: 'Logging in...',
         prepare: 'Preparing...',
-        user: 'Loading user informations...',
+        user: 'Loading user information...',
+        error_acct: 'A problem occurred. Please switch your account',
       };
       elemId('starting_alert').innerText = en_locale[type];
     } else {
