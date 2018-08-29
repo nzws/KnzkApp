@@ -452,12 +452,9 @@ function startWebSocket(mode, reload, more_load) {
     TL_websocket[now_tab] = new WebSocket(ws_url);
     TL_websocket[now_tab].onopen = function() {
       var heartbeat = setInterval(() => TL_websocket[now_tab].send('p'), 10000); //ping
+      var ws_now_url = TL_websocket[now_tab].url;
       TL_websocket[now_tab].onmessage = function(message) {
         displayTime('update');
-        var ws_now_url = undefined;
-        try {
-          ws_now_url = TL_websocket[now_tab].url;
-        } catch (e) {}
         if (instance_ws !== inst || timeline_now_tab !== now_tab || ws_now_url !== ws_url) {
           console.warn('エラー:Websocketが切断されていません');
           try {
