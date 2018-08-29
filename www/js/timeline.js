@@ -470,6 +470,10 @@ function startWebSocket(mode, reload, more_load) {
               if (toot_new_id !== ws_reshtml['id']) {
                 var TLmode = mode === 'local_media' || mode === 'public_media' ? 'media' : '';
 
+                if (!ws_reshtml['media_attachments'][0] && TLmode === 'media') {
+                  return;
+                }
+
                 updateTLtrack();
                 if (home_auto_mode) {
                   //OK

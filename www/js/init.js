@@ -419,10 +419,16 @@ function initevent() {
         label[1].className = 'ons-icon fa-chevron-right fa';
       }
     } else if ($('#navigator').attr('page') === 'home.html') {
-      timeline_now_tab = event.index;
-      elemId('home_title').innerHTML = TLname(timeline_config[event.index]);
-      now_TL = timeline_config[event.index];
-      showTL(null, null, null, true);
+      if (timeline_config[event.index]) {
+        timeline_now_tab = event.index;
+        elemId('home_title').innerHTML = TLname(timeline_config[event.index]);
+        now_TL = timeline_config[event.index];
+        showTL(null, null, null, true);
+      } else {
+        setTimeout(function() {
+          TL_prev();
+        }, 50);
+      }
     }
   });
 
