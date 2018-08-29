@@ -451,6 +451,7 @@ function startWebSocket(mode, reload, more_load) {
     }
     TL_websocket[now_tab] = new WebSocket(ws_url);
     TL_websocket[now_tab].onopen = function() {
+      ws_leavePage = false;
       var heartbeat = setInterval(() => TL_websocket[now_tab].send('p'), 10000); //ping
       var ws_now_url = TL_websocket[now_tab].url;
       TL_websocket[now_tab].onmessage = function(message) {
@@ -540,12 +541,18 @@ function startWebSocket(mode, reload, more_load) {
 
       TL_websocket[now_tab].onclose = function() {
         clearInterval(heartbeat);
-        if (instance_ws === inst && timeline_now_tab === now_tab && ws_now_url === ws_url) {
+        if (
+          instance_ws === inst &&
+          timeline_now_tab === now_tab &&
+          ws_now_url === ws_url &&
+          !ws_leavePage
+        ) {
           console.log('reconnect:websocket');
           startWebSocket(mode, reload, more_load);
         } else {
           console.log('ok:websocket:del');
         }
+        ws_leavePage = false;
       };
     };
 
@@ -748,8 +755,10 @@ function updateTLtrack() {
         .offset().top - window.innerHeight;
     home_auto_mode = h < -10;
   } else {
-    h = elemTimeline().scrollTop;
-    home_auto_mode = h <= 100;
+    try {
+      h = elemTimeline().scrollTop;
+      home_auto_mode = h <= 100;
+    } catch (e) {}
   }
 }
 
@@ -974,6 +983,7 @@ function editTLConfAdd(name) {
 function closeAllws() {
   try {
     for (var i = 0; i <= timeline_config.length - 1; i++) {
+      ws_leavePage = true;
       if (TL_websocket[i]) {
         TL_websocket[i].close();
         TL_websocket[i] = null;

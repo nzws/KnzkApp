@@ -13,7 +13,7 @@ function startWatching() {
           inst +
           '/api/v1/streaming/?access_token=' +
           now_userconf['token'] +
-          '&stream=user'
+          '&stream=user&u=1'
       );
       Notification_ws.onopen = function() {
         heartbeat = setInterval(() => Notification_ws.send('p'), 10000); //ping

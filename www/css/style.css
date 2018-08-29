@@ -909,7 +909,7 @@ img.emoji {
 }
 
 .alert-dialog-button--primal {
-  background: #56a7e1;
+  background: #56a7e1 !important;
   color: #fff;
 }
 

@@ -30,11 +30,7 @@ function reset_nav() {
 }
 
 function load(page) {
-  if (page != 'home.html') {
-    try {
-      closeAllws();
-    } catch (e) {}
-  }
+  closeAllws();
   loadNav(page, null, 'reset');
 }
 

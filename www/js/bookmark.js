@@ -8,7 +8,7 @@ function LoadBookmark() {
       i18next.t('bookmark.note', { interpolation: { escapeValue: false } }) +
       '</div>';
   }
-  if (json[0] && !instance_config[inst]['glitch_soc']) {
+  if (!instance_config[inst]['glitch_soc']) {
     renderBookmark(reshtml, json, 0);
     setTimeout(function() {
       elemId('olist_right').innerHTML =
@@ -58,6 +58,12 @@ function renderBookmark_glitch() {
 }
 
 function renderBookmark(reshtml, json_bookmark, i) {
+  if (!json_bookmark[i]) {
+    setTimeout(function() {
+      elemId('olist_nav_main').innerHTML = reshtml;
+    }, 50);
+    return;
+  }
   Fetch('https://' + inst + '/api/v1/statuses/' + json_bookmark[i], {
     headers: {
       'content-type': 'application/json',
