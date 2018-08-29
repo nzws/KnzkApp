@@ -52,6 +52,7 @@ body {
 }
 
 .icon-img {
+  margin-top: 5px;
   width: 50px;
   height: 50px;
   border-radius: 5px;
@@ -70,8 +71,8 @@ body {
 
 .date-disp {
   position: absolute;
-  bottom: 8px;
-  right: 10px;
+  bottom: 5px;
+  right: 5px;
 }
 
 .toot {
@@ -100,6 +101,8 @@ body {
   margin-left: 10px;
   margin-right: 5px;
   width: calc(100% - 50px);
+  display: flex;
+  flex-direction: column;
 }
 
 .namu-fav {
@@ -381,8 +384,14 @@ pre {
 }
 
 .toot-group {
-  margin: 2px 0;
   width: 100%;
+  margin-top: auto;
+}
+
+.toot-buttons {
+  display: flex;
+  justify-content: space-around;
+  width: calc(100% - 55px);
 }
 
 .splitter-bottom {
@@ -919,4 +928,16 @@ img.emoji {
 .post:first-child {
   opacity: 1;
   animation: fade 0.2s linear;
+}
+
+.account_card {
+  border: 1px solid #393f4f;
+}
+
+.account_card_name {
+  margin-left: 10px;
+  margin-top: 5px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

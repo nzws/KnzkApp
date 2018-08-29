@@ -260,17 +260,18 @@ function initevent() {
         if (getConfig(1, 'dial')) elemId('dial_' + getConfig(1, 'dial')).selected = true;
         if (getConfig(1, 'theme')) elemId('theme_' + getConfig(1, 'theme')).selected = true;
         if (getConfig(1, 'url_open')) elemId('url_' + getConfig(1, 'url_open')).selected = true;
-        if (getConfig(1, 'toot_button'))
-          elemId('toot_bt_' + getConfig(1, 'toot_button')).selected = true;
-        if (getConfig(1, 'toot_body'))
-          elemId('toot_body_' + getConfig(1, 'toot_body')).selected = true;
         hide('now_loading');
         var conf = $("[id^='conf-']"),
           i = 0;
         while (conf[i]) {
-          if (parseInt(getConfig(1, conf[i].id.replace('conf-', '')))) conf[i].checked = true;
+          if (parseInt(getConfig(1, conf[i].id.replace('conf-', '')))) {
+            if (conf[i].dataset.config === 'range')
+              conf[i].value = getConfig(1, conf[i].id.replace('conf-', ''));
+            else conf[i].checked = true;
+          }
           i++;
         }
+        renderPreview();
       }, 500);
     }
 
@@ -550,8 +551,6 @@ var button = '',
 
 const init_d = () =>
   new Promise((resolve, reject) => {
-    var css = '';
-
     if (!platform) {
       if (ons.platform.isIOS()) {
         platform = 'ios';
@@ -566,39 +565,7 @@ const init_d = () =>
       quiet = button + ' button--quiet';
       light = button + ' button--light';
       large_quiet = button + ' button--large--quiet';
-
-      if (getConfig(1, 'spin') == 1 || getConfig(1, 'gpu') != 1) {
-        if (getConfig(1, 'spin') == 1) {
-          css += '.fa-spin {-webkit-animation: none;  animation: none;}';
-        }
-        if (getConfig(1, 'gpu') != 1) {
-          css += '.toot, .timeline {transform: translate3d(0, 0, 0);}';
-        }
-        if (getConfig(1, 'toot_button')) {
-          if (getConfig(1, 'toot_button') === 'large') {
-            css += '.toot-button { margin-right: 0.5em; font-size: xx-large; }';
-          } else if (getConfig(1, 'toot_button') === 'small') {
-            css +=
-              '.toot-button { margin-right: 1.5em; font-size: large; } .date-disp { margin-top: 0 }';
-          }
-        } else {
-          setConfig(1, 'toot_button', 'normal');
-        }
-        if (getConfig(1, 'toot_body')) {
-          if (getConfig(1, 'toot_body') === 'large') {
-            css += '.toot_content > p { font-size: medium; }';
-          } else if (getConfig(1, 'toot_body') === 'small') {
-            css += '.toot_content > p { font-size: small; }';
-          }
-        } else {
-          setConfig(1, 'toot_body', 'normal');
-        }
-      }
-      var node = document.createElement('style');
-      node.type = 'text/css';
-      node.appendChild(document.createTextNode(css));
-      var heads = document.getElementsByTagName('head');
-      heads[0].appendChild(node);
+      renderFontConfig();
     }
     resolve();
   });

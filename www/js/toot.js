@@ -210,7 +210,9 @@ function toot_card(toot, mode, note, toot_light, page) {
   }
 
   col_bt =
-    "<div class='rightup-button'><button class='no-rd p0 button button--quiet' disabled><ons-icon icon='fa-" +
+    "<div class='rightup-button'><button class='no-rd p0 button button--quiet' onclick=\"show_post('" +
+    toot['id'] +
+    "')\"><ons-icon icon='fa-" +
     visibility_icon +
     "' class='toot-right-icon'></ons-icon></button>" +
     col_bt +

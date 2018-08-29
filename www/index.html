@@ -117,6 +117,7 @@
   <script src="js/doodle.js"></script>
   <script src="js/init.js"></script>
   <audio id="music-control"></audio>
+  <style id="font-config"></style>
 </head>
 
 <body>
@@ -984,33 +985,27 @@
             <ons-switch modifier="material" onclick="change_conf(1, 'no_custom_emoji')" input-id="conf-no_custom_emoji"></ons-switch>
           </div>
         </ons-list-item>
+        <ons-list-header data-i18n="config.preferences.font.title">フォントサイズ</ons-list-header>
+      </ons-list>
+      <ons-list modifier="inset">
+        <ons-list-header data-i18n="config.preferences.font.button">トゥートの各ボタン</ons-list-header>
+        <ons-list-item>
+          <ons-col>
+            <ons-range class="w-max" value="50" onchange="change_conf(1, 'font_button', true);renderFontConfig()" id="conf-font_button"
+              data-config="range"></ons-range>
+          </ons-col>
+        </ons-list-item>
+
+        <ons-list-header data-i18n="config.preferences.font.body">トゥート本文</ons-list-header>
+        <ons-list-item>
+          <ons-col>
+            <ons-range class="w-max" value="50" onchange="change_conf(1, 'font_body', true);renderFontConfig()" id="conf-font_body" data-config="range"></ons-range>
+          </ons-col>
+        </ons-list-item>
       </ons-list>
       <ons-list>
-        <ons-list-header data-i18n="config.preferences.font.title">フォントサイズ</ons-list-header>
-        <ons-list-item>
-          <div class="center" data-i18n="config.preferences.font.button">
-            トゥートの各ボタン
-          </div>
-          <div class="right">
-            <ons-select id="conf-toot_button" onchange="change_conf(1, 'toot_button', true)">
-              <option value="large" id="toot_bt_large">大</option>
-              <option value="normal" id="toot_bt_normal">中</option>
-              <option value="small" id="toot_bt_small">小</option>
-            </ons-select>
-          </div>
-        </ons-list-item>
-        <ons-list-item>
-          <div class="center" data-i18n="config.preferences.font.body">
-            トゥート本文
-          </div>
-          <div class="right">
-            <ons-select id="conf-toot_body" onchange="change_conf(1, 'toot_body', true)">
-              <option value="large" id="toot_body_large">大</option>
-              <option value="normal" id="toot_body_normal">中</option>
-              <option value="small" id="toot_body_small">小</option>
-            </ons-select>
-          </div>
-        </ons-list-item>
+        <ons-list-header data-i18n="config.preferences.font.preview">プレビュー</ons-list-header>
+        <div id="font-preview" class="near_federated"></div>
       </ons-list>
       <div class="container">
         <p class="note" data-i18n="config.preferences.note">一部の設定は再起動後に反映されます。</p>
@@ -2415,9 +2410,7 @@
       <div class="toot_flex">
         <% if (!no_icon) { %>
           <div width="50px">
-            <p>
-              <img src="<%=toot['account'][getConfig(1, 'no_gif') ? 'avatar_static' : 'avatar']%>" class="icon-img" onclick="show_account('<%=toot['account']['id']%>')">
-            </p>
+            <img src="<%=toot['account'][getConfig(1, 'no_gif') ? 'avatar_static' : 'avatar']%>" class="icon-img" onclick="show_account('<%=toot['account']['id']%>')">
           </div>
         <% } %>
         <div class="toot-card-right">
@@ -2438,14 +2431,16 @@
           </div>
           <% if (display_mode === 'full') { %>
             <div class="toot-group tb_group_<%=toot['id']%>">
-              <ons-icon icon="fa-reply" onclick="reply('<%=toot['id']%>')" class="toot-button ons-icon fa-reply fa"></ons-icon>
-              <% if (toot['visibility'] === 'private' || toot['visibility'] === 'direct') { %>
-                <ons-icon icon="fa-<%=visibility_icon%>" class="toot-button toot-button-disabled"></ons-icon>
-              <% } else { %>
-                <ons-icon icon="fa-retweet" onclick="toot_action(1)" class="tootbs_<%=toot['id']%> toot-button ons-icon fa-retweet fa<%=boosted%>" data-id="<%=toot['id']%>"></ons-icon>
-              <% } %>
-              <ons-icon icon="fa-star" onclick="toot_action(0)" class="tootfav_<%=toot['id']%> toot-button ons-icon fa-star fa<%=faved%>" data-id="<%=toot['id']%>"></ons-icon>
-              <ons-icon icon="fa-ellipsis-h" onclick="more('<%=toot['id']%>')" class="toot-button toot-button-last ons-icon fa-ellipsis-h fa"></ons-icon>
+              <div class="toot-buttons">
+                <ons-icon icon="fa-reply" onclick="reply('<%=toot['id']%>')" class="toot-button ons-icon fa-reply fa"></ons-icon>
+                <% if (toot['visibility'] === 'private' || toot['visibility'] === 'direct') { %>
+                  <ons-icon icon="fa-<%=visibility_icon%>" class="toot-button toot-button-disabled"></ons-icon>
+                <% } else { %>
+                  <ons-icon icon="fa-retweet" onclick="toot_action(1)" class="tootbs_<%=toot['id']%> toot-button ons-icon fa-retweet fa<%=boosted%>" data-id="<%=toot['id']%>"></ons-icon>
+                <% } %>
+                <ons-icon icon="fa-star" onclick="toot_action(0)" class="tootfav_<%=toot['id']%> toot-button ons-icon fa-star fa<%=faved%>" data-id="<%=toot['id']%>"></ons-icon>
+                <ons-icon icon="fa-ellipsis-h" onclick="more('<%=toot['id']%>')" class="toot-button toot-button-last ons-icon fa-ellipsis-h fa"></ons-icon>
+              </div>
               <div class="toot-right date date-disp" data-time="<%=toot['created_at']%>" onclick="show_post('<%=toot['id']%>')">
                 <%=(displayTime('new', toot['created_at']))%>
               </div>
@@ -2481,6 +2476,18 @@
         </div>
       <% } %>
     </div>
+  </script>
+
+  <script type="text/html" id="account_card_tmpl">
+    <ons-row class="account_card" onclick="<%=action%>">
+      <ons-col width="50px">
+        <img src="<%=(getConfig(1, 'no_gif') ? avatar_static : avatar)%>" class="icon-img-small" align="middle">
+      </ons-col>
+      <ons-col class="account_card_name">
+        <b><%=display_name%></b><br>
+        <small>@<%=acct%></small>
+      </ons-col>
+    </ons-row>
   </script>
 </body>
 

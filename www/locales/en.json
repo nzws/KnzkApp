@@ -468,7 +468,8 @@
       "font": {
         "title": "Font Size",
         "button": "Toot Buttons",
-        "body": "Toot Texts"
+        "body": "Toot Texts",
+        "preview": "Preview"
       },
       "note": "Changes to some settings will be applied after restart.",
       "danger": {

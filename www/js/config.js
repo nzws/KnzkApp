@@ -239,3 +239,55 @@ function clearAllConfig() {
       }
     });
 }
+
+function renderPreview() {
+  var data = {
+    id: 'example1',
+    created_at: '2018-08-29T01:03:49.740Z',
+    spoiler_text: '',
+    visibility: 'public',
+    content: '<p>月が綺麗ですね。</p>',
+    favourited: false,
+    reblogged: false,
+    muted: false,
+    application: {},
+    account: {
+      id: 'exmaple1',
+      username: 'KnzkApp',
+      acct: 'KnzkApp',
+      display_name: 'KnzkApp',
+      avatar: 'img/missing.png',
+      avatar_static: 'img/missing.png',
+    },
+    media_attachments: [],
+    mentions: [],
+    tags: [],
+    emojis: [],
+  };
+  elemId('font-preview').innerHTML = toot_card(data, 'full');
+}
+
+function renderFontConfig() {
+  var css = '';
+  if (getConfig(1, 'spin') == 1 || getConfig(1, 'gpu') != 1) {
+    if (getConfig(1, 'spin') == 1) css += '.fa-spin {-webkit-animation: none;  animation: none;}';
+    if (getConfig(1, 'gpu') != 1) css += '.toot, .timeline {transform: translate3d(0, 0, 0);}';
+    if (getConfig(1, 'font_button')) {
+      /*
+      if (getConfig(1, 'toot_button') === 'large') {
+        css += '.toot-button { margin-right: 0.5em; font-size: xx-large; }';
+      } else if (getConfig(1, 'toot_button') === 'small') {
+        css +=
+          '.toot-button { margin-right: 1.5em; font-size: large; } .date-disp { margin-top: 0 }';
+      }
+      */
+      var f_b = 48 * (parseInt(getConfig(1, 'font_button')) * 0.01);
+      css += '.toot-button { font-size: ' + f_b + 'px; }';
+    }
+    if (getConfig(1, 'font_body')) {
+      var f = 28 * (parseInt(getConfig(1, 'font_body')) * 0.01);
+      css += '.toot_content > p { font-size: ' + f + 'px; }';
+    }
+  }
+  elemId('font-config').innerHTML = css;
+}

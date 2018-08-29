@@ -1,31 +1,14 @@
 function AccountCard(acct, mode) {
-  var reshtml, action;
+  var action;
 
-  if (mode === 'addList') {
-    action = 'addAccountToList(' + acct['id'] + ')';
-  } else if (mode === 'delList') {
-    action = 'addAccountToList(' + acct['id'] + ', true)';
-  } else {
-    action = 'show_account(' + acct['id'] + ')';
-  }
+  if (mode === 'addList') action = "addAccountToList('" + acct['id'] + "')";
+  else if (mode === 'delList') action = "addAccountToList('" + acct['id'] + "', true)";
+  else action = "show_account('" + acct['id'] + "')";
 
-  reshtml =
-    "<div onclick='" +
-    action +
-    '\' class="toot acct-small">\n' +
-    '<img src="' +
-    acct['avatar'] +
-    '"class="icon-img-small" align="middle">\n' +
-    '<span class="toot-group toot-card-right">\n' +
-    '<b>' +
-    t_text(escapeHTML(acct['display_name'])) +
-    '</b> <small>@' +
-    acct['acct'] +
-    '</small>\n' +
-    '</span>\n' +
-    '</div>';
+  acct['action'] = action;
+  acct['display_name'] = t_text(escapeHTML(acct['display_name']));
 
-  return reshtml;
+  return tmpl('account_card_tmpl', acct);
 }
 
 function show_account(id) {
@@ -70,9 +53,9 @@ function show_account(id) {
               '</div></div>';
             i++;
           }
-          elemId('bio_field').innerHTML = bio_field;
         }
       }
+      elemId('bio_field').innerHTML = bio_field;
 
       if (!json.display_name) json.display_name = json.username;
       elemId('userpage-name').innerHTML = t_text(escapeHTML(json.display_name));
