@@ -25,6 +25,7 @@ var instance_config = {
     limit: 6229,
     bbcode: true,
     markdown: true,
+    glitch_soc: true,
   },
   'friends.nico': {
     limit: 500,
