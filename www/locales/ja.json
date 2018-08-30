@@ -23,6 +23,9 @@
   },
   "toot": {
     "toot_as": "{{acct}} としてトゥート！",
+    "reply": {
+      "me": "自分"
+    },
     "cw_toot": "もっと見る",
     "nsfw": {
       "title": "閲覧注意",

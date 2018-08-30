@@ -349,7 +349,9 @@ function initevent() {
         }
         elemId('post_reply').value = tmp_post_reply; //投稿ID
         elemId('post_reply_box').className = 'reply-box'; //返信のダイアログ表示
-        elemId('post_reply_acct').innerHTML = tmp_text_pre ? post_reply_acct : '自分';
+        elemId('post_reply_acct').innerHTML = tmp_text_pre
+          ? post_reply_acct
+          : i18next.t('toot.reply.me');
         elemId('post_mode').value = tmp_post_visibility; //投稿モード
         tmp_post_reply = null;
       }

@@ -29,7 +29,8 @@
     "toot_box_placeholder": "What's on your mind?",
     "reply": {
       "prefix": "Reply to ",
-      "suffix": ""
+      "suffix": "",
+      "me": "me"
     },
     "cw": "Write your warning here",
     "cw_toot": "Show more",
@@ -188,7 +189,7 @@
     "title": "Show original toot",
     "quote": {
       "title": "Quote and Toot",
-      "prefix": "From",
+      "prefix": "From ",
       "suffix": ""
     }
   },
