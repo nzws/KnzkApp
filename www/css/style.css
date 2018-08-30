@@ -390,8 +390,8 @@ pre {
 
 .toot-buttons {
   display: flex;
-  justify-content: space-around;
-  width: calc(100% - 55px);
+  justify-content: space-between;
+  width: calc(100% - 80px);
 }
 
 .splitter-bottom {

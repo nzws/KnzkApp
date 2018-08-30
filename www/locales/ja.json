@@ -38,6 +38,10 @@
       "prefix": "",
       "suffix": "さんがブースト"
     },
+    "follow": {
+      "prefix": "",
+      "suffix": " さんがフォロー"
+    },
     "doodle": {
       "reset": {
         "title": "リセット",

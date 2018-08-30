@@ -48,6 +48,10 @@
       "prefix": "",
       "suffix": " boosted your status"
     },
+    "follow": {
+      "prefix": "",
+      "suffix": " followed you"
+    },
     "enquete": {
       "30s": "30 Seconds",
       "1m": "1 Minute",

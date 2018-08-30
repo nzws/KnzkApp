@@ -85,11 +85,15 @@ function showAlert(reload, more_load) {
             if (!filter['follow']) {
               alert_text = "<div class='alert_text'>";
               alert_text +=
-                "<ons-icon icon=\"fa-user-plus\" class='boost-active'></ons-icon> <b onclick='show_account(" +
+                '<ons-icon icon="fa-user-plus" class=\'boost-active\'></ons-icon>' +
+                i18next.t('toot.follow.prefix') +
+                "<b onclick='show_account(" +
                 json[i]['account']['id'] +
                 ")'>" +
                 escapeHTML(json[i]['account']['display_name']) +
-                "</b>さんにフォローされました (<span data-time='" +
+                '</b>' +
+                i18next.t('toot.follow.suffix') +
+                " (<span data-time='" +
                 json[i]['created_at'] +
                 "' class='date'>" +
                 displayTime('new', json[i]['created_at']) +
@@ -98,27 +102,27 @@ function showAlert(reload, more_load) {
               reshtml +=
                 '<div class="toot">\n' +
                 alert_text +
-                "                    <div class='toot_flex'>\n" +
-                "                        <div width='50px'>\n" +
-                '                            <p><img src="' +
+                "<div class='toot_flex'>\n" +
+                "<div width='50px'>\n" +
+                '<img src="' +
                 json[i]['account']['avatar'] +
                 '" class="icon-img" onclick=\'show_account(' +
                 json[i]['account']['id'] +
                 ")'/></p>\n" +
-                '                        </div>\n' +
-                '                        <div class="toot-card-right">\n' +
-                '                            <div class="toot-group">\n' +
-                "                                <span onclick='show_account(" +
+                '</div>\n' +
+                '<div class="toot-card-right">\n' +
+                "<span onclick='show_account(" +
                 json[i]['account']['id'] +
                 ")'><b>" +
-                escapeHTML(json[i]['account']['display_name']) +
+                t_text(
+                  escapeHTML(json[i]['account']['display_name']),
+                  json[i]['account']['emojis'],
+                  json[i]['account']['acct']
+                ) +
                 '</b> <small>@' +
                 json[i]['account']['acct'] +
                 '</small></span>\n' +
-                '                            </div>\n' +
-                '                        </div>\n' +
-                '                    </div>\n' +
-                '            </div>';
+                '</div></div></div>\n';
             }
           } else {
             if (json[i]['type'] === 'favourite') {
