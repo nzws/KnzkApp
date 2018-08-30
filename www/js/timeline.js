@@ -183,9 +183,8 @@ function showAlert(reload, more_load) {
             '</button>';
         }
         elemId('alert_main').innerHTML = reshtml;
-        if (reload) reload();
-        return true;
       }
+      if (reload) reload();
     })
     .catch(error => {
       showtoast('cannot-load');

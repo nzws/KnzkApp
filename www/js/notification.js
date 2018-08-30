@@ -86,7 +86,7 @@ function changeNotification(force) {
       access_token: now_userconf['token'],
       device_token: FCM_token,
       option: JSON.stringify(config['option']),
-      language: 'ja',
+      language: lng,
       username: now_userconf['username'],
       app_name: version,
     };
