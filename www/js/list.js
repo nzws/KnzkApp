@@ -432,3 +432,13 @@ function showList(id, title) {
 function SearchListKey() {
   if (window.event.keyCode == 13) SearchListLoad();
 }
+
+function openListB(id, mode) {
+  list(
+    'statuses/' + id + '/' + (mode ? 'favourited' : 'reblogged') + '_by',
+    'toot.' + (mode ? 'fav' : 'boost') + '.user',
+    null,
+    'acct',
+    true
+  );
+}

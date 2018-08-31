@@ -2453,8 +2453,8 @@
         <span class="big_date">
           <% if (appname) { %>(via <%=appname%>)<% } %><br>
           <%=date_text%> ·
-          <span onclick="list('statuses/<%=toot['id']%>/reblogged_by', 'toot.boost.user', null, 'acct', true)"><ons-icon icon="fa-retweet" class="ons-icon fa-retweet fa"></ons-icon> <%=toot['reblogs_count']%></span> ·
-          <span onclick="list('statuses/<%=toot['id']%>/favourited_by', 'toot.fav.user', null, 'acct', true)"><ons-icon icon="fa-star" class="ons-icon fa-star fa"></ons-icon> <%=toot['favourites_count']%></span>
+          <span onclick="openListB('<%=toot['id']%>')"><ons-icon icon="fa-retweet" class="ons-icon fa-retweet fa"></ons-icon> <%=toot['reblogs_count']%></span> ·
+          <span onclick="openListB('<%=toot['id']%>', 1)"><ons-icon icon="fa-star" class="ons-icon fa-star fa"></ons-icon> <%=toot['favourites_count']%></span>
         </span>
 
         <div class="row toot_big_border">
