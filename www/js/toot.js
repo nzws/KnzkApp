@@ -247,6 +247,7 @@ function toot_card(toot, mode, note, toot_light, page) {
   BoxData['is_col'] = is_col;
   BoxData['visibility_icon'] = visibility_icon;
   BoxData['display_mode'] = mode;
+  BoxData['now_user_id'] = now_userconf['id'];
   //BoxData['displayDate'] = displayTime('new', toot['created_at']);
 
   return tmpl('toot_full_tmpl', BoxData);

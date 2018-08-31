@@ -2434,8 +2434,8 @@
             <div class="toot-group tb_group_<%=toot['id']%>">
               <div class="toot-buttons">
                 <ons-icon icon="fa-reply" onclick="reply('<%=toot['id']%>')" class="toot-button ons-icon fa-reply fa"></ons-icon>
-                <% if (toot['visibility'] === 'private' || toot['visibility'] === 'direct') { %>
-                  <ons-icon icon="fa-<%=visibility_icon%>" class="toot-button toot-button-disabled"></ons-icon>
+                <% if (toot['visibility'] === 'private' || toot['visibility'] === 'direct' || toot['visibility'] === 'limited') { %>
+                  <ons-icon icon="fa-<%=visibility_icon%>" onclick="<%=(toot['visibility'] === 'private' && toot['account']['id'] === now_user_id ? 'toot_action(1)' : '')%>" class="tootbs_<%=toot['id']%> toot-button toot-button-disabled" data-id="<%=toot['id']%>"></ons-icon>
                 <% } else { %>
                   <ons-icon icon="fa-retweet" onclick="toot_action(1)" class="tootbs_<%=toot['id']%> toot-button ons-icon fa-retweet fa<%=boosted%>" data-id="<%=toot['id']%>"></ons-icon>
                 <% } %>
@@ -2462,8 +2462,8 @@
             <ons-icon icon="fa-reply" onclick="reply('<%=toot['id']%>')" class="showtoot-button ons-icon fa-reply fa"></ons-icon>
           </div>
           <div class="col-xs-3 showtoot-button">
-            <% if (toot['visibility'] === 'private' || toot['visibility'] === 'direct') { %>
-              <ons-icon icon="fa-<%=visibility_icon%>" class="showtoot-button ons-icon fa-<%=visibility_icon%> fa toot-button-disabled<%=boosted%>"></ons-icon>
+            <% if (toot['visibility'] === 'private' || toot['visibility'] === 'direct' || toot['visibility'] === 'limited') { %>
+              <ons-icon icon="fa-<%=visibility_icon%>" onclick="<%=(toot['visibility'] === 'private' && toot['account']['id'] === now_user_id ? 'toot_action(1)' : '')%>" class="tootbs_<%=toot['id']%> showtoot-button ons-icon fa-<%=visibility_icon%> fa toot-button-disabled<%=boosted%>" data-id="<%=toot['id']%>"></ons-icon>
             <% } else { %>
               <ons-icon icon="fa-retweet" onclick="toot_action(1)" class="tootbs_<%=toot['id']%> showtoot-button ons-icon fa-retweet fa" data-id="<%=toot['id']%>"></ons-icon>
             <% } %>
