@@ -661,8 +661,10 @@ function showAccountTL(id, more_load, mode = '', reload) {
   if (!more_load) {
     //読み込みマーク入れる
     i = 0;
-    elemId('account_toot').innerHTML =
-      '<div class="loading-now"><ons-progress-circular indeterminate></ons-progress-circular></div>';
+    try {
+      elemId('account_toot').innerHTML =
+        '<div class="loading-now"><ons-progress-circular indeterminate></ons-progress-circular></div>';
+    } catch (e) {}
   }
 
   Fetch('https://' + inst + '/api/v1/accounts/' + id + '/statuses' + get, {
@@ -746,7 +748,7 @@ function TL_change(mode) {
 }
 
 function scrollTL() {
-  $('.page__content').scrollTop(0);
+  $('.page__content').scrollTop(getConfig(1, 'chatmode') ? 99999999999999999999999 : 0);
 }
 
 function updateTLtrack() {
