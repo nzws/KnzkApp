@@ -231,13 +231,6 @@ function openTL(mode) {
 
 function initTimeline() {
   var i = 0;
-  while (timeline_config[i]) {
-    try {
-      elemTimeline(i).innerHTML =
-        '<div class="loading-now"><ons-progress-circular indeterminate></ons-progress-circular></div>';
-    } catch (e) {}
-    i++;
-  }
   TL_change(timeline_default_tab);
   now_TL = timeline_config[timeline_default_tab];
   timeline_now_tab = timeline_default_tab;
@@ -310,13 +303,6 @@ function showTL(mode, reload, more_load, clear_load) {
     toot_old_id = 0;
     more_load = false;
     setTLheadcolor(0);
-    try {
-      if (last_load_TL)
-        elemTimeline(last_load_TL).innerHTML =
-          '<div class="loading-now"><ons-progress-circular indeterminate></ons-progress-circular></div>';
-    } catch (e) {
-      console.error(e);
-    }
   }
   if (!mode) return;
   if (mode === 'home') {
@@ -367,12 +353,22 @@ function showTL(mode, reload, more_load, clear_load) {
         }
       })
       .then(function(json) {
+        if (!more_load) {
+          while (timeline_config[i]) {
+            try {
+              elemTimeline(i).innerHTML =
+                '<div class="loading-now"><ons-progress-circular indeterminate></ons-progress-circular></div>';
+            } catch (e) {}
+            i++;
+          }
+          i = 0;
+        }
         if (json) {
           displayTime('update');
           if (more_load && !getConfig(1, 'chatmode')) {
             reshtml = elemTimeline().innerHTML;
-          } else {
-            if (getConfig(1, 'realtime') == 1) startWebSocket(mode, reload, more_load);
+          } else if (getConfig(1, 'realtime') == 1) {
+            startWebSocket(mode, reload, more_load);
           }
 
           if (getConfig(1, 'chatmode')) {
@@ -386,6 +382,8 @@ function showTL(mode, reload, more_load, clear_load) {
                 '</button>';
             }
             json = json.reverse();
+
+            var chat_jump_id = toot_old_id;
           }
 
           while (json[i]) {
@@ -414,10 +412,12 @@ function showTL(mode, reload, more_load, clear_load) {
           elemTimeline().innerHTML = reshtml;
 
           if (reload && reload !== 'dial') reload();
-          if (!getConfig(1, 'chatmode') && more_load) more_load();
-          if (getConfig(1, 'chatmode') && !more_load)
-            $('.page__content').scrollTop(99999999999999999999999);
-          return true;
+          if (getConfig(1, 'chatmode')) {
+            if (more_load) window.location = '#post_' + chat_jump_id;
+            else $('.page__content').scrollTop(99999999999999999999999);
+          } else if (more_load) {
+            more_load();
+          }
         }
       })
       .catch(error => {
