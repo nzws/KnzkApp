@@ -376,10 +376,6 @@ function initevent() {
       elemId('app-version').innerText = version;
     }
 
-    if (event.enterPage.id === 'usermenu-page') {
-      if (!instance_config[inst]['glitch_soc']) elemId('dmtimeline_bt').className = 'invisible';
-    }
-
     if (event.enterPage.id === 'config_TL-page') {
       initTLConf();
     }
