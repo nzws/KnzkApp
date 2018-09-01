@@ -230,6 +230,14 @@ function openTL(mode) {
 }
 
 function initTimeline() {
+  var i = 0;
+  while (timeline_config[i]) {
+    try {
+      elemTimeline(i).innerHTML =
+        '<div class="loading-now"><ons-progress-circular indeterminate></ons-progress-circular></div>';
+    } catch (e) {}
+    i++;
+  }
   TL_change(timeline_default_tab);
   now_TL = timeline_config[timeline_default_tab];
   timeline_now_tab = timeline_default_tab;
@@ -302,6 +310,13 @@ function showTL(mode, reload, more_load, clear_load) {
     toot_old_id = 0;
     more_load = false;
     setTLheadcolor(0);
+    try {
+      if (last_load_TL)
+        elemTimeline(last_load_TL).innerHTML =
+          '<div class="loading-now"><ons-progress-circular indeterminate></ons-progress-circular></div>';
+    } catch (e) {
+      console.error(e);
+    }
   }
   if (!mode) return;
   if (mode === 'home') {
@@ -352,22 +367,12 @@ function showTL(mode, reload, more_load, clear_load) {
         }
       })
       .then(function(json) {
-        if (!more_load) {
-          var i = 0;
-          while (timeline_config[i]) {
-            try {
-              elemTimeline(i).innerHTML =
-                '<div class="loading-now"><ons-progress-circular indeterminate></ons-progress-circular></div>';
-            } catch (e) {}
-            i++;
-          }
-        }
         if (json) {
           displayTime('update');
           if (more_load && !getConfig(1, 'chatmode')) {
             reshtml = elemTimeline().innerHTML;
-          } else if (getConfig(1, 'realtime') == 1) {
-            startWebSocket(mode, reload, more_load);
+          } else {
+            if (getConfig(1, 'realtime') == 1) startWebSocket(mode, reload, more_load);
           }
 
           if (getConfig(1, 'chatmode')) {
@@ -381,8 +386,6 @@ function showTL(mode, reload, more_load, clear_load) {
                 '</button>';
             }
             json = json.reverse();
-
-            var chat_jump_id = toot_old_id;
           }
 
           while (json[i]) {
@@ -396,7 +399,7 @@ function showTL(mode, reload, more_load, clear_load) {
             i++;
           }
 
-          if (more_load && getConfig(1, 'chatmode')) {
+          if (more_load && mode == last_load_TL && !clear_load && getConfig(1, 'chatmode')) {
             reshtml += elemTimeline().innerHTML;
           }
 
@@ -411,12 +414,9 @@ function showTL(mode, reload, more_load, clear_load) {
           elemTimeline().innerHTML = reshtml;
 
           if (reload && reload !== 'dial') reload();
-          if (getConfig(1, 'chatmode')) {
-            if (more_load) window.location = '#post_' + chat_jump_id;
-            else $('.page__content').scrollTop(99999999999999999999999);
-          } else if (more_load) {
-            more_load();
-          }
+          if (!getConfig(1, 'chatmode') && more_load) more_load();
+          if (getConfig(1, 'chatmode') && !more_load)
+            $('.page__content').scrollTop(99999999999999999999999);
           return true;
         }
       })
@@ -498,10 +498,6 @@ function startWebSocket(mode, reload, more_load) {
                       toot_card(ws_reshtml, 'full', null, TLmode) +
                       TlStoreData_pre[instance_ws][now_tab] +
                       elemTimeline(now_tab).innerHTML;
-                    if (TlStoreData_pre[instance_ws][now_tab] && !tl_force_center) {
-                      window.location = '#post_' + tl_lastup_id;
-                    }
-                    tl_force_center = false;
                     cacheTL(now_tab);
                   }
 
@@ -518,12 +514,10 @@ function startWebSocket(mode, reload, more_load) {
                       null,
                       TLmode
                     );
-                  else {
-                    tl_lastup_id = elemTimeline(now_tab).children[0].id.replace('post_', '');
+                  else
                     TlStoreData_pre[instance_ws][now_tab] =
                       toot_card(ws_reshtml, 'full', null, TLmode) +
                       TlStoreData_pre[instance_ws][now_tab];
-                  }
 
                   if (!home_auto_event) {
                     home_auto_event = true;
@@ -574,15 +568,12 @@ function startWebSocket(mode, reload, more_load) {
 function cacheTL(loc = timeline_now_tab) {
   if (pageid === 'home') {
     var posts = Array.from(elemTimeline(loc).children);
-    const isRev = getConfig(1, 'chatmode'),
-      getSlot = isRev ? 0 : 24;
-    if (isRev) posts.shift();
     if (posts.length > 30) {
-      var cutData = isRev ? posts.slice(1, posts.length - 24) : posts.slice(24),
+      var cutData = posts.slice(24),
         i = 0;
-      toot_old_id = posts[getSlot].id.replace('post_', '');
+      toot_old_id = posts[24].id.replace('post_', '');
       while (cutData[i]) {
-        posts[getSlot + i].parentNode.removeChild(posts[getSlot + i]);
+        posts[24 + i].parentNode.removeChild(posts[24 + i]);
         i++;
       }
     }
@@ -757,7 +748,6 @@ function TL_change(mode) {
 }
 
 function scrollTL() {
-  tl_force_center = true;
   $('.page__content').scrollTop(getConfig(1, 'chatmode') ? 99999999999999999999999 : 0);
 }
 

@@ -492,10 +492,6 @@ function home_autoevent() {
           elemTimeline().innerHTML = elemTimeline().innerHTML + storedata;
         else {
           elemTimeline().innerHTML = storedata + elemTimeline().innerHTML;
-          if (storedata && !tl_force_center) {
-            window.location = '#post_' + tl_lastup_id;
-            tl_force_center = false;
-          }
           cacheTL();
         }
         TlStoreData_pre[inst][timeline_now_tab] = '';
