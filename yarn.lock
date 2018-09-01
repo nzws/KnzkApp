@@ -701,9 +701,9 @@ cordova-plugin-file@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/cordova-plugin-file/-/cordova-plugin-file-6.0.1.tgz#49606b8c15a5688d4728f92e4a7325a061de07f5"
 
-cordova-plugin-globalization@1.0.9:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-globalization/-/cordova-plugin-globalization-1.0.9.tgz#465b9998feea0b888844d09cd7da02bfa26cb7a3"
+cordova-plugin-globalization@1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-globalization/-/cordova-plugin-globalization-1.11.0.tgz#eac3158100298493afa30be8940e698f61efbcfe"
 
 cordova-plugin-inappbrowser@^3.0.0:
   version "3.0.0"
