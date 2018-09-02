@@ -856,6 +856,18 @@
       <ons-list>
         <ons-list-header data-i18n="config.preferences.system.title">システム設定</ons-list-header>
         <ons-list-item>
+          <div class="center">
+            Language
+          </div>
+          <div class="right">
+            <ons-select id="lang-conf" onchange="changeLanguage(this.value)">
+              <option value="">Default</option>
+              <option value="en">English</option>
+              <option value="ja">日本語</option>
+            </ons-select>
+          </div>
+        </ons-list-item>
+        <ons-list-item>
           <div class="center" data-i18n="config.preferences.system.openurl.title">
             リンクの開き方
           </div>

@@ -274,6 +274,7 @@ function initevent() {
           i++;
         }
         renderPreview();
+        elemId('lang-conf').value = localLang ? localLang : '';
       }, 500);
     }
 

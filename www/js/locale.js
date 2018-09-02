@@ -3,22 +3,28 @@ const languages = {
   en: 'English',
 };
 
+const localLang = localStorage.getItem('knzkapp_language');
+
 const i18n_init = () =>
   new Promise((resolve, reject) => {
-    try {
-      navigator.globalization.getPreferredLanguage(
-        function(language) {
-          lng = language.value;
-          if (lng.split('-').length == 2) lng = lng.split('-')[0];
-          if (!languages[lng]) lng = 'en';
-          i18n_init_callback(lng, resolve);
-        },
-        function() {
-          i18n_init_callback('en', resolve);
-        }
-      );
-    } catch (e) {
-      i18n_init_callback('en', resolve);
+    if (localLang) {
+      i18n_init_callback(localLang, resolve);
+    } else {
+      try {
+        navigator.globalization.getPreferredLanguage(
+          function(language) {
+            lng = language.value;
+            if (lng.split('-').length == 2) lng = lng.split('-')[0];
+            if (!languages[lng]) lng = 'en';
+            i18n_init_callback(lng, resolve);
+          },
+          function() {
+            i18n_init_callback('en', resolve);
+          }
+        );
+      } catch (e) {
+        i18n_init_callback('en', resolve);
+      }
     }
   });
 
@@ -44,4 +50,8 @@ function dialog_i18n(id, m) {
   return i18next.t('dialogs_js.' + id + mode, {
     interpolation: { escapeValue: false },
   });
+}
+
+function changeLanguage(v) {
+  localStorage.setItem('knzkapp_language', v);
 }
