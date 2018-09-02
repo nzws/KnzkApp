@@ -630,7 +630,7 @@ function starting_alert(type) {
   if (type === 'err') {
     elemId('starting_err').className = '';
   } else {
-    if (i18next.t('starting.' + type) == 'starting.' + type) {
+    if (i18next.t('starting.' + type) == 'starting.' + type || !i18next.t('starting.' + type)) {
       //i18nロードされてない: 仕方ないのでen読み込む
       const en_locale = {
         instance_conf: 'Loading instance settings...',
