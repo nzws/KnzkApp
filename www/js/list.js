@@ -128,7 +128,7 @@ function followreq(id, mode) {
     })
     .then(function(json) {
       showtoast('ok_conf_2');
-      list_n('follow_requests', 'navigation.follow_req', null, 'acct', true);
+      list_n('follow_requests', 'navigation.follow_req', null, 'acct');
     })
     .catch(function(error) {
       catchHttpErr('follow_req', error);
