@@ -90,7 +90,11 @@ function showAlert(reload, more_load) {
                 "<b onclick='show_account(" +
                 json[i]['account']['id'] +
                 ")'>" +
-                escapeHTML(json[i]['account']['display_name']) +
+                t_text(
+                  escapeHTML(json[i]['account']['display_name']),
+                  json[i]['account']['emojis'],
+                  json[i]['account']['acct']
+                ) +
                 '</b>' +
                 i18next.t('toot.follow.suffix') +
                 " (<span data-time='" +
@@ -132,7 +136,11 @@ function showAlert(reload, more_load) {
                 "<b onclick='show_account(" +
                 json[i]['account']['id'] +
                 ")'>" +
-                escapeHTML(json[i]['account']['display_name']) +
+                t_text(
+                  escapeHTML(json[i]['account']['display_name']),
+                  json[i]['account']['emojis'],
+                  json[i]['account']['acct']
+                ) +
                 '</b>' +
                 i18next.t('toot.fav.suffix') +
                 " (<span data-time='" +
@@ -148,7 +156,11 @@ function showAlert(reload, more_load) {
                 "<b onclick='show_account(" +
                 json[i]['account']['id'] +
                 ")'>" +
-                escapeHTML(json[i]['account']['display_name']) +
+                t_text(
+                  escapeHTML(json[i]['account']['display_name']),
+                  json[i]['account']['emojis'],
+                  json[i]['account']['acct']
+                ) +
                 '</b>' +
                 i18next.t('toot.boost.suffix') +
                 " (<span data-time='" +
