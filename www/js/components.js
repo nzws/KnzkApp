@@ -114,6 +114,12 @@ function t_text(text, emojidata, acct) {
     );
   }
 
+  if (!getConfig(1, 'no_bbcode')) {
+    text = parseBBCode(text, 'spin', 'span class="fa fa-spin"', 'span');
+    text = parseBBCode(text, 'b');
+    text = parseBBCode(text, 'i');
+  }
+
   if (!getConfig(1, 'no_custom_emoji') && emojidata) {
     var emoji_mode = getConfig(1, 'no_gif') ? 'static_url' : 'url';
     while (emojidata[i]) {
@@ -143,6 +149,15 @@ function t_text(text, emojidata, acct) {
   //text = emojione.toImage(text);
   text = twemoji.parse(text);
   return text;
+}
+
+function parseBBCode(text, mode, html_pre, html_suf) {
+  if (!html_pre) html_pre = mode;
+  if (!html_suf) html_suf = html_pre;
+  return text.replace(
+    new RegExp('\\[' + mode + '\\]([\\s\\S][^\\[\\/' + mode + '\\]]*)\\[\\/' + mode + '\\]', 'g'),
+    '<' + html_pre + '>$1</' + html_suf + '>'
+  );
 }
 
 function show(id) {
