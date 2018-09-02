@@ -926,7 +926,8 @@
         <ons-list-header data-i18n="config.preferences.font.title">フォントサイズ</ons-list-header>
       </ons-list>
       <ons-list modifier="inset">
-        <ons-list-header data-i18n="config.preferences.font.button">トゥートの各ボタン</ons-list-header>
+        <ons-list-header><span data-i18n="config.preferences.font.button">トゥートの各ボタン</span> <a href="#" onclick="setConfig(1, 'font_button', 50);elemId('conf-font_button').value = 50;renderFontConfig()"
+            data-i18n="config.preferences.font.reset">リセット</a></ons-list-header>
         <ons-list-item>
           <ons-col>
             <ons-range class="w-max" value="50" onchange="change_conf(1, 'font_button', true);renderFontConfig()" id="conf-font_button"
@@ -934,7 +935,8 @@
           </ons-col>
         </ons-list-item>
 
-        <ons-list-header data-i18n="config.preferences.font.body">トゥート本文</ons-list-header>
+        <ons-list-header><span data-i18n="config.preferences.font.body">トゥート本文</span> <a href="#" onclick="setConfig(1, 'font_body', 50);elemId('conf-font_body').value = 50;renderFontConfig()"
+            data-i18n="config.preferences.font.reset">リセット</a></ons-list-header>
         <ons-list-item>
           <ons-col>
             <ons-range class="w-max" value="50" onchange="change_conf(1, 'font_body', true);renderFontConfig()" id="conf-font_body" data-config="range"></ons-range>
