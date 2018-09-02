@@ -1,64 +1,57 @@
-function music_set(id, force) {
-  var obj = elemId(id);
-  var audio = elemId('music-control');
-  var chmode = elemId('music-form').channel;
-  var title = elemId('music_title');
-  var mode, churl, fmode;
-
-  if (force === true) {
-    if (audio.src) {
-      //再生中
-      audio.pause();
-      audio.src = '';
-      fmode = true;
+function radio_set(num = audio_playing, force) {
+  const audioElem = elemId('music-control'),
+    radioTitle = elemId('music_title');
+  if (radios[num]) {
+    audio_playing = num;
+    if (isPlaying() || force) {
+      audioElem.src = radios[num]['url'];
+      radioTitle.innerText = radios[num]['name'];
+      audioElem.play();
     }
-    if (obj.className !== 'list-item__icon ons-icon fa-play fa fa-fw') {
-      mode = 1;
-    }
-
-    if (chmode.value === 'listen-moe') title.innerHTML = 'Listen.moe';
-    else if (chmode.value === 'AnimeNfo-Radio') title.innerHTML = 'AnimeNfo Radio';
-    else if (chmode.value === 'LoFi-hip-hop-Radio') title.innerHTML = 'LoFi hip hop Radio';
-    else if (chmode.value === 'Poolside-fm') title.innerHTML = 'Poolside.fm';
-    else if (chmode.value === 'dubplate-fm') title.innerHTML = "Drum 'n Bass";
-    else if (chmode.value === 'FUTURE-BASS-MIX') title.innerHTML = 'FUTURE-BASS-MIX';
-    else if (chmode.value === 'TOP-40-RU') title.innerHTML = 'TOP 40 RU';
-    else if (chmode.value === 'REMIXES-RU') title.innerHTML = 'REMIXES RU';
-    else if (chmode.value === 'danceradiouk') title.innerHTML = 'danceradiouk';
-    else if (chmode.value === 'FMHIPHOP-COM') title.innerHTML = 'FMHIPHOP.COM';
-    else if (chmode.value === 'DEEP-RADIO') title.innerHTML = 'DEEP RADIO';
   } else {
-    fmode = true;
-    if (obj.className === 'list-item__icon ons-icon fa-play fa fa-fw') {
-      obj.className = 'list-item__icon ons-icon fa-stop fa fa-fw';
-      mode = 1;
-    } else {
-      obj.className = 'list-item__icon ons-icon fa-play fa fa-fw';
-      mode = 0;
-    }
+    audioElem.pause();
+    audioElem.src = '';
+    radioTitle.innerText = 'Not Playing';
   }
+}
 
-  if (chmode.value === 'listen-moe') churl = 'https://listen.moe/stream';
-  else if (chmode.value === 'AnimeNfo-Radio') churl = 'http://itori.animenfo.com:443/;';
-  else if (chmode.value === 'LoFi-hip-hop-Radio') churl = 'http://hyades.shoutca.st:8043/stream';
-  else if (chmode.value === 'Poolside-fm') churl = 'http://stream.radio.co/s98f81d47e/listen';
-  else if (chmode.value === 'dubplate-fm') churl = 'http://sc2.dubplate.fm:5000/DnB/192';
-  else if (chmode.value === 'FUTURE-BASS-MIX') churl = 'http://stream.zenolive.com/am16uk1f4k5tv';
-  else if (chmode.value === 'TOP-40-RU')
-    churl = 'http://stream.europeanhitradio.com:8000/Stream_35.aac';
-  else if (chmode.value === 'REMIXES-RU')
-    churl = 'http://stream.europeanhitradio.com:8000/Stream_33.aac';
-  else if (chmode.value === 'danceradiouk') churl = 'http://uk2.internet-radio.com:8145/;stream';
-  else if (chmode.value === 'FMHIPHOP-COM') churl = 'http://149.56.175.167:5708/;';
-  else if (chmode.value === 'DEEP-RADIO') churl = 'http://stream.deep.radio/sd/;';
-
-  if (mode === 1) {
-    audio.src = churl;
-    if (fmode) audio.play();
+function radioToggle() {
+  const audioElem = elemId('music-control'),
+    audioButton = elemId('music-button'),
+    ButtonBase = 'list-item__icon ons-icon fa fa-fw fa-';
+  if (isPlaying()) {
+    //停止
+    radio_set(9999);
+    audioButton.className = ButtonBase + 'play';
   } else {
-    audio.pause();
-    audio.src = '';
+    //再生
+    radio_set(audio_playing, 1);
+    audioElem.play();
+    audioButton.className = ButtonBase + 'stop';
   }
+}
+
+function isPlaying() {
+  return elemId('music-button').className === 'list-item__icon ons-icon fa fa-fw fa-stop';
+}
+
+function generateRadio() {
+  const list = elemId('radio_list');
+  if (list.innerHTML) return;
+  var i = 0,
+    reshtml = '',
+    BoxData = {};
+  while (radios[i]) {
+    BoxData = {
+      num: i,
+      name: radios[i]['name'],
+      sub: radios[i]['sub'],
+      isDefault: i === 0 ? 1 : 0,
+    };
+    reshtml += tmpl('radio_tmpl', BoxData);
+    i++;
+  }
+  list.innerHTML = reshtml;
 }
 
 function music_change() {
@@ -66,6 +59,7 @@ function music_change() {
   var menu = elemId('menu-list');
   var account_list = elemId('account-list');
   if (list.style.display === 'none') {
+    generateRadio();
     list.style.display = 'block';
     menu.style.display = 'none';
     account_list.style.display = 'none';

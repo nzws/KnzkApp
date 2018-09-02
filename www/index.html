@@ -94,10 +94,12 @@
       now_userconf = {},
       lng = "en",
       editing_id = "",
-      user_icon = "";
+      user_icon = "",
+      audio_playing = 0;
   </script>
   <script src="config/instance.js"></script>
   <script src="config/config.js"></script>
+  <script src="config/radio.js"></script>
   <script src="js/tutorial.js"></script>
   <script src="js/locale.js"></script>
   <script src="js/notification.js"></script>
@@ -225,7 +227,7 @@
                   <i class="list-item__icon list-item--chevron__icon ons-icon fa-music fa fa-fw"></i>
                 </div>
                 <div class="center">
-                  <span class="list-item__title">Radio</span><span class="list-item__subtitle" id="music_title">Listen.moe</span>
+                  <span class="list-item__title">Radio</span><span class="list-item__subtitle" id="music_title">Not Playing</span>
                 </div>
               </ons-list-item>
             </ons-list>
@@ -236,77 +238,12 @@
                 <div class="left" onclick="music_change()">
                   <i class="list-item__icon ons-icon fa-chevron-left fa fa-fw"></i> <span data-i18n="navigation.back">戻る</span>
                 </div>
-                <div class="right" onclick="music_set('music-button')">
-                  <i class="list-item__icon ons-icon fa-play fa fa-fw" id="music-button"></i>
+                <div class="right" onclick="radioToggle()">
+                  <i class="list-item__icon ons-icon fa fa-fw fa-play" id="music-button"></i>
                 </div>
               </ons-list-item>
               <ons-list-header>Channel</ons-list-header>
-              <ons-list-item tappable onclick="music_set('music-button',true)">
-                <label class="left music-item">
-                  <ons-radio name="channel" input-id="listen-moe" value="listen-moe" checked></ons-radio>
-                </label>
-                <label for="listen-moe" class="center music-item">Listen.moe</label>
-              </ons-list-item>
-              <ons-list-item tappable onclick="music_set('music-button',true)">
-                <label class="left music-item">
-                  <ons-radio name="channel" input-id="AnimeNfo-Radio" value="AnimeNfo-Radio"></ons-radio>
-                </label>
-                <label for="AnimeNfo-Radio" class="center music-item">AnimeNfo Radio</label>
-              </ons-list-item>
-              <ons-list-item tappable onclick="music_set('music-button',true)">
-                <label class="left music-item">
-                  <ons-radio name="channel" value="LoFi-hip-hop-Radio" input-id="LoFi-hip-hop-Radio"></ons-radio>
-                </label>
-                <label for="LoFi-hip-hop-Radio" class="center music-item">LoFi hip hop Radio</label>
-              </ons-list-item>
-              <ons-list-item tappable onclick="music_set('music-button',true)">
-                <label class="left music-item">
-                  <ons-radio name="channel" value="Poolside-fm" input-id="Poolside-fm"></ons-radio>
-                </label>
-                <label for="Poolside-fm" class="center music-item">Poolside.fm</label>
-              </ons-list-item>
-              <ons-list-item tappable onclick="music_set('music-button',true)">
-                <label class="left music-item">
-                  <ons-radio name="channel" value="dubplate-fm" input-id="dubplate-fm"></ons-radio>
-                </label>
-                <label for="dubplate-fm" class="center music-item">Drum 'n Bass <small>(dubplate.fm)</small></label>
-              </ons-list-item>
-              <ons-list-item tappable onclick="music_set('music-button',true)">
-                <label class="left music-item">
-                  <ons-radio name="channel" value="FUTURE-BASS-MIX" input-id="FUTURE-BASS-MIX"></ons-radio>
-                </label>
-                <label for="FUTURE-BASS-MIX" class="center music-item">FUTURE-BASS-MIX</label>
-              </ons-list-item>
-              <ons-list-item tappable onclick="music_set('music-button',true)">
-                <label class="left music-item">
-                  <ons-radio name="channel" value="TOP-40-RU" input-id="TOP-40-RU"></ons-radio>
-                </label>
-                <label for="TOP-40-RU" class="center music-item">TOP 40 RU <small>(European Hit Radio)</small></label>
-              </ons-list-item>
-              <ons-list-item tappable onclick="music_set('music-button',true)">
-                <label class="left music-item">
-                  <ons-radio name="channel" value="REMIXES-RU" input-id="REMIXES-RU"></ons-radio>
-                </label>
-                <label for="REMIXES-RU" class="center music-item">REMIXES RU <small>(European Hit Radio)</small></label>
-              </ons-list-item>
-              <ons-list-item tappable onclick="music_set('music-button',true)">
-                <label class="left music-item">
-                  <ons-radio name="channel" value="danceradiouk" input-id="danceradiouk"></ons-radio>
-                </label>
-                <label for="danceradiouk" class="center music-item">danceradiouk <small>(Box UK Radio)</small></label>
-              </ons-list-item>
-              <ons-list-item tappable onclick="music_set('music-button',true)">
-                <label class="left music-item">
-                  <ons-radio name="channel" value="FMHIPHOP-COM" input-id="FMHIPHOP-COM"></ons-radio>
-                </label>
-                <label for="FMHIPHOP-COM" class="center music-item">FMHIPHOP.COM</label>
-              </ons-list-item>
-              <ons-list-item tappable onclick="music_set('music-button',true)">
-                <label class="left music-item">
-                  <ons-radio name="channel" value="DEEP-RADIO" input-id="DEEP-RADIO"></ons-radio>
-                </label>
-                <label for="DEEP-RADIO" class="center music-item">DEEP RADIO</label>
-              </ons-list-item>
+              <div id="radio_list"></div>
             </ons-list>
           </form>
         </div>
@@ -2489,6 +2426,15 @@
         <small>@<%=acct%></small>
       </ons-col>
     </ons-row>
+  </script>
+
+  <script type="text/html" id="radio_tmpl">
+    <ons-list-item tappable onclick="radio_set(<%=num%>)">
+      <label class="left music-item">
+        <ons-radio name="channel" input-id="radio_<%=num%>" <%=(isDefault === 1 ? 'checked' : '')%>></ons-radio>
+      </label>
+      <label for="radio_<%=num%>" class="center music-item"><%=name%><%=(sub ? '   <small>('+sub+')</small>' : '')%></label>
+    </ons-list-item>
   </script>
 </body>
 
