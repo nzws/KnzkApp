@@ -135,7 +135,6 @@ function renderCustomEmoji(emojiobj) {
       .then(function(json) {
         if (json) {
           var emoji_mode = getConfig(1, 'no_gif') ? 'static_url' : 'url';
-
           i = 0;
           while (json[i]) {
             search_a_custom.push(json[i]['shortcode']);
@@ -156,8 +155,10 @@ function renderCustomEmoji(emojiobj) {
             '</div>';
           emojiobj.innerHTML =
             "<ons-list-title class='invisible' id='ep_search_result_title'>" +
-            i18next.t('emoji_category.Search');
-          +'</ons-list-title>' + customreshtml + emojiobj.innerHTML;
+            i18next.t('emoji_category.Search') +
+            '</ons-list-title>' +
+            customreshtml +
+            emojiobj.innerHTML;
         }
         emojiobj.dataset.isload = 'yes';
         load.className = 'invisible';
