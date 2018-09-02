@@ -804,6 +804,7 @@ img.emoji {
 .toast__message {
   line-height: 35px;
   margin: 5px 0;
+  white-space: initial;
 }
 
 #TLChangeTab .toast__message {
