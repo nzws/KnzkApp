@@ -440,6 +440,10 @@ function initevent() {
     }
   });
 
+  window.addEventListener('keyboardWillHide', () => {
+    simple_close();
+  });
+
   document.addEventListener('postopen', function(event) {
     account_list();
     reset_nav();
