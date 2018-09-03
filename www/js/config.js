@@ -286,7 +286,14 @@ function renderFontConfig() {
     }
     if (getConfig(1, 'font_body')) {
       var f = 28 * (parseInt(getConfig(1, 'font_body')) * 0.01);
-      css += '.toot_content > p { font-size: ' + f + 'px; }';
+      css +=
+        '.toot_content > p { font-size: ' +
+        f +
+        'px; } .toot_content .emoji, .toot_content .emojione { height: ' +
+        (f + 6) +
+        'px !important; width: ' +
+        (f + 6) +
+        'px !important; }';
     }
   }
   elemId('font-config').innerHTML = css;
