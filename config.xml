@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" id="net.knzkdev.app" version="1.3.2">
+<widget xmlns="http://www.w3.org/ns/widgets" id="net.knzkdev.app" version="1.4.0">
   <name>Knzk.me</name>
   <description>Made with Monaca (http://monaca.mobi)</description>
   <author/>
@@ -50,6 +50,7 @@
     <config-file platform="ios" parent="CFBundleLocalizations" target="*-Info.plist">
       <array>
         <string>ja</string>
+        <string>en</string>
       </array>
     </config-file>
   </platform>
@@ -104,18 +105,18 @@
   </platform>
   <preference name="StatusBarStyle" value="lightcontent"/>
   <preference name="windows-target-version" value="10.0"/>
+  <preference name="WindowsStorePublisherName" value="Knzk.me"/>
+  <preference name="WindowsStoreIdentityName" value="ef46890d-8d5c-5fca-cde1-bc1dae48e2c2"/>
   <preference name="ios-XCBuildConfiguration-TARGETED_DEVICE_FAMILY" value="1,2"/>
-  <preference name="AutoHideSplashScreen" value="true"/>
+  <preference name="AutoHideSplashScreen" value="false"/>
   <preference name="FadeSplashScreen" value="true"/>
   <preference name="ShowSplashScreenSpinner" value="true"/>
   <preference name="EnableViewportScale" value="false"/>
-  <preference name="WindowsStorePublisherName" value="Knzk.me"/>
-  <preference name="WindowsStoreIdentityName" value="ef46890d-8d5c-5fca-cde1-bc1dae48e2c2"/>
   <access origin="*"/>
   <preference name="KeepRunning" value="true"/>
-  <preference name="monaca:AndroidIsPackageNameSeparate" value="true"/>
+  <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
   <preference name="Orientation" value="default"/>
-  <preference name="SplashScreenDelay" value="0"/>
+  <preference name="SplashScreenDelay" value="9999"/>
   <preference name="Fullscreen" value="false"/>
 </widget>

@@ -34,7 +34,7 @@
   <link rel="stylesheet" id="theme_css">
   <link rel="stylesheet" id="css_custom_platform">
   <script>
-    const version = "KnzkApp 1.3.2";
+    const version = "KnzkApp 1.4.0";
 
     var now_TL = "",
       last_load_TL = "",
@@ -2359,7 +2359,7 @@
   </ons-toast>
 
   <script type="text/html" id="toot_full_tmpl">
-    <div class="toot post post_<%=toot['id']%> <%=toot_base_classes%>" id="post_<%=toot['id']%>" data-bgpic="" style="">
+    <div class="toot post post_<%=toot['id']%> <%=toot_base_classes%>" id="post_<%=toot['id']%>" data-bgpic="<%=bgpic%>" style="<%=bgstyle%>">
       <%=(alert_text ? alert_text : '')%>
       <div class="toot_flex">
         <% if (!no_icon) { %>
@@ -2367,7 +2367,7 @@
             <img src="<%=toot['account'][getConfig(1, 'no_gif') ? 'avatar_static' : 'avatar']%>" class="icon-img" onclick="show_account('<%=toot['account']['id']%>')">
           </div>
         <% } %>
-        <div class="toot-card-right">
+        <div class="toot-card-right<%=is_col%>">
           <div class="<%=namucard%>">
             <div class="toot-group name_box">
               <% if (!no_icon) { %>
@@ -2376,7 +2376,7 @@
                 </div>
               <% } %>
             </div>
-            <div class="toot_content tootcontent_<%=toot['id']%><%=no_icon%><%=is_col%>" data-id="<%=toot['id']%>" data-dispmode="<%=display_mode%>">
+            <div class="toot_content tootcontent_<%=toot['id']%><%=no_icon%>" data-id="<%=toot['id']%>" data-dispmode="<%=display_mode%>">
               <p>
                 <%=toot['content']%>
               </p>
