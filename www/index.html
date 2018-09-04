@@ -407,7 +407,8 @@
           <input type="hidden" id="localonly_input_simple">
           <input type="hidden" id="post_mode_simple" value="public">
           <input type="hidden" id="post_reply_simple">
-          <input type="file" id="post_file_simple" class="invisible" onchange="up_file(true)" accept="image/*;capture=camera">
+          <input type="file" id="post_file_simple" class="invisible" onchange="up_file(true, true)" accept="image/*;capture=camera"
+            multiple>
           <ons-list>
             <ons-list-item style="padding-left: 0" class="simple-toot">
               <div class="left" style="padding-right: 6px">
@@ -1407,7 +1408,7 @@
           <input type="hidden" id="localonly_input">
           <input type="hidden" id="post_mode" value="public">
           <input type="hidden" id="post_reply">
-          <input type="file" id="post_file" class="invisible" onchange="up_file()" accept="image/*;capture=camera">
+          <input type="file" id="post_file" class="invisible" onchange="up_file(null, true)" accept="image/*;capture=camera" multiple>
           <ons-button modifier="quiet" onclick="up_file()" style="border-radius: 0" id="new_up_bt">
             <ons-icon icon="fa-picture-o"></ons-icon>
           </ons-button>

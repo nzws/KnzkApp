@@ -34,7 +34,7 @@ function post_vote() {
   }
 }
 
-function up_file(simple) {
+function up_file(simple, isInput) {
   var simple_id = '';
   if (simple) image_mode = simple_id = '_simple';
   else image_mode = simple_id = '';
@@ -42,12 +42,37 @@ function up_file(simple) {
   if (card.length >= 4) {
     showtoast('maximum-media');
   } else {
-    navigator.camera.getPicture(up_file_onSuccess, file_error, {
-      quality: 100,
-      destinationType: Camera.DestinationType.FILE_URI,
-      sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-      encodingType: 1,
-    });
+    if (isInput) {
+      var files = elemId('post_file' + simple_id).files;
+      if (card.length + files.length > 4) {
+        showtoast('maximum-media');
+      } else {
+        var i = 0,
+          images = [];
+        while (files[i]) {
+          var reader = new FileReader();
+          reader.onload = function(fileData) {
+            images.push(fileData.target.result.split(',')[1]);
+            if (files.length === images.length) {
+              up_file_suc(images, null);
+            }
+          };
+          reader.readAsDataURL(files[i]);
+          i++;
+        }
+      }
+    } else {
+      if (platform === 'ios') {
+        navigator.camera.getPicture(up_file_onSuccess, file_error, {
+          quality: 100,
+          destinationType: Camera.DestinationType.FILE_URI,
+          sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+          encodingType: 1,
+        });
+      } else {
+        elemId('post_file' + simple_id).click();
+      }
+    }
   }
 }
 
@@ -71,6 +96,12 @@ function up_file_onSuccess(URI) {
 function up_file_suc(base64, mode_blob) {
   var blob;
   if (base64 || mode_blob) {
+    if (Array.isArray(base64)) {
+      var arr = base64;
+      if (!base64[0]) return;
+      base64 = base64[0];
+      arr.shift();
+    }
     show('now_loading');
     if (base64) {
       var binary = atob(base64);
@@ -110,13 +141,13 @@ function up_file_suc(base64, mode_blob) {
               json['id'] +
               "'></ons-card>" +
               elemId('image_list' + image_mode).innerHTML;
-            image_mode = '';
             hide('now_loading');
           } else {
             hide('now_loading');
             showtoast('cannot-pros');
           }
         }
+        if (arr) up_file_suc(arr);
       })
       .catch(function(error) {
         catchHttpErr('media', error);

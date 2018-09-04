@@ -942,3 +942,7 @@ img.emoji {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+.media-upload_simple {
+  height: 60px;
+}
