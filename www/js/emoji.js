@@ -27,6 +27,7 @@ function renderEmoji(emojiobj) {
     search = '',
     s = 0;
   if (emojiobj.dataset.isload === 'no') {
+    emojiobj.dataset.isload = 'yes';
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
       if (this.readyState === 4) {
@@ -160,13 +161,10 @@ function renderCustomEmoji(emojiobj) {
             customreshtml +
             emojiobj.innerHTML;
         }
-        emojiobj.dataset.isload = 'yes';
         load.className = 'invisible';
         load.innerHTML = '';
       });
   } else {
-    emojiobj.dataset.isload = 'yes';
-
     load.className = 'invisible';
     load.innerHTML = '';
   }

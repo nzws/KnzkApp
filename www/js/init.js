@@ -453,6 +453,7 @@ function initevent() {
   });
 
   window.addEventListener('keyboardWillHide', () => {
+    document.activeElement.blur();
     simple_close();
   });
 
