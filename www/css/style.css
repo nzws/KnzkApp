@@ -202,6 +202,14 @@ body {
   color: #2b90d9;
 }
 
+.user-bot {
+  color: #d9e1e8;
+  font-size: x-small;
+  border-radius: 3px;
+  border: 1px solid #d9e1e8;
+  padding: 2px 5px;
+}
+
 .user-bio {
   margin: 10px 5px;
   color: #d9e1e8;

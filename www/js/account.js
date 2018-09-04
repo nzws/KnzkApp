@@ -78,8 +78,10 @@ function show_account(id) {
       elemId('userpage-follow').innerHTML = json.following_count;
       elemId('userpage-follower').innerHTML = json.followers_count;
       elemId('userpage-post-count').innerHTML = json.statuses_count;
-      if (json.locked === true) $('#userpage-lock').removeClass('invisible');
+      if (json.locked) $('#userpage-lock').removeClass('invisible');
       else $('#userpage-lock').addClass('invisible');
+      if (json.bot) $('#userpage-bot').removeClass('invisible');
+      else $('#userpage-bot').addClass('invisible');
       showAccountTL(json.id);
 
       if (json.moved) {
