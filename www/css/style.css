@@ -942,19 +942,16 @@ img.emoji {
 
 @keyframes fade {
   0% {
-    opacity: 0.2;
     pointer-events: none;
   }
 
   100% {
-    opacity: 1;
     pointer-events: initial;
   }
 }
 
-.post:first-child {
-  opacity: 1;
-  animation: fade 0.2s linear;
+.post {
+  animation: fade 0.1s linear;
 }
 
 .account_card {
