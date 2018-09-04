@@ -384,6 +384,18 @@ function initevent() {
     if (event.enterPage.id === 'lists-page') {
       renderListsCollection();
     }
+
+    if (event.enterPage.id === 'olist' || event.enterPage.id === 'olist_nav') {
+      event.enterPage.onInfiniteScroll = function(done) {
+        list_n(null, null, done, null, event.enterPage.id === 'olist_nav');
+      };
+    }
+
+    if (event.enterPage.id === 'showtag-page') {
+      event.enterPage.onInfiniteScroll = function(done) {
+        showTagTL(null, done);
+      };
+    }
   });
 
   document.addEventListener('postpop', function(event) {

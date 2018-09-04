@@ -25,9 +25,13 @@ function list_n(mode, title, more_load, mode_toot, navmode) {
     pin;
   var id_title, id_main;
   if (more_load) {
+    if (!list_old_id[0]) {
+      setTimeout(function() {
+        more_load();
+      }, 500);
+      return;
+    }
     get = '?' + list_old_id[0];
-    more_load.value = 'Loading now...';
-    more_load.disabled = true;
   }
   if (mode === 'pin') {
     pin = true;
@@ -40,17 +44,17 @@ function list_n(mode, title, more_load, mode_toot, navmode) {
     id_title = 'olist_title';
     id_main = 'olist_main';
   }
+  if (!mode && more_load) {
+    mode = elemId(id_main).mode;
+    mode_toot = elemId(id_main).mode_toot;
+  }
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4) {
       if (xhr.status === 200 || xhr.status === 304) {
         var json = JSON.parse(xhr.responseText);
-        if (more_load) {
-          more_load.className = 'button button--large--quiet invisible';
-          reshtml = elemId(id_main).innerHTML;
-        } else {
-          elemId(id_title).innerHTML = title.match(/\./i) ? i18next.t(title) : title;
-        }
+        if (more_load) reshtml = elemId(id_main).innerHTML;
+        else elemId(id_title).innerHTML = title.match(/\./i) ? i18next.t(title) : title;
 
         while (json[i]) {
           if (mode_toot === 'toot') {
@@ -83,26 +87,21 @@ function list_n(mode, title, more_load, mode_toot, navmode) {
           list_old_id = xhr.getResponseHeader('link').match(/max_id=\d+/);
         else list_old_id = '';
 
+        if (!more_load) {
+          elemId(id_main).mode = mode;
+          elemId(id_main).mode_toot = mode_toot;
+          elemId(id_main).navmode = navmode;
+        }
+
         if (pin === true) mode = 'pin';
-        if (list_old_id !== '')
-          reshtml +=
-            "<button class='button button--large--quiet' onclick='list_n(\"" +
-            mode +
-            '", "' +
-            title +
-            '", this, "' +
-            mode_toot +
-            '", ' +
-            navmode +
-            ")'>" +
-            i18next.t('navigation.load_more') +
-            '</button>';
+
         elemId(id_main).innerHTML = reshtml;
-        return true;
       } else {
         showtoast('cannot-load');
-        return false;
       }
+      setTimeout(function() {
+        if (more_load) more_load();
+      }, 500);
     }
   };
   xhr.open('GET', 'https://' + inst + '/api/v1/' + mode + get, false);

@@ -638,11 +638,8 @@ function showTagTL(tag, more_load) {
         }
 
         if (i !== 0) tag_old_id = json[i - 1]['id'];
-        reshtml +=
-          "<button class='button button--large--quiet' onclick='showTagTL(null,this)'>" +
-          i18next.t('navigation.load_more') +
-          '</button>';
         elemId('tag_main').innerHTML = reshtml;
+        if (more_load) more_load();
         return true;
       }
     })
