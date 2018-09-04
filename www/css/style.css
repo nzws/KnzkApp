@@ -581,6 +581,24 @@ img.emoji {
   max-width: 100%;
 }
 
+.image_note_base {
+  border-radius: 5px 5px 0 0;
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.image_note {
+  border-radius: 0 0 5px 5px;
+  background: #030303;
+  padding: 2px;
+  padding-left: 5px;
+}
+
+.image_note :link {
+  color: #fff;
+  text-decoration: none;
+}
+
 #doodle_popover > .popover > .popover__arrow {
   display: none;
 }

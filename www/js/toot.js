@@ -129,16 +129,31 @@ function toot_card(toot, mode, note, toot_light, page) {
   try {
     if (toot['media_attachments'][0] && (mode == 'full' || mode == 'big')) {
       while (toot['media_attachments'][p]) {
+        var image_note = '';
+        if (
+          toot['media_attachments'][p]['type'] === 'video' ||
+          toot['media_attachments'][p]['type'] === 'gifv'
+        ) {
+          image_note =
+            '<div class="image_note"><i class="fa fa-play"></i> ' +
+            i18next.t('toot.video') +
+            (toot['media_attachments'][p]['type'] === 'gifv' ? '   [GIF]' : '') +
+            '</div>';
+        }
         if (toot['sensitive'] && getConfig(1, 'nsfw') != 1) {
           //NSFWオン
           piccard +=
             "<a href='" +
             toot['media_attachments'][p]['url'] +
-            "'><ons-card class='nsfw'><h3>" +
+            "'><ons-card class='nsfw" +
+            (image_note ? ' image_note_base' : '') +
+            "'><h3>" +
             i18next.t('toot.nsfw.title') +
             '</h3><small>' +
             i18next.t('toot.nsfw.sub') +
-            '</small></ons-card></a>';
+            '</small></ons-card>' +
+            image_note +
+            '</a>';
         } else {
           if (getConfig(1, 'image_full') == '1') {
             piccard +=
@@ -146,14 +161,22 @@ function toot_card(toot, mode, note, toot_light, page) {
               toot['media_attachments'][p]['url'] +
               "'><img src='" +
               toot['media_attachments'][p]['preview_url'] +
-              "' class='image_fullsize'/></a>";
+              "' class='image_fullsize" +
+              (image_note ? ' image_note_base' : '') +
+              "'/>" +
+              image_note +
+              '</a>';
           } else {
             piccard +=
               "<a href='" +
               toot['media_attachments'][p]['url'] +
               "'><ons-card style='background-image: url(" +
               toot['media_attachments'][p]['preview_url'] +
-              ")' class='card-image'></ons-card></a>";
+              ")' class='card-image" +
+              (image_note ? ' image_note_base' : '') +
+              "'></ons-card>" +
+              image_note +
+              '</a>';
           }
         }
         p++;
