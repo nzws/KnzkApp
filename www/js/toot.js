@@ -98,7 +98,7 @@ function toot_card(toot, mode, note, toot_light, page) {
       can_col = true;
       is_col = ' toot-small';
       if (col_pic) {
-        col_bg_st = 'background: url("' + col_pic + '");';
+        col_bg_st = 'background: url(' + col_pic + ');';
         BoxData['toot_base_classes'] += ' col_bg';
       }
     } else {
@@ -283,10 +283,11 @@ function toot_col(id) {
     toot_b = document.getElementsByClassName('post_' + id),
     obj = $('.toot_col_' + id),
     tb = $('.tb_group_' + id);
-  mode = toot[0].className.indexOf('toot-small') != -1;
+  var small_class = document.querySelectorAll('.post_' + id + ' .toot-card-right');
+  mode = small_class[0].className.indexOf('toot-small') != -1;
   while (toot[i]) {
     if (mode) {
-      $(toot[i]).removeClass('toot-small');
+      small_class[i].className = 'toot-card-right';
       obj[i].className = 'fa fa-fw fa-angle-double-up toot-right-icon toot_col_' + id;
       tb[i].className = 'toot-group tb_group_' + id;
       if (toot_b[i].dataset.bgpic) {
@@ -294,7 +295,7 @@ function toot_col(id) {
         $(toot_b[i]).removeClass('col_bg');
       }
     } else {
-      $(toot[i]).addClass('toot-small');
+      small_class[i].className = 'toot-card-right toot-small';
       obj[i].className = 'fa fa-fw fa-angle-double-down toot-right-icon blue toot_col_' + id;
       tb[i].className = 'disable toot-group tb_group_' + id;
       if (toot_b[i].dataset.bgpic) {
