@@ -85,7 +85,7 @@ function showAlert(reload, more_load) {
             if (!filter['follow']) {
               alert_text = "<div class='alert_text'>";
               alert_text +=
-                '<ons-icon icon="fa-user-plus" class=\'boost-active\'></ons-icon>' +
+                '<ons-icon icon="fa-user-plus" class=\'boost-active\'></ons-icon> ' +
                 i18next.t('toot.follow.prefix') +
                 "<b onclick='show_account(" +
                 json[i]['account']['id'] +
@@ -168,6 +168,9 @@ function showAlert(reload, more_load) {
                 "' class='date'>" +
                 displayTime('new', json[i]['created_at']) +
                 '</span>)';
+            }
+            if (json[i]['type'] === 'mention') {
+              alert_text = '';
             }
             if (
               !(

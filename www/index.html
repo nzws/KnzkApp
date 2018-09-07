@@ -2384,7 +2384,7 @@
             </div>
           </div>
           <% if (display_mode === 'full') { %>
-            <div class="toot-group tb_group_<%=toot['id']%>">
+            <div class="<%=(is_col ? 'disable ' : '')%>toot-group tb_group_<%=toot['id']%>">
               <div class="toot-buttons">
                 <ons-icon icon="fa-reply" onclick="reply('<%=toot['id']%>')" class="toot-button ons-icon fa-reply fa"></ons-icon>
                 <% if (toot['visibility'] === 'private' || toot['visibility'] === 'direct' || toot['visibility'] === 'limited') { %>

@@ -709,10 +709,11 @@ img.emoji {
   color: #0d0d0d;
 }
 
-.toot_content > * {
+.toot_content * {
   -webkit-user-select: auto;
   user-select: text;
   word-wrap: break-word;
+  word-break: break-all;
 }
 
 .close_button {
