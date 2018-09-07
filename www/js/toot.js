@@ -1,6 +1,5 @@
 function toot_card(toot, mode, note, toot_light, page) {
   var piccard = '',
-    namucard = '',
     p = 0,
     alert_text = '',
     content = '';
@@ -70,11 +69,6 @@ function toot_card(toot, mode, note, toot_light, page) {
       vote = enq_sec_comp >= 0 ? 'open' : 'closed';
       BoxData['vote'] = vote;
     }
-  }
-
-  if (getConfig(1, 'bigfav') == 1 && mode != 'big') {
-    namucard = ' namu-toot';
-    namubt = ' namu-fav';
   }
   BoxData['toot_base_classes'] = '';
   if (toot_light === 'gold') BoxData['toot_base_classes'] += ' toot_gold';
@@ -269,7 +263,7 @@ function toot_card(toot, mode, note, toot_light, page) {
   BoxData['bgstyle'] = col_bg_st;
   BoxData['alert_text'] = alert_text;
   BoxData['no_icon'] = page === 'alert' && note && getConfig(2, 'alert_m') ? ' no_icon' : '';
-  BoxData['namucard'] = namucard;
+  BoxData['namu'] = getConfig(1, 'bigfav') ? 'namu' : '';
   BoxData['is_col'] = is_col;
   BoxData['visibility_icon'] = visibility_icon;
   BoxData['display_mode'] = mode;

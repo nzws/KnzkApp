@@ -2367,21 +2367,18 @@
             <img src="<%=toot['account'][getConfig(1, 'no_gif') ? 'avatar_static' : 'avatar']%>" class="icon-img" onclick="show_account('<%=toot['account']['id']%>')">
           </div>
         <% } %>
-        <div class="toot-card-right<%=is_col%>">
-          <div class="<%=namucard%>">
-            <div class="toot-group name_box">
-              <% if (!no_icon) { %>
-                <div onclick="show_account('<%=toot['account']['id']%>')" class="toot_name">
-                  <b><%=toot['account']['display_name']%></b> <small>@<%=toot['account']['acct']%></small>
-                </div>
-              <% } %>
-            </div>
-            <div class="toot_content tootcontent_<%=toot['id']%><%=no_icon%>" data-id="<%=toot['id']%>" data-dispmode="<%=display_mode%>">
-              <p>
-                <%=toot['content']%>
-              </p>
-
-            </div>
+        <div class="toot-card-right<%=is_col%> <%=namu%>">
+          <div class="toot-group name_box">
+            <% if (!no_icon) { %>
+              <div onclick="show_account('<%=toot['account']['id']%>')" class="toot_name">
+                <b><%=toot['account']['display_name']%></b> <small>@<%=toot['account']['acct']%></small>
+              </div>
+            <% } %>
+          </div>
+          <div class="toot_content tootcontent_<%=toot['id']%><%=no_icon%>" data-id="<%=toot['id']%>" data-dispmode="<%=display_mode%>">
+            <p>
+              <%=toot['content']%>
+            </p>
           </div>
           <% if (display_mode === 'full') { %>
             <div class="<%=(is_col ? 'disable ' : '')%>toot-group tb_group_<%=toot['id']%>">
@@ -2392,7 +2389,7 @@
                 <% } else { %>
                   <ons-icon icon="fa-retweet" onclick="toot_action(1)" class="tootbs_<%=toot['id']%> toot-button ons-icon fa-retweet fa<%=boosted%>" data-id="<%=toot['id']%>"></ons-icon>
                 <% } %>
-                <ons-icon icon="fa-star" onclick="toot_action(0)" class="tootfav_<%=toot['id']%> toot-button ons-icon fa-star fa<%=faved%>" data-id="<%=toot['id']%>"></ons-icon>
+                <ons-icon icon="fa-star" onclick="toot_action(0)" class="tootfav_<%=toot['id']%> toot-button ons-icon fa-star fa<%=faved%> <%=namu%>" data-id="<%=toot['id']%>"></ons-icon>
                 <ons-icon icon="fa-ellipsis-h" onclick="more('<%=toot['id']%>')" class="toot-button toot-button-last ons-icon fa-ellipsis-h fa"></ons-icon>
               </div>
               <div class="toot-right date date-disp" data-time="<%=toot['created_at']%>" onclick="show_post('<%=toot['id']%>')">

@@ -93,10 +93,6 @@ body {
   margin-right: 0;
 }
 
-.toot-button.namu-fav {
-  margin-right: 5px !important;
-}
-
 .toot-card-right {
   margin-left: 10px;
   margin-right: 5px;
@@ -105,19 +101,8 @@ body {
   flex-direction: column;
 }
 
-.namu-fav {
-  font-size: xx-large;
-  position: absolute;
-  top: 30px;
-  right: 10px;
-}
-
 .col-xs-9 {
   width: 80%;
-}
-
-.namu-toot {
-  margin-right: 30px;
 }
 
 .fav-active {
@@ -712,8 +697,7 @@ img.emoji {
 .toot_content * {
   -webkit-user-select: auto;
   user-select: text;
-  word-wrap: break-word;
-  word-break: break-all;
+  word-break: break-word;
 }
 
 .close_button {

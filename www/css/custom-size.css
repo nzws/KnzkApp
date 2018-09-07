@@ -17,3 +17,14 @@
 .toot_flex {
   display: flex;
 }
+
+ons-icon.namu {
+  position: absolute;
+  right: -30px;
+  top: 10px;
+  font-size: 3em !important;
+}
+
+.toot-card-right.namu {
+  width: calc(100% - 110px);
+}
