@@ -128,6 +128,8 @@ function toot_card(toot, mode, note, toot_light, page) {
 
   try {
     if (toot['media_attachments'][0] && (mode == 'full' || mode == 'big')) {
+      piccard +=
+        '<div class="media_card_' + toot['id'] + ' ' + (is_col ? 'invisible' : '') + '">\n';
       while (toot['media_attachments'][p]) {
         var image_note = '';
         if (
@@ -181,6 +183,7 @@ function toot_card(toot, mode, note, toot_light, page) {
         }
         p++;
       }
+      piccard += '</div>';
     } else if (!toot['media_attachments'][0] && toot_light === 'media') {
       return '';
     }
@@ -308,6 +311,8 @@ function toot_col(id) {
     }
     i++;
   }
+  if (mode) $('.media_card_' + id).removeClass('invisible');
+  else $('.media_card_' + id).addClass('invisible');
 }
 
 function vote_item(q, obj, id) {
