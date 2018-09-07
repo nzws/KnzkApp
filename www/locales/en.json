@@ -47,8 +47,12 @@
     },
     "boost": {
       "user": "Boosted by",
+      "me": {
+        "prefix": "",
+        "suffix": " boosted your status"
+      },
       "prefix": "",
-      "suffix": " boosted your status"
+      "suffix": " boosted"
     },
     "follow": {
       "prefix": "",

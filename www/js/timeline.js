@@ -152,7 +152,7 @@ function showAlert(reload, more_load) {
             if (json[i]['type'] === 'reblog') {
               alert_text =
                 '<ons-icon icon="fa-retweet" class=\'boost-active\'></ons-icon> ' +
-                i18next.t('toot.boost.prefix') +
+                i18next.t('toot.boost.me.prefix') +
                 "<b onclick='show_account(" +
                 json[i]['account']['id'] +
                 ")'>" +
@@ -162,7 +162,7 @@ function showAlert(reload, more_load) {
                   json[i]['account']['acct']
                 ) +
                 '</b>' +
-                i18next.t('toot.boost.suffix') +
+                i18next.t('toot.boost.me.suffix') +
                 " (<span data-time='" +
                 json[i]['created_at'] +
                 "' class='date'>" +
