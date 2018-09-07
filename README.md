@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://knzkapp.nzws.me">
-    <img src="https://user-images.githubusercontent.com/38746192/40487755-18d4ef0c-5fa0-11e8-9eae-f2d1ef936d72.png" width="150">
+    <img src="https://user-images.githubusercontent.com/38746192/40487755-18d4ef0c-5fa0-11e8-9eae-f2d1ef936d72.png" width="150"/>
   </a>
 
   <h1 align="center">
@@ -12,15 +12,23 @@
   </p>
 
   <p align="center">
-    <b>Get it on:</b>
-    <a href="https://play.google.com/store/apps/details?id=net.knzkdev.app"><b>PlayStore</b></a>
-    &bull;
-    <a href="https://itunes.apple.com/jp/app/knzkapp/id1296825434"><b>AppStore</b></a>
+    <a href="https://play.google.com/store/apps/details?id=net.knzkdev.app&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">
+      <img src="https://user-images.githubusercontent.com/38746192/45055684-84f07180-b0cb-11e8-9b18-08c2b4fd1428.png" height="35px"/>
+    </a>
+    <a href="https://itunes.apple.com/jp/app/knzkapp/id1296825434">
+      <img src="https://user-images.githubusercontent.com/38746192/45055359-866d6a00-b0ca-11e8-8c49-b5a6dae8833b.png" height="35px"/>
+    </a>
   </p>
 
   <p align="center">
-    Sponsored by <a href="http://kibousoft.co.jp/">Kibousoft LLC</a>.
+    Supported by <a href="http://kibousoft.co.jp/">Kibousoft LLC.</a>
   </p>
+
+  <p>
+    <a href="https://circleci.com/gh/KnzkDev/KnzkApp">
+      <img src="https://circleci.com/gh/KnzkDev/KnzkApp.svg?style=svg"/>
+    </a>
+  </p>
 
   <p align="center">
     <a href="https://app.fossa.io/projects/git%2Bgithub.com%2FKnzkDev%2FKnzkApp?ref=badge_small" alt="FOSSA Status">
@@ -36,19 +44,16 @@
 
   <p align="center">
     <a href="http://makeapullrequest.com">
-      <img src="https://cdn.rawgit.com/yuzulabo/45c2e5726eeaa96083d837f20a05dfc9/raw/67f43e6c156e1ec112cf217198f42549bdb32a0f/PRs-welcome.svg">
-    </a>
-    <a href="https://circleci.com/gh/KnzkDev/KnzkApp">
-      <img src="https://img.shields.io/circleci/project/KnzkDev/KnzkApp/master.svg?style=for-the-badge">
+      <img src="https://cdn.rawgit.com/yuzulabo/45c2e5726eeaa96083d837f20a05dfc9/raw/67f43e6c156e1ec112cf217198f42549bdb32a0f/PRs-welcome.svg"/>
     </a>
     <a href="https://discord.gg/5teHfRK">
-      <img src="https://cdn.rawgit.com/yuzulabo/45c2e5726eeaa96083d837f20a05dfc9/raw/67f43e6c156e1ec112cf217198f42549bdb32a0f/chat-on-discord.svg">
+      <img src="https://cdn.rawgit.com/yuzulabo/45c2e5726eeaa96083d837f20a05dfc9/raw/67f43e6c156e1ec112cf217198f42549bdb32a0f/chat-on-discord.svg"/>
     </a>
     <a href="https://github.com/prettier/prettier">
-      <img src="https://cdn.rawgit.com/yuzulabo/45c2e5726eeaa96083d837f20a05dfc9/raw/67f43e6c156e1ec112cf217198f42549bdb32a0f/code_style-prettier.svg">
+      <img src="https://cdn.rawgit.com/yuzulabo/45c2e5726eeaa96083d837f20a05dfc9/raw/67f43e6c156e1ec112cf217198f42549bdb32a0f/code_style-prettier.svg"/>
     </a>
     <a href="https://github.com/KnzkDev/KnzkApp/blob/master/LICENSE.md">
-      <img src="https://cdn.rawgit.com/yuzulabo/45c2e5726eeaa96083d837f20a05dfc9/raw/67f43e6c156e1ec112cf217198f42549bdb32a0f/license-knzkapp.svg">
+      <img src="https://cdn.rawgit.com/yuzulabo/45c2e5726eeaa96083d837f20a05dfc9/raw/67f43e6c156e1ec112cf217198f42549bdb32a0f/license-knzkapp.svg"/>
     </a>
   </p>
 </div>
