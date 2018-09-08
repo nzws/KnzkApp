@@ -1,0 +1,53 @@
+ons-template(id='about.html')
+  ons-page#about-page
+    ons-toolbar
+      .left
+        ons-toolbar-button(onclick='BackTab()')
+          ons-icon(icon='fa-chevron-left')
+          span(data-i18n='navigation.back') 戻る
+      .center(data-i18n='config.preferences.about_app') このアプリについて
+    p
+    .container
+      .w-max.main-logo.y-center
+        img(src='img/logo.svg', style='width: 80%;')
+      p
+        b#app-version KnzkApp
+      span.fa.fa-spin
+        b 南無！ｗ
+      p
+      p
+        span(data-i18n='config.preferences.about_app_note.l1') KnzkAppはオープンソースソフトウェアです。
+        br
+        span(data-i18n='config.preferences.about_app_note.l2_pre')
+        a(href='https://github.com/KnzkDev/KnzkApp', target='_blank')
+          i.fa.fa-github
+          |  KnzkDev/KnzkApp
+        span(data-i18n='config.preferences.about_app_note.l2_suf')  から開発に参加したり、問題を報告する事ができます。
+    ons-list
+      ons-list-item(onclick="openURL('https://github.com/KnzkDev/KnzkApp/wiki/License')") OSS License
+      ons-list-item(onclick="openURL('https://knzkapp.nzws.me/privacy.html')")
+        span(data-i18n='config.preferences.about_app_note.privacy_policy')
+          | KnzkApp
+          | プライバシーポリシー
+      ons-list-header Credit
+      ons-list-item(onclick="openURL('https://knzk.me/@y')")
+        span.list-item__title nzws (ねじわさ)
+        span.list-item__subtitle Lead developer😆
+      ons-list-item(onclick="openURL('https://knzk.me/@imbsky')")
+        span.list-item__title imbsky
+        span.list-item__subtitle Developer
+      ons-list-item(onclick="openURL('https://knzk.me/@annotunzdy')")
+        span.list-item__title annotunzdy (あんのたん)
+        span.list-item__subtitle Developer / Supporter
+      ons-list-item(onclick="openURL('https://knzk.me/@yuzumina')")
+        span.list-item__title yuzumina
+        span.list-item__subtitle English translator
+      ons-list-item(onclick="openURL('https://knzk.me/@Knzk')")
+        span.list-item__title Knzk (神崎おにいさん)
+        span.list-item__subtitle Founder of Knzk.me✨
+      ons-list-item(onclick="openURL('https://knzk.me/@nct')")
+        span.list-item__title nct (なこた)
+        span.list-item__subtitle Shadow ruler of Knzk.me💪
+      ons-list-item(onclick="openURL('https://knzk.me/@twotwo')")
+        span.list-item__title twotwo (ネイティオ)
+        span.list-item__subtitle Logo designer (older)

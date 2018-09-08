@@ -1,0 +1,49 @@
+ons-template(id='showtoot.html')
+  ons-page
+    ons-toolbar
+      .left
+        ons-toolbar-button(onclick='BackTab()')
+          ons-icon(icon='fa-chevron-left')
+          span(data-i18n='navigation.back') 戻る
+    #show_toot
+      .loading-now
+        ons-progress-circular(indeterminate='')
+ons-template(id='showtag.html')
+  ons-page#showtag-page
+    ons-toolbar
+      .left
+        ons-toolbar-button(onclick='BackTab()')
+          ons-icon(icon='fa-chevron-left')
+          span(data-i18n='navigation.back') 戻る
+      #showtag_title.center
+        | Loading now...
+      .right
+        ons-toolbar-button(onclick="post_pre('#'+ decodeURI(tag_str))")
+          ons-icon(icon='fa-pencil')
+        ons-toolbar-button(onclick='addTagToTimeline(decodeURI(tag_str))')
+          ons-icon(icon='fa-plus')
+    #tag_main
+      .loading-now
+        ons-progress-circular(indeterminate='')
+ons-template(id='olist.html')
+  ons-page#olist
+    ons-toolbar
+      .left
+        ons-toolbar-button(onclick='fn.open()')
+          ons-icon(icon='fa-bars')
+      #olist_title.center Loading now...
+    #olist_main
+      .loading-now
+        ons-progress-circular(indeterminate='')
+ons-template(id='olist_nav.html')
+  ons-page#olist_nav
+    ons-toolbar
+      .left
+        ons-toolbar-button(onclick='BackTab()')
+          ons-icon(icon='fa-chevron-left')
+          span(data-i18n='navigation.back') 戻る
+      #olist_nav_title.center Loading now...
+      #olist_right.right
+    #olist_nav_main
+      .loading-now
+        ons-progress-circular(indeterminate='')

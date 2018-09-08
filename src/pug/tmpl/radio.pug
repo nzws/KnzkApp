@@ -1,0 +1,6 @@
+<ons-list-item tappable onclick="radio_set(<%=num%>)">
+  <label class="left music-item">
+    <ons-radio name="channel" input-id="radio_<%=num%>" <%=(isDefault === 1 ? 'checked' : '')%>></ons-radio>
+  </label>
+  <label for="radio_<%=num%>" class="center music-item"><%=name%><%=(sub ? '   <small>('+sub+')</small>' : '')%></label>
+</ons-list-item>

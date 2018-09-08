@@ -1,0 +1,66 @@
+ons-template(id='config_notification.html')
+  ons-page#config_notification-page
+    ons-toolbar
+      .left
+        ons-toolbar-button(onclick='BackTab()')
+          ons-icon(icon='fa-chevron-left')
+          span(data-i18n='navigation.preferences') 設定
+      .center(data-i18n='config.notification.title') プッシュ通知
+      .right
+        ons-toolbar-button(onclick='changeNotification(true)')
+          ons-icon(icon='fa-floppy-o')
+          span(data-i18n='config.notification.save') 保存
+    ons-list
+      ons-list-item
+        .center(data-i18n='config.notification.enable')
+          | プッシュ通知を有効化
+        .right
+          ons-switch(modifier='material', onclick='changeNotification()', input-id='noti-mode')
+    .container
+      p
+        b(data-i18n='config.notification.note') *設定を保存するまでサーバー上に更新されません。
+    .container
+      h4(data-i18n='config.notification.default.title') 通常の通知
+    ons-list
+      ons-list-header(data-i18n='config.notification.default.everyone.title') 除外する通知 (全員)
+      ons-list-item(tappable='')
+        label.left
+          ons-checkbox(input-id='noti-mute-all')
+        label.center(for='noti-mute-all', data-i18n='config.notification.default.everyone.all') すべて
+      ons-list-item(tappable='')
+        label.left
+          ons-checkbox(input-id='noti-mute-follow')
+        label.center(for='noti-mute-follow', data-i18n='config.notification.default.everyone.follow') フォロー
+      ons-list-item(tappable='')
+        label.left
+          ons-checkbox(input-id='noti-mute-mention')
+        label.center(for='noti-mute-mention', data-i18n='config.notification.default.everyone.mention') メンション
+      ons-list-item(tappable='')
+        label.left
+          ons-checkbox(input-id='noti-mute-reblog')
+        label.center(for='noti-mute-reblog', data-i18n='config.notification.default.everyone.boost') ブースト
+      ons-list-item(tappable='')
+        label.left
+          ons-checkbox(input-id='noti-mute-favourite')
+        label.center(for='noti-mute-favourite', data-i18n='config.notification.default.everyone.favourite') お気に入り
+    ons-list
+      ons-list-header(data-i18n='config.notification.default.user.title') ミュートする通知 (ユーザー)
+    .container
+      span(data-i18n='[html]config.notification.default.user.sub')
+        | ユーザーごとの通知制御は
+        a(href='#', onclick="loadNav('config_filter.html')")
+          b ユーザーメニュー > フィルター
+        | より行えます。
+      br
+      span(data-i18n='config.notification.default.user.note')
+        | *ユーザー通知ミュート反映にはアプリの再起動が必要です。
+    .container
+      h4
+        span(data-i18n='config.notification.keyword.title') キーワード検知
+        button.button.button--outline(style='border-radius: 100%;line-height: initial;', onclick='addKeyWord()')
+          i.zmdi.zmdi-plus
+      span(data-i18n='config.notification.keyword.watch') HTLをウォッチします
+    ons-list#keyword_list
+    .container
+      p
+        span(data-i18n='config.notification.keyword.note') * タップで削除できます。

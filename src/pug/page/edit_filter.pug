@@ -1,0 +1,65 @@
+ons-template(id='editFilter.html')
+  ons-page#editfilter-page
+    ons-toolbar
+      .left
+        ons-toolbar-button(onclick='BackTab()')
+          ons-icon(icon='fa-chevron-left')
+          span(data-i18n='navigation.back') 戻る
+      .center(data-i18n='app_filter.edit.title') フィルターの修正/追加
+      .right
+        ons-toolbar-button(onclick='createFilter()')
+          ons-icon(icon='fa-check')
+    .container
+      p
+        ons-input#userid_filter.w-max(modifier='underbar', placeholder='ユーザーID (例: knzk@knzk.me)', data-i18n='[placeholder]app_filter.edit.placeholder')
+    ons-list
+      ons-list-header(data-i18n='app_filter.edit.mute.title') 非表示の項目
+      ons-list-item(tappable='')
+        label.left
+          ons-checkbox(input-id='filter_all')
+        label.center(for='filter_all', data-i18n='app_filter.edit.mute.all') すべて
+      ons-list-item(tappable='')
+        label.left
+          ons-checkbox(input-id='filter_toot')
+        label.center(for='filter_toot', data-i18n='app_filter.edit.mute.toot') トゥート
+      ons-list-item(tappable='')
+        label.left
+          ons-checkbox(input-id='filter_follow')
+        label.center(for='filter_follow', data-i18n='app_filter.edit.mute.follow') フォロー通知
+      ons-list-item(tappable='')
+        label.left
+          ons-checkbox(input-id='filter_mention')
+        label.center(for='filter_mention', data-i18n='app_filter.edit.mute.mention') メンション通知
+      ons-list-item(tappable='')
+        label.left
+          ons-checkbox(input-id='filter_boost')
+        label.center(for='filter_boost', data-i18n='app_filter.edit.mute.boost') ブースト通知
+      ons-list-item(tappable='')
+        label.left
+          ons-checkbox(input-id='filter_fav')
+        label.center(for='filter_fav', data-i18n='app_filter.edit.mute.favourite') お気に入り通知
+      ons-list-header(data-i18n='app_filter.edit.mute.push') プッシュ通知から除外
+      ons-list-item(tappable='')
+        label.left
+          ons-checkbox(input-id='filterpush_all')
+        label.center(for='filterpush_all', data-i18n='app_filter.edit.mute.all') すべて
+      ons-list-item(tappable='')
+        label.left
+          ons-checkbox(input-id='filterpush_keyword')
+        label.center(for='filterpush_keyword', data-i18n='app_filter.edit.mute.keyword') キーワード検知
+      ons-list-item(tappable='')
+        label.left
+          ons-checkbox(input-id='filterpush_follow')
+        label.center(for='filterpush_follow', data-i18n='app_filter.edit.mute.follow') フォロー
+      ons-list-item(tappable='')
+        label.left
+          ons-checkbox(input-id='filterpush_mention')
+        label.center(for='filterpush_mention', data-i18n='app_filter.edit.mute.mention') メンション
+      ons-list-item(tappable='')
+        label.left
+          ons-checkbox(input-id='filterpush_reblog')
+        label.center(for='filterpush_reblog', data-i18n='app_filter.edit.mute.boost') ブースト
+      ons-list-item(tappable='')
+        label.left
+          ons-checkbox(input-id='filterpush_favourite')
+        label.center(for='filterpush_favourite', data-i18n='app_filter.edit.mute.favourite') お気に入り

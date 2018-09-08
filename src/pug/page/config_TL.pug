@@ -1,0 +1,19 @@
+ons-template(id='config_TL.html')
+  ons-page#config_TL-page
+    ons-toolbar
+      .left
+        ons-toolbar-button(onclick='BackTab()')
+          ons-icon(icon='fa-chevron-left')
+          span(data-i18n='navigation.preferences') 設定
+      .center(data-i18n='config.preferences.tl.edit.title') タイムライン編集
+      .right
+        ons-toolbar-button(onclick='AddTLConfig()')
+          ons-icon(icon='fa-plus')
+    ons-list
+      ons-list-header(data-i18n='config.preferences.tl.edit.note') ボタンで編集できます
+      ons-list-item
+        label.left(data-i18n='config.preferences.tl.edit.load')
+          | 最初に表示するTL
+        label.right(data-i18n='config.preferences.tl.edit.sort')
+          | 順番
+    ons-list#tlconf-list

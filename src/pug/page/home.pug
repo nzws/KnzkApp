@@ -1,0 +1,129 @@
+ons-template(id='home.html')
+  ons-page#home
+    ons-toolbar
+      .left
+        ons-toolbar-button(onclick='TL_prev()')
+          ons-icon(icon='fa-angle-left')
+      .center(onclick='scrollTL()')
+        span#home_title Loading now...
+        span#home_title_unread.notification.invisible 1
+      .right
+        ons-toolbar-button(onclick='showTL(null, null, null, true)')
+          ons-icon(icon='fa-refresh')
+        ons-toolbar-button(onclick='TL_next()')
+          ons-icon(icon='fa-angle-right')
+    ons-gesture-detector
+      ons-tabbar#tl_tabs(hide-tabs='')
+        ons-tab(page='tl-0.html')
+        ons-tab(page='tl-1.html')
+        ons-tab(page='tl-2.html')
+        ons-tab(page='tl-3.html')
+        ons-tab(page='tl-4.html')
+        ons-tab(page='tl-5.html')
+        ons-tab(page='tl-6.html')
+        ons-tab(page='tl-7.html')
+        ons-tab(page='tl-8.html')
+        ons-tab(page='tl-9.html')
+    ons-speed-dial#dial_main.invisible(position='bottom right', direction='up', onclick='opendial()')
+      ons-fab
+        ons-icon#dial-icon(icon='fa-bell')
+    ons-speed-dial#dial_TL.invisible(position='bottom right', direction='up', onclick="$('#TLChangeTab').show()")
+      ons-fab
+        ons-icon(icon='fa-home')
+    ons-bottom-toolbar#simple_toot_TL_toolbar
+      form#simple_toot_form
+        input#nsfw_input_simple(type='hidden')
+        input#localonly_input_simple(type='hidden')
+        input#post_mode_simple(type='hidden', value='public')
+        input#post_reply_simple(type='hidden')
+        input#post_file_simple.invisible(type='file', onchange='up_file(true, true)', accept='image/*;capture=camera', multiple='')
+        ons-list
+          ons-list-item.simple-toot(style='padding-left: 0')
+            .left(style='padding-right: 6px')
+              ons-button.no-rd(modifier='quiet', onclick='fn.open()')
+                img#home-icon(src='img/missing.png')
+                span.notification.invisible.noti_unread 1
+            .center
+              textarea#simple_toot_TL_input.textarea.w-max(rows='1', placeholder='トゥート！', onfocus='simple_open()', onkeyup="check_limit(value, 'toot_limit_simple', 'toot-button_simple', 'simple_toot_cw');")
+            .right(style='padding-right: 0')
+              ons-button#toot-button_simple.no-rd(modifier='quiet', onclick="post('simple_toot_TL_input', {cw:elemId('simple_toot_cw').value, visibility:elemId('post_mode_simple').value, sensitive:elemId('nsfw_input_simple').value, in_reply_to_id: elemId('post_reply_simple').value, local_only: elemId('localonly_input_simple').value}, true)")
+                ons-icon(icon='fa-paper-plane-o')
+        ons-list
+          ons-list-item#simple_more.simple-toot.invisible(style='padding-left: 0')
+            ons-button#post_mode_bt_simple.no-rd(modifier='quiet', onclick='post_mode(true)')
+              ons-icon#post_mode_icon_simple(icon='fa-globe')
+            ons-button#new_up_bt_simple.no-rd(modifier='quiet', onclick="showPopover(this, 'image_popover')")
+              ons-icon(icon='fa-picture-o')
+            ons-button.no-rd(modifier='quiet', onclick="showPopover(this, 'cw_popover')") CW
+            ons-button#localonly_bt_simple.no-rd.invisible(onclick='post_localonly(true)', modifier='quiet')
+              ons-icon(icon='fa-home')
+            ons-button#tools_bt_simple.no-rd(modifier='quiet', onclick="showPopover(this, 'tools_popover')")
+              ons-icon(icon='fa-magic')
+            ons-button#simple_emoji_bt.no-rd(modifier='quiet', onclick="showPopover(this, 'emoji_popover')")
+              ons-icon(icon='fa-smile-o')
+            ons-button#simple_cp_bt.no-rd.invisible(modifier='quiet', onclick="showPopover(this, 'cp_popover')")
+              ons-icon(icon='fa-clipboard')
+            ons-button#toot_limit_simple.no-rd(modifier='quiet') 4096
+            ons-button.no-rd(modifier='quiet', onclick='simple_close()')
+              ons-icon(icon='fa-chevron-down')
+    ons-popover#tools_popover(direction='up')
+      div(style='padding: 10px; text-align: center;')
+        p
+          ons-button#vote_bt_simple.w-max.invisible(onclick="hidePopover('tools_popover');showPopover(elemId('tools_bt_simple'), 'vote_popover')")
+            ons-icon(icon='fa-align-left')
+            |               Enquete
+          ons-button#bbcode_bt_simple.w-max.invisible(onclick="hidePopover('tools_popover');show_bbcodegen('simple_toot_TL_input')", style='margin-top: 5px')
+            ons-icon(icon='fa-font')
+            |               BBCode
+          ons-button.w-max(onclick="hidePopover('tools_popover');openDoodle('simple')", style='margin-top: 5px')
+            ons-icon(icon='fa-paint-brush')
+            |               Doodle
+          ons-button#yomigana_bt_simple.w-max.invisible(onclick="hidePopover('tools_popover');add_emoji_simple('｜漢字《》')", style='margin-top: 5px') 読み仮名
+        p#md_note_simple.invisible(data-i18n='toot.md.note') *MarkDownはスワイプメニュー→新規トゥートから使用できます
+        p
+        p
+          ons-button.w-max(onclick="hidePopover('tools_popover')", data-i18n='navigation.close') 閉じる
+    ons-popover#cp_popover(direction='up')
+      div(style='padding: 10px; text-align: center;')
+        p
+          ons-button.w-max(onclick="hidePopover('cp_popover');copy(elemId('simple_toot_TL_input').value)", data-i18n='copyoption.copy') 全てコピー
+          ons-button.w-max(onclick="hidePopover('cp_popover');paste_simple()", style='margin-top: 5px', data-i18n='copyoption.paste') ペースト
+        p
+          ons-button.w-max(onclick="hidePopover('cp_popover')", data-i18n='navigation.close') 閉じる
+    ons-popover#cw_popover(direction='up')
+      div(style='padding: 10px; text-align: center;')
+        p
+          ons-input#simple_toot_cw.w-max.black_text(modifier='underbar', placeholder='警告文を書いてください', data-i18n='[placeholder]toot.cw', onkeyup="check_limit(value, 'toot_limit_simple', 'toot-button_simple', 'simple_toot_TL_input');")
+        p
+          ons-button.w-max(onclick="hidePopover('cw_popover')", data-i18n='navigation.close') 閉じる
+    ons-popover#image_popover(direction='up')
+      div(style='padding: 10px; text-align: center;')
+        p
+        #image_list_simple
+        p
+        p
+          ons-button.w-max(onclick='up_file(true)', data-i18n='toot.picture') 画像追加
+        p
+          ons-button#nsfw_bt_simple(onclick='post_nsfw(true)', style='margin-bottom: 5px', modifier='quiet')
+            ons-icon(icon='fa-eye')
+            |               NSFW
+          ons-button.w-max(onclick="hidePopover('image_popover')", data-i18n='navigation.close') 閉じる
+    ons-popover#vote_popover(direction='up')
+      div(style='padding: 10px; text-align: center;')
+        p
+        form#simple_vote
+          ons-input#vote_new_1_simple.w-max.black_text(modifier='underbar', placeholder='項目1', data-i18n='[placeholder]toot.enquete.column1')
+          ons-input#vote_new_2_simple.w-max.black_text(modifier='underbar', placeholder='項目2', data-i18n='[placeholder]toot.enquete.column2')
+          ons-input#vote_new_3_simple.w-max.black_text(modifier='underbar', placeholder='項目3(任意)', data-i18n='[placeholder]toot.enquete.column3')
+          ons-input#vote_new_4_simple.w-max.black_text(modifier='underbar', placeholder='項目4(任意)', data-i18n='[placeholder]toot.enquete.column4')
+          ons-select#vote_new_time_simple.w-max.black_text.invisible(modifier='underbar')
+            option(value='30', data-i18n='toot.enquete.30s') 30秒
+            option(value='60', data-i18n='toot.enquete.1m') 1分
+            option(value='180', data-i18n='toot.enquete.3m') 3分
+            option(value='300', data-i18n='toot.enquete.5m') 5分
+            option(value='600', data-i18n='toot.enquete.10m') 10分
+            option(value='3600', data-i18n='toot.enquete.1h') 1時間
+            option(value='86400', data-i18n='toot.enquete.1d') 1日
+        p
+        p
+          ons-button.w-max(onclick="hidePopover('vote_popover')", data-i18n='navigation.close') 閉じる

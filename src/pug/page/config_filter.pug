@@ -1,0 +1,15 @@
+ons-template(id='config_filter.html')
+  ons-page#config_filter-page
+    ons-toolbar
+      .left
+        ons-toolbar-button(onclick='BackTab()')
+          ons-icon(icon='fa-chevron-left')
+          span(data-i18n='navigation.back') 戻る
+      .center(data-i18n='app_filter.title') フィルター
+      .right
+        ons-toolbar-button(onclick="loadNav('editFilter.html')")
+          ons-icon(icon='fa-plus')
+    ons-list#filter_list
+    .container
+      p(data-i18n='app_filter.note')
+        | *プッシュ通知ミュートの反映にはアプリの再起動が必要です。

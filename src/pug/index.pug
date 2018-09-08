@@ -1,0 +1,80 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover')
+    meta(http-equiv='Content-Security-Policy', content="default-src * knzkapp: data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'")
+    script(src='components/loader.js')
+    link(rel='stylesheet', href='components/loader.css')
+    script(src='components/onsenui/js/onsenui.min.js')
+    link(rel='stylesheet', href='components/onsenui/css/onsenui.min.css')
+    link(rel='stylesheet', href='css/theme-roller/mastodon/onsen-css-components.min.css')
+    //
+      for Testing
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.8.3/js/onsenui.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.8.3/css/onsenui.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.8.3/css/onsen-css-components.css">
+    script(src='lib/raven.min.js', async='')
+    script(src='lib/tmpl.min.js', async='')
+    script(src='lib/jquery-3.2.1.slim.min.js', async='')
+    script(src='lib/twitter.relative.time.min.js', async='')
+    script(src='lib/fetch.js', async='')
+    script(src='lib/atrament.min.js', async='')
+    script(src='lib/twemoji/twemoji.min.js', async='')
+    script(src='lib/i18n/i18next.min.js', async='')
+    script(src='lib/i18n/i18nextXHRBackend.min.js', async='')
+    script(src='lib/i18n/jquery-i18next.min.js', async='')
+    link(rel='stylesheet', href='css/theme-roller/components.css')
+    link(rel='stylesheet', href='css/bootstrap/bootstrap.min.css')
+    link(rel='stylesheet', href='knzkapp.min.css')
+    link#css_md(rel='stylesheet')
+    link#theme_css(rel='stylesheet')
+    link#css_custom_platform(rel='stylesheet')
+    script.
+      const version = "KnzkApp 1.4.1";
+      include variable_init.pug
+    script(src='config/instance.js')
+    script(src='config/config.js')
+    script(src='config/radio.js')
+    script(src='knzkapp.min.js')
+  body
+    audio#music-control
+    style#font-config.
+    include splitter
+    include page/usermenu
+    template(id='init.html')
+      ons-page
+        ons-navigator#navigator(page='home.html', swipeable='')
+    include page/home
+    - for (var i = 0; i < 3; i++)
+      ons-template(id='tl-#{i}.html')
+        ons-page#TL#{i}_main.timeline
+    include page/alert
+    include page/userconf
+    include page/config
+    include page/config_collapse
+    include page/config_notification
+    include page/config_filter
+    include page/edit_filter
+    include page/config_TL
+    include page/lists
+    include page/lists_people
+    include page/post
+    include page/bbcode
+    include page/color
+    include page/doodle
+    include page/shows
+    include page/account
+    include page/about
+    include page/login
+    include page/tutorial
+    include page/qrcode
+
+    include emoji_picker
+    include alerts
+    script#toot_full_tmpl(type='text/html')
+      include tmpl/toot
+    script#account_card_tmpl(type='text/html')
+      include tmpl/account
+    script#radio_tmpl(type='text/html')
+      include tmpl/radio

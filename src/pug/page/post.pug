@@ -1,0 +1,74 @@
+ons-template(id='post.html')
+  ons-page#toot-page
+    ons-toolbar
+      .left
+        ons-toolbar-button(onclick="BackTab('down')")
+          ons-icon(icon='fa-times')
+      .center(data-i18n='toot.toot') トゥート！
+      .right
+        ons-toolbar-button#bbcode_bt.invisible(onclick="show_bbcodegen('toot_textarea', 'toot-limit', 'toot-button')")
+          ons-icon(icon='fa-font')
+    p
+    .container
+      #post_reply_box.reply-box.invisible
+        ons-icon(icon='fa-reply')
+        span(data-i18n='toot.reply.prefix')
+        span#post_reply_acct
+        span(data-i18n='toot.reply.suffix')
+          | へ返信
+      #vote_new_list(style='display: none;')
+        p
+          ons-input#vote_new_1.w-max(modifier='underbar', placeholder='項目1', data-i18n='[placeholder]toot.enquete.column1')
+          ons-input#vote_new_2.w-max(modifier='underbar', placeholder='項目2', data-i18n='[placeholder]toot.enquete.column2')
+          ons-input#vote_new_3.w-max(modifier='underbar', placeholder='項目3(任意)', data-i18n='[placeholder]toot.enquete.column3')
+          ons-input#vote_new_4.w-max(modifier='underbar', placeholder='項目4(任意)', data-i18n='[placeholder]toot.enquete.column4')
+          ons-select#vote_new_time.w-max.invisible(modifier='underbar')
+            option(value='30', data-i18n='toot.enquete.30s') 30秒
+            option(value='60', data-i18n='toot.enquete.1m') 1分
+            option(value='180', data-i18n='toot.enquete.3m') 3分
+            option(value='300', data-i18n='toot.enquete.5m') 5分
+            option(value='600', data-i18n='toot.enquete.10m') 10分
+            option(value='3600', data-i18n='toot.enquete.1h') 1時間
+            option(value='86400', data-i18n='toot.enquete.1d') 1日
+      ons-input#cw_input.w-max(modifier='underbar', placeholder='警告文を書いてください', data-i18n='[placeholder]toot.cw', style='display: none;', onkeyup="check_limit(value, 'toot-limit', 'toot-button', 'toot_textarea');")
+      textarea#toot_textarea.textarea.dark-box-in(rows='6', placeholder='今なにしてる？', data-i18n='[placeholder]toot.toot_box_placeholder', style='width: 100%', onkeyup="check_limit(value, 'toot-limit', 'toot-button', 'cw_input');")
+      .dark-box(style='border-radius: 0')
+        input#nsfw_input(type='hidden')
+        input#localonly_input(type='hidden')
+        input#post_mode(type='hidden', value='public')
+        input#post_reply(type='hidden')
+        input#post_file.invisible(type='file', onchange='up_file(null, true)', accept='image/*;capture=camera', multiple='')
+        ons-button#new_up_bt(modifier='quiet', onclick='up_file()', style='border-radius: 0')
+          ons-icon(icon='fa-picture-o')
+        ons-button#nsfw_bt(modifier='quiet', onclick='post_nsfw()', style='border-radius: 0')
+          ons-icon(icon='fa-eye')
+        ons-button#cw_bt(modifier='quiet', onclick='post_cw()', style='border-radius: 0') CW
+        ons-button#vote_bt.invisible(modifier='quiet', onclick='post_vote()', style='border-radius: 0')
+          ons-icon(icon='fa-align-left')
+        ons-button(modifier='quiet', onclick='openDoodle()')
+          ons-icon(icon='fa-paint-brush')
+        ons-button#toot_emoji_bt(modifier='quiet', onclick="showPopover(this, 'emoji_popover')")
+          ons-icon(icon='fa-smile-o')
+      .dark-box
+        ons-button#post_mode_bt(modifier='quiet', onclick='post_mode()', style='border-radius: 0 0 0 4px')
+          ons-icon#post_mode_icon(icon='fa-globe')
+        ons-button#localonly_bt.invisible(modifier='quiet', onclick='post_localonly()', style='border-radius: 0')
+          ons-icon(icon='fa-home')
+        ons-button#yomigana_bt.invisible(modifier='quiet', onclick="add_emoji_simple('｜漢字《》', 1)", style='border-radius: 0') 読み
+        span(style='float: right')
+          b#toot-limit.toot-limit 4096
+          ons-button#toot-button(onclick="post('toot_textarea', {cw:elemId('cw_input').value, visibility:elemId('post_mode').value, sensitive:elemId('nsfw_input').value, in_reply_to_id: elemId('post_reply').value, local_only: elemId('localonly_input').value})", style='border-radius: 4px 0 4px 0;') トゥート！
+      #md-box.invisible
+        p
+        .dark-box-header
+          | Markdown
+        .dark-box
+          ons-button(modifier='quiet', onclick="add_emoji_simple('\n# 内容', 1)") 見出し
+          ons-button(modifier='quiet', onclick="add_emoji_simple('~~内容~~', 1)") 打ち消し
+          ons-button(modifier='quiet', onclick="add_emoji_simple('\n> 内容', 1)") 引用
+          ons-button(modifier='quiet', onclick="add_emoji_simple('`内容`', 1)") コード
+          ons-button(modifier='quiet', onclick="add_emoji_simple('\n***\n', 1)") 線
+          ons-button(modifier='quiet', onclick="add_emoji_simple('*内容*', 1)") 上付き
+          ons-button(modifier='quiet', onclick="add_emoji_simple('**内容**', 1)") 下付き
+          ons-button(modifier='quiet', onclick="add_emoji_simple('[表示する文字](URL)', 1)") リンク
+      #image_list
