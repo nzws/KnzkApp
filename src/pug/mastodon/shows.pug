@@ -2,9 +2,7 @@ ons-template(id='showtoot.html')
   ons-page
     ons-toolbar
       .left
-        ons-toolbar-button(onclick='BackTab()')
-          ons-icon(icon='fa-chevron-left')
-          span(data-i18n='navigation.back') 戻る
+        +back_button()
     #show_toot
       .loading-now
         ons-progress-circular(indeterminate='')
@@ -12,9 +10,7 @@ ons-template(id='showtag.html')
   ons-page#showtag-page
     ons-toolbar
       .left
-        ons-toolbar-button(onclick='BackTab()')
-          ons-icon(icon='fa-chevron-left')
-          span(data-i18n='navigation.back') 戻る
+        +back_button()
       #showtag_title.center
         | Loading now...
       .right
@@ -39,9 +35,7 @@ ons-template(id='olist_nav.html')
   ons-page#olist_nav
     ons-toolbar
       .left
-        ons-toolbar-button(onclick='BackTab()')
-          ons-icon(icon='fa-chevron-left')
-          span(data-i18n='navigation.back') 戻る
+        +back_button()
       #olist_nav_title.center Loading now...
       #olist_right.right
     #olist_nav_main

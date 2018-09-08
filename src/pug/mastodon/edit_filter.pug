@@ -2,9 +2,7 @@ ons-template(id='editFilter.html')
   ons-page#editfilter-page
     ons-toolbar
       .left
-        ons-toolbar-button(onclick='BackTab()')
-          ons-icon(icon='fa-chevron-left')
-          span(data-i18n='navigation.back') 戻る
+        +back_button()
       .center(data-i18n='app_filter.edit.title') フィルターの修正/追加
       .right
         ons-toolbar-button(onclick='createFilter()')

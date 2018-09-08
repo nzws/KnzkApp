@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   max-width: 100%;
   height: 100%;
 }
@@ -7,7 +8,8 @@ html, body {
   -webkit-overflow-scrolling: touch;
 }
 
-.disable, .invisible {
+.disable,
+.invisible {
   display: none;
 }
 
@@ -33,7 +35,6 @@ html, body {
     opacity: 0.5;
   }
 }
-
 
 .pulse-loading {
   animation: pulse 1s ease-in-out infinite;
@@ -108,7 +109,8 @@ html, body {
   color: #ca8f04 !important;
 }
 
-.boost-active, .follow-active {
+.boost-active,
+.follow-active {
   color: #2b90d9 !important;
 }
 
@@ -185,6 +187,10 @@ html, body {
   color: #2b90d9;
 }
 
+.user-acct :not(#userpage-acct) {
+  margin-left: 5px;
+}
+
 .user-bot {
   color: #d9e1e8;
   font-size: x-small;
@@ -234,7 +240,8 @@ html, body {
   font-size: 14px !important;
 }
 
-.select-input, .text-input {
+.select-input,
+.text-input {
   color: #fff;
 }
 
@@ -374,7 +381,6 @@ pre {
 
 .toot-group {
   width: 100%;
-  margin-top: auto;
 }
 
 .toot-buttons {
@@ -394,7 +400,8 @@ pre {
   font-size: 15px;
 }
 
-.tabbar, .tabbar__button {
+.tabbar,
+.tabbar__button {
   height: 30px;
 }
 
@@ -436,7 +443,8 @@ pre {
   }
 }
 
-ons-fab, ons-speed-dial {
+ons-fab,
+ons-speed-dial {
   z-index: 1;
 }
 
@@ -513,42 +521,48 @@ img.emoji {
 
 /* 絵文字 */
 
-.emoji, .emojione {
+.emoji,
+.emojione {
   width: 20px !important;
   height: 20px !important;
   margin: -5px 0.05em -3px 0.1em !important;
 }
 
 .toot_name {
-  .emoji, .emojione {
+  .emoji,
+  .emojione {
     height: 1.2em !important;
     width: 1.2em !important;
   }
 }
 
 .fa-2x > {
-  .emoji, .emojione {
+  .emoji,
+  .emojione {
     width: 36px !important;
     height: 36px !important;
   }
 }
 
 .fa-3x > {
-  .emoji, .emojione {
+  .emoji,
+  .emojione {
     width: 54px !important;
     height: 54px !important;
   }
 }
 
 .fa-4x > {
-  .emoji, .emojione {
+  .emoji,
+  .emojione {
     width: 72px !important;
     height: 72px !important;
   }
 }
 
 .fa-5x > {
-  .emoji, .emojione {
+  .emoji,
+  .emojione {
     width: 90px !important;
     height: 90px !important;
   }
@@ -649,7 +663,9 @@ img.emoji {
 }
 
 .user-bio > p > a {
-  &:link, &:visited, &:hover {
+  &:link,
+  &:visited,
+  &:hover {
     text-decoration: underline;
   }
 }
@@ -785,7 +801,8 @@ img.emoji {
 }
 
 #tlconf-list {
-  ons-radio[disabled], :disabled + .radio-button__checkmark {
+  ons-radio[disabled],
+  :disabled + .radio-button__checkmark {
     opacity: initial;
   }
 }
@@ -859,7 +876,8 @@ img.emoji {
   padding-left: 15px;
   font-size: 15px;
   border-bottom: 1px solid #c0cdd9;
-  &:nth-last-of-type(2), &:first-child {
+  &:nth-last-of-type(2),
+  &:first-child {
     border-radius: 0;
   }
 }
@@ -872,7 +890,8 @@ img.emoji {
 
 @media screen and (min-width: 400px) {
   /* 400px以上はディスプレイに引っ付かなくなる  */
-  .action-sheet-button:first-child, .action-sheet-title:first-child {
+  .action-sheet-button:first-child,
+  .action-sheet-title:first-child {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
   }
@@ -898,7 +917,8 @@ img.emoji {
   color: #fe3824;
 }
 
-.alert-dialog, .alert-dialog-button {
+.alert-dialog,
+.alert-dialog-button {
   border-radius: 5px;
 }
 
@@ -916,7 +936,6 @@ img.emoji {
     pointer-events: initial;
   }
 }
-
 
 .post {
   animation: fade 0.1s linear;

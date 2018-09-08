@@ -2,9 +2,7 @@ ons-template(id='bbcode.html')
   ons-page
     ons-toolbar
       .left
-        ons-toolbar-button(onclick='BackTab()')
-          ons-icon(icon='fa-chevron-left')
-          span(data-i18n='navigation.back') 戻る
+        +back_button()
       .center BBCode
       .right
         ons-toolbar-button(onclick='bbcodegen()')

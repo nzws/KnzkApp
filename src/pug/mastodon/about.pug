@@ -2,9 +2,7 @@ ons-template(id='about.html')
   ons-page#about-page
     ons-toolbar
       .left
-        ons-toolbar-button(onclick='BackTab()')
-          ons-icon(icon='fa-chevron-left')
-          span(data-i18n='navigation.back') 戻る
+        +back_button()
       .center(data-i18n='config.preferences.about_app') このアプリについて
     p
     .container

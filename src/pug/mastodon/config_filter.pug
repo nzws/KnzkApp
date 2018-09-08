@@ -2,9 +2,7 @@ ons-template(id='config_filter.html')
   ons-page#config_filter-page
     ons-toolbar
       .left
-        ons-toolbar-button(onclick='BackTab()')
-          ons-icon(icon='fa-chevron-left')
-          span(data-i18n='navigation.back') 戻る
+        +back_button()
       .center(data-i18n='app_filter.title') フィルター
       .right
         ons-toolbar-button(onclick="loadNav('editFilter.html')")

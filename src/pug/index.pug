@@ -1,6 +1,8 @@
+include components/index
 doctype html
 html
   head
+    meta(name='version', content='KnzkApp v1.4.1')
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover')
     meta(http-equiv='Content-Security-Policy', content="default-src * knzkapp: data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'")
@@ -30,9 +32,7 @@ html
     link#css_md(rel='stylesheet')
     link#theme_css(rel='stylesheet')
     link#css_custom_platform(rel='stylesheet')
-    script.
-      const version = "KnzkApp 1.4.1";
-      include variable_init.pug
+    include mastodon/variable_init
     script(src='config/instance.js')
     script(src='config/config.js')
     script(src='config/radio.js')
@@ -40,41 +40,41 @@ html
   body
     audio#music-control
     style#font-config.
-    include splitter
-    include page/usermenu
+    include mastodon/splitter
+    include mastodon/usermenu
     template(id='init.html')
       ons-page
         ons-navigator#navigator(page='home.html', swipeable='')
-    include page/home
-    - for (var i = 0; i < 3; i++)
-      ons-template(id='tl-#{i}.html')
-        ons-page#TL#{i}_main.timeline
-    include page/alert
-    include page/userconf
-    include page/config
-    include page/config_collapse
-    include page/config_notification
-    include page/config_filter
-    include page/edit_filter
-    include page/config_TL
-    include page/lists
-    include page/lists_people
-    include page/post
-    include page/bbcode
-    include page/color
-    include page/doodle
-    include page/shows
-    include page/account
-    include page/about
-    include page/login
-    include page/tutorial
-    include page/qrcode
+    include mastodon/home
+    - for (var i = 0; i <= 9; i++)
+      ons-template(id=`tl-${i}.html`)
+        ons-page(id=`TL${i}_main`, class='timeline')
+    include mastodon/alert
+    include mastodon/userconf
+    include mastodon/config
+    include mastodon/config_collapse
+    include mastodon/config_notification
+    include mastodon/config_filter
+    include mastodon/edit_filter
+    include mastodon/config_TL
+    include mastodon/lists
+    include mastodon/lists_people
+    include mastodon/post
+    include mastodon/bbcode
+    include mastodon/color
+    include mastodon/doodle
+    include mastodon/shows
+    include mastodon/account
+    include mastodon/about
+    include mastodon/login
+    include mastodon/tutorial
+    include mastodon/qrcode
 
-    include emoji_picker
-    include alerts
+    include mastodon/emoji_picker
+    include mastodon/alerts
     script#toot_full_tmpl(type='text/html')
-      include tmpl/toot
+      include mastodon/tmpl/toot.txt
     script#account_card_tmpl(type='text/html')
-      include tmpl/account
+      include mastodon/tmpl/account.txt
     script#radio_tmpl(type='text/html')
-      include tmpl/radio
+      include mastodon/tmpl/radio.txt

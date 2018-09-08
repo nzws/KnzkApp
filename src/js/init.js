@@ -374,7 +374,7 @@ function initevent() {
     }
 
     if (event.enterPage.id === 'about-page') {
-      elemId('app-version').innerText = version;
+      elemId('app-version').innerText = document.querySelector('meta[name=version]');
     }
 
     if (event.enterPage.id === 'config_TL-page') {
@@ -616,14 +616,16 @@ ons.ready(function() {
           .then(function(e) {
             if (e === 1) {
               setConfig(1, 'SendLog', '1');
-              Raven.config(sentryID, { release: version }).install();
+              Raven.config(sentryID, {
+                release: document.querySelector('meta[name=version]'),
+              }).install();
             } else {
               setConfig(1, 'SendLog', '0');
             }
           });
       }, 500);
     } else if (getConfig(1, 'SendLog') === '1') {
-      Raven.config(sentryID, { release: version }).install();
+      Raven.config(sentryID, { release: document.querySelector('meta[name=version]') }).install();
     }
   }
 });

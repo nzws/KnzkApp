@@ -3,22 +3,28 @@
   height: 40px;
   border-radius: 0;
   border: 1px solid #ddd;
+
   &.open {
     background-color: #525b73;
   }
+
   &.post {
     background-color: deepskyblue;
   }
+
   &.close {
     background-color: black;
   }
+
   > {
     .progress-bar__primary {
       border-radius: 0;
     }
+
     .right {
       right: 10px;
     }
+
     .text {
       top: 10px;
       position: absolute;

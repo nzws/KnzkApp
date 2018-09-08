@@ -122,8 +122,7 @@ function toot_card(toot, mode, note, toot_light, page) {
 
   try {
     if (toot['media_attachments'][0] && (mode == 'full' || mode == 'big')) {
-      piccard +=
-        '<div class="media_card_' + toot['id'] + ' ' + (is_col ? 'invisible' : '') + '">\n';
+      piccard += '<div class="small_' + toot['id'] + ' ' + (is_col ? 'invisible' : '') + '">\n';
       while (toot['media_attachments'][p]) {
         var image_note = '';
         if (
@@ -197,6 +196,11 @@ function toot_card(toot, mode, note, toot_light, page) {
   if (toot['spoiler_text'] && getConfig(1, 'cw') != 1) {
     content =
       escapeHTML(toot['spoiler_text']) +
+      '<div class="small_' +
+      toot['id'] +
+      ' ' +
+      (is_col ? 'invisible' : '') +
+      '">\n' +
       '　<ons-button modifier="large--quiet" onclick=\'open_cw("cw_' +
       rand +
       '_' +
@@ -210,7 +214,8 @@ function toot_card(toot, mode, note, toot_light, page) {
       "'><p>" +
       toot['content'] +
       piccard +
-      '</p></div>';
+      '</p></div>' +
+      '</div>';
   } else if (toot['spoiler_text']) {
     //CW / 常に表示
     content = escapeHTML(toot['spoiler_text']) + '<p>' + toot['content'] + piccard + '</p>';
@@ -305,8 +310,8 @@ function toot_col(id) {
     }
     i++;
   }
-  if (mode) $('.media_card_' + id).removeClass('invisible');
-  else $('.media_card_' + id).addClass('invisible');
+  if (mode) $('.small_' + id).removeClass('invisible');
+  else $('.small_' + id).addClass('invisible');
 }
 
 function vote_item(q, obj, id) {
