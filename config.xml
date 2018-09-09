@@ -53,6 +53,12 @@
         <string>en</string>
       </array>
     </config-file>
+    <edit-config target="NSPhotoLibraryUsageDescription" file="*-Info.plist" mode="merge">
+      <string>This operation needs photo library access to get pictures.</string>
+    </edit-config>
+    <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
+      <string>This operation needs camera access to take pictures.</string>
+    </edit-config>
   </platform>
   <platform name="android">
     <icon src="/res/android/icon/ldpi.png" density="ldpi"/>
