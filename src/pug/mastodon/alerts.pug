@@ -1,0 +1,117 @@
+#alert_list
+  ons-modal#now_loading(direction='up')
+    div(style='text-align: center')
+      p
+        ons-progress-circular(indeterminate='')
+  ons-modal#starting_screen(direction='up', style='background: #212121')
+    div(style='text-align: center')
+      p
+        img(src='img/logo.svg', style='width: 80%;')
+      p
+        b#starting_alert Starting now...
+        b#starting_err.invisible(style='color: red')
+          br
+          | An error occurred...
+      p
+        ons-progress-bar(indeterminate='')
+  ons-toast#TLChangeTab
+    #TLChangeList
+  ons-toast#del-post-ok
+    span(data-i18n='dialogs_html.del_post') トゥートを削除しました。
+  ons-toast#report-post
+    span(data-i18n='dialogs_html.report') 送信しました。レポートのご協力ありがとうございます。
+  ons-toast#ok-clear-alert
+    span(data-i18n='dialogs_html.del_notification') 通知を消去しました。
+  ons-toast#ok_conf
+    span(data-i18n='dialogs_html.ok_conf') 設定を保存しました。
+  ons-toast#ok_conf_2
+    span(data-i18n='dialogs_html.ok_conf_2') 設定しました。
+  ons-toast#del_ok
+    span(data-i18n='dialogs_html.del_ok') 削除しました。
+  ons-toast#post_now
+    span(data-i18n='dialogs_html.post_now') 投稿しています...
+    span.fa.fa-spin
+      span.fa.fa-spin
+        ons-icon.white(icon='fa-refresh')
+  ons-toast#vote-ok
+    span(data-i18n='dialogs_html.vote_ok') 投票に成功しました！
+  ons-toast#vote-ng
+    span(data-i18n='[html]dialogs_html.vote_ng')
+      | 投票に失敗しました。
+      br
+      |  投票済みか締め切りとなっている可能性があります。
+  // エラー
+  ons-toast#maximum-media
+    span(data-i18n='dialogs_html.maximum_media') エラー: これ以上画像をアップする事はできません。
+  ons-toast#bbcode-limit
+    span(data-i18n='[html]dialogs_html.bbcode_limit')
+      | エラー: 文字数制限を超えています！
+      br
+      |  回転や点滅、文字列を少なくしてください。
+  ons-toast#cannot-pros
+    span(data-i18n='[html]dialogs_html.cannot_pros')
+      | エラー: 実行できませんでした。
+      br
+      |  接続環境が悪いか鯖落ちしている可能性があります。
+  ons-toast#cannot-post
+    span(data-i18n='[html]dialogs_html.cannot_post')
+      | エラー: 投稿できませんでした。
+      br
+      |  接続環境が悪いか鯖落ちしている可能性があります。
+  ons-toast#cannot-load
+    span(data-i18n='[html]dialogs_html.cannot_load')
+      | エラー: 取得できませんでした。
+      br
+      |  接続環境が悪いか鯖落ちしている可能性があります。
+  ons-alert-dialog#cannot-use-ls(cancelable='true', modifier='material')
+    .alert-dialog-title(data-i18n='dialogs_html.error') エラー
+    .alert-dialog-content
+      span(data-i18n='[html]dialogs_html.cannot_use_ls')
+        | OSのバージョンが古い可能性があります。
+        br
+        |  詳細は開発者にお問い合わせください。
+  ons-alert-dialog#dialog-original_post(cancelable='true', modifier='material')
+    .alert-dialog-title(data-i18n='original_toot.title') 元のトゥート
+    .alert-dialog-content
+      pre#original_post_box.
+    .alert-dialog-footer
+      button.alert-dialog-button(onclick='quote_toot(original_post_text, original_post_userid)', data-i18n='original_toot.quote.title') 引用してトゥート
+      button.alert-dialog-button(onclick='copy(original_post_text)', data-i18n='copyoption.copy') コピー
+      button.alert-dialog-button(onclick="hide('dialog-original_post')", data-i18n='navigation.close') 閉じる
+  ons-toast#ok-copy
+    span(data-i18n='dialogs_html.ok_copy') コピーしました。
+  ons-alert-dialog#cannot-connect-sv-login(cancelable='true', modifier='material')
+    .alert-dialog-title(data-i18n='dialogs_html.error') エラー
+    .alert-dialog-content
+      span(data-i18n='dialogs_html.sv_login')
+        | インスタンスに接続できません！
+        br
+        |  このインスタンスが存在しない、一時的にメンテナンス中、通信環境が悪い可能性があります。
+    .alert-dialog-footer
+      button.alert-dialog-button(onclick="hide('cannot-connect-sv-login')", data-i18n='navigation.close') 閉じる
+  ons-toast#cannot-connect-sv
+    span(data-i18n='[html]dialogs_html.connect_sv')
+      | エラー: エラーが発生しました。
+      br
+      |  再起動するなどでもう一度お試しください。
+  ons-toast#cannot-connect-API
+    span(data-i18n='[html]dialogs_html.connect_API')
+      | エラー: APIを認証できませんでした。
+      br
+      |  アカ一覧から一度削除して、もう一度ログインしてください。
+  ons-toast#no-acct
+    span(data-i18n='[html]dialogs_html.no_acct')
+      | エラー: アカウントが正常に取得できませんでした。
+      br
+      |  このインスタンスに登録されていない可能性があります。
+  ons-toast#no-original_post
+    span(data-i18n='[html]dialogs_html.no_original')
+      | エラー: 取得できませんでした。
+  ons-alert-dialog#DB_migration(modifier='material')
+    .alert-dialog-title(data-i18n='dialogs_html.DB_migrate.title') 起動しています...
+    .alert-dialog-content(data-i18n='[html]dialogs_html.DB_migrate.text')
+      | データベースのマイグレーション中です。
+      br
+      |  しばらくお待ち下さい...
+ons-toast#error_alert
+  span#error_alert_text

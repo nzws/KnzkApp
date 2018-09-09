@@ -1,0 +1,47 @@
+ons-template(id='login.html')
+  ons-page#login-page
+    ons-toolbar
+      #login_left.left
+      .center(data-i18n='login.title')
+        | KnzkAppにログイン
+      .right
+        ons-toolbar-button(onclick="loadNav('about.html')")
+          ons-icon(icon='fa-info-circle')
+    .container
+      .y-center
+        .w-max.main-logo.login_list
+          p
+            b Knzk.me
+          img(src='img/logo.svg', style='width: 60%;')
+          p.y-center
+            ons-button(onclick="login_open('knzk.me')", style='width: 80%;')
+              b(data-i18n='login.login') ログイン
+          p
+            a(href='https://knzk.me/about/more', data-i18n='login.terms') 利用規約
+            |
+            a(href='https://knzk.me/terms', data-i18n='login.privacy_policy') プライバシーポリシー
+        .w-max.main-logo.login_list
+          p
+            b now.kibousoft.co.jp
+          p.y-center
+            ons-button(onclick="login_open('now.kibousoft.co.jp')", style='width: 80%;')
+              b(data-i18n='login.login') ログイン
+          p
+            a(href='https://now.kibousoft.co.jp/about/more', data-i18n='login.terms') 利用規約
+            |
+            a(href='http://kibousoft.com/privacy.html', data-i18n='login.privacy_policy') プライバシーポリシー
+        .w-max.main-logo.login_list
+          p
+            b(data-i18n='login.other') 他のインスタンス
+          ons-input#inst_url(modifier='underbar', placeholder='mastodon.social', float='')
+          p.y-center
+            ons-button(onclick="login_open_c(elemId('inst_url').value)", style='width: 80%;')
+              b(data-i18n='login.login') ログイン
+        #login_debug.w-max.main-logo.login_list
+          p(data-i18n='login.advance.title') (上級者向け)トークンを直接入力してログイン
+          p.y-center
+            ons-input#login_debug_domain(modifier='underbar', placeholder='ドメイン (例: mastodon.social)', data-i18n='[placeholder]login.advance.domain', float='', style='width: 80%;')
+            ons-input#login_debug_token(modifier='underbar', placeholder='アクセストークン', data-i18n='[placeholder]login.advance.token', float='', style='width: 80%;')
+          p.y-center
+            ons-button(onclick='debug_login()', style='width: 80%;')
+              b(data-i18n='login.login') ログイン

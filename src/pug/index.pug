@@ -1,0 +1,80 @@
+include components/index
+doctype html
+html
+  head
+    meta(name='version', content='KnzkApp v1.4.1')
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover')
+    meta(http-equiv='Content-Security-Policy', content="default-src * knzkapp: data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'")
+    script(src='components/loader.js')
+    link(rel='stylesheet', href='components/loader.css')
+    script(src='components/onsenui/js/onsenui.min.js')
+    link(rel='stylesheet', href='components/onsenui/css/onsenui.min.css')
+    link(rel='stylesheet', href='css/theme-roller/mastodon/onsen-css-components.min.css')
+    //
+      for Testing
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.8.3/js/onsenui.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.8.3/css/onsenui.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.8.3/css/onsen-css-components.css">
+    script(src='lib/raven.min.js', async='')
+    script(src='lib/tmpl.min.js', async='')
+    script(src='lib/jquery-3.2.1.slim.min.js', async='')
+    script(src='lib/twitter.relative.time.min.js', async='')
+    script(src='lib/fetch.js', async='')
+    script(src='lib/atrament.min.js', async='')
+    script(src='lib/twemoji/twemoji.min.js', async='')
+    script(src='lib/i18n/i18next.min.js', async='')
+    script(src='lib/i18n/i18nextXHRBackend.min.js', async='')
+    script(src='lib/i18n/jquery-i18next.min.js', async='')
+    link(rel='stylesheet', href='css/theme-roller/components.css')
+    link(rel='stylesheet', href='css/bootstrap/bootstrap.min.css')
+    link(rel='stylesheet', href='knzkapp.min.css')
+    link#css_md(rel='stylesheet')
+    link#theme_css(rel='stylesheet')
+    link#css_custom_platform(rel='stylesheet')
+    include mastodon/variable_init
+    script(src='config/instance.js')
+    script(src='config/config.js')
+    script(src='config/radio.js')
+    script(src='knzkapp.min.js')
+  body
+    audio#music-control
+    style#font-config.
+    include mastodon/splitter
+    include mastodon/usermenu
+    template(id='init.html')
+      ons-page
+        ons-navigator#navigator(page='home.html', swipeable='')
+    include mastodon/home
+    - for (var i = 0; i <= 9; i++)
+      ons-template(id=`tl-${i}.html`)
+        ons-page(id=`TL${i}_main`, class='timeline')
+    include mastodon/alert
+    include mastodon/userconf
+    include mastodon/config
+    include mastodon/config_collapse
+    include mastodon/config_notification
+    include mastodon/config_filter
+    include mastodon/edit_filter
+    include mastodon/config_TL
+    include mastodon/lists
+    include mastodon/lists_people
+    include mastodon/post
+    include mastodon/bbcode
+    include mastodon/color
+    include mastodon/doodle
+    include mastodon/shows
+    include mastodon/account
+    include mastodon/about
+    include mastodon/login
+    include mastodon/tutorial
+    include mastodon/qrcode
+
+    include mastodon/emoji_picker
+    include mastodon/alerts
+    script#toot_full_tmpl(type='text/html')
+      include mastodon/tmpl/toot.txt
+    script#account_card_tmpl(type='text/html')
+      include mastodon/tmpl/account.txt
+    script#radio_tmpl(type='text/html')
+      include mastodon/tmpl/radio.txt

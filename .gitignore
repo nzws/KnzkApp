@@ -9,3 +9,5 @@ yarn-error.log
 google-services.json
 GoogleService-Info.plist
 www/config/config.js
+www/index.html
+www/knzkapp.*

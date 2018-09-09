@@ -1,0 +1,12 @@
+ons-template(id='lists_people.html')
+  ons-page#lists_people-page
+    ons-toolbar
+      .left
+        +back_button()
+      .center(data-i18n='lists.people.title') リスト編集
+    ons-list(modifier='inset')
+      ons-search-input(placeholder='Search', onkeydown='SearchListKey()', input-id='List-search')
+      #searchpeople-list
+    p
+    ons-list-header(data-i18n='lists.people.accounts') リストに登録しているアカウント
+    ons-list#people-list

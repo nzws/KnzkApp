@@ -1,0 +1,78 @@
+<div class="toot post post_<%=toot['id']%> <%=toot_base_classes%>" id="post_<%=toot['id']%>" data-bgpic="<%=bgpic%>" style="<%=bgstyle%>">
+  <%=(alert_text ? alert_text : '')%>
+    <div class="toot_flex">
+      <% if (!no_icon) { %>
+        <div width="50px">
+          <img src="<%=toot['account'][getConfig(1, 'no_gif') ? 'avatar_static' : 'avatar']%>" class="icon-img" onclick="show_account('<%=toot['account']['id']%>')">
+        </div>
+        <% } %>
+          <div class="toot-card-right<%=is_col%> <%=namu%>">
+            <div class="toot-group name_box">
+              <% if (!no_icon) { %>
+                <div onclick="show_account('<%=toot['account']['id']%>')" class="toot_name">
+                  <b><%=toot['account']['display_name']%></b> <small>@<%=toot['account']['acct']%></small>
+                </div>
+                <% } %>
+            </div>
+            <div class="toot_content tootcontent_<%=toot['id']%><%=no_icon%>" data-id="<%=toot['id']%>" data-dispmode="<%=display_mode%>">
+              <p>
+                <%=toot['content']%>
+              </p>
+            </div>
+            <% if (display_mode === 'full') { %>
+              <div class="<%=(is_col ? 'disable ' : '')%>toot-group tb_group_<%=toot['id']%>">
+                <div class="toot-buttons">
+                  <ons-icon icon="fa-reply" onclick="reply('<%=toot['id']%>')" class="toot-button ons-icon fa-reply fa"></ons-icon>
+                  <% if (toot['visibility'] === 'private' || toot['visibility'] === 'direct' || toot['visibility'] === 'limited') { %>
+                    <ons-icon icon="fa-<%=visibility_icon%>" onclick="<%=(toot['visibility'] === 'private' && toot['account']['id'] === now_user_id ? 'toot_action(1)' : '')%>"
+                      class="tootbs_<%=toot['id']%> toot-button toot-button-disabled" data-id="<%=toot['id']%>"></ons-icon>
+                    <% } else { %>
+                      <ons-icon icon="fa-retweet" onclick="toot_action(1)" class="tootbs_<%=toot['id']%> toot-button ons-icon fa-retweet fa<%=boosted%>"
+                        data-id="<%=toot['id']%>"></ons-icon>
+                      <% } %>
+                        <ons-icon icon="fa-star" onclick="toot_action(0)" class="tootfav_<%=toot['id']%> toot-button ons-icon fa-star fa<%=faved%> <%=namu%>"
+                          data-id="<%=toot['id']%>"></ons-icon>
+                        <ons-icon icon="fa-ellipsis-h" onclick="more('<%=toot['id']%>')" class="toot-button toot-button-last ons-icon fa-ellipsis-h fa"></ons-icon>
+                </div>
+                <div class="toot-right date date-disp" data-time="<%=toot['created_at']%>" onclick="show_post('<%=toot['id']%>')">
+                  <%=(displayTime('new', toot['created_at']))%>
+                </div>
+              </div>
+              <% } %>
+          </div>
+    </div>
+    <% if (display_mode === 'big') { %>
+      <span class="big_date">
+        <% if (appname) { %>(via
+          <%=appname%>)
+            <% } %><br>
+              <%=date_text%> ·
+                <span onclick="openListB('<%=toot['id']%>')"><ons-icon icon="fa-retweet" class="ons-icon fa-retweet fa"></ons-icon>
+                  <%=toot['reblogs_count']%></span> ·
+                <span onclick="openListB('<%=toot['id']%>', 1)"><ons-icon icon="fa-star" class="ons-icon fa-star fa"></ons-icon>
+                  <%=toot['favourites_count']%></span>
+      </span>
+      <div class="row toot_big_border">
+        <div class="col-xs-3 showtoot-button">
+          <ons-icon icon="fa-reply" onclick="reply('<%=toot['id']%>')" class="showtoot-button ons-icon fa-reply fa"></ons-icon>
+        </div>
+        <div class="col-xs-3 showtoot-button">
+          <% if (toot['visibility'] === 'private' || toot['visibility'] === 'direct' || toot['visibility'] === 'limited') { %>
+            <ons-icon icon="fa-<%=visibility_icon%>" onclick="<%=(toot['visibility'] === 'private' && toot['account']['id'] === now_user_id ? 'toot_action(1)' : '')%>"
+              class="tootbs_<%=toot['id']%> showtoot-button ons-icon fa-<%=visibility_icon%> fa toot-button-disabled<%=boosted%>"
+              data-id="<%=toot['id']%>"></ons-icon>
+            <% } else { %>
+              <ons-icon icon="fa-retweet" onclick="toot_action(1)" class="tootbs_<%=toot['id']%> showtoot-button ons-icon fa-retweet fa<%=boosted%>"
+                data-id="<%=toot['id']%>"></ons-icon>
+              <% } %>
+        </div>
+        <div class="col-xs-3 showtoot-button">
+          <ons-icon icon="fa-star" onclick="toot_action(0)" class="tootfav_<%=toot['id']%> showtoot-button ons-icon fa-star fa<%=faved%>"
+            data-id="<%=toot['id']%>"></ons-icon>
+        </div>
+        <div class="col-xs-3 showtoot-button">
+          <ons-icon icon="fa-ellipsis-h" onclick="more('<%=toot['id']%>')" class="showtoot-button ons-icon fa-ellipsis-h fa"></ons-icon>
+        </div>
+      </div>
+      <% } %>
+</div>

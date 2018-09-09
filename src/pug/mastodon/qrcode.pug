@@ -1,0 +1,19 @@
+ons-template(id='qrcode.html')
+  ons-page#qrcode-page
+    ons-toolbar
+      .left
+        +back_button()
+      .center(data-i18n='qrcode.title') QRコード
+    p
+    .container
+      .w-max.y-center
+        p
+          img#qrimg(style='width: 80%;border-radius: 8%;')
+        p
+        h3#qr-userid
+        p
+        .main-logo(style='padding: 5px')
+          span(data-i18n='qrcode.node.L1') この画面をスクショするか直接見せてあなたのアカウントを簡単に共有することができます。
+          br
+          br
+          span(data-i18n='qrcode.node.L2') QRコードは通常のQRコードリーダーアプリ等で読み取ってください。

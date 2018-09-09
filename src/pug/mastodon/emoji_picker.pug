@@ -1,0 +1,33 @@
+ons-popover#emoji_popover(direction='up')
+  div(style='padding: 5px; text-align: center;')
+    ons-input#emoji_search.black_text.w-max(modifier='transparent', placeholder='Search emojis', float='', onkeyup='searchEmoji(this.value)')
+    ons-button.close_button.black_text(modifier='quiet', onclick="hidePopover('emoji_popover')")
+      i.fa.fa-times.fa-fw
+    .ep_category
+      button#ep_bt_custom.button.button--quiet(onclick="jumpEmoji('custom')") ✱
+      button.button.button--quiet(onclick="jumpEmoji('People')")
+        img.emoji(draggable='false', alt='😀', src='https://twemoji.maxcdn.com/2/72x72/1f600.png')
+      button.button.button--quiet(onclick="jumpEmoji('Nature')")
+        img.emoji(draggable='false', alt='🐶', src='https://twemoji.maxcdn.com/2/72x72/1f436.png')
+      button.button.button--quiet(onclick="jumpEmoji('Foods')")
+        img.emoji(draggable='false', alt='🍏', src='https://twemoji.maxcdn.com/2/72x72/1f34f.png')
+      button.button.button--quiet(onclick="jumpEmoji('Activity')")
+        img.emoji(draggable='false', alt='⚽️', src='https://twemoji.maxcdn.com/2/72x72/26bd.png')
+        | ️
+      button.button.button--quiet(onclick="jumpEmoji('Places')")
+        img.emoji(draggable='false', alt='🚗️', src='https://twemoji.maxcdn.com/2/72x72/1f697.png')
+      button.button.button--quiet(onclick="jumpEmoji('Objects')")
+        img.emoji(draggable='false', alt='⌚', src='https://twemoji.maxcdn.com/2/72x72/231a.png')
+        | ️
+      button.button.button--quiet(onclick="jumpEmoji('Symbols')")
+        img.emoji(draggable='false', alt='❤', src='https://twemoji.maxcdn.com/2/72x72/2764.png')
+      button.button.button--quiet(onclick="jumpEmoji('Flags')")
+        img.emoji(draggable='false', alt='🏳️', src='https://twemoji.maxcdn.com/2/72x72/1f3f3.png')
+    ons-button#emoji_reset.w-max.invisible.ep_reset_button(onclick='resetEmoji()')
+      span(data-i18n='emoji.reset') 全てのカテゴリを表示
+    #emoji_loading
+      span(data-i18n='emoji.loading_now') 絵文字ピッカーを生成しています...
+      span.fa.fa-spin
+        span.fa.fa-spin
+          ons-icon.white(icon='fa-refresh')
+    #emoji_list_popover.emoji_list_scroll(style='height: 250px;', data-isload='no')
