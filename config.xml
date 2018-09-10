@@ -53,6 +53,7 @@
         <string>en</string>
       </array>
     </config-file>
+    <resource-file src="/GoogleService-Info.plist" target="Resources/GoogleService-Info.plist" />
     <edit-config target="NSPhotoLibraryUsageDescription" file="*-Info.plist" mode="merge">
       <string>This operation needs photo library access to get pictures.</string>
     </edit-config>
