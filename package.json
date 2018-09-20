@@ -14,7 +14,7 @@
     "fmt:css": "prettier src/scss/**/*.scss --write",
     "fmt:js": "eslint src/**/*.js --fix",
     "fmt": "npm-run-all fmt:* -s",
-    "build": "npm run fmt lint && gulp build"
+    "build": "yarn fmt && yarn lint && gulp build"
   },
   "cordova": {
     "plugins": {
