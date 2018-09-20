@@ -11,10 +11,10 @@
     "lint:js": "eslint src/**/*.js",
     "lint:pug": "gulp lint-pug",
     "lint": "npm-run-all lint:* -s",
-    "format:css": "prettier src/scss/**/*.scss --write",
-    "format:js": "eslint src/**/*.js --fix",
-    "format": "npm-run-all format:* -s",
-    "build": "npm run format lint && gulp build"
+    "fmt:css": "prettier src/scss/**/*.scss --write",
+    "fmt:js": "eslint src/**/*.js --fix",
+    "fmt": "npm-run-all fmt:* -s",
+    "build": "npm run fmt lint && gulp build"
   },
   "cordova": {
     "plugins": {
