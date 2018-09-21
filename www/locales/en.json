@@ -467,7 +467,8 @@
           "title": "Send Error Logs to the Developer",
           "sub": "Privacy Policy (Japanese)"
         },
-        "no_unread_label": "Do Not Display Unread Counts"
+        "no_unread_label": "Do Not Display Unread Counts",
+        "reply_cw": "リプライでCWを入力しない"
       },
       "eco": {
         "title": "Battery/Data Saver Settings",

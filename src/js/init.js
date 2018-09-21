@@ -354,6 +354,10 @@ function initevent() {
           ? post_reply_acct
           : i18next.t('toot.reply.me');
         elemId('post_mode').value = tmp_post_visibility; //投稿モード
+        if (tl_postdata[tmp_post_reply]['spoiler_text'] && !getConfig(1, 'reply_cw')) {
+          post_cw();
+          elemId('cw_input').value = tl_postdata[tmp_post_reply]['spoiler_text'];
+        }
         tmp_post_reply = null;
       }
       tmp_post_visibility = null;

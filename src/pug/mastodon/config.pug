@@ -165,6 +165,11 @@ ons-template(id='config.html')
           | 未読通知ラベルを表示しない
         .right
           ons-switch(modifier='material', onclick="change_conf(1, 'no_unread_label')", input-id='conf-no_unread_label')
+      ons-list-item
+        .center
+          span.list-item__title(data-i18n='config.preferences.system.reply_cw') リプライでCWを自動入力しない
+        .right
+          ons-switch(modifier='material', onclick="change_conf(1, 'reply_cw')", input-id='conf-reply_cw')
     ons-list
       ons-list-header(data-i18n='config.preferences.eco.title') 節約設定
       ons-list-item
