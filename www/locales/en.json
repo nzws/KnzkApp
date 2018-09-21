@@ -28,7 +28,7 @@
     "toot_as": "Toot as {{acct}}!",
     "toot_box_placeholder": "What's on your mind?",
     "reply": {
-      "prefix": "Reply to ",
+      "prefix": " Reply to ",
       "suffix": "",
       "me": "me"
     },

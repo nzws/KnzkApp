@@ -506,6 +506,7 @@ function simple_open() {
 }
 
 function simple_close() {
+  document.activeElement.blur();
   elemId('simple_toot_TL_input').rows = 1;
   $('#simple_toot_TL_toolbar').removeClass('simple_toot_open');
   $('#simple_more').addClass('invisible');

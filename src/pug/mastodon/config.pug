@@ -183,12 +183,16 @@ ons-template(id='config.html')
     ons-list(modifier='inset')
       ons-list-header
         span(data-i18n='config.preferences.font.button') トゥートの各ボタン
+        |
+        |
         a(href='#', onclick="setConfig(1, 'font_button', 50);elemId('conf-font_button').value = 50;renderFontConfig()", data-i18n='config.preferences.font.reset') リセット
       ons-list-item
         ons-col
           ons-range#conf-font_button.w-max(value='50', onchange="change_conf(1, 'font_button', true);renderFontConfig()", data-config='range')
       ons-list-header
         span(data-i18n='config.preferences.font.body') トゥート本文
+        |
+        |
         a(href='#', onclick="setConfig(1, 'font_body', 50);elemId('conf-font_body').value = 50;renderFontConfig()", data-i18n='config.preferences.font.reset') リセット
       ons-list-item
         ons-col

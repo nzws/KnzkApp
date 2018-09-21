@@ -374,7 +374,7 @@ function initevent() {
     }
 
     if (event.enterPage.id === 'about-page') {
-      elemId('app-version').innerText = document.querySelector('meta[name=version]');
+      elemId('app-version').innerText = document.querySelector('meta[name=version]').content;
     }
 
     if (event.enterPage.id === 'config_TL-page') {
@@ -452,9 +452,14 @@ function initevent() {
     }
   });
 
-  window.addEventListener('keyboardWillHide', () => {
-    document.activeElement.blur();
-    simple_close();
+  window.addEventListener('keyboardDidHide', () => {
+    if (pageid === 'home') {
+      setTimeout(function() {
+        if (!isOpenAnyDialogs() && elemId('simple_toot_TL_input').rows === 3) {
+          simple_close();
+        }
+      }, 0);
+    }
   });
 
   document.addEventListener('postopen', function(event) {
@@ -522,16 +527,16 @@ function home_autoevent() {
   }, 1000);
 }
 
-function BackButtonEvent() {
+function isOpenAnyDialogs() {
   const actionSheet = document.querySelectorAll('ons-action-sheet'),
+    popover = document.querySelectorAll('ons-popover'),
     dialog = document.querySelectorAll('ons-alert-dialog');
   var openedDialog,
     i = 0;
   if (dialog) {
     while (dialog[i]) {
       if (dialog[i].visible && dialog[i].cancelable) {
-        dialog[i].hide();
-        openedDialog = true;
+        openedDialog = dialog[i];
         break;
       }
       i++;
@@ -541,16 +546,32 @@ function BackButtonEvent() {
     i = 0;
     while (actionSheet[i]) {
       if (actionSheet[i].visible) {
-        actionSheet[i].hide();
-        openedDialog = true;
+        openedDialog = actionSheet[i];
         break;
       }
       i++;
     }
   }
-  if (!openedDialog) {
+  if (popover && !openedDialog) {
+    i = 0;
+    while (popover[i]) {
+      if (popover[i].visible) {
+        openedDialog = popover[i];
+        break;
+      }
+      i++;
+    }
+  }
+  return openedDialog;
+}
+
+function BackButtonEvent() {
+  const dialog = isOpenAnyDialogs();
+  if (dialog) {
+    dialog.hide();
+  } else {
     if (pageid === 'home') {
-      if (elemId('simple_toot_TL_toolbar').rows === 3) {
+      if (elemId('simple_toot_TL_input').rows === 3) {
         simple_close();
       } else {
         //終了
@@ -617,7 +638,7 @@ ons.ready(function() {
             if (e === 1) {
               setConfig(1, 'SendLog', '1');
               Raven.config(sentryID, {
-                release: document.querySelector('meta[name=version]'),
+                release: document.querySelector('meta[name=version]').content,
               }).install();
             } else {
               setConfig(1, 'SendLog', '0');
@@ -625,7 +646,9 @@ ons.ready(function() {
           });
       }, 500);
     } else if (getConfig(1, 'SendLog') === '1') {
-      Raven.config(sentryID, { release: document.querySelector('meta[name=version]') }).install();
+      Raven.config(sentryID, {
+        release: document.querySelector('meta[name=version]').content,
+      }).install();
     }
   }
 });

@@ -2,9 +2,7 @@ ons-template(id='config_collapse.html')
   ons-page#config_collapse-page
     ons-toolbar
       .left
-        ons-toolbar-button(onclick='BackTab()')
-          ons-icon(icon='fa-chevron-left')
-          span(data-i18n='navigation.preferences') 設定
+        +back_button()
       .center(data-i18n='config.collapsed.title') トゥート折りたたみ
     ons-list
       ons-list-item

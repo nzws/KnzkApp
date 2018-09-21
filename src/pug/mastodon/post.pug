@@ -15,7 +15,8 @@ ons-template(id='post.html')
         span(data-i18n='toot.reply.prefix')
         span#post_reply_acct
         span(data-i18n='toot.reply.suffix')
-          | へ返信
+          |
+          |へ返信
       #vote_new_list(style='display: none;')
         p
           ons-input#vote_new_1.w-max(modifier='underbar', placeholder='項目1', data-i18n='[placeholder]toot.enquete.column1')
@@ -57,7 +58,7 @@ ons-template(id='post.html')
         ons-button#yomigana_bt.invisible(modifier='quiet', onclick="add_emoji_simple('｜漢字《》', 1)", style='border-radius: 0') 読み
         span(style='float: right')
           b#toot-limit.toot-limit 4096
-          ons-button#toot-button(onclick="post('toot_textarea', {cw:elemId('cw_input').value, visibility:elemId('post_mode').value, sensitive:elemId('nsfw_input').value, in_reply_to_id: elemId('post_reply').value, local_only: elemId('localonly_input').value})", style='border-radius: 4px 0 4px 0;') トゥート！
+          ons-button#toot-button(onclick="post('toot_textarea', {cw:elemId('cw_input').value, visibility:elemId('post_mode').value, sensitive:elemId('nsfw_input').value, in_reply_to_id: elemId('post_reply').value, local_only: elemId('localonly_input').value})", style='border-radius: 4px 0 4px 0;', data-i18n='toot.toot') トゥート！
       #md-box.invisible
         p
         .dark-box-header

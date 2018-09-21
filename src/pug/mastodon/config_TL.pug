@@ -2,9 +2,7 @@ ons-template(id='config_TL.html')
   ons-page#config_TL-page
     ons-toolbar
       .left
-        ons-toolbar-button(onclick='BackTab()')
-          ons-icon(icon='fa-chevron-left')
-          span(data-i18n='navigation.preferences') 設定
+        +back_button()
       .center(data-i18n='config.preferences.tl.edit.title') タイムライン編集
       .right
         ons-toolbar-button(onclick='AddTLConfig()')

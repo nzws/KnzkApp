@@ -20,8 +20,8 @@ function openDoodle(simple) {
 
 function Doodle_reset() {
   ons.notification
-    .confirm(i18next.t('doodle.reset.text'), {
-      title: i18next.t('doodle.reset.title'),
+    .confirm(i18next.t('toot.doodle.reset.text'), {
+      title: i18next.t('toot.doodle.reset.title'),
       modifier: 'material',
     })
     .then(function(e) {
@@ -44,8 +44,8 @@ function closeDoodle(force) {
     BackTab('down');
   } else {
     ons.notification
-      .confirm(i18next.t('doodle.reset.text'), {
-        title: i18next.t('doodle.reset.close'),
+      .confirm(i18next.t('toot.doodle.reset.text'), {
+        title: i18next.t('toot.doodle.reset.close'),
         modifier: 'material',
       })
       .then(function(e) {
@@ -68,8 +68,8 @@ function dataURLtoFile(dataURI) {
 
 function Doodle_upload() {
   ons.notification
-    .confirm(i18next.t('doodle.upload.text'), {
-      title: i18next.t('doodle.upload.title'),
+    .confirm(i18next.t('toot.doodle.upload.text'), {
+      title: i18next.t('toot.doodle.upload.title'),
       modifier: 'material',
     })
     .then(function(e) {
