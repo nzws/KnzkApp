@@ -130,10 +130,10 @@ function toot_card(toot, mode, note, toot_light, page) {
           toot['media_attachments'][p]['type'] === 'gifv'
         ) {
           image_note =
-            '<div class="image_note"><i class="fa fa-play"></i> ' +
+            '<span class="image_note"><i class="fa fa-play"></i> ' +
             i18next.t('toot.video') +
             (toot['media_attachments'][p]['type'] === 'gifv' ? '   [GIF]' : '') +
-            '</div>';
+            '</span>';
         }
         if (toot['sensitive'] && getConfig(1, 'nsfw') != 1) {
           //NSFWオン

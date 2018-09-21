@@ -66,6 +66,10 @@ function login_open(domain) {
 
 function login_open_c(domain) {
   if (domain) {
+    if (domain.match(/@/i)) {
+      showtoast('domain_invalid_text');
+      return;
+    }
     ons.notification
       .confirm(dialog_i18n('terms', 1), {
         title: dialog_i18n('terms'),

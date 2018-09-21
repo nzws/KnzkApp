@@ -232,7 +232,8 @@
     "DB_migrate": {
       "title": "Launching...",
       "text": "Migrating database.<br>Please wait..."
-    }
+    },
+    "domain_invalid_text": "ドメインにユーザー名は必要ありません。"
   },
   "report_status_note": "You can check the status of reports that you have sent here.",
   "dialogs_js": {
