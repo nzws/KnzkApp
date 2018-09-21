@@ -13,6 +13,7 @@
     "blocked_users": "Blocked Users",
     "hidden_domains": "Blacklisted Domains",
     "report_status": "Report Status",
+    "endorsements": "推薦アカウント",
     "back": "Back",
     "close": "Close",
     "cancel": "Cancel",
@@ -350,6 +351,10 @@
       },
       "qrcode": "Show QR Code",
       "mention": "Reply",
+      "endorsements": {
+        "set": "プロフィールで紹介",
+        "unset": "紹介リストから外す"
+      },
       "mute": {
         "set": "Mute This User",
         "unset": "Unmute This User"

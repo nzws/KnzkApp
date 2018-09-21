@@ -174,6 +174,8 @@ function account_state_action(id, mode) {
     url = acctdata['rs'][id][0]['muting'] ? '/unmute' : '/mute';
   } else if (mode === 'block') {
     url = acctdata['rs'][id][0]['blocking'] ? '/unblock' : '/block';
+  } else if (mode === 'endorsements') {
+    url = acctdata['rs'][id][0]['endorsed'] ? '/unpin' : '/pin';
   }
 
   Fetch('https://' + inst + '/api/v1/accounts/' + id + url, {
@@ -222,39 +224,47 @@ function account_action(id) {
         else if (index === 2) OpenQR('@' + account_page_acct.split('@')[0] + '@' + inst);
       });
   } else {
-    var mute_m = acctdata['rs'][id][0]['muting']
+    const mute_m = acctdata['rs'][id][0]['muting']
       ? i18next.t('actionsheet.toot.mute.unset')
       : i18next.t('actionsheet.toot.mute.set');
-    var block_m = acctdata['rs'][id][0]['blocking']
+    const block_m = acctdata['rs'][id][0]['blocking']
       ? i18next.t('actionsheet.toot.block.unset')
       : i18next.t('actionsheet.toot.block.set');
+    const endorsements = acctdata['rs'][id][0]['endorsed']
+      ? i18next.t('actionsheet.toot.endorsements.unset')
+      : i18next.t('actionsheet.toot.endorsements.set');
+
+    var button_arr = [
+      i18next.t('actionsheet.toot.mention'),
+      i18next.t('actionsheet.toot.openbrowser'),
+      i18next.t('actionsheet.toot.url'),
+    ];
+    if (acctdata['rs'][id][0]['following']) button_arr.push(endorsements);
+    button_arr.push({ label: mute_m, modifier: 'destructive' });
+    button_arr.push({ label: block_m, modifier: 'destructive' });
+    button_arr.push({ label: i18next.t('navigation.cancel'), icon: 'md-close' });
+
     ons
       .openActionSheet({
         cancelable: true,
-        buttons: [
-          i18next.t('actionsheet.toot.mention'),
-          i18next.t('actionsheet.toot.openbrowser'),
-          i18next.t('actionsheet.toot.url'),
-          {
-            label: mute_m,
-            modifier: 'destructive',
-          },
-          {
-            label: block_m,
-            modifier: 'destructive',
-          },
-          {
-            label: i18next.t('navigation.cancel'),
-            icon: 'md-close',
-          },
-        ],
+        buttons: button_arr,
       })
       .then(function(index) {
         if (index === 0) post_pre('@' + account_page_acct);
         else if (index === 1) openURL(acctdata['acct'][id]['url']);
         else if (index === 2) copy(acctdata['acct'][id]['url']);
-        else if (index === 3) account_state_action(id, 'mute');
-        else if (index === 4) account_state_action(id, 'block');
+        else if (index === 3 && acctdata['rs'][id][0]['following'])
+          account_state_action(id, 'endorsements');
+        else if (
+          (index === 4 && acctdata['rs'][id][0]['following']) ||
+          (index === 3 && !acctdata['rs'][id][0]['following'])
+        )
+          account_state_action(id, 'mute');
+        else if (
+          (index === 5 && acctdata['rs'][id][0]['following']) ||
+          (index === 4 && !acctdata['rs'][id][0]['following'])
+        )
+          account_state_action(id, 'block');
       });
   }
 }
