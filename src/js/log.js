@@ -53,3 +53,11 @@ function catchHttpErr(name, response) {
     getError('Error/' + name, { response: response, alert: 'none' });
   }
 }
+
+function openErr(name, text) {
+  errorAlert = '<b>' + name + ' Error!</b>';
+  getError('Error/' + name, { response: response, alert: errorAlert }, 1);
+  errorAlert += text ? '<br>' + text : '';
+  elemId('error_alert_text').innerHTML = errorAlert;
+  showtoast('error_alert');
+}

@@ -111,6 +111,37 @@ function changeNotification(force) {
         }
       })
       .then(function(json) {
+        if (json['error']) {
+          openErr('UpdateNotification', json['error']);
+          return;
+        }
+        if (json['moved']) {
+          Fetch(push_default_centerURL, { method: 'GET' })
+            .then(function(response) {
+              if (response.ok) {
+                return response.json();
+              } else {
+                throw response;
+              }
+            })
+            .then(function(json) {
+              if (json[0]) {
+                config['server'] = json[0];
+                setConfig(4, name, config);
+                changeNotification(force);
+              } else {
+                ons.notification.alert(dialog_i18n('err_notification_sv', 1), {
+                  title: dialog_i18n('err_notification_sv'),
+                  modifier: 'material',
+                  cancelable: true,
+                });
+                hide('now_loading');
+              }
+            })
+            .catch(function(error) {
+              catchHttpErr('setNotificationServer', error);
+            });
+        }
         SetNotificationConfig('is_running', is_unregister ? 0 : 1);
         if (conf[0]) showtoast('ok_conf');
       })
