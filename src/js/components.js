@@ -103,6 +103,16 @@ function t_text(text, emojidata, acct) {
     text = text.replace(/(神崎|おにいさん)/g, "<span style='color: red'>$1</span>");
     text = text.replace(/あんのたん/g, "<span class='fav-active'>$1</span>");
     text = text.replace(
+      /[@|＠]ピザ/g,
+      `
+    - <a href="https://www.dominos.jp/">ドミノ・ピザ</a><br>
+    - <a href="https://www.pizza-la.co.jp/">ピザーラ</a><br>
+    - <a href="https://pizzahut.jp/">ピザハット</a><br>
+    - <a href="https://www.google.co.jp/search?q=%E3%83%94%E3%82%B6">Googleでピザを検索</a><br>
+    <small>by KnzkApp (あなたにのみ表示されています)</small>
+    `
+    );
+    text = text.replace(
       /(ごちうさ|ご注文はうさぎですか？)/g,
       'あぁ^～心がぴょんぴょんするんじゃぁ^～'
     );

@@ -1,5 +1,5 @@
 {
-  "framework_version": "3.5",
-  "xcode_version": "9",
-  "cordova_version": "7.1"
+    "framework_version": "3.5",
+    "xcode_version": "9",
+    "cordova_version": "7.1"
 }
