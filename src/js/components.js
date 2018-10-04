@@ -36,10 +36,10 @@ function checkLargeWindow() {
   }
 }
 
-function openNavigation(id = 'menu') {
+function openNavigation(id = 'menu', force) {
   const t = elemId(id + '-list');
   if (t) {
-    if (t.className !== 'invisible') id = 'menu';
+    if (t.className !== 'invisible' && !force) id = 'menu';
   }
   elemId('radio-base-list').className = 'invisible';
   elemId('timeline-base-list').className = 'invisible';

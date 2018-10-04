@@ -250,9 +250,11 @@ function initevent() {
           'ons-icon fa-fw fa fa-' + visibility_icon_name(default_post_visibility);
         if (getConfig(1, 'cp_popover')) $('#simple_cp_bt').removeClass('invisible');
       }, 500);
+      if (window.isLargeMode) openNavigation('timeline-base', true);
     } else {
       home_auto_event = false;
       last_load_TL = '';
+      if (window.isLargeMode) openNavigation();
     }
 
     if (event.enterPage.id === 'config-page') {
@@ -409,8 +411,10 @@ function initevent() {
       home_auto_event = true;
       home_autoevent();
       elemId('toot_limit_simple').innerHTML = toot_limit;
+      if (window.isLargeMode) openNavigation('timeline-base', true);
     } else {
       home_auto_event = false;
+      if (window.isLargeMode) openNavigation();
     }
   });
 

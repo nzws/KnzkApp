@@ -253,7 +253,7 @@ function initTimeline() {
   showTL(null, null, null, true);
   if (window.isLargeMode)
     setTimeout(function() {
-      openNavigation('timeline-base');
+      openNavigation('timeline-base', true);
     }, 0);
 
   var dial = getConfig(1, 'dial'),
@@ -299,6 +299,7 @@ function initTimeline() {
 }
 
 function generateTimelineButton() {
+  if (!window.isLargeMode) return;
   const list = elemId('timeline-list'),
     icons = {
       home: 'fa fa-fw fa-home',
@@ -310,7 +311,7 @@ function generateTimelineButton() {
       list: 'fa fa-fw fa-bars',
       plus_local: '+ローカル',
     };
-  if (list.innerHTML) return;
+  //if (list.innerHTML) return;
   var i = 0,
     reshtml = '',
     BoxData = {};
