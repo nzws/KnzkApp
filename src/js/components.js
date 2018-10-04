@@ -8,30 +8,57 @@ var hidePopover = function(id) {
 
 window.fn = {};
 
-window.fn.open = function() {
-  var menu = elemId('splitter-menu');
-  menu.open();
+window.fn.open = function(force) {
+  if (!force && window.isLargeMode) return;
+
+  const menu = elemId('splitter-menu');
+  if (menu.isOpen && !force) menu.close();
+  else menu.open();
   $('[data-i18n]').localize();
 };
 
-window.fn.close = function() {
-  var menu = elemId('splitter-menu');
-  menu.close();
+window.fn.close = function(force) {
+  if (!force && window.isLargeMode) return;
+  elemId('splitter-menu').close();
   $('[data-i18n]').localize();
 };
 
-function reset_nav() {
-  var list = elemId('music-form');
-  var menu = elemId('menu-list');
-  var account_list = elemId('account-list');
-  list.style.display = 'none';
-  account_list.style.display = 'none';
-  menu.style.display = 'block';
+function checkLargeWindow() {
+  window.isLargeMode = window.innerWidth >= 650;
+  if (window.isLargeMode) {
+    const mask = document.querySelector('ons-splitter-mask');
+    fn.open(true);
+    setTimeout(function() {
+      if (mask) mask.parentNode.removeChild(mask);
+    }, 0);
+  } else {
+    fn.close(true);
+  }
+}
+
+function openNavigation(id = 'menu') {
+  const t = elemId(id + '-list');
+  if (t) {
+    if (t.className !== 'invisible') id = 'menu';
+  }
+  elemId('radio-base-list').className = 'invisible';
+  elemId('timeline-base-list').className = 'invisible';
+  elemId('menu-list').className = 'invisible';
+  elemId('account-list').className = 'invisible';
+
+  elemId(id + '-list').className = '';
+
+  if (id === 'radio-base') {
+    generateRadio();
+  } else if (id === 'timeline-base') {
+    generateTimelineButton();
+  }
 }
 
 function load(page) {
   closeAllws();
   loadNav(page, null, 'reset');
+  if (window.isLargeMode) openNavigation();
 }
 
 function loadNav(page, mode, move_mode) {
@@ -41,7 +68,7 @@ function loadNav(page, mode, move_mode) {
     nav = document.querySelector('#navigator');
 
   var onLoad = function() {
-    menu.close();
+    if (!window.isLargeMode) menu.close();
     setTimeout(function() {
       $('[data-i18n]').localize();
     }, 0);

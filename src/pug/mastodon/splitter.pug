@@ -8,14 +8,14 @@ ons-splitter
             p
             h4#splitter-profile-name.acct-small(style='height: 20px')
             p
-        ons-list-item(tappable='', onclick='account_change_list()')
+        ons-list-item(tappable='', onclick='openNavigation("account")')
           .center.list-item-small
             | @
             span#account_change-username
           .right.list-item-small
             ons-icon(icon='fa-caret-down')
       #menu-list-base
-        #account-list(style='display: none;')
+        #account-list.invisible
           ons-list
             ons-list-item(modifier='chevron', tappable='', onclick='open_addaccount()')
               label.left.music-item
@@ -63,16 +63,37 @@ ons-splitter
                 i.list-item__icon.list-item--chevron__icon.ons-icon.fa-cog.fa.fa-fw
               .center(data-i18n='navigation.preferences')
                 | 設定
-            ons-list-item(modifier='chevron', tappable='', onclick='music_change()')
+            ons-list-item(modifier='chevron', tappable='', onclick='openNavigation("radio-base")')
               .left
                 i.list-item__icon.list-item--chevron__icon.ons-icon.fa-music.fa.fa-fw
               .center
                 span.list-item__title Radio
                 span#music_title.list-item__subtitle Not Playing
-        form#music-form(style='display: none;')
+            ons-list-item(tappable='', onclick='openNavigation("timeline-base")').forFlexLarge
+              .center.list-item-small
+                span(data-i18n='timeline.title') タイムライン
+              .right.list-item-small
+                ons-icon(icon='fa-caret-up')
+
+        #timeline-base-list.invisible
+         ons-list
+           ons-list-header(data-i18n='timeline.title') タイムライン
+           ons-list-item(tappable='', onclick='openTL("alert_nav")')
+             .left
+               i.list-item__icon.ons-icon.fa-bell.fa.fa-fw
+             .center(data-i18n='navigation.notifications')
+               | 通知
+           #timeline-list
+           ons-list-item(tappable='', onclick='openNavigation()')
+             .center.list-item-small
+               span(data-i18n='navigation.title') ナビゲーション
+             .right.list-item-small
+               ons-icon(icon='fa-caret-up')
+
+        form#radio-base-list.invisible
           ons-list
             ons-list-item
-              .left(onclick='music_change()')
+              .left(onclick='openNavigation("radio-base")')
                 i.list-item__icon.ons-icon.fa-chevron-left.fa.fa-fw
                 span(data-i18n='navigation.back') 戻る
               .right(onclick='radioToggle()')
@@ -80,3 +101,4 @@ ons-splitter
             ons-list-header Channel
             #radio_list
   ons-splitter-content#splitter-content(page='init.html')
+

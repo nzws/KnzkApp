@@ -53,19 +53,3 @@ function generateRadio() {
   }
   list.innerHTML = reshtml;
 }
-
-function music_change() {
-  var list = elemId('music-form');
-  var menu = elemId('menu-list');
-  var account_list = elemId('account-list');
-  if (list.style.display === 'none') {
-    generateRadio();
-    list.style.display = 'block';
-    menu.style.display = 'none';
-    account_list.style.display = 'none';
-  } else {
-    list.style.display = 'none';
-    account_list.style.display = 'none';
-    menu.style.display = 'block';
-  }
-}

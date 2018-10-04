@@ -39,7 +39,7 @@ ons-template(id='home.html')
         input#post_file_simple.invisible(type='file', onchange='up_file(true, true)', accept='image/*;capture=camera', multiple='')
         ons-list
           ons-list-item.simple-toot(style='padding-left: 0')
-            .left(style='padding-right: 6px')
+            .left(style='padding-right: 6px', class='forSmall')
               ons-button.no-rd(modifier='quiet', onclick='fn.open()')
                 img#home-icon(src='img/missing.png')
                 span.notification.invisible.noti_unread 1

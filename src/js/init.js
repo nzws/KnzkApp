@@ -109,6 +109,7 @@ function init() {
                 document.querySelector('#navigator').resetToPage('home.html');
                 initBookmark();
                 initevent();
+                checkLargeWindow();
 
                 setTimeout(function() {
                   startWatching();
@@ -468,7 +469,11 @@ function initevent() {
 
   document.addEventListener('postopen', function(event) {
     account_list();
-    reset_nav();
+    openNavigation();
+  });
+
+  document.addEventListener('preclose', function(event) {
+    if (window.isLargeMode) elemId('splitter-menu').open();
   });
 
   if (getConfig(1, 'swipe_menu') != 1) {
@@ -507,6 +512,15 @@ function initevent() {
       getError('Error/FCM', '');
     }
   }
+
+  let timer = 0;
+  window.onresize = function() {
+    if (timer > 0) clearTimeout(timer);
+
+    timer = setTimeout(function() {
+      checkLargeWindow();
+    }, 500);
+  };
 }
 
 function home_autoevent() {

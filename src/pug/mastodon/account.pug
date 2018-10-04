@@ -22,29 +22,34 @@ ons-template(id='account.html')
       #userpage-follower-badge.userpage-follower.invisible(data-i18n='account.follower') フォロワー
       #userpage-mute-badge.userpage-follower.invisible(data-i18n='account.mute') ミュート中
       #userpage-block-badge.userpage-follower.invisible(data-i18n='account.block') ブロック中
-    #userpage-bg.user-bg.y-center
-      img#userpage-icon.user-logo-profile(src='img/missing.png')
-      .card-bio
-        h3#userpage-name.user-name
-        .user-acct
-          span#userpage-acct
-          ons-icon#userpage-lock.invisible(icon='fa-lock')
-          span#userpage-bot.user-bot.invisible BOT
-        #userpage-bio.user-bio
-        .user-follow
-          .account_activity
-            b#userpage-post-count
-            br
-            span(data-i18n='account.toots') 投稿
-          .account_activity(onclick="list('accounts/'+account_page_id+'/following', i18next.t('account.following'), null, 'acct', true)")
-            b#userpage-follow
-            br
-            span(data-i18n='account.following') フォロー
-          .account_activity(onclick="list('accounts/'+account_page_id+'/followers', i18next.t('account.followers'), null, 'acct', true)")
-            b#userpage-follower
-            br
-            span(data-i18n='account.followers') フォロワー
-    #bio_field
+    ons-row#userpage-bg-large.user-bg
+      ons-col.forLarge.largeIcon(width='30%')
+        img#userpage-icon-large.user-logo-profile(src='img/missing.png')
+      ons-col
+        #userpage-bg.user-bg.y-center
+          .forSmall
+            img#userpage-icon.user-logo-profile(src='img/missing.png')
+          .card-bio
+            h3#userpage-name.user-name
+            .user-acct
+              span#userpage-acct
+              ons-icon#userpage-lock.invisible(icon='fa-lock')
+              span#userpage-bot.user-bot.invisible BOT
+            #userpage-bio.user-bio
+            .user-follow.y-center
+              .account_activity
+                b#userpage-post-count
+                br
+                span(data-i18n='account.toots') 投稿
+              .account_activity(onclick="list('accounts/'+account_page_id+'/following', i18next.t('account.following'), null, 'acct', true)")
+                b#userpage-follow
+                br
+                span(data-i18n='account.following') フォロー
+              .account_activity(onclick="list('accounts/'+account_page_id+'/followers', i18next.t('account.followers'), null, 'acct', true)")
+                b#userpage-follower
+                br
+                span(data-i18n='account.followers') フォロワー
+        #bio_field
     .account_bar(style='border-bottom: none;')
       .account_links
         span#userpage-hint.account_tab_left.account_tab(style='width: 100%;')

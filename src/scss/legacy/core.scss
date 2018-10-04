@@ -2,6 +2,7 @@ html,
 body {
   max-width: 100%;
   height: 100%;
+  background: #282c37;
 }
 
 * {
@@ -12,22 +13,9 @@ a:hover {
   text-decoration: none;
 }
 
-.disable,
-.invisible {
-  display: none;
-}
-
-.y-center {
-  text-align: center;
-}
-
 .loading-now {
   text-align: center;
   font-size: xx-large;
-}
-
-.w-max {
-  width: 100%;
 }
 
 @keyframes pulse {

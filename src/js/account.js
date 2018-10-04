@@ -12,6 +12,7 @@ function AccountCard(acct, mode) {
 }
 
 function show_account(id) {
+  const largeId = window.isLargeMode ? '-large' : '';
   loadNav('account.html', null);
   Fetch('https://' + inst + '/api/v1/accounts/' + id, {
     headers: {
@@ -66,9 +67,10 @@ function show_account(id) {
       elemId('userpage-title').innerHTML = '@' + json.acct;
       elemId('userpage-acct').innerHTML = '@' + json.acct;
       elemId('userpage-bio').innerHTML = t_text(json.note, json.emojis, json.acct);
-      elemId('userpage-icon').src = json[getConfig(1, 'no_gif') ? 'avatar_static' : 'avatar'];
+      elemId('userpage-icon' + largeId).src =
+        json[getConfig(1, 'no_gif') ? 'avatar_static' : 'avatar'];
       document
-        .getElementById('userpage-bg')
+        .getElementById('userpage-bg' + largeId)
         .setAttribute(
           'style',
           "background-image: url('" +

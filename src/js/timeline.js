@@ -251,6 +251,10 @@ function initTimeline() {
   timeline_now_tab = timeline_default_tab;
   elemId('home_title').innerHTML = TLname(timeline_config[timeline_now_tab]);
   showTL(null, null, null, true);
+  if (window.isLargeMode)
+    setTimeout(function() {
+      openNavigation('timeline-base');
+    }, 0);
 
   var dial = getConfig(1, 'dial'),
     icon;
@@ -292,6 +296,34 @@ function initTimeline() {
     elemId('TLChangeList').innerHTML = bufhtml;
   }
   if (getConfig(1, 'swipe_menu') == 1) elemId('tl_tabs').setAttribute('swipeable', '1');
+}
+
+function generateTimelineButton() {
+  const list = elemId('timeline-list'),
+    icons = {
+      home: 'fa fa-fw fa-home',
+      local: 'fa fa-fw fa-users',
+      federated: 'fa fa-fw fa-globe',
+      local_media: 'fa fa-fw fa-picture-o',
+      federated_media: 'ons-icon zmdi zmdi-collection-image-o',
+      hashtag: 'fa fa-fw fa-hashtag',
+      list: 'fa fa-fw fa-bars',
+      plus_local: '+ローカル',
+    };
+  if (list.innerHTML) return;
+  var i = 0,
+    reshtml = '',
+    BoxData = {};
+  while (i <= timeline_config.length - 1) {
+    BoxData = {
+      num: i,
+      name: TLname(timeline_config[i]),
+      icon: icons[TLident(timeline_config[i])],
+    };
+    reshtml += tmpl('timeline_list_tmpl', BoxData);
+    i++;
+  }
+  list.innerHTML = reshtml;
 }
 
 /**
@@ -754,9 +786,25 @@ function TL_next() {
 }
 
 function TL_change(mode) {
+  if (pageid !== 'home') load('home.html');
   $('#TLChangeTab').hide();
   var tab = elemId('tl_tabs');
   tab.setActiveTab(mode);
+}
+
+function TL_change_menu(mode) {
+  if (pageid !== 'home') {
+    closeAllws();
+    elemId('navigator')
+      .resetToPage('home.html', { animation: 'none' })
+      .then(function() {
+        setTimeout(function() {
+          elemId('tl_tabs').setActiveTab(mode);
+        }, 10);
+      });
+  } else {
+    TL_change(mode);
+  }
 }
 
 function scrollTL() {
