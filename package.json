@@ -72,7 +72,7 @@
     "gulp-plumber": "^1.2.0",
     "gulp-pug": "^4.0.1",
     "gulp-pug-linter": "^0.6.0",
-    "gulp-sass": "^4.0.1",
+    "gulp-sass": "^4.0.2",
     "gulp-uglify": "^3.0.1",
     "gulp-wait": "^0.0.2",
     "npm-run-all": "^4.1.3",
