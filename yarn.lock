@@ -5449,10 +5449,10 @@ module-deps@^4.0.8:
     through2 "^2.0.0"
     xtend "^4.0.0"
 
-monaca-plugin-monaca-core@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/monaca-plugin-monaca-core/-/monaca-plugin-monaca-core-3.2.0.tgz#8de461d73bb9cee7e8bb563c5924169d6b3135b3"
-  integrity sha512-H7k5BMh7ahmLS1h0LZrK1yBN7L1Kuw/3uHs6z7ehwMS32NK1DscpkChAKC4X2ot0p7Z4bDqMAnCAvrd074L52g==
+monaca-plugin-monaca-core@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/monaca-plugin-monaca-core/-/monaca-plugin-monaca-core-3.2.1.tgz#403cff97ae3436d803406bba0fb9c862fdded590"
+  integrity sha512-KNWqbQDIfym9Mw/GDAxI6E7JC+XEUlgzL82sbpRRcugnpnOYG2CStfs6ZwM0hx5auepCuwnzxgaHl2eaV/cakQ==
 
 ms@2.0.0:
   version "2.0.0"
