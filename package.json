@@ -4,7 +4,7 @@
   "description": "A mastodon client for customized instances.",
   "repository": "git@github.com:KnzkDev/KnzkApp.git",
   "author": "KnzkDev Team",
-  "license": "SEE LICENSE IN LICENSE.md",
+  "license": "LICENSE.md",
   "private": true,
   "scripts": {
     "lint:css": "stylelint src/scss/*.scss",
