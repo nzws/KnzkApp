@@ -12,7 +12,7 @@
     "lint:pug": "gulp lint-pug",
     "lint": "npm-run-all lint:* -s",
     "fmt:css": "prettier src/scss/**/*.scss --write",
-    "fmt:js": "eslint src/**/*.js --fix",
+    "fmt:js": "eslint '**/*.js' --fix",
     "fmt": "npm-run-all fmt:* -s",
     "build": "yarn fmt && yarn lint && gulp build",
     "monaca:preview": "npm run dev",
