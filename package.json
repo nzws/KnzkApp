@@ -8,7 +8,7 @@
   "private": true,
   "scripts": {
     "lint:css": "stylelint src/scss/*.scss",
-    "lint:js": "eslint src/**/*.js",
+    "lint:js": "eslint '**/*.js'",
     "lint:pug": "gulp lint-pug",
     "lint": "npm-run-all lint:* -s",
     "fmt:css": "prettier src/scss/**/*.scss --write",
