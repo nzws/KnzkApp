@@ -12,31 +12,31 @@
 
 var instance_config = {
   'knzk.me': {
-    limit: 500,
+    limit: 500
   },
   'mastodon.cloud': {
-    limit: 500,
+    limit: 500
   },
   'now.kibousoft.co.jp': {
     limit: 4096,
-    bbcode: true,
+    bbcode: true
   },
   'kirishima.cloud': {
     limit: 6229,
     bbcode: true,
     markdown: true,
-    glitch_soc: true,
+    glitch_soc: true
   },
   'friends.nico': {
     limit: 500,
-    enquete: true,
+    enquete: true
   },
   'theboss.tech': {
     limit: 1000,
-    yomigana: true,
+    yomigana: true
   },
   'itabashi.0j0.jp': {
     limit: 1024,
-    privacy_limited: true,
-  },
-};
+    privacy_limited: true
+  }
+}

@@ -8,13 +8,13 @@ const radios = [
   {
     name: 'TOP 40 RU',
     sub: 'European Hit Radio',
-    url: 'http://stream.europeanhitradio.com:8000/Stream_35.aac',
+    url: 'http://stream.europeanhitradio.com:8000/Stream_35.aac'
   },
   {
     name: 'REMIXES RU',
     sub: 'European Hit Radio',
-    url: 'http://stream.europeanhitradio.com:8000/Stream_33.aac',
+    url: 'http://stream.europeanhitradio.com:8000/Stream_33.aac'
   },
   { name: 'FMHIPHOP.COM', url: 'http://149.56.175.167:5708/;' },
-  { name: 'Vapor.fm', url: 'https://vapor.fm:8000/stream' },
-];
+  { name: 'Vapor.fm', url: 'https://vapor.fm:8000/stream' }
+]
