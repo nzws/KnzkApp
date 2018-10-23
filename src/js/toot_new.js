@@ -1,6 +1,6 @@
 function post_cw() {
-  var cw_input = elemId('cw_input')
-  var cwicon = elemId('cw_bt')
+  const cw_input = elemId('cw_input')
+  const cwicon = elemId('cw_bt')
 
   if (cw_input.style.display == 'block') {
     //CW オン→オフ
@@ -15,8 +15,8 @@ function post_cw() {
 }
 
 function post_vote() {
-  var cw_input = elemId('vote_new_list')
-  var cwicon = elemId('vote_bt')
+  const cw_input = elemId('vote_new_list')
+  const cwicon = elemId('vote_bt')
 
   if (cw_input.style.display == 'block') {
     //vote オン→オフ
@@ -35,23 +35,23 @@ function post_vote() {
 }
 
 function up_file(simple, isInput) {
-  var simple_id = ''
+  let simple_id = ''
   if (simple) image_mode = simple_id = '_simple'
   else image_mode = simple_id = ''
-  var card = document.getElementsByClassName('media-upload' + simple_id)
+  const card = document.getElementsByClassName('media-upload' + simple_id)
   if (card.length >= 4) {
     showtoast('maximum-media')
   } else {
     if (isInput) {
-      var files = elemId('post_file' + simple_id).files
+      const files = elemId('post_file' + simple_id).files
       if (card.length + files.length > 4) {
         showtoast('maximum-media')
       } else {
-        var i = 0,
-          images = []
+        let i = 0
+        const images = []
         while (files[i]) {
-          var reader = new FileReader()
-          reader.onload = function(fileData) {
+          const reader = new FileReader()
+          reader.onload = fileData => {
             images.push(fileData.target.result.split(',')[1])
             if (files.length === images.length) {
               up_file_suc(images, null)
@@ -79,11 +79,11 @@ function up_file(simple, isInput) {
 function up_file_onSuccess(URI) {
   window.resolveLocalFileSystemURL(
     URI,
-    function(fileEntry) {
-      fileEntry.file(function(file) {
-        var reader = new FileReader()
-        reader.onloadend = function(event) {
-          var blob = new Blob([event.target.result])
+    fileEntry => {
+      fileEntry.file(file => {
+        const reader = new FileReader()
+        reader.onloadend = event => {
+          const blob = new Blob([event.target.result])
           up_file_suc(null, blob)
         }
         reader.readAsArrayBuffer(file)
@@ -94,7 +94,7 @@ function up_file_onSuccess(URI) {
 }
 
 function up_file_suc(base64, mode_blob) {
-  var blob
+  let blob
   if (base64 || mode_blob) {
     if (Array.isArray(base64)) {
       var arr = base64
@@ -104,9 +104,9 @@ function up_file_suc(base64, mode_blob) {
     }
     show('now_loading')
     if (base64) {
-      var binary = atob(base64)
-      var array = []
-      for (var i = 0; i < binary.length; i++) {
+      const binary = atob(base64)
+      const array = []
+      for (let i = 0; i < binary.length; i++) {
         array.push(binary.charCodeAt(i))
       }
       blob = new Blob([new Uint8Array(array)], { type: 'image/png' })
@@ -114,7 +114,7 @@ function up_file_suc(base64, mode_blob) {
       blob = mode_blob
     }
 
-    var formData = new FormData()
+    const formData = new FormData()
     formData.append('file', blob)
 
     Fetch('https://' + inst + '/api/v1/media', {
@@ -122,14 +122,14 @@ function up_file_suc(base64, mode_blob) {
       method: 'POST',
       body: formData
     })
-      .then(function(response) {
+      .then(response => {
         if (response.ok) {
           return response.json()
         } else {
           throw response
         }
       })
-      .then(function(json) {
+      .then(json => {
         if (json) {
           if (json['id'] && json['type'] !== 'unknown') {
             elemId('image_list' + image_mode).innerHTML =
@@ -149,7 +149,7 @@ function up_file_suc(base64, mode_blob) {
         }
         if (arr) up_file_suc(arr)
       })
-      .catch(function(error) {
+      .catch(error => {
         catchHttpErr('media', error)
         hide('now_loading')
       })
@@ -159,7 +159,7 @@ function up_file_suc(base64, mode_blob) {
 function file_del(card) {
   ons.notification
     .confirm(i18next.t('dialogs_js.delete_picture'), { modifier: 'material', cancelable: true })
-    .then(function(e) {
+    .then(e => {
       if (e === 1) {
         card.parentNode.removeChild(card)
       }
@@ -172,10 +172,10 @@ function file_error(msg) {
 }
 
 function post_nsfw(simple) {
-  var simple_id = ''
+  let simple_id = ''
   if (simple) simple_id = '_simple'
-  var cw_input = elemId('nsfw_input' + simple_id)
-  var cwicon = elemId('nsfw_bt' + simple_id)
+  const cw_input = elemId('nsfw_input' + simple_id)
+  const cwicon = elemId('nsfw_bt' + simple_id)
 
   if (simple) {
     if (cwicon.className == button + ' w-max') {
@@ -200,10 +200,10 @@ function post_nsfw(simple) {
 }
 
 function post_localonly(simple) {
-  var simple_id = ''
+  let simple_id = ''
   if (simple) simple_id = '_simple'
-  var cw_input = elemId('localonly_input' + simple_id)
-  var cwicon = elemId('localonly_bt' + simple_id)
+  const cw_input = elemId('localonly_input' + simple_id)
+  const cwicon = elemId('localonly_bt' + simple_id)
 
   if (cwicon.className == button) {
     //選択済み→解除
@@ -217,14 +217,14 @@ function post_localonly(simple) {
 }
 
 function post_mode(simple) {
-  var simple_id = ''
+  let simple_id = ''
   if (simple) simple_id = '_simple'
-  var input_obj = elemId('post_mode' + simple_id)
-  var bt_obj = elemId('post_mode_icon' + simple_id)
-  var icon_base = 'ons-icon fa-fw fa fa-'
-  var visibility_name = ''
+  const input_obj = elemId('post_mode' + simple_id)
+  const bt_obj = elemId('post_mode_icon' + simple_id)
+  const icon_base = 'ons-icon fa-fw fa fa-'
+  let visibility_name = ''
 
-  var buttons = [
+  const buttons = [
     { label: i18next.t('privacy.public'), icon: 'fa-globe' },
     { label: i18next.t('privacy.unlisted'), icon: 'fa-unlock-alt' },
     { label: i18next.t('privacy.private'), icon: 'fa-lock' },
@@ -243,7 +243,7 @@ function post_mode(simple) {
       cancelable: true,
       buttons: buttons
     })
-    .then(function(index) {
+    .then(index => {
       if (index == 0) visibility_name = 'public'
       else if (index == 1) visibility_name = 'unlisted'
       else if (index == 2) visibility_name = 'private'
@@ -261,9 +261,9 @@ function post_mode(simple) {
 }
 
 function check_limit(value, id, tb_id, cw_id) {
-  var limit = 0
+  let limit = 0
   if (cw_id) {
-    var cw = elemId(cw_id).value
+    const cw = elemId(cw_id).value
     limit = toot_limit - value.length - cw.length
   } else {
     limit = toot_limit - value.length
@@ -285,16 +285,16 @@ function show_bbcodegen(id, limit, button) {
 }
 
 function bbcodegen(force) {
-  var text = elemId('bbcode_text').value
-  var base = elemId('bbcode_base').value
-  var color = elemId('bbcode_color').value
-  var large = elemId('bbcode_large').value
-  var spin = parseInt(elemId('bbcode_spin').value)
-  var pulse = parseInt(elemId('bbcode_pulse').value)
-  var pre = '',
-    suf = '',
-    buf = '',
-    value = ''
+  const text = elemId('bbcode_text').value
+  const base = elemId('bbcode_base').value
+  const color = elemId('bbcode_color').value
+  const large = elemId('bbcode_large').value
+  const spin = parseInt(elemId('bbcode_spin').value)
+  const pulse = parseInt(elemId('bbcode_pulse').value)
+  let pre = ''
+  let suf = ''
+  let buf = ''
+  let value = ''
   if (spin > 9 && !force) {
     ons.notification
       .confirm(dialog_i18n('warning_spin', 1), {
@@ -302,14 +302,14 @@ function bbcodegen(force) {
         modifier: 'material',
         cancelable: true
       })
-      .then(function(e) {
+      .then(e => {
         if (e === 1) {
           bbcodegen(true)
         }
       })
   } else {
     if (spin) {
-      for (var i = 0; i < spin; i++) {
+      for (let i = 0; i < spin; i++) {
         pre += '[spin]'
         suf = '[/spin]' + suf
       }
@@ -323,7 +323,7 @@ function bbcodegen(force) {
       suf = '[/colorhex]' + suf
     }
     if (pulse) {
-      for (var p = 0; p < pulse; p++) {
+      for (let p = 0; p < pulse; p++) {
         pre += '[pulse]'
         suf = '[/pulse]' + suf
       }
@@ -340,7 +340,7 @@ function bbcodegen(force) {
     }
     buf = pre + text + suf
     value = tmp_post_text + buf
-    var limit = toot_limit - value.length
+    const limit = toot_limit - value.length
     if (limit < 0) {
       showtoast('bbcode-limit')
     } else {
@@ -353,9 +353,9 @@ function bbcodegen(force) {
 
 function bbcode_color(color) {
   BackTab()
-  var color_s = '#' + color
+  const color_s = '#' + color
   if (color_mode) {
-    var d_box = elemId('doodle-color-box-mini')
+    const d_box = elemId('doodle-color-box-mini')
     if (color) {
       doodle_old_color = color_s
       sketcher.color = color_s
@@ -365,8 +365,8 @@ function bbcode_color(color) {
       d_box.style.backgroundColor = '#000000'
     }
   } else {
-    var b_color = elemId('bbcode_color')
-    var b_box = elemId('color-box-mini')
+    const b_color = elemId('bbcode_color')
+    const b_box = elemId('color-box-mini')
     if (color) {
       b_color.value = color
       b_box.style.backgroundColor = color_s
@@ -378,26 +378,28 @@ function bbcode_color(color) {
 }
 
 function post(id, option, simple) {
-  var media_id = Array(),
-    i,
-    simple_id = '',
-    optiondata = {
-      status: elemId(id).value,
-      visibility: option.visibility
-    }
+  const media_id = Array()
+  let i
+  let simple_id = ''
+
+  const optiondata = {
+    status: elemId(id).value,
+    visibility: option.visibility
+  }
+
   if (simple) {
     simple_close()
     show('post_now')
     simple_id = '_simple'
   } else show('now_loading')
 
-  var media = document.getElementsByClassName('media-upload' + simple_id)
+  const media = document.getElementsByClassName('media-upload' + simple_id)
 
-  var vote1 = elemId('vote_new_1' + simple_id).value
-  var vote2 = elemId('vote_new_2' + simple_id).value
-  var vote3 = elemId('vote_new_3' + simple_id).value
-  var vote4 = elemId('vote_new_4' + simple_id).value
-  var votem = elemId('vote_new_time' + simple_id).value
+  const vote1 = elemId('vote_new_1' + simple_id).value
+  const vote2 = elemId('vote_new_2' + simple_id).value
+  const vote3 = elemId('vote_new_3' + simple_id).value
+  const vote4 = elemId('vote_new_4' + simple_id).value
+  const votem = elemId('vote_new_time' + simple_id).value
 
   if (vote1 != '' && vote2 != '') {
     optiondata.isEnquete = true
@@ -432,14 +434,14 @@ function post(id, option, simple) {
     method: 'POST',
     body: JSON.stringify(optiondata)
   })
-    .then(function(response) {
+    .then(response => {
       if (response.ok) {
         return response.json()
       } else {
         throw response
       }
     })
-    .then(function(json) {
+    .then(json => {
       if (json['id']) {
         if (simple) {
           $('#simple_toot_form')
@@ -472,7 +474,7 @@ function post(id, option, simple) {
         else hide('now_loading')
       }
     })
-    .catch(function(error) {
+    .catch(error => {
       showtoast('cannot-post')
       console.log(error)
       if (simple) hide('post_now')
@@ -511,7 +513,7 @@ function simple_close() {
 
 function add_emoji_simple(addtext, mode) {
   // https://qiita.com/noraworld/items/d6334a4f9b07792200a5
-  var id = 'simple_toot_TL_input'
+  let id = 'simple_toot_TL_input'
   if (mode == undefined) {
     console.log(pageid)
     if (pageid === 'toot-page') {
@@ -520,20 +522,20 @@ function add_emoji_simple(addtext, mode) {
   } else {
     if (mode) id = 'toot_textarea'
   }
-  var textarea = elemId(id)
-  var sentence = textarea.value
-  var len = sentence.length
-  var pos = textarea.selectionStart
-  var before = sentence.substr(0, pos)
-  var word = addtext
-  var after = sentence.substr(pos, len)
+  const textarea = elemId(id)
+  let sentence = textarea.value
+  const len = sentence.length
+  const pos = textarea.selectionStart
+  const before = sentence.substr(0, pos)
+  const word = addtext
+  const after = sentence.substr(pos, len)
   sentence = before + word + after
   textarea.value = sentence
   hidePopover('emoji_popover')
 }
 
 function paste_simple() {
-  cordova.plugins.clipboard.paste(function(text) {
+  cordova.plugins.clipboard.paste(text => {
     add_emoji_simple(text)
   })
 }

@@ -7,10 +7,10 @@ function getConfig(type, name) {
     else if (type === 5) config_tmp[type] = localStorage.getItem('knzkapp_conf_mastodon_filter')
   }
 
-  var data = config_tmp[type]
+  let data = config_tmp[type]
   data = JSON.parse(data)
   if (type === 3) {
-    var acct = now_userconf['username'] + '@' + inst
+    const acct = now_userconf['username'] + '@' + inst
     data[name] = data[acct] ? data[acct][name] : data['origin'][name]
   }
   return data[name] ? data[name] : ''
@@ -28,14 +28,14 @@ function getConfig_original(type) {
 }
 
 function change_conf(name, id, sel, istext) {
-  var md = name === 1 ? 'knzkapp_conf_mastodon' : 'knzkapp_conf_mastodoncol'
-  var data = JSON.parse(localStorage.getItem(md))
+  const md = name === 1 ? 'knzkapp_conf_mastodon' : 'knzkapp_conf_mastodoncol'
+  const data = JSON.parse(localStorage.getItem(md))
   if (sel) {
     data[id] = elemId('conf-' + id).value
   } else {
-    var colmd = ''
+    let colmd = ''
     if (md === 'knzkapp_conf_mastodoncol') colmd = 'col-'
-    var mode = elemId('conf-' + colmd + id).checked
+    const mode = elemId('conf-' + colmd + id).checked
     if (istext) data[id] = platform === 'ios' ? (mode == true ? '0' : '1') : mode == true ? '1' : '0'
     else data[id] = platform === 'ios' ? (mode == true ? 0 : 1) : mode == true ? 1 : 0
   }
@@ -45,14 +45,14 @@ function change_conf(name, id, sel, istext) {
 
 function setConfig(name, id, value) {
   //data->1: 基本設定, data->2: col
-  var md = ''
+  let md = ''
   if (name === 1) md = 'knzkapp_conf_mastodon'
   else if (name === 2) md = 'knzkapp_conf_mastodoncol'
   else if (name === 3) md = 'knzkapp_conf_mastodon_timeline'
   else if (name === 4) md = 'knzkapp_conf_mastodon_push'
   else if (name === 5) md = 'knzkapp_conf_mastodon_filter'
 
-  var data = JSON.parse(localStorage.getItem(md))
+  const data = JSON.parse(localStorage.getItem(md))
   data[id] = value
   localStorage.setItem(md, JSON.stringify(data))
   config_tmp[name] = null
@@ -60,7 +60,7 @@ function setConfig(name, id, value) {
 
 const ConfigSetup = () =>
   new Promise((resolve, reject) => {
-    var last_version = 6
+    const last_version = 6
 
     if (!localStorage.getItem('knzkapp_conf_mastodon')) {
       if (localStorage.getItem('knzk_realtime') == undefined) localStorage.setItem('knzk_realtime', 1)
@@ -69,24 +69,24 @@ const ConfigSetup = () =>
 
     if (localStorage.getItem('knzkapp_conf_version') == undefined) localStorage.setItem('knzkapp_conf_version', 1)
 
-    var now_version = parseInt(localStorage.getItem('knzkapp_conf_version'))
+    const now_version = parseInt(localStorage.getItem('knzkapp_conf_version'))
     if (now_version !== last_version) {
       show('DB_migration')
-      var mig_i = 0
+      let mig_i = 0
       if (now_version < 2) {
         //config migration v1 -> v2
         /**
          * v2
          * 散らばっていたconfigをまとめました。
          */
-        var accountdata = {
+        const accountdata = {
           list: localStorage.getItem('knzk_account_list'),
           token: localStorage.getItem('knzk_account_token'),
           userid: localStorage.getItem('knzk_userid'),
           username: localStorage.getItem('knzk_username'),
           domain: localStorage.getItem('knzk_login_domain')
         }
-        var list_d = [
+        const list_d = [
           'bigfav',
           'nsfw',
           'cw',
@@ -102,9 +102,9 @@ const ConfigSetup = () =>
           'theme',
           'url_open'
         ]
-        var list_col = ['alert', 'all', 'bg', 'bs', 'collapse', 'leng', 'media', 'preview']
-        var new_conf = {}
-        var new_conf_col = {}
+        const list_col = ['alert', 'all', 'bg', 'bs', 'collapse', 'leng', 'media', 'preview']
+        const new_conf = {}
+        const new_conf_col = {}
         mig_i = 0
         while (list_d[mig_i]) {
           new_conf[list_d[mig_i]] =
@@ -157,7 +157,7 @@ const ConfigSetup = () =>
           localStorage.removeItem('knzkapp_now_mastodon_username')
           localStorage.removeItem('knzkapp_now_mastodon_domain')
 
-          var acctlist = JSON.parse(localStorage.getItem('knzkapp_account_list'))
+          const acctlist = JSON.parse(localStorage.getItem('knzkapp_account_list'))
           mig_i = 0
           if (acctlist) {
             while (acctlist[mig_i]) {
@@ -169,7 +169,7 @@ const ConfigSetup = () =>
         }
       }
       if (now_version < 6) {
-        var v6d = JSON.parse(localStorage.getItem('knzkapp_conf_mastodon_timeline'))
+        const v6d = JSON.parse(localStorage.getItem('knzkapp_conf_mastodon_timeline'))
 
         localStorage.setItem(
           'knzkapp_conf_mastodon_timeline',
@@ -196,7 +196,7 @@ function clearAllConfig() {
       modifier: 'material',
       cancelable: true
     })
-    .then(function(e) {
+    .then(e => {
       if (e === 1) {
         localStorage.setItem(
           'knzkapp_conf_mastodon',
@@ -224,7 +224,7 @@ function clearAllConfig() {
 }
 
 function renderPreview() {
-  var data = {
+  const data = {
     id: 'example1',
     created_at: '2018-08-29T01:03:49.740Z',
     spoiler_text: '',
@@ -251,7 +251,7 @@ function renderPreview() {
 }
 
 function renderFontConfig() {
-  var css = ''
+  let css = ''
   if (getConfig(1, 'spin') == 1 || getConfig(1, 'gpu') != 1) {
     if (getConfig(1, 'spin') == 1) css += '.fa-spin {-webkit-animation: none;  animation: none;}'
     if (getConfig(1, 'gpu') != 1) css += '.toot, .timeline {transform: translate3d(0, 0, 0);}'
@@ -264,11 +264,11 @@ function renderFontConfig() {
           '.toot-button { margin-right: 1.5em; font-size: large; } .date-disp { margin-top: 0 }';
       }
       */
-      var f_b = 48 * (parseInt(getConfig(1, 'font_button')) * 0.01)
+      const f_b = 48 * (parseInt(getConfig(1, 'font_button')) * 0.01)
       css += '.toot-button { font-size: ' + f_b + 'px; }'
     }
     if (getConfig(1, 'font_body')) {
-      var f = 28 * (parseInt(getConfig(1, 'font_body')) * 0.01)
+      const f = 28 * (parseInt(getConfig(1, 'font_body')) * 0.01)
       css +=
         '.toot_content > p { font-size: ' +
         f +

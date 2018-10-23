@@ -1,6 +1,6 @@
 function login_open(domain) {
-  var os_name,
-    uri = 'knzkapp://login/token'
+  let os_name
+  let uri = 'knzkapp://login/token'
   if (platform === 'ios') {
     os_name = 'iOS'
   } else if (platform === 'android') {
@@ -19,19 +19,19 @@ function login_open(domain) {
       website: 'https://github.com/knzkdev/knzkapp'
     })
   })
-    .then(function(response) {
+    .then(response => {
       if (response.ok) {
         return response.json()
       } else {
         throw response
       }
     })
-    .then(function(json) {
-      var inst_domain_tmp = domain.toLowerCase()
+    .then(json => {
+      const inst_domain_tmp = domain.toLowerCase()
       localStorage.setItem('knzkapp_tmp_domain', inst_domain_tmp)
       localStorage.setItem('knzkapp_tmp_cid', json['client_id'])
       localStorage.setItem('knzkapp_tmp_scr', json['client_secret'])
-      var url =
+      const url =
         'https://' +
         inst_domain_tmp +
         '/oauth/authorize?response_type=code&redirect_uri=' +
@@ -50,14 +50,14 @@ function login_open(domain) {
             modifier: 'material',
             cancelable: true
           })
-          .then(function(code) {
+          .then(code => {
             if (code) {
               login_callback(code)
             }
           })
       }
     })
-    .catch(function(error) {
+    .catch(error => {
       catchHttpErr('createApp', error)
       show('cannot-connect-sv-login')
       hide('now_loading')
@@ -76,7 +76,7 @@ function login_open_c(domain) {
         modifier: 'material',
         cancelable: true
       })
-      .then(function(e) {
+      .then(e => {
         if (e === 1) {
           login_open(domain)
         }
@@ -85,15 +85,15 @@ function login_open_c(domain) {
 }
 
 function login_callback(code) {
-  var uri = 'knzkapp://login/token'
+  let uri = 'knzkapp://login/token'
   if (platform === 'ios') {
-    SafariViewController.isAvailable(function(available) {
+    SafariViewController.isAvailable(available => {
       if (available) {
         SafariViewController.hide(
-          function() {
+          () => {
             console.log('hide SVC success')
           },
-          function() {
+          () => {
             console.log('hide SVC failed')
           }
         )
@@ -113,7 +113,7 @@ function login_callback(code) {
       code: code
     })
   })
-    .then(function(response) {
+    .then(response => {
       if (response.ok) {
         if (now_userconf['username']) account_change()
       } else {
@@ -121,8 +121,8 @@ function login_callback(code) {
       }
       return response.json()
     })
-    .then(function(json) {
-      setTimeout(function() {
+    .then(json => {
+      setTimeout(() => {
         if (json.access_token) {
           now_userconf['token'] = json.access_token
           localStorage.setItem('knzkapp_now_token', json.access_token)
@@ -132,16 +132,16 @@ function login_callback(code) {
           Fetch('https://' + inst + '/api/v1/accounts/verify_credentials', {
             headers: { Authorization: 'Bearer ' + now_userconf['token'] }
           })
-            .then(function(response) {
+            .then(response => {
               if (response.ok) {
                 return response.json()
               } else {
                 throw response
               }
             })
-            .then(function(json_acct) {
-              var confdata = JSON.parse(localStorage.getItem('knzkapp_conf_mastodon_timeline'))
-              var acct = json_acct['username'] + '@' + inst
+            .then(json_acct => {
+              const confdata = JSON.parse(localStorage.getItem('knzkapp_conf_mastodon_timeline'))
+              const acct = json_acct['username'] + '@' + inst
 
               confdata[acct] = {
                 config: ['home', 'local', 'public', 'local_media', 'public_media'],
@@ -157,7 +157,7 @@ function login_callback(code) {
               localStorage.setItem('knzkapp_now_id', json_acct.id)
               window.location.reload()
             })
-            .catch(function(error) {
+            .catch(error => {
               catchHttpErr('login_verify_credentials', error)
               showtoast('cannot-connect-sv')
               hide('now_loading')
@@ -171,7 +171,7 @@ function login_callback(code) {
         }
       }, 500)
     })
-    .catch(function(error) {
+    .catch(error => {
       catchHttpErr('login_oauth_token', error)
       showtoast('cannot-connect-sv')
       hide('now_loading')
@@ -180,13 +180,13 @@ function login_callback(code) {
 
 function debug_login() {
   show('now_loading')
-  var inst_domain = elemId('login_debug_domain').value
-  var token = elemId('login_debug_token').value
+  const inst_domain = elemId('login_debug_domain').value
+  const token = elemId('login_debug_token').value
 
   Fetch('https://' + inst_domain + '/api/v1/accounts/verify_credentials', {
     headers: { Authorization: 'Bearer ' + token }
   })
-    .then(function(response) {
+    .then(response => {
       if (response.ok) {
         if (now_userconf['username']) account_change()
         return response.json()
@@ -195,8 +195,8 @@ function debug_login() {
         throw new Error()
       }
     })
-    .then(function(json) {
-      setTimeout(function() {
+    .then(json => {
+      setTimeout(() => {
         if (localStorage.getItem('knzkapp_account_list') == undefined)
           localStorage.setItem('knzkapp_account_list', JSON.stringify([]))
         localStorage.setItem('knzkapp_now_token', token)
@@ -207,7 +207,7 @@ function debug_login() {
         window.location.reload()
       }, 500)
     })
-    .catch(function(error) {
+    .catch(error => {
       showtoast('cannot-connect-sv')
       console.log(error)
       hide('now_loading')
@@ -215,9 +215,9 @@ function debug_login() {
 }
 
 function account_change(id) {
-  var list = JSON.parse(localStorage.getItem('knzkapp_account_list'))
+  const list = JSON.parse(localStorage.getItem('knzkapp_account_list'))
 
-  var now = {
+  const now = {
     username: now_userconf['username'],
     userid: now_userconf['id'],
     login_token: now_userconf['token'],
@@ -225,20 +225,20 @@ function account_change(id) {
   }
 
   if (id) {
-    var nid = parseInt(id)
-    var next_account = list[nid]
+    const nid = parseInt(id)
+    const next_account = list[nid]
     list.splice(nid, 1)
     Fetch('https://' + next_account['login_domain'] + '/api/v1/accounts/verify_credentials', {
       headers: { Authorization: 'Bearer ' + next_account['login_token'] }
     })
-      .then(function(response) {
+      .then(response => {
         if (response.ok) {
           return response.json()
         } else {
           throw response
         }
       })
-      .then(function(json) {
+      .then(json => {
         localStorage.setItem('knzkapp_now_token', next_account['login_token'])
         localStorage.setItem('knzkapp_now_username', next_account['username'])
         localStorage.setItem('knzkapp_now_id', next_account['userid'])
@@ -249,7 +249,7 @@ function account_change(id) {
 
         window.location.reload()
       })
-      .catch(function(error) {
+      .catch(error => {
         catchHttpErr('loginchange_verify_credentials', error)
         showtoast('cannot-connect-API')
       })
@@ -265,10 +265,10 @@ function account_del(id) {
       title: dialog_i18n('delete_account'),
       modifier: 'material'
     })
-    .then(function(e) {
+    .then(e => {
       if (e === 1) {
-        var list = JSON.parse(localStorage.getItem('knzkapp_account_list'))
-        var nid = parseInt(id)
+        const list = JSON.parse(localStorage.getItem('knzkapp_account_list'))
+        const nid = parseInt(id)
         list.splice(nid, 1)
         localStorage.setItem('knzkapp_account_list', JSON.stringify(list))
         elemId('splitter-menu').close()
@@ -278,9 +278,9 @@ function account_del(id) {
 }
 
 function account_list() {
-  var list = JSON.parse(localStorage.getItem('knzkapp_account_list'))
-  var reshtml = '',
-    i = 0
+  const list = JSON.parse(localStorage.getItem('knzkapp_account_list'))
+  let reshtml = ''
+  let i = 0
   while (list[i]) {
     reshtml +=
       '<ons-list-item>\n' +
@@ -305,7 +305,7 @@ function account_list() {
 }
 
 function open_addaccount() {
-  var menu = elemId('splitter-menu')
+  const menu = elemId('splitter-menu')
   document
     .querySelector('#navigator')
     .bringPageTop('login.html', { animation: 'slide' })
@@ -319,7 +319,7 @@ function clearAllAccount() {
       modifier: 'material',
       cancelable: true
     })
-    .then(function(e) {
+    .then(e => {
       if (e === 1) {
         localStorage.setItem('knzkapp_account_list', JSON.stringify([]))
 
@@ -333,9 +333,9 @@ function clearAllAccount() {
 }
 
 function changeAccountInLoad() {
-  var list = JSON.parse(localStorage.getItem('knzkapp_account_list'))
-  var buttons = [],
-    i = 0
+  const list = JSON.parse(localStorage.getItem('knzkapp_account_list'))
+  const buttons = []
+  let i = 0
   while (list[i]) {
     buttons.push({ label: list[i]['username'] + '@' + list[i]['login_domain'] })
     i++
@@ -349,7 +349,7 @@ function changeAccountInLoad() {
       cancelable: true,
       buttons: buttons
     })
-    .then(function(index) {
+    .then(index => {
       if (list.length === index) {
         hide('starting_screen')
         open_addaccount()

@@ -1,6 +1,6 @@
 function radio_set(num = audio_playing, force) {
-  const audioElem = elemId('music-control'),
-    radioTitle = elemId('music_title')
+  const audioElem = elemId('music-control')
+  const radioTitle = elemId('music_title')
   if (radios[num]) {
     audio_playing = num
     if (isPlaying() || force) {
@@ -16,9 +16,9 @@ function radio_set(num = audio_playing, force) {
 }
 
 function radioToggle() {
-  const audioElem = elemId('music-control'),
-    audioButton = elemId('music-button'),
-    ButtonBase = 'list-item__icon ons-icon fa fa-fw fa-'
+  const audioElem = elemId('music-control')
+  const audioButton = elemId('music-button')
+  const ButtonBase = 'list-item__icon ons-icon fa fa-fw fa-'
   if (isPlaying()) {
     //停止
     radio_set(9999)
@@ -38,9 +38,9 @@ function isPlaying() {
 function generateRadio() {
   const list = elemId('radio_list')
   if (list.innerHTML) return
-  var i = 0,
-    reshtml = '',
-    BoxData = {}
+  let i = 0
+  let reshtml = ''
+  let BoxData = {}
   while (radios[i]) {
     BoxData = {
       num: i,

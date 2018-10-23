@@ -12,13 +12,13 @@ const i18n_init = () =>
     } else {
       try {
         navigator.globalization.getPreferredLanguage(
-          function(language) {
+          language => {
             lng = language.value
             if (lng.split('-').length == 2) lng = lng.split('-')[0]
             if (!languages[lng]) lng = 'en'
             i18n_init_callback(lng, resolve)
           },
-          function() {
+          () => {
             i18n_init_callback('en', resolve)
           }
         )
@@ -36,7 +36,7 @@ function i18n_init_callback(lang, resolve) {
         loadPath: `./locales/${lang}.json`
       }
     },
-    function(err, t) {
+    (err, t) => {
       lng = lang
       console.log('lang:' + lang)
       jqueryI18next.init(i18next, $)
@@ -47,7 +47,7 @@ function i18n_init_callback(lang, resolve) {
 }
 
 function dialog_i18n(id, m) {
-  var mode = m ? '.text' : '.title'
+  const mode = m ? '.text' : '.title'
   return i18next.t('dialogs_js.' + id + mode, {
     interpolation: { escapeValue: false }
   })

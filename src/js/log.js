@@ -39,7 +39,7 @@ function Seterrorlog(id, text, data) {
 
 function catchHttpErr(name, response) {
   try {
-    response.json().then(function(json) {
+    response.json().then(json => {
       errorAlert = '<b>Error' + response.status + '!</b>'
       if (json) {
         errorAlert += json.error ? '<br>' + json.error : ''

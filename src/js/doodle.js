@@ -3,14 +3,14 @@ function openDoodle(simple) {
   else image_mode = ''
   elemId('navigator').removeAttribute('swipeable')
   if (getConfig(1, 'swipe_menu') == 1) elemId('splitter-menu').removeAttribute('swipeable')
-  $.when(document.querySelector('#navigator').bringPageTop('doodle.html', { animation: 'lift' })).done(function() {
+  $.when(document.querySelector('#navigator').bringPageTop('doodle.html', { animation: 'lift' })).done(() => {
     sketcher = atrament('#mySketcher', window.innerWidth, window.innerHeight - 50)
     sketcher.smoothing = false
     sketcher.adaptiveStroke = false
     doodle_mode = 'draw'
     doodle_old_color = '#000000'
-    var canvas = elemId('mySketcher')
-    var ctx = canvas.getContext('2d')
+    const canvas = elemId('mySketcher')
+    const ctx = canvas.getContext('2d')
     ctx.fillStyle = 'rgb(255,255,255)'
     ctx.fillRect(0, 0, canvas.width, canvas.height)
   })
@@ -22,13 +22,13 @@ function Doodle_reset() {
       title: i18next.t('toot.doodle.reset.title'),
       modifier: 'material'
     })
-    .then(function(e) {
+    .then(e => {
       if (e === 1) {
         sketcher.clear()
         hidePopover('doodle_popover')
 
-        var canvas = elemId('mySketcher')
-        var ctx = canvas.getContext('2d')
+        const canvas = elemId('mySketcher')
+        const ctx = canvas.getContext('2d')
         ctx.fillStyle = 'rgb(255,255,255)'
         ctx.fillRect(0, 0, canvas.width, canvas.height)
       }
@@ -46,7 +46,7 @@ function closeDoodle(force) {
         title: i18next.t('toot.doodle.reset.close'),
         modifier: 'material'
       })
-      .then(function(e) {
+      .then(e => {
         if (e === 1) {
           elemId('navigator').setAttribute('swipeable', '')
           if (getConfig(1, 'swipe_menu') == 1) elemId('splitter-menu').setAttribute('swipeable', '1')
@@ -57,9 +57,9 @@ function closeDoodle(force) {
 }
 
 function dataURLtoFile(dataURI) {
-  var binary = atob(dataURI.split(',')[1]),
-    array = []
-  for (var i = 0; i < binary.length; i++) array.push(binary.charCodeAt(i))
+  const binary = atob(dataURI.split(',')[1])
+  const array = []
+  for (let i = 0; i < binary.length; i++) array.push(binary.charCodeAt(i))
   return new Blob([new Uint8Array(array)], { type: 'image/png' })
 }
 
@@ -69,17 +69,17 @@ function Doodle_upload() {
       title: i18next.t('toot.doodle.upload.title'),
       modifier: 'material'
     })
-    .then(function(e) {
+    .then(e => {
       if (e === 1) {
         closeDoodle(true)
-        var dataUrl = sketcher.toImage()
+        const dataUrl = sketcher.toImage()
         up_file_suc(null, dataURLtoFile(dataUrl))
       }
     })
 }
 
 function Doodle_config(id) {
-  var mode = elemId('doodle_' + id).checked
+  const mode = elemId('doodle_' + id).checked
   if (platform === 'ios') {
     if (mode == true) {
       Doodle_changeType(id, false)
@@ -96,8 +96,8 @@ function Doodle_config(id) {
 }
 
 function Doodle_changeMode() {
-  var now = doodle_mode
-  var button = elemId('doodle_pen_bt')
+  const now = doodle_mode
+  const button = elemId('doodle_pen_bt')
   if (now === 'draw') {
     sketcher.color = doodle_old_color
     button.className = 'ons-icon fa-bath fa'
@@ -125,8 +125,8 @@ function Doodle_changeType(id, mode) {
 }
 
 function show_colorpicker() {
-  var nav = document.querySelector('#navigator')
-  $.when(nav.bringPageTop('color.html')).done(function() {
+  const nav = document.querySelector('#navigator')
+  $.when(nav.bringPageTop('color.html')).done(() => {
     $('#color-default').addClass('invisible')
   })
 }

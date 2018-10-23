@@ -25,7 +25,7 @@ function tutorial_close() {
 }
 
 function next_tutorial() {
-  var c = elemId('tutorial_c')
+  const c = elemId('tutorial_c')
   if (c.getActiveIndex() === 3) {
     BackTab('down')
   } else {

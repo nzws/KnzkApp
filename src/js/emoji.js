@@ -1,12 +1,12 @@
 function searchEmoji(query) {
-  var els = document.getElementsByClassName('emoji_button')
+  const els = document.getElementsByClassName('emoji_button')
 
   if (query) {
     $('.emoji_cate_box').addClass('ep_search_box')
     $('.emoji_button:not(.invisible)').addClass('invisible')
     $('.ep_cate_title').addClass('invisible')
     $('#ep_search_result_title').removeClass('invisible')
-    emoji_search.filter(function(value, index, array) {
+    emoji_search.filter((value, index, array) => {
       if (value.indexOf(query) !== -1) {
         els[index].className = 'emoji_button button button--quiet'
       }
@@ -20,19 +20,19 @@ function searchEmoji(query) {
 }
 
 function renderEmoji(emojiobj) {
-  var i = 0,
-    reshtml = '',
-    list = {},
-    key,
-    search = '',
-    s = 0
+  let i = 0
+  const reshtml = ''
+  const list = {}
+  let key
+  let search = ''
+  let s = 0
   if (emojiobj.dataset.isload === 'no') {
     emojiobj.dataset.isload = 'yes'
-    var xhr = new XMLHttpRequest()
+    const xhr = new XMLHttpRequest()
     xhr.onreadystatechange = function() {
       if (this.readyState === 4) {
         emoji_search = []
-        var json = JSON.parse(this.responseText)
+        const json = JSON.parse(this.responseText)
         while (json[i]) {
           if (!list[json[i]['category']]) list[json[i]['category']] = ''
           search = ''
@@ -74,7 +74,7 @@ function returnEmojiCategoryStr(id) {
 }
 
 function displayEmojiList(emojiobj, list, dispnum) {
-  var locale = {
+  const locale = {
     Custom: returnEmojiCategoryStr('Custom'),
     People: returnEmojiCategoryStr('People'),
     Nature: returnEmojiCategoryStr('Nature'),
@@ -85,10 +85,10 @@ function displayEmojiList(emojiobj, list, dispnum) {
     Symbols: returnEmojiCategoryStr('Symbols'),
     Flags: returnEmojiCategoryStr('Flags')
   }
-  var key,
-    i = 0,
-    ok = false,
-    pre = ''
+  let key
+  let i = 0
+  let ok = false
+  let pre = ''
   for (key in list) {
     if (dispnum === i) {
       if (dispnum !== 0) pre = emojiobj.innerHTML
@@ -109,23 +109,23 @@ function displayEmojiList(emojiobj, list, dispnum) {
     }
   }
   if (ok)
-    setTimeout(function() {
+    setTimeout(() => {
       displayEmojiList(emojiobj, list, dispnum + 1)
     }, 1000)
   else renderCustomEmoji(emojiobj)
 }
 
 function renderCustomEmoji(emojiobj) {
-  var i = 0,
-    customreshtml = '',
-    search_a_custom = [],
-    load = elemId('emoji_loading')
+  let i = 0
+  let customreshtml = ''
+  const search_a_custom = []
+  const load = elemId('emoji_loading')
   if (!getConfig(1, 'no_custom_emoji')) {
     Fetch('https://' + inst + '/api/v1/custom_emojis', {
       headers: { 'content-type': 'application/json' },
       method: 'GET'
     })
-      .then(function(response) {
+      .then(response => {
         if (response.ok) {
           return response.json()
         } else {
@@ -133,9 +133,9 @@ function renderCustomEmoji(emojiobj) {
           $('#toot_emoji_bt').addClass('invisible')
         }
       })
-      .then(function(json) {
+      .then(json => {
         if (json) {
-          var emoji_mode = getConfig(1, 'no_gif') ? 'static_url' : 'url'
+          const emoji_mode = getConfig(1, 'no_gif') ? 'static_url' : 'url'
           i = 0
           while (json[i]) {
             search_a_custom.push(json[i]['shortcode'])

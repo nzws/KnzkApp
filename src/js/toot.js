@@ -1,15 +1,15 @@
 function toot_card(toot, mode, note, toot_light, page) {
-  var piccard = '',
-    p = 0,
-    alert_text = '',
-    content = ''
-  var visibility_icon,
-    can_col,
-    is_col = '',
-    col_bt = '',
-    col_pic = '',
-    col_bg_st = ''
-  var BoxData = {}
+  let piccard = ''
+  let p = 0
+  let alert_text = ''
+  let content = ''
+  let visibility_icon
+  let can_col
+  let is_col = ''
+  let col_bt = ''
+  let col_pic = ''
+  let col_bg_st = ''
+  const BoxData = {}
   if (!toot) {
     return ''
   }
@@ -32,7 +32,7 @@ function toot_card(toot, mode, note, toot_light, page) {
     toot = toot['reblog']
   }
   tl_postdata[toot['id']] = toot
-  var filter = getConfig(
+  const filter = getConfig(
     5,
     (toot['account']['acct'].indexOf('@') === -1
       ? toot['account']['acct'] + '@' + inst
@@ -46,7 +46,7 @@ function toot_card(toot, mode, note, toot_light, page) {
   if (!toot['account']['display_name']) toot['account']['display_name'] = toot['account']['username']
 
   if (toot['enquete']) {
-    var vote = ''
+    let vote = ''
     toot['enquete'] = JSON.parse(toot['enquete'])
     if (toot['enquete']['ratios_text']) {
       vote = 'closed_result'
@@ -54,10 +54,10 @@ function toot_card(toot, mode, note, toot_light, page) {
       //受付中
       if (!toot['enquete']['duration']) toot['enquete']['duration'] = 30
 
-      var enq_comp_date = new Date(
+      const enq_comp_date = new Date(
         Math.floor(new Date().getTime() / 1000) - Math.floor(new Date(toot['created_at']).getTime() / 1000)
       )
-      var enq_sec_comp = toot['enquete']['duration'] - enq_comp_date
+      const enq_sec_comp = toot['enquete']['duration'] - enq_comp_date
 
       vote = enq_sec_comp >= 0 ? 'open' : 'closed'
       BoxData['vote'] = vote
@@ -117,7 +117,7 @@ function toot_card(toot, mode, note, toot_light, page) {
     if (toot['media_attachments'][0] && (mode == 'full' || mode == 'big')) {
       piccard += '<div class="small_' + toot['id'] + ' ' + (is_col ? 'invisible' : '') + '">\n'
       while (toot['media_attachments'][p]) {
-        var image_note = ''
+        let image_note = ''
         if (toot['media_attachments'][p]['type'] === 'video' || toot['media_attachments'][p]['type'] === 'gifv') {
           image_note =
             '<span class="image_note"><i class="fa fa-play"></i> ' +
@@ -179,7 +179,7 @@ function toot_card(toot, mode, note, toot_light, page) {
     "<a href='$1/media/$3' class='image-url'><ons-icon icon='fa-file-image-o'></ons-icon></a>"
   ) //画像URLをアイコンに
 
-  var rand = Math.random()
+  const rand = Math.random()
     .toString(36)
     .slice(-8)
 
@@ -215,9 +215,9 @@ function toot_card(toot, mode, note, toot_light, page) {
   }
 
   if (mode == 'big') {
-    var appname = toot['application'] ? escapeHTML(toot['application']['name']) : ''
-    var d = new Date(toot['created_at'])
-    var date_text = d.toLocaleDateString(lng, {
+    const appname = toot['application'] ? escapeHTML(toot['application']['name']) : ''
+    const d = new Date(toot['created_at'])
+    const date_text = d.toLocaleDateString(lng, {
       weekday: 'short',
       year: 'numeric',
       month: 'short',
@@ -269,13 +269,13 @@ function toot_card(toot, mode, note, toot_light, page) {
 }
 
 function toot_col(id) {
-  var toot = $('.tootcontent_' + id),
-    i = 0,
-    mode,
-    toot_b = document.getElementsByClassName('post_' + id),
-    obj = $('.toot_col_' + id),
-    tb = $('.tb_group_' + id)
-  var small_class = document.querySelectorAll('.post_' + id + ' .toot-card-right')
+  const toot = $('.tootcontent_' + id)
+  let i = 0
+  let mode
+  const toot_b = document.getElementsByClassName('post_' + id)
+  const obj = $('.toot_col_' + id)
+  const tb = $('.tb_group_' + id)
+  const small_class = document.querySelectorAll('.post_' + id + ' .toot-card-right')
   mode = small_class[0].className.indexOf('toot-small') != -1
   while (toot[i]) {
     if (mode) {
@@ -312,14 +312,14 @@ function vote_item(q, obj, id) {
       item_index: q
     })
   })
-    .then(function(response) {
+    .then(response => {
       if (response.ok) {
         return response.json()
       } else {
         throw response
       }
     })
-    .then(function(json) {
+    .then(json => {
       if (json.valid) {
         showtoast('vote-ok')
       } else {
@@ -327,16 +327,16 @@ function vote_item(q, obj, id) {
       }
       console.log(json)
     })
-    .catch(function(error) {
+    .catch(error => {
       catchHttpErr('vote', error)
     })
 }
 
 function toot_action(action_mode) {
-  var toot,
-    i = 0,
-    url = '',
-    a_mode
+  let toot
+  let i = 0
+  let url = ''
+  let a_mode
   id = event.srcElement.dataset.id
   if (action_mode === 0) {
     toot = $('.tootfav_' + id)
@@ -372,17 +372,17 @@ function toot_action(action_mode) {
     },
     method: 'POST'
   })
-    .then(function(response) {
+    .then(response => {
       if (response.ok) {
         return response.json()
       } else {
         throw response
       }
     })
-    .then(function(json) {
+    .then(json => {
       console.log('OK:' + action_mode)
     })
-    .catch(function(error) {
+    .catch(error => {
       i = 0
       if (action_mode === 0) {
         while (toot[i]) {
@@ -408,7 +408,7 @@ function toot_action(action_mode) {
 }
 
 function open_cw(id, btobj) {
-  var cw = elemId(id).className
+  const cw = elemId(id).className
   if (cw == 'invisible') {
     //開く
     elemId(id).className = ''
@@ -422,8 +422,8 @@ function open_cw(id, btobj) {
 
 function reply(id) {
   tmp_text_pre = ''
-  var acct = '',
-    i = 0
+  let acct = ''
+  let i = 0
   if (tl_postdata[id]['mentions'][0]) {
     while (tl_postdata[id]['mentions'][i]) {
       if (tl_postdata[id]['mentions'][i]['acct'] !== now_userconf['username']) {
@@ -447,7 +447,7 @@ function reply(id) {
 }
 
 function visibility_rank(mode) {
-  var rank = 0
+  let rank = 0
   if (mode === 'public') rank = 1
   else if (mode === 'unlisted') rank = 2
   else if (mode === 'private') rank = 3
@@ -458,7 +458,7 @@ function visibility_rank(mode) {
 }
 
 function visibility_icon_name(mode) {
-  var name = ''
+  let name = ''
   if (mode === 'public') name = 'globe'
   else if (mode === 'unlisted') name = 'unlock-alt'
   else if (mode === 'private') name = 'lock'
@@ -469,7 +469,7 @@ function visibility_icon_name(mode) {
 }
 
 function pin_set(id) {
-  var pin_mode = tl_postdata[id]['pinned'] ? '/unpin' : '/pin'
+  const pin_mode = tl_postdata[id]['pinned'] ? '/unpin' : '/pin'
   Fetch('https://' + inst + '/api/v1/statuses/' + id + pin_mode, {
     headers: {
       'content-type': 'application/json',
@@ -477,31 +477,31 @@ function pin_set(id) {
     },
     method: 'POST'
   })
-    .then(function(response) {
+    .then(response => {
       if (response.ok) {
         return response.json()
       } else {
         throw response
       }
     })
-    .then(function(json) {
+    .then(json => {
       if (json['id']) {
         tl_postdata[json['id']] = json
         showtoast('ok_conf_2')
       }
     })
-    .catch(function(error) {
+    .catch(error => {
       catchHttpErr('pin_set', error)
     })
 }
 
 function more(id) {
-  var url = tl_postdata[id]['url'],
-    acct = tl_postdata[id]['account']['acct']
+  const url = tl_postdata[id]['url']
+  const acct = tl_postdata[id]['account']['acct']
   more_status_id = '' + id
   more_acct_id = tl_postdata[id]['account']['id']
   if (now_userconf['id'] === tl_postdata[id]['account']['id']) {
-    var pin =
+    const pin =
       tl_postdata[id]['pinned'] === true
         ? i18next.t('actionsheet.toot.pin.unset')
         : i18next.t('actionsheet.toot.pin.set')
@@ -528,7 +528,7 @@ function more(id) {
           }
         ]
       })
-      .then(function(index) {
+      .then(index => {
         if (index == 0) show_post(more_status_id)
         else if (index == 1) openURL(url)
         else if (index == 2) copy(url)
@@ -538,7 +538,7 @@ function more(id) {
         else if (index == 6) delete_post()
       })
   } else {
-    var bookmark =
+    const bookmark =
       checkBookmark(id) === true
         ? i18next.t('actionsheet.toot.bookmark.unset')
         : i18next.t('actionsheet.toot.bookmark.set')
@@ -562,7 +562,7 @@ function more(id) {
           }
         ]
       })
-      .then(function(index) {
+      .then(index => {
         if (index == 0) show_post(more_status_id)
         else if (index == 1) openURL(url)
         else if (index == 2) copy(url)
@@ -575,7 +575,7 @@ function more(id) {
 }
 
 function nearToot(id, domain) {
-  var list = [
+  const list = [
     {
       label: i18next.t('actionsheet.near.htl'),
       modifier: 'fa-home'
@@ -606,12 +606,12 @@ function nearToot(id, domain) {
       cancelable: true,
       buttons: list
     })
-    .then(function(index) {
+    .then(index => {
       if (index == 0) show_post(id, 'home?')
       if (index == 1) show_post(id, 'public?local=true&')
       if (index == 2) show_post(id, 'public?')
       if (domain) {
-        var origin_id = tl_postdata[id]['url'].split('/')[4]
+        const origin_id = tl_postdata[id]['url'].split('/')[4]
         if (index == 3) show_post(id, 'public?local=true&', domain, origin_id)
         if (index == 4) show_post(id, 'public?', domain, origin_id)
       }
@@ -625,7 +625,7 @@ function delete_post() {
       modifier: 'material',
       cancelable: true
     })
-    .then(function(e) {
+    .then(e => {
       if (e === 1) {
         Fetch('https://' + inst + '/api/v1/statuses/' + more_status_id, {
           headers: {
@@ -634,16 +634,16 @@ function delete_post() {
           },
           method: 'DELETE'
         })
-          .then(function(response) {
+          .then(response => {
             if (response.ok) {
               return response.json()
             } else {
               throw response
             }
           })
-          .then(function(json) {
-            var card = $('.post_' + more_status_id),
-              i = 0
+          .then(json => {
+            const card = $('.post_' + more_status_id)
+            let i = 0
             while (card[i]) {
               card[i].parentNode.removeChild(card[i])
               i++
@@ -653,7 +653,7 @@ function delete_post() {
             more_acct_id = 0
             more_status_id = 0
           })
-          .catch(function(error) {
+          .catch(error => {
             more_acct_id = 0
             more_status_id = 0
             catchHttpErr('del_post', error)
@@ -663,9 +663,9 @@ function delete_post() {
 }
 
 function show_post(id, near, near_domain, origin_id) {
-  var reshtml = '',
-    d = 0,
-    i = 0
+  let reshtml = ''
+  let d = 0
+  let i = 0
   loadNav('showtoot.html')
   Fetch('https://' + inst + '//api/v1/statuses/' + id, {
     headers: {
@@ -674,20 +674,20 @@ function show_post(id, near, near_domain, origin_id) {
     },
     method: 'GET'
   })
-    .then(function(response) {
+    .then(response => {
       if (response.ok) {
         return response.json()
       } else {
         throw response
       }
     })
-    .then(function(json_stat) {
+    .then(json_stat => {
       if (json_stat) {
         if (near) {
-          var near_header = { 'content-type': 'application/json' }
+          const near_header = { 'content-type': 'application/json' }
           near_header['Authorization'] = near_domain ? null : 'Bearer ' + now_userconf['token']
 
-          var toot_origin_domain = near_domain ? near_domain : inst
+          const toot_origin_domain = near_domain ? near_domain : inst
           if (!origin_id) origin_id = id
           i = 0
           reshtml += toot_card(json_stat, 'big', null, 'gold')
@@ -695,14 +695,14 @@ function show_post(id, near, near_domain, origin_id) {
             headers: near_header,
             method: 'GET'
           })
-            .then(function(response) {
+            .then(response => {
               if (response.ok) {
                 return response.json()
               } else {
                 throw response
               }
             })
-            .then(function(json_shita) {
+            .then(json_shita => {
               if (json_shita) {
                 while (json_shita[i]) {
                   reshtml += toot_card(json_shita[i], 'full', null, null, near_domain ? 'near_federated' : null)
@@ -722,14 +722,14 @@ function show_post(id, near, near_domain, origin_id) {
             },
             method: 'GET'
           })
-            .then(function(response) {
+            .then(response => {
               if (response.ok) {
                 return response.json()
               } else {
                 throw response
               }
             })
-            .then(function(json) {
+            .then(json => {
               while (json['ancestors'][d]) {
                 reshtml += toot_card(json['ancestors'][d], null, null)
                 d++
@@ -745,25 +745,25 @@ function show_post(id, near, near_domain, origin_id) {
 
               elemId('show_toot').innerHTML = reshtml
             })
-            .catch(function(error) {
+            .catch(error => {
               catchHttpErr('show_toot_context', error)
             })
         }
       }
     })
-    .catch(function(error) {
+    .catch(error => {
       catchHttpErr('show_post', error)
     })
 }
 
 function report() {
-  var rep = ons.notification
+  const rep = ons.notification
     .prompt(dialog_i18n('report', 1), {
       title: dialog_i18n('report'),
       modifier: 'material',
       cancelable: true
     })
-    .then(function(repcom) {
+    .then(repcom => {
       if (repcom) {
         Fetch('https://' + inst + '/api/v1/reports', {
           headers: {
@@ -777,20 +777,20 @@ function report() {
             comment: repcom
           })
         })
-          .then(function(response) {
+          .then(response => {
             if (response.ok) {
               return response.json()
             } else {
               throw response
             }
           })
-          .then(function(json) {
+          .then(json => {
             console.log('OK:rep')
             showtoast('report-post')
             more_acct_id = 0
             more_status_id = 0
           })
-          .catch(function(error) {
+          .catch(error => {
             more_acct_id = 0
             more_status_id = 0
             catchHttpErr('report', error)
@@ -804,15 +804,15 @@ function original_post(id, url, acct) {
   Fetch(url, {
     method: 'GET'
   })
-    .then(function(response) {
+    .then(response => {
       if (response.ok) {
         return response.text()
       } else {
         throw response
       }
     })
-    .then(function(text) {
-      var t = $(text)
+    .then(text => {
+      const t = $(text)
         .filter("meta[property='og:description']")
         .attr('content')
       if (t) {
@@ -825,7 +825,7 @@ function original_post(id, url, acct) {
       }
       hide('now_loading')
     })
-    .catch(function(error) {
+    .catch(error => {
       hide('now_loading')
       catchHttpErr('show_original', error)
     })

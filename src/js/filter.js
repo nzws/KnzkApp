@@ -1,8 +1,8 @@
 function createFilter() {
-  var conf = $("[id^='filter_']"),
-    i = 0,
-    config = {},
-    id = escapeHTML(elemId('userid_filter').value).toLowerCase()
+  let conf = $("[id^='filter_']")
+  let i = 0
+  const config = {}
+  let id = escapeHTML(elemId('userid_filter').value).toLowerCase()
   if (!id) return
   if (id.indexOf('@') === -1) id += '@' + inst
   while (conf[i]) {
@@ -12,7 +12,7 @@ function createFilter() {
 
   conf = $("[id^='filterpush_']")
   i = 0
-  var config_n = getConfig(5, 'notification')
+  const config_n = getConfig(5, 'notification')
   if (!config_n[id]) config_n[id] = {}
   while (conf[i]) {
     config_n[id][conf[i].id.replace('filterpush_', '')] = conf[i].checked
@@ -26,9 +26,9 @@ function createFilter() {
 }
 
 function renderFilter() {
-  var config = getConfig_original(5)
-  var reshtml = ''
-  for (var key in config) {
+  const config = getConfig_original(5)
+  let reshtml = ''
+  for (const key in config) {
     if (key !== 'notification') {
       reshtml +=
         '<ons-list-item>' +
@@ -47,14 +47,14 @@ function renderFilter() {
 }
 
 function editFilter(id) {
-  var config = getConfig_original(5)
+  const config = getConfig_original(5)
   document
     .querySelector('#navigator')
     .bringPageTop('editFilter.html')
-    .then(function() {
+    .then(() => {
       elemId('userid_filter').value = id
-      var conf = $("[id^='filter_']"),
-        i = 0
+      let conf = $("[id^='filter_']")
+      let i = 0
       while (conf[i]) {
         conf[i].checked = config[id][conf[i].id.replace('filter_', '')]
         i++
@@ -70,7 +70,7 @@ function editFilter(id) {
 }
 
 function delFilter(id) {
-  var config = getConfig_original(5)
+  const config = getConfig_original(5)
   delete config[id]
   delete config['notification'][id]
   localStorage.setItem('knzkapp_conf_mastodon_filter', JSON.stringify(config))

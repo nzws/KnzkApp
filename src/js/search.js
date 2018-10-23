@@ -4,7 +4,7 @@ function SearchKey() {
 
 function SearchLoad() {
   loadNav('olist_nav.html')
-  var q = escapeHTML(elemId('nav-search').value)
+  const q = escapeHTML(elemId('nav-search').value)
   Fetch('https://' + inst + '/api/v2/search?q=' + q, {
     headers: {
       'content-type': 'application/json',
@@ -12,16 +12,16 @@ function SearchLoad() {
     },
     method: 'GET'
   })
-    .then(function(response) {
+    .then(response => {
       if (response.ok) {
         return response.json()
       } else {
         throw response
       }
     })
-    .then(function(json) {
-      var reshtml = '',
-        i = 0
+    .then(json => {
+      let reshtml = ''
+      let i = 0
       elemId('olist_nav_title').innerHTML = i18next.t('search.result', {
         text: q
       })
@@ -62,7 +62,7 @@ function SearchLoad() {
 
       elemId('olist_nav_main').innerHTML = reshtml
     })
-    .catch(function(error) {
+    .catch(error => {
       catchHttpErr('search', error)
     })
 }

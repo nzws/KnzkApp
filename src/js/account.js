@@ -1,5 +1,5 @@
 function AccountCard(acct, mode) {
-  var action
+  let action
 
   if (mode === 'addList') action = "addAccountToList('" + acct['id'] + "')"
   else if (mode === 'delList') action = "addAccountToList('" + acct['id'] + "', true)"
@@ -21,21 +21,21 @@ function show_account(id) {
     },
     method: 'GET'
   })
-    .then(function(response) {
+    .then(response => {
       if (response.ok) {
         return response.json()
       } else {
         throw response
       }
     })
-    .then(function(json) {
+    .then(json => {
       acctdata['acct'][json['id']] = json
       account_page_id = json.id
       account_page_acct = json.acct
 
-      var bio_field = '',
-        i = 0,
-        border_style = ''
+      let bio_field = ''
+      let i = 0
+      let border_style = ''
       if (json['fields']) {
         if (json['fields'][0]) {
           while (json['fields'][i]) {
@@ -88,8 +88,8 @@ function show_account(id) {
 
       if (json.username === json.acct) {
         //登録日
-        var d = new Date(json['created_at'])
-        var date_text = d.toLocaleDateString(lng, {
+        const d = new Date(json['created_at'])
+        const date_text = d.toLocaleDateString(lng, {
           weekday: 'short',
           year: 'numeric',
           month: 'short',
@@ -103,7 +103,7 @@ function show_account(id) {
         elemId('userpage-hint').innerHTML = "<span class='note'>" + i18next.t('account.note') + '</span>'
       }
     })
-    .catch(function(error) {
+    .catch(error => {
       catchHttpErr('show_account', error)
     })
 
@@ -114,14 +114,14 @@ function show_account(id) {
     },
     method: 'GET'
   })
-    .then(function(response) {
+    .then(response => {
       if (response.ok) {
         return response.json()
       } else {
         throw response
       }
     })
-    .then(function(json) {
+    .then(json => {
       acctdata['rs'][id] = json
 
       elemId('userpage-follower-badge').className = json[0]['followed_by'] === true ? 'userpage-follower' : 'invisible'
@@ -143,13 +143,13 @@ function show_account(id) {
         elemId('userpage-follow-button').className = 'userpage-button follow-active ons-icon fa-hourglass fa'
       elemId('userpage-followreq-badge').className = json[0]['requested'] === true ? 'userpage-follower' : 'invisible'
     })
-    .catch(function(error) {
+    .catch(error => {
       catchHttpErr('relationships', error)
     })
 }
 
 function account_state_action(id, mode) {
-  var url = ''
+  let url = ''
   if (mode === 'follow') {
     url = acctdata['rs'][id][0]['following'] || acctdata['rs'][id][0]['requested'] ? '/unfollow' : '/follow'
     elemId('userpage-follow-button').className = 'userpage-button ons-icon fa-spinner fa fa-spin'
@@ -168,20 +168,20 @@ function account_state_action(id, mode) {
     },
     method: 'POST'
   })
-    .then(function(response) {
+    .then(response => {
       if (response.ok) {
         return response.json()
       } else {
         throw response
       }
     })
-    .then(function(json) {
+    .then(json => {
       if (mode !== 'follow') showtoast('ok_conf_2')
-      setTimeout(function() {
+      setTimeout(() => {
         show_account(id)
       }, 500)
     })
-    .catch(function(error) {
+    .catch(error => {
       catchHttpErr('state_action', error)
     })
 }
@@ -201,7 +201,7 @@ function account_action(id) {
           }
         ]
       })
-      .then(function(index) {
+      .then(index => {
         if (index === 0) openURL(acctdata['acct'][id]['url'])
         else if (index === 1) copy(acctdata['acct'][id]['url'])
         else if (index === 2) OpenQR('@' + account_page_acct.split('@')[0] + '@' + inst)
@@ -217,7 +217,7 @@ function account_action(id) {
       ? i18next.t('actionsheet.toot.endorsements.unset')
       : i18next.t('actionsheet.toot.endorsements.set')
 
-    var button_arr = [
+    const button_arr = [
       i18next.t('actionsheet.toot.mention'),
       i18next.t('actionsheet.toot.openbrowser'),
       i18next.t('actionsheet.toot.url')
@@ -232,7 +232,7 @@ function account_action(id) {
         cancelable: true,
         buttons: button_arr
       })
-      .then(function(index) {
+      .then(index => {
         if (index === 0) post_pre('@' + account_page_acct)
         else if (index === 1) openURL(acctdata['acct'][id]['url'])
         else if (index === 2) copy(acctdata['acct'][id]['url'])
@@ -259,18 +259,18 @@ function show_account_name(username) {
     },
     method: 'GET'
   })
-    .then(function(response) {
+    .then(response => {
       if (response.ok) {
         return response.json()
       } else {
         throw response
       }
     })
-    .then(function(json) {
+    .then(json => {
       if (json) {
-        var user = json['accounts'][0]
+        const user = json['accounts'][0]
         if (user) {
-          var userCheck = username.toLowerCase()
+          const userCheck = username.toLowerCase()
           if (
             !'@' + user['acct'].toLowerCase() === userCheck &&
             !('@' + user['acct'] + '@' + inst).toLowerCase() === userCheck
@@ -284,7 +284,7 @@ function show_account_name(username) {
         }
       }
     })
-    .catch(function(error) {
+    .catch(error => {
       catchHttpErr('show_account_username', error)
     })
 }
@@ -298,7 +298,7 @@ function OpenQR(user) {
   document
     .querySelector('#navigator')
     .bringPageTop('qrcode.html')
-    .then(function() {
+    .then(() => {
       elemId('qrimg').src =
         'http://chart.googleapis.com/chart?cht=qr&chs=200x200&choe=UTF-8&chl=https%3A%2F%2Fopenapp.nzws.me%2Fopen.html%3F' +
         encodeURIComponent(user)
@@ -319,18 +319,18 @@ function update_userdata() {
       locked: elemId('userconf-lock').checked
     })
   })
-    .then(function(response) {
+    .then(response => {
       if (response.ok) {
         return response.json()
       } else {
         throw response
       }
     })
-    .then(function(json) {
+    .then(json => {
       showtoast('ok_conf')
       BackTab()
     })
-    .catch(function(error) {
+    .catch(error => {
       catchHttpErr('update_userdata', error)
     })
 }

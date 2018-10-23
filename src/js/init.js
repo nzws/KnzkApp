@@ -57,26 +57,26 @@ function init() {
 
       starting_alert('instance_login')
       Fetch('https://' + inst + '/api/v1/instance')
-        .then(function(response) {
+        .then(response => {
           if (response.ok) {
             return response.json()
           } else {
             throw response
           }
         })
-        .then(function(json) {
+        .then(json => {
           starting_alert('login')
           Fetch('https://' + inst + '/api/v1/accounts/verify_credentials', {
             headers: { Authorization: 'Bearer ' + now_userconf['token'] }
           })
-            .then(function(response) {
+            .then(response => {
               if (response.ok) {
                 return response.json()
               } else {
                 throw response
               }
             })
-            .then(function(json) {
+            .then(json => {
               try {
                 starting_alert('prepare')
                 timeline_config = getConfig(3, 'config')
@@ -98,7 +98,7 @@ function init() {
                   $('#ep_bt_custom').addClass('invisible')
                 } else {
                   $('#ep_bt_custom').removeClass('invisible')
-                  var elist = elemId('emoji_list_popover')
+                  const elist = elemId('emoji_list_popover')
                   elist.innerHTML = 'loading now...'
                   elist.dataset.isload = 'no'
                 }
@@ -108,7 +108,7 @@ function init() {
                 initevent()
                 checkLargeWindow()
 
-                setTimeout(function() {
+                setTimeout(() => {
                   startWatching()
                   initTimeline()
                   migration_app2glitch()
@@ -162,14 +162,14 @@ function init() {
                 getError('Error/init_2', e)
               }
             })
-            .catch(function(error) {
+            .catch(error => {
               catchHttpErr('init_verify_credentials', error)
               showtoast('cannot-connect-API')
               starting_alert('err')
               changeAccountInLoad()
             })
         })
-        .catch(function(error) {
+        .catch(error => {
           catchHttpErr('init_instance', error)
           showtoast('cannot-connect-sv')
           starting_alert('err')
@@ -177,7 +177,7 @@ function init() {
           //hide('starting_screen');
         })
     } else {
-      setTimeout(function() {
+      setTimeout(() => {
         hide('starting_screen')
         document.querySelector('#navigator').resetToPage('login.html')
       }, 500)
@@ -186,10 +186,10 @@ function init() {
 }
 
 function initevent() {
-  $(document).on('click', 'div.toot_content', function(event) {
-    var obj = event.currentTarget,
-      id = 0
-    var button = event.target.className
+  $(document).on('click', 'div.toot_content', event => {
+    const obj = event.currentTarget
+    let id = 0
+    const button = event.target.className
     if (
       obj.className.indexOf('toot_content') !== -1 &&
       button.indexOf('button') === -1 &&
@@ -205,12 +205,12 @@ function initevent() {
       }
     }
   })
-  $(document).on('click', 'a', function(event) {
-    var word = ''
+  $(document).on('click', 'a', event => {
+    let word = ''
     event.stopPropagation()
     event.preventDefault()
-    var obj = event.target
-    var url = obj.getAttribute('href')
+    let obj = event.target
+    let url = obj.getAttribute('href')
     if (!url) {
       obj = event.currentTarget
       url = obj.getAttribute('href')
@@ -231,13 +231,13 @@ function initevent() {
     return false
   })
 
-  document.addEventListener('postpush', function(event) {
+  document.addEventListener('postpush', event => {
     try {
       $('[data-i18n]').localize()
     } catch (e) {}
     pageid = event.enterPage.id
     if (event.enterPage.id === 'home') {
-      setTimeout(function() {
+      setTimeout(() => {
         elemId('toot_limit_simple').innerHTML = toot_limit
         $('#post_mode_simple').val(default_post_visibility)
         elemId('post_mode_icon_simple').className =
@@ -253,14 +253,14 @@ function initevent() {
 
     if (event.enterPage.id === 'config-page') {
       show('now_loading')
-      setTimeout(function() {
+      setTimeout(() => {
         if (getConfig(1, 'tl_speech')) elemId('tl_speech_' + getConfig(1, 'tl_speech')).selected = true
         if (getConfig(1, 'dial')) elemId('dial_' + getConfig(1, 'dial')).selected = true
         if (getConfig(1, 'theme')) elemId('theme_' + getConfig(1, 'theme')).selected = true
         if (getConfig(1, 'url_open')) elemId('url_' + getConfig(1, 'url_open')).selected = true
         hide('now_loading')
-        var conf = $("[id^='conf-']"),
-          i = 0
+        const conf = $("[id^='conf-']")
+        let i = 0
         while (conf[i]) {
           if (parseInt(getConfig(1, conf[i].id.replace('conf-', '')))) {
             if (conf[i].dataset.config === 'range') conf[i].value = getConfig(1, conf[i].id.replace('conf-', ''))
@@ -278,20 +278,20 @@ function initevent() {
       Fetch('https://' + inst + '/api/v1/accounts/verify_credentials', {
         headers: { Authorization: 'Bearer ' + now_userconf['token'] }
       })
-        .then(function(response) {
+        .then(response => {
           if (response.ok) {
             return response.json()
           } else {
             throw response
           }
         })
-        .then(function(json) {
+        .then(json => {
           elemId('userconf-display_name').value = json['display_name']
           elemId('userconf-note').value = json['source']['note']
           elemId('userconf-lock').checked = json['locked']
           hide('now_loading')
         })
-        .catch(function(error) {
+        .catch(error => {
           catchHttpErr('event_userconf-page', error)
           hide('now_loading')
         })
@@ -299,9 +299,9 @@ function initevent() {
 
     if (event.enterPage.id === 'config_collapse-page') {
       show('now_loading')
-      setTimeout(function() {
-        var conf = $("[id^='conf-col-']"),
-          i = 0
+      setTimeout(() => {
+        const conf = $("[id^='conf-col-']")
+        let i = 0
         while (conf[i]) {
           if (parseInt(getConfig(2, conf[i].id.replace('conf-col-', '')))) conf[i].checked = true
           i++
@@ -320,7 +320,7 @@ function initevent() {
 
     if (event.enterPage.id === 'login-page') {
       if (now_userconf['token']) {
-        setTimeout(function() {
+        setTimeout(() => {
           elemId('login_left').innerHTML =
             '<ons-toolbar-button onclick="BackTab()" class="toolbar-button">\n' +
             '<ons-icon icon="fa-chevron-left" class="ons-icon fa-chevron-left fa"></ons-icon>\n' +
@@ -336,8 +336,8 @@ function initevent() {
 
       if (tmp_post_reply) {
         if (tmp_text_pre) {
-          var post_reply_acct = tmp_text_pre,
-            post_reply_acct_s = post_reply_acct.split(' ')
+          var post_reply_acct = tmp_text_pre
+          const post_reply_acct_s = post_reply_acct.split(' ')
           if (post_reply_acct_s[1]) {
             post_reply_acct = post_reply_acct_s[0] + ' ...'
           }
@@ -382,19 +382,19 @@ function initevent() {
     }
 
     if (event.enterPage.id === 'olist' || event.enterPage.id === 'olist_nav') {
-      event.enterPage.onInfiniteScroll = function(done) {
+      event.enterPage.onInfiniteScroll = done => {
         list_n(null, null, done, null, event.enterPage.id === 'olist_nav')
       }
     }
 
     if (event.enterPage.id === 'showtag-page') {
-      event.enterPage.onInfiniteScroll = function(done) {
+      event.enterPage.onInfiniteScroll = done => {
         showTagTL(null, done)
       }
     }
   })
 
-  document.addEventListener('postpop', function(event) {
+  document.addEventListener('postpop', event => {
     pageid = event.enterPage.id
     if (event.enterPage.id === 'home') {
       home_auto_event = true
@@ -410,7 +410,7 @@ function initevent() {
   if (getConfig(1, 'resume_reload')) {
     document.addEventListener(
       'resume',
-      function() {
+      () => {
         if (pageid === 'home' && !home_auto_event) {
           showTL(null, null, null, true)
         }
@@ -419,9 +419,9 @@ function initevent() {
     )
   }
 
-  document.addEventListener('prechange', function(event) {
+  document.addEventListener('prechange', event => {
     if (event.carousel) {
-      var label = [elemId('tutorial_next_label'), elemId('tutorial_next_icon')]
+      const label = [elemId('tutorial_next_label'), elemId('tutorial_next_icon')]
       if (event.activeIndex === 3) {
         label[0].innerText = i18next.t('tutorial.done')
         label[1].className = 'ons-icon fa-check fa'
@@ -436,14 +436,14 @@ function initevent() {
         now_TL = timeline_config[event.index]
         showTL(null, null, null, true)
       } else {
-        setTimeout(function() {
+        setTimeout(() => {
           TL_prev()
         }, 50)
       }
     }
   })
 
-  $(document).on('click', '.timeline', function(event) {
+  $(document).on('click', '.timeline', event => {
     if ($('#navigator').attr('page') === 'home.html') {
       simple_close()
       $('#TLChangeTab').hide()
@@ -452,7 +452,7 @@ function initevent() {
 
   window.addEventListener('keyboardDidHide', () => {
     if (pageid === 'home') {
-      setTimeout(function() {
+      setTimeout(() => {
         if (!isOpenAnyDialogs() && elemId('simple_toot_TL_input').rows === 3) {
           simple_close()
         }
@@ -460,24 +460,24 @@ function initevent() {
     }
   })
 
-  document.addEventListener('postopen', function(event) {
+  document.addEventListener('postopen', event => {
     account_list()
     openNavigation()
   })
 
-  document.addEventListener('preclose', function(event) {
+  document.addEventListener('preclose', event => {
     if (window.isLargeMode) elemId('splitter-menu').open()
   })
 
   if (getConfig(1, 'swipe_menu') != 1) {
-    document.addEventListener('swipeleft', function(event) {
+    document.addEventListener('swipeleft', event => {
       if (elemId('splitter-menu').isOpen) {
         fn.close()
       } else if (pageid === 'home') TL_next()
     })
 
-    document.addEventListener('swiperight', function(event) {
-      var h = event.gesture.startEvent.center.clientX
+    document.addEventListener('swiperight', event => {
+      const h = event.gesture.startEvent.center.clientX
       if (h <= 20 || elemId('splitter-menu').isOpen) {
         fn.open()
       } else if (pageid === 'home') TL_prev()
@@ -486,15 +486,13 @@ function initevent() {
 
   if (ons.isWebView()) {
     try {
-      FCMPlugin.onTokenRefresh(function(token) {
-        if (FCM_token) var t = true
+      FCMPlugin.onTokenRefresh(token => {
         FCM_token = token
-        if (!t) changeNotification(true)
+        changeNotification(true)
       })
-      FCMPlugin.getToken(function(token) {
-        if (FCM_token) var t = true
+      FCMPlugin.getToken(token => {
         FCM_token = token
-        if (!t) changeNotification(true)
+        changeNotification(true)
       })
     } catch (e) {
       ons.notification.alert(dialog_i18n('err_fcm', 1), {
@@ -507,20 +505,20 @@ function initevent() {
   }
 
   let timer = 0
-  window.onresize = function() {
+  window.onresize = () => {
     if (timer > 0) clearTimeout(timer)
 
-    timer = setTimeout(function() {
+    timer = setTimeout(() => {
       checkLargeWindow()
     }, 500)
   }
 }
 
 function home_autoevent() {
-  setTimeout(function() {
+  setTimeout(() => {
     if (home_auto_event) {
       updateTLtrack()
-      var storedata = TlStoreData_pre[inst][timeline_now_tab]
+      const storedata = TlStoreData_pre[inst][timeline_now_tab]
       if (storedata !== '' && home_auto_mode) {
         if (getConfig(1, 'chatmode')) elemTimeline().innerHTML = elemTimeline().innerHTML + storedata
         else {
@@ -538,11 +536,11 @@ function home_autoevent() {
 }
 
 function isOpenAnyDialogs() {
-  const actionSheet = document.querySelectorAll('ons-action-sheet'),
-    popover = document.querySelectorAll('ons-popover'),
-    dialog = document.querySelectorAll('ons-alert-dialog')
-  var openedDialog,
-    i = 0
+  const actionSheet = document.querySelectorAll('ons-action-sheet')
+  const popover = document.querySelectorAll('ons-popover')
+  const dialog = document.querySelectorAll('ons-alert-dialog')
+  let openedDialog
+  let i = 0
   if (dialog) {
     while (dialog[i]) {
       if (dialog[i].visible && dialog[i].cancelable) {
@@ -598,11 +596,11 @@ function BackButtonEvent() {
   }
 }
 
-var button = '',
-  quiet = '',
-  light = '',
-  large_quiet = '',
-  platform = ''
+let button = ''
+let quiet = ''
+let light = ''
+let large_quiet = ''
+var platform = ''
 
 const init_d = () =>
   new Promise((resolve, reject) => {
@@ -626,7 +624,7 @@ const init_d = () =>
   })
 
 ons.disableAutoStyling()
-ons.ready(function() {
+ons.ready(() => {
   init_d().then(i18n_init().then(ConfigSetup().then(init())))
   if (ons.platform.isAndroid()) ons.setDefaultDeviceBackButtonListener(BackButtonEvent)
   if (is_debug) {
@@ -637,14 +635,14 @@ ons.ready(function() {
     if (getConfig(1, 'SendLog') === '') setConfig(1, 'SendLog', '0')
   } else {
     if (getConfig(1, 'SendLog') === '') {
-      setTimeout(function() {
+      setTimeout(() => {
         ons.notification
           .confirm(dialog_i18n('log', 1), {
             title: dialog_i18n('log'),
             modifier: 'material',
             buttonLabels: [i18next.t('dialogs_js.log.no'), i18next.t('dialogs_js.log.yes')]
           })
-          .then(function(e) {
+          .then(e => {
             if (e === 1) {
               setConfig(1, 'SendLog', '1')
               Raven.config(sentryID, {
@@ -665,15 +663,15 @@ ons.ready(function() {
 
 // https://press.monaca.io/atsushi/248
 function handleOpenURL(url) {
-  setTimeout(function() {
-    var strValue = url
+  setTimeout(() => {
+    let strValue = url
     strValue = strValue.replace('knzkapp://', '')
-    var mode = strValue.split('/')
+    const mode = strValue.split('/')
     if (mode[0] === 'login') {
-      var token = getParam(mode[1].replace('token', ''))
+      const token = getParam(mode[1].replace('token', ''))
       login_callback(token['code'])
     } else if (mode[0] === 'user') {
-      var user = mode[1].replace('open?', '')
+      const user = mode[1].replace('open?', '')
       show_account_name(user)
     }
   }, 100)

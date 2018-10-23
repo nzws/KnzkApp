@@ -1,14 +1,14 @@
-var showPopover = function(target, id) {
+const showPopover = (target, id) => {
   elemId(id).show(target)
 }
 
-var hidePopover = function(id) {
+const hidePopover = id => {
   elemId(id).hide()
 }
 
 window.fn = {}
 
-window.fn.open = function(force) {
+window.fn.open = force => {
   if (!force && window.isLargeMode) return
 
   const menu = elemId('splitter-menu')
@@ -17,7 +17,7 @@ window.fn.open = function(force) {
   $('[data-i18n]').localize()
 }
 
-window.fn.close = function(force) {
+window.fn.close = force => {
   if (!force && window.isLargeMode) return
   elemId('splitter-menu').close()
   $('[data-i18n]').localize()
@@ -28,7 +28,7 @@ function checkLargeWindow() {
   if (window.isLargeMode) {
     const mask = document.querySelector('ons-splitter-mask')
     fn.open(true)
-    setTimeout(function() {
+    setTimeout(() => {
       if (mask) mask.parentNode.removeChild(mask)
     }, 0)
   } else {
@@ -63,13 +63,14 @@ function load(page) {
 
 function loadNav(page, mode, move_mode) {
   //mode: アニメーション方法, splitter: スライドメニューを使用しているか, move_mode: ページを読み込むモード
-  var option = mode === 'up' ? { animation: 'lift' } : { animation: 'slide' },
-    menu = elemId('splitter-menu'),
-    nav = document.querySelector('#navigator')
+  const option = mode === 'up' ? { animation: 'lift' } : { animation: 'slide' }
 
-  var onLoad = function() {
+  const menu = elemId('splitter-menu')
+  const nav = document.querySelector('#navigator')
+
+  const onLoad = () => {
     if (!window.isLargeMode) menu.close()
-    setTimeout(function() {
+    setTimeout(() => {
       $('[data-i18n]').localize()
     }, 0)
   }
@@ -80,7 +81,7 @@ function loadNav(page, mode, move_mode) {
 }
 
 function BackTab(mode) {
-  var option
+  let option
   if (mode === 'down') option = { animation: 'lift' }
   else option = { animation: 'slide' }
 
@@ -91,8 +92,8 @@ function displayTime(mode, time) {
   if (mode == 'new') {
     return new Date(time).toTwitterRelativeTime(lng)
   } else {
-    var i = 0
-    var list = document.getElementsByClassName('date')
+    let i = 0
+    const list = document.getElementsByClassName('date')
     while (list[i]) {
       list[i].innerHTML = displayTime('new', list[i].dataset.time)
       i++
@@ -112,16 +113,16 @@ function opendial() {
 
 function showtoast(id) {
   elemId(id).show()
-  setTimeout(function() {
+  setTimeout(() => {
     //3秒くらい
     elemId(id).hide()
   }, 2000)
 }
 
 function t_text(text, emojidata, acct) {
-  var i = 0,
-    emoji = '',
-    replacetext = ''
+  let i = 0
+  let emoji = ''
+  let replacetext = ''
 
   if (getConfig(1, 'joke') == 1) {
     text = text.replace(/。/g, '、それと便座カバー。')
@@ -146,7 +147,7 @@ function t_text(text, emojidata, acct) {
   }
 
   if (!getConfig(1, 'no_custom_emoji') && emojidata) {
-    var emoji_mode = getConfig(1, 'no_gif') ? 'static_url' : 'url'
+    const emoji_mode = getConfig(1, 'no_gif') ? 'static_url' : 'url'
     while (emojidata[i]) {
       emoji = ':' + emojidata[i]['shortcode'] + ':'
 
@@ -157,10 +158,10 @@ function t_text(text, emojidata, acct) {
   }
 
   // インスタンスのドメインが送られてきた場合はチェックを行うが、送られてこなかった場合は今まで通り全て読み仮名通す
-  var isYomigana = true
+  let isYomigana = true
   if (acct) {
     acct = acct.split('@')
-    var t_domain = (acct[1] ? acct[1] : inst).toLowerCase()
+    const t_domain = (acct[1] ? acct[1] : inst).toLowerCase()
     isYomigana = instance_config[t_domain] ? !!instance_config[t_domain]['yomigana'] : false
   }
 
@@ -184,15 +185,15 @@ function hide(id) {
 }
 
 function openURL(url) {
-  var mode = getConfig(1, 'url_open')
+  const mode = getConfig(1, 'url_open')
   if (ons.isWebView() && !mode) {
-    SafariViewController.isAvailable(function(available) {
+    SafariViewController.isAvailable(available => {
       if (available) {
         SafariViewController.show(
           {
             url: url
           },
-          function(result) {
+          result => {
             if (result.event === 'opened') {
               console.log('opened')
             } else if (result.event === 'loaded') {
@@ -201,7 +202,7 @@ function openURL(url) {
               console.log('closed')
             }
           },
-          function(msg) {
+          msg => {
             console.log('openURL[' + url + ']: ' + msg)
           }
         )
@@ -219,12 +220,12 @@ function openURL(url) {
 }
 
 function getParam(val) {
-  var data_s = {},
-    data = val.substring(1).split('&'),
-    data_ex,
-    value,
-    key
-  for (var i = 0; i < data.length; i++) {
+  const data_s = {}
+  const data = val.substring(1).split('&')
+  let data_ex
+  let value
+  let key
+  for (let i = 0; i < data.length; i++) {
     data_ex = value = key = null
     data_ex = data[i].search(/=/)
     value = data[i].slice(data[i].indexOf('=', 0) + 1)
