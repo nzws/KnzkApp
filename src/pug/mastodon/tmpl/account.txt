@@ -1,6 +1,6 @@
 <ons-row class="account_card" onclick="<%=action%>">
   <ons-col width="50px">
-    <img src="<%=(getConfig(1, 'no_gif') ? avatar_static : avatar)%>" class="icon-img-small" align="middle">
+    <img src="<%=(getConfig(1, 'no_gif') ? avatar_static : (avatar ? avatar : avatarUrl))%>" class="icon-img-small" align="middle">
   </ons-col>
   <ons-col class="account_card_name">
     <b><%=display_name%></b><br>

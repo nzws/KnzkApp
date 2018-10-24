@@ -18,7 +18,7 @@ function getError(name, log, mode) {
           Alert: log['alert'],
         },
         tags: {
-          version: document.querySelector('meta[name=version]').content,
+          version: app_version,
           userAgent: navigator.userAgent,
         },
       });

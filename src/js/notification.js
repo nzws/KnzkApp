@@ -88,7 +88,7 @@ function changeNotification(force) {
       option: JSON.stringify(config['option']),
       language: lng,
       username: now_userconf['username'],
-      app_name: document.querySelector('meta[name=version]').content,
+      app_name: app_version,
     };
     var body = '';
     for (var key in formdata) {

@@ -36,11 +36,21 @@ ons-template(id='login.html')
             a(href='http://kibousoft.com/privacy.html', data-i18n='login.privacy_policy') プライバシーポリシー
         .w-max.main-logo.login_list
           p
+            b misskey.xyz (Misskey)
+          p.y-center
+            ons-button(onclick="knzkMk.openLogin('misskey.xyz')", style='width: 80%;background:#fb4e4e')
+              b(data-i18n='login.login') ログイン
+          p
+            a(href='https://misskey.xyz') About
+        .w-max.main-logo.login_list
+          p
             b(data-i18n='login.other') 他のインスタンス
           ons-input#inst_url(modifier='underbar', placeholder='mastodon.social', float='')
           p.y-center
-            ons-button(onclick="login_open_c(elemId('inst_url').value)", style='width: 80%;')
-              b(data-i18n='login.login') ログイン
+            ons-button(onclick="login_open_c(elemId('inst_url').value)", style='width: 40%;')
+              b(data-i18n='login.login') Mastodon
+            ons-button(onclick="knzkMk.openLoginConfirm(elemId('inst_url').value)", style='margin-left: 10px;width: 40%;background:#fb4e4e')
+              b(data-i18n='login.login') Misskey
         #login_debug.w-max.main-logo.login_list
           p(data-i18n='login.advance.title') (上級者向け)トークンを直接入力してログイン
           p.y-center

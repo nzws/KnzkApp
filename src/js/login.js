@@ -127,6 +127,7 @@ function login_callback(code) {
           now_userconf['token'] = json.access_token;
           localStorage.setItem('knzkapp_now_token', json.access_token);
           localStorage.setItem('knzkapp_now_domain', localStorage.getItem('knzkapp_tmp_domain'));
+          localStorage.setItem('knzkapp_now_service', 'mastodon');
           inst = localStorage.getItem('knzkapp_tmp_domain');
 
           Fetch('https://' + inst + '/api/v1/accounts/verify_credentials', {
@@ -203,8 +204,9 @@ function debug_login() {
         localStorage.setItem('knzkapp_now_domain', inst_domain);
         localStorage.setItem('knzkapp_now_username', json.acct);
         localStorage.setItem('knzkapp_now_id', json.id);
+        localStorage.setItem('knzkapp_now_service', 'mastodon');
 
-        window.location.reload();
+        location.href = 'index.html';
       }, 500);
     })
     .catch(function(error) {
@@ -222,6 +224,7 @@ function account_change(id) {
     userid: now_userconf['id'],
     login_token: now_userconf['token'],
     login_domain: localStorage.getItem('knzkapp_now_domain'),
+    servive: localStorage.getItem('knzkapp_now_service'),
   };
 
   if (id) {
@@ -243,6 +246,10 @@ function account_change(id) {
         localStorage.setItem('knzkapp_now_username', next_account['username']);
         localStorage.setItem('knzkapp_now_id', next_account['userid']);
         localStorage.setItem('knzkapp_now_domain', next_account['login_domain'].toLowerCase());
+        localStorage.setItem(
+          'knzkapp_now_service',
+          next_account['service'] ? next_account['service'] : 'mastodon'
+        );
 
         list.unshift(now);
         localStorage.setItem('knzkapp_account_list', JSON.stringify(list));

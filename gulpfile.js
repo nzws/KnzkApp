@@ -58,13 +58,23 @@ gulp.task('build-scss', function () {
     .pipe(gulp.dest('www/'));
 });
 
-gulp.task('build-pug', function () {
+gulp.task('build-pug-mastodon', function () {
   return gulp
     .src('src/pug/index.pug')
     .pipe(pug())
     .pipe(concat('index.html'))
     .pipe(gulp.dest('www/'));
 });
+
+gulp.task('build-pug-misskey', function () {
+  return gulp
+    .src('src/pug/misskey.pug')
+    .pipe(pug())
+    .pipe(concat('misskey.html'))
+    .pipe(gulp.dest('www/'));
+});
+
+gulp.task('build-pug', ['build-pug-mastodon', 'build-pug-misskey']);
 
 gulp.task('build', ['build-js', 'build-scss', 'build-pug']);
 

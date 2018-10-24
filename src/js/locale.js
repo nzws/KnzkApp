@@ -48,6 +48,7 @@ function i18n_init_callback(lang, resolve) {
 
 function dialog_i18n(id, m) {
   var mode = m ? '.text' : '.title';
+  if (m === 'misskey') mode = '.mk';
   return i18next.t('dialogs_js.' + id + mode, {
     interpolation: { escapeValue: false },
   });

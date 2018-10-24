@@ -27,8 +27,9 @@ html
     link#css_md(rel='stylesheet')
     link#theme_css(rel='stylesheet')
     link#css_custom_platform(rel='stylesheet')
-    include mastodon/variable_init
-    script(src='config/instance.js')
+    script.
+      var knzkMk = {};
+      window.knzkMk = {};
     script(src='config/config.js')
     script(src='config/radio.js')
     script(src='knzkapp.min.js')
@@ -44,28 +45,7 @@ html
     - for (var i = 0; i <= 9; i++)
       ons-template(id=`tl-${i}.html`)
         ons-page(id=`TL${i}_main`, class='timeline')
-    include mastodon/alert
-    include mastodon/userconf
-    include mastodon/config
-    include mastodon/config_collapse
-    include mastodon/config_notification
-    include mastodon/config_filter
-    include mastodon/edit_filter
-    include mastodon/config_TL
-    include mastodon/lists
-    include mastodon/lists_people
-    include mastodon/post
-    include mastodon/bbcode
-    include mastodon/color
-    include mastodon/doodle
-    include mastodon/shows
-    include mastodon/account
-    include mastodon/about
-    include mastodon/login
-    include mastodon/tutorial
-    include mastodon/qrcode
 
-    include mastodon/emoji_picker
     include mastodon/alerts
     script#toot_full_tmpl(type='text/html')
       include mastodon/tmpl/toot.txt
