@@ -15,6 +15,7 @@
     "fmt:js": "prettier --write '**/*.js'",
     "fmt:md": "prettier --write '**/*.md'",
     "fmt:yml": "prettier --write '**/*.{yaml,yml}'",
+    "fmt:json": "prettier --write '**/*.json'",
     "fmt": "npm-run-all fmt:* -s",
     "build": "yarn fmt && yarn lint && gulp build",
     "dev": "yarn build && serve www | gulp watch"
