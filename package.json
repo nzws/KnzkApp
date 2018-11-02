@@ -13,6 +13,7 @@
     "lint": "npm-run-all lint:* -s",
     "fmt:css": "prettier --write 'src/scss/**/*.scss'",
     "fmt:js": "prettier --write '**/*.js'",
+    "fmt:md": "prettier --write '**/*.md'",
     "fmt": "npm-run-all fmt:* -s",
     "build": "yarn fmt && yarn lint && gulp build",
     "dev": "yarn build && serve www | gulp watch"
