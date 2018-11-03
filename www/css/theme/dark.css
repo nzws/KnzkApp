@@ -1,13 +1,28 @@
-body, html, .dark-bg, .page__background, .nav-search {
+body,
+html,
+.dark-bg,
+.page__background,
+.nav-search {
   background: #212121;
 }
 
-.white, .container, #nav-search, .toolbar__right, .toolbar__left, .toolbar__center, .toot, .list-item, .tabbar, .toolbar, .button--large--quiet, .button--light {
+.white,
+.container,
+#nav-search,
+.toolbar__right,
+.toolbar__left,
+.toolbar__center,
+.toot,
+.list-item,
+.tabbar,
+.toolbar,
+.button--large--quiet,
+.button--light {
   color: #fff;
 }
 
 .note {
-  color: #FAFAFA;
+  color: #fafafa;
 }
 
 .toot {
@@ -24,25 +39,33 @@ body, html, .dark-bg, .page__background, .nav-search {
   background: #353535;
 }
 
-.toot-button, .showtoot-button {
+.toot-button,
+.showtoot-button {
   color: #636363;
 }
 
-.tabbar, .toolbar {
+.tabbar,
+.toolbar {
   background: #2b2b2b;
   border-top: none;
 }
 
-.button--large--quiet, .button--light {
+.button--large--quiet,
+.button--light {
   background: #2b2b2b;
 }
 
-a, a:link, a:visited, a:hover {
+a,
+a:link,
+a:visited,
+a:hover {
   color: #d9e1e8 !important;
   text-decoration: underline;
 }
 
-.toolbar-button, .back-button, .blue {
+.toolbar-button,
+.back-button,
+.blue {
   color: #2b90d9 !important;
 }
 
@@ -69,12 +92,13 @@ a, a:link, a:visited, a:hover {
   border-top: 1px solid #353535 !important;
 }
 
-.big_date, .date-disp {
+.big_date,
+.date-disp {
   color: #636363;
 }
 
 .toot_light {
-  background: rgba(43, 43, 43, .9) !important;
+  background: rgba(43, 43, 43, 0.9) !important;
 }
 
 .toot_dm {
@@ -87,11 +111,13 @@ a, a:link, a:visited, a:hover {
   border-right: none;
 }
 
-.black_text > .select-input, .black_text > .text-input {
+.black_text > .select-input,
+.black_text > .text-input {
   color: #313131;
 }
 
-.simple-toot > div, #simple_toot_TL_toolbar {
+.simple-toot > div,
+#simple_toot_TL_toolbar {
   background: #424242;
 }
 
@@ -99,7 +125,8 @@ a, a:link, a:visited, a:hover {
   color: #4a4a4a;
 }
 
-.alert-dialog-content > a:link, .alert-dialog-content > a {
+.alert-dialog-content > a:link,
+.alert-dialog-content > a {
   color: #2b90d9 !important;
 }
 

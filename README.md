@@ -59,6 +59,7 @@
 </div>
 
 ## ✨ Supported unofficial features
+
 - Features of [glitch-soc](https://github.com/glitch-soc/mastodon)
   - Local-only
   - Doodle
@@ -75,9 +76,10 @@ Send a pull request for update `www/config/instance.js`!
 
 If you are a beginner, Let us know! ([@y@knzk.me](https://knzk.me/@y) or Email.)
 
-*And, If your instance has any features that aren't listed here, We can support that when we have free time.*
+_And, If your instance has any features that aren't listed here, We can support that when we have free time._
 
 ## 📢 Please read this carefully
+
 - master is unstable, so we don't recommend it.
 - A [Monaca](https://monaca.io) Pro account or more is required for the build.
 - Copy `www/config/config.sample.js` to `www/config/config.js` and change the values.
@@ -93,9 +95,11 @@ If you are a beginner, Let us know! ([@y@knzk.me](https://knzk.me/@y) or Email.)
 5. Create a new Pull Request
 
 ## 📜 License
+
 - [KnzkApp License](https://github.com/KnzkDev/KnzkApp/blob/master/LICENSE.md)
 
 ## ❤️ Special Thanks
+
 - [あんのたん @annotunzdy](https://knzk.me/@annotunzdy)
 - [ネイティオ @twotwo](https://knzk.me/@twotwo)
 - [yuzumina @yuzumina](https://knzk.me/@yuzumina)
