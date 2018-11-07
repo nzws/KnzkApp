@@ -73,7 +73,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-plumber": "^1.2.0",
     "gulp-pug": "^4.0.1",
-    "gulp-pug-linter": "^0.6.0",
+    "gulp-pug-linter": "^1.0.0",
     "gulp-sass": "^4.0.2",
     "gulp-uglify": "^3.0.1",
     "gulp-wait": "^0.0.2",
