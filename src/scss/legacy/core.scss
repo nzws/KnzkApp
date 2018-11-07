@@ -179,6 +179,20 @@ a:hover {
   color: #2b90d9;
 }
 
+.image_note {
+  margin-bottom: 0;
+  width: 100%;
+  border-radius: 5px;
+  background: #030303;
+  padding: 2px;
+  padding-left: 5px;
+
+  :link {
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
 .user-acct :not(#userpage-acct) {
   margin-left: 5px;
 }
@@ -364,6 +378,7 @@ pre {
 
 .splitter-profile-item {
   padding-left: 0;
+
   > .center {
     padding-bottom: 0;
     padding-right: 0;
@@ -414,10 +429,12 @@ pre {
     padding: 5px 14px 5px 0;
     min-height: 10px;
   }
+
   &.center {
     padding: 5px 6px 5px 0;
     min-height: 10px;
   }
+
   &.right {
     padding: 5px 12px 5px 0;
     min-height: 10px;
@@ -429,6 +446,7 @@ pre {
     padding: 7px 14px 7px 0;
     min-height: 5px;
   }
+
   &.center {
     padding: 7px 6px 7px 0;
     min-height: 5px;
@@ -466,6 +484,7 @@ img.emoji {
     padding-left: 5px;
     padding-right: 5px;
   }
+
   display: block;
   height: 300px;
   overflow: auto;
@@ -520,14 +539,6 @@ img.emoji {
   margin: -5px 0.05em -3px 0.1em !important;
 }
 
-.toot_name {
-  .emoji,
-  .emojione {
-    height: 1.2em !important;
-    width: 1.2em !important;
-  }
-}
-
 .fa-2x > {
   .emoji,
   .emojione {
@@ -576,22 +587,6 @@ img.emoji {
   max-width: 100%;
 }
 
-.image_note_base {
-  margin-bottom: 0;
-  width: 100%;
-}
-
-.image_note {
-  border-radius: 5px;
-  background: #030303;
-  padding: 2px;
-  padding-left: 5px;
-  :link {
-    color: #fff;
-    text-decoration: none;
-  }
-}
-
 #doodle_popover > .popover > .popover__arrow {
   display: none;
 }
@@ -615,6 +610,7 @@ img.emoji {
 
 .col_bg {
   position: relative;
+
   &::before {
     background-color: rgba(0, 0, 0, 0.3);
     position: absolute;
@@ -643,23 +639,23 @@ img.emoji {
 
 .alert-dialog-content > a {
   color: #2b90d9 !important;
+
+  &:link {
+    color: #2b90d9 !important;
+  }
 }
 
+/* stylelint-disable no-descending-specificity */
 .user-bio > p > a {
   text-decoration: underline;
-}
 
-.alert-dialog-content > a:link {
-  color: #2b90d9 !important;
-}
-
-.user-bio > p > a {
   &:link,
   &:visited,
   &:hover {
     text-decoration: underline;
   }
 }
+/* stylelint-enable */
 
 .no-icon-mode {
   padding-bottom: 3px;
@@ -681,6 +677,7 @@ img.emoji {
   background: #d9e1e8;
   color: #282c37 !important;
   padding-top: 35px;
+
   > p > a:link {
     color: #3c99dc !important;
   }
@@ -715,6 +712,7 @@ img.emoji {
   .popover > .popover__arrow {
     display: none;
   }
+
   .popover--bottom {
     bottom: 10px !important;
     top: initial !important;
@@ -761,6 +759,12 @@ img.emoji {
   white-space: nowrap;
   width: 80%;
   position: absolute;
+
+  .emoji,
+  .emojione {
+    height: 1.2em !important;
+    width: 1.2em !important;
+  }
 }
 
 .name_box {
@@ -803,6 +807,7 @@ img.emoji {
     padding: 3px 12px 3px 0;
     min-height: 0;
   }
+
   &.center {
     padding: 3px 6px 3px 0;
     min-height: 0;
@@ -830,6 +835,7 @@ img.emoji {
     line-height: 1;
     color: #fff;
   }
+
   transition: all 300ms 0s ease;
 }
 
@@ -839,14 +845,17 @@ img.emoji {
   align-items: flex-end;
   overflow-x: scroll;
   white-space: nowrap;
+
   span {
     font-size: small;
     writing-mode: vertical-rl;
     transform: translateX(12px);
   }
+
   i {
     font-size: 2em;
   }
+
   > div {
     margin: 0 10px;
     pointer-events: initial;
@@ -867,6 +876,7 @@ img.emoji {
   padding-left: 15px;
   font-size: 15px;
   border-bottom: 1px solid #c0cdd9;
+
   &:nth-last-of-type(2),
   &:first-child {
     border-radius: 0;
