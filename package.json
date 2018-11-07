@@ -7,7 +7,7 @@
   "license": "LICENSE.md",
   "private": true,
   "scripts": {
-    "lint:css": "stylelint src/scss/*.scss",
+    "lint:css": "stylelint **/*.scss",
     "lint:js": "eslint '**/*.js'",
     "lint:pug": "gulp lint-pug",
     "lint": "npm-run-all lint:* -s",
