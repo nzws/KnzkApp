@@ -1,5 +1,5 @@
-html,
-body {
+body,
+html {
   max-width: 100%;
   height: 100%;
   background: #282c37;
@@ -23,7 +23,7 @@ a:hover {
     opacity: 1;
   }
 
-  100% {
+  to {
     opacity: 0.5;
   }
 }
@@ -135,7 +135,7 @@ a:hover {
 }
 
 .userpage-follower {
-  color: white;
+  color: #fff;
   opacity: 0.7;
   background-color: rgba(0, 0, 0, 0.5);
   text-transform: uppercase;
@@ -171,8 +171,8 @@ a:hover {
 }
 
 .user-name {
-  margin: 0.6em 0 0.2em 0 !important;
-  color: white;
+  margin: 0.6em 0 0.2em !important;
+  color: #fff;
 }
 
 .user-acct {
@@ -184,8 +184,7 @@ a:hover {
   width: 100%;
   border-radius: 5px;
   background: #030303;
-  padding: 2px;
-  padding-left: 5px;
+  padding: 2px 2px 2px 5px;
 
   :link {
     color: #fff;
@@ -237,7 +236,7 @@ a:hover {
 }
 
 .toot-limit {
-  color: black;
+  color: #000;
   margin-right: 10px;
 }
 
@@ -275,13 +274,13 @@ a:hover {
 }
 
 .color-box-base {
-  font-weight: bold;
+  font-weight: 700;
   text-align: center;
   margin-bottom: 10px;
 }
 
 .account_tab {
-  color: white;
+  color: #fff;
   overflow: hidden;
   width: 50%;
   text-align: center;
@@ -320,7 +319,7 @@ a:hover {
   border-radius: 4px;
   padding: 5px;
   margin-bottom: 5px;
-  color: black;
+  color: #000;
 }
 
 #image_list {
@@ -349,7 +348,7 @@ a:hover {
 }
 
 .quote {
-  padding: 10px 10px;
+  padding: 10px;
   border-left: 5px solid #393f4f;
 }
 
@@ -493,14 +492,6 @@ img.emoji {
   -ms-scroll-snap-type: mandatory;
 }
 
-/* 簡易トゥートなし
-.page-with-bottom-toolbar>.page__content {
-    bottom: 0;
-}
-*/
-
-/* 簡易トゥートあり */
-
 .fab--bottom__right {
   bottom: 50px;
 }
@@ -510,8 +501,7 @@ img.emoji {
 }
 
 .hashtag-card {
-  margin: 10px;
-  margin-right: 0;
+  margin: 10px 0 10px 10px;
 }
 
 .alert-dialog-content > .text-input {
@@ -523,14 +513,12 @@ img.emoji {
 }
 
 .toot_red {
-  border: 1px solid orangered !important;
+  border: 1px solid #ff4500 !important;
 }
 
 .TL_reload {
   color: #2b90d9 !important;
 }
-
-/* 絵文字 */
 
 .emoji,
 .emojione {
@@ -622,10 +610,8 @@ img.emoji {
   }
 }
 
-/* https://qiita.com/chii/items/5c4eeb250a26300fc955 */
-
 .moved-text {
-  margin: 10px 10px;
+  margin: 10px;
 }
 
 #acct-moved > .toot {
@@ -649,9 +635,9 @@ img.emoji {
 .user-bio > p > a {
   text-decoration: underline;
 
+  &:hover,
   &:link,
-  &:visited,
-  &:hover {
+  &:visited {
     text-decoration: underline;
   }
 }
@@ -686,7 +672,7 @@ img.emoji {
 .tutorial_box {
   padding: 5px;
   margin-bottom: 10px;
-  border: #fcecd8 1px solid;
+  border: 1px solid #fcecd8;
   border-radius: 5px;
   background-color: #fefaf0;
   color: #0d0d0d;
@@ -715,7 +701,7 @@ img.emoji {
 
   .popover--bottom {
     bottom: 10px !important;
-    top: initial !important;
+    top: auto !important;
     right: 5px !important;
     left: 5px !important;
   }
@@ -746,7 +732,7 @@ img.emoji {
 }
 
 .danger_list {
-  border: solid 2px #a00000;
+  border: 2px solid #a00000;
 }
 
 #toot-button {
@@ -796,9 +782,9 @@ img.emoji {
 }
 
 #tlconf-list {
-  ons-radio[disabled],
-  :disabled + .radio-button__checkmark {
-    opacity: initial;
+  :disabled + .radio-button__checkmark,
+  ons-radio[disabled] {
+    opacity: 1;
   }
 }
 
@@ -825,7 +811,7 @@ img.emoji {
 .toast__message {
   line-height: 35px;
   margin: 5px 0;
-  white-space: initial;
+  white-space: normal;
 }
 
 #TLChangeTab {
@@ -836,7 +822,7 @@ img.emoji {
     color: #fff;
   }
 
-  transition: all 300ms 0s ease;
+  transition: all 0.3s ease 0s;
 }
 
 #TLChangeList {
@@ -858,7 +844,7 @@ img.emoji {
 
   > div {
     margin: 0 10px;
-    pointer-events: initial;
+    pointer-events: auto;
   }
 }
 
@@ -877,8 +863,8 @@ img.emoji {
   font-size: 15px;
   border-bottom: 1px solid #c0cdd9;
 
-  &:nth-last-of-type(2),
-  &:first-child {
+  &:first-child,
+  &:nth-last-of-type(2) {
     border-radius: 0;
   }
 }
@@ -890,7 +876,6 @@ img.emoji {
 }
 
 @media screen and (min-width: 400px) {
-  /* 400px以上はディスプレイに引っ付かなくなる  */
   .action-sheet-button:first-child,
   .action-sheet-title:first-child {
     border-top-left-radius: 5px;
@@ -933,8 +918,8 @@ img.emoji {
     pointer-events: none;
   }
 
-  100% {
-    pointer-events: initial;
+  to {
+    pointer-events: auto;
   }
 }
 

@@ -1,5 +1,5 @@
-.forLarge,
-.forFlexLarge {
+.forFlexLarge,
+.forLarge {
   display: none;
 }
 
@@ -9,11 +9,8 @@
     width: calc(100% - 250px);
   }
 
+  .forSmall,
   .menu-button {
-    display: none;
-  }
-
-  .forSmall {
     display: none;
   }
 

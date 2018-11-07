@@ -9,11 +9,11 @@
   }
 
   &.post {
-    background-color: deepskyblue;
+    background-color: #00bfff;
   }
 
   &.close {
-    background-color: black;
+    background-color: #000;
   }
 
   > {
@@ -29,7 +29,7 @@
       top: 10px;
       position: absolute;
       margin-left: 5px;
-      color: white;
+      color: #fff;
       z-index: 101;
     }
   }

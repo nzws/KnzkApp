@@ -1,5 +1,3 @@
-/* https://github.com/tootsuite/mastodon/issues/80 */
-
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -7,13 +5,13 @@
 
 ::-webkit-scrollbar-thumb {
   background: #42495b;
-  border: 0 none #fff;
+  border: 0 #fff;
   border-radius: 50px;
 }
 
 ::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  border: 0 none #fff;
+  border: 0 #fff;
   border-radius: 50px;
 }
 
@@ -21,12 +19,12 @@
   background: transparent;
 }
 
-::-webkit-scrollbar-thumb:hover,
-::-webkit-scrollbar-thumb:active {
+::-webkit-scrollbar-thumb:active,
+::-webkit-scrollbar-thumb:hover {
   background: #525a70;
 }
 
-::-webkit-scrollbar-track:hover,
-::-webkit-scrollbar-track:active {
+::-webkit-scrollbar-track:active,
+::-webkit-scrollbar-track:hover {
   background: #282c37;
 }
