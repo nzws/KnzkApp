@@ -11,7 +11,7 @@
     "lint:js": "eslint '**/*.js'",
     "lint:pug": "gulp lint-pug",
     "lint": "npm-run-all lint:* -s",
-    "fmt:css": "prettier --write '**/*.{css,scss}'",
+    "fmt:css": "stylelint --fix **/*.scss && prettier --write '**/*.{css,scss}'",
     "fmt:js": "prettier --write '**/*.js'",
     "fmt:md": "prettier --write '**/*.md'",
     "fmt:yml": "prettier --write '**/*.{yaml,yml}'",
