@@ -86,8 +86,5 @@ gulp.task('watch', function() {
 })
 
 gulp.task('lint-pug', function() {
-  return gulp
-    .src('src/pug/**/*.pug')
-    .pipe(linter.pug())
-    .pipe(linter.pug.reporter('fail'))
+  return gulp.src('src/pug/**/*.pug').pipe(linter.pug())
 })
