@@ -1,19 +1,19 @@
 .icon-img-small {
-  width: 50px;
   height: 50px;
+  width: 50px;
 }
 
 .toot-small {
-  -webkit-line-clamp: 1;
-  display: -webkit-box;
   -webkit-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
 }
 
 .acct-small,
 .toot-small {
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .acct-small {
@@ -25,10 +25,10 @@
 }
 
 ons-icon.namu {
+  font-size: 3em !important;
   position: absolute;
   right: -30px;
   top: 10px;
-  font-size: 3em !important;
 }
 
 .toot-card-right.namu {

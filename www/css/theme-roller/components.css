@@ -4,8 +4,8 @@
 }
 
 .dark-box-header {
-  padding-left: 5px;
   background: #5c5c5c;
+  padding-left: 5px;
 }
 
 .dark-box-header,
@@ -14,8 +14,8 @@
 }
 
 .toot {
-  border: 1px solid #393f4f;
   background: #282c37;
+  border: 1px solid #393f4f;
   color: #fff;
 }
 
@@ -39,12 +39,12 @@
 }
 
 .rightup-button {
-  z-index: 2;
-  position: absolute;
-  top: 0;
-  right: 10px;
   color: #606984;
   font-size: 14px;
+  position: absolute;
+  right: 10px;
+  top: 0;
+  z-index: 2;
 }
 
 .black_text > .select-input,

@@ -26,8 +26,8 @@ html {
 }
 
 .toot {
-  border: 1px solid #353535;
   background: #212121;
+  border: 1px solid #353535;
 }
 
 .list-header {
@@ -108,8 +108,8 @@ a:visited {
 
 .radio-button__checkmark:after {
   border: 2px solid #fff;
-  border-top: none;
   border-right: none;
+  border-top: none;
 }
 
 .black_text > .select-input,
