@@ -1,1 +1,4 @@
-www
+www/components
+www/css/bootstrap
+www/css/theme-roller/mastodon
+www/knzkapp.min.css
