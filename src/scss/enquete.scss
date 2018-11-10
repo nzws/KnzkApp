@@ -1,19 +1,19 @@
 .progress-bar.enq {
-  margin-bottom: 10px;
-  height: 40px;
-  border-radius: 0;
   border: 1px solid #ddd;
+  border-radius: 0;
+  height: 40px;
+  margin-bottom: 10px;
 
   &.open {
     background-color: #525b73;
   }
 
   &.post {
-    background-color: deepskyblue;
+    background-color: #00bfff;
   }
 
   &.close {
-    background-color: black;
+    background-color: #000;
   }
 
   > {
@@ -26,10 +26,10 @@
     }
 
     .text {
-      top: 10px;
-      position: absolute;
+      color: #fff;
       margin-left: 5px;
-      color: white;
+      position: absolute;
+      top: 10px;
       z-index: 101;
     }
   }

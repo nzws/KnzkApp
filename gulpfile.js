@@ -1,36 +1,31 @@
 const gulp = require('gulp'),
   uglifyes = require('uglify-es'),
   composer = require('gulp-uglify/composer'),
-  minify = {
-    js: composer(uglifyes, console),
-    css: require('gulp-clean-css')
-  },
+  minify = { js: composer(uglifyes, console), css: require('gulp-clean-css') },
   concat = require('gulp-concat'),
   sass = require('gulp-sass'),
   pug = require('gulp-pug'),
   plumber = require('gulp-plumber'),
   wait = require('gulp-wait'),
-  linter = {
-    pug: require('gulp-pug-linter')
-  }
+  linter = { pug: require('gulp-pug-linter') }
 
-gulp.task('build-js', function() {
-  return gulp
+gulp.task('build-js', () =>
+  gulp
     .src('src/js/**/*.js')
     .pipe(concat('knzkapp.min.js'))
     .pipe(minify.js())
-    .on('error', function(err) {
+    .on('error', err => {
       console.error(err)
     })
     .pipe(gulp.dest('www/'))
-})
+)
 
-gulp.task('dev-build-js', function() {
-  return gulp
+gulp.task('dev-build-js', () =>
+  gulp
     .src('src/js/**/*.js')
     .pipe(
       plumber({
-        errorHandler: function(err) {
+        errorHandler(err) {
           console.log(err.messageFormatted)
           this.emit('end')
         }
@@ -38,14 +33,14 @@ gulp.task('dev-build-js', function() {
     )
     .pipe(concat('knzkapp.min.js'))
     .pipe(gulp.dest('www/'))
-})
+)
 
-gulp.task('build-scss', function() {
-  return gulp
+gulp.task('build-scss', () =>
+  gulp
     .src('src/scss/style.scss')
     .pipe(
       plumber({
-        errorHandler: function(err) {
+        errorHandler(err) {
           console.log(err.messageFormatted)
           this.emit('end')
         }
@@ -56,9 +51,9 @@ gulp.task('build-scss', function() {
     .pipe(minify.css())
     .pipe(concat('knzkapp.min.css'))
     .pipe(gulp.dest('www/'))
-})
+)
 
-gulp.task('build-pug-mastodon', function () {
+gulp.task('build-pug-mastodon', function() {
   return gulp
     .src('src/pug/index.pug')
     .pipe(pug())
@@ -66,17 +61,17 @@ gulp.task('build-pug-mastodon', function () {
     .pipe(gulp.dest('www/'))
 })
 
-gulp.task('build-pug-misskey', function () {
+gulp.task('build-pug-misskey', function() {
   return gulp
     .src('src/pug/misskey.pug')
     .pipe(pug())
     .pipe(concat('misskey.html'))
-    .pipe(gulp.dest('www/'));
-});
+    .pipe(gulp.dest('www/'))
+})
 
-gulp.task('build-pug', ['build-pug-mastodon', 'build-pug-misskey']);
+gulp.task('build-pug', ['build-pug-mastodon', 'build-pug-misskey'])
 
-gulp.task('build', ['build-js', 'build-scss', 'build-pug']);
+gulp.task('build', ['build-js', 'build-scss', 'build-pug'])
 
 gulp.task('watch', function() {
   var watcher = gulp.watch('src/scss/**/*.scss', ['build-scss'])
@@ -84,20 +79,15 @@ gulp.task('watch', function() {
     console.log('file: ' + evt.path + ', ' + 'type: ' + evt.type)
   })
 
-  var watcherJS = gulp.watch('src/js/**/*.js', ['dev-build-js'])
-  watcherJS.on('change', function(evt) {
-    console.log('file: ' + evt.path + ', ' + 'type: ' + evt.type)
+  const watcherJS = gulp.watch('src/js/**/*.js', ['dev-build-js'])
+  watcherJS.on('change', evt => {
+    console.log(`file: ${evt.path}, type: ${evt.type}`)
   })
 
-  var watcherPug = gulp.watch('src/pug/**/*.pug', ['build-pug'])
-  watcherPug.on('change', function(evt) {
-    console.log('file: ' + evt.path + ', ' + 'type: ' + evt.type)
+  const watcherPug = gulp.watch('src/pug/**/*.pug', ['build-pug'])
+  watcherPug.on('change', evt => {
+    console.log(`file: ${evt.path}, type: ${evt.type}`)
   })
 })
 
-gulp.task('lint-pug', function() {
-  return gulp
-    .src('src/pug/**/*.pug')
-    .pipe(linter.pug())
-    .pipe(linter.pug.reporter('fail'))
-})
+gulp.task('lint-pug', () => gulp.src('src/pug/**/*.pug').pipe(linter.pug()))

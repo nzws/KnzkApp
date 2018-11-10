@@ -1,37 +1,31 @@
-/*
-kirishima_markdown.css is based https://github.com/Kirishima21/mastodon/blob/Astarte/app/javascript/styles/mastodon/basics.scss#L124
-Original source created by @Kirishima21
-Edited by @yuzulabo
- */
-
 .toot_content h1 {
-  font-size: 195%;
   border-bottom: 2px solid #f33;
+  font-size: 195%;
 }
 
 .toot_content h2 {
-  font-size: 180%;
   border-bottom: 2px solid #f33;
+  font-size: 180%;
 }
 
 .toot_content h3 {
-  font-size: 165%;
   border-bottom: 2px solid #f33;
+  font-size: 165%;
 }
 
 .toot_content h4 {
-  font-size: 150%;
   border-bottom: 2px solid #f33;
+  font-size: 150%;
 }
 
 .toot_content h5 {
-  font-size: 135%;
   border-bottom: 2px solid #f33;
+  font-size: 135%;
 }
 
 .toot_content h6 {
-  font-size: 120%;
   border-bottom: 2px solid #f33;
+  font-size: 120%;
 }
 
 .toot_content em {
@@ -39,27 +33,27 @@ Edited by @yuzulabo
 }
 
 .toot_content strong {
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .toot_content code {
-  display: block;
-  border-left: 2px solid;
+  background-color: #000;
   border-color: #079903;
-  padding-left: 10px;
-  margin-top: 5px;
+  border-left: 2px solid;
+  display: block;
   margin-bottom: 5px;
   margin-left: 5px;
-  background-color: #000;
+  margin-top: 5px;
+  padding-left: 10px;
 }
 
 .toot_content blockquote {
-  padding-left: 8px;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  border-left: 4px solid #2b90d9;
   color: #fff;
   display: block;
-  border-left: 4px solid #2b90d9;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+  padding-left: 8px;
 }
 
 .toot_content p ~ blockquote {
@@ -70,37 +64,22 @@ Edited by @yuzulabo
   list-style: inside;
 }
 
+.toot_content ul > ul br,
 .toot_content ul br {
   display: none;
 }
 
-.toot_content ul > ul br {
-  display: none;
-}
-
+.toot_content ul > br > li,
+.toot_content ul > li,
 .toot_content ul > li > ul {
-  padding-left: 1em;
   list-style: inside circle;
+  padding-left: 1em;
 }
 
-.toot_content ul > li {
-  padding-left: 1em;
-  list-style: inside circle;
-}
-
-.toot_content ul > br > li {
-  padding-left: 1em;
-  list-style: inside circle;
-}
-
+.toot_content ul > br > ul > br > li,
 .toot_content ul > ul > li {
-  padding-left: 2em;
   list-style: inside circle;
-}
-
-.toot_content ul > br > ul > br > li {
   padding-left: 2em;
-  list-style: inside circle;
 }
 
 .toot_content ol {
@@ -111,55 +90,49 @@ Edited by @yuzulabo
   padding-left: 1em;
 }
 
-.toot_content img {
-  width: 150px;
-  height: 150px;
-  object-fit: contain;
-}
-
+.toot_content img,
 .toot_content p > img {
-  width: 150px;
   height: 150px;
   object-fit: contain;
+  width: 150px;
 }
 
-.toot_content a {
-  color: #1fbff9;
-}
-
+.toot_content a,
 .toot_content p > a {
   color: #1fbff9;
 }
 
 .toot_content sup {
   font-size: 75.5%;
-  vertical-align: top;
   position: relative;
   top: -0.5em;
+  vertical-align: top;
 }
 
 .toot_content sub {
   font-size: 75.5%;
-  vertical-align: bottom;
-  position: relative;
   top: 0.5em;
+}
+
+.toot_content small,
+.toot_content sub {
+  position: relative;
+  vertical-align: bottom;
 }
 
 .toot_content small {
   font-size: 50%;
-  vertical-align: bottom;
-  position: relative;
 }
 
 .toot_content table {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  border-collapse: collapse;
+  border-spacing: 0;
   color: #2b90d9;
   display: block;
-  width: 100%;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
   overflow: auto;
-  border-spacing: 0;
-  border-collapse: collapse;
+  width: 100%;
 }
 
 .toot_content table tr {
@@ -171,10 +144,10 @@ Edited by @yuzulabo
   padding: 0;
 }
 
-.toot_content table th,
-.toot_content table td {
-  padding: 6px 13px;
+.toot_content table td,
+.toot_content table th {
   border: 1px solid #2b90d9;
+  padding: 6px 13px;
 }
 
 .toot_content table th {

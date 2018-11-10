@@ -1,23 +1,23 @@
-body,
-html,
 .dark-bg,
+.nav-search,
 .page__background,
-.nav-search {
+body,
+html {
   background: #212121;
 }
 
-.white,
-.container,
 #nav-search,
-.toolbar__right,
-.toolbar__left,
-.toolbar__center,
-.toot,
+.button--large--quiet,
+.button--light,
+.container,
 .list-item,
 .tabbar,
 .toolbar,
-.button--large--quiet,
-.button--light {
+.toolbar__center,
+.toolbar__left,
+.toolbar__right,
+.toot,
+.white {
   color: #fff;
 }
 
@@ -26,8 +26,8 @@ html,
 }
 
 .toot {
-  border: 1px solid #353535;
   background: #212121;
+  border: 1px solid #353535;
 }
 
 .list-header {
@@ -39,33 +39,34 @@ html,
   background: #353535;
 }
 
-.toot-button,
-.showtoot-button {
+.showtoot-button,
+.toot-button {
   color: #636363;
 }
 
 .tabbar,
 .toolbar {
-  background: #2b2b2b;
   border-top: none;
 }
 
 .button--large--quiet,
-.button--light {
+.button--light,
+.tabbar,
+.toolbar {
   background: #2b2b2b;
 }
 
 a,
+a:hover,
 a:link,
-a:visited,
-a:hover {
+a:visited {
   color: #d9e1e8 !important;
   text-decoration: underline;
 }
 
-.toolbar-button,
 .back-button,
-.blue {
+.blue,
+.toolbar-button {
   color: #2b90d9 !important;
 }
 
@@ -107,8 +108,8 @@ a:hover {
 
 .radio-button__checkmark:after {
   border: 2px solid #fff;
-  border-top: none;
   border-right: none;
+  border-top: none;
 }
 
 .black_text > .select-input,
@@ -116,8 +117,8 @@ a:hover {
   color: #313131;
 }
 
-.simple-toot > div,
-#simple_toot_TL_toolbar {
+#simple_toot_TL_toolbar,
+.simple-toot > div {
   background: #424242;
 }
 
@@ -125,8 +126,8 @@ a:hover {
   color: #4a4a4a;
 }
 
-.alert-dialog-content > a:link,
-.alert-dialog-content > a {
+.alert-dialog-content > a,
+.alert-dialog-content > a:link {
   color: #2b90d9 !important;
 }
 
@@ -143,7 +144,7 @@ a:hover {
 }
 
 .account_bar_mode {
-  background-color: #111111;
+  background-color: #111;
 }
 
 .acctTL_now {
