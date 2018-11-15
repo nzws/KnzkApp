@@ -28,7 +28,6 @@ html
     link#theme_css(rel='stylesheet')
     link#css_custom_platform(rel='stylesheet')
     script.
-      var knzkMk = {};
       window.knzkMk = {};
     script(src='config/config.js')
     script(src='config/radio.js')
@@ -36,7 +35,7 @@ html
   body
     audio#music-control
     style#font-config.
-    include mastodon/splitter
+    include misskey/splitter
     include mastodon/usermenu
     template(id='init.html')
       ons-page

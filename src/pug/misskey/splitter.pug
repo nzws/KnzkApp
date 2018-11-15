@@ -1,0 +1,103 @@
+ons-splitter
+  ons-splitter-side#splitter-menu(side='left', width='250px', collapse='', animation='reveal')
+    ons-page
+      ons-list
+        ons-list-item#splitter-profile-bg.splitter-profile-item
+          .splitter-profile
+            img#splitter-icon.user-logo(src='img/mk-default-avatar.jpg', onclick="show_account(now_userconf['id'], true)")
+            p
+            h4#splitter-profile-name.acct-small(style='height: 20px')
+            p
+        ons-list-item(tappable='', onclick='openNavigation("account")')
+          .center.list-item-small
+            | @
+            span#account_change-username
+          .right.list-item-small
+            ons-icon(icon='fa-caret-down')
+      #menu-list-base
+        #account-list.invisible
+          ons-list
+            ons-list-item(modifier='chevron', tappable='', onclick='open_addaccount()')
+              label.left.music-item
+                i.list-item__icon.list-item--chevron__icon.ons-icon.fa-plus.fa.fa-fw
+              .center.music-item(data-i18n='account.add')
+                | アカウント追加
+            #account-list-other
+        #menu-list
+          ons-list
+            ons-search-input.w-max.nav-search(placeholder='検索', data-i18n='[placeholder]navigation.search', onkeydown='SearchKey();', input-id='nav-search')
+            ons-list-header(data-i18n='navigation.title') ナビゲーション
+            ons-list-item(modifier='chevron', tappable='', onclick="loadNav('post.html', 'up');")
+              label.left.music-item
+                i.list-item__icon.list-item--chevron__icon.ons-icon.fa-pencil.fa.fa-fw
+              .center.music-item(data-i18n='navigation.toot')
+                | 新規トゥート
+            ons-list-item(modifier='chevron', tappable='', onclick='openTL()')
+              .left
+                i.list-item__icon.list-item--chevron__icon.ons-icon.fa-home.fa.fa-fw
+              .center(data-i18n='timeline.title')
+                | タイムライン
+            ons-list-item(modifier='chevron', tappable='', onclick="openTL('alert')")
+              .left
+                i.list-item__icon.list-item--chevron__icon.ons-icon.fa-bell.fa.fa-fw
+              .center
+                span(data-i18n='navigation.notifications') 通知
+                span.notification.invisible.noti_unread 1
+            ons-list-item#menu-fav-page.invisible(modifier='chevron', tappable='', onclick="list('favourites', 'navigation.favourites', null, 'toot')")
+              .left
+                i.list-item__icon.list-item--chevron__icon.ons-icon.fa-star.fa.fa-fw
+              .center(data-i18n='navigation.favourites')
+                | お気に入り一覧
+            ons-list-item#menu-followreq.invisible(modifier='chevron', tappable='', onclick="list('follow_requests', 'navigation.follow_req', null, 'acct')")
+              .left
+                i.list-item__icon.list-item--chevron__icon.ons-icon.fa-users.fa.fa-fw
+              .center(data-i18n='navigation.follow_req')
+                | フォローリクエスト
+            ons-list-item(modifier='chevron', tappable='', onclick="load('usermenu.html')")
+              .left
+                i.list-item__icon.list-item--chevron__icon.ons-icon.fa-ellipsis-h.fa.fa-fw
+              .center(data-i18n='navigation.user_menu')
+                | ユーザーメニュー
+            ons-list-item(modifier='chevron', tappable='', onclick="load('config.html')")
+              .left
+                i.list-item__icon.list-item--chevron__icon.ons-icon.fa-cog.fa.fa-fw
+              .center(data-i18n='navigation.preferences')
+                | 設定
+            ons-list-item(modifier='chevron', tappable='', onclick='openNavigation("radio-base")')
+              .left
+                i.list-item__icon.list-item--chevron__icon.ons-icon.fa-music.fa.fa-fw
+              .center
+                span.list-item__title Radio
+                span#music_title.list-item__subtitle Not Playing
+            ons-list-item(tappable='', onclick='openNavigation("timeline-base")').forFlexLarge
+              .center.list-item-small
+                span(data-i18n='timeline.title') タイムライン
+              .right.list-item-small
+                ons-icon(icon='fa-caret-up')
+
+        #timeline-base-list.invisible
+         ons-list
+           ons-list-header(data-i18n='timeline.title') タイムライン
+           ons-list-item(tappable='', onclick='openTL("alert_nav")')
+             .left
+               i.list-item__icon.ons-icon.fa-bell.fa.fa-fw
+             .center(data-i18n='navigation.notifications')
+               | 通知
+           #timeline-list
+           ons-list-item(tappable='', onclick='openNavigation()')
+             .center.list-item-small
+               span(data-i18n='navigation.title') ナビゲーション
+             .right.list-item-small
+               ons-icon(icon='fa-caret-up')
+
+        form#radio-base-list.invisible
+          ons-list
+            ons-list-item
+              .left(onclick='openNavigation("radio-base")')
+                i.list-item__icon.ons-icon.fa-chevron-left.fa.fa-fw
+                span(data-i18n='navigation.back') 戻る
+              .right(onclick='radioToggle()')
+                i#music-button.list-item__icon.ons-icon.fa.fa-fw.fa-play
+            ons-list-header Channel
+            #radio_list
+  ons-splitter-content#splitter-content(page='init.html')

@@ -370,7 +370,7 @@ function initevent() {
     }
 
     if (event.enterPage.id === 'about-page') {
-      elemId('app-version').innerText = app_version;
+      elemId('app-version').innerText = app_version
     }
 
     if (event.enterPage.id === 'config_TL-page') {
@@ -623,25 +623,25 @@ const init_d = () =>
     resolve()
   })
 
-ons.disableAutoStyling();
+ons.disableAutoStyling()
 ons.ready(function() {
-  var service = localStorage.getItem('knzkapp_now_service');
+  var service = localStorage.getItem('knzkapp_now_service')
   if (service === 'misskey') {
     if (location.href.match(/misskey\.html/i)) {
-      knzkMk.init();
+      mk_init.init()
     } else {
-      location.href = 'misskey.html';
+      location.href = 'misskey.html'
     }
-    return;
+    return
   } else {
     if (location.href.match(/index\.html/i)) {
-      localStorage.setItem('knzkapp_now_service', 'mastodon');
+      localStorage.setItem('knzkapp_now_service', 'mastodon')
     } else {
-      location.href = 'index.html';
+      location.href = 'index.html'
     }
   }
-  init_d().then(i18n_init().then(ConfigSetup().then(init())));
-  if (ons.platform.isAndroid()) ons.setDefaultDeviceBackButtonListener(BackButtonEvent);
+  init_d().then(i18n_init().then(ConfigSetup().then(init())))
+  if (ons.platform.isAndroid()) ons.setDefaultDeviceBackButtonListener(BackButtonEvent)
   if (is_debug) {
     ons.notification.alert('この状態で公開しないで下さい！', {
       title: 'Debug mode',
@@ -661,8 +661,8 @@ ons.ready(function() {
             if (e === 1) {
               setConfig(1, 'SendLog', '1')
               Raven.config(sentryID, {
-                release: app_version,
-              }).install();
+                release: app_version
+              }).install()
             } else {
               setConfig(1, 'SendLog', '0')
             }
@@ -670,8 +670,8 @@ ons.ready(function() {
       }, 500)
     } else if (getConfig(1, 'SendLog') === '1') {
       Raven.config(sentryID, {
-        release: app_version,
-      }).install();
+        release: app_version
+      }).install()
     }
   }
 })
