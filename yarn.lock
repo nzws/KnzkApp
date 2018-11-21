@@ -1761,12 +1761,12 @@ cordova-lib@7.1.0:
     valid-identifier "0.0.1"
     xcode "^0.9.0"
 
-cordova-plugin-camera@^4.0.3:
+cordova-plugin-camera@4.0.3:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/cordova-plugin-camera/-/cordova-plugin-camera-4.0.3.tgz#7373a5938318c86ccfd84e3713e2382d10fe076b"
   integrity sha1-c3Olk4MYyGzP2E43E+I4LRD+B2s=
 
-cordova-plugin-customurlscheme@^4.3.0:
+cordova-plugin-customurlscheme@4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/cordova-plugin-customurlscheme/-/cordova-plugin-customurlscheme-4.3.0.tgz#02f968778b4093990eb0407f3fa1b1458d705f94"
   integrity sha1-Avlod4tAk5kOsEB/P6GxRY1wX5Q=
@@ -1775,7 +1775,7 @@ cordova-plugin-customurlscheme@^4.3.0:
   version "2.1.2"
   resolved "git+https://github.com/KnzkApp/cordova-plugin-fcm#cc9e8e571388cc8cb8a0a37d52dba89ed0c7a7c6"
 
-cordova-plugin-file@^6.0.1:
+cordova-plugin-file@6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/cordova-plugin-file/-/cordova-plugin-file-6.0.1.tgz#49606b8c15a5688d4728f92e4a7325a061de07f5"
   integrity sha1-SWBrjBWlaI1HKPkuSnMloGHeB/U=
@@ -1785,12 +1785,12 @@ cordova-plugin-globalization@1.11.0:
   resolved "https://registry.yarnpkg.com/cordova-plugin-globalization/-/cordova-plugin-globalization-1.11.0.tgz#eac3158100298493afa30be8940e698f61efbcfe"
   integrity sha1-6sMVgQAphJOvowvolA5pj2HvvP4=
 
-cordova-plugin-inappbrowser@^3.0.0:
+cordova-plugin-inappbrowser@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/cordova-plugin-inappbrowser/-/cordova-plugin-inappbrowser-3.0.0.tgz#d4ae00d36676210751057ad258ae4ad4a9161ada"
   integrity sha1-1K4A02Z2IQdRBXrSWK5K1KkWGto=
 
-cordova-plugin-ionic-keyboard@^2.1.3:
+cordova-plugin-ionic-keyboard@2.1.3:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/cordova-plugin-ionic-keyboard/-/cordova-plugin-ionic-keyboard-2.1.3.tgz#6b050d5b7cb4393d5758b55f45a46372f25178fe"
   integrity sha512-6ucQ6FdlLdBm8kJfFnzozmBTjru/0xekHP/dAhjoCZggkGRlgs8TsUJFkxa/bV+qi7Dlo50JjmpE4UMWAO+aOQ==
@@ -1799,22 +1799,22 @@ cordova-plugin-ionic-keyboard@^2.1.3:
   version "0.1.1"
   resolved "git+https://github.com/KnzkApp/cordova-plugin-ipad-multitasking#4a3233ca26499586cf8849d25af7d4546a76feed"
 
-cordova-plugin-safariviewcontroller@^1.5.3:
+cordova-plugin-safariviewcontroller@1.5.4:
   version "1.5.4"
   resolved "https://registry.yarnpkg.com/cordova-plugin-safariviewcontroller/-/cordova-plugin-safariviewcontroller-1.5.4.tgz#58ddb392b0d6ef6c1e69da5d296ec52ee73eb54e"
   integrity sha512-xNNbiAnXOCZRhnonNKMjOGD9N7WXxgc6sV1CDOiWzCP69e/LYaLdbYAmi8XESdd15vqoXVXgrHGTCk98CEygvw==
 
-cordova-plugin-splashscreen@^5.0.2:
+cordova-plugin-splashscreen@5.0.2:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/cordova-plugin-splashscreen/-/cordova-plugin-splashscreen-5.0.2.tgz#747e74f56e201cd585bc62d14bca19f6867ff1ed"
   integrity sha1-dH509W4gHNWFvGLRS8oZ9oZ/8e0=
 
-cordova-plugin-statusbar@^2.4.2:
+cordova-plugin-statusbar@2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/cordova-plugin-statusbar/-/cordova-plugin-statusbar-2.4.2.tgz#fc1fbdc0d8d7033a7e8e1f1f7ff167ac9bd4faf6"
   integrity sha1-/B+9wNjXAzp+jh8ff/FnrJvU+vY=
 
-cordova-plugin-whitelist@^1.3.3:
+cordova-plugin-whitelist@1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/cordova-plugin-whitelist/-/cordova-plugin-whitelist-1.3.3.tgz#b5e85ecdbbfe5aeded40a1bf4ee2372e67d96fb4"
   integrity sha1-tehezbv+Wu3tQKG/TuI3LmfZb7Q=
@@ -1835,7 +1835,7 @@ cordova-serve@^2.0.0:
     opn "^5.3.0"
     shelljs "^0.5.3"
 
-cordova@^7.1.0:
+cordova@7.1.0:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/cordova/-/cordova-7.1.0.tgz#559f5394e64145c9b6dd81800feb658d5087b096"
   integrity sha1-VZ9TlOZBRcm23YGAD+tljVCHsJY=
@@ -2439,14 +2439,14 @@ escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
-eslint-config-prettier@^3.3.0:
+eslint-config-prettier@3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-3.3.0.tgz#41afc8d3b852e757f06274ed6c44ca16f939a57d"
   integrity sha512-Bc3bh5bAcKNvs3HOpSi6EfGA2IIp7EzWcg2tS4vP7stnXu/J1opihHDM7jI9JCIckyIDTgZLSWn7J3HY0j2JfA==
   dependencies:
     get-stdin "^6.0.0"
 
-eslint-plugin-prettier@^3.0.0:
+eslint-plugin-prettier@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.0.0.tgz#f6b823e065f8c36529918cdb766d7a0e975ec30c"
   integrity sha512-4g11opzhqq/8+AMmo5Vc2Gn7z9alZ4JqrbZ+D4i8KlSyxeQhZHlmIrY8U9Akf514MoEhogPa87Jgkq87aZ2Ohw==
@@ -2471,7 +2471,7 @@ eslint-visitor-keys@^1.0.0:
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#3f3180fb2e291017716acb4c9d6d5b5c34a6a81d"
   integrity sha512-qzm/XxIbxm/FHyH341ZrbnMUpe+5Bocte9xkmFMzPMjRaZMcXww+MpBptFvtU+79L362nqiLhekCxCxDPaUMBQ==
 
-eslint@^5.9.0:
+eslint@5.9.0:
   version "5.9.0"
   resolved "https://registry.yarnpkg.com/eslint/-/eslint-5.9.0.tgz#b234b6d15ef84b5849c6de2af43195a2d59d408e"
   integrity sha512-g4KWpPdqN0nth+goDNICNXGfJF7nNnepthp46CAlJoJtC5K/cLu3NgCM3AHu1CkJ5Hzt9V0Y0PBAO6Ay/gGb+w==
@@ -3572,7 +3572,7 @@ growl@~1.7.0:
   resolved "https://registry.yarnpkg.com/growl/-/growl-1.7.0.tgz#de2d66136d002e112ba70f3f10c31cf7c350b2da"
   integrity sha1-3i1mE20ALhErpw8/EMMc98NQsto=
 
-gulp-clean-css@^3.10.0:
+gulp-clean-css@3.10.0:
   version "3.10.0"
   resolved "https://registry.yarnpkg.com/gulp-clean-css/-/gulp-clean-css-3.10.0.tgz#bccd4605eff104bfa4980014cc4b3c24c571736d"
   integrity sha512-7Isf9Y690o/Q5MVjEylH1H7L8WeZ89woW7DnhD5unTintOdZb67KdOayRgp9trUFo+f9UyJtuatV42e/+kghPg==
@@ -3582,7 +3582,7 @@ gulp-clean-css@^3.10.0:
     through2 "2.0.3"
     vinyl-sourcemaps-apply "0.2.1"
 
-gulp-concat@^2.6.1:
+gulp-concat@2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/gulp-concat/-/gulp-concat-2.6.1.tgz#633d16c95d88504628ad02665663cee5a4793353"
   integrity sha1-Yz0WyV2IUEYorQJmVmPO5aR5M1M=
@@ -3591,7 +3591,7 @@ gulp-concat@^2.6.1:
     through2 "^2.0.0"
     vinyl "^2.0.0"
 
-gulp-plumber@^1.2.0:
+gulp-plumber@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/gulp-plumber/-/gulp-plumber-1.2.0.tgz#18ea03912c9ee483f8a5499973b5954cd90f6ad8"
   integrity sha512-L/LJftsbKoHbVj6dN5pvMsyJn9jYI0wT0nMg3G6VZhDac4NesezecYTi8/48rHi+yEic3sUpw6jlSc7qNWh32A==
@@ -3601,7 +3601,7 @@ gulp-plumber@^1.2.0:
     plugin-error "^0.1.2"
     through2 "^2.0.3"
 
-gulp-pug-linter@^1.1.0:
+gulp-pug-linter@1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/gulp-pug-linter/-/gulp-pug-linter-1.1.0.tgz#03ed82b1d2b922f9f51aa40741447d2aa80378aa"
   integrity sha512-Tg4B0OpR9GNTBLjsTQFYbU1mqdQ7/NBLgsXgvcseTF+3SIct5zaAgp3+rhP52AKCGcvPvmeCgRbdsMkdOStsQQ==
@@ -3611,7 +3611,7 @@ gulp-pug-linter@^1.1.0:
     pug-lint "^2.5.0"
     through2 "^3.0.0"
 
-gulp-pug@^4.0.1:
+gulp-pug@4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/gulp-pug/-/gulp-pug-4.0.1.tgz#5c5bb38303a5a565add8b200e292b4a076cf2efa"
   integrity sha512-RsayLPwJtKKMub9bbO4VYlMPVnImUPdK8+BjvkiulkorrjWnahTbI3a3Li/7YkD0xs7ap7ePciNiPwweoVEPMQ==
@@ -3623,7 +3623,7 @@ gulp-pug@^4.0.1:
     replace-ext "^1.0.0"
     through2 "^2.0.3"
 
-gulp-sass@^4.0.2:
+gulp-sass@4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/gulp-sass/-/gulp-sass-4.0.2.tgz#cfb1e3eff2bd9852431c7ce87f43880807d8d505"
   integrity sha512-q8psj4+aDrblJMMtRxihNBdovfzGrXJp1l4JU0Sz4b/Mhsi2DPrKFYCGDwjIWRENs04ELVHxdOJQ7Vs98OFohg==
@@ -3637,7 +3637,7 @@ gulp-sass@^4.0.2:
     through2 "^2.0.0"
     vinyl-sourcemaps-apply "^0.2.0"
 
-gulp-uglify@^3.0.1:
+gulp-uglify@3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/gulp-uglify/-/gulp-uglify-3.0.1.tgz#8d3eee466521bea6b10fd75dff72adf8b7ea2d97"
   integrity sha512-KVffbGY9d4Wv90bW/B1KZJyunLMyfHTBbilpDvmcrj5Go0/a1G3uVpt+1gRBWSw/11dqR3coJ1oWNTt1AiXuWQ==
@@ -3675,14 +3675,14 @@ gulp-util@^3.0.0:
     through2 "^2.0.0"
     vinyl "^0.5.0"
 
-gulp-wait@^0.0.2:
+gulp-wait@0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/gulp-wait/-/gulp-wait-0.0.2.tgz#ecebff4446e1a0d537cb1dc773dbd4581d17fb2d"
   integrity sha1-7Ov/REbhoNU3yx3Hc9vUWB0X+y0=
   dependencies:
     map-stream "0.0.4"
 
-gulp@^3.9.1:
+gulp@3.9.1:
   version "3.9.1"
   resolved "https://registry.yarnpkg.com/gulp/-/gulp-3.9.1.tgz#571ce45928dd40af6514fc4011866016c13845b4"
   integrity sha1-VxzkWSjdQK9lFPxAEYZgFsE4RbQ=
@@ -3933,7 +3933,7 @@ https-browserify@^1.0.0:
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
   integrity sha1-7AbBDgo0wPL68Zn3/X/Hj//QPHM=
 
-husky@^1.1.4:
+husky@1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/husky/-/husky-1.1.4.tgz#92f61383527d2571e9586234e5864356bfaceaa9"
   integrity sha512-cZjGpS7qsaBSo3fOMUuR7erQloX3l5XzL1v/RkIqU6zrQImDdU70z5Re9fGDp7+kbYlM2EtS4aYMlahBeiCUGw==
@@ -5505,7 +5505,7 @@ module-deps@^4.0.8:
     through2 "^2.0.0"
     xtend "^4.0.0"
 
-monaca-plugin-monaca-core@^3.2.1:
+monaca-plugin-monaca-core@3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/monaca-plugin-monaca-core/-/monaca-plugin-monaca-core-3.2.1.tgz#403cff97ae3436d803406bba0fb9c862fdded590"
   integrity sha512-KNWqbQDIfym9Mw/GDAxI6E7JC+XEUlgzL82sbpRRcugnpnOYG2CStfs6ZwM0hx5auepCuwnzxgaHl2eaV/cakQ==
@@ -5800,7 +5800,7 @@ npm-registry-client@~7.2.1:
   optionalDependencies:
     npmlog "~2.0.0 || ~3.1.0"
 
-npm-run-all@^4.1.3:
+npm-run-all@4.1.3:
   version "4.1.3"
   resolved "https://registry.yarnpkg.com/npm-run-all/-/npm-run-all-4.1.3.tgz#49f15b55a66bb4101664ce270cb18e7103f8f185"
   integrity sha512-aOG0N3Eo/WW+q6sUIdzcV2COS8VnTZCmdji0VQIAZF3b+a3YWb0AD0vFIyjKec18A7beLGbaQ5jFTNI2bPt9Cg==
@@ -6775,7 +6775,7 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier-stylelint@^0.4.2:
+prettier-stylelint@0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/prettier-stylelint/-/prettier-stylelint-0.4.2.tgz#62845e342f786218b008da69eef14f0a5c05bcfb"
   integrity sha512-CmatjDsW8xKMtWg/Tc6/W02wC59p50kkItrXmkgbhR4b2EKMU5Pm55x1WuCahkkZeZoNVReWRxA8VL/s69mkBg==
@@ -6795,7 +6795,7 @@ prettier-stylelint@^0.4.2:
     tempy "^0.2.1"
     update-notifier "^2.2.0"
 
-prettier@^1.15.2:
+prettier@1.15.2:
   version "1.15.2"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.15.2.tgz#d31abe22afa4351efa14c7f8b94b58bb7452205e"
   integrity sha512-YgPLFFA0CdKL4Eg2IHtUSjzj/BWgszDHiNQAe0VAIBse34148whfdzLagRL+QiKS+YfK5ftB6X4v/MBw8yCoug==
@@ -6810,7 +6810,7 @@ pretty-hrtime@^1.0.0:
   resolved "https://registry.yarnpkg.com/pretty-hrtime/-/pretty-hrtime-1.0.3.tgz#b7e3ea42435a4c9b2759d99e0f201eb195802ee1"
   integrity sha1-t+PqQkNaTJsnWdmeDyAesZWALuE=
 
-pretty-quick@^1.8.0:
+pretty-quick@1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/pretty-quick/-/pretty-quick-1.8.0.tgz#067ebe744ddb4e1ed4e1ee1af9648815121f78fc"
   integrity sha512-qV25sQF/ivJpdZ5efwemQYkQJa7sp3HqT/Vf/7z5vGYMcq1VrT2lDpFKAxJPf6219N1YAdR8mGkIhPAZ1odTmQ==
@@ -7951,7 +7951,7 @@ serve-static@1.13.2:
     parseurl "~1.3.2"
     send "0.16.2"
 
-serve@^10.1.1:
+serve@10.1.1:
   version "10.1.1"
   resolved "https://registry.yarnpkg.com/serve/-/serve-10.1.1.tgz#29a0210fc6fc2d9bbd67e977a0e487deb0e86789"
   integrity sha512-B1ca73zGFRS/bYQkbDw6BVEpRiUKdtnkwtvkMjx598jU5tyieua9lHyqdwUoup4/ek20I74EzncTC0gZuYng4Q==
@@ -8500,59 +8500,14 @@ stylelint-config-recommended@^2.1.0:
   resolved "https://registry.yarnpkg.com/stylelint-config-recommended/-/stylelint-config-recommended-2.1.0.tgz#f526d5c771c6811186d9eaedbed02195fee30858"
   integrity sha512-ajMbivOD7JxdsnlS5945KYhvt7L/HwN6YeYF2BH6kE4UCLJR0YvXMf+2j7nQpJyYLZx9uZzU5G1ZOSBiWAc6yA==
 
-stylelint-config-standard@^18.2.0:
+stylelint-config-standard@18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/stylelint-config-standard/-/stylelint-config-standard-18.2.0.tgz#6283149aba7f64f18731aef8f0abfb35cf619e06"
   integrity sha512-07x0TaSIzvXlbOioUU4ORkCIM07kyIuojkbSVCyFWNVgXMXYHfhnQSCkqu+oHWJf3YADAnPGWzdJ53NxkoJ7RA==
   dependencies:
     stylelint-config-recommended "^2.1.0"
 
-stylelint@^8.1.1:
-  version "8.4.0"
-  resolved "https://registry.yarnpkg.com/stylelint/-/stylelint-8.4.0.tgz#c2dbaeb17236917819f9206e1c0df5fddf6f83c3"
-  integrity sha512-56hPH5mTFnk8LzlEuTWq0epa34fHuS54UFYQidBOFt563RJBNi1nz1F2HK2MoT1X1waq47milvRsRahFCCJs/Q==
-  dependencies:
-    autoprefixer "^7.1.2"
-    balanced-match "^1.0.0"
-    chalk "^2.0.1"
-    cosmiconfig "^3.1.0"
-    debug "^3.0.0"
-    execall "^1.0.0"
-    file-entry-cache "^2.0.0"
-    get-stdin "^5.0.1"
-    globby "^7.0.0"
-    globjoin "^0.1.4"
-    html-tags "^2.0.0"
-    ignore "^3.3.3"
-    imurmurhash "^0.1.4"
-    known-css-properties "^0.5.0"
-    lodash "^4.17.4"
-    log-symbols "^2.0.0"
-    mathml-tag-names "^2.0.1"
-    meow "^4.0.0"
-    micromatch "^2.3.11"
-    normalize-selector "^0.2.0"
-    pify "^3.0.0"
-    postcss "^6.0.6"
-    postcss-html "^0.12.0"
-    postcss-less "^1.1.0"
-    postcss-media-query-parser "^0.2.3"
-    postcss-reporter "^5.0.0"
-    postcss-resolve-nested-selector "^0.1.1"
-    postcss-safe-parser "^3.0.1"
-    postcss-sass "^0.2.0"
-    postcss-scss "^1.0.2"
-    postcss-selector-parser "^3.1.0"
-    postcss-value-parser "^3.3.0"
-    resolve-from "^4.0.0"
-    specificity "^0.3.1"
-    string-width "^2.1.0"
-    style-search "^0.1.0"
-    sugarss "^1.0.0"
-    svg-tags "^1.0.0"
-    table "^4.0.1"
-
-stylelint@^9.8.0:
+stylelint@9.8.0:
   version "9.8.0"
   resolved "https://registry.yarnpkg.com/stylelint/-/stylelint-9.8.0.tgz#bfdade6360d82afe820d6b15251b01acf8ffd04d"
   integrity sha512-qYYgP9UnZ6S4uaXrfEGPIMeNv21gP4t3E7BtnYfJIiHKvz7AbrCP0vj1wPgD6OFyxLT5txQxtoznfSkm2vsUkQ==
@@ -8605,6 +8560,51 @@ stylelint@^9.8.0:
     sugarss "^2.0.0"
     svg-tags "^1.0.0"
     table "^5.0.0"
+
+stylelint@^8.1.1:
+  version "8.4.0"
+  resolved "https://registry.yarnpkg.com/stylelint/-/stylelint-8.4.0.tgz#c2dbaeb17236917819f9206e1c0df5fddf6f83c3"
+  integrity sha512-56hPH5mTFnk8LzlEuTWq0epa34fHuS54UFYQidBOFt563RJBNi1nz1F2HK2MoT1X1waq47milvRsRahFCCJs/Q==
+  dependencies:
+    autoprefixer "^7.1.2"
+    balanced-match "^1.0.0"
+    chalk "^2.0.1"
+    cosmiconfig "^3.1.0"
+    debug "^3.0.0"
+    execall "^1.0.0"
+    file-entry-cache "^2.0.0"
+    get-stdin "^5.0.1"
+    globby "^7.0.0"
+    globjoin "^0.1.4"
+    html-tags "^2.0.0"
+    ignore "^3.3.3"
+    imurmurhash "^0.1.4"
+    known-css-properties "^0.5.0"
+    lodash "^4.17.4"
+    log-symbols "^2.0.0"
+    mathml-tag-names "^2.0.1"
+    meow "^4.0.0"
+    micromatch "^2.3.11"
+    normalize-selector "^0.2.0"
+    pify "^3.0.0"
+    postcss "^6.0.6"
+    postcss-html "^0.12.0"
+    postcss-less "^1.1.0"
+    postcss-media-query-parser "^0.2.3"
+    postcss-reporter "^5.0.0"
+    postcss-resolve-nested-selector "^0.1.1"
+    postcss-safe-parser "^3.0.1"
+    postcss-sass "^0.2.0"
+    postcss-scss "^1.0.2"
+    postcss-selector-parser "^3.1.0"
+    postcss-value-parser "^3.3.0"
+    resolve-from "^4.0.0"
+    specificity "^0.3.1"
+    string-width "^2.1.0"
+    style-search "^0.1.0"
+    sugarss "^1.0.0"
+    svg-tags "^1.0.0"
+    table "^4.0.1"
 
 subarg@^1.0.0:
   version "1.0.0"
@@ -8958,7 +8958,7 @@ typedarray@^0.0.6, typedarray@~0.0.5:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-uglify-es@^3.3.9:
+uglify-es@3.3.9:
   version "3.3.9"
   resolved "https://registry.yarnpkg.com/uglify-es/-/uglify-es-3.3.9.tgz#0c1c4f0700bed8dbc124cdb304d2592ca203e677"
   integrity sha512-r+MU0rfv4L/0eeW3xZrd16t4NZfK8Ld4SWVglYBb7ez5uXFWHuVRs6xCTrf1yirs9a4j4Y27nn7SRfO6v67XsQ==
