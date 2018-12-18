@@ -1,13 +1,13 @@
-const gulp = require('gulp'),
-  uglifyes = require('uglify-es'),
-  composer = require('gulp-uglify/composer'),
-  minify = { js: composer(uglifyes, console), css: require('gulp-clean-css') },
-  concat = require('gulp-concat'),
-  sass = require('gulp-sass'),
-  pug = require('gulp-pug'),
-  plumber = require('gulp-plumber'),
-  wait = require('gulp-wait'),
-  linter = { pug: require('gulp-pug-linter') }
+const gulp = require('gulp')
+const uglifyes = require('uglify-es')
+const composer = require('gulp-uglify/composer')
+const minify = { js: composer(uglifyes, console), css: require('gulp-clean-css') }
+const concat = require('gulp-concat')
+const sass = require('gulp-sass')
+const pug = require('gulp-pug')
+const plumber = require('gulp-plumber')
+const wait = require('gulp-wait')
+const linter = { pug: require('gulp-pug-linter') }
 
 gulp.task('build-js', () =>
   gulp
@@ -46,7 +46,7 @@ gulp.task('build-scss', () =>
         }
       })
     )
-    .pipe(wait(100)) // watchの際に保存と同時に走らされるとコケる場合があるので入れる
+    .pipe(wait(100))
     .pipe(sass())
     .pipe(minify.css())
     .pipe(concat('knzkapp.min.css'))
@@ -61,20 +61,20 @@ gulp.task('build-pug', () =>
     .pipe(gulp.dest('www/'))
 )
 
-gulp.task('build', ['build-js', 'build-scss', 'build-pug'])
+gulp.task('build', gulp.parallel('build-js', 'build-scss', 'build-pug'))
 
 gulp.task('watch', () => {
-  const watcher = gulp.watch('src/scss/**/*.scss', ['build-scss'])
+  const watcher = gulp.watch('src/scss/**/*.scss', gulp.parallel('build-scss'))
   watcher.on('change', evt => {
     console.log(`file: ${evt.path}, type: ${evt.type}`)
   })
 
-  const watcherJS = gulp.watch('src/js/**/*.js', ['dev-build-js'])
+  const watcherJS = gulp.watch('src/js/**/*.js', gulp.parallel('dev-build-js'))
   watcherJS.on('change', evt => {
     console.log(`file: ${evt.path}, type: ${evt.type}`)
   })
 
-  const watcherPug = gulp.watch('src/pug/**/*.pug', ['build-pug'])
+  const watcherPug = gulp.watch('src/pug/**/*.pug', gulp.parallel('build-pug'))
   watcherPug.on('change', evt => {
     console.log(`file: ${evt.path}, type: ${evt.type}`)
   })
