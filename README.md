@@ -8,7 +8,7 @@
   </h1>
 
   <p align="center">
-    🐘 A Mastodon client for ✨ ALL INSTANCES ✨
+    Mastodon Client App
   </p>
 
   <p align="center">
@@ -28,17 +28,8 @@
     <a href="https://circleci.com/gh/KnzkDev/KnzkApp">
       <img src="https://circleci.com/gh/KnzkDev/KnzkApp.svg?style=svg"/>
     </a>
-  </p>
-
-  <p align="center">
-    <a href="https://app.fossa.io/projects/git%2Bgithub.com%2FKnzkDev%2FKnzkApp?ref=badge_small" alt="FOSSA Status">
-      <img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2FKnzkDev%2FKnzkApp.svg?type=small"/>
-    </a>
-  </p>
-
-  <p align="center">
-    <a href="https://app.fossa.io/projects/git%2Bgithub.com%2FKnzkDev%2FKnzkApp?ref=badge_large" alt="FOSSA Status">
-      <img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2FKnzkDev%2FKnzkApp.svg?type=large"/>
+    <a href="https://app.fossa.io/projects/custom%2B5332%2Fgit%40github.com%3AKnzkDev%2FKnzkApp.git?ref=badge_small" alt="FOSSA Status">
+      <img src="https://app.fossa.io/api/projects/custom%2B5332%2Fgit%40github.com%3AKnzkDev%2FKnzkApp.git.svg?type=small"/>
     </a>
   </p>
 
