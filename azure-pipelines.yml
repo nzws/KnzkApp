@@ -11,7 +11,7 @@ steps:
   - template: .azure-pipelines/steps/install-nodejs.yml
   - template: .azure-pipelines/steps/install-dependencies.yml
 
-  - script: yarn check-deps
+  - script: yarn check:deps
     displayName: 'Check dependencies'
 
   - script: yarn check:fmt
