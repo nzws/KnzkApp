@@ -26,7 +26,7 @@
 
   <p>
     <a href="https://dev.azure.com/knzkdev/KnzkApp/_build/latest?definitionId=4?branchName=master">
-      <img src="https://dev.azure.com/knzkdev/KnzkApp/_apis/build/status/knzkdev.KnzkApp?branchName=master"/>
+      <img src="https://img.shields.io/azure-devops/build/knzkdev/KnzkApp/4/master.svg?style=flat-square&logo=azuredevops"/>
     </a>
     <a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fknzkdev%2FKnzkApp?ref=badge_small" alt="FOSSA Status">
       <img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fknzkdev%2FKnzkApp.svg?type=small"/>
@@ -38,7 +38,7 @@
       <img src="https://cdn.rawgit.com/yuzulabo/45c2e5726eeaa96083d837f20a05dfc9/raw/67f43e6c156e1ec112cf217198f42549bdb32a0f/PRs-welcome.svg"/>
     </a>
     <a href="https://discord.gg/5teHfRK">
-      <img src="https://cdn.rawgit.com/yuzulabo/45c2e5726eeaa96083d837f20a05dfc9/raw/67f43e6c156e1ec112cf217198f42549bdb32a0f/chat-on-discord.svg"/>
+      <img src="https://img.shields.io/discord/354197196142280705.svg?style=for-the-badge&logo=discord&colorB=7289DA"/>
     </a>
     <a href="https://github.com/prettier/prettier">
       <img src="https://cdn.rawgit.com/yuzulabo/45c2e5726eeaa96083d837f20a05dfc9/raw/67f43e6c156e1ec112cf217198f42549bdb32a0f/code_style-prettier.svg"/>
