@@ -15,7 +15,7 @@ steps:
     displayName: 'Check dependencies'
 
   - script: yarn check:fmt
-    displayName: 'Check whether files are formatted'
+    displayName: 'Check if files are formatted'
 
   - script: yarn lint
     displayName: 'Lint code'
