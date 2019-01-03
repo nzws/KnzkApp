@@ -1,0 +1,8 @@
+version: '2'
+exclude_patterns:
+  - www/components
+  - www/config
+  - www/img/
+  - www/css/bootstrap
+  - www/css/theme-roller/mastodon
+  - www/lib
