@@ -25,11 +25,11 @@
   </p>
 
   <p>
-    <a href="https://dev.azure.com/knzkdev/KnzkApp/_build/latest?definitionId=4?branchName=master">
-      <img src="https://img.shields.io/azure-devops/build/knzkdev/KnzkApp/4/master.svg?style=flat-square&logo=azuredevops"/>
+    <a href="https://circleci.com/gh/KnzkDev/KnzkApp">
+      <img src="https://circleci.com/gh/KnzkDev/KnzkApp.svg?style=svg"/>
     </a>
-    <a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fknzkdev%2FKnzkApp?ref=badge_small" alt="FOSSA Status">
-      <img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fknzkdev%2FKnzkApp.svg?type=small"/>
+    <a href="https://app.fossa.io/projects/custom%2B5332%2Fgit%40github.com%3AKnzkDev%2FKnzkApp.git?ref=badge_small" alt="FOSSA Status">
+      <img src="https://app.fossa.io/api/projects/custom%2B5332%2Fgit%40github.com%3AKnzkDev%2FKnzkApp.git.svg?type=small"/>
     </a>
   </p>
 
@@ -89,7 +89,7 @@ _And, If your instance has any features that aren't listed here, We can support 
 
 - [KnzkApp License](https://github.com/KnzkDev/KnzkApp/blob/master/LICENSE.md)
 
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fknzkdev%2FKnzkApp.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fknzkdev%2FKnzkApp?ref=badge_large)
+[![FOSSA Status](https://app.fossa.io/api/projects/custom%2B5332%2Fgit%40github.com%3AKnzkDev%2FKnzkApp.git.svg?type=large)](https://app.fossa.io/projects/custom%2B5332%2Fgit%40github.com%3AKnzkDev%2FKnzkApp.git?ref=badge_large)
 
 ## ❤️ Special Thanks
 
