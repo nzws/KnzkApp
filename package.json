@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "cordova-clipboard": "git+https://github.com/KnzkApp/cordova-clipboard",
-    "cordova-custom-config": "5.0.2",
+    "cordova-custom-config": "5.0.3",
     "cordova-plugin-camera": "4.0.3",
     "cordova-plugin-customurlscheme": "4.3.0",
     "cordova-plugin-fcm": "git+https://github.com/KnzkApp/cordova-plugin-fcm",
