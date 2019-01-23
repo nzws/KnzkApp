@@ -15,8 +15,14 @@ jobs:
           paths:
             - ./node_modules
       - run:
-          name: Lint
+          name: Run lint
           command: yarn lint
+      - run:
+          name: Run check:fmt
+          command: yarn check:fmt
+      - run:
+          name: Run check:deps
+          command: yarn check:deps
       - run:
           name: Install fossa-cli
           command: |
