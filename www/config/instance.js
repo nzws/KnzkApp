@@ -38,5 +38,9 @@ var instance_config = {
   'itabashi.0j0.jp': {
     limit: 1024,
     privacy_limited: true
+  },
+  'friend.camp': {
+    limit: 500,
+    glitch_soc: true
   }
 }
