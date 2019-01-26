@@ -18,7 +18,7 @@
     "fmt:json": "prettier --write \"**/*.json\"",
     "fmt": "npm-run-all fmt:* -s",
     "dev": "yarn build && serve www | gulp watch",
-    "build": "yarn fmt && yarn lint && gulp build",
+    "build": "yarn check:fmt && yarn lint && gulp build",
     "check:deps": "node ./scripts/check-deps.js",
     "check:fmt:css": "prettier --check \"**/*.{css,scss}\"",
     "check:fmt:js": "prettier --check \"**/*.js\"",
