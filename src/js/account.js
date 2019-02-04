@@ -300,8 +300,8 @@ function OpenQR(user) {
     .bringPageTop('qrcode.html')
     .then(() => {
       elemId('qrimg').src =
-        'http://chart.googleapis.com/chart?cht=qr&chs=200x200&choe=UTF-8&chl=https%3A%2F%2Fopenapp.nzws.me%2Fopen.html%3F' +
-        encodeURIComponent(user)
+        'http://chart.googleapis.com/chart?cht=qr&chs=200x200&choe=UTF-8&chl=' +
+        encodeURIComponent('https://open.knzk.app/?' + user)
       elemId('qr-userid').innerText = user
     })
 }
