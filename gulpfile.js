@@ -18,6 +18,7 @@ gulp.task('build-js', () =>
     .pipe(concat('knzkapp.min.js'))
     .pipe(minify.js())
     .on('error', err => {
+      // eslint-disable-next-line no-console
       console.error(err);
     })
     .pipe(gulp.dest('www/'))
@@ -29,6 +30,7 @@ gulp.task('dev-build-js', () =>
     .pipe(
       plumber({
         errorHandler(err) {
+          // eslint-disable-next-line no-console
           console.log(err.messageFormatted);
           this.emit('end');
         }
@@ -44,6 +46,7 @@ gulp.task('build-scss', () =>
     .pipe(
       plumber({
         errorHandler(err) {
+          // eslint-disable-next-line no-console
           console.log(err.messageFormatted);
           this.emit('end');
         }
@@ -69,16 +72,19 @@ gulp.task('build', gulp.parallel('build-js', 'build-scss', 'build-pug'));
 gulp.task('watch', () => {
   const watcher = gulp.watch('src/scss/**/*.scss', gulp.parallel('build-scss'));
   watcher.on('change', evt => {
+    // eslint-disable-next-line no-console
     console.log(`file: ${evt.path}, type: ${evt.type}`);
   });
 
   const watcherJS = gulp.watch('src/js/**/*.js', gulp.parallel('dev-build-js'));
   watcherJS.on('change', evt => {
+    // eslint-disable-next-line no-console
     console.log(`file: ${evt.path}, type: ${evt.type}`);
   });
 
   const watcherPug = gulp.watch('src/pug/**/*.pug', gulp.parallel('build-pug'));
   watcherPug.on('change', evt => {
+    // eslint-disable-next-line no-console
     console.log(`file: ${evt.path}, type: ${evt.type}`);
   });
 });

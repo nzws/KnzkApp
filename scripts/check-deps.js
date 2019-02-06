@@ -9,6 +9,7 @@ validateDependencyObject(pkg.devDependencies);
 function validateDependencyObject(object) {
   Object.keys(object).forEach(key => {
     if (object[key][0] === '^' || object[key][0] === '~') {
+      // eslint-disable-next-line no-console
       console.error(
         chalk.red('error'),
         `Dependency ${chalk.bold.bgRed(key)} should be pinned.`

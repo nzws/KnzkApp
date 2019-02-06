@@ -193,6 +193,7 @@ function toot_card(toot, mode, note, toot_light, page) {
       return '';
     }
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.log('error_image');
   }
 
@@ -363,6 +364,7 @@ function vote_item(q, obj, id) {
       } else {
         showtoast('vote-ng');
       }
+      // eslint-disable-next-line no-console
       console.log(json);
     })
     .catch(error => {
@@ -418,6 +420,7 @@ function toot_action(action_mode) {
       }
     })
     .then(json => {
+      // eslint-disable-next-line no-console
       console.log('OK:' + action_mode);
     })
     .catch(error => {
@@ -687,6 +690,7 @@ function delete_post() {
               card[i].parentNode.removeChild(card[i]);
               i++;
             }
+            // eslint-disable-next-line no-console
             console.log('OK:del');
             showtoast('del-post-ok');
             more_acct_id = 0;
@@ -840,6 +844,7 @@ function report() {
             }
           })
           .then(json => {
+            // eslint-disable-next-line no-console
             console.log('OK:rep');
             showtoast('report-post');
             more_acct_id = 0;

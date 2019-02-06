@@ -418,6 +418,7 @@ function showTL(mode, reload, more_load, clear_load) {
             try {
               elemTimeline(i).innerHTML =
                 '<div class="loading-now"><ons-progress-circular indeterminate></ons-progress-circular></div>';
+              // eslint-disable-next-line no-empty
             } catch (e) {}
             i++;
           }
@@ -527,6 +528,7 @@ function startWebSocket(mode, reload, more_load) {
     if (TL_websocket[now_tab]) {
       try {
         TL_websocket[now_tab].close();
+        // eslint-disable-next-line no-empty
       } catch (e) {}
       TL_websocket[now_tab] = null;
     }
@@ -545,9 +547,11 @@ function startWebSocket(mode, reload, more_load) {
           timeline_now_tab !== now_tab ||
           ws_now_url !== ws_url
         ) {
+          // eslint-disable-next-line no-console
           console.warn('エラー:Websocketが切断されていません');
           try {
             TL_websocket[now_tab].close();
+            // eslint-disable-next-line no-empty
           } catch (e) {}
           TL_websocket[now_tab] = null;
         } else {
@@ -639,9 +643,11 @@ function startWebSocket(mode, reload, more_load) {
           ws_now_url === ws_url &&
           !ws_leavePage
         ) {
+          // eslint-disable-next-line no-console
           console.log('reconnect:websocket');
           startWebSocket(mode, reload, more_load);
         } else {
+          // eslint-disable-next-line no-console
           console.log('ok:websocket:del');
         }
         ws_leavePage = false;
@@ -649,6 +655,7 @@ function startWebSocket(mode, reload, more_load) {
     };
 
     TL_websocket[now_tab].onerror = () => {
+      // eslint-disable-next-line no-console
       console.warn('err');
     };
   }
@@ -750,6 +757,7 @@ function showAccountTL(id, more_load, mode = '', reload) {
     try {
       elemId('account_toot').innerHTML =
         '<div class="loading-now"><ons-progress-circular indeterminate></ons-progress-circular></div>';
+      // eslint-disable-next-line no-empty
     } catch (e) {}
   }
 
@@ -867,6 +875,7 @@ function updateTLtrack() {
     try {
       h = elemTimeline().scrollTop;
       home_auto_mode = h <= 100;
+      // eslint-disable-next-line no-empty
     } catch (e) {}
   }
 }
@@ -885,6 +894,7 @@ function setTLheadcolor(mode) {
       unread.className = 'notification invisible';
     }
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.log(e);
   }
 }
@@ -946,33 +956,40 @@ function initph(mode) {
       ph_alert.innerHTML = message;
     });
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.log('ERROR_Pull_hook1');
   }
   if (mode === 'TL') {
     try {
       ph_alert.onAction = done => {
+        // eslint-disable-next-line no-console
         console.log('reload');
         showAlert(done);
       };
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.log('ERROR_Pull_hook2');
     }
   } else if (mode === 'acct') {
     try {
       ph_alert.onAction = done => {
+        // eslint-disable-next-line no-console
         console.log('reload');
         showAccountTL(account_page_id, null, acct_mode, done);
       };
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.log('ERROR_Pull_hook3');
     }
   } else {
     try {
       ph_alert.onAction = done => {
+        // eslint-disable-next-line no-console
         console.log('reload');
         showAlert(done);
       };
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.log('ERROR_Pull_hook3');
     }
   }
@@ -1082,6 +1099,7 @@ function editTLSave() {
 }
 
 function editTLConfD(i) {
+  // eslint-disable-next-line no-console
   console.log('OK');
   timeline_default_tab = i;
   editTLSave();
@@ -1112,6 +1130,7 @@ function closeAllws() {
     }
     TL_websocket = {};
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.warn('TL切断失敗:', e);
   }
 }

@@ -213,14 +213,18 @@ function openURL(url) {
           },
           result => {
             if (result.event === 'opened') {
+              // eslint-disable-next-line no-console
               console.log('opened');
             } else if (result.event === 'loaded') {
+              // eslint-disable-next-line no-console
               console.log('loaded');
             } else if (result.event === 'closed') {
+              // eslint-disable-next-line no-console
               console.log('closed');
             }
           },
           msg => {
+            // eslint-disable-next-line no-console
             console.log('openURL[' + url + ']: ' + msg);
           }
         );
@@ -281,6 +285,7 @@ function change_splash(mode) {
       navigator.splashscreen.hide();
     }
   } else {
+    // eslint-disable-next-line no-console
     console.log('[splash screen]:' + !!mode);
   }
 }

@@ -171,6 +171,7 @@ function file_del(card) {
 
 function file_error(msg) {
   showtoast('cannot-post');
+  // eslint-disable-next-line no-console
   console.log(msg);
 }
 
@@ -490,6 +491,7 @@ function post(id, option, simple) {
     })
     .catch(error => {
       showtoast('cannot-post');
+      // eslint-disable-next-line no-console
       console.log(error);
       if (simple) hide('post_now');
       else hide('now_loading');
@@ -535,6 +537,7 @@ function add_emoji_simple(addtext, mode) {
   // https://qiita.com/noraworld/items/d6334a4f9b07792200a5
   let id = 'simple_toot_TL_input';
   if (mode == undefined) {
+    // eslint-disable-next-line no-console
     console.log(pageid);
     if (pageid === 'toot-page') {
       id = 'toot_textarea';

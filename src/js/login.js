@@ -91,9 +91,11 @@ function login_callback(code) {
       if (available) {
         SafariViewController.hide(
           () => {
+            // eslint-disable-next-line no-console
             console.log('hide SVC success');
           },
           () => {
+            // eslint-disable-next-line no-console
             console.log('hide SVC failed');
           }
         );
@@ -229,6 +231,7 @@ function debug_login() {
     })
     .catch(error => {
       showtoast('cannot-connect-sv');
+      // eslint-disable-next-line no-console
       console.log(error);
       hide('now_loading');
     });

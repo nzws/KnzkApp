@@ -4,6 +4,7 @@ function startWatching() {
     if (Notification_ws) {
       try {
         Notification_ws.close();
+        // eslint-disable-next-line no-empty
       } catch (e) {}
       Notification_ws = null;
     }
@@ -49,6 +50,7 @@ function startWatching() {
         };
       };
     }
+    // eslint-disable-next-line no-empty
   } catch (e) {}
 }
 

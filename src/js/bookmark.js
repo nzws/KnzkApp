@@ -251,6 +251,7 @@ function migration_app2glitch() {
             if (!json[inst][id + 1]) {
               json[inst] = [];
               saveBookmark(json, true);
+              // eslint-disable-next-line no-console
               console.log('Complete:app2glitch migration');
             }
           })

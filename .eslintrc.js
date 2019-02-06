@@ -6,8 +6,6 @@ module.exports = {
   },
   rules: {
     'no-unused-vars': 0,
-    'no-undef': 0,
-    'no-console': 0,
-    'no-empty': 0
+    'no-undef': 0
   }
 };

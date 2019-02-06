@@ -38,6 +38,7 @@ function i18n_init_callback(lang, resolve) {
     },
     (err, t) => {
       lng = lang;
+      // eslint-disable-next-line no-console
       console.log('lang:' + lang);
       jqueryI18next.init(i18next, $);
       $('[data-i18n]').localize();

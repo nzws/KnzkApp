@@ -178,6 +178,7 @@ function init() {
                   hide('starting_screen');
                 }, 500);
               } catch (e) {
+                // eslint-disable-next-line no-console
                 console.log(e);
                 getError('Error/init_2', e);
               }
@@ -254,6 +255,7 @@ function initevent() {
   document.addEventListener('postpush', event => {
     try {
       $('[data-i18n]').localize();
+      // eslint-disable-next-line no-empty
     } catch (e) {}
     pageid = event.enterPage.id;
     if (event.enterPage.id === 'home') {
@@ -639,6 +641,7 @@ function BackButtonEvent() {
           .querySelector('#navigator')
           .popPage()
           .catch(openTL());
+        // eslint-disable-next-line no-empty
       } catch (e) {}
     }
   }

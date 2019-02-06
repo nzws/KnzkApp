@@ -10,6 +10,7 @@ function getError(name, log, mode) {
   }
   if (!mode) showtoast('cannot-pros');
   if (getConfig(1, 'SendLog') === '1') {
+    // eslint-disable-next-line no-console
     console.log('ログ送信');
     if (Raven.isSetup()) {
       Raven.captureMessage(new Error(name), {
