@@ -1,9 +1,9 @@
 module.exports = {
+  extends: ['eslint:recommended', 'prettier'],
   env: {
     browser: true,
     es6: true
   },
-  extends: ['plugin:prettier/recommended'],
   rules: {
     'no-unused-vars': 0,
     'no-undef': 0,
