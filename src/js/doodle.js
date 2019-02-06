@@ -1,19 +1,28 @@
 function openDoodle(simple) {
-  if (simple) image_mode = '_simple'
-  else image_mode = ''
-  elemId('navigator').removeAttribute('swipeable')
-  if (getConfig(1, 'swipe_menu') == 1) elemId('splitter-menu').removeAttribute('swipeable')
-  $.when(document.querySelector('#navigator').bringPageTop('doodle.html', { animation: 'lift' })).done(() => {
-    sketcher = atrament('#mySketcher', window.innerWidth, window.innerHeight - 50)
-    sketcher.smoothing = false
-    sketcher.adaptiveStroke = false
-    doodle_mode = 'draw'
-    doodle_old_color = '#000000'
-    const canvas = elemId('mySketcher')
-    const ctx = canvas.getContext('2d')
-    ctx.fillStyle = 'rgb(255,255,255)'
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
-  })
+  if (simple) image_mode = '_simple';
+  else image_mode = '';
+  elemId('navigator').removeAttribute('swipeable');
+  if (getConfig(1, 'swipe_menu') == 1)
+    elemId('splitter-menu').removeAttribute('swipeable');
+  $.when(
+    document
+      .querySelector('#navigator')
+      .bringPageTop('doodle.html', { animation: 'lift' })
+  ).done(() => {
+    sketcher = atrament(
+      '#mySketcher',
+      window.innerWidth,
+      window.innerHeight - 50
+    );
+    sketcher.smoothing = false;
+    sketcher.adaptiveStroke = false;
+    doodle_mode = 'draw';
+    doodle_old_color = '#000000';
+    const canvas = elemId('mySketcher');
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'rgb(255,255,255)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  });
 }
 
 function Doodle_reset() {
@@ -24,22 +33,23 @@ function Doodle_reset() {
     })
     .then(e => {
       if (e === 1) {
-        sketcher.clear()
-        hidePopover('doodle_popover')
+        sketcher.clear();
+        hidePopover('doodle_popover');
 
-        const canvas = elemId('mySketcher')
-        const ctx = canvas.getContext('2d')
-        ctx.fillStyle = 'rgb(255,255,255)'
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
+        const canvas = elemId('mySketcher');
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = 'rgb(255,255,255)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
-    })
+    });
 }
 
 function closeDoodle(force) {
   if (force) {
-    elemId('navigator').setAttribute('swipeable', '')
-    if (getConfig(1, 'swipe_menu') == 1) elemId('splitter-menu').setAttribute('swipeable', '1')
-    BackTab('down')
+    elemId('navigator').setAttribute('swipeable', '');
+    if (getConfig(1, 'swipe_menu') == 1)
+      elemId('splitter-menu').setAttribute('swipeable', '1');
+    BackTab('down');
   } else {
     ons.notification
       .confirm(i18next.t('toot.doodle.reset.text'), {
@@ -48,19 +58,20 @@ function closeDoodle(force) {
       })
       .then(e => {
         if (e === 1) {
-          elemId('navigator').setAttribute('swipeable', '')
-          if (getConfig(1, 'swipe_menu') == 1) elemId('splitter-menu').setAttribute('swipeable', '1')
-          BackTab('down')
+          elemId('navigator').setAttribute('swipeable', '');
+          if (getConfig(1, 'swipe_menu') == 1)
+            elemId('splitter-menu').setAttribute('swipeable', '1');
+          BackTab('down');
         }
-      })
+      });
   }
 }
 
 function dataURLtoFile(dataURI) {
-  const binary = atob(dataURI.split(',')[1])
-  const array = []
-  for (let i = 0; i < binary.length; i++) array.push(binary.charCodeAt(i))
-  return new Blob([new Uint8Array(array)], { type: 'image/png' })
+  const binary = atob(dataURI.split(',')[1]);
+  const array = [];
+  for (let i = 0; i < binary.length; i++) array.push(binary.charCodeAt(i));
+  return new Blob([new Uint8Array(array)], { type: 'image/png' });
 }
 
 function Doodle_upload() {
@@ -71,62 +82,62 @@ function Doodle_upload() {
     })
     .then(e => {
       if (e === 1) {
-        closeDoodle(true)
-        const dataUrl = sketcher.toImage()
-        up_file_suc(null, dataURLtoFile(dataUrl))
+        closeDoodle(true);
+        const dataUrl = sketcher.toImage();
+        up_file_suc(null, dataURLtoFile(dataUrl));
       }
-    })
+    });
 }
 
 function Doodle_config(id) {
-  const mode = elemId('doodle_' + id).checked
+  const mode = elemId('doodle_' + id).checked;
   if (platform === 'ios') {
     if (mode == true) {
-      Doodle_changeType(id, false)
+      Doodle_changeType(id, false);
     } else {
-      Doodle_changeType(id, true)
+      Doodle_changeType(id, true);
     }
   } else {
     if (mode == true) {
-      Doodle_changeType(id, true)
+      Doodle_changeType(id, true);
     } else {
-      Doodle_changeType(id, false)
+      Doodle_changeType(id, false);
     }
   }
 }
 
 function Doodle_changeMode() {
-  const now = doodle_mode
-  const button = elemId('doodle_pen_bt')
+  const now = doodle_mode;
+  const button = elemId('doodle_pen_bt');
   if (now === 'draw') {
-    sketcher.color = doodle_old_color
-    button.className = 'ons-icon fa-bath fa'
-    sketcher.mode = 'fill'
-    doodle_mode = 'fill'
+    sketcher.color = doodle_old_color;
+    button.className = 'ons-icon fa-bath fa';
+    sketcher.mode = 'fill';
+    doodle_mode = 'fill';
   } else if (now === 'fill') {
-    button.className = 'ons-icon fa-eraser fa'
-    sketcher.color = '#ffffff'
-    sketcher.mode = 'draw'
-    doodle_mode = 'erase'
+    button.className = 'ons-icon fa-eraser fa';
+    sketcher.color = '#ffffff';
+    sketcher.mode = 'draw';
+    doodle_mode = 'erase';
   } else {
-    sketcher.color = doodle_old_color
-    button.className = 'ons-icon fa-pencil fa'
-    sketcher.mode = 'draw'
-    doodle_mode = 'draw'
+    sketcher.color = doodle_old_color;
+    button.className = 'ons-icon fa-pencil fa';
+    sketcher.mode = 'draw';
+    doodle_mode = 'draw';
   }
 }
 
 function Doodle_changeType(id, mode) {
   if (id === 'smooth') {
-    sketcher.smoothing = mode
+    sketcher.smoothing = mode;
   } else if (id === 'adaptive') {
-    sketcher.adaptiveStroke = mode
+    sketcher.adaptiveStroke = mode;
   }
 }
 
 function show_colorpicker() {
-  const nav = document.querySelector('#navigator')
+  const nav = document.querySelector('#navigator');
   $.when(nav.bringPageTop('color.html')).done(() => {
-    $('#color-default').addClass('invisible')
-  })
+    $('#color-default').addClass('invisible');
+  });
 }

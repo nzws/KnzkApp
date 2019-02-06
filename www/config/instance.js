@@ -43,4 +43,4 @@ var instance_config = {
     limit: 500,
     glitch_soc: true
   }
-}
+};

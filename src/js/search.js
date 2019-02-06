@@ -1,10 +1,10 @@
 function SearchKey() {
-  if (window.event.keyCode == 13) SearchLoad()
+  if (window.event.keyCode == 13) SearchLoad();
 }
 
 function SearchLoad() {
-  loadNav('olist_nav.html')
-  const q = escapeHTML(elemId('nav-search').value)
+  loadNav('olist_nav.html');
+  const q = escapeHTML(elemId('nav-search').value);
   Fetch('https://' + inst + '/api/v2/search?q=' + q, {
     headers: {
       'content-type': 'application/json',
@@ -14,26 +14,33 @@ function SearchLoad() {
   })
     .then(response => {
       if (response.ok) {
-        return response.json()
+        return response.json();
       } else {
-        throw response
+        throw response;
       }
     })
     .then(json => {
-      let reshtml = ''
-      let i = 0
+      let reshtml = '';
+      let i = 0;
       elemId('olist_nav_title').innerHTML = i18next.t('search.result', {
         text: q
-      })
-      reshtml += '<ons-list><ons-list-header>' + i18next.t('search.accts') + '</ons-list-header></ons-list>'
+      });
+      reshtml +=
+        '<ons-list><ons-list-header>' +
+        i18next.t('search.accts') +
+        '</ons-list-header></ons-list>';
       while (json['accounts'][i]) {
-        if (!json['accounts'][i]['display_name']) json['accounts'][i]['display_name'] = json['accounts'][i]['username']
-        reshtml += AccountCard(json['accounts'][i])
-        i++
+        if (!json['accounts'][i]['display_name'])
+          json['accounts'][i]['display_name'] = json['accounts'][i]['username'];
+        reshtml += AccountCard(json['accounts'][i]);
+        i++;
       }
 
-      i = 0
-      reshtml += '<ons-list><ons-list-header>' + i18next.t('search.tags') + '</ons-list-header></ons-list>'
+      i = 0;
+      reshtml +=
+        '<ons-list><ons-list-header>' +
+        i18next.t('search.tags') +
+        '</ons-list-header></ons-list>';
       while (json['hashtags'][i]) {
         reshtml +=
           '<ons-list-item onclick=\'showTagTL("' +
@@ -49,20 +56,23 @@ function SearchLoad() {
           '</span></div>' +
           '<div class="right trend_item"><h1>' +
           json['hashtags'][i]['history'][0]['uses'] +
-          '</h1></div></ons-list-item>'
-        i++
+          '</h1></div></ons-list-item>';
+        i++;
       }
 
-      i = 0
-      reshtml += '<ons-list><ons-list-header>' + i18next.t('search.toots') + '</ons-list-header></ons-list>'
+      i = 0;
+      reshtml +=
+        '<ons-list><ons-list-header>' +
+        i18next.t('search.toots') +
+        '</ons-list-header></ons-list>';
       while (json['statuses'][i]) {
-        reshtml += toot_card(json['statuses'][i], 'full')
-        i++
+        reshtml += toot_card(json['statuses'][i], 'full');
+        i++;
       }
 
-      elemId('olist_nav_main').innerHTML = reshtml
+      elemId('olist_nav_main').innerHTML = reshtml;
     })
     .catch(error => {
-      catchHttpErr('search', error)
-    })
+      catchHttpErr('search', error);
+    });
 }
