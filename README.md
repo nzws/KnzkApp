@@ -31,6 +31,9 @@
     <a href="https://app.fossa.io/projects/custom%2B5332%2Fgit%40github.com%3AKnzkDev%2FKnzkApp.git?ref=badge_small" alt="FOSSA Status">
       <img src="https://app.fossa.io/api/projects/custom%2B5332%2Fgit%40github.com%3AKnzkDev%2FKnzkApp.git.svg?type=small"/>
     </a>
+      <a href="https://dependabot.com" alt="Dependabot Status">
+      <img src="https://api.dependabot.com/badges/status?host=github&repo=KnzkDev/KnzkApp"/>
+    </a>
   </p>
 
   <p align="center">
