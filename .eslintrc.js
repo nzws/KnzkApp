@@ -1,3 +1,7 @@
+'use strict';
+
+const OFF = 0;
+
 module.exports = {
   extends: ['eslint:recommended', 'prettier'],
   env: {
@@ -5,7 +9,7 @@ module.exports = {
     es6: true
   },
   rules: {
-    'no-unused-vars': 0,
-    'no-undef': 0
+    'no-unused-vars': OFF,
+    'no-undef': OFF
   }
 };
