@@ -1,3 +1,5 @@
+'use strict';
+
 const gulp = require('gulp');
 const uglifyes = require('uglify-es');
 const composer = require('gulp-uglify/composer');
