@@ -24,6 +24,7 @@ window.fn.close = force => {
 };
 
 function checkLargeWindow() {
+  /*
   window.isLargeMode = window.innerWidth >= 650;
   if (window.isLargeMode) {
     const mask = document.querySelector('ons-splitter-mask');
@@ -34,6 +35,8 @@ function checkLargeWindow() {
   } else {
     fn.close(true);
   }
+  */
+  window.isLargeMode = false;
 }
 
 function openNavigation(id = 'menu', force) {
