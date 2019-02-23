@@ -235,8 +235,7 @@ function account_action(id) {
       .then(index => {
         if (index === 0) openURL(acctdata['acct'][id]['url']);
         else if (index === 1) copy(acctdata['acct'][id]['url']);
-        else if (index === 2)
-          OpenQR('@' + account_page_acct.split('@')[0] + '@' + inst);
+        else if (index === 2) OpenQR(inst, account_page_acct.split('@')[0]);
       });
   } else {
     const mute_m = acctdata['rs'][id][0]['muting']
@@ -330,15 +329,17 @@ function post_pre(text, force) {
   loadNav('post.html', 'up');
 }
 
-function OpenQR(user) {
+function OpenQR(instance, username) {
   document
     .querySelector('#navigator')
     .bringPageTop('qrcode.html')
     .then(() => {
       elemId('qrimg').src =
         'http://chart.googleapis.com/chart?cht=qr&chs=200x200&choe=UTF-8&chl=' +
-        encodeURIComponent('https://open.knzk.app/?' + user);
-      elemId('qr-userid').innerText = user;
+        encodeURIComponent(
+          'https://open.knzk.app/?instance=' + instance + '&name=' + username
+        );
+      elemId('qr-userid').innerText = username + '@' + instance;
     });
 }
 
