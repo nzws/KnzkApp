@@ -543,12 +543,21 @@ function initevent() {
         changeNotification(true);
       });
     } catch (e) {
+      /*
       ons.notification.alert(dialog_i18n('err_fcm', 1), {
         title: dialog_i18n('err_fcm'),
         modifier: 'material',
         cancelable: true
       });
-      getError('Error/FCM', '');
+      */
+      getError(
+        'Error/FCM',
+        {
+          response: e,
+          alert: null
+        },
+        true
+      );
     }
   }
 
