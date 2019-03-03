@@ -1,12 +1,9 @@
 'use strict';
 
 const gulp = require('gulp');
-const uglifyes = require('uglify-es');
-const composer = require('gulp-uglify/composer');
-const minify = {
-  js: composer(uglifyes, console),
-  css: require('gulp-clean-css')
-};
+const terser = require('gulp-terser');
+const postcss = require('gulp-postcss');
+const postcssrc = require('postcss-load-config');
 const concat = require('gulp-concat');
 const sass = require('gulp-sass');
 const pug = require('gulp-pug');
@@ -18,7 +15,7 @@ gulp.task('build-js', () =>
   gulp
     .src('src/js/**/*.js')
     .pipe(concat('knzkapp.min.js'))
-    .pipe(minify.js())
+    .pipe(terser())
     .on('error', err => {
       // eslint-disable-next-line no-console
       console.error(err);
@@ -42,24 +39,26 @@ gulp.task('dev-build-js', () =>
     .pipe(gulp.dest('www/'))
 );
 
-gulp.task('build-scss', () =>
-  gulp
-    .src('src/scss/style.scss')
-    .pipe(
-      plumber({
-        errorHandler(err) {
-          // eslint-disable-next-line no-console
-          console.log(err.messageFormatted);
-          this.emit('end');
-        }
-      })
-    )
-    .pipe(wait(100))
-    .pipe(sass())
-    .pipe(minify.css())
-    .pipe(concat('knzkapp.min.css'))
-    .pipe(gulp.dest('www/'))
-);
+gulp.task('build-scss', () => {
+  return postcssrc().then(config => {
+    return gulp
+      .src('src/scss/style.scss')
+      .pipe(
+        plumber({
+          errorHandler(err) {
+            // eslint-disable-next-line no-console
+            console.log(err.messageFormatted);
+            this.emit('end');
+          }
+        })
+      )
+      .pipe(wait(100))
+      .pipe(sass())
+      .pipe(postcss(config.plugins, config.options))
+      .pipe(concat('knzkapp.min.css'))
+      .pipe(gulp.dest('www/'));
+  });
+});
 
 gulp.task('build-pug', () =>
   gulp
