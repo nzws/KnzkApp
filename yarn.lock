@@ -6490,10 +6490,11 @@ performance-now@^2.1.0:
 
 "phonegap-plugin-speech-synthesis@git+https://github.com/KnzkApp/SpeechSynthesisPlugin":
   version "0.1.1"
-  resolved "git+https://github.com/KnzkApp/SpeechSynthesisPlugin#9075aa3afb960642de49daf192303098a62acd80"
+  uid ba3df1f1773e825857a76b0a8adcdef212ec590c
+  resolved "git+https://github.com/KnzkApp/SpeechSynthesisPlugin#ba3df1f1773e825857a76b0a8adcdef212ec590c"
   dependencies:
     jasmine-node "^1.14.5"
-    pluginpub "0.0.8"
+    pluginpub "0.0.9"
 
 pidtree@^0.3.0:
   version "0.3.0"
@@ -6596,10 +6597,10 @@ plugin-error@^1.0.1:
     arr-union "^3.1.0"
     extend-shallow "^3.0.2"
 
-pluginpub@0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/pluginpub/-/pluginpub-0.0.8.tgz#8a00bda04990e65e3257cfab888074bacb185e95"
-  integrity sha1-igC9oEmQ5l4yV8+riIB0ussYXpU=
+pluginpub@0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/pluginpub/-/pluginpub-0.0.9.tgz#dfdbbd413ed8ecf3d7d81f85170c1f0dd6fc9daf"
+  integrity sha512-ulgYcVIUnPcFY9bsaIlHd8G1rRTwzq4DldR2H5etnM8Gzf2JB151yT9MWqIs+9LI3ad/746HrRKnrLzE5jYLNA==
   dependencies:
     any-observable "^0.2.0"
     dateformat "^2.0.0"
