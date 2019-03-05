@@ -72,7 +72,7 @@
     "phonegap-plugin-speech-synthesis": "git+https://github.com/KnzkApp/SpeechSynthesisPlugin"
   },
   "devDependencies": {
-    "autoprefixer": "9.4.9",
+    "autoprefixer": "9.4.10",
     "chalk": "2.4.2",
     "cordova": "8.1.2",
     "cssnano": "4.1.10",
