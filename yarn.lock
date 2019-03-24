@@ -1558,15 +1558,16 @@ cordova-create@^2.0.0:
     tmp "0.0.33"
     valid-identifier "0.0.2"
 
-cordova-custom-config@5.0.3:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/cordova-custom-config/-/cordova-custom-config-5.0.3.tgz#273698025676ee4fbf341cbd030a241edc9b67e1"
-  integrity sha512-qAzTCiDQFaB70SF9E9E/hiWucjyj7asq3fgBpWIolgsYIEDdl1lrDsppj2/aKuYeIlaokv2Tj6oXyWA6Kiq0TA==
+cordova-custom-config@5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/cordova-custom-config/-/cordova-custom-config-5.1.0.tgz#bb37c9d4b58eab9d05a6a8dd22ec1bd700b1c1ac"
+  integrity sha512-qPk1l1Rayu0PAp5kXqyvzMprc0oCqRa5pcs7iRrb0daq0I/RWIw7BngCyOJuv/wnJrTBbwxVued1+lVLe0/MeA==
   dependencies:
     colors "^1.1.2"
     elementtree "^0.1.6"
     lodash "^4.17.11"
     plist "^3.0.1"
+    q "^1.4.1"
     shelljs "^0.7.0"
     tostr "^0.1.0"
     xcode "^1.0.0"
