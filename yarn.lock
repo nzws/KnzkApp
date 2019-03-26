@@ -1612,10 +1612,10 @@ cordova-plugin-camera@4.0.3:
   resolved "https://registry.yarnpkg.com/cordova-plugin-camera/-/cordova-plugin-camera-4.0.3.tgz#7373a5938318c86ccfd84e3713e2382d10fe076b"
   integrity sha1-c3Olk4MYyGzP2E43E+I4LRD+B2s=
 
-cordova-plugin-customurlscheme@4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-customurlscheme/-/cordova-plugin-customurlscheme-4.3.0.tgz#02f968778b4093990eb0407f3fa1b1458d705f94"
-  integrity sha1-Avlod4tAk5kOsEB/P6GxRY1wX5Q=
+cordova-plugin-customurlscheme@4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-customurlscheme/-/cordova-plugin-customurlscheme-4.4.0.tgz#34ae9e655a4e9e9fbb4cfdca1ffe0b8cc2640952"
+  integrity sha512-7VPJnNfvfZQSU1IdhJX7BpDgvC7bEe+Kfg9Cj8guSoZDcTi378qQFb6VOwthT8hwGXx2bZzWf0qnTZdRlLQy+Q==
 
 "cordova-plugin-fcm@git+https://github.com/KnzkDev/cordova-plugin-fcm":
   version "2.1.2"
