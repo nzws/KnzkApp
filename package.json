@@ -98,6 +98,6 @@
     "pretty-quick": "1.10.0",
     "serve": "11.0.0",
     "stylelint": "9.10.1",
-    "stylelint-config-standard": "18.2.0"
+    "stylelint-config-standard": "18.3.0"
   }
 }
