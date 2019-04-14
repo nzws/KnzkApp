@@ -2,19 +2,22 @@
 
 const pkg = require('../package.json');
 const chalk = require('chalk');
-
-validateDependencyObject(pkg.dependencies);
-validateDependencyObject(pkg.devDependencies);
+const logSymbols = require('log-symbols');
 
 function validateDependencyObject(object) {
-  Object.keys(object).forEach(key => {
-    if (object[key][0] === '^' || object[key][0] === '~') {
+  const dependencies = Object.values(object);
+
+  dependencies.forEach(dependency => {
+    if (dependency[0] === '^' || dependency[0] === '~') {
       // eslint-disable-next-line no-console
       console.error(
-        chalk.red('error'),
-        `Dependency ${chalk.bold.bgRed(key)} should be pinned.`
+        logSymbols.error,
+        `Dependency ${chalk.bold.bgRed(dependency)} should be pinned.`
       );
       process.exitCode = 1;
     }
   });
 }
+
+validateDependencyObject(pkg.dependencies);
+validateDependencyObject(pkg.devDependencies);
