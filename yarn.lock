@@ -1652,10 +1652,10 @@ cordova-plugin-ionic-keyboard@2.1.3:
   version "0.1.1"
   resolved "git+https://github.com/KnzkDev/cordova-plugin-ipad-multitasking#4a3233ca26499586cf8849d25af7d4546a76feed"
 
-cordova-plugin-safariviewcontroller@1.5.4:
-  version "1.5.4"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-safariviewcontroller/-/cordova-plugin-safariviewcontroller-1.5.4.tgz#58ddb392b0d6ef6c1e69da5d296ec52ee73eb54e"
-  integrity sha512-xNNbiAnXOCZRhnonNKMjOGD9N7WXxgc6sV1CDOiWzCP69e/LYaLdbYAmi8XESdd15vqoXVXgrHGTCk98CEygvw==
+cordova-plugin-safariviewcontroller@1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-safariviewcontroller/-/cordova-plugin-safariviewcontroller-1.6.0.tgz#7a86c28e946d52eddd662cfa0c9a7b2247cdc675"
+  integrity sha512-TSrVTTdIjCb1iK+FT0GSnfVhmEY5oRzB2yhlwSnxgwxhTrFHDnfTXrX4KKHWaszxGnMKNFuUFTv8K+fc0GNqEg==
 
 cordova-plugin-splashscreen@5.0.2:
   version "5.0.2"
