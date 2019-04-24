@@ -82,5 +82,4 @@ GoogleService-Info.plist
 # Other
 config/config.js
 
-www/bundle/*
-www/index.html
+www/bundle/**
