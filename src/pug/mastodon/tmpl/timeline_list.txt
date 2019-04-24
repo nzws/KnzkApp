@@ -1,8 +1,0 @@
-<ons-list-item tappable onclick="TL_change_menu('<%=num%>')">
-  <div class="left list-item__left">
-    <i class="list-item__icon ons-icon <%=icon%>"></i>
-  </div>
-  <div class="center list-item__center">
-    <%=name%>
-  </div>
-</ons-list-item>

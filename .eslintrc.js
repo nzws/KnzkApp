@@ -7,9 +7,5 @@ module.exports = {
   env: {
     browser: true,
     es6: true
-  },
-  rules: {
-    'no-unused-vars': OFF,
-    'no-undef': OFF
   }
 };
