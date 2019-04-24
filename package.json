@@ -17,7 +17,7 @@
     "fmt:json": "prettier --write \"**/*.json\"",
     "fmt:html": "prettier --write \"**/*.html\"",
     "fmt": "npm-run-all fmt:* -s",
-    "dev": "yarn build && serve www | webpack --watch",
+    "dev": "serve www | webpack --watch",
     "watch": "yarn dev",
     "build": "webpack",
     "check:deps": "node ./scripts/check-deps.js",
