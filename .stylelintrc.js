@@ -1,7 +1,14 @@
+'use strict';
+
+const ON = true;
+const OFF = null;
+
 module.exports = {
-  extends: 'stylelint-config-standard',
+  extends: ['stylelint-config-standard', 'stylelint-config-prettier'],
+  plugins: ['stylelint-scss'],
   rules: {
-    'selector-list-comma-newline-after': 'always-multi-line',
+    'at-rule-no-unknown': OFF,
+    'scss/at-rule-no-unknown': ON,
     'selector-type-no-unknown': [true, { ignoreTypes: ['/^ons-/'] }]
   }
 };
