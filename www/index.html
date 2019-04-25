@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="theme_mastodon">
   <head>
     <meta charset="utf-8" />
     <meta
@@ -15,6 +15,18 @@
     <script src="./bundle/bundle.js"></script>
   </head>
   <body>
-    <ons-button onclick="alert('Hello World!')">Click Me</ons-button>
+    <ons-navigator id="navigator" page="splash.html" swipeable></ons-navigator>
+
+    <ons-template id="splash.html">
+      <ons-page id="page1">
+        <ons-toolbar>
+          <div class="center">Hello Knzk</div>
+        </ons-toolbar>
+
+        <p>This is the first page.</p>
+
+        <ons-button id="push-button">Push page</ons-button>
+      </ons-page>
+    </ons-template>
   </body>
 </html>

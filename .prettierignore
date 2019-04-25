@@ -1,6 +1,2 @@
-www/components
-www/css/bootstrap
-www/css/theme-roller/mastodon
-www/lib
-www/knzkapp.min.css
-www/knzkapp.min.js
+www/bundle
+src/scss/theme

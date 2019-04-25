@@ -1,7 +1,17 @@
 import $ from 'jquery';
 window.$ = $;
+import ons from 'onsenui';
+window.ons = ons;
 
-import 'onsenui';
 import '../scss/index.scss';
 
-window.knzk = {};
+window.knzk = {
+  bootstrap: require('./bootstrap'),
+  components: {
+    page: require('./components/page')
+  }
+};
+
+ons.ready(() => {
+  knzk.bootstrap();
+});

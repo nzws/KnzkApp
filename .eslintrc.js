@@ -15,7 +15,9 @@ module.exports = {
     es6: true
   },
   globals: {
-    $: false
+    $: false,
+    ons: false,
+    knzk: false
   },
   rules: {
     'no-console': 'off'

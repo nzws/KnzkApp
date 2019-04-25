@@ -1,0 +1,28 @@
+<ons-page class="page__login">
+  <ons-toolbar>
+    <div class="center" data-i18n="login.title">KnzkAppにログイン</div>
+    <div class="right">
+      <ons-toolbar-button onclick="knzk.components.page.open('about.html')"
+        ><ons-icon icon="fa-info-circle"></ons-icon
+      ></ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+  <div class="container text-center">
+    <div class="login_instance">
+      <h4>Knzk.me</h4>
+      <img src="static/logo.svg" class="logo" />
+      <ons-button onclick="knzk.page.login.open('knzk.me')" class="login-btn">
+        <b data-i18n="login.login">ログイン</b>
+      </ons-button>
+      <p>
+        <a href="https://knzk.me/about/more" data-i18n="login.terms"
+          >利用規約</a
+        >
+        ·
+        <a href="https://knzk.me/terms" data-i18n="login.privacy_policy"
+          >プライバシーポリシー</a
+        >
+      </p>
+    </div>
+  </div>
+</ons-page>

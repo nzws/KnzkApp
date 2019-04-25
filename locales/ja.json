@@ -1,0 +1,292 @@
+{
+  "navigation": {
+    "notifications": "通知",
+    "favourites": "お気に入り一覧",
+    "follow_req": "フォローリクエスト",
+    "user_menu": "ユーザーメニュー",
+    "preferences": "設定",
+    "pinned_toots": "固定したトゥート",
+    "dm_tl": "ダイレクトメッセージ",
+    "muted_users": "ミュートしたユーザー",
+    "blocked_users": "ブロックしたユーザー",
+    "hidden_domains": "非表示にしたドメイン",
+    "report_status": "通報ステータス",
+    "endorsements": "推薦アカウント",
+    "back": "戻る",
+    "close": "閉じる",
+    "cancel": "キャンセル",
+    "load_more": "もっと読み込む...",
+    "search": "検索",
+    "trend": {
+      "title": "トレンド",
+      "talking": "{{accounts}}人がトゥート"
+    }
+  },
+  "toot": {
+    "toot_as": "{{acct}} としてトゥート！",
+    "reply": {
+      "me": "自分"
+    },
+    "cw_toot": "もっと見る",
+    "nsfw": {
+      "title": "閲覧注意",
+      "sub": "タップで表示"
+    },
+    "video": "タップして再生",
+    "fav": {
+      "user": "お気に入りしたユーザー",
+      "prefix": "",
+      "suffix": " さんがお気に入り"
+    },
+    "boost": {
+      "user": "ブーストしたユーザー",
+      "me": {
+        "prefix": "",
+        "suffix": "さんがブースト"
+      },
+      "prefix": "",
+      "suffix": "さんがブースト"
+    },
+    "follow": {
+      "prefix": "",
+      "suffix": " さんがフォロー"
+    },
+    "doodle": {
+      "reset": {
+        "title": "リセット",
+        "text": "お絵かきが破棄されますがよろしいですか？",
+        "close": "お絵かきを閉じる"
+      },
+      "upload": {
+        "title": "アップロード",
+        "text": "よろしいですか？"
+      }
+    }
+  },
+  "emoji_category": {
+    "Custom": "カスタム絵文字",
+    "People": "人々",
+    "Nature": "自然",
+    "Foods": "食べ物",
+    "Activity": "活動",
+    "Places": "場所",
+    "Objects": "物",
+    "Symbols": "記号",
+    "Flags": "国旗",
+    "Search": "検索結果"
+  },
+  "account": {
+    "note": "リモートアカウントの為、情報が不正確な可能性があります。",
+    "joined_at": "登録日",
+    "followers": "フォロワー",
+    "following": "フォロー"
+  },
+  "bookmark": {
+    "title": "ブックマーク",
+    "note": "ブックマークはKnzkApp独自の機能で、データが端末内に保管されます。<br>ブックマークはインスタンスごとに区別されます。",
+    "clear": {
+      "title": "ブックマーク全削除",
+      "text": "本当に削除しますか？<br>*{{inst}}のアカウントのブックマークが対象です。"
+    },
+    "deleted": "この投稿は削除されています。<br>タップしてブックマークを削除"
+  },
+  "timeline": {
+    "title": "タイムライン",
+    "home": "ホーム",
+    "local": "ローカル",
+    "federated": "連合",
+    "local_media": "メディア (ローカル)",
+    "federated_media": "メディア (連合)"
+  },
+  "original_toot": {
+    "quote": {
+      "prefix": "",
+      "suffix": " さんの投稿"
+    }
+  },
+  "privacy": {
+    "public": "公開",
+    "unlisted": "未収載",
+    "private": "非公開",
+    "limited": "限定公開",
+    "direct": "ダイレクト"
+  },
+  "report_status_note": "あなたの通報が現在処理されているのか簡易的に確認することができます。",
+  "dialogs_js": {
+    "report": {
+      "title": "通報",
+      "text": "通報のコメントを記入してください<br>(空欄でキャンセル)"
+    },
+    "delete": {
+      "title": "トゥートを削除",
+      "text": "本当に削除しますか？"
+    },
+    "log": {
+      "title": "KnzkAppへようこそ",
+      "text": "KnzkAppでは、エラー時に開発者が原因を特定しやすいようログを送信する機能が備わっています。<br>エラー時にログを開発者へ送信してもよろしいですか？<br><a onclick=\"openURL('https://knzkapp.nzws.me/privacy.html')\">プライバシーポリシー</a>",
+      "yes": "同意する",
+      "no": "同意しない"
+    },
+    "err_fcm": {
+      "title": "エラー",
+      "text": "FCMトークンの受信に失敗しました。<br>このままでもお使い頂けますが、プッシュ通知の配信が行えない可能性があります。"
+    },
+    "code": {
+      "title": "ログイン",
+      "text": "認証コードを入力してください<br>(空欄でキャンセル)"
+    },
+    "terms": {
+      "title": "ログイン",
+      "text": "OKを押してインスタンスの利用規約に同意したものとします。"
+    },
+    "login_error": "ログイン中にエラーが発生しました。",
+    "delete_account": {
+      "title": "アカウントの削除",
+      "text": "アプリからこのアカウントを削除してもよろしいですか？"
+    },
+    "clear_account": {
+      "title": "全アカウントからログアウト",
+      "text": "本当に<b>全てのアカウント</b>からログアウトしますか?"
+    },
+    "clear_bookmark": {
+      "title": "全てのブックマークを削除",
+      "text": "本当に<b>全てのブックマーク</b>を削除しますか？"
+    },
+    "clear_config": {
+      "title": "設定をリセット",
+      "text": "本当に<b>全ての設定</b>をリセットしますか？"
+    },
+    "err_fcm_2": {
+      "title": "エラー",
+      "text": "FCMトークンの受信に失敗しました。<br>通知が無効になっている可能性があります。"
+    },
+    "keyword": {
+      "title": "キーワード検知",
+      "text": "検知させるワードを入力してください<br>(空欄でキャンセル)"
+    },
+    "err_notification_sv": {
+      "title": "エラー",
+      "text": "通知サーバーが見つかりませんでした。<br>開発者にご連絡ください。"
+    },
+    "clear_alert": {
+      "title": "通知を消去",
+      "text": "本当に通知を消去してもよろしいですか？"
+    },
+    "delete_picture": "画像を削除してもよろしいですか？",
+    "warning_spin": {
+      "title": "注意:TLが重くなります",
+      "text": "回転を多く指定すると、TLが重くなる原因となり、警告を受ける可能性があります。続行しますか？"
+    },
+    "hashtag": {
+      "title": "ハッシュタグTLを追加",
+      "text": "ハッシュタグを入力してください。"
+    },
+    "list_note": {
+      "title": "リストTLを追加",
+      "text": "リストTLの追加は<a href=\"#\" onclick=\"$('ons-alert-dialog-button').click();loadNav('lists.html')\"><b>ユーザーメニュー > リスト</b></a>より行なえます。"
+    },
+    "err_new_tl": {
+      "title": "エラー",
+      "text": "これ以上タイムラインを増やすことはできません。"
+    },
+    "editlist": {
+      "title": "リストの追加/編集",
+      "text": "名前を入力してください。(空欄でキャンセル)"
+    },
+    "deletelist": {
+      "title": "リストを削除",
+      "text": "よろしいですか？"
+    },
+    "add_tag": {
+      "title": "このタグをタイムラインに追加",
+      "text": "よろしいですか？"
+    },
+    "clear_done": "完了しました。アプリを再起動してください。",
+    "keyword_limit": "キーワードは30文字以下にする必要があります。",
+    "cannot_pros": "Error: アクセスに失敗しました。サーバに異常が発生しているか通信環境が悪い可能性があります。"
+  },
+  "search": {
+    "result": "{{text}}の検索結果",
+    "accts": "アカウント",
+    "tags": "タグ",
+    "toots": "トゥート"
+  },
+  "actionsheet": {
+    "toot": {
+      "more": "詳細を表示",
+      "openbrowser": "ブラウザで表示",
+      "url": "URLをコピー",
+      "original_toot": "元のトゥートを表示",
+      "near": "近くのトゥートを表示",
+      "delete": "削除",
+      "pin": {
+        "set": "ピン留め",
+        "unset": "ピン留め解除"
+      },
+      "bookmark": {
+        "set": "ブックマークする",
+        "unset": "ブックマークから削除"
+      },
+      "qrcode": "QRコードを表示",
+      "mention": "返信",
+      "endorsements": {
+        "set": "プロフィールで紹介",
+        "unset": "紹介リストから外す"
+      },
+      "mute": {
+        "set": "ミュート",
+        "unset": "ミュート解除"
+      },
+      "block": {
+        "set": "ブロック",
+        "unset": "ブロック解除"
+      }
+    },
+    "near": {
+      "title": "表示するタイムライン",
+      "htl": "HTL",
+      "ltl": "{{inst}}のLTL",
+      "ftl": "{{inst}}のFTL"
+    },
+    "editTL": {
+      "title": "タイムラインを追加",
+      "hashtag": "ハッシュタグ",
+      "list": "リスト",
+      "option": {
+        "default": "デフォルトで表示するTLに設定する",
+        "delete": "削除する"
+      }
+    },
+    "editlist": {
+      "name": "名前を変更する",
+      "people": "表示するユーザー",
+      "delete": "削除",
+      "add": "タイムラインに追加"
+    }
+  },
+  "tutorial": {
+    "next": "次へ",
+    "done": "完了",
+    "page2": {
+      "toot": "トゥート！ (サンプル)",
+      "alert": {
+        "menu": "設定等に飛べるメニューを表示します。",
+        "toot": "このボタンで投稿できます。",
+        "privacy": "このボタンで公開範囲を変更できます。",
+        "local_only": "このボタンでローカル限定にする事ができます。 *対応インスタンスのみ",
+        "emoji": "このボタンで絵文字を追加する事ができます。",
+        "bbcode": "このボタンでBBCodeを追加する事ができます。 *対応インスタンスのみ",
+        "doodle": "このボタンで簡易お絵かきを起動する事ができます。投稿時は画像になる為、どのインスタンスでも使用できます。"
+      }
+    }
+  },
+  "starting": {
+    "instance_conf": "インスタンス設定を読み込み中です...",
+    "theme": "UI設定を読み込み中です...",
+    "instance_login": "インスタンスを確認中です...",
+    "login": "インスタンスにログインしています...",
+    "prepare": "準備中です...",
+    "user": "ユーザー情報を読み込み中です...",
+    "error_acct": "問題が発生したため、アカウントを切り替えてください。"
+  }
+}
