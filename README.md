@@ -8,7 +8,7 @@
   </h1>
 
   <p align="center">
-    Mastodon Client App
+    A Open-Source Social Media Client
   </p>
 
   <p align="center">

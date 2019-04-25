@@ -8,6 +8,10 @@ class page {
   static back(options = { animation: 'slide' }) {
     return kit.elemId('navigator').popPage(options);
   }
+
+  static reset(name) {
+    return setTimeout(() => kit.elemId('navigator').resetToPage(name), 0);
+  }
 }
 
 module.exports = page;

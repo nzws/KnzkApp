@@ -1,5 +1,5 @@
-const kit = require('./components/kanzakit');
 const locale = require('./locale');
+const page = require('./components/page');
 
 module.exports = () => {
   if (ons.platform.isIPhoneX()) {
@@ -15,7 +15,7 @@ module.exports = () => {
 
   locale.load().then(() => {
     if (!knzk.conf || !knzk.conf.accounts || !knzk.conf.accounts[0]) {
-      setTimeout(() => kit.elemId('navigator').resetToPage('login.html'), 0);
+      page.reset('login.html');
       return;
     }
 
@@ -26,8 +26,11 @@ module.exports = () => {
     });
     if (!knzk.account) knzk.account = knzk.conf.accounts[0];
 
-    ons.preload(['login.html', 'timeline.html']).then(() => {
-      kit.elemId('navigator').resetToPage('timeline.html');
-    });
+    page.reset('timeline.html');
+
+    // そもそもローカルで読み込まれるので必要なさそうな気がしている
+    // ons.preload(['login.html', 'timeline.html']).then(() => {
+    //   kit.elemId('navigator').resetToPage('timeline.html');
+    // });
   });
 };

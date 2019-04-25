@@ -1,7 +1,7 @@
 {
   "name": "knzkapp",
   "version": "2.0.0-beta1",
-  "description": "A mastodon client for customized instances.",
+  "description": "A Open-Source Social Media Client",
   "repository": "git@github.com:KnzkDev/KnzkApp.git",
   "author": "KnzkDev Team",
   "license": "LICENSE.md",
