@@ -13,20 +13,67 @@
 
   <div class="container">
     <div class="text-center">
-      <img src="static/logo.svg" class="w-80" />
+      <img src="static/logo.svg" class="logo" />
     </div>
-    <marquee>南無！w</marquee>
-    <h4>KnzkApp v2.0.0-alpha1</h4>
+    <marquee class="mt-2">南無！w</marquee>
+    <h4 class="mt-1">KnzkApp v2.0.0-alpha1</h4>
     <b>A Open-Source Social Media Client</b><br />
-    <small>
-      <span data-i18n="preferences.about_app_note.l1"
-        >KnzkAppはオープンソースソフトウェアです。</span
-      ><br />
-      <span data-i18n="preferences.about_app_note.l2_pre"></span>
-      <a href="https://github.com/KnzkDev/KnzkApp">KnzkDev/KnzkApp</a>
-      <span data-i18n="preferences.about_app_note.l2_suf"
-        >から開発に参加したり、問題を報告する事ができます。</span
-      >
-    </small>
+    <p>
+      <small>
+        <span data-i18n="preferences.about_app_note.l1">
+          KnzkAppはオープンソースソフトウェアです。
+        </span>
+        <br />
+        <span data-i18n="preferences.about_app_note.l2_pre"></span>
+        <a href="https://github.com/KnzkDev/KnzkApp">KnzkDev/KnzkApp</a>
+        <span data-i18n="preferences.about_app_note.l2_suf">
+          から開発に参加したり、問題を報告する事ができます。
+        </span>
+      </small>
+    </p>
   </div>
+  <ons-list>
+    <ons-list-item onclick="knzk.page.settings.openLicense()">
+      <div class="left">
+        <ons-icon icon="fa-osi" class="fa-2x fa-fw"></ons-icon>
+      </div>
+      <div class="center">
+        OSS License
+      </div>
+    </ons-list-item>
+    <ons-list-header>Credit</ons-list-header>
+    <ons-list-item onclick="openUrl('https://knzk.me/@y')">
+      <div class="left">
+        <img
+          class="list-item__thumbnail"
+          src="https://github.com/yuzulabo.png"
+        />
+      </div>
+      <div class="center">
+        <span class="list-item__title">nzws / ねじわさ</span>
+        <span class="list-item__subtitle">Lead-Developer of KnzkApp</span>
+      </div>
+    </ons-list-item>
+    <ons-list-item onclick="openUrl('https://github.com/KnzkDev')">
+      <div class="left">
+        <img
+          class="list-item__thumbnail"
+          src="https://github.com/KnzkDev.png"
+        />
+      </div>
+      <div class="center">
+        KnzkDev Team
+      </div>
+    </ons-list-item>
+    <ons-list-item
+      onclick="openUrl('https://github.com/KnzkDev/KnzkApp/graphs/contributors')"
+    >
+      <div class="left">
+        <img class="list-item__thumbnail" src="https://github.com/github.png" />
+      </div>
+      <div class="center">
+        List of all contributors
+      </div>
+    </ons-list-item>
+  </ons-list>
 </ons-page>

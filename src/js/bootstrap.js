@@ -2,6 +2,16 @@ const locale = require('./locale');
 const page = require('./components/page');
 
 module.exports = () => {
+  if (!knzk.platform) {
+    if (ons.platform.isIOS()) {
+      knzk.platform = 'ios';
+    } else if (ons.platform.isAndroid()) {
+      knzk.platform = 'Android';
+    } else {
+      knzk.platform = 'other';
+    }
+  }
+
   if (ons.platform.isIPhoneX()) {
     // for iPhone X
     let html_tag = document.documentElement;
@@ -11,10 +21,10 @@ module.exports = () => {
 
   knzk.conf = localStorage.knzkapp_v2_config
     ? JSON.parse(localStorage.knzkapp_v2_config)
-    : false;
+    : {};
 
   locale.load().then(() => {
-    if (!knzk.conf || !knzk.conf.accounts || !knzk.conf.accounts[0]) {
+    if (!knzk.conf.accounts || !knzk.conf.accounts[0]) {
       page.reset('login.html');
       return;
     }
@@ -27,10 +37,5 @@ module.exports = () => {
     if (!knzk.account) knzk.account = knzk.conf.accounts[0];
 
     page.reset('timeline.html');
-
-    // そもそもローカルで読み込まれるので必要なさそうな気がしている
-    // ons.preload(['login.html', 'timeline.html']).then(() => {
-    //   kit.elemId('navigator').resetToPage('timeline.html');
-    // });
   });
 };

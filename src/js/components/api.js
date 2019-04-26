@@ -1,8 +1,9 @@
 const locale = require('../locale');
 
 class api {
-  static request(url, method = 'GET', body = {}, header = {}) {
+  static request(url, method = 'GET', body = {}, header = {}, domain = null) {
     if (!header['content-type']) header['content-type'] = 'application/json';
+
     if (knzk.account && knzk.account.service === 'mastodon')
       header['Authorization'] = `Bearer ${knzk.account.token}`;
     if (knzk.account && knzk.account.service === 'misskey') {
@@ -12,7 +13,8 @@ class api {
 
     return new Promise((resolve, reject) => {
       fetch(
-        knzk.account.domain +
+        'https://' +
+          (domain ? domain : knzk.account.domain) +
           url +
           (body && method !== 'POST' ? `?${api.buildQuery(body)}` : ''),
         {

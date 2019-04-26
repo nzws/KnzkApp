@@ -15,8 +15,9 @@
   width: 100%;
 }
 
-.w-80 {
-  width: 80%;
+.logo {
+  width: 500px;
+  max-width: 80%;
 }
 
 a,
@@ -25,4 +26,23 @@ a:link,
 a:visited {
   color: #2b90d9 !important;
   text-decoration: none;
+}
+
+$margin-size: 5px;
+@for $value from 1 to 5 {
+  .mt-#{$value} {
+    margin-top: $margin-size * $value !important;
+  }
+
+  .mb-#{$value} {
+    margin-bottom: $margin-size * $value !important;
+  }
+
+  .ml-#{$value} {
+    margin-left: $margin-size * $value !important;
+  }
+
+  .mr-#{$value} {
+    margin-right: $margin-size * $value !important;
+  }
 }

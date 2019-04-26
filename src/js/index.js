@@ -9,6 +9,9 @@ window.knzk = {
   bootstrap: require('./bootstrap'),
   components: {
     page: require('./components/page')
+  },
+  page: {
+    login: require('./page/login')
   }
 };
 
