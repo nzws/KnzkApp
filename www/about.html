@@ -1,7 +1,7 @@
-<ons-page>
+<ons-page class="page__about" data-pageid="about">
   <ons-toolbar>
     <div class="left">
-      <ons-toolbar-button onclick="knzk.components.page.back()">
+      <ons-toolbar-button onclick="knzk.utils.page.back()">
         <ons-icon icon="fa-chevron-left"></ons-icon>
         <span data-i18n="navigation.back">戻る</span>
       </ons-toolbar-button>
@@ -42,7 +42,7 @@
       </div>
     </ons-list-item>
     <ons-list-header>Credit</ons-list-header>
-    <ons-list-item onclick="openUrl('https://knzk.me/@y')">
+    <ons-list-item onclick="knzk.utils.openLink('https://knzk.me/@y')">
       <div class="left">
         <img
           class="list-item__thumbnail"
@@ -54,7 +54,7 @@
         <span class="list-item__subtitle">Lead-Developer of KnzkApp</span>
       </div>
     </ons-list-item>
-    <ons-list-item onclick="openUrl('https://github.com/KnzkDev')">
+    <ons-list-item onclick="knzk.utils.openLink('https://github.com/KnzkDev')">
       <div class="left">
         <img
           class="list-item__thumbnail"
@@ -66,7 +66,7 @@
       </div>
     </ons-list-item>
     <ons-list-item
-      onclick="openUrl('https://github.com/KnzkDev/KnzkApp/graphs/contributors')"
+      onclick="knzk.utils.openLink('https://github.com/KnzkDev/KnzkApp/graphs/contributors')"
     >
       <div class="left">
         <img class="list-item__thumbnail" src="https://github.com/github.png" />

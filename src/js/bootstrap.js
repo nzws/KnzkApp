@@ -1,5 +1,5 @@
 const locale = require('./locale');
-const page = require('./components/page');
+const page = require('./utils/page');
 
 module.exports = () => {
   if (!knzk.platform) {

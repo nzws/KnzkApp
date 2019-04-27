@@ -7,11 +7,12 @@ import '../scss/index.scss';
 
 window.knzk = {
   bootstrap: require('./bootstrap'),
-  components: {
-    page: require('./components/page')
-  },
   page: {
     login: require('./page/login')
+  },
+  utils: {
+    openLink: require('./utils/openLink'),
+    page: require('./utils/page')
   }
 };
 

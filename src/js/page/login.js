@@ -1,9 +1,10 @@
 const adapter = require('../adapter/index');
+const openLink = require('../utils/openLink');
 
 class login {
   static open(domain, type = 'mastodon') {
     adapter[type].getApp(domain).then(url => {
-      console.log(url);
+      openLink(url);
     });
   }
 }

@@ -20,6 +20,7 @@ module.exports = {
     knzk: false
   },
   rules: {
-    'no-console': 'off'
+    'no-console': 'off',
+    'no-undef': 'off'
   }
 };
