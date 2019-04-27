@@ -1,4 +1,4 @@
-const kit = require('./kanzakit');
+const kit = require('../components/kanzakit');
 
 class page {
   static open(name, options = { animation: 'slide' }) {
@@ -11,6 +11,10 @@ class page {
 
   static reset(name) {
     return setTimeout(() => kit.elemId('navigator').resetToPage(name), 0);
+  }
+
+  static getTopPageId() {
+    return kit.elemId('navigator').topPage.dataset.pageid;
   }
 }
 

@@ -1,12 +1,12 @@
 const locale = require('./locale');
-const page = require('./components/page');
+const page = require('./utils/page');
 
 module.exports = () => {
   if (!knzk.platform) {
     if (ons.platform.isIOS()) {
       knzk.platform = 'ios';
     } else if (ons.platform.isAndroid()) {
-      knzk.platform = 'Android';
+      knzk.platform = 'android';
     } else {
       knzk.platform = 'other';
     }
@@ -37,5 +37,10 @@ module.exports = () => {
     if (!knzk.account) knzk.account = knzk.conf.accounts[0];
 
     page.reset('timeline.html');
+
+    if (knzk.platform === 'android') {
+      ons.setDefaultDeviceBackButtonListener(require('./events/backButton'));
+    }
+    $(document).on('click', 'a', require('./events/link'));
   });
 };

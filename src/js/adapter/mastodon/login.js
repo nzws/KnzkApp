@@ -1,4 +1,5 @@
 const api = require('../../components/api');
+const storage = require('../../components/storage');
 
 class login {
   static getApp(domain) {
@@ -27,6 +28,7 @@ class login {
             client_id: json.client_id,
             client_secret: json.client_secret
           };
+          storage.save();
 
           const query = api.buildQuery({
             response_type: 'code',
