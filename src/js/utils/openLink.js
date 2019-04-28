@@ -1,4 +1,4 @@
-module.exports = url => {
+export default url => {
   if (ons.isWebView()) {
     SafariViewController.isAvailable(available => {
       if (available) {

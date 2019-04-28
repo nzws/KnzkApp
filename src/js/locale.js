@@ -1,3 +1,6 @@
+import i18next from 'i18next';
+import jqueryI18next from 'jquery-i18next';
+
 const languages = {
   ja: '日本語',
   en: 'English'
@@ -5,11 +8,8 @@ const languages = {
 const browserLangs =
   window.navigator.languages || window.navigator.browserLanguages;
 
-const i18next = require('i18next');
-const jqueryI18next = require('jquery-i18next');
-
-class locale {
-  static load() {
+export default {
+  load() {
     return new Promise(resolve => {
       let language = '';
       browserLangs.forEach(lang => {
@@ -42,21 +42,16 @@ class locale {
           resolve();
         });
     });
-  }
-
-  static localize() {
+  },
+  localize() {
     return $('[data-i18n]').localize();
-  }
-
-  static t(id) {
+  },
+  t(id) {
     return i18next.t(id, {
       interpolation: { escapeValue: false }
     });
+  },
+  dialog(id, type) {
+    return this.t(`dialogs_js.${id}${type ? '.text' : '.title'}`);
   }
-
-  static dialog(id, type) {
-    return locale.t(`dialogs_js.${id}${type ? '.text' : '.title'}`);
-  }
-}
-
-module.exports = locale;
+};

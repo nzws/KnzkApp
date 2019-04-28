@@ -1,7 +1,7 @@
-const locale = require('../locale');
+import locale from '../locale';
 
-class api {
-  static request(url, method = 'GET', body = {}, header = {}, domain = null) {
+export default {
+  request(url, method = 'GET', body = {}, header = {}, domain = null) {
     if (!header['content-type']) header['content-type'] = 'application/json';
 
     if (knzk.account && knzk.account.service === 'mastodon')
@@ -50,9 +50,8 @@ class api {
           reject(error);
         });
     });
-  }
-
-  static buildQuery(data) {
+  },
+  buildQuery(data) {
     let body = '';
     for (let key in data) {
       body += `${key}=${encodeURIComponent(data[key])}&`;
@@ -60,6 +59,4 @@ class api {
     body += `d=${new Date().getTime()}`;
     return body;
   }
-}
-
-module.exports = api;
+};

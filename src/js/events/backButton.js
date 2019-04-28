@@ -1,8 +1,9 @@
-const kit = require('../components/kanzakit');
-const page = require('../utils/page');
-const onsDialogDetector = require('../utils/onsDialogDetector');
+import kit from '../components/kanzakit';
+import page from '../utils/page';
 
-module.exports = () => {
+import onsDialogDetector from '../utils/onsDialogDetector';
+
+export default () => {
   const dialog = onsDialogDetector();
   if (dialog) {
     dialog.hide();

@@ -1,6 +1,6 @@
-const openLink = require('../utils/openLink');
+import openLink from '../utils/openLink';
 
-module.exports = event => {
+export default event => {
   event.stopPropagation();
   event.preventDefault();
 

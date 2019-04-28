@@ -1,5 +1,7 @@
-module.exports = {
+import mastodon_login from './mastodon/login';
+
+export default {
   mastodon: {
-    login: require('./mastodon/login')
+    login: mastodon_login
   }
 };

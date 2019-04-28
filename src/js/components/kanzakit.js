@@ -2,16 +2,14 @@
   Kanzaki(@knzkoniisan) + Kit + JavaScript = KanzaKit.js
 */
 
-class kanzakit {
-  static elemId(_id) {
+export default {
+  elemId(_id) {
     return document.getElementById(_id);
-  }
-
-  static elem(_selector) {
+  },
+  elem(_selector) {
     return document.querySelectorAll(_selector);
-  }
-
-  static escape(text) {
+  },
+  escape(text) {
     try {
       return text
         .replace(/&/g, '&amp;')
@@ -21,19 +19,14 @@ class kanzakit {
       console.error(e);
       return false;
     }
-  }
-
-  static randInt(min = 0, max = 100) {
+  },
+  randInt(min = 0, max = 100) {
     return Math.floor(Math.random() * (max + 1 - min)) + min;
-  }
-
-  static elemRemove(element) {
+  },
+  elemRemove(element) {
     return element ? element.parentNode.removeChild(element) : false;
-  }
-
-  static search(base, searchtext) {
+  },
+  search(base, searchtext) {
     return base && base.includes(searchtext);
   }
-}
-
-module.exports = kanzakit;
+};

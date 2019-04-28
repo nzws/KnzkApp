@@ -1,5 +1,3 @@
-class settings {
-  static openLicense() {}
-}
-
-module.exports = settings;
+export default {
+  openLicense() {}
+};

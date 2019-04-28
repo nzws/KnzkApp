@@ -1,8 +1,8 @@
-const api = require('../../components/api');
-const storage = require('../../components/storage');
+import api from '../../components/api';
+import storage from '../../components/storage';
 
-class login {
-  static getApp(domain) {
+export default {
+  getApp(domain) {
     const uri =
       knzk.platform === 'other'
         ? 'urn:ietf:wg:oauth:2.0:oob'
@@ -53,6 +53,4 @@ class login {
 
   }
  */
-}
-
-module.exports = login;
+};

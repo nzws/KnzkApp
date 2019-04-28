@@ -1,7 +1,7 @@
-const locale = require('./locale');
-const page = require('./utils/page');
+import locale from './locale';
+import page from './utils/page';
 
-module.exports = () => {
+export default () => {
   if (!knzk.platform) {
     if (ons.platform.isIOS()) {
       knzk.platform = 'ios';
