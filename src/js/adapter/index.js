@@ -1,7 +1,7 @@
-import mastodon_login from './mastodon/login';
+import mastodon_auth from './mastodon/auth';
 
 export default {
   mastodon: {
-    login: mastodon_login
+    auth: mastodon_auth
   }
 };

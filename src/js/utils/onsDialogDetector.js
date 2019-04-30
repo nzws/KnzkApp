@@ -1,13 +1,12 @@
 import kit from '../components/kanzakit';
 
 const detect = (elements, isCheckCancelable = false) => {
-  return elements
-    ? Object.keys(elements).forEach(element => {
-        if (element.visible && (!isCheckCancelable || element.cancelable)) {
-          return element;
-        }
-      })
-    : null;
+  for (let element of elements) {
+    if (element.visible && (!isCheckCancelable || element.cancelable)) {
+      return element;
+    }
+  }
+  return null;
 };
 
 export default () => {

@@ -1,3 +1,4 @@
+import $ from 'jquery/dist/jquery.slim';
 import i18next from 'i18next';
 import jqueryI18next from 'jquery-i18next';
 

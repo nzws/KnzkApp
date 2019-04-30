@@ -1,3 +1,5 @@
+import ons from 'onsenui';
+
 export default url => {
   if (ons.isWebView()) {
     SafariViewController.isAvailable(available => {

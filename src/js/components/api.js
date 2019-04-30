@@ -1,14 +1,15 @@
-import locale from '../locale';
+import ons from 'onsenui';
+import toast from '../utils/toast';
 
 export default {
   request(url, method = 'GET', body = {}, header = {}, domain = null) {
     if (!header['content-type']) header['content-type'] = 'application/json';
 
     if (knzk.account && knzk.account.service === 'mastodon')
-      header['Authorization'] = `Bearer ${knzk.account.token}`;
+      header.Authorization = `Bearer ${knzk.account.token}`;
     if (knzk.account && knzk.account.service === 'misskey') {
       method = 'POST';
-      body['i'] = knzk.account.token;
+      body.i = knzk.account.token;
     }
 
     return new Promise((resolve, reject) => {
@@ -44,9 +45,7 @@ export default {
         })
         .catch(error => {
           console.error(error);
-          ons.notification.toast(locale.t('dialogs_js.cannot_pros'), {
-            timeout: 2000
-          });
+          toast(dialogs_js.cannot_pros);
           reject(error);
         });
     });

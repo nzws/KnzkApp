@@ -15,8 +15,6 @@ module.exports = {
     es6: true
   },
   globals: {
-    $: false,
-    ons: false,
     knzk: false
   },
   rules: {

@@ -1,5 +1,11 @@
+import ons from 'onsenui';
+import $ from 'jquery/dist/jquery.slim';
 import locale from './locale';
 import page from './utils/page';
+import toast from './utils/toast';
+
+import backButton from './events/backButton';
+import link from './events/link';
 
 export default () => {
   if (!knzk.platform) {
@@ -19,9 +25,14 @@ export default () => {
     html_tag.setAttribute('onsflag-iphonex-landscape', '1');
   }
 
-  knzk.conf = localStorage.knzkapp_v2_config
-    ? JSON.parse(localStorage.knzkapp_v2_config)
-    : {};
+  try {
+    knzk.conf = localStorage.knzkapp_v2_config
+      ? JSON.parse(localStorage.knzkapp_v2_config)
+      : {};
+  } catch (e) {
+    toast('dialogs_js.broken_config');
+    return;
+  }
 
   locale.load().then(() => {
     if (!knzk.conf.accounts || !knzk.conf.accounts[0]) {
@@ -39,8 +50,8 @@ export default () => {
     page.reset('timeline.html');
 
     if (knzk.platform === 'android') {
-      ons.setDefaultDeviceBackButtonListener(require('./events/backButton'));
+      ons.setDefaultDeviceBackButtonListener(backButton);
     }
-    $(document).on('click', 'a', require('./events/link'));
+    $(document).on('click', 'a', link);
   });
 };

@@ -1,7 +1,4 @@
-import $ from 'jquery/dist/jquery.slim';
-window.$ = $;
 import ons from 'onsenui';
-window.ons = ons;
 import '../scss/index.scss';
 
 import bootstrap from './bootstrap';

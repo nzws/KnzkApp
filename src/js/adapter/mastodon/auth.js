@@ -26,7 +26,9 @@ export default {
           knzk.conf.loginTmp = {
             domain,
             client_id: json.client_id,
-            client_secret: json.client_secret
+            client_secret: json.client_secret,
+            uri,
+            service: 'mastodon'
           };
           storage.save();
 
@@ -43,14 +45,41 @@ export default {
           reject(error);
         });
     });
+  },
+  callback(code) {
+    return new Promise((resolve, reject) => {
+      api
+        .request(
+          '/oauth/token',
+          'POST',
+          {
+            client_id: knzk.conf.loginTmp.client_id,
+            client_secret: knzk.conf.loginTmp.client_secret,
+            grant_type: 'authorization_code',
+            redirect_uri: knzk.conf.loginTmp.uri,
+            code: code
+          },
+          {},
+          domain
+        )
+        .then(json => {
+          resolve(json.access_token);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  },
+  getMe() {
+    return new Promise((resolve, reject) => {
+      api
+        .request('/api/v1/accounts/verify_credentials', 'GET')
+        .then(json => {
+          resolve(json);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
   }
-  /*
-  static callback(code) {
-
-  }
-
-  static tokenLogin(domain, token) {
-
-  }
- */
 };
