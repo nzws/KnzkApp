@@ -1,0 +1,49 @@
+<ons-page class="page__timeline" data-pageid="login">
+  <ons-toolbar id="timeline_bar">
+    <div class="left">
+      <ons-toolbar-button onclick="knzk.page.timeline.prev()">
+        <i class="ons-icon fas fa-angle-left"></i>
+      </ons-toolbar-button>
+      <ons-toolbar-button
+        onclick="knzk.utils.page.open('settings.timeline.html', { animation: 'lift' })"
+      >
+        <i class="ons-icon fas fa-cog"></i>
+      </ons-toolbar-button>
+    </div>
+    <div class="center" data-i18n="timeline.title" id="timeline_title">
+      タイムライン
+    </div>
+    <div class="right">
+      <ons-toolbar-button onclick="knzk.page.timeline.reload()">
+        <i class="ons-icon fas fa-sync-alt"></i>
+      </ons-toolbar-button>
+      <ons-toolbar-button onclick="knzk.page.timeline.next()">
+        <i class="ons-icon fas fa-angle-right"></i>
+      </ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+
+  <div class="bottom collapsed">
+    <ons-button class="scroll-to-top" onclick="">
+      <i class="ons-icon fas fa-fw fa-angle-double-up"></i>
+    </ons-button>
+
+    <div class="postbox">
+      <div class="main">
+        <ons-button modifier="quiet">
+          <i class="ons-icon fas fa-fw fa-bars"></i>
+        </ons-button>
+        <textarea id="post" rows="1" class="textarea"></textarea>
+        <ons-button modifier="quiet">
+          <i class="ons-icon fas fa-fw fa-paper-plane"></i>
+        </ons-button>
+      </div>
+
+      <div id="postbox_buttons" class="buttons">
+        <ons-button modifier="quiet">
+          <i class="ons-icon fas fa-fw fa-bars"></i>
+        </ons-button>
+      </div>
+    </div>
+  </div>
+</ons-page>

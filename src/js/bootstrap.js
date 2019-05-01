@@ -14,7 +14,7 @@ export default () => {
     } else if (ons.platform.isAndroid()) {
       knzk.platform = 'android';
     } else {
-      knzk.platform = 'other';
+      knzk.platform = 'desktop';
     }
   }
 

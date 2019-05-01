@@ -1,0 +1,77 @@
+.page__timeline {
+  .toolbar__left,
+  .toolbar__center,
+  .toolbar__right,
+  .page__background,
+  .page__content,
+  .bottom {
+    transition: all 150ms 0s ease;
+  }
+
+  .bottom {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    height: 45px + 40px + 40px;
+
+    .scroll-to-top {
+      position: absolute;
+      top: 0;
+      right: 5px;
+    }
+
+    .postbox {
+      position: absolute;
+      bottom: 0;
+      background: var(--border-color);
+      width: 100%;
+
+      > div {
+        height: 40px;
+        display: flex;
+
+        &.main {
+          justify-content: space-between;
+
+          textarea {
+            flex-grow: 5;
+          }
+        }
+      }
+    }
+
+    &.collapsed {
+      height: 45px + 40px;
+
+      .buttons {
+        display: none;
+      }
+    }
+  }
+
+  &.scrolled {
+    .page__background,
+    .page__content {
+      top: 25px;
+    }
+
+    ons-toolbar {
+      height: 25px;
+
+      .toolbar__left,
+      .toolbar__right {
+        visibility: hidden;
+      }
+
+      .toolbar__left,
+      .toolbar__right,
+      .toolbar__center {
+        line-height: 25px;
+      }
+    }
+
+    .bottom.collapsed {
+      bottom: -40px;
+    }
+  }
+}

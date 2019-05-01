@@ -4,7 +4,7 @@ import storage from '../../components/storage';
 export default {
   getApp(domain) {
     const uri =
-      knzk.platform === 'other'
+      knzk.platform === 'desktop'
         ? 'urn:ietf:wg:oauth:2.0:oob'
         : 'knzkapp://login/token';
 
@@ -49,19 +49,13 @@ export default {
   callback(code) {
     return new Promise((resolve, reject) => {
       api
-        .request(
-          '/oauth/token',
-          'POST',
-          {
-            client_id: knzk.conf.loginTmp.client_id,
-            client_secret: knzk.conf.loginTmp.client_secret,
-            grant_type: 'authorization_code',
-            redirect_uri: knzk.conf.loginTmp.uri,
-            code: code
-          },
-          {},
-          domain
-        )
+        .request('/oauth/token', 'POST', {
+          client_id: knzk.conf.loginTmp.client_id,
+          client_secret: knzk.conf.loginTmp.client_secret,
+          grant_type: 'authorization_code',
+          redirect_uri: knzk.conf.loginTmp.uri,
+          code: code
+        })
         .then(json => {
           resolve(json.access_token);
         })

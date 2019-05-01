@@ -1,4 +1,5 @@
 import ons from 'onsenui';
+import config from '../../../config/config';
 import toast from '../utils/toast';
 
 export default {
@@ -17,7 +18,7 @@ export default {
         'https://' +
           (domain ? domain : knzk.account.domain) +
           url +
-          (body && method !== 'POST' ? `?${api.buildQuery(body)}` : ''),
+          (body && method !== 'POST' ? `?${this.buildQuery(body)}` : ''),
         {
           headers: header,
           method,
@@ -25,7 +26,7 @@ export default {
         }
       )
         .then(response => {
-          if (knzk.conf.is_debug)
+          if (config.IS_DEBUG)
             console.log('[Knzk-Debug] API Response', response);
           if (response.ok) {
             return response.json();
@@ -39,13 +40,13 @@ export default {
             reject(json);
             return;
           }
-          if (knzk.conf.is_debug)
+          if (config.IS_DEBUG)
             console.log('[Knzk-Debug] API Response received', json);
           resolve(json);
         })
         .catch(error => {
           console.error(error);
-          toast(dialogs_js.cannot_pros);
+          toast('dialogs_js.cannot_pros');
           reject(error);
         });
     });

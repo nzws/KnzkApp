@@ -1,6 +1,7 @@
 import $ from 'jquery/dist/jquery.slim';
 import i18next from 'i18next';
 import jqueryI18next from 'jquery-i18next';
+import config from '../../config/config';
 
 const languages = {
   ja: '日本語',
@@ -27,7 +28,7 @@ export default {
       i18next
         .init({
           lng: language,
-          debug: !!knzk.conf.is_debug,
+          debug: !!config.IS_DEBUG,
           resources: {
             en: {
               translation: require('../../locales/en.json')
@@ -39,7 +40,7 @@ export default {
         })
         .then(() => {
           jqueryI18next.init(i18next, $);
-          $('[data-i18n]').localize();
+          this.localize();
           resolve();
         });
     });

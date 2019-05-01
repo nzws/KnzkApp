@@ -8,8 +8,10 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import '~onsenui/css/onsenui-core.min.css';
 
 /* import Onsen UI Theme */
+@import 'theme/mastodon/theme.css';
 @import 'theme/mastodon/onsen-css-components.css';
 
 /* KnzkApp */
 @import 'components/common';
 @import 'page/login';
+@import 'page/timeline';
