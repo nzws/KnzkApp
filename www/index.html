@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>KnzkApp</title>
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -15,10 +16,42 @@
     <script src="./bundle/bundle.js"></script>
   </head>
   <body>
-    <ons-navigator id="navigator" page="splash.html" swipeable></ons-navigator>
+    <ons-splitter>
+      <ons-splitter-side
+        id="menu"
+        side="left"
+        width="250px"
+        animation="reveal"
+        collapse
+        swipeable
+      >
+        <ons-page>
+          <ons-list>
+            <ons-list-item onclick="fn.load('home.html')" tappable>
+              Home
+            </ons-list-item>
+            <ons-list-item onclick="fn.load('settings.html')" tappable>
+              Settings
+            </ons-list-item>
+            <ons-list-item onclick="fn.load('about.html')" tappable>
+              About
+            </ons-list-item>
+          </ons-list>
+        </ons-page>
+      </ons-splitter-side>
+      <ons-splitter-content>
+        <ons-page>
+          <ons-navigator
+            id="navigator"
+            page="bootstrap.html"
+            swipeable
+          ></ons-navigator>
+        </ons-page>
+      </ons-splitter-content>
+    </ons-splitter>
 
-    <ons-template id="splash.html">
-      <ons-page> </ons-page>
+    <ons-template id="bootstrap.html">
+      <ons-page></ons-page>
     </ons-template>
   </body>
 </html>

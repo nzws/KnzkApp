@@ -1,27 +1,26 @@
 import kit from '../components/kanzakit';
-import locale from '../locale';
+import pageEvent from '../events/page';
 
 export default {
+  getNavigatorElement: () => kit.elemId('navigator'),
   open(name, options = { animation: 'slide' }) {
-    return kit
-      .elemId('navigator')
+    return this.getNavigatorElement()
       .pushPage(name, options)
-      .then(() => locale.localize());
+      .then(() => pageEvent());
   },
   back(options = { animation: 'slide' }) {
-    return kit.elemId('navigator').popPage(options);
+    return this.getNavigatorElement().popPage(options);
   },
   reset(name) {
     return setTimeout(
       () =>
-        kit
-          .elemId('navigator')
+        this.getNavigatorElement()
           .resetToPage(name)
-          .then(() => locale.localize()),
+          .then(() => pageEvent()),
       0
     );
   },
   getTopPageId() {
-    return kit.elemId('navigator').topPage.dataset.pageid;
+    return this.getNavigatorElement().topPage.dataset.pageid;
   }
 };

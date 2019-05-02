@@ -1,4 +1,4 @@
-<ons-page class="page__timeline" data-pageid="login">
+<ons-page class="page__timeline" data-pageid="timeline">
   <ons-toolbar id="timeline_bar">
     <div class="left">
       <ons-toolbar-button onclick="knzk.page.timeline.prev()">
@@ -23,17 +23,77 @@
     </div>
   </ons-toolbar>
 
+  <div id="timeline" class="timeline">
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+  </div>
+
   <div class="bottom collapsed">
-    <ons-button class="scroll-to-top" onclick="">
+    <ons-button class="scroll-to-top" onclick="knzk.page.timeline.scroll(0)">
       <i class="ons-icon fas fa-fw fa-angle-double-up"></i>
     </ons-button>
 
     <div class="postbox">
       <div class="main">
-        <ons-button modifier="quiet">
+        <ons-button modifier="quiet" onclick="knzk.utils.splitter.open()">
           <i class="ons-icon fas fa-fw fa-bars"></i>
         </ons-button>
-        <textarea id="post" rows="1" class="textarea"></textarea>
+
+        <textarea
+          id="post"
+          rows="1"
+          class="textarea"
+          onfocus="knzk.page.timeline.postBox.open()"
+          onblur="knzk.page.timeline.postBox.close()"
+          onkeyup="knzk.page.timeline.keyUp()"
+        ></textarea>
+
         <ons-button modifier="quiet">
           <i class="ons-icon fas fa-fw fa-paper-plane"></i>
         </ons-button>
@@ -41,7 +101,19 @@
 
       <div id="postbox_buttons" class="buttons">
         <ons-button modifier="quiet">
-          <i class="ons-icon fas fa-fw fa-bars"></i>
+          <i class="ons-icon fas fa-fw fa-globe"></i>
+        </ons-button>
+        <ons-button modifier="quiet">
+          <i class="ons-icon fas fa-fw fa-camera"></i>
+        </ons-button>
+        <ons-button modifier="quiet">
+          CW
+        </ons-button>
+        <ons-button modifier="quiet">
+          500
+        </ons-button>
+        <ons-button modifier="quiet">
+          <i class="ons-icon fas fa-fw fa-angle-down"></i>
         </ons-button>
       </div>
     </div>

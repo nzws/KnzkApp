@@ -4,15 +4,34 @@
   .toolbar__right,
   .page__background,
   .page__content,
+  .timeline,
   .bottom {
     transition: all 150ms 0s ease;
+  }
+
+  .timeline {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+  }
+
+  .timeline.prev {
+    left: 100%;
+    right: -100%;
+  }
+
+  .timeline.next {
+    left: -100%;
+    right: 100%;
   }
 
   .bottom {
     position: fixed;
     width: 100%;
     bottom: 0;
-    height: 45px + 40px + 40px;
+    height: 45px + 60px + 40px; // 上に戻るボタン + 投稿ボックス上部 + 下部
 
     .scroll-to-top {
       position: absolute;
@@ -26,25 +45,33 @@
       background: var(--border-color);
       width: 100%;
 
-      > div {
-        height: 40px;
+      .main {
+        height: 60px;
         display: flex;
+        justify-content: space-between;
 
-        &.main {
-          justify-content: space-between;
-
-          textarea {
-            flex-grow: 5;
-          }
+        textarea {
+          flex-grow: 5;
         }
+      }
+
+      .buttons {
+        height: 40px;
       }
     }
 
+    // 投稿ボックス格納時
     &.collapsed {
-      height: 45px + 40px;
+      height: 45px + 40px; // 上に戻るボタン + 投稿ボックス上部
 
-      .buttons {
-        display: none;
+      .postbox {
+        .main {
+          height: 40px;
+        }
+
+        .buttons {
+          display: none;
+        }
       }
     }
   }
@@ -52,7 +79,7 @@
   &.scrolled {
     .page__background,
     .page__content {
-      top: 25px;
+      top: 25px !important;
     }
 
     ons-toolbar {
