@@ -1,7 +1,7 @@
-<ons-page class="page__timeline" data-pageid="timeline">
+<ons-page class="page__timeline" data-pageid="timeline" data-splitterswipeable="1">
   <ons-toolbar id="timeline_bar">
     <div class="left">
-      <ons-toolbar-button onclick="knzk.page.timeline.prev()">
+      <ons-toolbar-button onclick="knzk.page.timeline.change.prev()">
         <i class="ons-icon fas fa-angle-left"></i>
       </ons-toolbar-button>
       <ons-toolbar-button
@@ -17,13 +17,14 @@
       <ons-toolbar-button onclick="knzk.page.timeline.reload()">
         <i class="ons-icon fas fa-sync-alt"></i>
       </ons-toolbar-button>
-      <ons-toolbar-button onclick="knzk.page.timeline.next()">
+      <ons-toolbar-button onclick="knzk.page.timeline.change.next()">
         <i class="ons-icon fas fa-angle-right"></i>
       </ons-toolbar-button>
     </div>
   </ons-toolbar>
 
   <div id="timeline" class="timeline">
+    <a href="https://yahoo.co.jp/" target="_blank">aaa</a>
     aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
     aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
     aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />

@@ -34,7 +34,8 @@ export default {
 
     knzk.account = {
       service: knzk.conf.loginTmp.service,
-      domain: knzk.conf.loginTmp.domain
+      domain: knzk.conf.loginTmp.domain,
+      config: {}
     };
 
     adapter[knzk.account.service].auth
