@@ -122,11 +122,13 @@ function changeNotification(force) {
         catchHttpErr('register_notification', error);
       });
   } else {
+    /*
     ons.notification.alert(dialog_i18n('err_fcm_2', 1), {
       title: dialog_i18n('err_fcm_2'),
       modifier: 'material',
       cancelable: true
     });
+     */
     elemId('noti-mode').checked = !!is_unregister;
   }
 }
