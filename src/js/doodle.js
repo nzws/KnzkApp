@@ -1,3 +1,5 @@
+import atrament from 'atrament';
+
 function openDoodle(simple) {
   if (simple) image_mode = '_simple';
   else image_mode = '';
